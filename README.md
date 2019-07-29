@@ -5,14 +5,20 @@ My first role-playing game
 ## Ideje (dileme)
 
 - da li fantasy ili ww2 RPG?
-- napraviti avion puca
-- napraviti tenkic puca
+- ako je avantura treba li da ima questove?
 
 ## TODO
 
 - renderovati mapu 2d i 3d
   - renderovati mapu sa zidovima
   - renderovati mapu sa shumom i drvecem
+- napraviti karakter ili bar ruke koje se vide
+- postaviti tlo, okruzenje i kamere
+- dodati neke objekte
+- dodati neki NPC karakter
+- dodati avion kako nadlece
+- napraviti inventar
+- postaviti objekte za sakupljanje i okidace za njih?
 
 ## Resursi
 
