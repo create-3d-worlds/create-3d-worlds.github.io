@@ -1,6 +1,6 @@
-# role-playing-game
+# create-rpg-game
 
-My first role-playing game
+Create a role-playing game
 
 ## Ideje (dileme)
 
@@ -14,7 +14,7 @@ My first role-playing game
   - renderovati mapu sa shumom i drvecem
 - napraviti karakter ili bar ruke koje se vide
 - postaviti tlo, okruzenje i kamere
-- dodati neke objekte
+- dodati neke objekte (sanduke i slicno)
 - dodati neki NPC karakter
 - dodati avion kako nadlece
 - napraviti inventar
