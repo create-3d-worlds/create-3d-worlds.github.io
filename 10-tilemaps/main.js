@@ -9,6 +9,7 @@ const ctx = canvas.getContext('2d')
 document.body.appendChild(canvas)
 
 // https://mudroljub.github.io/igrica-partizani/#savo-mitraljezac
+// https://github.com/mudroljub/igrica-partizani/tree/29246e55ddabe1fde9bcb52a372eed70e7c2303f/src/scene
 
 for (let y = 0; y < level1.length; y++) {
   for (let x = 0; x < level1[y].length; x++) {
