@@ -62,5 +62,5 @@ Create a role-playing game!
 - https://github.com/mudroljub/3D-RPG-Game-With-THREE.js
 - https://github.com/mudroljub/threejs-monster
 - https://github.com/mudroljub/rpg-threejs (school project)
-- https://mudroljub.github.io/igrica-partizani/
+- https://github.com/mudroljub/igrica-partizani
 - https://github.com/mudroljub/avantura-1941
