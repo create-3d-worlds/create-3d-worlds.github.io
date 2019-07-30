@@ -3,4 +3,11 @@ import Tilemap from '../utils/Tilemap.js'
 import Player from '../utils/Player.js'
 
 const map = new Tilemap(model)
-map.render()
+const player = new Player(map, 4, 4)
+
+void function gameLoop() {
+  requestAnimationFrame(gameLoop)
+  map.render()
+  player.update()
+  player.render()
+}()
