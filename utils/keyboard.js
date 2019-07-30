@@ -1,4 +1,4 @@
-import {SPACE, UP, DOWN, LEFT, RIGHT} from '../constants.js'
+import {SPACE, UP, DOWN, LEFT, RIGHT} from './constants.js'
 
 const keyboard = {
   pressed: new Array(256),

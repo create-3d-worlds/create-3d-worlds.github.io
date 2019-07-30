@@ -1,5 +1,5 @@
-import Canvas from '../utils/Canvas.js'
-import {CIRCLE} from '../utils/constants.js'
+import Canvas from './Canvas.js'
+import {CIRCLE} from './constants.js'
 
 const {ctx} = new Canvas()
 const colors = ['#fff', '#444', '#701206', '#000']

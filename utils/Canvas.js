@@ -5,6 +5,8 @@ export default class Canvas extends HTMLCanvasElement {
   constructor() {
     super()
     if (!instance) instance = this
+    document.body.style.margin = 0
+    document.body.style.padding = 0
     document.body.appendChild(instance)
     return instance
   }
