@@ -34,7 +34,14 @@ export default class Tilemap {
   nadjiPolje(x, y) {
     const poljeX = Math.floor(x / this.cellSize)
     const poljeY = Math.floor(y / this.cellSize)
-    return { 'y': poljeY, 'x': poljeX }
+    return { y: poljeY, x: poljeX }
+  }
+
+  findEmpty() {
+    for (let y = 0; y < this.model.length; y++)
+      for (let x = 0; x < this.model[0].length; x++)
+        if (this.model[y][x] === 0) return {x, y}
+    return null
   }
 
   render() {

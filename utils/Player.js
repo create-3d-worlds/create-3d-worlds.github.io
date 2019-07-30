@@ -6,17 +6,12 @@ const {ctx} = new Canvas()
 
 export default class Player {
   constructor(map, x, y, angle = 0) {
-    this.x = x
-    this.y = y
+    const empty = map.findEmpty()
+    this.x = x || empty.x
+    this.y = y || empty.y
     this.angle = angle
     this.map = map
     this.speed = 0.03
-  }
-
-  placeRandom() {
-    // uzeti u obzir samo prazne indekse (sa vrednoscu 0)
-    // izabrati random index
-    // this.map
   }
 
   checkKeys() {

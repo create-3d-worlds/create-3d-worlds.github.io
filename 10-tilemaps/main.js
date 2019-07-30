@@ -3,7 +3,7 @@ import Tilemap from '../utils/Tilemap.js'
 import Player from '../utils/Player.js'
 
 const map = new Tilemap(model)
-const player = new Player(map, 4, 4)
+const player = new Player(map)
 
 void function gameLoop() {
   requestAnimationFrame(gameLoop)
