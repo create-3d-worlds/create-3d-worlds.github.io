@@ -8,20 +8,21 @@ const preventShake = e => {
 class Keyboard {
   constructor() {
     this.pressed = new Array(256)
-    this.totalPressed = 0
     this.addEvents()
+  }
+
+  get totalPressed() {
+    return this.pressed.filter(x => x).length
   }
 
   addEvents() {
     document.addEventListener('keydown', e => {
-      if (!this.pressed[e.keyCode]) this.totalPressed++
       this.pressed[e.keyCode] = true
       preventShake(e)
     })
 
     document.addEventListener('keyup', e => {
       this.pressed[e.keyCode] = false
-      this.totalPressed--
     })
 
     document.addEventListener('touchstart', e => this.chooseDirection(e.touches[0]))
