@@ -1,4 +1,4 @@
-import {CIRCLE, colors} from '../utils/constants.js'
+import {CIRCLE} from '../utils/constants.js'
 
 // Singleton
 class Canvas extends HTMLCanvasElement {
@@ -39,8 +39,8 @@ class Canvas extends HTMLCanvasElement {
     this.ctx.fill()
   }
 
-  drawRect(x, y, size, eNum) {
-    this.ctx.fillStyle = colors[eNum]
+  drawRect(x, y, size, color) {
+    this.ctx.fillStyle = color
     this.ctx.fillRect(x * size, y * size, size, size)
   }
 

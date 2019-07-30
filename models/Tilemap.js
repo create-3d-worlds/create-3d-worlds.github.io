@@ -1,4 +1,5 @@
 import canvas from './Canvas.js'
+import {colors} from '../utils/constants.js'
 
 export default class Tilemap {
   constructor(model, cellSize = 30) {
@@ -48,7 +49,7 @@ export default class Tilemap {
 
   render() {
     this.model.forEach((row, y) => row.forEach((val, x) =>
-      canvas.drawRect(x, y, this.cellSize, val)
+      canvas.drawRect(x, y, this.cellSize, colors[val])
     ))
   }
 }
