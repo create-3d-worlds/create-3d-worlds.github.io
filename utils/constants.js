@@ -1,7 +1,7 @@
 export const CIRCLE = Math.PI * 2
-export const MOBILNI = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
+// export const MOBILNI = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
 
-// tipke
+// keys
 export const A = 65,
   B = 66,
   C = 67,
@@ -28,14 +28,13 @@ export const A = 65,
   X = 88,
   Y = 89,
   Z = 90,
-  LEVO = 37,
-  DESNO = 39,
-  GORE = 38,
-  DOLE = 40,
-  RAZMAK = 32,
-  SPEJS = 32,
+  LEFT = 37,
+  RIGHT = 39,
+  UP = 38,
+  DOWN = 40,
+  SPACE = 32,
   ENTER = 13,
-  IZLAZ = 27,
+  EXIT = 27,
   PGUP = 33,
   PGDOWN = 34,
   HOME = 36,
