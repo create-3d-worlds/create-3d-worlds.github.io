@@ -23,10 +23,11 @@ export default class Tilemap {
     }
   }
 
-  daj(x, y) {
+  field(x, y) {
     x = Math.floor(x) // eslint-disable-line
     y = Math.floor(y) // eslint-disable-line
-    if (x < 0 || x >= this.model[0].length || y < 0 || y >= this.model.length) return -1
+    if (x < 0 || x >= this.model[0].length || y < 0 || y >= this.model.length)
+      return -1
     return this.model[y][x]
   }
 

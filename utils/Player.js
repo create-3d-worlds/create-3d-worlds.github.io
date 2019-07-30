@@ -13,6 +13,12 @@ export default class Player {
     this.speed = 0.03
   }
 
+  placeRandom() {
+    // uzeti u obzir samo prazne indekse (sa vrednoscu 0)
+    // izabrati random index
+    // this.map
+  }
+
   checkKeys() {
     if (keyboard.pressed[LEFT]) this.turn(-this.speed)
     if (keyboard.pressed[RIGHT]) this.turn(this.speed)
@@ -23,8 +29,8 @@ export default class Player {
   walk(speed = this.speed) {
     const dx = Math.cos(this.angle) * speed
     const dy = Math.sin(this.angle) * speed
-    if (this.map.daj(this.x + dx, this.y) <= 0) this.x += dx
-    if (this.map.daj(this.x, this.y + dy) <= 0) this.y += dy
+    if (this.map.field(this.x + dx, this.y) == 0) this.x += dx
+    if (this.map.field(this.x, this.y + dy) == 0) this.y += dy
   }
 
   turn(amount) {
