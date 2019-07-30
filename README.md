@@ -2,7 +2,7 @@
 
 Create a role-playing game!
 
-## TODO
+## Plan
 
 ### Mapa (*tilemap*)
 
@@ -16,6 +16,7 @@ Create a role-playing game!
 - omogućiti kretanje kroz mapu
   - 2d kretanje odozgo
   - 3d kretanje iz prvog lica
+  - prikazati polozaj igraca na mapi
 
 ### Scena
 
@@ -51,6 +52,9 @@ Create a role-playing game!
 - napraviti igrive nivoe
   - bežanje od štuke koja bombarduje
   - skrivanje od reflektora logora
+
+## TODO
+- napraviti komponentu Canvas
 
 ## Resursi
 

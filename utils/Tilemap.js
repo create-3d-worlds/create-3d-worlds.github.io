@@ -1,5 +1,6 @@
-import {podloga} from '../utils/platno.js'
+import Canvas from '../utils/Canvas.js'
 
+const platno = new Canvas()
 const colors = ['#fff', '#444', '#701206', '#000']
 
 export default class Tilemap {
@@ -38,8 +39,8 @@ export default class Tilemap {
     for (let y = 0; y < this.model.length; y++)
       for (let x = 0; x < this.model[y].length; x++) {
         const eNum = this.model[y][x]
-        podloga.fillStyle = colors[eNum]
-        podloga.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize)
+        platno.ctx.fillStyle = colors[eNum]
+        platno.ctx.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize)
       }
   }
 }
