@@ -1,6 +1,6 @@
 import canvas from './Canvas.js'
 import keyboard from './Keyboard.js'
-import {CIRCLE, UP, DOWN, LEFT, RIGHT} from '../utils/constants.js'
+import {CIRCLE} from '../utils/constants.js'
 
 export default class Player {
   constructor(map, x, y, angle = 0) {
@@ -18,10 +18,10 @@ export default class Player {
   }
 
   checkKeys() {
-    if (keyboard.pressed[LEFT]) this.turn(-this.speed)
-    if (keyboard.pressed[RIGHT]) this.turn(this.speed)
-    if (keyboard.pressed[UP]) this.walk()
-    if (keyboard.pressed[DOWN]) this.walk(-this.speed / 2)
+    if (keyboard.pressed.ArrowLeft) this.turn(-this.speed)
+    if (keyboard.pressed.ArrowRight) this.turn(this.speed)
+    if (keyboard.pressed.ArrowUp) this.walk()
+    if (keyboard.pressed.ArrowDown) this.walk(-this.speed / 2)
   }
 
   walk(speed = this.speed) {

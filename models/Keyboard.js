@@ -1,46 +1,40 @@
-import {SPACE, UP, DOWN, LEFT, RIGHT} from '../utils/constants.js'
-
 const preventShake = e => {
-  if (e.keyCode === SPACE || e.keyCode === UP || e.keyCode === DOWN) e.preventDefault()
+  if (e.code == 'Space' || e.code == 'ArrowUp' || e.code == 'ArrowDown') e.preventDefault()
 }
 
 // Singleton
 class Keyboard {
   constructor() {
-    this.pressed = new Array(256)
+    this.pressed = {}
     this.addEvents()
-  }
-
-  get totalPressed() {
-    return this.pressed.filter(x => x).length
   }
 
   addEvents() {
     document.addEventListener('keydown', e => {
-      this.pressed[e.keyCode] = true
       preventShake(e)
+      this.pressed[e.code] = true
     })
-
     document.addEventListener('keyup', e => {
-      this.pressed[e.keyCode] = false
+      this.pressed[e.code] = false
     })
-
     document.addEventListener('touchstart', e => this.chooseDirection(e.touches[0]))
     document.addEventListener('touchmove', e => this.chooseDirection(e.touches[0]))
     document.addEventListener('touchend', () => this.reset())
   }
 
   chooseDirection(touch) {
-    if (touch.pageY < window.innerHeight / 2) this.pressed[UP] = true
-    if (touch.pageY >= window.innerHeight / 2) this.pressed[DOWN] = true
-    if (touch.pageX < window.innerWidth / 2) this.pressed[LEFT] = true
-    if (touch.pageX >= window.innerWidth / 2) this.pressed[RIGHT] = true
+    if (touch.pageY < window.innerHeight / 2) this.pressed.ArrowUp = true
+    if (touch.pageY >= window.innerHeight / 2) this.pressed.ArrowDown = true
+    if (touch.pageX < window.innerWidth / 2) this.pressed.ArrowLeft = true
+    if (touch.pageX >= window.innerWidth / 2) this.pressed.ArrowRight = true
+  }
+
+  get totalPressed() {
+    return Object.values(this.pressed).filter(x => x).length
   }
 
   reset() {
-    this.pressed.forEach(key => {
-      this.pressed[key] = false
-    })
+    for (const key in this.pressed) this.pressed[key] = false
   }
 }
 
