@@ -6,7 +6,7 @@ const {ctx} = new Canvas()
 
 export default class Player {
   constructor(map, x, y, angle = 0) {
-    const empty = map.findEmpty()
+    const empty = map.randomEmptyField
     this.x = x || empty.x
     this.y = y || empty.y
     this.angle = angle
@@ -24,8 +24,8 @@ export default class Player {
   walk(speed = this.speed) {
     const dx = Math.cos(this.angle) * speed
     const dy = Math.sin(this.angle) * speed
-    if (this.map.field(this.x + dx, this.y) == 0) this.x += dx
-    if (this.map.field(this.x, this.y + dy) == 0) this.y += dy
+    if (this.map.fieldValue(this.x + dx, this.y) == 0) this.x += dx
+    if (this.map.fieldValue(this.x, this.y + dy) == 0) this.y += dy
   }
 
   turn(amount) {

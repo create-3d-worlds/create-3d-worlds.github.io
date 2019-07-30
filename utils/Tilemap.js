@@ -23,7 +23,7 @@ export default class Tilemap {
     }
   }
 
-  field(x, y) {
+  fieldValue(x, y) {
     x = Math.floor(x) // eslint-disable-line
     y = Math.floor(y) // eslint-disable-line
     if (x < 0 || x >= this.model[0].length || y < 0 || y >= this.model.length)
@@ -37,11 +37,16 @@ export default class Tilemap {
     return { y: poljeY, x: poljeX }
   }
 
-  findEmpty() {
-    for (let y = 0; y < this.model.length; y++)
-      for (let x = 0; x < this.model[0].length; x++)
-        if (this.model[y][x] === 0) return {x, y}
-    return null
+  get randomField() {
+    const y = Math.floor(Math.random() * this.model.length)
+    const x = Math.floor(Math.random() * this.model[0].length)
+    return {x, y}
+  }
+
+  get randomEmptyField() {
+    const {x, y} = this.randomField
+    if (this.fieldValue(x, y) === 0) return {x, y}
+    return this.randomEmptyField
   }
 
   render() {
