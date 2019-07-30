@@ -6,9 +6,14 @@ const {ctx} = new Canvas()
 
 export default class Player {
   constructor(map, x, y, angle = 0) {
-    const empty = map.randomEmptyField
-    this.x = x || empty.x
-    this.y = y || empty.y
+    if (x == undefined || y == undefined) {
+      const field = map.randomEmptyField
+      this.x = field.x
+      this.y = field.y
+    } else {
+      this.x = x
+      this.y = y
+    }
     this.angle = angle
     this.map = map
     this.speed = 0.03
