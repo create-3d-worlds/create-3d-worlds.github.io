@@ -1,20 +1,5 @@
-import level1 from './data/level1.js'
+import model from '../maps/small-map.js'
+import Tilemap from '../utils/Tilemap.js'
 
-const canvas = document.createElement('canvas')
-canvas.width = 800
-canvas.height = 450
-canvas.style.backgroundColor = 'black'
-
-const ctx = canvas.getContext('2d')
-document.body.appendChild(canvas)
-
-// https://mudroljub.github.io/igrica-partizani/#savo-mitraljezac
-// https://github.com/mudroljub/igrica-partizani/tree/29246e55ddabe1fde9bcb52a372eed70e7c2303f/src/scene
-
-for (let y = 0; y < level1.length; y++) {
-  for (let x = 0; x < level1[y].length; x++) {
-    const tile = level1[y][x]
-    console.log(y, x, tile)
-    // render tile
-  }
-}
+const map = new Tilemap(model)
+map.render()
