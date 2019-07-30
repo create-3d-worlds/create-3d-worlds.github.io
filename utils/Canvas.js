@@ -5,7 +5,6 @@ export default class Canvas extends HTMLCanvasElement {
   constructor() {
     super()
     if (!instance) instance = this
-    instance.ctx = instance.getContext('2d')
     document.body.appendChild(instance)
     return instance
   }
@@ -23,6 +22,10 @@ export default class Canvas extends HTMLCanvasElement {
 
   show() {
     this.style.display = 'block'
+  }
+
+  get ctx() {
+    return this.getContext('2d')
   }
 
   get diagonal() {
