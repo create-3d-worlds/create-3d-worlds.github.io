@@ -14,7 +14,7 @@ Create a role-playing game!
   - [ ] renderovati mapu sa shumom i drvecem
 - [ ] dodati koliziju kako se ne bi prolazilo kroz zidove
 - [ ] omogućiti kretanje kroz mapu
-  - [ ] 2d kretanje odozgo
+  - [x] 2d kretanje odozgo
   - [ ] 3d kretanje iz prvog lica
   - [ ] prikazati polozaj igraca na mapi
 
