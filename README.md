@@ -53,9 +53,6 @@ Create a role-playing game!
   - bežanje od štuke koja bombarduje
   - skrivanje od reflektora logora
 
-## TODO
-- napraviti komponentu Canvas
-
 ## Resursi
 
 - https://github.com/skolakoda/ucimo-threejs
