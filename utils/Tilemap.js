@@ -7,13 +7,13 @@ const colors = ['#fff', '#444', '#701206', '#000']
 export default class Tilemap {
   constructor(model, cellSize = 30) {
     this.model = model
-    if (!model) this.random()
+    if (!model) this.createRandom()
     this.cellSize = cellSize
     this.height = model.length * cellSize
     this.width = this.model[0].length * cellSize
   }
 
-  random(size = 10) {
+  createRandom(size = 10) {
     const wallPercent = 0.3
     this.model = []
     for (let y = 0; y < size; y++) {

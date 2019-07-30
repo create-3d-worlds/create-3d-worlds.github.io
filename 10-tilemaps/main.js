@@ -7,7 +7,7 @@ const player = new Player(map, 4, 4)
 
 void function gameLoop() {
   requestAnimationFrame(gameLoop)
-  map.render()
   player.update()
+  map.render()
   player.render()
 }()

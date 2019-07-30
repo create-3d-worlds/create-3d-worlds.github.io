@@ -15,7 +15,7 @@ export default class Player {
 
   checkKeys() {
     if (keyboard.pressed[LEFT]) this.turn(-this.speed)
-    if (keyboard.pressed[RIGHT]) this.turn()
+    if (keyboard.pressed[RIGHT]) this.turn(this.speed)
     if (keyboard.pressed[UP]) this.walk()
     if (keyboard.pressed[DOWN]) this.walk(-this.speed / 2)
   }
@@ -27,8 +27,8 @@ export default class Player {
     if (this.map.daj(this.x, this.y + dy) <= 0) this.y += dy
   }
 
-  turn(speed) {
-    this.angle = (this.angle + speed + CIRCLE) % (CIRCLE)
+  turn(amount) {
+    this.angle = (this.angle + amount) % CIRCLE
   }
 
   update() {
