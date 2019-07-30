@@ -6,52 +6,52 @@ Create a role-playing game!
 
 ### Mapa (*tilemap*)
 
-- napraviti nekoliko *tile* mapa
-  - algoritam za pravljenje lavirinta
-- renderovati mapu u 2d
-- renderovati mapu u 3d
-  - renderovati mapu sa zidovima
-  - renderovati mapu sa shumom i drvecem
-- dodati koliziju kako se ne bi prolazilo kroz zidove
-- omogućiti kretanje kroz mapu
-  - 2d kretanje odozgo
-  - 3d kretanje iz prvog lica
-  - prikazati polozaj igraca na mapi
+- [x] napraviti nekoliko *tilemap*-a
+  - [ ] dodati algoritam za pravljenje lavirinta
+- [x] renderovati mapu u 2d
+- [ ] renderovati mapu u 3d
+  - [ ] renderovati mapu sa zidovima
+  - [ ] renderovati mapu sa shumom i drvecem
+- [ ] dodati koliziju kako se ne bi prolazilo kroz zidove
+- [ ] omogućiti kretanje kroz mapu
+  - [ ] 2d kretanje odozgo
+  - [ ] 3d kretanje iz prvog lica
+  - [ ] prikazati polozaj igraca na mapi
 
 ### Scena
 
-- postaviti tlo
-- dodati osnovnu geometriju
-  - dodati okruzenje (drveće, nebo, zgrade)
-  - dodati neke oblike (sanduke i slicno)
-- postaviti i kamere
-- proceduralno kreirati okruženje
+- [ ] postaviti tlo
+- [ ] dodati osnovnu geometriju
+  - [ ] dodati okruzenje (drveće, nebo, zgrade)
+  - [ ] dodati neke oblike (sanduke i slicno)
+- [ ] postaviti i kamere
+- [ ] proceduralno kreirati okruženje
 
 ### Karakter
 
-- dodati ruke koje se vide i pogled iz prvog lica
-- ucitati 3d model junaka
-- animirati 3d karakter (kretanje, trčanje, skok...)
-- dodati kameru odozgo i iza
+- [ ] dodati ruke koje se vide i pogled iz prvog lica
+- [ ] ucitati 3d model junaka
+- [ ] animirati 3d karakter (kretanje, trčanje, skok...)
+- [ ] dodati kameru odozgo i iza
 
 ### Modeli
 
-- dodati NPC karaktere
-- ucitati raspolozive modele vozila i kuca
-- dodati avion kako nadlece
-- dodati tenk kako se krece
-- reagovati na koliziju
+- [ ] dodati NPC karaktere
+- [ ] ucitati raspolozive modele vozila i kuca
+- [ ] dodati avion kako nadlece
+- [ ] dodati tenk kako se krece
+- [ ] reagovati na koliziju
 
 ### Elementi igre
 
-- napraviti inventar
-- postaviti objekte za sakupljanje i okidace za njih
+- [ ] napraviti inventar
+- [ ] postaviti objekte za sakupljanje i okidace za njih
 
 ### Nivoi
 
-- napraviti igrive nivoe
-  - bežanje od štuke koja bombarduje
-  - skrivanje od reflektora logora
+- [ ] napraviti igrive nivoe
+  - [ ] bežanje od štuke koja bombarduje
+  - [ ] skrivanje od reflektora logora
 
 ## Resursi
 
