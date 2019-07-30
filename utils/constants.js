@@ -1,5 +1,6 @@
 export const CIRCLE = Math.PI * 2
-// export const MOBILNI = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
+
+export const colors = ['#fff', '#444', '#701206', '#000']
 
 // keys
 export const A = 65,
