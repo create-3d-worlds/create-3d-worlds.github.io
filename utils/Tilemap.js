@@ -1,4 +1,5 @@
 import Canvas from '../utils/Canvas.js'
+import {CIRCLE} from '../utils/constants.js'
 
 const {ctx} = new Canvas()
 const colors = ['#fff', '#444', '#701206', '#000']
@@ -8,7 +9,7 @@ export default class Tilemap {
     this.model = model
     if (!model) this.random()
     this.cellSize = cellSize
-    this.height = this.model.length * cellSize
+    this.height = model.length * cellSize
     this.width = this.model[0].length * cellSize
   }
 
@@ -42,5 +43,23 @@ export default class Tilemap {
         ctx.fillStyle = colors[eNum]
         ctx.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize)
       }
+  }
+
+  // maybe move to Player
+  drawPlayer(playerX, playerY, angle) {
+    const playerSize = 5
+    const lampColor = '#ff0'
+    const playerColor = '#f00'
+    const x = Math.floor(playerX * this.cellSize)
+    const y = Math.floor(playerY * this.cellSize)
+    ctx.fillStyle = playerColor
+    ctx.beginPath()
+    ctx.arc(x, y, playerSize, angle, angle + CIRCLE)
+    ctx.fill()
+    ctx.fillStyle = lampColor
+    ctx.beginPath()
+    ctx.arc(x, y, playerSize, angle + CIRCLE, angle + CIRCLE)
+    ctx.arc(x, y, playerSize * 3, angle - 0.15 * Math.PI, angle + 0.15 * Math.PI)
+    ctx.fill()
   }
 }
