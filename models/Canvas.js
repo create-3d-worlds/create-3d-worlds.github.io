@@ -1,22 +1,18 @@
 import {CIRCLE, colors} from '../utils/constants.js'
 
-let instance = null
-
 // Singleton
 class Canvas extends HTMLCanvasElement {
   constructor() {
     super()
-    if (!instance) instance = this
-    document.body.style.margin = 0
-    document.body.style.padding = 0
-    document.body.appendChild(instance)
-    return instance
-  }
-
-  connectedCallback() {
     this.height = window.innerHeight || 600 // height must first
     this.width = document.body.clientWidth || 800
     this.style.backgroundColor = 'lightgray'
+    document.body.style.margin = 0
+    document.body.style.padding = 0
+    document.body.appendChild(this)
+  }
+
+  connectedCallback() {
     this.focus()
   }
 

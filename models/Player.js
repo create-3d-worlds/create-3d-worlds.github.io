@@ -1,5 +1,5 @@
 import canvas from './Canvas.js'
-import keyboard from './keyboard.js'
+import keyboard from './Keyboard.js'
 import {CIRCLE, UP, DOWN, LEFT, RIGHT} from '../utils/constants.js'
 
 export default class Player {
