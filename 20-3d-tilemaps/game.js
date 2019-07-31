@@ -25,6 +25,7 @@ function createFloor() {
   return floor
 }
 
+// razlicite materijale za enume
 for (let y = 0; y < model.length; y++)
   for (let x = 0; x < model.length; x++)
     if (model[y][x]) scene.add(createCube(y, x))
