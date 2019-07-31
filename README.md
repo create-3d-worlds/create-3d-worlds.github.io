@@ -6,7 +6,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
 
 ## Plan
 
-### Mapa (*tilemap*)
+### Mape (*tilemaps*)
 
 - [x] napraviti nekoliko *tilemap*-a
   - [x] dodati algoritam za pravljenje lavirinta
