@@ -2,21 +2,22 @@
 
 Create a role-playing game!
 
+Repo: https://github.com/mudroljub/create-rpg-game
+
 ## Plan
 
 ### Mapa (*tilemap*)
 
 - [x] napraviti nekoliko *tilemap*-a
-  - [ ] dodati algoritam za pravljenje lavirinta
+  - [x] dodati algoritam za pravljenje lavirinta
 - [x] renderovati mapu u 2d
 - [ ] renderovati mapu u 3d
   - [ ] renderovati mapu sa zidovima
   - [ ] renderovati mapu sa shumom i drvecem
+- [x] prikazati polozaj igraca na mapi
+- [x] omogućiti 2d kretanje kroz mapu (odozgo)
+- [ ] omogućiti 3d kretanje kroz mapu iz prvog lica
 - [x] dodati koliziju kako se ne bi prolazilo kroz zidove
-- [x] omogućiti kretanje kroz mapu
-  - [x] 2d kretanje odozgo
-  - [ ] 3d kretanje iz prvog lica
-  - [x] prikazati polozaj igraca na mapi
 
 ### Scena
 
