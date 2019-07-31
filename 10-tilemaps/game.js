@@ -1,6 +1,6 @@
-import model from '../maps/small-map.js'
-import Tilemap from '../models/Tilemap.js'
-import Player from '../models/Player.js'
+import model from '../data/small-map.js'
+import Tilemap from '../classes/Tilemap.js'
+import Player from '../classes/Player.js'
 
 const map = new Tilemap(model)
 const player = new Player(map)

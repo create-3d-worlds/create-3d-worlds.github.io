@@ -1,5 +1,5 @@
-import Tilemap from '../models/Tilemap.js'
-import Player from '../models/Player.js'
+import Tilemap from '../classes/Tilemap.js'
+import Player from '../classes/Player.js'
 import generateMaze from '../utils/generateMaze.js'
 
 const maze = generateMaze(20, 20)
