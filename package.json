@@ -1,0 +1,23 @@
+{
+  "name": "create-rpg-game",
+  "version": "1.0.0",
+  "description": "Create a role-playing game!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mudroljub/create-rpg-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mudroljub/create-rpg-game/issues"
+  },
+  "homepage": "https://github.com/mudroljub/create-rpg-game#readme",
+  "dependencies": {
+    "three": "^0.107.0"
+  }
+}
