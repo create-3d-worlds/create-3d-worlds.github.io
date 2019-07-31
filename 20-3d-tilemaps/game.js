@@ -5,7 +5,7 @@ import model from '../data/small-map.js'
 
 const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 
-scene.add(createFloor(100, 100, 'moon.jpg'))
+scene.add(createFloor(500, 500, 'ground.jpg'))
 
 // razlicite materijale za enume
 for (let z = 0; z < model.length; z++)

@@ -59,6 +59,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
 
 - napraviti Renderer koji ce iscrtavati 2d i 3d mape pomocu enuma
 - staviti travu kao teksturu tla
+- probati VR https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
 
 ## Resursi
 

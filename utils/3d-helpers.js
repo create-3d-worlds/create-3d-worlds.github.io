@@ -13,9 +13,12 @@ export function createBox(z, x, file) {
 
 export function createFloor(width = 100, height = 100, file) {
   const texture = loader.load(`../assets/textures/${file}`)
+  texture.wrapS = THREE.RepeatWrapping
+  texture.wrapT = THREE.RepeatWrapping
+  texture.repeat.set(width / 10, height / 10)
   const material = new THREE.MeshBasicMaterial({ map: texture })
   const geometry = new THREE.PlaneGeometry(width, height)
   const floor = new THREE.Mesh(geometry, material)
-  floor.rotation.x = 0 + Math.PI / 2 + Math.PI / 2 + Math.PI / 2
+  floor.rotation.x = -Math.PI / 2
   return floor
 }
