@@ -1,4 +1,3 @@
-import canvas from './Canvas.js'
 import keyboard from './Keyboard.js'
 import {CIRCLE} from '../utils/constants.js'
 
@@ -37,13 +36,5 @@ export default class Player {
 
   update() {
     this.checkKeys()
-  }
-
-  render() {
-    const playerSize = 5
-    const x = Math.floor(this.x * this.map.cellSize)
-    const y = Math.floor(this.y * this.map.cellSize)
-    canvas.drawCircle(x, y, playerSize, '#f00')
-    canvas.drawLamp(x, y, playerSize, this.angle, '#ff0')
   }
 }

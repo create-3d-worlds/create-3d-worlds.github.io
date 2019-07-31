@@ -1,6 +1,3 @@
-import canvas from './Canvas.js'
-import {colors} from '../utils/constants.js'
-
 export default class Tilemap {
   constructor(model, cellSize = 30) {
     this.model = model
@@ -10,7 +7,7 @@ export default class Tilemap {
     this.width = this.model[0].length * cellSize
   }
 
-  // could be without exit, implement maze alghoritm
+  // could be without exit?
   randomMap(size = 10) {
     const wallPercent = 0.3
     this.model = []
@@ -45,11 +42,5 @@ export default class Tilemap {
     const {x, y} = this.randomField
     if (this.getValue(x, y) === 0) return {x, y}
     return this.randomEmptyField
-  }
-
-  render() {
-    this.model.forEach((row, y) => row.forEach((val, x) =>
-      canvas.drawRect(x, y, this.cellSize, colors[val])
-    ))
   }
 }

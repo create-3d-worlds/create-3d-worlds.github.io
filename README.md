@@ -55,6 +55,11 @@ Repo: https://github.com/mudroljub/create-rpg-game
   - [ ] bežanje od štuke koja bombarduje
   - [ ] skrivanje od reflektora logora
 
+## TODO
+
+- napraviti Renderer koji ce iscrtavati 2d i 3d mape pomocu enuma
+- staviti travu kao teksturu tla
+
 ## Resursi
 
 - https://github.com/skolakoda/ucimo-threejs

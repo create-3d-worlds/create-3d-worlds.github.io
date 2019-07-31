@@ -1,5 +1,7 @@
 import {CIRCLE} from '../utils/constants.js'
 
+const colors = ['#fff', '#444', '#701206', '#000']
+
 // Singleton
 class Canvas extends HTMLCanvasElement {
   constructor() {
@@ -14,6 +16,14 @@ class Canvas extends HTMLCanvasElement {
 
   connectedCallback() {
     this.focus()
+  }
+
+  get ctx() {
+    return this.getContext('2d')
+  }
+
+  get diagonal() {
+    return Math.sqrt(this.height * this.height + this.width * this.width)
   }
 
   hide() {
@@ -44,12 +54,18 @@ class Canvas extends HTMLCanvasElement {
     this.ctx.fillRect(x * size, y * size, size, size)
   }
 
-  get ctx() {
-    return this.getContext('2d')
+  renderMap(matrix, cellSize) {
+    matrix.forEach((row, y) => row.forEach((val, x) =>
+      this.drawRect(x, y, cellSize, colors[val])
+    ))
   }
 
-  get diagonal() {
-    return Math.sqrt(this.height * this.height + this.width * this.width)
+  renderPlayer(player) {
+    const size = 5
+    const x = Math.floor(player.x * player.map.cellSize)
+    const y = Math.floor(player.y * player.map.cellSize)
+    this.drawCircle(x, y, size, '#f00')
+    this.drawLamp(x, y, size, player.angle, '#ff0')
   }
 }
 
