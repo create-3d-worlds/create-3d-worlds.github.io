@@ -12,8 +12,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
   - [x] dodati algoritam za pravljenje lavirinta
 - [x] renderovati mapu u 2d
 - [x] renderovati mapu u 3d
-  - [x] renderovati mapu sa zidovima
-  - [ ] renderovati mapu sa shumom i drvecem
+  - [x] renderovati mapu sa teksturama
 - [x] prikazati polozaj igraca na mapi
 - [x] omogućiti 2d kretanje kroz mapu (odozgo)
 - [ ] omogućiti 3d kretanje kroz mapu iz prvog lica
