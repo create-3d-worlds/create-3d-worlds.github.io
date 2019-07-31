@@ -11,14 +11,14 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [x] napraviti nekoliko *tilemap*-a
   - [x] dodati algoritam za pravljenje lavirinta
 - [x] renderovati mapu u 2d
-- [ ] renderovati mapu u 3d
-  - [ ] renderovati mapu sa zidovima
+- [x] renderovati mapu u 3d
+  - [x] renderovati mapu sa zidovima
   - [ ] renderovati mapu sa shumom i drvecem
 - [x] prikazati polozaj igraca na mapi
 - [x] omogućiti 2d kretanje kroz mapu (odozgo)
 - [ ] omogućiti 3d kretanje kroz mapu iz prvog lica
 - [x] dodati koliziju kako se ne bi prolazilo kroz zidove
-- [ ] bonus: dodati teksturu i skupljati stvari po lavirintu https://www.the-art-of-web.com/javascript/maze-game/#box1
+- [ ] bonus: skupljati stvari po lavirintu https://www.the-art-of-web.com/javascript/maze-game/#box1
 
 ### Scena
 
