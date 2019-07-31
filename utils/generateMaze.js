@@ -1,5 +1,7 @@
-// https://stackoverflow.com/questions/54613229
-
+/*
+  Prim's Algorithm
+  https://stackoverflow.com/questions/54613229
+*/
 export default function generateMaze(cols = 60, rows = 60) {
   // 1. Start with a grid full of walls.
   const WALL = 1
