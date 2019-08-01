@@ -42,3 +42,18 @@ export function createMap(matrix) {
   }))
   return group
 }
+
+export function createTree(x, z) {
+  const tree = new THREE.Mesh(
+    new THREE.CylinderGeometry(50, 50, 200),
+    new THREE.MeshBasicMaterial({color: 0xA0522D})
+  )
+  tree.position.set(x, -75, z)
+  const crown = new THREE.Mesh(
+    new THREE.SphereGeometry(150),
+    new THREE.MeshBasicMaterial({color: 0x228b22})
+  )
+  crown.position.y = 175
+  tree.add(crown)
+  return tree
+}
