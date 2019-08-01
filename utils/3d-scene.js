@@ -8,6 +8,7 @@ camera.position.y = 1
 
 export const renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
+document.body.style.margin = 0
 document.body.appendChild(renderer.domElement)
 
 export const controls = new OrbitControls(camera, renderer.domElement)

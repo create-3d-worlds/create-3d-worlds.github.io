@@ -19,11 +19,11 @@ export default class Player {
   checkKeys() {
     if (keyboard.pressed.ArrowLeft) this.turn(-this.speed)
     if (keyboard.pressed.ArrowRight) this.turn(this.speed)
-    if (keyboard.pressed.ArrowUp) this.walk()
-    if (keyboard.pressed.ArrowDown) this.walk(-this.speed / 2)
+    if (keyboard.pressed.ArrowUp) this.move()
+    if (keyboard.pressed.ArrowDown) this.move(-this.speed / 2)
   }
 
-  walk(speed = this.speed) {
+  move(speed = this.speed) {
     const dx = Math.cos(this.angle) * speed
     const dy = Math.sin(this.angle) * speed
     if (this.map.getValue(this.x + dx, this.y) == 0) this.x += dx

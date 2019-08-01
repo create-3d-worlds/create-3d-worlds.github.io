@@ -6,17 +6,17 @@ import Tilemap from '../classes/Tilemap.js'
 
 const map = new Tilemap(matrix)
 const player = new Player(map)
-
-const playerBox = createSphere(player.y, player.x)
+const playerGeo = createSphere(player.y, player.x)
 
 scene.add(createFloor(500, 500, 'ground.jpg'))
 scene.add(createMap(matrix))
-scene.add(playerBox)
+scene.add(playerGeo)
 
 void function gameLoop() {
   requestAnimationFrame(gameLoop)
   player.update()
+  playerGeo.position.z = player.y
+  playerGeo.position.x = player.x
   controls.update()
-  // render player
   renderer.render(scene, camera)
 }()
