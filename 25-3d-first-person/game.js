@@ -1,4 +1,3 @@
-// import * as THREE from '../node_modules/three/src/Three.js'
 import {scene, controls, renderer, camera} from '../utils/3d-scene.js'
 import {createFloor, createMap, createSphere} from '../utils/3d-helpers.js'
 import matrix from '../data/small-map.js'
