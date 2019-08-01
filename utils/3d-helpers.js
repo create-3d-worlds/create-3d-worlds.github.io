@@ -13,11 +13,11 @@ export function createFloor(width = 100, height = 100, file) {
   return floor
 }
 
-export function createBox(z = 0, x = 0, height = 1, file = textures[0]) {
+export function createBox(z = 0, x = 0, height = 1, file, color = 0xff0000) {
   height = height < 0.5 ? 0.5 : height // eslint-disable-line
-  const texture = loader.load(`../assets/textures/${file}`)
   const geometry = new THREE.BoxGeometry(1, height, 1)
-  const material = new THREE.MeshBasicMaterial({ map: texture })
+  const options = file ? {map: loader.load(`../assets/textures/${file}`)} : {color, vertexColors: THREE.FaceColors}
+  const material = new THREE.MeshBasicMaterial(options)
   const cube = new THREE.Mesh(geometry, material)
   cube.position.y = height / 2
   cube.position.z = z

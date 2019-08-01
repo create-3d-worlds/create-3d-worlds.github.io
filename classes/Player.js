@@ -1,6 +1,9 @@
 import keyboard from './Keyboard.js'
 import {CIRCLE} from '../utils/constants.js'
 
+// srediti koliziju kada je prikacena geometrija
+// move proverava samo sredisnju tacku
+
 export default class Player {
   constructor(map, x, y, angle = 0) {
     if (x == undefined || y == undefined) {
