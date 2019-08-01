@@ -1,17 +1,11 @@
-const preventShake = e => {
-  if (e.code == 'Space' || e.code == 'ArrowUp' || e.code == 'ArrowDown') e.preventDefault()
-}
-
 // Singleton
 class Keyboard {
+
   constructor() {
     this.pressed = {}
-    this.addEvents()
-  }
-
-  addEvents() {
+    // https://keycode.info/
     document.addEventListener('keydown', e => {
-      preventShake(e)
+      this.preventShake(e)
       this.pressed[e.code] = true
     })
     document.addEventListener('keyup', e => {
@@ -20,6 +14,14 @@ class Keyboard {
     document.addEventListener('touchstart', e => this.chooseDirection(e.touches[0]))
     document.addEventListener('touchmove', e => this.chooseDirection(e.touches[0]))
     document.addEventListener('touchend', () => this.reset())
+  }
+
+  reset() {
+    for (const key in this.pressed) this.pressed[key] = false
+  }
+
+  preventShake(e) {
+    if (e.code == 'Space' || e.code == 'ArrowUp' || e.code == 'ArrowDown') e.preventDefault()
   }
 
   chooseDirection(touch) {
@@ -31,10 +33,6 @@ class Keyboard {
 
   get totalPressed() {
     return Object.values(this.pressed).filter(x => x).length
-  }
-
-  reset() {
-    for (const key in this.pressed) this.pressed[key] = false
   }
 }
 
