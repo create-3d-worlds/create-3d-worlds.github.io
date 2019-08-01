@@ -19,8 +19,11 @@ scene.add(playerMesh)
 void function gameLoop() {
   requestAnimationFrame(gameLoop)
   player.update()
+
   playerMesh.position.z = player.y
   playerMesh.position.x = player.x
+  playerMesh.rotation.y = -player.angle
+
   controls.update()
   renderer.render(scene, camera)
 }()
