@@ -19,8 +19,13 @@ scene.add(createFloor(500, 500, 'ground.jpg'))
 scene.add(createMap(matrix))
 scene.add(playerMesh)
 
+camera.position.z = player.x
+camera.position.y = player.y
+console.log(camera.position)
+
 void function gameLoop() {
   requestAnimationFrame(gameLoop)
+  camera.lookAt(playerMesh.position)
   player.update()
   renderer.render(scene, camera)
 }()
