@@ -1,10 +1,12 @@
 import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js'
+import { FirstPersonControls } from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'
 
 export const scene = new THREE.Scene()
 
 export const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
 camera.position.z = 15
 camera.position.y = 1
+// camera.lookAt(scene.position)
 
 export const renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -17,3 +19,7 @@ controls.minDistance = 2
 controls.maxDistance = 20
 controls.zoomSpeed = .3
 controls.enableKeys = false
+
+export const fpControls = new FirstPersonControls(camera, renderer.domElement)
+
+export const clock = new THREE.Clock()
