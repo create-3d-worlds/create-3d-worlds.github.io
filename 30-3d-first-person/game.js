@@ -1,9 +1,9 @@
 import {createTree} from '../utils/3d-helpers.js'
-
+import {scene, renderer} from '../utils/3d-scene.js'
+// camera
 let hoda_levo, hoda_desno, hoda_napred, hoda_nazad
 
 const clock = new THREE.Clock(true)
-const scene = new THREE.Scene()
 
 // container for camera and avatara
 const container = new THREE.Object3D()
@@ -12,10 +12,6 @@ scene.add(container)
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000)
 camera.position.z = 500
 container.add(camera)
-
-const renderer = new THREE.WebGLRenderer()
-renderer.setSize(window.innerWidth, window.innerHeight)
-document.body.appendChild(renderer.domElement)
 
 const tekstura = new THREE.MeshNormalMaterial()
 const telo = new THREE.SphereGeometry(100)
