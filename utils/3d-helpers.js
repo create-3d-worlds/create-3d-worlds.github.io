@@ -25,20 +25,20 @@ export function createBox(z = 0, x = 0, file = textures[0], height = 1) {
   return cube
 }
 
+export function createSphere(z = 0, x = 0, radius = 0.5) {
+  const geometry = new THREE.SphereGeometry(radius, 32, 32)
+  const material = new THREE.MeshBasicMaterial({color: 0xff0000})
+  const sphere = new THREE.Mesh(geometry, material)
+  sphere.position.y = radius / 2
+  sphere.position.z = z
+  sphere.position.x = x
+  return sphere
+}
+
 export function createMap(matrix) {
   const group = new THREE.Group()
   matrix.forEach((row, z) => row.forEach((val, x) => {
     if (val) group.add(createBox(z, x, textures[val - 1], textures.length - val))
   }))
   return group
-}
-
-export function createSphere(z = 0, x = 0, height = 0.5) {
-  const geometry = new THREE.SphereGeometry(height, 32, 32)
-  const material = new THREE.MeshBasicMaterial({color: 0xff0000})
-  const sphere = new THREE.Mesh(geometry, material)
-  sphere.position.y = height / 2
-  sphere.position.z = z
-  sphere.position.x = x
-  return sphere
 }
