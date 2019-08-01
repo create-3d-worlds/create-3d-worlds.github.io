@@ -39,5 +39,10 @@ export default class Player {
 
   update() {
     this.checkKeys()
+    if (this.mesh) {
+      this.mesh.position.z = this.y
+      this.mesh.position.x = this.x
+      this.mesh.rotation.y = -this.angle
+    }
   }
 }

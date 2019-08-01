@@ -25,9 +25,9 @@ export function createBox(z = 0, x = 0, height = 1, file, color = 0xff0000) {
   return cube
 }
 
-export function createSphere(z = 0, x = 0, radius = 0.5) {
+export function createSphere(z = 0, x = 0, radius = 0.5, color = 0xff0000) {
   const geometry = new THREE.SphereGeometry(radius, 32, 32)
-  const material = new THREE.MeshBasicMaterial({color: 0xff0000})
+  const material = new THREE.MeshBasicMaterial({color})
   const sphere = new THREE.Mesh(geometry, material)
   sphere.position.y = radius / 2
   sphere.position.z = z

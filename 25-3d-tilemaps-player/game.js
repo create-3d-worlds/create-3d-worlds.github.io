@@ -8,9 +8,9 @@ const map = new Tilemap(matrix)
 const player = new Player(map)
 
 const playerMesh = createBox(player.y, player.x)
-playerMesh.vertexColors = THREE.FaceColors
 playerMesh.geometry.faces[0].color.set('black')
 playerMesh.geometry.faces[1].color.set('black')
+player.mesh = playerMesh
 
 scene.add(createFloor(500, 500, 'ground.jpg'))
 scene.add(createMap(matrix))
@@ -19,11 +19,6 @@ scene.add(playerMesh)
 void function gameLoop() {
   requestAnimationFrame(gameLoop)
   player.update()
-
-  playerMesh.position.z = player.y
-  playerMesh.position.x = player.x
-  playerMesh.rotation.y = -player.angle
-
   controls.update()
   renderer.render(scene, camera)
 }()
