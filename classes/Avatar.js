@@ -2,10 +2,6 @@ import {clock} from '../utils/3d-scene.js'
 import keyboard from '../classes/Keyboard.js'
 const {pressed} = keyboard
 
-function isMoving() {
-  return pressed.ArrowRight || pressed.ArrowLeft || pressed.ArrowDown || pressed.ArrowUp
-}
-
 export default class Avatar {
   constructor() {
     const texture = new THREE.MeshNormalMaterial()
@@ -31,12 +27,20 @@ export default class Avatar {
   }
 
   update() {
+    this.updatePosition()
     this.updateWalk()
-    this.updateAngle()
+    // this.updateAngle()
+  }
+
+  updatePosition() {
+    if (pressed.ArrowLeft) this.mesh.position.x -= 10
+    if (pressed.ArrowRight) this.mesh.position.x += 10
+    if (pressed.ArrowUp) this.mesh.position.z -= 10
+    if (pressed.ArrowDown) this.mesh.position.z += 10
   }
 
   updateWalk() {
-    if (!isMoving()) return
+    if (!keyboard.arrowPressed) return
     const elapsed = Math.sin(clock.getElapsedTime() * 5) * 100
     this.leftHand.position.z = -elapsed
     this.rightHand.position.z = elapsed
@@ -44,6 +48,7 @@ export default class Avatar {
     this.rightLeg.position.z = elapsed
   }
 
+  // fix updateAngle
   updateAngle() {
     let angle = Math.PI
     if (pressed.ArrowUp) angle = Math.PI

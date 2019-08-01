@@ -31,6 +31,10 @@ class Keyboard {
     if (touch.pageX >= window.innerWidth / 2) this.pressed.ArrowRight = true
   }
 
+  get arrowPressed() {
+    return this.pressed.ArrowRight || this.pressed.ArrowLeft || this.pressed.ArrowDown || this.pressed.ArrowUp
+  }
+
   get totalPressed() {
     return Object.values(this.pressed).filter(x => x).length
   }
