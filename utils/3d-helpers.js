@@ -13,7 +13,7 @@ export function createFloor(width = 100, height = 100, file) {
   return floor
 }
 
-export function createBox(z = 0, x = 0, file = textures[0], height = 1) {
+export function createBox(z = 0, x = 0, height = 1, file = textures[0]) {
   height = height < 0.5 ? 0.5 : height // eslint-disable-line
   const texture = loader.load(`../assets/textures/${file}`)
   const geometry = new THREE.BoxGeometry(1, height, 1)
@@ -38,7 +38,7 @@ export function createSphere(z = 0, x = 0, radius = 0.5) {
 export function createMap(matrix) {
   const group = new THREE.Group()
   matrix.forEach((row, z) => row.forEach((val, x) => {
-    if (val) group.add(createBox(z, x, textures[val - 1], textures.length - val))
+    if (val) group.add(createBox(z, x, textures.length - val, textures[val - 1]))
   }))
   return group
 }
