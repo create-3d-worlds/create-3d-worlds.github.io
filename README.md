@@ -57,9 +57,11 @@ Repo: https://github.com/mudroljub/create-rpg-game
 ## TODO
 
 - da kamera prati prvo lice:
-  - https://github.com/josdirksen/threejs-cookbook/blob/master/03-camera/03.01-camera-follow-object.html
   - http://stemkoski.github.io/Three.js/Chase-Camera.html
   - https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Chase-Camera.html
+  - https://jamesmilneruk.github.io/threejs-fps-controls/
+  - https://threejs.org/examples/misc_controls_pointerlock.html
+  - https://isaacsukin.com/news/2012/06/how-build-first-person-shooter-browser-threejs-and-webglhtml5-canvas
 - probati VR https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
 
 ## Resursi
