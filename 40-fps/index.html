@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Chase Camera (Three.js)</title>
+  <link rel=stylesheet href="css/base.css" />
+</head>
+
+<body>
+
+  <script src="js/Three.js"></script>
+  <script src="js/OrbitControls.js"></script>
+  <script src="js/THREEx.KeyboardState.js"></script>
+
+  <div id="infoButton"></div>
+  <div id="infoBox" title="Demo Information">
+    <ul>
+      <li>W/S: Translate Forward/Backward
+      <li>A/D: Rotate Left/Right
+      <li>Q/E: Translate Left/Right
+      <li>R/F: Rotate Up/Down
+      <li>Z: Reset position and rotation.
+    </ul>
+  </div>
+
+  <div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
+  <script src="game.js" type="module"></script>
+
+</body>
+</html>
