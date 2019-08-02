@@ -1,32 +1,25 @@
 import { scene, camera, renderer, clock } from '../utils/3d-scene.js'
-import { createFloor, createPlayerBox } from '../utils/3d-helpers.js'
-import keyboard from '../classes/Keyboard.js'
+import { createFloor } from '../utils/3d-helpers.js'
+import Player3D from '../classes/Player3D.js'
 
 const cameraDistance = [0, 50, 200]
-const player = createPlayerBox(0, 0, 50)
+const player = new Player3D(0, 0, 50)
 
 scene.add(createFloor(1000, 1000))
-scene.add(player)
+scene.add(player.mesh)
 
-function update() {
-  const delta = clock.getDelta()
-  const distance = 200 * delta // 200 pixels per second
-  const angle = Math.PI / 2 * delta // 90 degrees per second
-
-  if (keyboard.pressed.KeyW) player.translateZ(-distance)
-  if (keyboard.pressed.KeyS) player.translateZ(distance)
-  if (keyboard.pressed.KeyA) player.rotateY(angle)
-  if (keyboard.pressed.KeyD) player.rotateY(-angle)
-
-  const {x, y, z} = new THREE.Vector3(...cameraDistance).applyMatrix4(player.matrixWorld)
+function updateCamera() {
+  const {x, y, z} = new THREE.Vector3(...cameraDistance).applyMatrix4(player.mesh.matrixWorld)
   camera.position.set(x, y, z)
-  camera.lookAt(player.position)
+  camera.lookAt(player.mesh.position)
 }
 
 /* INIT */
 
 void function animate() {
+  const delta = clock.getDelta()
   requestAnimationFrame(animate)
-  update()
+  updateCamera()
+  player.update(delta)
   renderer.render(scene, camera)
 }()
