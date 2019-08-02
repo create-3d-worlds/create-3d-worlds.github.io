@@ -4,7 +4,7 @@ import Avatar from '../classes/Avatar.js'
 
 import matrix from '../data/small-map.js'
 
-const avatar = new Avatar()
+const avatar = new Avatar(25, 25, 0.1)
 scene.add(avatar.mesh)
 scene.add(createFloor(500, 500, 'ground.jpg'))
 scene.add(createMap(matrix, 20))

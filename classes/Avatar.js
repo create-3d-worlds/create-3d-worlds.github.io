@@ -3,10 +3,15 @@ import keyboard from '../classes/Keyboard.js'
 const {pressed} = keyboard
 
 export default class Avatar {
-  constructor(scale = 0.2) {
+  constructor(x = 0, z = 0, scale = 0.2) {
+    this.scale = scale
     const texture = new THREE.MeshNormalMaterial()
     const body = new THREE.SphereGeometry(100)
     this.mesh = new THREE.Mesh(body, texture)
+    this.mesh.scale.set(scale, scale, scale)
+    this.mesh.position.x = x
+    this.mesh.position.z = z
+    this.mesh.position.y = 150 * this.scale
 
     const sphere = new THREE.SphereGeometry(50)
     this.rightHand = new THREE.Mesh(sphere, texture)
@@ -24,10 +29,6 @@ export default class Avatar {
     this.leftLeg = new THREE.Mesh(sphere, texture)
     this.leftLeg.position.set(-70, -120, 0)
     this.mesh.add(this.leftLeg)
-
-    this.scale = scale
-    this.mesh.scale.set(scale, scale, scale)
-    this.mesh.position.y = 150 * this.scale
   }
 
   update() {
