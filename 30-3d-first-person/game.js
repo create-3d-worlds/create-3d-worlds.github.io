@@ -7,7 +7,7 @@ scene.add(avatar.mesh)
 scene.add(createTrees())
 
 camera.position.z = 500
-avatar.mesh.add(camera)
+avatar.mesh.add(camera) // camera is added to player
 
 void function animate() {
   requestAnimationFrame(animate)
