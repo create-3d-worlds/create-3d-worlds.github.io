@@ -6,11 +6,11 @@ const player = new Player3D(0, 0, 50)
 scene.add(createFloor(1000, 1000))
 scene.add(player.mesh)
 
-function updateCamera() {
+function cameraFollow(obj) {
   const cameraDistance = [0, 50, 200]
-  const {x, y, z} = new THREE.Vector3(...cameraDistance).applyMatrix4(player.mesh.matrixWorld)
+  const {x, y, z} = new THREE.Vector3(...cameraDistance).applyMatrix4(obj.matrixWorld)
   camera.position.set(x, y, z)
-  camera.lookAt(player.mesh.position)
+  camera.lookAt(obj.position)
 }
 
 /* INIT */
@@ -18,7 +18,7 @@ function updateCamera() {
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
-  updateCamera()
+  cameraFollow(player.mesh)
   player.update(delta)
   renderer.render(scene, camera)
 }()
