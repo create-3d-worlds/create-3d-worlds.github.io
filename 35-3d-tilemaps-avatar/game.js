@@ -7,8 +7,8 @@ import matrix from '../data/small-map.js'
 const avatar = new Avatar()
 scene.add(avatar.mesh)
 scene.add(createFloor(500, 500, 'ground.jpg'))
-// scene.add(createMap(matrix))
-scene.add(createTrees())
+scene.add(createMap(matrix, 20))
+// scene.add(createTrees())
 
 camera.position.z = 500
 // avatar.mesh.add(camera)
