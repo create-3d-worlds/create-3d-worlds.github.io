@@ -6,7 +6,7 @@ const avatar = new Avatar()
 scene.add(avatar.mesh)
 scene.add(createTrees())
 
-camera.position.z = 500
+camera.position.z = 200
 avatar.mesh.add(camera) // camera is added to player
 
 void function animate() {

@@ -11,7 +11,7 @@ scene.add(createMap(matrix, 20))
 // scene.add(createTrees())
 
 camera.position.z = 500
-// avatar.mesh.add(camera)
+avatar.mesh.add(camera)
 const controls = createOrbitControls()
 
 void function animate() {

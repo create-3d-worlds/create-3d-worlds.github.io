@@ -55,11 +55,11 @@ export default class Avatar {
 
   // fix updateAngle
   updateAngle() {
-    let angle = Math.PI
-    if (pressed.ArrowUp) angle = Math.PI
-    if (pressed.ArrowDown) angle = 0
-    if (pressed.ArrowRight) angle = Math.PI / 2
-    if (pressed.ArrowLeft) angle = -Math.PI / 2
+    let angle = 0
+    if (pressed.ArrowUp) angle = 0
+    if (pressed.ArrowDown) angle = Math.PI
+    if (pressed.ArrowRight) angle = -Math.PI / 2
+    if (pressed.ArrowLeft) angle = Math.PI / 2
     this.mesh.rotation.y = angle
   }
 }
