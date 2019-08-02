@@ -1,3 +1,5 @@
+import {randomInRange} from './helpers.js'
+
 const loader = new THREE.TextureLoader()
 const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 
@@ -43,24 +45,25 @@ export function createMap(matrix) {
   return group
 }
 
-export function createTree(x, z) {
+export function createTree(x, z, height = 50) {
+  const y = height / 2
   const tree = new THREE.Mesh(
-    new THREE.CylinderGeometry(50, 50, 200),
+    new THREE.CylinderGeometry(height / 4, height / 4, height),
     new THREE.MeshBasicMaterial({color: 0xA0522D})
   )
-  tree.position.set(x, -75, z)
+  tree.position.set(x, y, z)
   const crown = new THREE.Mesh(
-    new THREE.SphereGeometry(150),
+    new THREE.SphereGeometry(height * 2 / 3),
     new THREE.MeshBasicMaterial({color: 0x228b22})
   )
-  crown.position.y = 175
+  crown.position.y = height + height / 10
   tree.add(crown)
   return tree
 }
 
-export function createTrees() {
+export function createTrees(num = 20) {
   const group = new THREE.Group()
-  const coords = [[500, 0], [-500, 0], [300, -200], [-200, -800], [-750, -1000], [500, -1000]]
+  const coords = Array(num).fill().map(() => [randomInRange(-250, 250), randomInRange(-250, 250)])
   coords.map(coord => group.add(createTree(...coord)))
   return group
 }

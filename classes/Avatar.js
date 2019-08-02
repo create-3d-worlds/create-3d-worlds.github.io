@@ -3,7 +3,7 @@ import keyboard from '../classes/Keyboard.js'
 const {pressed} = keyboard
 
 export default class Avatar {
-  constructor() {
+  constructor(scale = 0.2) {
     const texture = new THREE.MeshNormalMaterial()
     const body = new THREE.SphereGeometry(100)
     this.mesh = new THREE.Mesh(body, texture)
@@ -24,6 +24,10 @@ export default class Avatar {
     this.leftLeg = new THREE.Mesh(sphere, texture)
     this.leftLeg.position.set(-70, -120, 0)
     this.mesh.add(this.leftLeg)
+
+    this.scale = scale
+    this.mesh.scale.set(scale, scale, scale)
+    this.mesh.position.y = 150 * this.scale
   }
 
   update() {
@@ -33,10 +37,10 @@ export default class Avatar {
   }
 
   updatePosition() {
-    if (pressed.ArrowLeft) this.mesh.position.x -= 10
-    if (pressed.ArrowRight) this.mesh.position.x += 10
-    if (pressed.ArrowUp) this.mesh.position.z -= 10
-    if (pressed.ArrowDown) this.mesh.position.z += 10
+    if (pressed.ArrowLeft) this.mesh.position.x -= 10 * this.scale
+    if (pressed.ArrowRight) this.mesh.position.x += 10 * this.scale
+    if (pressed.ArrowUp) this.mesh.position.z -= 10 * this.scale
+    if (pressed.ArrowDown) this.mesh.position.z += 10 * this.scale
   }
 
   updateWalk() {
