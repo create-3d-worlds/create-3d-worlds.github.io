@@ -57,3 +57,10 @@ export function createTree(x, z) {
   tree.add(crown)
   return tree
 }
+
+export function createTrees() {
+  const group = new THREE.Group()
+  const coords = [[500, 0], [-500, 0], [300, -200], [-200, -800], [-750, -1000], [500, -1000]]
+  coords.map(coord => group.add(createTree(...coord)))
+  return group
+}

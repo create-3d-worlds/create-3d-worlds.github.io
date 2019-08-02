@@ -1,5 +1,5 @@
-import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js'
 import { FirstPersonControls } from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'
+import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js'
 
 export const scene = new THREE.Scene()
 
@@ -12,13 +12,20 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.style.margin = 0
 document.body.appendChild(renderer.domElement)
 
-export const controls = new OrbitControls(camera, renderer.domElement)
-controls.maxPolarAngle = Math.PI / 2 - 0.1 // prevent bellow ground
-controls.minDistance = 2
-controls.maxDistance = 20
-controls.zoomSpeed = .3
-controls.enableKeys = false
-
-export const fpControls = new FirstPersonControls(camera, renderer.domElement)
-
 export const clock = new THREE.Clock()
+
+/* FUNCTIONS */
+
+export function createOrbitControls() {
+  const controls = new OrbitControls(camera, renderer.domElement)
+  controls.maxPolarAngle = Math.PI / 2 - 0.1 // prevent bellow ground
+  controls.minDistance = 2
+  controls.maxDistance = 20
+  controls.zoomSpeed = .3
+  controls.enableKeys = false
+  return controls
+}
+
+export function createFpControls() {
+  return new FirstPersonControls(camera, renderer.domElement)
+}
