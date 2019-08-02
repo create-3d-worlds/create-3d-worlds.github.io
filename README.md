@@ -56,7 +56,6 @@ Repo: https://github.com/mudroljub/create-rpg-game
 
 ## TODO
 
-- tlo da bude krug
 - da kamera prati prvo lice:
   - http://stemkoski.github.io/Three.js/Chase-Camera.html
   - https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Chase-Camera.html

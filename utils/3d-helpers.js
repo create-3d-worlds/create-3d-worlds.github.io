@@ -9,7 +9,7 @@ export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
   texture.wrapT = THREE.RepeatWrapping
   texture.repeat.set(width / 10, height / 10)
   const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide })
-  const geometry = new THREE.PlaneGeometry(width, height)
+  const geometry = new THREE.CircleGeometry(width, height)
   const floor = new THREE.Mesh(geometry, material)
   floor.rotation.x = -Math.PI / 2
   return floor
