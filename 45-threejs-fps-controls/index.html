@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>FPS</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div id="blocker">
+        <div id="instructions">
+            <span style="font-size:40px">Click to Play</span>
+            <br />
+            (W, A, S, D = Move, SPACE = Jump, SPACEx2 = Double Jump, MOUSE = Look around, C = Crouch, SHIFT = Walk)
+        </div>
+    </div>
+    <div id="timer">
+        <span class="timertext">Timer -</span>
+        <span class="timertext" id="minutes"></span>
+        <span class="timertext" id="break">:</span>
+        <span class="timertext" id="seconds"></span>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r78/three.min.js"></script>
+    <script src="js/FPSControls.js"></script>
+    <script src="js/pointerlock.js"></script>
+    <script src="js/example.js"></script>
+</body>
+
+</html>
