@@ -1,4 +1,4 @@
-function ScreenOverlay(controls) {
+export function askPointerLock(controls) {
   const blocker = document.getElementById('blocker')
   const instructions = document.getElementById('instructions')
 

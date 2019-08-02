@@ -1,4 +1,5 @@
-/* global ScreenOverlay */
+import {askPointerLock} from './pointerlock.js'
+
 const boxes = []
 const objects = []
 
@@ -44,7 +45,7 @@ const renderer = new THREE.WebGLRenderer()
 renderer.setClearColor(0xffffff)
 renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
-ScreenOverlay(controls) //
+askPointerLock(controls) //
 
 /* FUNCTIONS */
 
