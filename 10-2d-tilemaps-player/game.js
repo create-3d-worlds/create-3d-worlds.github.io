@@ -1,10 +1,10 @@
 import matrix from '../data/small-map.js'
 import Tilemap from '../classes/Tilemap.js'
-import Player from '../classes/Player.js'
+import Player2D from '../classes/Player2D.js'
 import canvas from '../classes/Canvas.js'
 
 const map = new Tilemap(matrix)
-const player = new Player(map)
+const player = new Player2D(map)
 
 void function gameLoop() {
   requestAnimationFrame(gameLoop)

@@ -43828,7 +43828,7 @@
 
 	/**
 	 *
-	 * Player for AnimationClips.
+	 * Player2D for AnimationClips.
 	 *
 	 *
 	 * @author Ben Houston / http://clara.io/
