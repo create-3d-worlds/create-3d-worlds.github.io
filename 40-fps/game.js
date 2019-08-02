@@ -13,15 +13,20 @@ function update() {
   const rotateAngle = Math.PI / 2 * delta // 90 degrees per second
 
   // move
+  if (keyboard.pressed.KeyA) cube.translateX(-moveDistance)
+  if (keyboard.pressed.KeyD) cube.translateX(moveDistance)
   if (keyboard.pressed.KeyW) cube.translateZ(-moveDistance)
   if (keyboard.pressed.KeyS) cube.translateZ(moveDistance)
   // rotate
-  if (keyboard.pressed.KeyA) cube.rotateOnAxis(new Vector3(0, 1, 0), rotateAngle)
-  if (keyboard.pressed.KeyD) cube.rotateOnAxis(new Vector3(0, 1, 0), -rotateAngle)
-  if (keyboard.pressed.KeyR) cube.rotateOnAxis(new Vector3(1, 0, 0), -rotateAngle)
-  if (keyboard.pressed.KeyF) cube.rotateOnAxis(new Vector3(1, 0, 0), rotateAngle)
+  if (keyboard.pressed.ArrowLeft) cube.rotateOnAxis(new Vector3(0, 1, 0), rotateAngle)
+  if (keyboard.pressed.ArrowRight) cube.rotateOnAxis(new Vector3(0, 1, 0), -rotateAngle)
+  if (keyboard.pressed.ArrowUp) cube.rotateOnAxis(new Vector3(1, 0, 0), -rotateAngle)
+  if (keyboard.pressed.ArrowDown) cube.rotateOnAxis(new Vector3(1, 0, 0), rotateAngle)
   // reset
-  if (keyboard.pressed.KeyZ) cube.rotation.set(0, 0, 0)
+  if (keyboard.pressed.KeyZ) {
+    cube.rotation.set(0, 0, 0)
+    cube.position.set(0, 25, 0)
+  }
 
   const relativeCameraOffset = new Vector3(0, 50, 200)
   const cameraOffset = relativeCameraOffset.applyMatrix4(cube.matrixWorld)
