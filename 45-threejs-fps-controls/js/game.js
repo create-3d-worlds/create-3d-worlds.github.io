@@ -11,19 +11,15 @@ const fog = 100
 
 function handleKeyInteraction(keyCode, isKeyDown) {
   switch (keyCode) {
-    case 38: // up
     case 87: // w
       controls.movements.forward = isKeyDown
       break
-    case 40: // down
     case 83: // s
       controls.movements.backward = isKeyDown
       break
-    case 37: // left
     case 65: // a
       controls.movements.left = isKeyDown
       break
-    case 39: // right
     case 68: // d
       controls.movements.right = isKeyDown
       break
@@ -57,7 +53,6 @@ function init() {
   scene = new THREE.Scene()
   scene.fog = new THREE.Fog(0xffffff, 0, fog + 1000)
 
-  // Sky
   const sky = new THREE.SphereGeometry(8000, 32, 32) // radius, widthSegments, heightSegments
 
   const skyBox = new THREE.Mesh(sky)
@@ -66,13 +61,10 @@ function init() {
   skyBox.renderDepth = 1000.0
   scene.add(skyBox)
 
-  // Floor
   const floorHeight = 7000
   geometry = new THREE.SphereGeometry(floorHeight, 10, 6, 0, (Math.PI * 2), 0, 0.8)
   geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, -floorHeight, 0))
-
   const material = new THREE.MeshLambertMaterial()
-
   const floorMesh = new THREE.Mesh(geometry, material)
   objects.push(floorMesh)
   scene.add(floorMesh)
@@ -101,7 +93,6 @@ function init() {
     scene.add(boxmesh)
   }
 
-
   camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 9000)
   controls = new THREE.PointerLockControls(camera, 100, 30, true, objects)
   scene.add(controls.getPlayer())
@@ -114,13 +105,11 @@ function init() {
   document.body.appendChild(renderer.domElement)
 }
 
-function animate() {
+init()
+
+void function animate() {
   requestAnimationFrame(animate)
   if (controls.enabled)
     controls.updateControls()
   renderer.render(scene, camera)
-}
-
-
-init()
-animate()
+}()
