@@ -1,12 +1,11 @@
 import {askPointerLock} from './pointerlock.js'
+import { scene, camera, renderer } from '../../utils/3d-scene.js'
 
 const boxes = []
 const objects = []
 
-const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 9000)
 const controls = new THREE.PointerLockControls(camera, 100, 30, true, objects)
 
-const scene = new THREE.Scene()
 scene.add(controls.getPlayer())
 
 const floorHeight = 7000
@@ -41,10 +40,6 @@ for (let i = 0; i < 850; i++) {
   scene.add(boxmesh)
 }
 
-const renderer = new THREE.WebGLRenderer()
-renderer.setClearColor(0xffffff)
-renderer.setSize(window.innerWidth, window.innerHeight)
-document.body.appendChild(renderer.domElement)
 askPointerLock(controls) //
 
 /* FUNCTIONS */
