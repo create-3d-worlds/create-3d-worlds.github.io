@@ -1,9 +1,8 @@
-/* global THREEx */
 import { scene, camera, renderer, clock } from '../utils/3d-scene.js'
 import { createFloor, createPlayerBox } from '../utils/3d-helpers.js'
+import keyboard from '../classes/Keyboard.js'
 const { Vector3 } = THREE
 
-const keyboard = new THREEx.KeyboardState()
 scene.add(createFloor(1000, 1000))
 const cube = createPlayerBox(0, 0, 50)
 scene.add(cube)
@@ -14,13 +13,15 @@ function update() {
   const rotateAngle = Math.PI / 2 * delta // 90 degrees per second
 
   // move
-  if (keyboard.pressed('W')) cube.translateZ(-moveDistance)
-  if (keyboard.pressed('S')) cube.translateZ(moveDistance)
+  if (keyboard.pressed.KeyW) cube.translateZ(-moveDistance)
+  if (keyboard.pressed.KeyS) cube.translateZ(moveDistance)
   // rotate
-  if (keyboard.pressed('A')) cube.rotateOnAxis(new Vector3(0, 1, 0), rotateAngle)
-  if (keyboard.pressed('D')) cube.rotateOnAxis(new Vector3(0, 1, 0), -rotateAngle)
-  if (keyboard.pressed('R')) cube.rotateOnAxis(new Vector3(1, 0, 0), -rotateAngle)
-  if (keyboard.pressed('F')) cube.rotateOnAxis(new Vector3(1, 0, 0), rotateAngle)
+  if (keyboard.pressed.KeyA) cube.rotateOnAxis(new Vector3(0, 1, 0), rotateAngle)
+  if (keyboard.pressed.KeyD) cube.rotateOnAxis(new Vector3(0, 1, 0), -rotateAngle)
+  if (keyboard.pressed.KeyR) cube.rotateOnAxis(new Vector3(1, 0, 0), -rotateAngle)
+  if (keyboard.pressed.KeyF) cube.rotateOnAxis(new Vector3(1, 0, 0), rotateAngle)
+  // reset
+  if (keyboard.pressed.KeyZ) cube.rotation.set(0, 0, 0)
 
   const relativeCameraOffset = new Vector3(0, 50, 200)
   const cameraOffset = relativeCameraOffset.applyMatrix4(cube.matrixWorld)

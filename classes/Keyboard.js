@@ -3,7 +3,6 @@ class Keyboard {
 
   constructor() {
     this.pressed = {}
-    // https://keycode.info/
     document.addEventListener('keydown', e => {
       this.preventShake(e)
       this.pressed[e.code] = true
@@ -24,6 +23,7 @@ class Keyboard {
     if (e.code == 'Space' || e.code == 'ArrowUp' || e.code == 'ArrowDown') e.preventDefault()
   }
 
+  // keycode.info
   chooseDirection(touch) {
     if (touch.pageY < window.innerHeight / 2) this.pressed.ArrowUp = true
     if (touch.pageY >= window.innerHeight / 2) this.pressed.ArrowDown = true
