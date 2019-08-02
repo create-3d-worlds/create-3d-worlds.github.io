@@ -27,6 +27,13 @@ export function createBox(z = 0, x = 0, size = 1, file, color = 0xff0000) {
   return cube
 }
 
+export function createPlayerBox(z = 0, x = 0, size = 1) {
+  const mesh = createBox(z, x, size)
+  mesh.geometry.faces[0].color.set('black')
+  mesh.geometry.faces[1].color.set('black')
+  return mesh
+}
+
 export function createSphere(z = 0, x = 0, radius = 0.5, color = 0xff0000) {
   const geometry = new THREE.SphereGeometry(radius, 32, 32)
   const material = new THREE.MeshBasicMaterial({color})
