@@ -3,7 +3,7 @@ import {randomInRange} from './helpers.js'
 const loader = new THREE.TextureLoader()
 const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 
-export function createFloor(width = 100, height = 100, file) {
+export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
   const texture = loader.load(`../assets/textures/${file}`)
   texture.wrapS = THREE.RepeatWrapping
   texture.wrapT = THREE.RepeatWrapping

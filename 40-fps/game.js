@@ -1,34 +1,10 @@
 /* global THREEx */
+import { scene, camera, renderer, clock } from '../utils/3d-scene.js'
+import { createFloor } from '../utils/3d-helpers.js'
+
 const keyboard = new THREEx.KeyboardState()
-const clock = new THREE.Clock()
-const scene = new THREE.Scene()
 
-const SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight
-const VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000
-const camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR)
-scene.add(camera)
-camera.position.set(0, 150, 400)
-camera.lookAt(scene.position)
-
-const renderer = new THREE.WebGLRenderer({ antialias: true })
-
-renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT)
-const container = document.getElementById('ThreeJS')
-container.appendChild(renderer.domElement)
-
-const light = new THREE.PointLight(0xffffff)
-light.position.set(0, 250, 0)
-scene.add(light)
-
-const floorTexture = new THREE.ImageUtils.loadTexture('images/checkerboard.jpg')
-floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping
-floorTexture.repeat.set(10, 10)
-const floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide })
-const floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10)
-const floor = new THREE.Mesh(floorGeometry, floorMaterial)
-floor.position.y = -0.5
-floor.rotation.x = Math.PI / 2
-scene.add(floor)
+scene.add(createFloor(1000, 1000))
 
 // //////////
 // CUSTOM //
