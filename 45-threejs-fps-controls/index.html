@@ -1,22 +1,24 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>FPS</title>
-    <link rel="stylesheet" href="css/main.css">
+    <title>three.js - pointerlock controls</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
 </head>
 
 <body>
     <div id="blocker">
         <div id="instructions">
-            <span style="font-size:40px">Click to Play</span>
+            <span style="font-size:40px">Click to play</span>
             <br />
-            (W, A, S, D = Move, SPACE = Jump, SPACEx2 = Double Jump, MOUSE = Look around, C = Crouch, SHIFT = Walk)
+            (W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
         </div>
     </div>
+
     <script src="../../node_modules/three/build/three.js"></script>
-    <script src="js/FPSControls.js"></script>
-    <script src="js/game.js" type="module"></script>
+    <script src="game.js" type="module"></script>
 </body>
 
 </html>
