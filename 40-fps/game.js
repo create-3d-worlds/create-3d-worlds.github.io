@@ -65,14 +65,10 @@ function update() {
   camera.lookAt(cube.position)
 }
 
-function render() {
-  renderer.render(scene, camera)
-}
-
 /* INIT */
 
 void function animate() {
   requestAnimationFrame(animate)
-  render()
   update()
+  renderer.render(scene, camera)
 }()
