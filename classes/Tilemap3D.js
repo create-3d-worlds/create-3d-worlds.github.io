@@ -14,6 +14,11 @@ export default class Tilemap3D {
     return {x, z}
   }
 
+  checkWallCollision(v) {
+    const c = this.getMapSector(v)
+    return this.matrix[c.x][c.z] > 0
+  }
+
   createWalls() {
     const group = new THREE.Group()
     const wallHeight = this.unitSize / 3

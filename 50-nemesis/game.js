@@ -29,10 +29,6 @@ const directionalLight2 = new THREE.DirectionalLight(0xF7EFBE, 0.5)
 directionalLight2.position.set(-0.5, -1, -0.5)
 scene.add(directionalLight2)
 
-function checkWallCollision(v) {
-  const c = tilemap.getMapSector(v)
-  return map[c.x][c.z] > 0
-}
 
 function addAI() {
   let x, z
@@ -67,7 +63,7 @@ function updateAI(delta) {
     a.translateX(aispeed * a.lastRandomX)
     a.translateZ(aispeed * a.lastRandomZ)
     const c = tilemap.getMapSector(a.position)
-    if (c.x < 0 || c.x >= map[0].length || c.y < 0 || c.y >= map.length || checkWallCollision(a.position)) {
+    if (c.x < 0 || c.x >= map[0].length || c.y < 0 || c.y >= map.length || tilemap.checkWallCollision(a.position)) {
       a.translateX(-2 * aispeed * a.lastRandomX)
       a.translateZ(-2 * aispeed * a.lastRandomZ)
       a.lastRandomX = Math.random() * 2 - 1
@@ -81,13 +77,9 @@ function updateAI(delta) {
   }
 }
 
-function setupAI() {
-  for (let i = 0; i < NUM_AI; i++) addAI()
-}
-
 /* INIT */
 
-setupAI()
+for (let i = 0; i < NUM_AI; i++) addAI()
 
 void function animate() {
   requestAnimationFrame(animate)	
