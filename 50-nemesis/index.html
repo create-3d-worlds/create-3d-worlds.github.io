@@ -77,14 +77,9 @@
 <body>
 
   <div id="intro">Click to start</div>
-  <canvas id="radar" width="200" height="200"></canvas>
   <div id="hud"><p>Health: <span id="health">100</span><br />Score: <span id="score">0</span></p></div>
-  <div id="credits"><p>Created by <a href="http://www.isaacsukin.com/">Isaac Sukin</a> using <a href="http://mrdoob.github.com/three.js/">Three.js</a><br />WASD to move, mouse to look, click to shoot</p></div>
-  <div id="hurt"></div>
 
-  <script src="libs/jquery-1.7.2.min.js"></script>
-  <script src="libs/Three.js"></script>
-  <script src="libs/Three.FirstPersonControls.js"></script>
-  <script src="game.js"></script>
+  <script src="../../node_modules/three/build/three.js"></script>
+  <script src="game.js" type="module"></script>
 </body>
 </html>

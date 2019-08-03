@@ -1,17 +1,9 @@
-const map = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ], // 0
-    [1, 1, 0, 0, 0, 0, 0, 1, 1, 1, ], // 1
-    [1, 1, 0, 0, 2, 0, 0, 0, 0, 1, ], // 2
-    [1, 0, 0, 0, 0, 2, 0, 0, 0, 1, ], // 3
-    [1, 0, 0, 2, 0, 0, 2, 0, 0, 1, ], // 4
-    [1, 0, 0, 0, 2, 0, 0, 0, 1, 1, ], // 5
-    [1, 1, 1, 0, 0, 0, 0, 1, 1, 1, ], // 6
-    [1, 1, 1, 0, 0, 1, 0, 0, 1, 1, ], // 7
-    [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, ], // 8
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ], // 9
-  ], mapW = map.length, mapH = map[0].length
+import {FirstPersonControls} from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'
+import {nemesis as map} from '../data/maps.js'
+import {$} from '../utils/helpers.js'
 
-const $ = s => document.querySelector(s)
+const mapW = map.length, mapH = map[0].length
+
 const WIDTH = window.innerWidth,
   HEIGHT = window.innerHeight,
   ASPECT = WIDTH / HEIGHT,
@@ -20,8 +12,7 @@ const WIDTH = window.innerWidth,
   MOVESPEED = 100,
   LOOKSPEED = 0.075,
   BULLETMOVESPEED = MOVESPEED * 5,
-  NUMAI = 5,
-  PROJECTILEDAMAGE = 20
+  NUMAI = 5
 
 const ai = []
 const mouse = { x: 0, y: 0 }
@@ -31,14 +22,13 @@ let health = 100
 let lastHealthPickup = 0
 
 const clock = new THREE.Clock()
-const projector = new THREE.Projector() // Used in bullet projection
 const scene = new THREE.Scene()
 
 const cam = new THREE.PerspectiveCamera(60, ASPECT, 1, 10000) // FOV, aspect, near, far
 cam.position.y = UNITSIZE * .2
 scene.add(cam)
 
-const controls = new THREE.FirstPersonControls(cam)
+const controls = new FirstPersonControls(cam)
 controls.movementSpeed = MOVESPEED
 controls.lookSpeed = LOOKSPEED
 controls.lookVertical = false // Temporary solution; play on flat surfaces only
@@ -57,9 +47,6 @@ const healthcube = new THREE.Mesh(
 healthcube.position.set(-UNITSIZE - 15, 35, -UNITSIZE - 15)
 scene.add(healthcube)
 
-const bullets = []
-const sphereMaterial = new THREE.MeshBasicMaterial({color: 0x333333})
-const sphereGeo = new THREE.SphereGeometry(2, 6, 6)
 const aiGeo = new THREE.CubeGeometry(40, 40, 40)
 
 function distance(x1, y1, x2, y2) {
@@ -103,28 +90,8 @@ function addAI() {
   scene.add(o)
 }
 
-function createBullet(obj) {
-  if (obj === undefined) 
-    obj = cam // eslint-disable-line
-
-  const sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
-  sphere.position.set(obj.position.x, obj.position.y * 0.8, obj.position.z)
-  let vector
-  if (obj instanceof THREE.Camera) {
-    vector = new THREE.Vector3(mouse.x, mouse.y, 1)
-    projector.unprojectVector(vector, obj)
-  } else 
-    vector = cam.position.clone()
-  
-  sphere.ray = new THREE.Ray(obj.position, vector.subSelf(obj.position).normalize())
-  sphere.owner = obj
-  bullets.push(sphere)
-  scene.add(sphere)
-  return sphere
-}
-
 function render() {
-  const delta = clock.getDelta(), speed = delta * BULLETMOVESPEED
+  const delta = clock.getDelta()
   const aispeed = delta * MOVESPEED
   controls.update(delta) // Move camera
 
@@ -141,53 +108,6 @@ function render() {
   }
   else 
     healthcube.material.wireframe = true
-
-  // Update bullets. Walk backwards through the list so we can remove items.
-  for (let i = bullets.length - 1; i >= 0; i--) {
-    const b = bullets[i], p = b.position, d = b.ray.direction
-    if (checkWallCollision(p)) {
-      bullets.splice(i, 1)
-      scene.remove(b)
-      continue
-    }
-    // Collide with AI
-    let hit = false
-    for (let j = ai.length - 1; j >= 0; j--) {
-      const a = ai[j]
-      const v = a.geometry.vertices[0]
-      const c = a.position
-      const x = Math.abs(v.x), z = Math.abs(v.z)
-      // console.log(Math.round(p.x), Math.round(p.z), c.x, c.z, x, z);
-      if (p.x < c.x + x && p.x > c.x - x &&
-					p.z < c.z + z && p.z > c.z - z &&
-					b.owner != a) {
-        bullets.splice(i, 1)
-        scene.remove(b)
-        a.health -= PROJECTILEDAMAGE
-        const {color} = a.material, percent = a.health / 100
-        a.material.color.setRGB(
-          percent * color.r,
-          percent * color.g,
-          percent * color.b
-        )
-        hit = true
-        break
-      }
-    }
-    // Bullet hits player
-    if (distance(p.x, p.z, cam.position.x, cam.position.z) < 25 && b.owner != cam) {
-      health -= 10
-      if (health < 0) health = 0
-      const val = health < 25 ? '<span style="color: darkRed">' + health + '</span>' : health
-      $('#health').innerHTML = val
-      bullets.splice(i, 1)
-      scene.remove(b)
-    }
-    if (!hit) {
-      b.translateX(speed * d.x)
-      b.translateZ(speed * d.z)
-    }
-  }
 
   // Update AI.
   for (let i = ai.length - 1; i >= 0; i--) {
@@ -219,20 +139,13 @@ function render() {
       scene.remove(a)
       addAI()
     }
-    const cc = getMapSector(cam.position)
-    if (Date.now() > a.lastShot + 750 && distance(c.x, c.z, cc.x, cc.z) < 2) {
-      createBullet(a)
-      a.lastShot = Date.now()
-    }
   }
 
   renderer.render(scene, cam)
 
-  // Death
   if (health <= 0) {
     runAnim = false
     renderer.domElement.style.display = 'none'
-    $('#radar').style.display = 'none'
     $('#hud').style.display = 'none'
     $('#credits').style.display = 'none'
     $('#intro').style.display = 'block'
@@ -246,7 +159,7 @@ function setupScene() {
 
   const floor = new THREE.Mesh(
     new THREE.CubeGeometry(units * UNITSIZE, 10, units * UNITSIZE),
-    new THREE.MeshLambertMaterial({color: 0xEDCBA0, /* map: THREE.ImageUtils.loadTexture('images/floor-1.jpg')*/})
+    new THREE.MeshLambertMaterial({color: 0xEDCBA0})
   )
   scene.add(floor)
 
@@ -274,43 +187,6 @@ function setupScene() {
   scene.add(directionalLight2)
 }
 
-function drawRadar() {
-  const c = getMapSector(cam.position)
-  const context = document.getElementById('radar').getContext('2d')
-  for (let i = 0; i < mapW; i++) 
-    for (let j = 0, m = map[i].length; j < m; j++) {
-      let d = 0
-      for (let k = 0, n = ai.length; k < n; k++) {
-        const e = getMapSector(ai[k].position)
-        if (i == e.x && j == e.z) d++
-      }
-      if (i == c.x && j == c.z && d == 0) {
-        context.fillStyle = '#0000FF'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-      }
-      else if (i == c.x && j == c.z) {
-        context.fillStyle = '#AA33FF'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-        context.fillStyle = '#000000'
-        context.fillText('' + d, i * 20 + 8, j * 20 + 12)
-      }
-      else if (d > 0 && d < 10) {
-        context.fillStyle = '#FF0000'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-        context.fillStyle = '#000000'
-        context.fillText('' + d, i * 20 + 8, j * 20 + 12)
-      }
-      else if (map[i][j] > 0) {
-        context.fillStyle = '#666666'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-      }
-      else {
-        context.fillStyle = '#CCCCCC'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-      }
-    }
-}
-
 function handleMouseMove(e) {
   e.preventDefault()
   mouse.x = (e.clientX / WIDTH) * 2 - 1
@@ -333,14 +209,9 @@ $('#intro').addEventListener('click', () => {
   $('#intro').style.display = 'none'
   setupScene()
   setupAI()
-  setInterval(drawRadar, 1000)
   animate()
 })
 
 /* EVENTS */
 
 document.addEventListener('mousemove', handleMouseMove, false)
-
-document.addEventListener('click', e => {
-  if (e.which === 1) createBullet() // Left click only
-})
