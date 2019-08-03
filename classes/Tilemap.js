@@ -3,11 +3,10 @@ export default class Tilemap {
     this.model = model
     if (!model) this.randomMap()
     this.cellSize = cellSize
-    this.height = model.length * cellSize
-    this.width = this.model[0].length * cellSize
+    this.height = model.length * cellSize // ne koristi se?
+    this.width = this.model[0].length * cellSize // ne koristi se?
   }
 
-  // could be without exit?
   randomMap(size = 10) {
     const wallPercent = 0.3
     this.model = []
