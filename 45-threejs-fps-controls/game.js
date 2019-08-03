@@ -24,42 +24,43 @@ const raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, 
 
 scene.add(createTerrain())
 
+function updateControls() {
+  if (!controls.enabled) return
+  raycaster.ray.origin.copy(controls.getObject().position)
+  raycaster.ray.origin.y -= 10
+  const intersections = raycaster.intersectObjects(cubes.children)
+  const isOnObject = intersections.length > 0
+  const time = performance.now()
+  const delta = (time - prevTime) / 1000
+  velocity.x -= velocity.x * 10.0 * delta
+  velocity.z -= velocity.z * 10.0 * delta
+  velocity.y -= 9.8 * 100.0 * delta // 100.0 = mass
+  if (keyboard.pressed.KeyW) velocity.z -= 400.0 * delta
+  if (keyboard.pressed.KeyS) velocity.z += 400.0 * delta
+  if (keyboard.pressed.KeyA) velocity.x -= 400.0 * delta
+  if (keyboard.pressed.KeyD) velocity.x += 400.0 * delta
+  if (keyboard.pressed.Space) {
+    if (canJump === true) velocity.y += 350
+    canJump = false
+  }
+  if (isOnObject === true) {
+    velocity.y = Math.max(0, velocity.y)
+    canJump = true
+  }
+  controls.getObject().translateX(velocity.x * delta)
+  controls.getObject().translateY(velocity.y * delta)
+  controls.getObject().translateZ(velocity.z * delta)
+  if (controls.getObject().position.y < 10) {
+    velocity.y = 0
+    controls.getObject().position.y = 10
+    canJump = true
+  }
+  prevTime = time
+}
+
 void function animate() {
   requestAnimationFrame(animate)
-
-  if (controls.enabled) { // after browser ask
-    raycaster.ray.origin.copy(controls.getObject().position)
-    raycaster.ray.origin.y -= 10
-    const intersections = raycaster.intersectObjects(cubes.children)
-    const isOnObject = intersections.length > 0
-    const time = performance.now()
-    const delta = (time - prevTime) / 1000
-    velocity.x -= velocity.x * 10.0 * delta
-    velocity.z -= velocity.z * 10.0 * delta
-    velocity.y -= 9.8 * 100.0 * delta // 100.0 = mass
-    if (keyboard.pressed.KeyW) velocity.z -= 400.0 * delta
-    if (keyboard.pressed.KeyS) velocity.z += 400.0 * delta
-    if (keyboard.pressed.KeyA) velocity.x -= 400.0 * delta
-    if (keyboard.pressed.KeyD) velocity.x += 400.0 * delta
-    if (keyboard.pressed.Space) {
-      if (canJump === true) velocity.y += 350
-      canJump = false
-    }
-    if (isOnObject === true) {
-      velocity.y = Math.max(0, velocity.y)
-      canJump = true
-    }
-    controls.getObject().translateX(velocity.x * delta)
-    controls.getObject().translateY(velocity.y * delta)
-    controls.getObject().translateZ(velocity.z * delta)
-    if (controls.getObject().position.y < 10) {
-      velocity.y = 0
-      controls.getObject().position.y = 10
-      canJump = true
-    }
-    prevTime = time
-  }
-
+  updateControls()
   renderer.render(scene, camera)
 }()
 
