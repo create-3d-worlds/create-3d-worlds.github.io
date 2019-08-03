@@ -1,38 +1,32 @@
 import {FirstPersonControls} from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'
 import {nemesis as map} from '../data/maps.js'
-import {$, randomInRange} from '../utils/helpers.js'
+import {randomInRange} from '../utils/helpers.js'
+import { scene, camera, renderer, clock } from '../utils/3d-scene.js'
 
-const mapW = map.length, mapH = map[0].length
+const mapW = map.length
+const mapH = map[0].length
 
-const WIDTH = window.innerWidth,
-  HEIGHT = window.innerHeight,
-  ASPECT = WIDTH / HEIGHT,
-  UNITSIZE = 250,
+const UNITSIZE = 250,
   WALLHEIGHT = UNITSIZE / 3,
   MOVESPEED = 100,
   LOOKSPEED = 0.075,
   NUMAI = 5
 
 const ai = []
-const mouse = { x: 0, y: 0 }
-let kills = 0
 
-const clock = new THREE.Clock()
-const scene = new THREE.Scene()
+const floor = new THREE.Mesh(
+  new THREE.CubeGeometry(mapW * UNITSIZE, 10, mapW * UNITSIZE),
+  new THREE.MeshLambertMaterial({color: 0xEDCBA0})
+)
+scene.add(floor)
 
-const cam = new THREE.PerspectiveCamera(60, ASPECT, 1, 10000) // FOV, aspect, near, far
-cam.position.y = UNITSIZE * .2
-scene.add(cam)
+camera.position.y = UNITSIZE * .2
 
-const controls = new FirstPersonControls(cam)
+const controls = new FirstPersonControls(camera)
 controls.movementSpeed = MOVESPEED
 controls.lookSpeed = LOOKSPEED
 controls.lookVertical = false // Temporary solution; play on flat surfaces only
 controls.noFly = true
-
-const renderer = new THREE.WebGLRenderer()
-renderer.setSize(WIDTH, HEIGHT)
-document.body.appendChild(renderer.domElement)
 
 function getMapSector(v) {
   const x = Math.floor((v.x + UNITSIZE / 2) / UNITSIZE + mapW / 2)
@@ -40,7 +34,6 @@ function getMapSector(v) {
   return {x, z}
 }
 
-// Check whether a Vector3 is inside a wall
 function checkWallCollision(v) {
   const c = getMapSector(v)
   return map[c.x][c.z] > 0
@@ -48,7 +41,7 @@ function checkWallCollision(v) {
 
 function addAI() {
   let x, z
-  const c = getMapSector(cam.position)
+  const c = getMapSector(camera.position)
   const aiGeo = new THREE.CubeGeometry(40, 40, 40)
   const aiMaterial = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('images/face.png')})
   const o = new THREE.Mesh(aiGeo, aiMaterial)
@@ -59,7 +52,6 @@ function addAI() {
   x = Math.floor(x - mapW / 2) * UNITSIZE
   z = Math.floor(z - mapW / 2) * UNITSIZE
   o.position.set(x, UNITSIZE * 0.15, z)
-  o.health = 100
   o.pathPos = 1
   o.lastRandomX = Math.random()
   o.lastRandomZ = Math.random()
@@ -68,22 +60,10 @@ function addAI() {
   scene.add(o)
 }
 
-function render() {
-  const delta = clock.getDelta()
+function updateAI(delta) {
   const aispeed = delta * MOVESPEED
-  controls.update(delta)
-
-  // Update AI
   for (let i = ai.length - 1; i >= 0; i--) {
     const a = ai[i]
-    if (a.health <= 0) {
-      ai.splice(i, 1)
-      scene.remove(a)
-      kills++
-      $('#score').innerHTML = kills * 100
-      addAI()
-    }
-    // Move AI
     const r = Math.random()
     if (r > 0.995) {
       a.lastRandomX = Math.random() * 2 - 1
@@ -104,17 +84,16 @@ function render() {
       addAI()
     }
   }
-  renderer.render(scene, cam)
+}
+
+function render() {
+  const delta = clock.getDelta()
+  controls.update(delta)
+  updateAI(delta)
+  renderer.render(scene, camera)
 }
 
 function setupScene() {
-  const UNITSIZE = 250, units = mapW
-  const floor = new THREE.Mesh(
-    new THREE.CubeGeometry(units * UNITSIZE, 10, units * UNITSIZE),
-    new THREE.MeshLambertMaterial({color: 0xEDCBA0})
-  )
-  scene.add(floor)
-
   const cube = new THREE.CubeGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE)
   const materials = [
     new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture('images/wall-1.jpg')}),
@@ -125,9 +104,9 @@ function setupScene() {
     for (let j = 0, m = map[i].length; j < m; j++) 
       if (map[i][j]) {
         const wall = new THREE.Mesh(cube, materials[map[i][j] - 1])
-        wall.position.x = (i - units / 2) * UNITSIZE
+        wall.position.x = (i - mapW / 2) * UNITSIZE
         wall.position.y = WALLHEIGHT / 2
-        wall.position.z = (j - units / 2) * UNITSIZE
+        wall.position.z = (j - mapW / 2) * UNITSIZE
         scene.add(wall)
       }
 
@@ -139,30 +118,16 @@ function setupScene() {
   scene.add(directionalLight2)
 }
 
-function handleMouseMove(e) {
-  e.preventDefault()
-  mouse.x = (e.clientX / WIDTH) * 2 - 1
-  mouse.y = - (e.clientY / HEIGHT) * 2 + 1
-}
-
 function setupAI() {
   for (let i = 0; i < NUMAI; i++) addAI()
 }
 
-function animate() {
-  requestAnimationFrame(animate)	
-  render()
-}
-
 /* INIT */
 
-$('#intro').addEventListener('click', () => {
-  $('#intro').style.display = 'none'
-  setupScene()
-  setupAI()
-  animate()
-})
+setupScene()
+setupAI()
 
-/* EVENTS */
-
-document.addEventListener('mousemove', handleMouseMove, false)
+void function animate() {
+  requestAnimationFrame(animate)	
+  render()
+}()
