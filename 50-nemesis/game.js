@@ -1,6 +1,6 @@
 import {FirstPersonControls} from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'
 import {nemesis as map} from '../data/maps.js'
-import {$} from '../utils/helpers.js'
+import {$, randomInRange} from '../utils/helpers.js'
 
 const mapW = map.length, mapH = map[0].length
 
@@ -11,15 +11,11 @@ const WIDTH = window.innerWidth,
   WALLHEIGHT = UNITSIZE / 3,
   MOVESPEED = 100,
   LOOKSPEED = 0.075,
-  BULLETMOVESPEED = MOVESPEED * 5,
   NUMAI = 5
 
 const ai = []
 const mouse = { x: 0, y: 0 }
-let runAnim = true
 let kills = 0
-let health = 100
-let lastHealthPickup = 0
 
 const clock = new THREE.Clock()
 const scene = new THREE.Scene()
@@ -36,22 +32,7 @@ controls.noFly = true
 
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(WIDTH, HEIGHT)
-
-renderer.domElement.style.backgroundColor = '#D6F1FF' // easier to see
 document.body.appendChild(renderer.domElement)
-
-const healthcube = new THREE.Mesh(
-  new THREE.CubeGeometry(30, 30, 30),
-  new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture('images/health.png')})
-)
-healthcube.position.set(-UNITSIZE - 15, 35, -UNITSIZE - 15)
-scene.add(healthcube)
-
-const aiGeo = new THREE.CubeGeometry(40, 40, 40)
-
-function distance(x1, y1, x2, y2) {
-  return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
-}
 
 function getMapSector(v) {
   const x = Math.floor((v.x + UNITSIZE / 2) / UNITSIZE + mapW / 2)
@@ -65,18 +46,15 @@ function checkWallCollision(v) {
   return map[c.x][c.z] > 0
 }
 
-function getRandBetween(lo, hi) {
-  return parseInt(Math.floor(Math.random() * (hi - lo + 1)) + lo, 10)
-}
-
 function addAI() {
   let x, z
   const c = getMapSector(cam.position)
-  const aiMaterial = new THREE.MeshBasicMaterial({/* color: 0xEE3333,*/map: THREE.ImageUtils.loadTexture('images/face.png')})
+  const aiGeo = new THREE.CubeGeometry(40, 40, 40)
+  const aiMaterial = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('images/face.png')})
   const o = new THREE.Mesh(aiGeo, aiMaterial)
   do {
-    x = getRandBetween(0, mapW - 1)
-    z = getRandBetween(0, mapH - 1)
+    x = randomInRange(0, mapW - 1)
+    z = randomInRange(0, mapH - 1)
   } while (map[x][z] > 0 || (x == c.x && z == c.z))
   x = Math.floor(x - mapW / 2) * UNITSIZE
   z = Math.floor(z - mapW / 2) * UNITSIZE
@@ -85,7 +63,7 @@ function addAI() {
   o.pathPos = 1
   o.lastRandomX = Math.random()
   o.lastRandomZ = Math.random()
-  o.lastShot = Date.now() // Higher-fidelity timers aren'THREE a big deal here.
+  o.lastShot = Date.now()
   ai.push(o)
   scene.add(o)
 }
@@ -93,23 +71,9 @@ function addAI() {
 function render() {
   const delta = clock.getDelta()
   const aispeed = delta * MOVESPEED
-  controls.update(delta) // Move camera
+  controls.update(delta)
 
-  healthcube.rotation.x += 0.004
-  healthcube.rotation.y += 0.008
-  // health once per minute
-  if (Date.now() > lastHealthPickup + 60000) {
-    if (distance(cam.position.x, cam.position.z, healthcube.position.x, healthcube.position.z) < 15 && health != 100) {
-      health = Math.min(health + 50, 100)
-      $('#health').innerHTML = health
-      lastHealthPickup = Date.now()
-    }
-    healthcube.material.wireframe = false
-  }
-  else 
-    healthcube.material.wireframe = true
-
-  // Update AI.
+  // Update AI
   for (let i = ai.length - 1; i >= 0; i--) {
     const a = ai[i]
     if (a.health <= 0) {
@@ -140,23 +104,11 @@ function render() {
       addAI()
     }
   }
-
   renderer.render(scene, cam)
-
-  if (health <= 0) {
-    runAnim = false
-    renderer.domElement.style.display = 'none'
-    $('#hud').style.display = 'none'
-    $('#credits').style.display = 'none'
-    $('#intro').style.display = 'block'
-    $('#intro').innerHTML = 'Ouch! Click to restart...'
-    $('#intro').addEventListener('click', () => location.reload())
-  }
 }
 
 function setupScene() {
   const UNITSIZE = 250, units = mapW
-
   const floor = new THREE.Mesh(
     new THREE.CubeGeometry(units * UNITSIZE, 10, units * UNITSIZE),
     new THREE.MeshLambertMaterial({color: 0xEDCBA0})
@@ -198,8 +150,7 @@ function setupAI() {
 }
 
 function animate() {
-  if (runAnim)
-    requestAnimationFrame(animate)	
+  requestAnimationFrame(animate)	
   render()
 }
 
