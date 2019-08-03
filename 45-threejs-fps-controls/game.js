@@ -1,12 +1,10 @@
 import { PointerLockControls } from '../node_modules/three/examples/jsm/controls/PointerLockControls.js'
-import { askPointerLock } from './askPointerLock.js'
 import { scene, camera, renderer } from '../utils/3d-scene.js'
 import {createTerrain, createRandomCubes} from '../utils/3d-helpers.js'
 import keyboard from '../classes/Keyboard.js'
 
 let canJump = false
 let prevTime = performance.now()
-
 const velocity = new THREE.Vector3()
 
 const light = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75)
@@ -14,18 +12,15 @@ light.position.set(0.5, 1, 0.75)
 scene.add(light)
 
 const controls = new PointerLockControls(camera)
-askPointerLock(controls)
 scene.add(controls.getObject())
-
 const cubes = createRandomCubes()
 scene.add(cubes)
 
-const raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, - 1, 0), 0, 10)
-
 scene.add(createTerrain())
 
+const raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, - 1, 0), 0, 10)
+
 function updateControls() {
-  if (!controls.enabled) return
   raycaster.ray.origin.copy(controls.getObject().position)
   raycaster.ray.origin.y -= 10
   const intersections = raycaster.intersectObjects(cubes.children)
@@ -73,3 +68,5 @@ function handleResize() {
 }
 
 window.addEventListener('resize', handleResize)
+
+document.body.addEventListener('click', document.body.requestPointerLock)
