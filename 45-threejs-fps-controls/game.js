@@ -4,10 +4,6 @@ import { scene, camera, renderer } from '../utils/3d-scene.js'
 import {createTerrain, createRandomCubes} from '../utils/3d-helpers.js'
 import keyboard from '../classes/Keyboard.js'
 
-let moveForward = false
-let moveBackward = false
-let moveLeft = false
-let moveRight = false
 let canJump = false
 let prevTime = performance.now()
 
@@ -30,7 +26,8 @@ scene.add(createTerrain())
 
 void function animate() {
   requestAnimationFrame(animate)
-  if (controls.enabled) {
+
+  if (controls.enabled) { // after browser ask
     raycaster.ray.origin.copy(controls.getObject().position)
     raycaster.ray.origin.y -= 10
     const intersections = raycaster.intersectObjects(cubes.children)
@@ -40,10 +37,14 @@ void function animate() {
     velocity.x -= velocity.x * 10.0 * delta
     velocity.z -= velocity.z * 10.0 * delta
     velocity.y -= 9.8 * 100.0 * delta // 100.0 = mass
-    if (moveForward) velocity.z -= 400.0 * delta
-    if (moveBackward) velocity.z += 400.0 * delta
-    if (moveLeft) velocity.x -= 400.0 * delta
-    if (moveRight) velocity.x += 400.0 * delta
+    if (keyboard.pressed.KeyW) velocity.z -= 400.0 * delta
+    if (keyboard.pressed.KeyS) velocity.z += 400.0 * delta
+    if (keyboard.pressed.KeyA) velocity.x -= 400.0 * delta
+    if (keyboard.pressed.KeyD) velocity.x += 400.0 * delta
+    if (keyboard.pressed.Space) {
+      if (canJump === true) velocity.y += 350
+      canJump = false
+    }
     if (isOnObject === true) {
       velocity.y = Math.max(0, velocity.y)
       canJump = true
@@ -58,6 +59,7 @@ void function animate() {
     }
     prevTime = time
   }
+
   renderer.render(scene, camera)
 }()
 
@@ -69,42 +71,4 @@ function handleResize() {
   renderer.setSize(window.innerWidth, window.innerHeight)
 }
 
-const handleKeyDown = function(event) {
-  switch (event.keyCode) {
-    case 87: // w
-      moveForward = true
-      break
-    case 65: // a
-      moveLeft = true; break
-    case 83: // s
-      moveBackward = true
-      break
-    case 68: // d
-      moveRight = true
-      break
-    case 32: // space
-      if (canJump === true) velocity.y += 350
-      canJump = false
-      break
-  }
-}
-const handleKeyUp = function(event) {
-  switch (event.keyCode) {
-    case 87: // w
-      moveForward = false
-      break
-    case 65: // a
-      moveLeft = false
-      break
-    case 83: // s
-      moveBackward = false
-      break
-    case 68: // d
-      moveRight = false
-      break
-  }
-}
-
 window.addEventListener('resize', handleResize)
-document.addEventListener('keydown', handleKeyDown)
-document.addEventListener('keyup', handleKeyUp)
