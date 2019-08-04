@@ -36,10 +36,5 @@ export default class Player2D {
 
   update() {
     this.checkKeys()
-    if (this.mesh) {
-      this.mesh.position.z = this.y
-      this.mesh.position.x = this.x
-      this.mesh.rotation.y = -this.angle
-    }
   }
 }

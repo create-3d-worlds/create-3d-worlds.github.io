@@ -3,8 +3,6 @@ import { OrbitControls } from '../node_modules/three/examples/jsm/controls/Orbit
 export const scene = new THREE.Scene()
 
 export const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000)
-// camera.position.z = 15
-// camera.position.y = 1
 
 export const renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
