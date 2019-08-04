@@ -15,8 +15,8 @@ Repo: https://github.com/mudroljub/create-rpg-game
   - [x] renderovati mapu sa teksturama
 - [x] prikazati polozaj igraca na mapi
 - [x] omogućiti 2d kretanje kroz mapu (odozgo)
-- [ ] omogućiti 3d kretanje kroz mapu iz prvog lica
-- [x] dodati koliziju kako se ne bi prolazilo kroz zidove
+- [x] omogućiti 3d kretanje kroz mapu iz prvog lica
+- [ ] dodati koliziju kako se ne bi prolazilo kroz zidove
 - [ ] bonus: skupljati stvari po lavirintu https://www.the-art-of-web.com/javascript/maze-game/#box1
 
 ### Scena
