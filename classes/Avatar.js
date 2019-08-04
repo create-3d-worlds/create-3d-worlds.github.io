@@ -36,15 +36,20 @@ export default class Avatar {
   }
 
   checkKeys(delta) {
-    const distance = this.speed * delta
+    const {mesh} = this
     const angle = Math.PI / 2 * delta // 90 degrees per second
+    const distance = this.speed * delta
 
-    if (pressed.ArrowUp) this.mesh.translateZ(-distance)
-    if (pressed.ArrowDown) this.mesh.translateZ(distance)
-    if (pressed.ArrowLeft) this.mesh.rotateY(angle)
-    if (pressed.ArrowRight) this.mesh.rotateY(-angle)
-    if (pressed.KeyA) this.mesh.translateX(-distance)
-    if (pressed.KeyD) this.mesh.translateX(distance)
+    if (pressed.KeyW) mesh.translateZ(-distance)
+    if (pressed.KeyS) mesh.translateZ(distance)
+    if (pressed.KeyA) mesh.translateX(-distance)
+    if (pressed.KeyD) mesh.translateX(distance)
+
+    if (pressed.ArrowLeft) mesh.rotateY(angle)
+    if (pressed.ArrowRight) mesh.rotateY(-angle)
+    // problem: how to reset to zero
+    if (pressed.ArrowUp) mesh.rotateX(angle)
+    if (pressed.ArrowDown) mesh.rotateX(-angle)
   }
 
   animate() {
