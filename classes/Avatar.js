@@ -47,9 +47,11 @@ export default class Avatar {
 
     if (pressed.ArrowLeft) mesh.rotateY(angle)
     if (pressed.ArrowRight) mesh.rotateY(-angle)
+    if (pressed.ArrowUp) mesh.translateZ(-distance)
+    if (pressed.ArrowDown) mesh.translateZ(distance)
     // problem: how to reset to zero
-    if (pressed.ArrowUp) mesh.rotateX(angle)
-    if (pressed.ArrowDown) mesh.rotateX(-angle)
+    // if (pressed.ArrowUp) mesh.rotateX(angle)
+    // if (pressed.ArrowDown) mesh.rotateX(-angle)
   }
 
   animate() {
