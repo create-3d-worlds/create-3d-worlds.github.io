@@ -1,6 +1,6 @@
 import {scene, renderer, camera, createOrbitControls} from '../utils/3d-scene.js'
 import {createFloor, createMap, createPlayerBox} from '../utils/3d-helpers.js'
-import matrix from '../data/small-map.js'
+import {nemesis as matrix} from '../data/maps.js'
 import Player2D from '../classes/Player2D.js'
 import Tilemap from '../classes/Tilemap.js'
 

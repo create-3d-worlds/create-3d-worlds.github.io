@@ -5,13 +5,17 @@ const {pressed} = keyboard
 export default class Avatar {
   constructor(x = 0, z = 0, scale = 0.2) {
     this.scale = scale
+    this.speed = 1000 * scale
+
+    this.createMesh()
+    this.mesh.scale.set(scale, scale, scale)
+    this.mesh.position.set(x, 150 * scale, z)
+  }
+
+  createMesh() {
     const texture = new THREE.MeshNormalMaterial()
     const body = new THREE.SphereGeometry(100)
     this.mesh = new THREE.Mesh(body, texture)
-    this.mesh.scale.set(scale, scale, scale)
-    this.mesh.position.x = x
-    this.mesh.position.z = z
-    this.mesh.position.y = 150 * this.scale
 
     const sphere = new THREE.SphereGeometry(50)
     this.rightHand = new THREE.Mesh(sphere, texture)
@@ -31,20 +35,17 @@ export default class Avatar {
     this.mesh.add(this.leftLeg)
   }
 
-  update() {
-    this.updatePosition()
-    this.updateWalk()
-    // this.updateAngle()
+  checkKeys(delta) {
+    const distance = this.speed * delta
+    const angle = Math.PI / 2 * delta // 90 degrees per second
+
+    if (pressed.ArrowUp) this.mesh.translateZ(-distance)
+    if (pressed.ArrowDown) this.mesh.translateZ(distance)
+    if (pressed.ArrowLeft) this.mesh.rotateY(angle)
+    if (pressed.ArrowRight) this.mesh.rotateY(-angle)
   }
 
-  updatePosition() {
-    if (pressed.ArrowLeft) this.mesh.position.x -= 10 * this.scale
-    if (pressed.ArrowRight) this.mesh.position.x += 10 * this.scale
-    if (pressed.ArrowUp) this.mesh.position.z -= 10 * this.scale
-    if (pressed.ArrowDown) this.mesh.position.z += 10 * this.scale
-  }
-
-  updateWalk() {
+  animate() {
     if (!keyboard.arrowPressed) return
     const elapsed = Math.sin(clock.getElapsedTime() * 5) * 100
     this.leftHand.position.z = -elapsed
@@ -53,13 +54,8 @@ export default class Avatar {
     this.rightLeg.position.z = elapsed
   }
 
-  // fix updateAngle
-  updateAngle() {
-    let angle = 0
-    if (pressed.ArrowUp) angle = 0
-    if (pressed.ArrowDown) angle = Math.PI
-    if (pressed.ArrowRight) angle = -Math.PI / 2
-    if (pressed.ArrowLeft) angle = Math.PI / 2
-    this.mesh.rotation.y = angle
+  update(delta) {
+    this.checkKeys(delta)
+    this.animate()
   }
 }
