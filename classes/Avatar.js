@@ -43,10 +43,12 @@ export default class Avatar {
     if (pressed.ArrowDown) this.mesh.translateZ(distance)
     if (pressed.ArrowLeft) this.mesh.rotateY(angle)
     if (pressed.ArrowRight) this.mesh.rotateY(-angle)
+    if (pressed.KeyA) this.mesh.translateX(-distance)
+    if (pressed.KeyD) this.mesh.translateX(distance)
   }
 
   animate() {
-    if (!keyboard.arrowPressed) return
+    if (!keyboard.totalPressed) return
     const elapsed = Math.sin(clock.getElapsedTime() * 5) * 100
     this.leftHand.position.z = -elapsed
     this.rightHand.position.z = elapsed
