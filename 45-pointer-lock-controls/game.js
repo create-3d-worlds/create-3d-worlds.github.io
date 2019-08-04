@@ -15,7 +15,6 @@ scene.add(cubes)
 scene.add(createTerrain())
 
 const velocity = new THREE.Vector3()
-let canJump = false
 
 function updateControls() {
   const mesh = controls.getObject()
@@ -27,17 +26,14 @@ function updateControls() {
   if (keyboard.pressed.KeyS) velocity.z += 400.0 * delta
   if (keyboard.pressed.KeyA) velocity.x -= 400.0 * delta
   if (keyboard.pressed.KeyD) velocity.x += 400.0 * delta
-  if (keyboard.pressed.Space) {
-    if (canJump === true) velocity.y += 350
-    canJump = false
-  }
+  if (keyboard.pressed.Space) velocity.y += 2000 * delta
+  
   mesh.translateX(velocity.x * delta)
   mesh.translateY(velocity.y * delta)
   mesh.translateZ(velocity.z * delta)
   if (mesh.position.y < 10) {
     velocity.y = 0
     mesh.position.y = 10
-    canJump = true
   }
 }
 
@@ -48,13 +44,5 @@ void function animate() {
 }()
 
 /* EVENTS */
-
-function handleResize() {
-  camera.aspect = window.innerWidth / window.innerHeight
-  camera.updateProjectionMatrix()
-  renderer.setSize(window.innerWidth, window.innerHeight)
-}
-
-window.addEventListener('resize', handleResize)
 
 document.body.addEventListener('click', document.body.requestPointerLock)
