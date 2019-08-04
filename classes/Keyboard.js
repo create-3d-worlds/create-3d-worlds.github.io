@@ -14,6 +14,7 @@ class Keyboard {
     document.addEventListener('touchmove', e => this.chooseDirection(e.touches[0]))
     document.addEventListener('touchend', () => this.reset())
     document.addEventListener('visibilitychange', () => this.reset())
+    window.addEventListener('blur', () => this.reset())
   }
 
   reset() {
