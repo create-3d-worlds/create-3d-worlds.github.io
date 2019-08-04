@@ -1,4 +1,3 @@
-// import { FirstPersonControls } from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'
 import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js'
 
 export const scene = new THREE.Scene()
