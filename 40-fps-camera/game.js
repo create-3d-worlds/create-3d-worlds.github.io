@@ -1,8 +1,8 @@
 import { scene, camera, renderer, clock } from '../utils/3d-scene.js'
 import { createFloor } from '../utils/3d-helpers.js'
-import Player3D from '../classes/Player3D.js'
+import Avatar from '../classes/Avatar.js'
 
-const player = new Player3D(0, 0, 50)
+const player = new Avatar()
 scene.add(createFloor(1000, 1000))
 scene.add(player.mesh)
 

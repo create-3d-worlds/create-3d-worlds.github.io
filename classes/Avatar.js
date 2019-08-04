@@ -38,7 +38,7 @@ export default class Avatar {
   checkKeys(delta) {
     const {mesh} = this
     const angle = Math.PI / 2 * delta // 90 degrees per second
-    const distance = this.speed * delta
+    const distance = this.speed * delta // speed (in pixels) per second
 
     if (pressed.KeyW) mesh.translateZ(-distance)
     if (pressed.KeyS) mesh.translateZ(distance)
