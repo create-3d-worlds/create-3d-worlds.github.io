@@ -1,9 +1,10 @@
 /* global TWEEN */
+/* metod kolizije: svakom drvetu se dodaje krug koji sluzi za koliziju */
 import {scene, renderer, camera, clock} from '../utils/3d-scene.js'
-import {createTrees, createFloor} from '../utils/3d-helpers.js'
+import {randomInRange} from '../utils/helpers.js'
 // import Avatar from '../classes/Avatar.js'
-// import keyboard from '../classes/Keyboard.js'
 
+window.scene = scene
 let hoda_levo,
   hoda_desno,
   hoda_napred,
@@ -11,7 +12,7 @@ let hoda_levo,
 let vrtenje = false
 let salto = false
 
-const cvrsti_objekti = []
+const solids = []
 
 const container = new THREE.Object3D()
 scene.add(container)
@@ -45,20 +46,18 @@ avatar.add(leva_noga)
 
 function createTree(x, z) {
   const tree = new THREE.Mesh(new THREE.CylinderGeometry(50, 50, 200), new THREE.MeshBasicMaterial({color: 0xA0522D}))
+  tree.position.set(x, -75, z)
 
   const crown = new THREE.Mesh(new THREE.SphereGeometry(150), new THREE.MeshBasicMaterial({color: 0x228b22}))
   crown.position.y = 175
   tree.add(crown)
 
-  // pravi granicu drveta za koliziju
-  const granica = new THREE.Mesh(new THREE.CircleGeometry(200), new THREE.MeshNormalMaterial())
-  granica.position.y = -100
-  granica.rotation.x = -Math.PI / 2
-  tree.add(granica)
-  cvrsti_objekti.push(granica)
-
-  tree.position.set(x, -75, z)
-  scene.add(tree)
+  const collider = new THREE.Mesh(new THREE.CircleGeometry(200), new THREE.MeshBasicMaterial({color: 0x228b22}))
+  collider.position.y = -100
+  collider.rotation.x = -Math.PI / 2
+  collider.name = 'collider'
+  tree.add(collider)
+  return tree
 }
 
 function sadaHoda() {
@@ -106,19 +105,22 @@ function praviAkrobacije() {
 function isCollide() {
   const vektor = new THREE.Vector3(0, -1, 0)
   const ray = new THREE.Raycaster(container.position, vektor)
-  const intersects = ray.intersectObjects(cvrsti_objekti)
+  const intersects = ray.intersectObjects(solids)
   if (intersects.length > 0) return true
   return false
 }
 
 /* INIT */
 
-createTree(500, 0)
-createTree(-500, 0)
-createTree(300, -200)
-createTree(-200, -800)
-createTree(-750, -1000)
-createTree(500, -1000)
+const coords = Array(5).fill().map(() => [randomInRange(-1000, 1000), randomInRange(-1000, 1000)])
+coords.map(coord => {
+  const tree = createTree(...coord)
+  scene.add(tree)
+})
+
+scene.traverse(child => {
+  if (child.name == 'collider') solids.push(child)
+})
 
 void function animate() {
   requestAnimationFrame(animate)
