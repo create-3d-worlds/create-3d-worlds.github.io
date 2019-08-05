@@ -68,9 +68,9 @@ export function createTree(x, z, height = 50) {
   return tree
 }
 
-export function createTrees(num = 20) {
+export function createTrees(num = 20, min = -250, max = 250) {
   const group = new THREE.Group()
-  const coords = Array(num).fill().map(() => [randomInRange(-250, 250), randomInRange(-250, 250)])
+  const coords = Array(num).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
   coords.map(coord => group.add(createTree(...coord)))
   return group
 }

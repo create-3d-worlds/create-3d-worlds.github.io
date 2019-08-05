@@ -1,4 +1,8 @@
 /* global TWEEN */
+import {scene, renderer, camera, clock} from '../utils/3d-scene.js'
+import {createTrees, createFloor} from '../utils/3d-helpers.js'
+// import Avatar from '../classes/Avatar.js'
+// import keyboard from '../classes/Keyboard.js'
 
 let hoda_levo,
   hoda_desno,
@@ -6,25 +10,17 @@ let hoda_levo,
   hoda_nazad
 let vrtenje = false
 let salto = false
-const tacka_gledanja = 75 // blizina gledanja
-const casovnik = new THREE.Clock(true)
-const cvrsti_objekti = []
 
-const scene = new THREE.Scene()
+const cvrsti_objekti = []
 
 const container = new THREE.Object3D()
 scene.add(container)
-
-const renderer = new THREE.WebGLRenderer()
-renderer.setSize(window.innerWidth, window.innerHeight)
-document.body.appendChild(renderer.domElement)
 
 const texture = new THREE.MeshNormalMaterial()
 const body = new THREE.SphereGeometry(100)
 const avatar = new THREE.Mesh(body, texture)
 container.add(avatar)
 
-const camera = new THREE.PerspectiveCamera(tacka_gledanja, window.innerWidth / window.innerHeight, 1, 10000)
 camera.position.z = 500
 container.add(camera)
 
@@ -75,7 +71,7 @@ function sadaHoda() {
 
 function hodaj() {
   if (!sadaHoda()) return
-  const polozaj = Math.sin(casovnik.getElapsedTime() * 5) * 100
+  const polozaj = Math.sin(clock.getElapsedTime() * 5) * 100
   leva_ruka.position.z = -polozaj
   desna_ruka.position.z = polozaj
   leva_noga.position.z = -polozaj
