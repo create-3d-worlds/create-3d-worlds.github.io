@@ -9,7 +9,7 @@ export default class Avatar {
 
     this.createMesh()
     this.mesh.scale.set(scale, scale, scale)
-    this.mesh.position.set(x, 150 * scale, z)
+    this.position.set(x, 150 * scale, z)
   }
 
   createMesh() {
@@ -20,19 +20,19 @@ export default class Avatar {
     const sphere = new THREE.SphereGeometry(50)
     this.rightHand = new THREE.Mesh(sphere, texture)
     this.rightHand.position.set(-150, 0, 0)
-    this.mesh.add(this.rightHand)
+    this.add(this.rightHand)
 
     this.leftHand = new THREE.Mesh(sphere, texture)
     this.leftHand.position.set(150, 0, 0)
-    this.mesh.add(this.leftHand)
+    this.add(this.leftHand)
 
     this.rightLeg = new THREE.Mesh(sphere, texture)
     this.rightLeg.position.set(70, -120, 0)
-    this.mesh.add(this.rightLeg)
+    this.add(this.rightLeg)
 
     this.leftLeg = new THREE.Mesh(sphere, texture)
     this.leftLeg.position.set(-70, -120, 0)
-    this.mesh.add(this.leftLeg)
+    this.add(this.leftLeg)
   }
 
   checkKeys(delta) {
@@ -40,18 +40,39 @@ export default class Avatar {
     const angle = Math.PI / 2 * delta // 90 degrees per second
     const distance = this.speed * delta // speed (in pixels) per second
 
-    if (pressed.KeyW) mesh.translateZ(-distance)
-    if (pressed.KeyS) mesh.translateZ(distance)
+    if (pressed.KeyW || pressed.ArrowUp) mesh.translateZ(-distance)
+    if (pressed.KeyS || pressed.ArrowDown) mesh.translateZ(distance)
     if (pressed.KeyA) mesh.translateX(-distance)
     if (pressed.KeyD) mesh.translateX(distance)
 
     if (pressed.ArrowLeft) mesh.rotateY(angle)
     if (pressed.ArrowRight) mesh.rotateY(-angle)
-    if (pressed.ArrowUp) mesh.translateZ(-distance)
-    if (pressed.ArrowDown) mesh.translateZ(distance)
-    // problem: how to reset to zero
     // if (pressed.ArrowUp) mesh.rotateX(angle)
     // if (pressed.ArrowDown) mesh.rotateX(-angle)
+  }
+
+  isCollide(objects) {
+    const vec = new THREE.Vector3(0, -1, 0)
+    const ray = new THREE.Raycaster(this.position, vec)
+    const intersects = ray.intersectObjects(objects)
+    if (intersects.length > 0) return true
+    return false
+  }
+
+  respondCollision() {
+    const bounce = 100 * this.scale
+    if (pressed.KeyW || pressed.ArrowUp) this.position.z += bounce
+    if (pressed.KeyS || pressed.ArrowDown) this.position.z -= bounce
+    if (pressed.KeyA) this.position.x += bounce
+    if (pressed.KeyD) this.position.x -= bounce
+  }
+
+  add(child) {
+    this.mesh.add(child)
+  }
+
+  get position() {
+    return this.mesh.position
   }
 
   animate() {

@@ -59,19 +59,29 @@ export function createTree(x, z, height = 50) {
     new THREE.MeshBasicMaterial({color: 0xA0522D})
   )
   tree.position.set(x, y, z)
+
   const crown = new THREE.Mesh(
     new THREE.SphereGeometry(height * 2 / 3),
     new THREE.MeshBasicMaterial({color: 0x228b22})
   )
   crown.position.y = height + height / 10
   tree.add(crown)
+
+  const collider = new THREE.Mesh(
+    new THREE.CircleGeometry(200),
+    new THREE.MeshBasicMaterial({color: 0x228b22})
+  )
+  collider.position.y = -height / 2
+  collider.rotation.x = -Math.PI / 2
+  collider.name = 'collider'
+  tree.add(collider)
   return tree
 }
 
-export function createTrees(num = 20, min = -250, max = 250) {
+export function createTrees(num = 20, min = -250, max = 250, height = 50) {
   const group = new THREE.Group()
   const coords = Array(num).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
-  coords.map(coord => group.add(createTree(...coord)))
+  coords.map(coord => group.add(createTree(...coord, height)))
   return group
 }
 
