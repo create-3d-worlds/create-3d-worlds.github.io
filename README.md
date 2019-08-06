@@ -6,57 +6,67 @@ Repo: https://github.com/mudroljub/create-rpg-game
 
 ## Plan
 
-### Mape (*tilemaps*)
+### Mapa (*tilemaps*)
 
 - [x] napraviti nekoliko *tilemap*-a
-  - [x] dodati algoritam za pravljenje lavirinta
+  - [x] implementirati algoritam za pravljenje lavirinta
 - [x] renderovati mapu u 2d
 - [x] renderovati mapu u 3d
   - [x] renderovati mapu sa teksturama
+
+### Igrac
+
+- [x] dodati igraca
 - [x] prikazati polozaj igraca na mapi
-- [x] omogućiti 2d kretanje kroz mapu (odozgo)
-- [x] omogućiti 3d kretanje kroz mapu iz prvog lica
+- [x] omogućiti 2d kretanje kroz mapu
+- [x] omogućiti 3d kretanje kroz mapu
+
+### Kamere
+
+- [x] dodati kameru iz prvog lica (fps)
+- [x] dodati kameru odozgo (orbit)
+- [ ] menjati kamere
 
 ### Kolizija
 
-- [ ] dodati koliziju kako se ne bi prolazilo kroz drvece i zidove
-- [ ] implementirati bacanje zraka:
-  - https://blog.webmaestro.fr/collisions-detection-three-js-raycasting/
-  - https://threejsfundamentals.org/threejs/lessons/threejs-picking.html
-  - https://codepen.io/kintel/pen/ZboOxw
+- [x] dodati koliziju kako se ne bi prolazilo kroz predmete
+- [x] implementirati bacanje zraka:
   - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-how-to-use-a-raycaster
   - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-raycasting-part-2
+- [ ] postaviti lavirint sa kolizijom
 
-### Scena
+### Prodecuralna geometrija
 
-- [ ] postaviti tlo
+- [ ] napraviti tlo
+  - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-procedural-geometry
 - [ ] dodati osnovnu geometriju
   - [ ] dodati okruzenje (drveće, nebo, zgrade)
   - [ ] dodati neke oblike (sanduke i slicno)
-- [ ] postaviti i kamere
 - [ ] proceduralno kreirati okruženje
-
-### Karakter
-
-- [ ] dodati ruke koje se vide i pogled iz prvog lica
-- [ ] ucitati 3d model junaka
-- [ ] animirati 3d karakter (kretanje, trčanje, skok...)
-- [ ] dodati kameru odozgo i iza
 
 ### Modeli
 
+- [ ] ucitati 3d model igraca
+  - [ ] animirati model (kretanje, trčanje, skok...)
+  - [ ] da se vide ruke iz prvog lica
 - [ ] dodati NPC karaktere
 - [ ] ucitati raspolozive modele vozila i kuca
-- [ ] dodati avion kako nadlece
-- [ ] dodati tenk kako se krece
+  - [ ] dodati avion kako nadlece
+  - [ ] dodati tenk kako se krece
 - [ ] reagovati na koliziju
+
+### Fizika
+
 - [ ] dodati fiziku https://github.com/chandlerprall/Physijs
 
 ### Mehanika igre
 
 - [ ] napraviti inventar
 - [ ] postaviti objekte za sakupljanje i okidace za njih
-  - https://www.the-art-of-web.com/javascript/maze-game/#box1
+  - https://www.the-art-of-web.com/javascript/maze-game/#box1 (2D)
+  - https://threejs.org/examples/?q=cube#webgl_interactive_cubes
+  - https://threejsfundamentals.org/threejs/lessons/threejs-picking.html
+  - https://codepen.io/kintel/pen/ZboOxw
 
 ### Nivoi
 
