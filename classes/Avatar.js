@@ -62,19 +62,9 @@ export default class Avatar {
     const direction = vec.applyQuaternion(this.mesh.quaternion)
     const raycaster = new THREE.Raycaster(this.position, direction, 0, 150 * this.scale)
     const intersections = raycaster.intersectObjects(objects, true)
-    // scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300))
-
+    // scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300)) // za strelica
     this.collide = intersections.length > 0
     return intersections.length > 0
-  }
-
-  respondCollision() {
-    // const {mesh} = this
-    // const bounce = 50 * this.scale
-    // if (pressed.KeyW || pressed.ArrowUp) mesh.translateZ(bounce)
-    // if (pressed.KeyS || pressed.ArrowDown) mesh.translateZ(-bounce)
-    // if (pressed.KeyA) mesh.translateX(bounce)
-    // if (pressed.KeyD) mesh.translateX(-bounce)
   }
 
   add(child) {

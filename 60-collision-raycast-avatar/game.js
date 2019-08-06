@@ -37,5 +37,5 @@ void function animate() {
 /* EVENTS */
 
 document.addEventListener('keydown', () => {
-  if (avatar.isCollide(solids)) avatar.respondCollision()
+  avatar.isCollide(solids)
 })
