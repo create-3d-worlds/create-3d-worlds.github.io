@@ -36,7 +36,8 @@ Repo: https://github.com/mudroljub/create-rpg-game
 
 ### Prodecuralna geometrija
 
-- [ ] napraviti tlo (sa kolizijom)
+- [x] napraviti tlo
+- [ ] dodati koliziju na tlo
   - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-procedural-geometry
   - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-how-to-use-a-raycaster
   - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-raycasting-part-2
