@@ -109,7 +109,7 @@ export function createRandomBoxes(boxNum = 500) {
       shading: THREE.FlatShading,
       vertexColors: THREE.VertexColors
     })
-    material.color = randomColor(0.2, .2, .75)
+    material.color = randomColor(0.2, .15, .8)
     const mesh = new THREE.Mesh(geometry, material)
     mesh.position.x = floor(random() * 20 - 10) * 20
     mesh.position.y = floor(random() * 20) * 20 + 10
