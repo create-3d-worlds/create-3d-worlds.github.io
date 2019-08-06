@@ -77,18 +77,17 @@ export function createTrees(num = 20, min = -250, max = 250, height = 50) {
   return group
 }
 
-const randomColor = (h = 0.5, s = 0.75, l = 0.75) => new THREE.Color().setHSL(random() * 0.3 + h, s, random() * 0.25 + l)
+const randomColor = (h = 0.1, s = 0.75, l = 0.5) =>
+  new THREE.Color().setHSL(random() * 0.3 + h, s, random() * 0.25 + l)
 
 export function createTerrain() {
   const geometry = new THREE.PlaneGeometry(2000, 2000, 100, 100)
   geometry.rotateX(- PI / 2)
-  // randomize vertices
   geometry.vertices.forEach(vertex => {
     vertex.x += random() * 20 - 10
     vertex.y += random() * 2
     vertex.z += random() * 20 - 10
   })
-  // randomize colors
   geometry.faces.forEach(face => {
     face.vertexColors[0] = randomColor()
     face.vertexColors[1] = randomColor()
@@ -102,9 +101,9 @@ export function createRandomBoxes(boxNum = 500) {
   const group = new THREE.Group()
   const geometry = new THREE.BoxGeometry(20, 20, 20)
   geometry.faces.forEach(face => {
-    face.vertexColors[0] = randomColor()
-    face.vertexColors[1] = randomColor()
-    face.vertexColors[2] = randomColor()
+    face.vertexColors[0] = randomColor(.1, 0.1, .75)
+    face.vertexColors[1] = randomColor(.1, 0.1, .75)
+    face.vertexColors[2] = randomColor(.1, 0.1, .75)
   })
   for (let i = 0; i < boxNum; i++) {
     const material = new THREE.MeshPhongMaterial({
@@ -112,7 +111,7 @@ export function createRandomBoxes(boxNum = 500) {
       shading: THREE.FlatShading,
       vertexColors: THREE.VertexColors
     })
-    material.color.setHSL(random() * 0.2 + 0.5, 0.75, random() * 0.25 + 0.75)
+    // material.color.setHSL(random() * 0.2 + 0.5, 0.75, random() * 0.25 + 0.75)
     const mesh = new THREE.Mesh(geometry, material)
     mesh.position.x = floor(random() * 20 - 10) * 20
     mesh.position.y = floor(random() * 20) * 20 + 10
