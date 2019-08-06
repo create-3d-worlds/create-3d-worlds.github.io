@@ -2,7 +2,7 @@ import { createFloor, createMap } from '../utils/3d-helpers.js'
 import { scene, renderer, camera, clock } from '../utils/3d-scene.js'
 import Avatar from '../classes/Avatar.js'
 import keyboard from '../classes/Keyboard.js'
-import matrix from '../data/big-map.js'
+import matrix from '../data/small-map.js'
 
 const avatar = new Avatar(25, 25, 0.1)
 scene.add(avatar.mesh)
