@@ -49,7 +49,7 @@ export default class Avatar {
   }
 
   raycastVector() {
-    // dodati za medju-uglove
+    // TODO: dodati zrak za medjuuglove, kada su pritisnute dve tipke
     if (pressed.KeyW || pressed.ArrowUp) return new THREE.Vector3(0, 0, -1)
     if (pressed.KeyS || pressed.ArrowDown) return new THREE.Vector3(0, 0, 1)
     if (pressed.KeyA) return new THREE.Vector3(-1, 0, 0)
@@ -60,16 +60,15 @@ export default class Avatar {
   isCollide(objects, scene) {
     const vec = this.raycastVector()
     const direction = vec.applyQuaternion(this.mesh.quaternion)
-    const raycaster = new THREE.Raycaster(this.position, direction)
+    const raycaster = new THREE.Raycaster(this.position, direction, 0, 300 * this.scale)
     const intersections = raycaster.intersectObjects(objects, true)
     
     if (scene) scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300))
-
+    console.log(intersections.length > 0)
     return intersections.length > 0
   }
 
   respondCollision() {
-    console.log('respondCollision')
     // const {mesh} = this
     // const bounce = 50 * this.scale
     // if (pressed.KeyW || pressed.ArrowUp) mesh.translateZ(bounce)
