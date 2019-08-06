@@ -23,7 +23,7 @@ coords.map(coord => {
 })
 
 scene.traverse(child => {
-  if (child.name == 'collider') solids.push(child)
+  if (child.name == 'solid') solids.push(child)
 })
 
 void function animate() {
@@ -37,5 +37,5 @@ void function animate() {
 /* EVENTS */
 
 document.addEventListener('keydown', () => {
-  if (avatar.isCollide(solids, scene, camera)) avatar.respondCollision()
+  if (avatar.isCollide(solids)) avatar.respondCollision()
 })

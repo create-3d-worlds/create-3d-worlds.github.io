@@ -6,7 +6,7 @@ export default class Avatar {
   constructor(x = 0, z = 0, scale = 0.2) {
     this.scale = scale
     this.speed = 1000 * scale
-
+    this.collide = false
     this.createMesh()
     this.mesh.scale.set(scale, scale, scale)
     this.position.set(x, 150 * scale, z)
@@ -40,7 +40,7 @@ export default class Avatar {
     const angle = Math.PI / 2 * delta // 90 degrees per second
     if (pressed.ArrowLeft) mesh.rotateY(angle)
     if (pressed.ArrowRight) mesh.rotateY(-angle)
-
+    if (this.collide) return
     const distance = this.speed * delta // speed (in pixels) per second
     if (pressed.KeyW || pressed.ArrowUp) mesh.translateZ(-distance)
     if (pressed.KeyS || pressed.ArrowDown) mesh.translateZ(distance)
@@ -57,14 +57,14 @@ export default class Avatar {
     return new THREE.Vector3(0, 0, -1)
   }
 
-  isCollide(objects, scene) {
+  isCollide(objects) {
     const vec = this.raycastVector()
     const direction = vec.applyQuaternion(this.mesh.quaternion)
-    const raycaster = new THREE.Raycaster(this.position, direction, 0, 300 * this.scale)
+    const raycaster = new THREE.Raycaster(this.position, direction, 0, 150 * this.scale)
     const intersections = raycaster.intersectObjects(objects, true)
-    
-    if (scene) scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300))
-    console.log(intersections.length > 0)
+    // scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300))
+
+    this.collide = intersections.length > 0
     return intersections.length > 0
   }
 
