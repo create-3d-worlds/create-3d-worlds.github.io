@@ -12,6 +12,8 @@ scene.add(cubes)
 scene.add(createTerrain())
 
 const controls = createOrbitControls()
+camera.position.y = 75
+camera.position.z = 75
 
 void function animate() {
   requestAnimationFrame(animate)
