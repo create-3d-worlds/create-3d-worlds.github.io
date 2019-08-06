@@ -30,7 +30,8 @@ Repo: https://github.com/mudroljub/create-rpg-game
 ### Kolizija
 
 - [x] dodati koliziju kako se ne bi prolazilo kroz predmete
-- [x] implementirati bacanje zraka:
+  - [x] implementirati koliziju bacanjem zraka
+  - [ ] implementirati koliziju geometrijom
 - [ ] postaviti lavirint sa kolizijom
 
 ### Prodecuralna geometrija
