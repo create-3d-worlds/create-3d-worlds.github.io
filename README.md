@@ -31,14 +31,14 @@ Repo: https://github.com/mudroljub/create-rpg-game
 
 - [x] dodati koliziju kako se ne bi prolazilo kroz predmete
 - [x] implementirati bacanje zraka:
-  - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-how-to-use-a-raycaster
-  - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-raycasting-part-2
 - [ ] postaviti lavirint sa kolizijom
 
 ### Prodecuralna geometrija
 
-- [ ] napraviti tlo
+- [ ] napraviti tlo (sa kolizijom)
   - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-procedural-geometry
+  - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-how-to-use-a-raycaster
+  - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-raycasting-part-2
 - [ ] dodati osnovnu geometriju
   - [ ] dodati okruzenje (drveće, nebo, zgrade)
   - [ ] dodati neke oblike (sanduke i slicno)
