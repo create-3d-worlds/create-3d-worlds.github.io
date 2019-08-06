@@ -1,7 +1,7 @@
 /* global TWEEN */
 /* metod kolizije: svakom drvetu se dodaje krug koji sluzi za koliziju */
 import Avatar from '../classes/Avatar.js'
-import {scene, renderer, camera, clock} from '../utils/3d-scene.js'
+import {scene, renderer, camera, clock, createOrbitControls} from '../utils/3d-scene.js'
 import {randomInRange} from '../utils/helpers.js'
 import {createTree} from '../utils/3d-helpers.js'
 
@@ -12,6 +12,8 @@ scene.add(avatar.mesh)
 
 camera.position.z = 500
 avatar.add(camera)
+
+createOrbitControls()
 
 /* INIT */
 
@@ -35,6 +37,6 @@ void function animate() {
 
 /* EVENTS */
 
-document.addEventListener('keydown', event => {
-  if (avatar.isCollide(solids)) avatar.respondCollision()
+document.addEventListener('keydown', () => {
+  if (avatar.isCollide(solids, scene, camera)) avatar.respondCollision()
 })

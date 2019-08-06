@@ -16,11 +16,16 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [x] prikazati polozaj igraca na mapi
 - [x] omogućiti 2d kretanje kroz mapu (odozgo)
 - [x] omogućiti 3d kretanje kroz mapu iz prvog lica
-- [ ] dodati koliziju kako se ne bi prolazilo kroz zidove:
-  - https://github.com/josdirksen/threejs-cookbook/blob/master/07-animations-physics/07.06-add-simple-detection-collision.html
-  - https://stackoverflow.com/questions/11473755/how-to-detect-collision-in-three-js
-  - http://stemkoski.github.io/Three.js/Collision-Detection.html
-- [ ] bonus: skupljati stvari po lavirintu https://www.the-art-of-web.com/javascript/maze-game/#box1
+
+### Kolizija
+
+- [ ] dodati koliziju kako se ne bi prolazilo kroz drvece i zidove
+- [ ] implementirati bacanje zraka:
+  - https://blog.webmaestro.fr/collisions-detection-three-js-raycasting/
+  - https://threejsfundamentals.org/threejs/lessons/threejs-picking.html
+  - https://codepen.io/kintel/pen/ZboOxw
+  - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-how-to-use-a-raycaster
+  - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-raycasting-part-2
 
 ### Scena
 
@@ -47,10 +52,11 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [ ] reagovati na koliziju
 - [ ] dodati fiziku https://github.com/chandlerprall/Physijs
 
-### Elementi igre
+### Mehanika igre
 
 - [ ] napraviti inventar
 - [ ] postaviti objekte za sakupljanje i okidace za njih
+  - https://www.the-art-of-web.com/javascript/maze-game/#box1
 
 ### Nivoi
 

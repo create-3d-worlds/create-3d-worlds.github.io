@@ -2,6 +2,8 @@ import {clock} from '../utils/3d-scene.js'
 import keyboard from '../classes/Keyboard.js'
 const {pressed} = keyboard
 
+let isCollide = false
+
 export default class Avatar {
   constructor(x = 0, z = 0, scale = 0.2) {
     this.scale = scale
@@ -38,33 +40,37 @@ export default class Avatar {
   checkKeys(delta) {
     const {mesh} = this
     const angle = Math.PI / 2 * delta // 90 degrees per second
-    const distance = this.speed * delta // speed (in pixels) per second
+    if (pressed.ArrowLeft) mesh.rotateY(angle)
+    if (pressed.ArrowRight) mesh.rotateY(-angle)
 
+    if (isCollide) return
+
+    const distance = this.speed * delta // speed (in pixels) per second
     if (pressed.KeyW || pressed.ArrowUp) mesh.translateZ(-distance)
     if (pressed.KeyS || pressed.ArrowDown) mesh.translateZ(distance)
     if (pressed.KeyA) mesh.translateX(-distance)
     if (pressed.KeyD) mesh.translateX(distance)
-
-    if (pressed.ArrowLeft) mesh.rotateY(angle)
-    if (pressed.ArrowRight) mesh.rotateY(-angle)
-    // if (pressed.ArrowUp) mesh.rotateX(angle)
-    // if (pressed.ArrowDown) mesh.rotateX(-angle)
   }
 
-  isCollide(objects) {
-    const vec = new THREE.Vector3(0, -1, 0)
-    const ray = new THREE.Raycaster(this.position, vec)
-    const intersects = ray.intersectObjects(objects)
-    if (intersects.length > 0) return true
-    return false
+  isCollide(objects, scene) {
+    const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(this.mesh.quaternion) // https://github.com/mrdoob/three.js/issues/1606
+    const raycaster = new THREE.Raycaster(this.position, direction)
+    const intersections = raycaster.intersectObjects(objects, true)
+
+    if (scene) scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300)) // strelica
+
+    isCollide = intersections.length > 0
+    return intersections.length > 0
   }
 
   respondCollision() {
-    const bounce = 100 * this.scale
-    if (pressed.KeyW || pressed.ArrowUp) this.position.z += bounce
-    if (pressed.KeyS || pressed.ArrowDown) this.position.z -= bounce
-    if (pressed.KeyA) this.position.x += bounce
-    if (pressed.KeyD) this.position.x -= bounce
+    console.log('respondCollision')
+    // const {mesh} = this
+    // const bounce = 50 * this.scale
+    // if (pressed.KeyW || pressed.ArrowUp) mesh.translateZ(bounce)
+    // if (pressed.KeyS || pressed.ArrowDown) mesh.translateZ(-bounce)
+    // if (pressed.KeyA) mesh.translateX(bounce)
+    // if (pressed.KeyD) mesh.translateX(-bounce)
   }
 
   add(child) {
@@ -73,6 +79,10 @@ export default class Avatar {
 
   get position() {
     return this.mesh.position
+  }
+
+  get rotation() {
+    return this.mesh.rotation
   }
 
   animate() {
