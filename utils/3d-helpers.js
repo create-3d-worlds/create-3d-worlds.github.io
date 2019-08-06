@@ -4,6 +4,9 @@ const {PI, random, floor} = Math
 const loader = new THREE.TextureLoader()
 const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 
+const randomColor = (h = 0.1, s = 0.75, l = 0.5) =>
+  new THREE.Color().setHSL(random() * 0.3 + h, s, random() * 0.25 + l)
+
 export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
   const texture = loader.load(`../assets/textures/${file}`)
   texture.wrapS = THREE.RepeatWrapping
@@ -77,21 +80,16 @@ export function createTrees(num = 20, min = -250, max = 250, height = 50) {
   return group
 }
 
-const randomColor = (h = 0.1, s = 0.75, l = 0.5) =>
-  new THREE.Color().setHSL(random() * 0.3 + h, s, random() * 0.25 + l)
-
 export function createTerrain() {
   const geometry = new THREE.PlaneGeometry(2000, 2000, 100, 100)
   geometry.rotateX(- PI / 2)
   geometry.vertices.forEach(vertex => {
     vertex.x += random() * 20 - 10
-    vertex.y += random() * 2
+    vertex.y += random() * 20
     vertex.z += random() * 20 - 10
   })
   geometry.faces.forEach(face => {
-    face.vertexColors[0] = randomColor()
-    face.vertexColors[1] = randomColor()
-    face.vertexColors[2] = randomColor()
+    face.vertexColors.push(randomColor(), randomColor(), randomColor())
   })
   const material = new THREE.MeshBasicMaterial({ vertexColors: THREE.VertexColors })
   return new THREE.Mesh(geometry, material)
@@ -100,18 +98,18 @@ export function createTerrain() {
 export function createRandomBoxes(boxNum = 500) {
   const group = new THREE.Group()
   const geometry = new THREE.BoxGeometry(20, 20, 20)
-  geometry.faces.forEach(face => {
-    face.vertexColors[0] = randomColor(.1, 0.1, .75)
-    face.vertexColors[1] = randomColor(.1, 0.1, .75)
-    face.vertexColors[2] = randomColor(.1, 0.1, .75)
-  })
+  // geometry.faces.forEach(face => {
+  //   face.vertexColors[0] = randomColor(.1, 0.1, .75)
+  //   face.vertexColors[1] = randomColor(.1, 0.1, .75)
+  //   face.vertexColors[2] = randomColor(.1, 0.1, .75)
+  // })
   for (let i = 0; i < boxNum; i++) {
     const material = new THREE.MeshPhongMaterial({
       specular: 0xffffff,
       shading: THREE.FlatShading,
       vertexColors: THREE.VertexColors
     })
-    // material.color.setHSL(random() * 0.2 + 0.5, 0.75, random() * 0.25 + 0.75)
+    material.color.setHSL(random() * 0.2 + 0.5, 0.75, random() * 0.25 + 0.75)
     const mesh = new THREE.Mesh(geometry, material)
     mesh.position.x = floor(random() * 20 - 10) * 20
     mesh.position.y = floor(random() * 20) * 20 + 10
