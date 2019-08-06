@@ -1,5 +1,4 @@
 /* global TWEEN */
-/* metod kolizije: svakom drvetu se dodaje krug koji sluzi za koliziju */
 import Avatar from '../classes/Avatar.js'
 import {scene, renderer, camera, clock, createOrbitControls} from '../utils/3d-scene.js'
 import {randomInRange} from '../utils/helpers.js'

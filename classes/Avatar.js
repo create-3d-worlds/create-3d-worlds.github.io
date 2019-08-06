@@ -2,8 +2,6 @@ import {clock} from '../utils/3d-scene.js'
 import keyboard from '../classes/Keyboard.js'
 const {pressed} = keyboard
 
-let isCollide = false
-
 export default class Avatar {
   constructor(x = 0, z = 0, scale = 0.2) {
     this.scale = scale
@@ -43,8 +41,6 @@ export default class Avatar {
     if (pressed.ArrowLeft) mesh.rotateY(angle)
     if (pressed.ArrowRight) mesh.rotateY(-angle)
 
-    if (isCollide) return
-
     const distance = this.speed * delta // speed (in pixels) per second
     if (pressed.KeyW || pressed.ArrowUp) mesh.translateZ(-distance)
     if (pressed.KeyS || pressed.ArrowDown) mesh.translateZ(distance)
@@ -52,14 +48,23 @@ export default class Avatar {
     if (pressed.KeyD) mesh.translateX(distance)
   }
 
+  raycastVector() {
+    // dodati za medju-uglove
+    if (pressed.KeyW || pressed.ArrowUp) return new THREE.Vector3(0, 0, -1)
+    if (pressed.KeyS || pressed.ArrowDown) return new THREE.Vector3(0, 0, 1)
+    if (pressed.KeyA) return new THREE.Vector3(-1, 0, 0)
+    if (pressed.KeyD) return new THREE.Vector3(1, 0, 0)
+    return new THREE.Vector3(0, 0, -1)
+  }
+
   isCollide(objects, scene) {
-    const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(this.mesh.quaternion) // https://github.com/mrdoob/three.js/issues/1606
+    const vec = this.raycastVector()
+    const direction = vec.applyQuaternion(this.mesh.quaternion)
     const raycaster = new THREE.Raycaster(this.position, direction)
     const intersections = raycaster.intersectObjects(objects, true)
+    
+    if (scene) scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300))
 
-    if (scene) scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300)) // strelica
-
-    isCollide = intersections.length > 0
     return intersections.length > 0
   }
 
