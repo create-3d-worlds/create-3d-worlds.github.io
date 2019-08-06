@@ -16,6 +16,7 @@ createOrbitControls()
 
 /* INIT */
 
+// TODO: createTrees
 const coords = Array(5).fill().map(() => [randomInRange(-1000, 1000), randomInRange(-1000, 1000)])
 coords.map(coord => {
   const tree = createTree(...coord, 200)
@@ -30,12 +31,6 @@ void function animate() {
   requestAnimationFrame(animate)
   TWEEN.update()
   const delta = clock.getDelta()
-  avatar.update(delta)
+  avatar.update(delta, solids)
   renderer.render(scene, camera)
 }()
-
-/* EVENTS */
-
-document.addEventListener('keydown', () => {
-  avatar.isCollide(solids)
-})
