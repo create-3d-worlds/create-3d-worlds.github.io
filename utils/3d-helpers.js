@@ -100,7 +100,7 @@ export function createRandomBoxes(boxNum = 500, size = 20) {
   const geometry = new THREE.BoxGeometry(size, size, size)
   for (let i = 0; i < boxNum; i++) {
     const material = new THREE.MeshPhongMaterial({flatShading: true})
-    material.color = randomColor(0.5, 0.01, .75)
+    material.color = randomColor(0.1, 0.01, .75)
     const box = new THREE.Mesh(geometry, material)
     box.position.x = randomInRange(-200, 200)
     box.position.y = randomInRange(-5, 400)
