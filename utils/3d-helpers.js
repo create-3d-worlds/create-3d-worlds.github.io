@@ -98,23 +98,14 @@ export function createTerrain() {
 export function createRandomBoxes(boxNum = 500) {
   const group = new THREE.Group()
   const geometry = new THREE.BoxGeometry(20, 20, 20)
-  // geometry.faces.forEach(face => {
-  //   face.vertexColors[0] = randomColor(.1, 0.1, .75)
-  //   face.vertexColors[1] = randomColor(.1, 0.1, .75)
-  //   face.vertexColors[2] = randomColor(.1, 0.1, .75)
-  // })
   for (let i = 0; i < boxNum; i++) {
-    const material = new THREE.MeshPhongMaterial({
-      specular: 0xffffff,
-      shading: THREE.FlatShading,
-      vertexColors: THREE.VertexColors
-    })
+    const material = new THREE.MeshPhongMaterial({flatShading: true})
     material.color = randomColor(0.2, .15, .8)
-    const mesh = new THREE.Mesh(geometry, material)
-    mesh.position.x = floor(random() * 20 - 10) * 20
-    mesh.position.y = floor(random() * 20) * 20 + 10
-    mesh.position.z = floor(random() * 20 - 10) * 20
-    group.add(mesh)
+    const box = new THREE.Mesh(geometry, material)
+    box.position.x = randomInRange(-200, 200)
+    box.position.y = randomInRange(0, 400)
+    box.position.z = randomInRange(-200, 200)
+    group.add(box)
   }
   return group
 }
