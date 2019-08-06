@@ -1,4 +1,5 @@
 import {randomInRange} from './helpers.js'
+const {PI, random, floor} = Math
 
 const loader = new THREE.TextureLoader()
 const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
@@ -11,7 +12,7 @@ export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
   const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide })
   const geometry = new THREE.CircleGeometry(width, height)
   const floor = new THREE.Mesh(geometry, material)
-  floor.rotation.x = -Math.PI / 2
+  floor.rotation.x = -PI / 2
   return floor
 }
 
@@ -76,54 +77,46 @@ export function createTrees(num = 20, min = -250, max = 250, height = 50) {
   return group
 }
 
-export function createTerrain() {    
+const randomColor = (h = 0.5, s = 0.75, l = 0.75) => new THREE.Color().setHSL(random() * 0.3 + h, s, random() * 0.25 + l)
+
+export function createTerrain() {
   const geometry = new THREE.PlaneGeometry(2000, 2000, 100, 100)
-  geometry.rotateX(- Math.PI / 2)
-
-  for (let i = 0, l = geometry.vertices.length; i < l; i++) {
-    const vertex = geometry.vertices[i]
-    vertex.x += Math.random() * 20 - 10
-    vertex.y += Math.random() * 2
-    vertex.z += Math.random() * 20 - 10
-  }
-
-  for (let i = 0, l = geometry.faces.length; i < l; i++) {
-    const face = geometry.faces[i]
-    face.vertexColors[0] = new THREE.Color().setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
-    face.vertexColors[1] = new THREE.Color().setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
-    face.vertexColors[2] = new THREE.Color().setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
-  }
-
+  geometry.rotateX(- PI / 2)
+  // randomize vertices
+  geometry.vertices.forEach(vertex => {
+    vertex.x += random() * 20 - 10
+    vertex.y += random() * 2
+    vertex.z += random() * 20 - 10
+  })
+  // randomize colors
+  geometry.faces.forEach(face => {
+    face.vertexColors[0] = randomColor()
+    face.vertexColors[1] = randomColor()
+    face.vertexColors[2] = randomColor()
+  })
   const material = new THREE.MeshBasicMaterial({ vertexColors: THREE.VertexColors })
   return new THREE.Mesh(geometry, material)
 }
 
-export function createRandomCubes() {
+export function createRandomBoxes(boxNum = 500) {
   const group = new THREE.Group()
   const geometry = new THREE.BoxGeometry(20, 20, 20)
-  for (let i = 0, l = geometry.faces.length; i < l; i++) {
-    const face = geometry.faces[i]
-    face.vertexColors[0] = new THREE.Color().setHSL(
-      Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75
-    )
-    face.vertexColors[1] = new THREE.Color().setHSL(
-      Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75
-    )
-    face.vertexColors[2] = new THREE.Color().setHSL(
-      Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75
-    )
-  }
-  for (let i = 0; i < 500; i++) {
+  geometry.faces.forEach(face => {
+    face.vertexColors[0] = randomColor()
+    face.vertexColors[1] = randomColor()
+    face.vertexColors[2] = randomColor()
+  })
+  for (let i = 0; i < boxNum; i++) {
     const material = new THREE.MeshPhongMaterial({
       specular: 0xffffff,
       shading: THREE.FlatShading,
       vertexColors: THREE.VertexColors
     })
-    material.color.setHSL(Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75)
+    material.color.setHSL(random() * 0.2 + 0.5, 0.75, random() * 0.25 + 0.75)
     const mesh = new THREE.Mesh(geometry, material)
-    mesh.position.x = Math.floor(Math.random() * 20 - 10) * 20
-    mesh.position.y = Math.floor(Math.random() * 20) * 20 + 10
-    mesh.position.z = Math.floor(Math.random() * 20 - 10) * 20
+    mesh.position.x = floor(random() * 20 - 10) * 20
+    mesh.position.y = floor(random() * 20) * 20 + 10
+    mesh.position.z = floor(random() * 20 - 10) * 20
     group.add(mesh)
   }
   return group
