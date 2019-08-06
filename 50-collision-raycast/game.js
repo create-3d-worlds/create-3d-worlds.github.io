@@ -19,6 +19,6 @@ scene.traverse(child => {
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
-  avatar.update(delta, solids)
+  avatar.update(delta, solids, scene)
   renderer.render(scene, camera)
 }()

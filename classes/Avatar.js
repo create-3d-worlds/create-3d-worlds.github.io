@@ -36,6 +36,7 @@ export default class Avatar {
 
   // optional: solid object to check collision
   checkKeys(delta, solids) {
+    if (!keyboard.totalPressed) return
     const angle = Math.PI / 2 * delta // 90 degrees per second
     if (pressed.ArrowLeft) this.mesh.rotateY(angle)
     if (pressed.ArrowRight) this.mesh.rotateY(-angle)
@@ -55,7 +56,7 @@ export default class Avatar {
     if (pressed.KeyS || pressed.ArrowDown) return new THREE.Vector3(0, 0, 1)
     if (pressed.KeyA) return new THREE.Vector3(-1, 0, 0)
     if (pressed.KeyD) return new THREE.Vector3(1, 0, 0)
-    return new THREE.Vector3(0, 0, -1)
+    return new THREE.Vector3(0, -1, 0) // po defaultu ide dole, tlo nema koliziju
   }
 
   isCollide(objects) {
