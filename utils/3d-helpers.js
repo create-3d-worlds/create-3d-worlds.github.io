@@ -1,10 +1,10 @@
 import {randomInRange} from './helpers.js'
-const {PI, random, floor} = Math
+const {PI, random} = Math
 
 const loader = new THREE.TextureLoader()
 const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 
-const randomColor = (h = 0.1, s = 0.75, l = 0.5) =>
+const randomColor = (h = 0.05, s = 0.75, l = 0.5) =>
   new THREE.Color().setHSL(random() * 0.3 + h, s, random() * 0.25 + l)
 
 export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
@@ -100,7 +100,7 @@ export function createRandomBoxes(boxNum = 500, size = 20) {
   const geometry = new THREE.BoxGeometry(size, size, size)
   for (let i = 0; i < boxNum; i++) {
     const material = new THREE.MeshPhongMaterial({flatShading: true})
-    material.color = randomColor(0.2, .15, .8)
+    material.color = randomColor(0.5, 0.01, .75)
     const box = new THREE.Mesh(geometry, material)
     box.position.x = randomInRange(-200, 200)
     box.position.y = randomInRange(-5, 400)
