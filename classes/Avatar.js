@@ -2,39 +2,40 @@ import {clock} from '../utils/3d-scene.js'
 import keyboard from '../classes/Keyboard.js'
 const {pressed} = keyboard
 
+const size = 150
+
 export default class Avatar {
   constructor(x = 0, z = 0, scale = 0.2) {
     this.scale = scale
     this.speed = 1000 * scale
     this.createMesh()
     this.mesh.scale.set(scale, scale, scale)
-    this.position.set(x, 150 * scale, z)
+    this.position.set(x, size * scale, z)
   }
 
   createMesh() {
     const texture = new THREE.MeshNormalMaterial()
-    const body = new THREE.SphereGeometry(100)
+    const body = new THREE.SphereGeometry(size * 2 / 3)
     this.mesh = new THREE.Mesh(body, texture)
 
-    const sphere = new THREE.SphereGeometry(50)
+    const sphere = new THREE.SphereGeometry(size / 3)
     this.rightHand = new THREE.Mesh(sphere, texture)
-    this.rightHand.position.set(-150, 0, 0)
+    this.rightHand.position.set(-size, 0, 0)
     this.add(this.rightHand)
 
     this.leftHand = new THREE.Mesh(sphere, texture)
-    this.leftHand.position.set(150, 0, 0)
+    this.leftHand.position.set(size, 0, 0)
     this.add(this.leftHand)
 
     this.rightLeg = new THREE.Mesh(sphere, texture)
-    this.rightLeg.position.set(70, -120, 0)
+    this.rightLeg.position.set(size / 2, -size * 4 / 5, 0)
     this.add(this.rightLeg)
 
     this.leftLeg = new THREE.Mesh(sphere, texture)
-    this.leftLeg.position.set(-70, -120, 0)
+    this.leftLeg.position.set(-size / 2, -size * 4 / 5, 0)
     this.add(this.leftLeg)
   }
 
-  // optional: solid object to check collision
   checkKeys(delta, solids) {
     if (!keyboard.totalPressed) return
     const angle = Math.PI / 2 * delta // 90 degrees per second
@@ -62,7 +63,7 @@ export default class Avatar {
   isCollide(objects) {
     const vec = this.chosseRaycastVector()
     const direction = vec.applyQuaternion(this.mesh.quaternion)
-    const raycaster = new THREE.Raycaster(this.position, direction, 0, 150 * this.scale)
+    const raycaster = new THREE.Raycaster(this.position, direction, 0, size * this.scale)
     const intersections = raycaster.intersectObjects(objects, true)
     // scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300)) // za strelica
     return intersections.length > 0
@@ -89,9 +90,18 @@ export default class Avatar {
     this.rightLeg.position.z = elapsed
   }
 
+  updatePositionY(terrain) {
+    const raycaster = new THREE.Raycaster()
+    raycaster.set(this.position, new THREE.Vector3(0, -1, 0))
+    const intersects = raycaster.intersectObject(terrain)
+    if (intersects[0]) this.position.y = intersects[0].point.y + size * this.scale
+  }
+
   // @param solids: array of meshes (optional)
-  update(delta, solids) {
-    this.checkKeys(delta, solids)
+  // @param terrain: mesh (optional)
+  update(delta, solids, terrain) {
+    this.checkKeys(delta, solids, terrain)
+    if (terrain) this.updatePositionY(terrain)
     this.animate()
   }
 }
