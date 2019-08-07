@@ -1,5 +1,5 @@
-import { scene, camera, renderer, createOrbitControls } from '../utils/3d-scene.js'
-import {createTerrain, createRandomBoxes} from '../utils/3d-helpers.js'
+import { scene, camera, renderer, createOrbitControls } from '../utils/three-scene.js'
+import {createTerrain, createRandomBoxes} from '../utils/three-helpers.js'
 
 // const light = new THREE.HemisphereLight(0xffffbb, 0xddddaa, 0.99)
 const light = new THREE.HemisphereLight(0xeeeeff, 0x777788, 1)

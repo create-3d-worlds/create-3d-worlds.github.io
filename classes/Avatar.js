@@ -1,4 +1,4 @@
-import {clock} from '../utils/3d-scene.js'
+import {clock} from '../utils/three-scene.js'
 import keyboard from '../classes/Keyboard.js'
 const {pressed} = keyboard
 

@@ -1,5 +1,5 @@
-import { scene, camera, renderer, clock, createOrbitControls } from '../utils/3d-scene.js'
-import {createTerrain, createRandomBoxes} from '../utils/3d-helpers.js'
+import { scene, camera, renderer, clock, createOrbitControls } from '../utils/three-scene.js'
+import {createTerrain, createRandomBoxes} from '../utils/three-helpers.js'
 import Avatar from '../classes/Avatar.js'
 
 const avatar = new Avatar(25, 25, 0.1)

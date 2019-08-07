@@ -1,6 +1,6 @@
 import Avatar from '../classes/Avatar.js'
-import {scene, renderer, camera, clock, createOrbitControls} from '../utils/3d-scene.js'
-import {createTrees} from '../utils/3d-helpers.js'
+import {scene, renderer, camera, clock, createOrbitControls} from '../utils/three-scene.js'
+import {createTrees} from '../utils/three-helpers.js'
 
 const avatar = new Avatar(0, 0, 1)
 scene.add(avatar.mesh)

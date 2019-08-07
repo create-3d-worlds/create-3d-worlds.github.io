@@ -1,4 +1,4 @@
-import { scene, renderer, camera } from '../utils/3d-scene.js'
+import { scene, renderer, camera } from '../utils/three-scene.js'
 
 const characterSize = 50
 const outlineSize = characterSize * 0.05

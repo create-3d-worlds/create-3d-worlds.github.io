@@ -1,6 +1,6 @@
 import { PointerLockControls } from '../node_modules/three/examples/jsm/controls/PointerLockControls.js'
-import {createTrees, createFloor} from '../utils/3d-helpers.js'
-import {scene, renderer, camera, clock} from '../utils/3d-scene.js'
+import {createTrees, createFloor} from '../utils/three-helpers.js'
+import {scene, renderer, camera, clock} from '../utils/three-scene.js'
 import Avatar from '../classes/Avatar.js'
 import keyboard from '../classes/Keyboard.js'
 
