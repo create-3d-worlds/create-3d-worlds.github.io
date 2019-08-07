@@ -143,8 +143,20 @@ export function createSketchTree(posX, posZ, size) {
 export function createTrees(num = 20, min = -250, max = 250, height = 50) {
   const group = new THREE.Group()
   const coords = Array(num).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
-  coords.map(coord => group.add(createTree(...coord, height)))
+  coords.forEach(coord => group.add(createTree(...coord, height)))
   return group
+}
+
+export function createSketchTrees(num = 10, min = -800, max = 800, size = 50) {
+  const group = new THREE.Group()
+  const solids = []
+  const coords = Array(num).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
+  coords.forEach(coord => {
+    const tree = createSketchTree(...coord, size)
+    group.add(tree.trunk)
+    solids.push(tree.bounds)
+  })
+  return {group, solids}
 }
 
 export function createTerrain() {

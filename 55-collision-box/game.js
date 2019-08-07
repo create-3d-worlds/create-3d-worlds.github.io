@@ -1,5 +1,5 @@
 import { scene, renderer, camera } from '../utils/three-scene.js'
-import { createPlane, createSketchTree } from '../utils/three-helpers.js'
+import { createPlane, createSketchTrees } from '../utils/three-helpers.js'
 import PlayerBox from '../classes/PlayerBox.js'
 
 const characterSize = 50
@@ -33,15 +33,9 @@ controls.target.copy(new THREE.Vector3(0, characterSize / 2, 0))
 const plane = createPlane()
 scene.add(plane)
 
-const tree1 = createSketchTree(300, 300, characterSize)
-const tree2 = createSketchTree(800, -300, characterSize)
-const tree3 = createSketchTree(-300, 800, characterSize)
-const tree4 = createSketchTree(-800, -800, characterSize)
-scene.add(tree1.trunk)
-scene.add(tree2.trunk)
-scene.add(tree3.trunk)
-scene.add(tree4.trunk)
-solids.push(tree1.bounds, tree2.bounds, tree3.bounds, tree4.bounds)
+const trees = createSketchTrees()
+scene.add(trees.group)
+solids.push(...trees.solids)
 
 /* INIT */
 
