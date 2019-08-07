@@ -1,8 +1,8 @@
 export const $ = s => document.querySelector(s)
 
 export function randomInRange(min, max, roundDown = true) {
-  const decimal = Math.random() * (max - min + 1) + min
-  return roundDown ? Math.floor(decimal) : decimal
+  const rand = Math.random() * (max - min + 1) + min
+  return roundDown ? Math.floor(rand) : rand
 }
 
 export const isCollide = (bounds1, bounds2) =>
