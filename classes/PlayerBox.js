@@ -1,7 +1,8 @@
 import { isCollide } from '../utils/helpers.js'
 
-export default class PlayerBox {
+const playerSpeed = 5
 
+export default class PlayerBox {
   constructor(size) {
     this.movements = []
     this.createMesh(size)
@@ -45,6 +46,31 @@ export default class PlayerBox {
         else this.mesh.position.z += 1
       }
     })
+  }
+
+  move() {
+    const { position } = this.mesh
+    const newPosX = this.movements[0].x
+    const newPosZ = this.movements[0].z
+
+    const diffX = Math.abs(position.x - newPosX)
+    const diffZ = Math.abs(position.z - newPosZ)
+    const distance = Math.sqrt(diffX * diffX + diffZ * diffZ)
+
+    const multiplierX = position.x > newPosX ? -1 : 1
+    const multiplierZ = position.z > newPosZ ? -1 : 1
+    position.x += (playerSpeed * (diffX / distance)) * multiplierX
+    position.z += (playerSpeed * (diffZ / distance)) * multiplierZ
+
+    if (Math.floor(position.x) <= Math.floor(newPosX) + 15 &&
+      Math.floor(position.x) >= Math.floor(newPosX) - 15 &&
+      Math.floor(position.z) <= Math.floor(newPosZ) + 15 &&
+      Math.floor(position.z) >= Math.floor(newPosZ) - 15
+    ) {
+      position.x = Math.floor(position.x)
+      position.z = Math.floor(position.z)
+      this.movements = []
+    }
   }
 
   add(obj) {

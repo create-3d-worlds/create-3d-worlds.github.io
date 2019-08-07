@@ -9,14 +9,8 @@ const colliders = []
 const raycaster = new THREE.Raycaster()
 const mouse = new THREE.Vector2()
 
-const playerSpeed = 5
-
-const container = document.createElement('div')
-document.body.appendChild(container)
-
 scene.background = new THREE.Color(0xccddff)
 scene.fog = new THREE.Fog(0xccddff, 500, 2000)
-
 const ambient = new THREE.AmbientLight(0xffffff)
 scene.add(ambient)
 
@@ -38,31 +32,6 @@ controls.minDistance = 60
 controls.target.copy(new THREE.Vector3(0, characterSize / 2, 0))
 
 /* FUNCTIONS */
-
-function move(obj, destination) {
-  const {position} = obj
-  const newPosX = destination.x
-  const newPosZ = destination.z
-
-  const diffX = Math.abs(position.x - newPosX)
-  const diffZ = Math.abs(position.z - newPosZ)
-  const distance = Math.sqrt(diffX * diffX + diffZ * diffZ)
-
-  const multiplierX = position.x > newPosX ? -1 : 1
-  const multiplierZ = position.z > newPosZ ? -1 : 1
-  position.x += (playerSpeed * (diffX / distance)) * multiplierX
-  position.z += (playerSpeed * (diffZ / distance)) * multiplierZ
-
-  if (Math.floor(position.x) <= Math.floor(newPosX) + 15 &&
-      Math.floor(position.x) >= Math.floor(newPosX) - 15 &&
-      Math.floor(position.z) <= Math.floor(newPosZ) + 15 &&
-      Math.floor(position.z) >= Math.floor(newPosZ) - 15
-  ) {
-    position.x = Math.floor(position.x)
-    position.z = Math.floor(position.z)
-    player.movements = []
-  }
-}
 
 function addCollisionPoints(mesh) {
   const bbox = new THREE.Box3().setFromObject(mesh)
@@ -134,7 +103,7 @@ scene.add(createTree(-800, -800))
 
 void function animate() {
   requestAnimationFrame(animate)
-  if (player.movements.length > 0) move(player.mesh, player.movements[0])
+  if (player.movements.length > 0) player.move()
   if (camera.position.y < 10) camera.position.y = 10
   player.detectCollisions(colliders)
   renderer.render(scene, camera)
