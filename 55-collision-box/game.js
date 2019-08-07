@@ -9,7 +9,6 @@ const colliders = []
 const raycaster = new THREE.Raycaster()
 const mouse = new THREE.Vector2()
 
-let movements = []
 const playerSpeed = 5
 
 const container = document.createElement('div')
@@ -29,7 +28,7 @@ scene.add(player.mesh)
 
 camera.position.z = -300
 camera.position.y = 200
-player.mesh.add(camera)
+player.add(camera)
 
 const controls = new THREE.OrbitControls(camera, renderer.domElement)
 controls.enablePan = true
@@ -39,11 +38,6 @@ controls.minDistance = 60
 controls.target.copy(new THREE.Vector3(0, characterSize / 2, 0))
 
 /* FUNCTIONS */
-
-const isCollide = (bounds1, bounds2) =>
-  bounds1.xMin <= bounds2.xMax && bounds1.xMax >= bounds2.xMin &&
-  bounds1.yMin <= bounds2.yMax && bounds1.yMax >= bounds2.yMin &&
-  bounds1.zMin <= bounds2.zMax && bounds1.zMax >= bounds2.zMin
 
 function move(obj, destination) {
   const {position} = obj
@@ -66,36 +60,8 @@ function move(obj, destination) {
   ) {
     position.x = Math.floor(position.x)
     position.z = Math.floor(position.z)
-    movements = []
+    player.movements = []
   }
-}
-
-function detectCollisions() {
-  const playerBounds = {
-    xMin: player.mesh.position.x - player.mesh.geometry.parameters.width / 2,
-    xMax: player.mesh.position.x + player.mesh.geometry.parameters.width / 2,
-    yMin: player.mesh.position.y - player.mesh.geometry.parameters.height / 2,
-    yMax: player.mesh.position.y + player.mesh.geometry.parameters.height / 2,
-    zMin: player.mesh.position.z - player.mesh.geometry.parameters.width / 2,
-    zMax: player.mesh.position.z + player.mesh.geometry.parameters.width / 2,
-  }
-
-  colliders.forEach(obj => {
-    if (!isCollide(playerBounds, obj)) return
-    movements = []
-    if (playerBounds.xMin <= obj.xMax && playerBounds.xMax >= obj.xMin) {
-      const objectCenterX = ((obj.xMax - obj.xMin) / 2) + obj.xMin
-      const playerCenterX = ((playerBounds.xMax - playerBounds.xMin) / 2) + playerBounds.xMin
-      if (objectCenterX > playerCenterX) player.mesh.position.x -= 1
-      else player.mesh.position.x += 1
-    }
-    if (playerBounds.zMin <= obj.zMax && playerBounds.zMax >= obj.zMin) {
-      const objectCenterZ = ((obj.zMax - obj.zMin) / 2) + obj.zMin
-      const playerCenterZ = ((playerBounds.zMax - playerBounds.zMin) / 2) + playerBounds.zMin
-      if (objectCenterZ > playerCenterZ) player.mesh.position.z -= 1
-      else player.mesh.position.z += 1
-    }
-  })
 }
 
 function addCollisionPoints(mesh) {
@@ -168,9 +134,9 @@ scene.add(createTree(-800, -800))
 
 void function animate() {
   requestAnimationFrame(animate)
-  if (movements.length > 0) move(player.mesh, movements[0])
+  if (player.movements.length > 0) move(player.mesh, player.movements[0])
   if (camera.position.y < 10) camera.position.y = 10
-  detectCollisions()
+  player.detectCollisions(colliders)
   renderer.render(scene, camera)
 }()
 
@@ -178,14 +144,14 @@ void function animate() {
 
 function handleMouseDown(event) {
   event.preventDefault()
-  movements = []
+  player.movements = []
 
   mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1
   mouse.y = - (event.clientY / renderer.domElement.clientHeight) * 2 + 1
 
   raycaster.setFromCamera(mouse, camera)
   const intersects = raycaster.intersectObjects([plane]) // must be array
-  if (intersects.length > 0) movements.push(intersects[0].point)
+  if (intersects.length > 0) player.movements.push(intersects[0].point)
 }
 
 document.addEventListener('mousedown', handleMouseDown)
