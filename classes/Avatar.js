@@ -65,7 +65,6 @@ export default class Avatar {
     const direction = vec.applyQuaternion(this.mesh.quaternion)
     const raycaster = new THREE.Raycaster(this.position, direction, 0, size * this.scale)
     const intersections = raycaster.intersectObjects(objects, true)
-    // scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300)) // za strelica
     return intersections.length > 0
   }
 

@@ -78,9 +78,18 @@ Repo: https://github.com/mudroljub/create-rpg-game
   - [ ] bežanje od štuke koja bombarduje
   - [ ] skrivanje od reflektora logora
 
-## TODO
+### VR
 
-- probati VR https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
+- [ ] probati VR
+  - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
+
+## Documentation
+
+Prikazuje pomocnu strelicu za raycaster:
+
+```
+scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300))
+```
 
 ## Resursi
 
