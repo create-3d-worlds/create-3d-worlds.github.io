@@ -31,6 +31,20 @@ export function createBox(z = 0, x = 0, size = 1, file, color = 0xff0000) {
   return cube
 }
 
+export function createPlayerBox(size) {
+  const outlineSize = size * 0.05
+  const geometry = new THREE.BoxBufferGeometry(size, size, size)
+  const material = new THREE.MeshPhongMaterial({ color: 0x22dd88 })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.y = size / 2
+
+  const outline_geo = new THREE.BoxGeometry(size + outlineSize, size + outlineSize, size + outlineSize)
+  const outline_mat = new THREE.MeshBasicMaterial({ color: 0x0000000, side: THREE.BackSide })
+  const outline = new THREE.Mesh(outline_geo, outline_mat)
+  mesh.add(outline)
+  return mesh
+}
+
 export function createSphere(z = 0, x = 0, radius = 0.5, color = 0xff0000) {
   const geometry = new THREE.SphereGeometry(radius, 32, 32)
   const material = new THREE.MeshBasicMaterial({color})
