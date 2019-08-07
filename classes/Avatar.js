@@ -89,6 +89,7 @@ export default class Avatar {
     this.rightLeg.position.z = elapsed
   }
 
+  // @param solids: array of meshes (optional)
   update(delta, solids) {
     this.checkKeys(delta, solids)
     this.animate()

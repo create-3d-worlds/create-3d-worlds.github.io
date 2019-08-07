@@ -7,8 +7,7 @@ light.position.set(0.5, 1, 0.75)
 scene.add(light)
 
 scene.add(createTerrain())
-const cubes = createRandomBoxes()
-scene.add(cubes)
+scene.add(createRandomBoxes())
 
 const controls = createOrbitControls()
 camera.position.y = 75
