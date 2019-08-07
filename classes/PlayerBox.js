@@ -4,7 +4,7 @@ import { createSketchBox } from '../utils/three-helpers.js'
 const playerSpeed = 5
 
 export default class PlayerBox {
-  constructor(size) {
+  constructor(size = 50) {
     this.movements = []
     this.mesh = createSketchBox(size)
   }
