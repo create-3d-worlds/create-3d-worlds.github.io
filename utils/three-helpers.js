@@ -102,9 +102,16 @@ export function createTree(x, z, height = 50) {
   return tree
 }
 
+export function createTrees(num = 20, min = -250, max = 250, height = 50) {
+  const group = new THREE.Group()
+  const coords = Array(num).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
+  coords.forEach(coord => group.add(createTree(...coord, height)))
+  return group
+}
+
 export function createSketchTree(posX, posZ, size) {
   const outlineSize = size * 0.05
-  const randomScale = (random() * 3) + 0.8
+  const randomScale = randomInRange(0.8, 1.6, false)
   const randomRotateY = PI / (floor((random() * 32) + 1))
 
   let geometry = new THREE.CylinderGeometry(size / 3.5, size / 2.5, size * 1.3, 8)
@@ -138,13 +145,6 @@ export function createSketchTree(posX, posZ, size) {
   const outlineTreeTop = new THREE.Mesh(outline_geo, outline_mat)
   treeTop.add(outlineTreeTop)
   return {trunk, bounds}
-}
-
-export function createTrees(num = 20, min = -250, max = 250, height = 50) {
-  const group = new THREE.Group()
-  const coords = Array(num).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
-  coords.forEach(coord => group.add(createTree(...coord, height)))
-  return group
 }
 
 export function createSketchTrees(num = 10, min = -800, max = 800, size = 50) {
