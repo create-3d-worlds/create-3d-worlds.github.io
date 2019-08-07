@@ -7,7 +7,7 @@ const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 const randomColor = (h = 0.05, s = 0.75, l = 0.5) =>
   new THREE.Color().setHSL(random() * 0.3 + h, s, random() * 0.25 + l)
 
-function createBounds(mesh) {
+export function createBounds(mesh) {
   const bbox = new THREE.Box3().setFromObject(mesh)
   const bounds = {
     xMin: bbox.min.x,

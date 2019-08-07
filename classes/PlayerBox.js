@@ -1,5 +1,5 @@
 import { isCollide } from '../utils/helpers.js'
-import { createSketchBox } from '../utils/three-helpers.js'
+import { createSketchBox, createBounds } from '../utils/three-helpers.js'
 
 const playerSpeed = 5
 
@@ -15,27 +15,20 @@ export default class PlayerBox {
     this.mesh.add(obj)
   }
 
-  detectCollisions(colliders) {
-    const myBounds = {
-      xMin: this.mesh.position.x - this.mesh.geometry.parameters.width / 2,
-      xMax: this.mesh.position.x + this.mesh.geometry.parameters.width / 2,
-      yMin: this.mesh.position.y - this.mesh.geometry.parameters.height / 2,
-      yMax: this.mesh.position.y + this.mesh.geometry.parameters.height / 2,
-      zMin: this.mesh.position.z - this.mesh.geometry.parameters.width / 2,
-      zMax: this.mesh.position.z + this.mesh.geometry.parameters.width / 2,
-    }
-    colliders.forEach(obj => {
+  checkCollisions(solids) {
+    const myBounds = createBounds(this.mesh)
+    solids.forEach(obj => {
       if (!isCollide(myBounds, obj)) return
       this.movements = []
       if (myBounds.xMin <= obj.xMax && myBounds.xMax >= obj.xMin) {
-        const objectCenterX = ((obj.xMax - obj.xMin) / 2) + obj.xMin
-        const playerCenterX = ((myBounds.xMax - myBounds.xMin) / 2) + myBounds.xMin
+        const objectCenterX = (obj.xMax - obj.xMin) / 2 + obj.xMin
+        const playerCenterX = (myBounds.xMax - myBounds.xMin) / 2 + myBounds.xMin
         if (objectCenterX > playerCenterX) this.mesh.position.x -= 1
         else this.mesh.position.x += 1
       }
       if (myBounds.zMin <= obj.zMax && myBounds.zMax >= obj.zMin) {
-        const objectCenterZ = ((obj.zMax - obj.zMin) / 2) + obj.zMin
-        const playerCenterZ = ((myBounds.zMax - myBounds.zMin) / 2) + myBounds.zMin
+        const objectCenterZ = (obj.zMax - obj.zMin) / 2 + obj.zMin
+        const playerCenterZ = (myBounds.zMax - myBounds.zMin) / 2 + myBounds.zMin
         if (objectCenterZ > playerCenterZ) this.mesh.position.z -= 1
         else this.mesh.position.z += 1
       }
@@ -71,7 +64,7 @@ export default class PlayerBox {
     e.preventDefault()
     this.movements = []
     const raycaster = new THREE.Raycaster()
-    // normalize between -1 and 1
+
     const x = e.clientX / window.innerWidth * 2 - 1
     const y = -e.clientY / window.innerHeight * 2 + 1
   
@@ -84,7 +77,7 @@ export default class PlayerBox {
 
   update(solids) {
     if (this.movements.length > 0) this.move()
-    this.detectCollisions(solids)
+    this.checkCollisions(solids)
   }
 }
 
