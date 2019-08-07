@@ -1,9 +1,9 @@
 import { scene, renderer, camera } from '../utils/three-scene.js'
+import { createPlane } from '../utils/three-helpers.js'
 import PlayerBox from '../classes/PlayerBox.js'
 
 const characterSize = 50
 const outlineSize = characterSize * 0.05
-
 const colliders = []
 
 const raycaster = new THREE.Raycaster()
@@ -33,7 +33,7 @@ controls.target.copy(new THREE.Vector3(0, characterSize / 2, 0))
 
 /* FUNCTIONS */
 
-function addCollisionPoints(mesh) {
+function createBounds(mesh) {
   const bbox = new THREE.Box3().setFromObject(mesh)
   const bounds = {
     xMin: bbox.min.x,
@@ -43,16 +43,7 @@ function addCollisionPoints(mesh) {
     zMin: bbox.min.z,
     zMax: bbox.max.z,
   }
-  colliders.push(bounds)
-}
-
-function createFloor() {
-  const geometry = new THREE.PlaneBufferGeometry(100000, 100000)
-  const material = new THREE.MeshToonMaterial({color: 0x336633})
-  const plane = new THREE.Mesh(geometry, material)
-  plane.rotation.x = -1 * Math.PI / 2
-  plane.position.y = 0
-  return plane
+  return bounds
 }
 
 function createTree(posX, posZ) {
@@ -64,7 +55,8 @@ function createTree(posX, posZ) {
   const trunk = new THREE.Mesh(geometry, material)
   trunk.position.set(posX, ((characterSize * 1.3 * randomScale) / 2), posZ)
   trunk.scale.x = trunk.scale.y = trunk.scale.z = randomScale
-  addCollisionPoints(trunk)
+
+  colliders.push(createBounds(trunk)) // u ovom trenutku je dobar za koliziju, kasnije prevelik
 
   let outline_geo = new THREE.CylinderGeometry(characterSize / 3.5 + outlineSize, characterSize / 2.5 + outlineSize, characterSize * 1.3 + outlineSize, 8)
   let outline_mat = new THREE.MeshBasicMaterial({
@@ -89,17 +81,27 @@ function createTree(posX, posZ) {
   })
   const outlineTreeTop = new THREE.Mesh(outline_geo, outline_mat)
   treeTop.add(outlineTreeTop)
+
   return trunk
 }
 
 /* INIT */
 
-const plane = createFloor()
+const plane = createPlane()
 scene.add(plane)
-scene.add(createTree(300, 300))
-scene.add(createTree(800, -300))
-scene.add(createTree(-300, 800))
-scene.add(createTree(-800, -800))
+
+const tree1 = createTree(300, 300)
+const tree2 = createTree(800, -300)
+const tree3 = createTree(-300, 800)
+const tree4 = createTree(-800, -800)
+scene.add(tree1)
+scene.add(tree2)
+scene.add(tree3)
+scene.add(tree4)
+// addCollisionPoints(tree1)
+// addCollisionPoints(tree2)
+// addCollisionPoints(tree3)
+// addCollisionPoints(tree4)
 
 void function animate() {
   requestAnimationFrame(animate)

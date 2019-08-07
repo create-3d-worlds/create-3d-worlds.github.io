@@ -19,6 +19,15 @@ export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
   return floor
 }
 
+export function createPlane() {
+  const geometry = new THREE.PlaneBufferGeometry(100000, 100000)
+  const material = new THREE.MeshToonMaterial({ color: 0x336633 })
+  const plane = new THREE.Mesh(geometry, material)
+  plane.rotation.x = -1 * Math.PI / 2
+  plane.position.y = 0
+  return plane
+}
+
 export function createBox(z = 0, x = 0, size = 1, file, color = 0xff0000) {
   size = size < 0.5 ? 0.5 : size // eslint-disable-line
   const geometry = new THREE.BoxGeometry(size, size, size)
@@ -31,7 +40,7 @@ export function createBox(z = 0, x = 0, size = 1, file, color = 0xff0000) {
   return cube
 }
 
-export function createPlayerBox(size) {
+export function createSketchBox(size) {
   const outlineSize = size * 0.05
   const geometry = new THREE.BoxBufferGeometry(size, size, size)
   const material = new THREE.MeshPhongMaterial({ color: 0x22dd88 })
@@ -78,6 +87,43 @@ export function createTree(x, z, height = 50) {
   crown.position.y = height + height / 10
   tree.add(crown)
   return tree
+}
+
+export function createSketchTree(posX, posZ, size) {
+  const outlineSize = size * 0.05
+  const randomScale = (Math.random() * 3) + 0.8
+  const randomRotateY = Math.PI / (Math.floor((Math.random() * 32) + 1))
+
+  let geometry = new THREE.CylinderGeometry(size / 3.5, size / 2.5, size * 1.3, 8)
+  let material = new THREE.MeshToonMaterial({ color: 0x664422 })
+  const trunk = new THREE.Mesh(geometry, material)
+  trunk.position.set(posX, ((size * 1.3 * randomScale) / 2), posZ)
+  trunk.scale.x = trunk.scale.y = trunk.scale.z = randomScale
+
+  let outline_geo = new THREE.CylinderGeometry(size / 3.5 + outlineSize, size / 2.5 + outlineSize, size * 1.3 + outlineSize, 8)
+  let outline_mat = new THREE.MeshBasicMaterial({
+    color: 0x0000000,
+    side: THREE.BackSide
+  })
+  const outlineTrunk = new THREE.Mesh(outline_geo, outline_mat)
+  trunk.add(outlineTrunk)
+
+  geometry = new THREE.DodecahedronGeometry(size)
+  material = new THREE.MeshToonMaterial({ color: 0x44aa44 })
+  const treeTop = new THREE.Mesh(geometry, material)
+  treeTop.position.y = size * randomScale + randomScale
+  treeTop.scale.x = treeTop.scale.y = treeTop.scale.z = randomScale
+  treeTop.rotation.y = randomRotateY
+  trunk.add(treeTop)
+
+  outline_geo = new THREE.DodecahedronGeometry(size + outlineSize)
+  outline_mat = new THREE.MeshBasicMaterial({
+    color: 0x0000000,
+    side: THREE.BackSide
+  })
+  const outlineTreeTop = new THREE.Mesh(outline_geo, outline_mat)
+  treeTop.add(outlineTreeTop)
+  return trunk
 }
 
 export function createTrees(num = 20, min = -250, max = 250, height = 50) {

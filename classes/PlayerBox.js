@@ -1,12 +1,12 @@
 import { isCollide } from '../utils/helpers.js'
-import { createPlayerBox } from '../utils/three-helpers.js'
+import { createSketchBox } from '../utils/three-helpers.js'
 
 const playerSpeed = 5
 
 export default class PlayerBox {
   constructor(size) {
     this.movements = []
-    this.mesh = createPlayerBox(size)
+    this.mesh = createSketchBox(size)
   }
 
   detectCollisions(colliders) {
