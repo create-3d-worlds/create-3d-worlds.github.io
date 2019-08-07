@@ -64,4 +64,9 @@ export default class PlayerBox {
   add(obj) {
     this.mesh.add(obj)
   }
+
+  update(solids) {
+    if (this.movements.length > 0) this.move()
+    this.detectCollisions(solids)
+  }
 }

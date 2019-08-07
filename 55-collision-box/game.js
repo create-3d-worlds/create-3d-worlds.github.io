@@ -47,15 +47,14 @@ solids.push(tree1.bounds, tree2.bounds, tree3.bounds, tree4.bounds)
 
 void function animate() {
   requestAnimationFrame(animate)
-  if (player.movements.length > 0) player.move()
+  player.update(solids)
   if (camera.position.y < 10) camera.position.y = 10
-  player.detectCollisions(solids)
   renderer.render(scene, camera)
 }()
 
 /* EVENTS */
 
-function handleMouseDown(event) {
+function updateRaycast(event) {
   event.preventDefault()
   player.movements = []
 
@@ -67,4 +66,4 @@ function handleMouseDown(event) {
   if (intersects.length > 0) player.movements.push(intersects[0].point)
 }
 
-document.addEventListener('mousedown', handleMouseDown)
+document.addEventListener('mousedown', updateRaycast)
