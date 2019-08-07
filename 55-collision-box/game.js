@@ -1,22 +1,8 @@
 import { scene, renderer, camera } from '../utils/three-scene.js'
+import { createPlayerBox } from '../utils/three-helpers.js'
 
 const characterSize = 50
 const outlineSize = characterSize * 0.05
-
-function createPlayerBox(size = 50) {
-  const outlineSize = size * 0.05
-  const geometry = new THREE.BoxBufferGeometry(size, size, size)
-  const material = new THREE.MeshPhongMaterial({ color: 0x22dd88 })
-  const player = new THREE.Mesh(geometry, material)
-  player.position.y = size / 2
-
-  const outline_geo = new THREE.BoxGeometry(size + outlineSize, size + outlineSize, size + outlineSize)
-  const outline_mat = new THREE.MeshBasicMaterial({ color: 0x0000000, side: THREE.BackSide })
-  const outline = new THREE.Mesh(outline_geo, outline_mat)
-  player.add(outline)
-
-  return player
-}
 
 const colliders = []
 
