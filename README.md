@@ -20,12 +20,13 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [x] prikazati polozaj igraca na mapi
 - [x] omogućiti 2d kretanje kroz mapu
 - [x] omogućiti 3d kretanje kroz mapu
+- [ ] dodati skakanje
 
 ### Kamere
 
 - [x] dodati kameru iz prvog lica (fps)
 - [x] dodati kameru odozgo (orbit)
-- [ ] menjati kamere
+- [ ] menjati kamere na taster
 
 ### Kolizija
 
@@ -37,14 +38,11 @@ Repo: https://github.com/mudroljub/create-rpg-game
 ### Prodecuralna geometrija
 
 - [x] napraviti tlo
-- [ ] dodati koliziju na tlo
-  - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-how-to-use-a-raycaster
-  - https://steemit.com/utopian-io/@clayjohn/learning-3d-graphics-with-three-js-or-raycasting-part-2
+- [x] dodati koliziju na tlo
 - [ ] dodati osnovnu geometriju
   - [ ] dodati okruzenje (drveće, nebo, zgrade)
   - [ ] dodati neke oblike (sanduke i slicno)
 - [ ] proceduralno kreirati okruženje
-- pogledati:
   - https://github.com/IceCreamYou/THREE.Terrain
   - https://codepen.io/al-ro/pen/jJJygQ
   - https://subscription.packtpub.com/book/web_development/9781783980864/5/ch05lvl1sec34/creating-a-3d-terrain-from-scratch
