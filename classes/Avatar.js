@@ -38,7 +38,8 @@ export default class Avatar {
 
   checkKeys(delta, solids) {
     if (!keyboard.totalPressed) return
-    const angle = Math.PI / 2 * delta // 90 degrees per second
+
+    const angle = Math.PI / 2 * delta
     if (pressed.ArrowLeft) this.mesh.rotateY(angle)
     if (pressed.ArrowRight) this.mesh.rotateY(-angle)
 
@@ -51,17 +52,18 @@ export default class Avatar {
     if (pressed.KeyD) this.mesh.translateX(distance)
   }
 
-  chosseRaycastVector() {
+  chooseRaycastVector() {
     // TODO: dodati zrak za medjuuglove, kada su pritisnute dve tipke
     if (pressed.KeyW || pressed.ArrowUp) return new THREE.Vector3(0, 0, -1)
     if (pressed.KeyS || pressed.ArrowDown) return new THREE.Vector3(0, 0, 1)
     if (pressed.KeyA) return new THREE.Vector3(-1, 0, 0)
     if (pressed.KeyD) return new THREE.Vector3(1, 0, 0)
-    return new THREE.Vector3(0, -1, 0) // po defaultu ide dole, tlo nema koliziju
+    return null
   }
 
   isCollide(objects) {
-    const vec = this.chosseRaycastVector()
+    const vec = this.chooseRaycastVector()
+    if (!vec) return false
     const direction = vec.applyQuaternion(this.mesh.quaternion)
     const raycaster = new THREE.Raycaster(this.position, direction, 0, size * this.scale)
     const intersections = raycaster.intersectObjects(objects, true)
@@ -96,8 +98,10 @@ export default class Avatar {
     if (intersects[0]) this.position.y = intersects[0].point.y + size * this.scale
   }
 
-  // @param solids: array of meshes (optional)
-  // @param terrain: mesh (optional)
+  /* 
+    @param solids: array of meshes (optional)
+    @param terrain: mesh (optional)
+  */
   update(delta, solids, terrain) {
     this.checkKeys(delta, solids, terrain)
     if (terrain) this.updatePositionY(terrain)
