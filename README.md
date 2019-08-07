@@ -39,9 +39,9 @@ Repo: https://github.com/mudroljub/create-rpg-game
 
 - [x] napraviti tlo
 - [x] dodati koliziju na tlo
-- [ ] dodati osnovnu geometriju
+- [x] dodati osnovnu geometriju
   - [ ] dodati okruzenje (drveće, nebo, zgrade)
-  - [ ] dodati neke oblike (sanduke i slicno)
+  - [ ] dodati neke stvari (sanduke i slicno)
 - [ ] proceduralno kreirati okruženje
   - https://github.com/IceCreamYou/THREE.Terrain
   - https://codepen.io/al-ro/pen/jJJygQ
