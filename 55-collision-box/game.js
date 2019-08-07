@@ -1,6 +1,27 @@
-/* Metod kolizije: rucno pravljenje box-a drveca i rucna provera sudara (isCollide) */
+import { scene, renderer, camera } from '../utils/3d-scene.js'
+
 const characterSize = 50
 const outlineSize = characterSize * 0.05
+
+const playerCentre = new THREE.Object3D()
+playerCentre.position.set(0, 0, 0)
+scene.add(playerCentre)
+
+function createPlayerBox(size = 50) {
+  const outlineSize = size * 0.05
+  const geometry = new THREE.BoxBufferGeometry(size, size, size)
+  const material = new THREE.MeshPhongMaterial({ color: 0x22dd88 })
+  const player = new THREE.Mesh(geometry, material)
+  player.position.y = size / 2
+  playerCentre.add(player)
+
+  const outline_geo = new THREE.BoxGeometry(size + outlineSize, size + outlineSize, size + outlineSize)
+  const outline_mat = new THREE.MeshBasicMaterial({ color: 0x0000000, side: THREE.BackSide })
+  const outline = new THREE.Mesh(outline_geo, outline_mat)
+  player.add(outline)
+
+  return player
+}
 
 const colliders = []
 
@@ -13,7 +34,6 @@ const playerSpeed = 5
 const container = document.createElement('div')
 document.body.appendChild(container)
 
-const scene = new THREE.Scene()
 scene.background = new THREE.Color(0xccddff)
 scene.fog = new THREE.Fog(0xccddff, 500, 2000)
 
@@ -23,33 +43,13 @@ scene.add(ambient)
 const hemisphereLight = new THREE.HemisphereLight(0xdddddd, 0x000000, 0.5)
 scene.add(hemisphereLight)
 
-const playerCentre = new THREE.Object3D()
-playerCentre.position.set(0, 0, 0)
-scene.add(playerCentre)
+const player = createPlayerBox(characterSize)
 
-const geometry = new THREE.BoxBufferGeometry(characterSize, characterSize, characterSize)
-const material = new THREE.MeshPhongMaterial({ color: 0x22dd88 })
-const player = new THREE.Mesh(geometry, material)
-player.position.y = characterSize / 2
-playerCentre.add(player)
-
-const outline_geo = new THREE.BoxGeometry(characterSize + outlineSize, characterSize + outlineSize, characterSize + outlineSize)
-const outline_mat = new THREE.MeshBasicMaterial({ color : 0x0000000, side: THREE.BackSide })
-const outline = new THREE.Mesh(outline_geo, outline_mat)
-player.add(outline)
-
-const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 20000)
 camera.position.z = -300
 camera.position.y = 200
 player.add(camera)
 
-const renderer = new THREE.WebGLRenderer({ antialias: true })
-
-const element = renderer.domElement
-renderer.setSize(window.innerWidth, window.innerHeight)
-container.appendChild(element)
-
-const controls = new THREE.OrbitControls(camera, element)
+const controls = new THREE.OrbitControls(camera, renderer.domElement)
 controls.enablePan = true
 controls.enableZoom = true
 controls.maxDistance = 1000
