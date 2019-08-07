@@ -1,10 +1,9 @@
 import { scene, renderer, camera } from '../utils/three-scene.js'
-import { createPlane } from '../utils/three-helpers.js'
+import { createPlane, createSketchTree } from '../utils/three-helpers.js'
 import PlayerBox from '../classes/PlayerBox.js'
 
 const characterSize = 50
-const outlineSize = characterSize * 0.05
-const colliders = []
+const solids = []
 
 const raycaster = new THREE.Raycaster()
 const mouse = new THREE.Vector2()
@@ -31,83 +30,26 @@ controls.maxDistance = 1000
 controls.minDistance = 60
 controls.target.copy(new THREE.Vector3(0, characterSize / 2, 0))
 
-/* FUNCTIONS */
-
-function createBounds(mesh) {
-  const bbox = new THREE.Box3().setFromObject(mesh)
-  const bounds = {
-    xMin: bbox.min.x,
-    xMax: bbox.max.x,
-    yMin: bbox.min.y,
-    yMax: bbox.max.y,
-    zMin: bbox.min.z,
-    zMax: bbox.max.z,
-  }
-  return bounds
-}
-
-function createTree(posX, posZ) {
-  const randomScale = (Math.random() * 3) + 0.8
-  const randomRotateY = Math.PI / (Math.floor((Math.random() * 32) + 1))
-
-  let geometry = new THREE.CylinderGeometry(characterSize / 3.5, characterSize / 2.5, characterSize * 1.3, 8)
-  let material = new THREE.MeshToonMaterial({color: 0x664422})
-  const trunk = new THREE.Mesh(geometry, material)
-  trunk.position.set(posX, ((characterSize * 1.3 * randomScale) / 2), posZ)
-  trunk.scale.x = trunk.scale.y = trunk.scale.z = randomScale
-
-  colliders.push(createBounds(trunk)) // u ovom trenutku je dobar za koliziju, kasnije prevelik
-
-  let outline_geo = new THREE.CylinderGeometry(characterSize / 3.5 + outlineSize, characterSize / 2.5 + outlineSize, characterSize * 1.3 + outlineSize, 8)
-  let outline_mat = new THREE.MeshBasicMaterial({
-    color : 0x0000000,
-    side: THREE.BackSide
-  })
-  const outlineTrunk = new THREE.Mesh(outline_geo, outline_mat)
-  trunk.add(outlineTrunk)
-
-  geometry = new THREE.DodecahedronGeometry(characterSize)
-  material = new THREE.MeshToonMaterial({ color: 0x44aa44 })
-  const treeTop = new THREE.Mesh(geometry, material)
-  treeTop.position.y = characterSize * randomScale + randomScale
-  treeTop.scale.x = treeTop.scale.y = treeTop.scale.z = randomScale
-  treeTop.rotation.y = randomRotateY
-  trunk.add(treeTop)
-
-  outline_geo = new THREE.DodecahedronGeometry(characterSize + outlineSize)
-  outline_mat = new THREE.MeshBasicMaterial({
-    color : 0x0000000,
-    side: THREE.BackSide
-  })
-  const outlineTreeTop = new THREE.Mesh(outline_geo, outline_mat)
-  treeTop.add(outlineTreeTop)
-
-  return trunk
-}
-
-/* INIT */
-
 const plane = createPlane()
 scene.add(plane)
 
-const tree1 = createTree(300, 300)
-const tree2 = createTree(800, -300)
-const tree3 = createTree(-300, 800)
-const tree4 = createTree(-800, -800)
-scene.add(tree1)
-scene.add(tree2)
-scene.add(tree3)
-scene.add(tree4)
-// addCollisionPoints(tree1)
-// addCollisionPoints(tree2)
-// addCollisionPoints(tree3)
-// addCollisionPoints(tree4)
+const tree1 = createSketchTree(300, 300, characterSize)
+const tree2 = createSketchTree(800, -300, characterSize)
+const tree3 = createSketchTree(-300, 800, characterSize)
+const tree4 = createSketchTree(-800, -800, characterSize)
+scene.add(tree1.trunk)
+scene.add(tree2.trunk)
+scene.add(tree3.trunk)
+scene.add(tree4.trunk)
+solids.push(tree1.bounds, tree2.bounds, tree3.bounds, tree4.bounds)
+
+/* INIT */
 
 void function animate() {
   requestAnimationFrame(animate)
   if (player.movements.length > 0) player.move()
   if (camera.position.y < 10) camera.position.y = 10
-  player.detectCollisions(colliders)
+  player.detectCollisions(solids)
   renderer.render(scene, camera)
 }()
 

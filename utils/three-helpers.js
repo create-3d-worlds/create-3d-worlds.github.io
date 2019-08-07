@@ -1,11 +1,24 @@
 import {randomInRange} from './helpers.js'
-const {PI, random} = Math
+const {PI, random, floor} = Math
 
 const loader = new THREE.TextureLoader()
 const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 
 const randomColor = (h = 0.05, s = 0.75, l = 0.5) =>
   new THREE.Color().setHSL(random() * 0.3 + h, s, random() * 0.25 + l)
+
+function createBounds(mesh) {
+  const bbox = new THREE.Box3().setFromObject(mesh)
+  const bounds = {
+    xMin: bbox.min.x,
+    xMax: bbox.max.x,
+    yMin: bbox.min.y,
+    yMax: bbox.max.y,
+    zMin: bbox.min.z,
+    zMax: bbox.max.z,
+  }
+  return bounds
+}
 
 export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
   const texture = loader.load(`../assets/textures/${file}`)
@@ -23,7 +36,7 @@ export function createPlane() {
   const geometry = new THREE.PlaneBufferGeometry(100000, 100000)
   const material = new THREE.MeshToonMaterial({ color: 0x336633 })
   const plane = new THREE.Mesh(geometry, material)
-  plane.rotation.x = -1 * Math.PI / 2
+  plane.rotation.x = -1 * PI / 2
   plane.position.y = 0
   return plane
 }
@@ -91,14 +104,15 @@ export function createTree(x, z, height = 50) {
 
 export function createSketchTree(posX, posZ, size) {
   const outlineSize = size * 0.05
-  const randomScale = (Math.random() * 3) + 0.8
-  const randomRotateY = Math.PI / (Math.floor((Math.random() * 32) + 1))
+  const randomScale = (random() * 3) + 0.8
+  const randomRotateY = PI / (floor((random() * 32) + 1))
 
   let geometry = new THREE.CylinderGeometry(size / 3.5, size / 2.5, size * 1.3, 8)
   let material = new THREE.MeshToonMaterial({ color: 0x664422 })
   const trunk = new THREE.Mesh(geometry, material)
   trunk.position.set(posX, ((size * 1.3 * randomScale) / 2), posZ)
   trunk.scale.x = trunk.scale.y = trunk.scale.z = randomScale
+  const bounds = createBounds(trunk) // bounds of trunk, without treeTop
 
   let outline_geo = new THREE.CylinderGeometry(size / 3.5 + outlineSize, size / 2.5 + outlineSize, size * 1.3 + outlineSize, 8)
   let outline_mat = new THREE.MeshBasicMaterial({
@@ -123,7 +137,7 @@ export function createSketchTree(posX, posZ, size) {
   })
   const outlineTreeTop = new THREE.Mesh(outline_geo, outline_mat)
   treeTop.add(outlineTreeTop)
-  return trunk
+  return {trunk, bounds}
 }
 
 export function createTrees(num = 20, min = -250, max = 250, height = 50) {
