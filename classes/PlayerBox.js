@@ -67,13 +67,12 @@ export default class PlayerBox {
 
     const x = e.clientX / window.innerWidth * 2 - 1
     const y = -e.clientY / window.innerHeight * 2 + 1
-  
+
     const camera = this.mesh.children.find(x => x.type == 'PerspectiveCamera')
     raycaster.setFromCamera({x, y}, camera)
     const intersects = raycaster.intersectObjects([this.plane]) // must be array
     if (intersects.length > 0) this.movements.push(intersects[0].point)
   }
-  
 
   update(solids) {
     if (this.movements.length > 0) this.move()
