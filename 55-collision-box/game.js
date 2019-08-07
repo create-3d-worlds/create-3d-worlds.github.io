@@ -15,12 +15,14 @@ scene.add(hemisphereLight)
 camera.position.z = -200
 camera.position.y = 100
 player.add(camera)
+
 createOrbitControls()
 
-const plane = createPlane()
-scene.add(plane)
 const trees = createSketchTrees()
 scene.add(trees.group)
+const plane = createPlane()
+scene.add(plane)
+player.plane = plane
 
 /* INIT */
 
@@ -29,20 +31,3 @@ void function animate() {
   player.update(trees.solids)
   renderer.render(scene, camera)
 }()
-
-/* EVENTS */
-
-function updateRaycast(e) {
-  e.preventDefault()
-  const raycaster = new THREE.Raycaster()
-  player.movements = []
-
-  const x = e.clientX / renderer.domElement.clientWidth * 2 - 1
-  const y = -e.clientY / renderer.domElement.clientHeight * 2 + 1
-
-  raycaster.setFromCamera({x, y}, camera)
-  const intersects = raycaster.intersectObjects([plane]) // must be array
-  if (intersects.length > 0) player.movements.push(intersects[0].point)
-}
-
-document.addEventListener('mousedown', updateRaycast)
