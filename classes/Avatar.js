@@ -52,7 +52,7 @@ export default class Avatar {
     if (pressed.KeyS || pressed.ArrowDown) this.mesh.translateZ(distance)
     if (pressed.KeyA) this.mesh.translateX(-distance)
     if (pressed.KeyD) this.mesh.translateX(distance)
-    if (pressed.Space) this.jump(distance * 30)
+    if (pressed.Space) this.jump(distance * 20)
   }
 
   chooseRaycastVector() {
@@ -129,6 +129,7 @@ export default class Avatar {
     jumpUp.start()
   }
 
+  /* solids and terrain are optional */
   update(delta, solids, terrain) {
     this.checkKeys(delta, solids)
     if (terrain) this.checkGround([terrain, ...solids])
