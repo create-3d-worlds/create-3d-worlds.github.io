@@ -26,7 +26,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
 
 - [x] dodati kameru iz prvog lica (fps)
 - [x] dodati kameru odozgo (orbit)
-- [ ] menjati kamere na taster
+- [x] menjati kamere na taster
 
 ### Kolizija
 
