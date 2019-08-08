@@ -50,6 +50,7 @@ export default class Avatar {
     if (pressed.KeyS || pressed.ArrowDown) this.mesh.translateZ(distance)
     if (pressed.KeyA) this.mesh.translateX(-distance)
     if (pressed.KeyD) this.mesh.translateX(distance)
+    if (pressed.Space) this.mesh.translateY(distance)
   }
 
   chooseRaycastVector() {
@@ -58,6 +59,7 @@ export default class Avatar {
     if (pressed.KeyS || pressed.ArrowDown) return new THREE.Vector3(0, 0, 1)
     if (pressed.KeyA) return new THREE.Vector3(-1, 0, 0)
     if (pressed.KeyD) return new THREE.Vector3(1, 0, 0)
+    if (pressed.Space) return new THREE.Vector3(0, 1, 0)
     return null
   }
 
@@ -92,13 +94,14 @@ export default class Avatar {
   }
 
   updatePositionY(terrain) {
+    if (pressed.Space) return
     const raycaster = new THREE.Raycaster()
     raycaster.set(this.position, new THREE.Vector3(0, -1, 0))
     const intersects = raycaster.intersectObject(terrain)
     if (intersects[0]) this.position.y = intersects[0].point.y + size * this.scale
   }
 
-  /* 
+  /*
     @param solids: array of meshes (optional)
     @param terrain: mesh (optional)
   */
