@@ -12,6 +12,7 @@ export default class Avatar {
     this.createMesh()
     this.mesh.scale.set(scale, scale, scale)
     this.position.set(x, size * scale, z)
+    this.jumping = false
   }
 
   createMesh() {
@@ -51,7 +52,7 @@ export default class Avatar {
     if (pressed.KeyS || pressed.ArrowDown) this.mesh.translateZ(distance)
     if (pressed.KeyA) this.mesh.translateX(-distance)
     if (pressed.KeyD) this.mesh.translateX(distance)
-    if (pressed.Space) this.jump(distance * 20)
+    if (pressed.Space) this.jump(distance * 30)
   }
 
   chooseRaycastVector() {
@@ -95,7 +96,6 @@ export default class Avatar {
   }
 
   checkGround(terrain) {
-    // if (jumping) return
     const raycaster = new THREE.Raycaster()
     raycaster.set(this.position, new THREE.Vector3(0, -1, 0))
     const intersects = raycaster.intersectObjects(terrain)
@@ -103,24 +103,26 @@ export default class Avatar {
   }
 
   jump(distance) {
+    if (this.jumping) return
+    const time = 300
     const up = { y: this.position.y + distance }
     const down = { y: this.position.y }
     const current = { y: this.position.y }
-    // jumping = true
+    this.jumping = true
 
     const jumpUp = new TWEEN.Tween(current)
-      .to(up, 200)
+      .to(up, time)
       .onUpdate(() => {
         this.position.y = current.y
       })
 
     const jumpDown = new TWEEN.Tween(current)
-      .to(down, 200)
+      .to(down, time)
       .onUpdate(() => {
         this.position.y = current.y
       })
       .onComplete(() => {
-        // jumping = false
+        this.jumping = false
       })
 
     jumpUp.chain(jumpDown)
