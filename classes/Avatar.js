@@ -14,7 +14,6 @@ export default class Avatar {
     this.position.set(x, size * scale, z)
   }
 
-  // separate helper
   createMesh() {
     const texture = new THREE.MeshNormalMaterial()
     const body = new THREE.SphereGeometry(size * 2 / 3)
@@ -65,17 +64,13 @@ export default class Avatar {
     return null
   }
 
-  getIntersections(objects) {
+  isCollide(solids) {
     const vector = this.chooseRaycastVector()
-    if (!vector) return null
+    if (!vector) return false
     const direction = vector.applyQuaternion(this.mesh.quaternion)
     const raycaster = new THREE.Raycaster(this.position, direction, 0, size * this.scale)
-    return raycaster.intersectObjects(objects, true)
-  }
-
-  isCollide(objects) {
-    const intersections = this.getIntersections(objects)
-    return intersections && intersections.length > 0
+    const intersections = raycaster.intersectObjects(solids, true)
+    return intersections.length > 0
   }
 
   add(child) {
@@ -135,7 +130,7 @@ export default class Avatar {
   update(delta, solids, terrain) {
     this.checkKeys(delta, solids)
     if (terrain) this.checkGround([terrain, ...solids])
-    // this.animate()
+    this.animate()
     TWEEN.update()
   }
 }
