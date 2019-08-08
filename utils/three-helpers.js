@@ -4,7 +4,7 @@ const {PI, random, floor} = Math
 const loader = new THREE.TextureLoader()
 const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 
-const randomColor = (h = 0.05, s = 0.75, l = 0.5) =>
+const randomColor = (h = 0.1, s = 0.75, l = 0.5) =>
   new THREE.Color().setHSL(random() * 0.3 + h, s, random() * 0.25 + l)
 
 export function createBounds(mesh) {
@@ -160,7 +160,7 @@ export function createSketchTrees(num = 10, min = -800, max = 800, size = 50) {
 }
 
 export function createTerrain() {
-  const geometry = new THREE.PlaneGeometry(1000, 1000, 100, 100)
+  const geometry = new THREE.PlaneGeometry(1000, 1000, 50, 50)
   geometry.rotateX(- PI / 2)
   geometry.vertices.forEach(vertex => {
     vertex.x += randomInRange(-10, 10)
