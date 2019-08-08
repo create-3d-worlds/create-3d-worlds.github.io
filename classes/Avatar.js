@@ -65,13 +65,17 @@ export default class Avatar {
     return null
   }
 
-  isCollide(objects) {
-    const vec = this.chooseRaycastVector()
-    if (!vec) return false
-    const direction = vec.applyQuaternion(this.mesh.quaternion)
+  getIntersections(objects) {
+    const vector = this.chooseRaycastVector()
+    if (!vector) return null
+    const direction = vector.applyQuaternion(this.mesh.quaternion)
     const raycaster = new THREE.Raycaster(this.position, direction, 0, size * this.scale)
-    const intersections = raycaster.intersectObjects(objects, true)
-    return intersections.length > 0
+    return raycaster.intersectObjects(objects, true)
+  }
+
+  isCollide(objects) {
+    const intersections = this.getIntersections(objects)
+    return intersections && intersections.length > 0
   }
 
   add(child) {
