@@ -160,7 +160,7 @@ export function createSketchTrees(num = 10, min = -800, max = 800, size = 50) {
 }
 
 export function createTerrain() {
-  const geometry = new THREE.PlaneGeometry(2000, 2000, 100, 100)
+  const geometry = new THREE.PlaneGeometry(1000, 1000, 100, 100)
   geometry.rotateX(- PI / 2)
   geometry.vertices.forEach(vertex => {
     vertex.x += randomInRange(-10, 10)
@@ -174,7 +174,7 @@ export function createTerrain() {
   return new THREE.Mesh(geometry, material)
 }
 
-export function createRandomBoxes(boxNum = 500, size = 20) {
+export function createRandomBoxes(boxNum = 100, size = 20) {
   const group = new THREE.Group()
   const geometry = new THREE.BoxGeometry(size, size, size)
   for (let i = 0; i < boxNum; i++) {
@@ -182,7 +182,7 @@ export function createRandomBoxes(boxNum = 500, size = 20) {
     material.color = randomColor(0.1, 0.01, .75)
     const box = new THREE.Mesh(geometry, material)
     box.position.x = randomInRange(-200, 200)
-    box.position.y = randomInRange(-5, 400)
+    box.position.y = randomInRange(-5, 100)
     box.position.z = randomInRange(-200, 200)
     group.add(box)
   }

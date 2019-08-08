@@ -8,7 +8,7 @@ export default class PlayerBox {
     this.movements = []
     this.mesh = createSketchBox(size)
     this.checkMovement = this.checkMovement.bind(this)
-    document.addEventListener('mousedown', this.checkMovement)
+    document.addEventListener('mouseup', this.checkMovement)
   }
 
   add(obj) {
