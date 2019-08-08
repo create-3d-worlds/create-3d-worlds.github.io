@@ -1,3 +1,4 @@
+/* global TWEEN */
 import {clock} from '../utils/three-scene.js'
 import keyboard from '../classes/Keyboard.js'
 const {pressed} = keyboard
@@ -13,6 +14,7 @@ export default class Avatar {
     this.position.set(x, size * scale, z)
   }
 
+  // separate helper
   createMesh() {
     const texture = new THREE.MeshNormalMaterial()
     const body = new THREE.SphereGeometry(size * 2 / 3)
@@ -50,7 +52,7 @@ export default class Avatar {
     if (pressed.KeyS || pressed.ArrowDown) this.mesh.translateZ(distance)
     if (pressed.KeyA) this.mesh.translateX(-distance)
     if (pressed.KeyD) this.mesh.translateX(distance)
-    if (pressed.Space) this.mesh.translateY(distance)
+    if (pressed.Space) this.jump(distance * 20)
   }
 
   chooseRaycastVector() {
@@ -93,12 +95,37 @@ export default class Avatar {
     this.rightLeg.position.z = elapsed
   }
 
-  updatePositionY(terrain) {
-    if (pressed.Space) return
+  backToEarth(terrain) {
+    // if (jumping) return
     const raycaster = new THREE.Raycaster()
     raycaster.set(this.position, new THREE.Vector3(0, -1, 0))
     const intersects = raycaster.intersectObject(terrain)
     if (intersects[0]) this.position.y = intersects[0].point.y + size * this.scale
+  }
+
+  jump(distance) {
+    const up = { y: this.position.y + distance }
+    const down = { y: this.position.y }
+    const current = { y: this.position.y }
+    // jumping = true
+
+    const jumpUp = new TWEEN.Tween(current)
+      .to(up, 200)
+      .onUpdate(() => {
+        this.position.y = current.y
+      })
+
+    const jumpDown = new TWEEN.Tween(current)
+      .to(down, 200)
+      .onUpdate(() => {
+        this.position.y = current.y
+      })
+      .onComplete(() => {
+        // jumping = false
+      })
+
+    jumpUp.chain(jumpDown)
+    jumpUp.start()
   }
 
   /*
@@ -107,7 +134,8 @@ export default class Avatar {
   */
   update(delta, solids, terrain) {
     this.checkKeys(delta, solids, terrain)
-    if (terrain) this.updatePositionY(terrain)
-    this.animate()
+    if (terrain) this.backToEarth(terrain)
+    // this.animate()
+    TWEEN.update()
   }
 }
