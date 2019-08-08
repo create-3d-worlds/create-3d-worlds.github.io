@@ -1,7 +1,10 @@
-import { scene, renderer, camera } from '../utils/three-scene.js'
+import { scene, renderer } from '../utils/three-scene.js'
+import { createTrees, createFloor } from '../utils/three-helpers.js'
 import keyboard from '../classes/Keyboard.js'
 
 let chaseCameraActive = false
+scene.add(createFloor(500, 500, 'ground.jpg'))
+scene.add(createTrees())
 
 const VIEW_ANGLE = 45,
   ASPECT = window.innerWidth / window.innerHeight,
@@ -20,36 +23,11 @@ scene.add(chaseCamera)
 const light = new THREE.PointLight(0xffffff)
 scene.add(light)
 
-const floorMaterial = new THREE.MeshBasicMaterial({
-  side: THREE.DoubleSide
-})
-const floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10)
-const floor = new THREE.Mesh(floorGeometry, floorMaterial)
-floor.rotation.x = Math.PI / 2
-scene.add(floor)
-
 // create cube
 const geometry = new THREE.CubeGeometry(1, 1, 1)
 const material = new THREE.MeshBasicMaterial()
 const cube = new THREE.Mesh(geometry, material)
 scene.add(cube)
-
-// torus knot
-let colorMaterial = new THREE.MeshPhongMaterial({
-  color: 0xff3333
-})
-let shape = THREE.SceneUtils.createMultiMaterialObject(
-  new THREE.TorusKnotGeometry(30, 6, 160, 10, 2, 5), [colorMaterial, material])
-shape.position.set(-200, 50, -200)
-scene.add(shape)
-// torus knot
-colorMaterial = new THREE.MeshPhongMaterial({
-  color: 0x33ff33
-})
-shape = THREE.SceneUtils.createMultiMaterialObject(
-  new THREE.TorusKnotGeometry(30, 6, 160, 10, 3, 2), [colorMaterial, material])
-shape.position.set(200, 50, -200)
-scene.add(shape)
 
 /* FUNCTIONS */
 
