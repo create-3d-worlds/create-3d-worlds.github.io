@@ -20,7 +20,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [x] prikazati polozaj igraca na mapi
 - [x] omogućiti 2d kretanje kroz mapu
 - [x] omogućiti 3d kretanje kroz mapu
-- [ ] dodati skakanje
+- [x] dodati skakanje
 
 ### Kamere
 
