@@ -99,11 +99,11 @@ export default class Avatar {
     this.rightLeg.position.z = elapsed
   }
 
-  backToEarth(terrain) {
+  checkGround(terrain) {
     // if (jumping) return
     const raycaster = new THREE.Raycaster()
     raycaster.set(this.position, new THREE.Vector3(0, -1, 0))
-    const intersects = raycaster.intersectObject(terrain)
+    const intersects = raycaster.intersectObjects(terrain)
     if (intersects[0]) this.position.y = intersects[0].point.y + size * this.scale
   }
 
@@ -132,13 +132,9 @@ export default class Avatar {
     jumpUp.start()
   }
 
-  /*
-    @param solids: array of meshes (optional)
-    @param terrain: mesh (optional)
-  */
   update(delta, solids, terrain) {
-    this.checkKeys(delta, solids, terrain)
-    if (terrain) this.backToEarth(terrain)
+    this.checkKeys(delta, solids)
+    if (terrain) this.checkGround([terrain, ...solids])
     // this.animate()
     TWEEN.update()
   }
