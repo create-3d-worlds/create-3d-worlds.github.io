@@ -4,7 +4,7 @@ const rows = 10
 const brickInWall = 24  // ne sme mnogo zbog rekurzije
 const brickSize = 10.2
 const wallWidth = brickSize * brickInWall
-const towerRadius = 25
+const towerRadius = 15
 const towers = [
   [0, 0],
   [0, wallWidth],
@@ -36,10 +36,9 @@ function addFourBlocks(x, y) {
 
 function buildRow(y, x) {
   if (x > wallWidth + 1) return
-  if (y > brickSize * (rows - 1)) { // if upper row
-    if (isEven(x)) addFourBlocks(x, y)
-  } else
+  if (y < brickSize * (rows - 1))
     addFourBlocks(x, y)
+  else if (isEven(x)) addFourBlocks(x, y)
   buildRow(y, x + brickSize)
 }
 
