@@ -39,8 +39,11 @@ function createWall(startX, startZ) {
 
 /* INIT **/
 
-scene.add(createWall(-10, 0))
-scene.add(createWall(10, 10))
+var axesHelper = new THREE.AxesHelper(10);
+scene.add( axesHelper );
+
+scene.add(createWall(0, -wallWidth / 2))
+scene.add(createWall(0, wallWidth / 2))
 
 void function update() {
   window.requestAnimationFrame(update)
