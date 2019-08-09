@@ -43,6 +43,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
   - [ ] dodati okruzenje (drveće, nebo, zgrade)
   - [ ] dodati neke stvari (sanduke i slicno)
 - [ ] proceduralno kreirati okruženje
+  - [ ] kreirati stepenice u krug od kocki
   - https://github.com/IceCreamYou/THREE.Terrain
   - https://codepen.io/al-ro/pen/jJJygQ
   - https://subscription.packtpub.com/book/web_development/9781783980864/5/ch05lvl1sec34/creating-a-3d-terrain-from-scratch
@@ -93,6 +94,7 @@ scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 3
 
 ## Resursi
 
+* [Build a basic combat game with three.js](http://www.creativebloq.com/web-design/build-basic-combat-game-threejs-101517540)
 - https://github.com/skolakoda/ucimo-threejs
 - https://github.com/skolakoda/teorija-razvoja-igara
 - https://github.com/skolakoda/ucimo-razvoj-igara
