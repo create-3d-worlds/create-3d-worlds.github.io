@@ -1,3 +1,4 @@
+import {FirstPersonControls} from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'
 const renderer = new THREE.WebGLRenderer()
 renderer.setClearColor(0xd8e7ff)
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -6,7 +7,7 @@ document.body.appendChild(renderer.domElement)
 const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 3000)
 camera.position.y = 80
 
-const controls = new THREE.FirstPersonControls(camera)
+const controls = new FirstPersonControls(camera)
 controls.movementSpeed = 20
 controls.lookSpeed = 0.05
 
@@ -29,11 +30,13 @@ function generateBuildings(num = 10000) {
   const box = new THREE.CubeGeometry(1, 1, 1)
   box.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0.5, 0))
   box.faces.splice(3, 1)
-  box.faceVertexUvs[0].splice(3, 1)
-  box.faceVertexUvs[0][2][0].set(0, 0)
-  box.faceVertexUvs[0][2][1].set(0, 0)
-  box.faceVertexUvs[0][2][2].set(0, 0)
-  box.faceVertexUvs[0][2][3].set(0, 0)
+
+  // https://stackoverflow.com/questions/51625397/three-js-undefined-vertexuv
+  // box.faceVertexUvs[0].splice(3, 1)
+  // box.faceVertexUvs[0][2][0].set(0, 0)
+  // box.faceVertexUvs[0][2][1].set(0, 0)
+  // box.faceVertexUvs[0][2][2].set(0, 0)
+  // box.faceVertexUvs[0][2][3].set(0, 0)
   const building = new THREE.Mesh(box)
 
   for (let i = 0; i < num; i++) {
@@ -56,7 +59,8 @@ function generateBuildings(num = 10000) {
       else
         geometry.faces[j].vertexColors = [top, bottom, bottom, top]
 
-    THREE.GeometryUtils.merge(city, building)
+    building.updateMatrix()
+    city.merge(building.geometry, building.matrix)
   }
   return city
 }
@@ -80,15 +84,13 @@ function generateTexture() {
   canvas2.height = 1024
   const context2 = canvas2.getContext('2d')
   context2.imageSmoothingEnabled = false
-  context2.webkitImageSmoothingEnabled = false
-  context2.mozImageSmoothingEnabled = false
   context2.drawImage(canvas, 0, 0, canvas2.width, canvas2.height)
   return canvas2
 }
 
 const city = generateBuildings(10000)
 const texture = new THREE.Texture(generateTexture())
-texture.anisotropy = renderer.getMaxAnisotropy()
+texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
 texture.needsUpdate = true
 
 const cityMesh = new THREE.Mesh(city, new THREE.MeshLambertMaterial({
