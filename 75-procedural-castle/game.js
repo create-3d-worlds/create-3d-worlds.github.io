@@ -1,9 +1,15 @@
 import { scene, camera, renderer, createOrbitControls } from '../utils/three-scene.js'
 
-const brojCigli = 20
-const brojSpratova = 13
-const razmak = 10.2
-const d = razmak * brojCigli
+const brickInWall = 20  // ne sme mnogo zbog rekurzije
+const numRows = 10
+const brickWidth = 10.2
+const wallWidth = brickWidth * brickInWall
+const towers = [
+  [0, 0],
+  [0, wallWidth],
+  [wallWidth, 0],
+  [wallWidth, wallWidth]
+]
 
 camera.position.set(55, 150, 250)
 createOrbitControls()
@@ -16,10 +22,19 @@ function createBlock(x, y, z) {
   return blok
 }
 
-function buildFloor(y, i) {
-  if (i > d + 1) return
-  ;[[i, y, 0], [i, y, d], [0, y, i], [d, y, i]].map(kord => scene.add(createBlock(...kord)))
-  buildFloor(y, i + razmak)
+function buildRow(y, x) {
+  if (x > wallWidth + 1) return
+  [
+    [x, y, 0],
+    [x, y, wallWidth],
+    [0, y, x],
+    // [wallWidth, y, x]
+  ].forEach(coord => scene.add(createBlock(...coord)))
+  if (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8)
+    scene.add(createBlock(...[wallWidth, y, x]))
+  if (y > numRows * brickWidth / 2)
+    scene.add(createBlock(...[wallWidth, y, x]))
+  buildRow(y, x + brickWidth)
 }
 
 function buildTower(x, z) {
@@ -32,16 +47,19 @@ function buildTower(x, z) {
   scene.add(krov)
 }
 
-;[[0, 0], [0, d], [d, 0], [d, d]].map(kord => buildTower(...kord))
+function buildCastle(y) {
+  if (y > brickWidth * numRows) return
+  const start = Math.floor(y / brickWidth) % 2 == 0 ? 0 : brickWidth / 2
+  buildRow(y, start)
+  buildCastle(y + brickWidth)
+}
 
 /* INIT **/
 
-void function buildCastle(y) {
-  if (y > razmak * brojSpratova) return
-  const start = Math.floor(y / razmak) % 2 == 0 ? 0 : razmak / 2
-  buildFloor(y, start)
-  buildCastle(y + razmak)
-}(0)
+buildCastle(0)
+// buildRow(0, brickWidth)
+// buildRow(10, brickWidth / 2)
+towers.forEach(coord => buildTower(...coord))
 
 void function update() {
   window.requestAnimationFrame(update)
