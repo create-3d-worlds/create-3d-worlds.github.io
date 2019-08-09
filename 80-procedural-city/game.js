@@ -1,4 +1,7 @@
 import {FirstPersonControls} from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'
+
+const clock = new THREE.Clock()
+
 const renderer = new THREE.WebGLRenderer()
 renderer.setClearColor(0xd8e7ff)
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -23,8 +26,7 @@ const plane = new THREE.Mesh(
 plane.rotation.x = -90 * Math.PI / 180
 scene.add(plane)
 
-function generateBuildings(num = 10000) {
-  const city = new THREE.Geometry()
+function createBuilding() {
   const lightColor = new THREE.Color(0xffffff)
   const shadow = new THREE.Color(0x303050)
   const box = new THREE.CubeGeometry(1, 1, 1)
@@ -39,26 +41,32 @@ function generateBuildings(num = 10000) {
   // box.faceVertexUvs[0][2][3].set(0, 0)
   const building = new THREE.Mesh(box)
 
+  const value = 1 - Math.random() * Math.random()
+  const color = new THREE.Color().setRGB(value + Math.random() * 0.1, value, value + Math.random() * 0.1)
+
+  const top = color.clone().multiply(lightColor)
+  const bottom = color.clone().multiply(shadow)
+
+  building.position.x = Math.floor(Math.random() * 200 - 100) * 10
+  building.position.z = Math.floor(Math.random() * 200 - 100) * 10
+  building.rotation.y = Math.random()
+  building.scale.x = building.scale.z = Math.random() * Math.random() * Math.random() * Math.random() * 50 + 10
+  building.scale.y = (Math.random() * Math.random() * Math.random() * building.scale.x) * 8 + 8
+
+  const {geometry} = building
+  for (let j = 0, jl = geometry.faces.length; j < jl; j++)
+    if (j === 2)
+      geometry.faces[j].vertexColors = [color, color, color, color]
+    else
+      geometry.faces[j].vertexColors = [top, bottom, bottom, top]
+
+  return building
+}
+
+function generateCity(num = 10000) {
+  const city = new THREE.Geometry()
   for (let i = 0; i < num; i++) {
-    const value = 1 - Math.random() * Math.random()
-    const color = new THREE.Color().setRGB(value + Math.random() * 0.1, value, value + Math.random() * 0.1)
-
-    const top = color.clone().multiply(lightColor)
-    const bottom = color.clone().multiply(shadow)
-
-    building.position.x = Math.floor(Math.random() * 200 - 100) * 10
-    building.position.z = Math.floor(Math.random() * 200 - 100) * 10
-    building.rotation.y = Math.random()
-    building.scale.x = building.scale.z = Math.random() * Math.random() * Math.random() * Math.random() * 50 + 10
-    building.scale.y = (Math.random() * Math.random() * Math.random() * building.scale.x) * 8 + 8
-
-    const {geometry} = building
-    for (let j = 0, jl = geometry.faces.length; j < jl; j++)
-      if (j === 2)
-        geometry.faces[j].vertexColors = [color, color, color, color]
-      else
-        geometry.faces[j].vertexColors = [top, bottom, bottom, top]
-
+    const building = createBuilding()
     building.updateMatrix()
     city.merge(building.geometry, building.matrix)
   }
@@ -88,7 +96,7 @@ function generateTexture() {
   return canvas2
 }
 
-const city = generateBuildings(10000)
+const city = generateCity(10000)
 const texture = new THREE.Texture(generateTexture())
 texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
 texture.needsUpdate = true
@@ -98,8 +106,6 @@ const cityMesh = new THREE.Mesh(city, new THREE.MeshLambertMaterial({
   vertexColors: THREE.VertexColors
 }))
 scene.add(cityMesh)
-
-const clock = new THREE.Clock()
 
 /* INIT */
 
