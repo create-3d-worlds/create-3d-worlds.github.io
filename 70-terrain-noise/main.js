@@ -1,26 +1,13 @@
 /* global noise */
-// https://github.com/josdirksen/essential-threejs/blob/master/chapter-05/05.02-3D-plane-from-scratch-perlin.html
+import { scene, camera, renderer } from '../utils/three-scene.js'
 const MAX_HEIGHT = 10
 
-const scene = new THREE.Scene()
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
-
-const renderer = new THREE.WebGLRenderer()
-renderer.setClearColor(0x000000, 1.0)
-renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.shadowMapEnabled = true
-
-camera.position.x = 100
-camera.position.y = 100
-camera.position.z = 100
+camera.position.set(100, 100, 100)
 camera.lookAt(scene.position)
 
 const spotLight = new THREE.SpotLight(0xffffff)
 spotLight.position.set(10, 300, 10)
 scene.add(spotLight)
-scene.add(new THREE.AmbientLight(0x252525))
-
-document.body.appendChild(renderer.domElement)
 
 /* FUNCTIONS */
 

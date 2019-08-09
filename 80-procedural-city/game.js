@@ -1,31 +1,25 @@
+import { scene, camera, renderer, clock } from '../utils/three-scene.js'
 import {FirstPersonControls} from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'
 // TODO: obojiti zgrade u razne boje
 
-const clock = new THREE.Clock()
-
-const renderer = new THREE.WebGLRenderer()
-renderer.setClearColor(0xd8e7ff)
-renderer.setSize(window.innerWidth, window.innerHeight)
-document.body.appendChild(renderer.domElement)
-
-const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 3000)
 camera.position.y = 80
 
 const controls = new FirstPersonControls(camera)
 controls.movementSpeed = 20
 controls.lookSpeed = 0.05
 
-const scene = new THREE.Scene()
 scene.fog = new THREE.FogExp2(0xd0e0f0, 0.0025)
 
 const light = new THREE.HemisphereLight(0xfffff0, 0x101020, 1.25)
 scene.add(light)
 
-const plane = new THREE.Mesh(
+const floor = new THREE.Mesh(
   new THREE.PlaneGeometry(2000, 2000),
   new THREE.MeshBasicMaterial({color: 0x101018}))
-plane.rotation.x = -90 * Math.PI / 180
-scene.add(plane)
+floor.rotation.x = -90 * Math.PI / 180
+scene.add(floor)
+
+/* FUNCTIONS */
 
 function generateBuilding() {
   const lightColor = new THREE.Color(0xffffff)
@@ -112,9 +106,9 @@ function createCity(num = 10000) {
   return cityMesh
 }
 
-scene.add(createCity(10000))
-
 /* INIT */
+
+scene.add(createCity(10000))
 
 void function animate() {
   requestAnimationFrame(animate)
