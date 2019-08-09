@@ -17,8 +17,7 @@ createOrbitControls()
 
 /* FUNCTIONS */
 
-// if not in center and not to hight
-const notDoor = (x, y) => (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8) || y > rows * brickSize / 2
+const notDoor = (x, y) => (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8) || y > rows * brickSize / 2  // not in center and not to hight
 
 function addBlock(x, y, z) {
   const block = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), new THREE.MeshNormalMaterial())
