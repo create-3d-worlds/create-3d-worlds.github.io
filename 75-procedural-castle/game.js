@@ -1,9 +1,10 @@
 import { scene, camera, renderer, createOrbitControls } from '../utils/three-scene.js'
 
-const brickInWall = 20  // ne sme mnogo zbog rekurzije
-const numRows = 10
+const rows = 10
+const brickInWall = 24  // ne sme mnogo zbog rekurzije
 const brickWidth = 10.2
 const wallWidth = brickWidth * brickInWall
+const towerRadius = 15
 const towers = [
   [0, 0],
   [0, wallWidth],
@@ -17,7 +18,7 @@ createOrbitControls()
 /* FUNCTIONS */
 
 // if not in center and not to hight
-const notDoor = (x, y) => (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8) || y > numRows * brickWidth / 2
+const notDoor = (x, y) => (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8) || y > rows * brickWidth / 2
 
 function addBlock(x, y, z) {
   const block = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), new THREE.MeshNormalMaterial())
@@ -35,17 +36,16 @@ function buildRow(y, x) {
 }
 
 function buildTower(x, z) {
-  const radius = 15
-  const kula = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, 150, 100), new THREE.MeshNormalMaterial())
+  const kula = new THREE.Mesh(new THREE.CylinderGeometry(towerRadius, towerRadius, 150, 100), new THREE.MeshNormalMaterial())
   kula.position.set(x, 70, z)
   scene.add(kula)
-  const krov = new THREE.Mesh(new THREE.CylinderGeometry(0, radius * 1.2, 50, 100), new THREE.MeshNormalMaterial())
+  const krov = new THREE.Mesh(new THREE.CylinderGeometry(0, towerRadius * 1.2, 50, 100), new THREE.MeshNormalMaterial())
   krov.position.set(x, 170, z)
   scene.add(krov)
 }
 
 function buildCastle(y) {
-  if (y > brickWidth * numRows) return
+  if (y > brickWidth * rows) return
   const start = Math.floor(y / brickWidth) % 2 == 0 ? 0 : brickWidth / 2
   buildRow(y, start)
   buildCastle(y + brickWidth)
