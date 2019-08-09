@@ -35,11 +35,11 @@ function buildRow(y, x) {
 }
 
 function buildTower(x, z) {
-  const precnik = 15
-  const kula = new THREE.Mesh(new THREE.CylinderGeometry(precnik, precnik, 150, 100), new THREE.MeshNormalMaterial())
+  const radius = 15
+  const kula = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, 150, 100), new THREE.MeshNormalMaterial())
   kula.position.set(x, 70, z)
   scene.add(kula)
-  const krov = new THREE.Mesh(new THREE.CylinderGeometry(0, precnik, 50, 100), new THREE.MeshNormalMaterial())
+  const krov = new THREE.Mesh(new THREE.CylinderGeometry(0, radius * 1.2, 50, 100), new THREE.MeshNormalMaterial())
   krov.position.set(x, 170, z)
   scene.add(krov)
 }
