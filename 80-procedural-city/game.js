@@ -38,11 +38,8 @@ function generateBuilding() {
   building.scale.y = (Math.random() * Math.random() * Math.random() * building.scale.x) * 8 + 8
 
   const {geometry} = building
-  for (let j = 0, jl = geometry.faces.length; j < jl; j++)
-    if (j === 2)
-      geometry.faces[j].vertexColors = [color, color, color, color]
-    else
-      geometry.faces[j].vertexColors = [top, bottom, bottom, top]
+  for (let j = 0; j < geometry.faces.length; j++)
+    geometry.faces[j].vertexColors = j === 2 ? [color, color, color, color] : [top, bottom, bottom, top]
 
   return building
 }
