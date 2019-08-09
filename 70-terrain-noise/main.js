@@ -1,5 +1,6 @@
 /* global noise */
 import { scene, camera, renderer, createOrbitControls } from '../utils/three-scene.js'
+
 const MAX_HEIGHT = 25
 
 camera.position.set(100, 100, 100)
@@ -37,25 +38,24 @@ function create3DTerrain(width, depth, spacingX, spacingZ, height) {
 
       const face1 = new THREE.Face3(b, a, c)
       const face2 = new THREE.Face3(c, d, b)
-
       geometry.faces.push(face1)
       geometry.faces.push(face2)
       geometry.faceVertexUvs[0].push([uvb, uva, uvc])
       geometry.faceVertexUvs[0].push([uvc, uvd, uvb])
     }
 
-  geometry.computeVertexNormals(true)
+  geometry.computeVertexNormals()
   geometry.computeFaceNormals()
 
-  const mat = new THREE.MeshPhongMaterial()
-  mat.map = THREE.ImageUtils.loadTexture('../../assets/textures/ground.jpg')
+  const material = new THREE.MeshPhongMaterial()
+  material.map = new THREE.TextureLoader().load('../../assets/textures/ground.jpg')
 
-  const groundMesh = new THREE.Mesh(geometry, mat)
-  groundMesh.translateX(-width / 1.5)
-  groundMesh.translateZ(-depth / 4)
-  groundMesh.translateY(50)
-  groundMesh.name = 'terrain'
-  return groundMesh
+  const terrain = new THREE.Mesh(geometry, material)
+  terrain.translateX(-width / 1.5)
+  terrain.translateZ(-depth / 4)
+  terrain.translateY(50)
+  terrain.name = 'terrain'
+  return terrain
 }
 
 /* INIT */
