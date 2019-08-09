@@ -16,6 +16,8 @@ createOrbitControls()
 
 /* FUNCTIONS */
 
+const notDoors = (x, y) => (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8) || y > numRows * brickWidth / 2
+
 function createBlock(x, y, z) {
   const blok = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), new THREE.MeshNormalMaterial())
   blok.position.set(x, y, z)
@@ -24,16 +26,13 @@ function createBlock(x, y, z) {
 
 function buildRow(y, x) {
   if (x > wallWidth + 1) return
-  [
+  ;[
     [x, y, 0],
     [x, y, wallWidth],
     [0, y, x],
     // [wallWidth, y, x]
   ].forEach(coord => scene.add(createBlock(...coord)))
-  if (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8)
-    scene.add(createBlock(...[wallWidth, y, x]))
-  if (y > numRows * brickWidth / 2)
-    scene.add(createBlock(...[wallWidth, y, x]))
+  if (notDoors(x, y)) scene.add(createBlock(...[wallWidth, y, x]))
   buildRow(y, x + brickWidth)
 }
 
