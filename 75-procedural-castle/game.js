@@ -4,7 +4,7 @@ const rows = 10
 const brickInWall = 24  // ne sme mnogo zbog rekurzije
 const brickSize = 10.2
 const wallWidth = brickSize * brickInWall
-const towerRadius = 15
+const towerRadius = 25
 const towers = [
   [0, 0],
   [0, wallWidth],
@@ -19,18 +19,27 @@ createOrbitControls()
 
 const notDoor = (x, y) => (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8) || y > rows * brickSize / 2  // not in center and not to hight
 
+const isEven = y => Math.floor(y / brickSize) % 2 == 0
+
 function addBlock(x, y, z) {
   const block = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), new THREE.MeshNormalMaterial())
   block.position.set(x, y, z)
   scene.add(block)
 }
 
-function buildRow(y, x) {
-  if (x > wallWidth + 1) return
+function addFourBlocks(x, y) {
   addBlock(x, y, 0)
   addBlock(x, y, wallWidth)
   addBlock(0, y, x)
   if (notDoor(x, y)) addBlock(wallWidth, y, x)
+}
+
+function buildRow(y, x) {
+  if (x > wallWidth + 1) return
+  if (y > brickSize * (rows - 1)) { // if upper row
+    if (isEven(x)) addFourBlocks(x, y)
+  } else
+    addFourBlocks(x, y)
   buildRow(y, x + brickSize)
 }
 
@@ -45,7 +54,7 @@ function buildTower(x, z) {
 
 function buildCastle(y) {
   if (y > brickSize * rows) return
-  const startX = Math.floor(y / brickSize) % 2 == 0 ? 0 : brickSize / 2
+  const startX = isEven(y) ? 0 : brickSize / 2
   buildRow(y, startX)
   buildCastle(y + brickSize)
 }
