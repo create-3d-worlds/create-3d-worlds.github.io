@@ -16,23 +16,21 @@ createOrbitControls()
 
 /* FUNCTIONS */
 
-const notDoors = (x, y) => (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8) || y > numRows * brickWidth / 2
+// if not in center and not to hight
+const notDoor = (x, y) => (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8) || y > numRows * brickWidth / 2
 
-function createBlock(x, y, z) {
-  const blok = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), new THREE.MeshNormalMaterial())
-  blok.position.set(x, y, z)
-  return blok
+function addBlock(x, y, z) {
+  const block = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), new THREE.MeshNormalMaterial())
+  block.position.set(x, y, z)
+  scene.add(block)
 }
 
 function buildRow(y, x) {
   if (x > wallWidth + 1) return
-  ;[
-    [x, y, 0],
-    [x, y, wallWidth],
-    [0, y, x],
-    // [wallWidth, y, x]
-  ].forEach(coord => scene.add(createBlock(...coord)))
-  if (notDoors(x, y)) scene.add(createBlock(...[wallWidth, y, x]))
+  addBlock(x, y, 0)
+  addBlock(x, y, wallWidth)
+  addBlock(0, y, x)
+  if (notDoor(x, y)) addBlock(wallWidth, y, x)
   buildRow(y, x + brickWidth)
 }
 
@@ -56,8 +54,7 @@ function buildCastle(y) {
 /* INIT **/
 
 buildCastle(0)
-// buildRow(0, brickWidth)
-// buildRow(10, brickWidth / 2)
+
 towers.forEach(coord => buildTower(...coord))
 
 void function update() {
