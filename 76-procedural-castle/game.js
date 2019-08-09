@@ -5,6 +5,9 @@ const blockWidth = blockSize * 2
 const space = .03
 const blocksInRow = 20
 const rowsInWall = 10
+const fullBlockWidth = blockWidth + space
+const fullBlockHeight = blockSize + space
+const wallWidth = fullBlockWidth * blocksInRow
 
 camera.position.set(5, 15, 25)
 createOrbitControls()
@@ -17,26 +20,27 @@ function createBlock(x, y, z) {
   return blok
 }
 
-function createRow(y) {
+function createRow(row, startX, startZ) {
   const group = new THREE.Group()
-  for (let i = 0; i < blocksInRow; i++) {
-    const x = y % 2 ? i : i + blockSize / 2
-    group.add(createBlock(x * (blockWidth + space), y * (blockSize + space), 0))
+  for (let x = 0; x < wallWidth; x += fullBlockWidth) {
+    const adjX = row % 2 ? x : x + blockSize / 2
+    group.add(createBlock(startX + adjX, row * fullBlockHeight, startZ))
   }
   return group
 }
 
-function createWall() {
+function createWall(startX, startZ) {
   const group = new THREE.Group()
-  for (let y = 0; y < rowsInWall; y++) {
-    group.add(createRow(y))
+  for (let row = 0; row < rowsInWall; row++) {
+    group.add(createRow(row, startX, startZ))
   }
   return group
 }
 
 /* INIT **/
 
-scene.add(createWall())
+scene.add(createWall(-10, 0))
+scene.add(createWall(10, 10))
 
 void function update() {
   window.requestAnimationFrame(update)
