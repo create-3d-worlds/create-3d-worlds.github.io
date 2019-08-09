@@ -1,6 +1,6 @@
 import { scene, camera, renderer, clock } from '../utils/three-scene.js'
+import {createPlane} from '../utils/three-helpers.js'
 import {FirstPersonControls} from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'
-// TODO: obojiti zgrade u razne boje
 
 camera.position.y = 80
 
@@ -9,15 +9,10 @@ controls.movementSpeed = 20
 controls.lookSpeed = 0.05
 
 scene.fog = new THREE.FogExp2(0xd0e0f0, 0.0025)
-
 const light = new THREE.HemisphereLight(0xfffff0, 0x101020, 1.25)
 scene.add(light)
 
-const floor = new THREE.Mesh(
-  new THREE.PlaneGeometry(2000, 2000),
-  new THREE.MeshBasicMaterial({color: 0x101018}))
-floor.rotation.x = -90 * Math.PI / 180
-scene.add(floor)
+scene.add(createPlane(2000, 2000, 0x101018))
 
 /* FUNCTIONS */
 

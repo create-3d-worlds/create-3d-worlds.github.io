@@ -4,7 +4,7 @@ const {PI, random, floor} = Math
 const loader = new THREE.TextureLoader()
 const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 
-const randomColor = (h = 0.1, s = 0.75, l = 0.5) =>
+export const randomColor = (h = 0.1, s = 0.75, l = 0.5) =>
   new THREE.Color().setHSL(random() * 0.3 + h, s, random() * 0.25 + l)
 
 export function createBounds(mesh) {
@@ -32,9 +32,9 @@ export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
   return floor
 }
 
-export function createPlane() {
-  const geometry = new THREE.PlaneBufferGeometry(100000, 100000)
-  const material = new THREE.MeshToonMaterial({ color: 0x336633 })
+export function createPlane(w = 100000, h = 100000, color = 0x336633) {
+  const geometry = new THREE.PlaneBufferGeometry(w, h)
+  const material = new THREE.MeshToonMaterial({ color })
   const plane = new THREE.Mesh(geometry, material)
   plane.rotation.x = -1 * PI / 2
   plane.position.y = 0
