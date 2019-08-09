@@ -2,7 +2,9 @@ import { scene, camera, renderer, createOrbitControls } from '../utils/three-sce
 
 const rows = 10
 const brickInWall = 24  // ne sme mnogo zbog rekurzije
-const brickSize = 10.2
+const rowSize = 10
+const spacing = 0.2
+const brickSize = rowSize + spacing
 const wallWidth = brickSize * brickInWall
 const towerRadius = 15
 const towers = [
@@ -22,7 +24,7 @@ const notDoor = (x, y) => (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8) || y 
 const isEven = y => Math.floor(y / brickSize) % 2 == 0
 
 function addBlock(x, y, z) {
-  const block = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), new THREE.MeshNormalMaterial())
+  const block = new THREE.Mesh(new THREE.BoxGeometry(rowSize, rowSize, rowSize), new THREE.MeshNormalMaterial())
   block.position.set(x, y, z)
   scene.add(block)
 }
