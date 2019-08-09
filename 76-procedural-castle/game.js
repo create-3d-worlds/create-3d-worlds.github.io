@@ -14,25 +14,26 @@ createOrbitControls()
 
 /* FUNCTIONS */
 
-function createBlock(x, y, z) {
-  const blok = new THREE.Mesh(new THREE.BoxGeometry(blockWidth, blockSize, blockSize), new THREE.MeshNormalMaterial())
-  blok.position.set(x, y, z)
-  return blok
+function createBlock(x, y, z, rotated) {
+  const block = new THREE.Mesh(new THREE.BoxGeometry(blockWidth, blockSize, blockSize), new THREE.MeshNormalMaterial())
+  block.position.set(x, y, z)
+  if (rotated) block.rotateY(Math.PI / 2)
+  return block
 }
 
-function createRow(row, startX, startZ) {
+function createRow(row, startX, z) {
   const group = new THREE.Group()
   for (let x = 0; x < wallWidth; x += fullBlockWidth) {
     const adjX = row % 2 ? x : x + blockSize / 2
-    group.add(createBlock(startX + adjX, row * fullBlockHeight, startZ))
+    group.add(createBlock(startX + adjX, row * fullBlockHeight, z))
   }
   return group
 }
 
-function createWall(startX, startZ) {
+function createWall(x, z) {
   const group = new THREE.Group()
   for (let row = 0; row < rowsInWall; row++) {
-    group.add(createRow(row, startX, startZ))
+    group.add(createRow(row, x, z))
   }
   return group
 }
@@ -44,6 +45,10 @@ scene.add( axesHelper );
 
 scene.add(createWall(0, -wallWidth / 2))
 scene.add(createWall(0, wallWidth / 2))
+
+for (let z = -wallWidth / 2; z < wallWidth / 2; z+=fullBlockWidth) {
+  scene.add(createBlock(0, 0, z, true))  
+}
 
 void function update() {
   window.requestAnimationFrame(update)
