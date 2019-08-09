@@ -1,4 +1,5 @@
 import {FirstPersonControls} from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'
+// TODO: obojiti zgrade u razne boje
 
 const clock = new THREE.Clock()
 
@@ -26,12 +27,12 @@ const plane = new THREE.Mesh(
 plane.rotation.x = -90 * Math.PI / 180
 scene.add(plane)
 
-function createBuilding() {
+function generateBuilding() {
   const lightColor = new THREE.Color(0xffffff)
   const shadow = new THREE.Color(0x303050)
   const box = new THREE.CubeGeometry(1, 1, 1)
   box.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0.5, 0))
-  box.faces.splice(3, 1)
+  // box.faces.splice(3, 1)
 
   // https://stackoverflow.com/questions/51625397/three-js-undefined-vertexuv
   // box.faceVertexUvs[0].splice(3, 1)
@@ -39,6 +40,7 @@ function createBuilding() {
   // box.faceVertexUvs[0][2][1].set(0, 0)
   // box.faceVertexUvs[0][2][2].set(0, 0)
   // box.faceVertexUvs[0][2][3].set(0, 0)
+
   const building = new THREE.Mesh(box)
 
   const value = 1 - Math.random() * Math.random()
@@ -63,17 +65,17 @@ function createBuilding() {
   return building
 }
 
-function generateCity(num = 10000) {
+function generateCityGeometry(num = 10000) {
   const city = new THREE.Geometry()
   for (let i = 0; i < num; i++) {
-    const building = createBuilding()
+    const building = generateBuilding()
     building.updateMatrix()
     city.merge(building.geometry, building.matrix)
   }
   return city
 }
 
-function generateTexture() {
+function generateCityTexture() {
   const canvas = document.createElement('canvas')
   canvas.width = 32
   canvas.height = 64
@@ -96,16 +98,21 @@ function generateTexture() {
   return canvas2
 }
 
-const city = generateCity(10000)
-const texture = new THREE.Texture(generateTexture())
-texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
-texture.needsUpdate = true
+function createCity(num = 10000) {
+  const cityGeo = generateCityGeometry(num)
 
-const cityMesh = new THREE.Mesh(city, new THREE.MeshLambertMaterial({
-  map: texture,
-  vertexColors: THREE.VertexColors
-}))
-scene.add(cityMesh)
+  const texture = new THREE.Texture(generateCityTexture())
+  texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
+  texture.needsUpdate = true
+
+  const cityMesh = new THREE.Mesh(cityGeo, new THREE.MeshLambertMaterial({
+    // map: texture,
+    vertexColors: THREE.VertexColors
+  }))
+  return cityMesh
+}
+
+scene.add(createCity(10000))
 
 /* INIT */
 
