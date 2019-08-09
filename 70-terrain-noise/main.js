@@ -1,9 +1,9 @@
 /* global noise */
-import { scene, camera, renderer } from '../utils/three-scene.js'
-const MAX_HEIGHT = 10
+import { scene, camera, renderer, createOrbitControls } from '../utils/three-scene.js'
+const MAX_HEIGHT = 25
 
 camera.position.set(100, 100, 100)
-camera.lookAt(scene.position)
+createOrbitControls()
 
 const spotLight = new THREE.SpotLight(0xffffff)
 spotLight.position.set(10, 300, 10)
@@ -14,12 +14,12 @@ scene.add(spotLight)
 function create3DTerrain(width, depth, spacingX, spacingZ, height) {
   const date = new Date()
   noise.seed(date.getMilliseconds())
-
   const geometry = new THREE.Geometry()
+
   for (let z = 0; z < depth; z++)
     for (let x = 0; x < width; x++) {
-      const yValue = Math.abs(noise.perlin2(x / 7, z / 7) * height * 2)
-      const vertex = new THREE.Vector3(x * spacingX, yValue, z * spacingZ)
+      const y = Math.abs(noise.perlin2(x / 7, z / 7) * height * 2)
+      const vertex = new THREE.Vector3(x * spacingX, y, z * spacingZ)
       geometry.vertices.push(vertex)
     }
 
@@ -48,7 +48,7 @@ function create3DTerrain(width, depth, spacingX, spacingZ, height) {
   geometry.computeFaceNormals()
 
   const mat = new THREE.MeshPhongMaterial()
-  mat.map = THREE.ImageUtils.loadTexture('../../assets/textures/wood_1024x1024.png')
+  mat.map = THREE.ImageUtils.loadTexture('../../assets/textures/ground.jpg')
 
   const groundMesh = new THREE.Mesh(geometry, mat)
   groundMesh.translateX(-width / 1.5)
