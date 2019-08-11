@@ -6,8 +6,7 @@ import { scene, camera, renderer, clock, createOrbitControls } from '../utils/th
 const SCREEN_WIDTH = window.innerWidth
 const SCREEN_HEIGHT = window.innerHeight
 
-let animDelta = 0, animDeltaDir = - 1
-let lightVal = 0, lightDir = 1
+let lightVal = 0, lightDir = 1 // -1 dark
 
 const updateNoise = true
 
@@ -148,15 +147,6 @@ scene.add(terrain)
 
 createOrbitControls()
 
-// functions
-
-function onKeyDown(event) {
-  switch (event.keyCode) {
-    case 78: /* N*/ lightDir *= - 1; break
-    case 77: /* M*/ animDeltaDir *= - 1; break
-  }
-}
-
 function render() {
   const delta = clock.getDelta()
 
@@ -173,11 +163,7 @@ function render() {
     uniformsTerrain.uNormalScale.value = THREE.Math.mapLinear(valNorm, 0, 1, 0.6, 3.5)
 
     if (updateNoise) {
-      animDelta = THREE.Math.clamp(animDelta + 0.00075 * animDeltaDir, 0, 0.05)
-      uniformsNoise.time.value += delta * animDelta
-
       uniformsNoise.offset.value.x += delta * 0.05
-
       uniformsTerrain.uOffset.value.x = 4 * uniformsNoise.offset.value.x
 
       quadTarget.material = mlib.heightmap
@@ -189,7 +175,6 @@ function render() {
       renderer.setRenderTarget(normalMap)
       renderer.clear()
       renderer.render(sceneRenderTarget, cameraOrtho)
-
     }
     renderer.setRenderTarget(null)
     renderer.render(scene, camera)
@@ -202,7 +187,3 @@ void function animate() {
   requestAnimationFrame(animate)
   render()
 }()
-
-// EVENTS
-
-document.addEventListener('keydown', onKeyDown, false)
