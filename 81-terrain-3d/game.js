@@ -24,6 +24,11 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1.15)
 directionalLight.position.set(500, 2000, 0)
 scene.add(directionalLight)
 
+scene.background.setHSL(0.1, 0.5, lightVal)
+scene.fog.color.setHSL(0.1, 0.5, lightVal)
+
+createOrbitControls()
+
 const rx = 256, ry = 256
 const pars = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat }
 
@@ -48,8 +53,7 @@ const vertexShader = document.getElementById('vertexShader').textContent
 
 // TEXTURES
 
-const loadingManager = new THREE.LoadingManager((() => console.log('all loaded')))
-const textureLoader = new THREE.TextureLoader(loadingManager)
+const textureLoader = new THREE.TextureLoader()
 
 const specularMap = new THREE.WebGLRenderTarget(2048, 2048, pars)
 specularMap.texture.generateMipmaps = false
@@ -107,11 +111,6 @@ const geometryTerrain = new THREE.PlaneBufferGeometry(6000, 6000, 256, 256)
 const terrain = new THREE.Mesh(geometryTerrain, mlib.terrain)
 terrain.rotation.x = - Math.PI / 2
 scene.add(terrain)
-
-scene.background.setHSL(0.1, 0.5, lightVal)
-scene.fog.color.setHSL(0.1, 0.5, lightVal)
-
-createOrbitControls()
 
 // INIT
 

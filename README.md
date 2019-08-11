@@ -43,7 +43,6 @@ Repo: https://github.com/mudroljub/create-rpg-game
   - [ ] dodati okruzenje (drveće, nebo, zgrade)
   - [ ] dodati neke stvari (sanduke i slicno)
 - [ ] proceduralno kreirati okruženje
-  - https://threejs.org/examples/webgl_terrain_dynamic.html
   - https://subscription.packtpub.com/book/web_development/9781783980864/5/ch05lvl1sec34/creating-a-3d-terrain-from-scratch
 - [ ] kreirati stepenice u krug od kocki
 - [ ] heightmap:
