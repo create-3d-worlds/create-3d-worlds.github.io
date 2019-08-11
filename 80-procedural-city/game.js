@@ -40,17 +40,10 @@ function generateCityTexture() {
   for (let y = 2; y < 64; y += 2)
     for (let x = 0; x < 32; x += 2) {
       const value = Math.floor(Math.random() * 64)
-      context.fillStyle = 'rgb(' + [value, value, value].join(',') + ')'
+      context.fillStyle = `rgb(${value}, ${value}, ${value})`
       context.fillRect(x, y, 2, 1)
     }
-
-  const canvas2 = document.createElement('canvas')
-  canvas2.width = 512
-  canvas2.height = 1024
-  const context2 = canvas2.getContext('2d')
-  context2.imageSmoothingEnabled = false
-  context2.drawImage(canvas, 0, 0, canvas2.width, canvas2.height)
-  return canvas2
+  return canvas
 }
 
 function createCity(num = 10000) {
