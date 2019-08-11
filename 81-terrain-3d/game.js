@@ -6,10 +6,8 @@ import { scene, camera, renderer, clock, createOrbitControls } from '../utils/th
 const SCREEN_WIDTH = window.innerWidth
 const SCREEN_HEIGHT = window.innerHeight
 
-let lightVal = 0, lightDir = 1 // -1 dark
-
+const lightVal = 0.8
 const updateNoise = true
-
 const mlib = {}
 
 const sceneRenderTarget = new THREE.Scene()
@@ -113,18 +111,14 @@ const params = [
 ]
 
 for (let i = 0; i < params.length; i++) {
-
   const material = new THREE.ShaderMaterial({
-
     uniforms: params[i][3],
     vertexShader: params[i][2],
     fragmentShader: params[i][1],
     lights: params[i][4],
     fog: true
   })
-
   mlib[params[i][0]] = material
-
 }
 
 const plane = new THREE.PlaneBufferGeometry(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -145,23 +139,15 @@ terrain.rotation.x = - Math.PI / 2
 terrain.visible = false
 scene.add(terrain)
 
+scene.background.setHSL(0.1, 0.5, lightVal)
+scene.fog.color.setHSL(0.1, 0.5, lightVal)
+
 createOrbitControls()
 
 function render() {
   const delta = clock.getDelta()
 
   if (terrain.visible) {
-    const fLow = 0.1, fHigh = 0.8
-    lightVal = THREE.Math.clamp(lightVal + 0.5 * delta * lightDir, fLow, fHigh)
-
-    const valNorm = (lightVal - fLow) / (fHigh - fLow)
-    scene.background.setHSL(0.1, 0.5, lightVal)
-    scene.fog.color.setHSL(0.1, 0.5, lightVal)
-
-    directionalLight.intensity = THREE.Math.mapLinear(valNorm, 0, 1, 0.1, 1.15)
-    pointLight.intensity = THREE.Math.mapLinear(valNorm, 0, 1, 0.9, 1.5)
-    uniformsTerrain.uNormalScale.value = THREE.Math.mapLinear(valNorm, 0, 1, 0.6, 3.5)
-
     if (updateNoise) {
       uniformsNoise.offset.value.x += delta * 0.05
       uniformsTerrain.uOffset.value.x = 4 * uniformsNoise.offset.value.x
