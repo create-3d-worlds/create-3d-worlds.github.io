@@ -1,6 +1,5 @@
 import { NormalMapShader } from '../../node_modules/three/examples/jsm/shaders/NormalMapShader.js'
 import { TerrainShader } from '../../node_modules/three/examples/jsm/shaders/TerrainShader.js'
-import { BufferGeometryUtils } from '../../node_modules/three/examples/jsm/utils/BufferGeometryUtils.js'
 import { scene, camera, renderer, clock, createOrbitControls } from '../utils/three-scene.js'
 
 const SCREEN_WIDTH = window.innerWidth
@@ -21,15 +20,9 @@ camera.position.set(- 1200, 800, 1200)
 scene.background = new THREE.Color(0x050505)
 scene.fog = new THREE.Fog(0x050505, 2000, 4000)
 
-scene.add(new THREE.AmbientLight(0x111111))
-
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1.15)
 directionalLight.position.set(500, 2000, 0)
 scene.add(directionalLight)
-
-const pointLight = new THREE.PointLight(0xff4400, 1.5)
-pointLight.position.set(0, 0, 0)
-scene.add(pointLight)
 
 const rx = 256, ry = 256
 const pars = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat }
@@ -110,14 +103,8 @@ const quadTarget = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({ color: 0x
 quadTarget.position.z = - 500
 sceneRenderTarget.add(quadTarget)
 
-// TERRAIN MESH
-
 const geometryTerrain = new THREE.PlaneBufferGeometry(6000, 6000, 256, 256)
-
-BufferGeometryUtils.computeTangents(geometryTerrain)
-
 const terrain = new THREE.Mesh(geometryTerrain, mlib.terrain)
-terrain.position.set(0, - 125, 0)
 terrain.rotation.x = - Math.PI / 2
 scene.add(terrain)
 
@@ -126,11 +113,10 @@ scene.fog.color.setHSL(0.1, 0.5, lightVal)
 
 createOrbitControls()
 
-function render() {
-  const delta = clock.getDelta()
-  uniformsNoise.offset.value.x += delta * 0.05
-  uniformsTerrain.uOffset.value.x = 4 * uniformsNoise.offset.value.x
+// INIT
 
+void function animate() {
+  requestAnimationFrame(animate)
   quadTarget.material = mlib.heightmap
   renderer.setRenderTarget(heightMap)
   renderer.clear()
@@ -142,11 +128,4 @@ function render() {
   renderer.render(sceneRenderTarget, cameraOrtho)
   renderer.setRenderTarget(null)
   renderer.render(scene, camera)
-}
-
-// INIT
-
-void function animate() {
-  requestAnimationFrame(animate)
-  render()
 }()
