@@ -62,11 +62,8 @@ function createCity(num = 10000) {
   }
   const texture = new THREE.Texture(generateCityTexture())
   texture.needsUpdate = true
-  const cityMesh = new THREE.Mesh(cityGeo, new THREE.MeshLambertMaterial({
-    // color: 0xFF0000,
-    // map: texture
-  }))
-  return cityMesh
+  const material = new THREE.MeshLambertMaterial({map: texture})
+  return new THREE.Mesh(cityGeo, material)
 }
 
 /* INIT */
