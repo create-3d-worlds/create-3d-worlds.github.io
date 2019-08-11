@@ -1,6 +1,6 @@
 import { NormalMapShader } from '../../node_modules/three/examples/jsm/shaders/NormalMapShader.js'
 import { TerrainShader } from '../../node_modules/three/examples/jsm/shaders/TerrainShader.js'
-import { scene, camera, renderer, clock, createOrbitControls } from '../utils/three-scene.js'
+import { scene, camera, renderer, createOrbitControls } from '../utils/three-scene.js'
 
 const SCREEN_WIDTH = window.innerWidth
 const SCREEN_HEIGHT = window.innerHeight
