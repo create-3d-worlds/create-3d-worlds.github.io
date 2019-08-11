@@ -44,6 +44,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
   - [ ] dodati neke stvari (sanduke i slicno)
 - [ ] proceduralno kreirati okruženje
   - https://subscription.packtpub.com/book/web_development/9781783980864/5/ch05lvl1sec34/creating-a-3d-terrain-from-scratch
+  - https://github.com/mudroljub/mini-rpg
 - [ ] kreirati stepenice u krug od kocki
 - [ ] heightmap:
     - https://github.com/josdirksen/threejs-cookbook/blob/master/02-geometries-meshes/02.06-create-terrain-from-heightmap.html
@@ -97,14 +98,15 @@ scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 3
 
 ## Resursi
 
-* [Build a basic combat game with three.js](http://www.creativebloq.com/web-design/build-basic-combat-game-threejs-101517540)
-- https://github.com/skolakoda/ucimo-threejs
-- https://github.com/skolakoda/teorija-razvoja-igara
-- https://github.com/skolakoda/ucimo-razvoj-igara
-- https://github.com/mudroljub/mini-rpg
-- https://github.com/mudroljub/savo-mitraljezac
+- [Build a basic combat game with three.js](http://www.creativebloq.com/web-design/build-basic-combat-game-threejs-101517540)
 - https://github.com/mudroljub/3D-RPG-Game-With-THREE.js
 - https://github.com/mudroljub/threejs-monster
 - https://github.com/mudroljub/rpg-threejs (school project)
+
+- https://github.com/skolakoda/ucimo-threejs
+- https://github.com/skolakoda/teorija-razvoja-igara
+- https://github.com/skolakoda/ucimo-razvoj-igara
+
+- https://github.com/mudroljub/savo-mitraljezac
 - https://github.com/mudroljub/igrica-partizani
 - https://github.com/mudroljub/avantura-1941
