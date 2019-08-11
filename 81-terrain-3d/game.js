@@ -1,7 +1,7 @@
-import { OrbitControls } from '../../node_modules/three/examples/jsm/controls/OrbitControls.js'
 import { NormalMapShader } from '../../node_modules/three/examples/jsm/shaders/NormalMapShader.js'
 import { TerrainShader } from '../../node_modules/three/examples/jsm/shaders/TerrainShader.js'
 import { BufferGeometryUtils } from '../../node_modules/three/examples/jsm/utils/BufferGeometryUtils.js'
+import { scene, camera, renderer, clock, createOrbitControls } from '../utils/three-scene.js'
 
 const SCREEN_WIDTH = window.innerWidth
 const SCREEN_HEIGHT = window.innerHeight
@@ -9,13 +9,10 @@ const SCREEN_HEIGHT = window.innerHeight
 let animDelta = 0, animDeltaDir = - 1
 let lightVal = 0, lightDir = 1
 
-const clock = new THREE.Clock()
-
 const updateNoise = true
 
 const mlib = {}
 
-const container = document.getElementById('container')
 const sceneRenderTarget = new THREE.Scene()
 
 const cameraOrtho = new THREE.OrthographicCamera(SCREEN_WIDTH / - 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_HEIGHT / - 2, - 10000, 10000)
@@ -23,10 +20,8 @@ cameraOrtho.position.z = 100
 
 sceneRenderTarget.add(cameraOrtho)
 
-const camera = new THREE.PerspectiveCamera(40, SCREEN_WIDTH / SCREEN_HEIGHT, 2, 4000)
 camera.position.set(- 1200, 800, 1200)
 
-const scene = new THREE.Scene()
 scene.background = new THREE.Color(0x050505)
 scene.fog = new THREE.Fog(0x050505, 2000, 4000)
 
@@ -68,7 +63,6 @@ const vertexShader = document.getElementById('vertexShader').textContent
 
 const loadingManager = new THREE.LoadingManager((() => {
   terrain.visible = true
-
 }))
 const textureLoader = new THREE.TextureLoader(loadingManager)
 
@@ -152,22 +146,7 @@ terrain.rotation.x = - Math.PI / 2
 terrain.visible = false
 scene.add(terrain)
 
-// RENDERER
-
-const renderer = new THREE.WebGLRenderer()
-renderer.setPixelRatio(window.devicePixelRatio)
-renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT)
-container.appendChild(renderer.domElement)
-
-// CONTROLS
-
-const controls = new OrbitControls(camera, renderer.domElement)
-
-controls.rotateSpeed = 1.0
-controls.zoomSpeed = 1.2
-controls.panSpeed = 0.8
-
-controls.keys = [65, 83, 68]
+createOrbitControls()
 
 // functions
 
