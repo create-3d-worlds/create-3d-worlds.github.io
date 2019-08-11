@@ -32,8 +32,6 @@ const pointLight = new THREE.PointLight(0xff4400, 1.5)
 pointLight.position.set(0, 0, 0)
 scene.add(pointLight)
 
-const normalShader = NormalMapShader
-
 const rx = 256, ry = 256
 const pars = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat }
 
@@ -49,7 +47,7 @@ const uniformsNoise = {
   'offset': { value: new THREE.Vector2(0, 0) }
 }
 
-const uniformsNormal = THREE.UniformsUtils.clone(normalShader.uniforms)
+const uniformsNormal = THREE.UniformsUtils.clone(NormalMapShader.uniforms)
 uniformsNormal.height.value = 0.05
 uniformsNormal.resolution.value.set(rx, ry)
 uniformsNormal.heightMap.value = heightMap.texture
@@ -58,9 +56,7 @@ const vertexShader = document.getElementById('vertexShader').textContent
 
 // TEXTURES
 
-const loadingManager = new THREE.LoadingManager((() => {
-  terrain.visible = true
-}))
+const loadingManager = new THREE.LoadingManager((() => console.log('all loaded')))
 const textureLoader = new THREE.TextureLoader(loadingManager)
 
 const specularMap = new THREE.WebGLRenderTarget(2048, 2048, pars)
@@ -77,37 +73,25 @@ specularMap.texture.wrapS = specularMap.texture.wrapT = THREE.RepeatWrapping
 
 // TERRAIN SHADER
 
-const terrainShader = TerrainShader
-
-const uniformsTerrain = THREE.UniformsUtils.clone(terrainShader.uniforms)
+const uniformsTerrain = THREE.UniformsUtils.clone(TerrainShader.uniforms)
 
 uniformsTerrain.tNormal.value = normalMap.texture
-uniformsTerrain.uNormalScale.value = 3.5
-
 uniformsTerrain.tDisplacement.value = heightMap.texture
 
 uniformsTerrain.tDiffuse1.value = diffuseTexture1
 uniformsTerrain.tDiffuse2.value = diffuseTexture2
-uniformsTerrain.tSpecular.value = specularMap.texture
 uniformsTerrain.tDetail.value = detailTexture
 
 uniformsTerrain.enableDiffuse1.value = true
 uniformsTerrain.enableDiffuse2.value = true
-uniformsTerrain.enableSpecular.value = true
-
-uniformsTerrain.diffuse.value.setHex(0xffffff)
-uniformsTerrain.specular.value.setHex(0xffffff)
-
-uniformsTerrain.shininess.value = 30
 
 uniformsTerrain.uDisplacementScale.value = 375
-
 uniformsTerrain.uRepeatOverlay.value.set(6, 6)
 
 const params = [
   ['heightmap', document.getElementById('fragmentShaderNoise').textContent, vertexShader, uniformsNoise, false],
-  ['normal', normalShader.fragmentShader, normalShader.vertexShader, uniformsNormal, false],
-  ['terrain', terrainShader.fragmentShader, terrainShader.vertexShader, uniformsTerrain, true]
+  ['normal', NormalMapShader.fragmentShader, NormalMapShader.vertexShader, uniformsNormal, false],
+  ['terrain', TerrainShader.fragmentShader, TerrainShader.vertexShader, uniformsTerrain, true]
 ]
 
 for (let i = 0; i < params.length; i++) {
@@ -136,7 +120,6 @@ BufferGeometryUtils.computeTangents(geometryTerrain)
 const terrain = new THREE.Mesh(geometryTerrain, mlib.terrain)
 terrain.position.set(0, - 125, 0)
 terrain.rotation.x = - Math.PI / 2
-terrain.visible = false
 scene.add(terrain)
 
 scene.background.setHSL(0.1, 0.5, lightVal)
@@ -146,25 +129,22 @@ createOrbitControls()
 
 function render() {
   const delta = clock.getDelta()
+  if (updateNoise) {
+    uniformsNoise.offset.value.x += delta * 0.05
+    uniformsTerrain.uOffset.value.x = 4 * uniformsNoise.offset.value.x
 
-  if (terrain.visible) {
-    if (updateNoise) {
-      uniformsNoise.offset.value.x += delta * 0.05
-      uniformsTerrain.uOffset.value.x = 4 * uniformsNoise.offset.value.x
+    quadTarget.material = mlib.heightmap
+    renderer.setRenderTarget(heightMap)
+    renderer.clear()
+    renderer.render(sceneRenderTarget, cameraOrtho)
 
-      quadTarget.material = mlib.heightmap
-      renderer.setRenderTarget(heightMap)
-      renderer.clear()
-      renderer.render(sceneRenderTarget, cameraOrtho)
-
-      quadTarget.material = mlib.normal
-      renderer.setRenderTarget(normalMap)
-      renderer.clear()
-      renderer.render(sceneRenderTarget, cameraOrtho)
-    }
-    renderer.setRenderTarget(null)
-    renderer.render(scene, camera)
+    quadTarget.material = mlib.normal
+    renderer.setRenderTarget(normalMap)
+    renderer.clear()
+    renderer.render(sceneRenderTarget, cameraOrtho)
   }
+  renderer.setRenderTarget(null)
+  renderer.render(scene, camera)
 }
 
 // INIT
