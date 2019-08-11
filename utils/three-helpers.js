@@ -167,10 +167,11 @@ export function createTerrain() {
     vertex.y += randomInRange(-5, 5)
     vertex.z += randomInRange(-10, 10)
   })
-  geometry.faces.forEach(face => {
-    face.vertexColors.push(randomColor(), randomColor(), randomColor())
-  })
+  // geometry.faces.forEach(face => {
+  //   face.vertexColors.push(randomColor(), randomColor(), randomColor())
+  // })
   const material = new THREE.MeshBasicMaterial({ vertexColors: THREE.VertexColors })
+  material.color = randomColor(0.1, 0.01, .75)
   return new THREE.Mesh(geometry, material)
 }
 

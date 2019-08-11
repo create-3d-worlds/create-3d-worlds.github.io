@@ -30,16 +30,6 @@ function generateBuilding() {
   return building
 }
 
-function generateCityGeometry(num = 10000) {
-  const city = new THREE.Geometry()
-  for (let i = 0; i < num; i++) {
-    const building = generateBuilding()
-    building.updateMatrix()
-    city.merge(building.geometry, building.matrix)
-  }
-  return city
-}
-
 function generateCityTexture() {
   const canvas = document.createElement('canvas')
   canvas.width = 32
@@ -64,10 +54,18 @@ function generateCityTexture() {
 }
 
 function createCity(num = 10000) {
-  const cityGeo = generateCityGeometry(num)
+  const cityGeo = new THREE.Geometry()
+  for (let i = 0; i < num; i++) {
+    const building = generateBuilding()
+    building.updateMatrix()
+    cityGeo.merge(building.geometry, building.matrix)
+  }
   const texture = new THREE.Texture(generateCityTexture())
   texture.needsUpdate = true
-  const cityMesh = new THREE.Mesh(cityGeo, new THREE.MeshLambertMaterial()) // {map: texture}
+  const cityMesh = new THREE.Mesh(cityGeo, new THREE.MeshLambertMaterial({
+    // color: 0xFF0000,
+    // map: texture
+  }))
   return cityMesh
 }
 

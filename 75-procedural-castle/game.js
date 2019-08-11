@@ -6,7 +6,7 @@ const rowSize = 10
 const spacing = 0.2
 const brickSize = rowSize + spacing
 const wallWidth = brickSize * brickInWall
-const towerRadius = 15
+const towerRadius = 25
 const towers = [
   [0, 0],
   [0, wallWidth],
