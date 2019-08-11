@@ -7,7 +7,6 @@ const SCREEN_WIDTH = window.innerWidth
 const SCREEN_HEIGHT = window.innerHeight
 
 const lightVal = 0.8
-const updateNoise = true
 const mlib = {}
 
 const sceneRenderTarget = new THREE.Scene()
@@ -129,20 +128,18 @@ createOrbitControls()
 
 function render() {
   const delta = clock.getDelta()
-  if (updateNoise) {
-    uniformsNoise.offset.value.x += delta * 0.05
-    uniformsTerrain.uOffset.value.x = 4 * uniformsNoise.offset.value.x
+  uniformsNoise.offset.value.x += delta * 0.05
+  uniformsTerrain.uOffset.value.x = 4 * uniformsNoise.offset.value.x
 
-    quadTarget.material = mlib.heightmap
-    renderer.setRenderTarget(heightMap)
-    renderer.clear()
-    renderer.render(sceneRenderTarget, cameraOrtho)
+  quadTarget.material = mlib.heightmap
+  renderer.setRenderTarget(heightMap)
+  renderer.clear()
+  renderer.render(sceneRenderTarget, cameraOrtho)
 
-    quadTarget.material = mlib.normal
-    renderer.setRenderTarget(normalMap)
-    renderer.clear()
-    renderer.render(sceneRenderTarget, cameraOrtho)
-  }
+  quadTarget.material = mlib.normal
+  renderer.setRenderTarget(normalMap)
+  renderer.clear()
+  renderer.render(sceneRenderTarget, cameraOrtho)
   renderer.setRenderTarget(null)
   renderer.render(scene, camera)
 }
