@@ -27,17 +27,16 @@ export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
   texture.repeat.set(width / 10, height / 10)
   const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide })
   const geometry = new THREE.CircleGeometry(width, height)
+  geometry.rotateX(- PI / 2)
   const floor = new THREE.Mesh(geometry, material)
-  floor.rotation.x = -PI / 2
-  floor.name = 'floor'
   return floor
 }
 
 export function createPlane(w = 100000, h = 100000, color = 0x336633) {
   const geometry = new THREE.PlaneBufferGeometry(w, h)
+  geometry.rotateX(- PI / 2)
   const material = new THREE.MeshToonMaterial({ color })
   const plane = new THREE.Mesh(geometry, material)
-  plane.rotation.x = -1 * PI / 2
   plane.position.y = 0
   return plane
 }
