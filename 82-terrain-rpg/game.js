@@ -105,20 +105,22 @@ class Fir {
 }
 
 const place = function(position) {
-  const rayCaster = new THREE.Raycaster()
+  const raycaster = new THREE.Raycaster()
   const direction = new THREE.Vector3(0, -1, 0)
   const origin = { x: position.x, y: 100, z: position.z }
-  rayCaster.origin = origin
-  rayCaster.direction = direction
+  raycaster.origin = origin
+  raycaster.direction = direction
   const arrowHelper = new THREE.ArrowHelper(direction, origin, 100)
   scene.add(arrowHelper)
 
   const terrain = scene.getObjectByName('terrain')
-  console.log(rayCaster.intersectObject(terrain))
+  const intersects = raycaster.intersectObjects(terrain.children) // raycaster.intersectObject(terrain)
+
+  console.log(intersects)
   // nigde ne preseca teren??
 
   // const land = scene.getObjectByName('terrain').children[0]
-  // const collisions = rayCaster.intersectObject(land)
+  // const collisions = raycaster.intersectObject(land)
   // if (collisions.length > 0) {
   //   console.log(collisions[0].point)
   //   return collisions[0].point
