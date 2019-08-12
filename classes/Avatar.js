@@ -129,10 +129,12 @@ export default class Avatar {
     jumpUp.start()
   }
 
-  /* solids and terrain are optional */
+  /* both solids and terrain are optional */
   update(delta, solids, terrain) {
     this.checkKeys(delta, solids)
-    if (terrain) this.checkGround([terrain, ...solids])
+    const env = [terrain]
+    if (solids) env.push(solids)
+    if (terrain) this.checkGround(env)
     this.animate()
     TWEEN.update()
   }

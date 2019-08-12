@@ -1,6 +1,6 @@
 /* global SimplexNoise */
 import {scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
-import {createTrees} from '../utils/three-helpers.js'
+import {createFloor, createPlane, createTrees} from '../utils/three-helpers.js'
 import {rndInt} from '../utils/helpers.js'
 
 const size = 1000
@@ -18,6 +18,9 @@ const generateTerrain = function(size = 1000, avgHeight = 30) {
     vertexColors: THREE.FaceColors
   })
   const landGeo = new THREE.PlaneGeometry(size, size, resolution, resolution)
+  landGeo.dynamic = true
+  landGeo.verticesNeedUpdate = true
+  // landGeo.computeCentroids()
 
   const noise = new SimplexNoise()
   const factorX = 50
@@ -68,16 +71,14 @@ const generateTerrain = function(size = 1000, avgHeight = 30) {
   return terrain
 }
 
-scene.add(generateTerrain())
-
 const createFir = () => {
   const geom = {
     leaves: new THREE.CylinderGeometry(0, 25, 60, 4, 1),
     trunk: new THREE.BoxGeometry(5, 20, 5)
   }
   const materials = {
-    leaves: new THREE.MeshLambertMaterial({ color: 0x3EA055, shading: THREE.SmoothShading }),
-    trunk: new THREE.MeshLambertMaterial({ color: 0x966F33, shading: THREE.SmoothShading })
+    leaves: new THREE.MeshLambertMaterial({ color: 0x3EA055}),
+    trunk: new THREE.MeshLambertMaterial({ color: 0x966F33})
   }
   const tree = new THREE.Object3D()
   const leaves = new THREE.Mesh(geom.leaves, materials.leaves)
@@ -108,25 +109,19 @@ const place = function(position) {
   const origin = { x: position.x, y: 100, z: position.z }
 
   const raycaster = new THREE.Raycaster()
-  raycaster.origin = origin
-  raycaster.direction = direction
+  raycaster.set(origin, direction)
 
   const arrowHelper = new THREE.ArrowHelper(direction, origin, 100)
   scene.add(arrowHelper)
 
-  const terrain = scene.getObjectByName('land')
-  const intersects = raycaster.intersectObject(terrain, true) // raycaster.intersectObject(terrain)
-
+  const land = scene.getObjectByName('floor')
+  const intersects = raycaster.intersectObject(land, true)
   console.log(intersects)
-  // nigde ne preseca teren??
-
-  // const land = scene.getObjectByName('terrain').children[0]
-  // const collisions = raycaster.intersectObject(land)
-  // if (collisions.length > 0) {
-  //   console.log(collisions[0].point)
-  //   return collisions[0].point
-  // }
-  // return null
+  if (intersects.length > 0) {
+    console.log(intersects[0].point)
+    return intersects[0].point
+  }
+  return null
 }
 
 const createFirs = function(numTrees = 50) {
@@ -136,17 +131,18 @@ const createFirs = function(numTrees = 50) {
     // console.log(rndPoint)
     // group.add(new Fir(rndPoint).mesh)
     const position = place(rndPoint)
-    if (position)
-      console.log('ima')
+    if (position) {
+      console.log(position)
       // if (position.y > 0) {
       //   position.y -= 10
       // }
-      // group.add(new Fir(position).mesh)
-
+      group.add(new Fir(position).mesh)
+    }
   }
   return group
 }
 
+scene.add(createFloor(size))
 scene.add(createFirs())
 // scene.add(createTrees())
 

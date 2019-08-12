@@ -29,6 +29,7 @@ export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
   const geometry = new THREE.CircleGeometry(width, height)
   const floor = new THREE.Mesh(geometry, material)
   floor.rotation.x = -PI / 2
+  floor.name = 'floor'
   return floor
 }
 
