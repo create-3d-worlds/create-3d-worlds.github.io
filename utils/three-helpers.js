@@ -205,7 +205,7 @@ export const createFir = (x = 0, y = 0, z = 0, height = 80) => {
   fir.castShadow = true
   fir.add(leaves)
   fir.add(trunk)
-  fir.position.set(x, y, z)
+  fir.position.set(x, y + height / 2, z)
   return fir
 }
 
@@ -225,9 +225,23 @@ export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
     const {x, z} = new THREE.Vector3(randomInRange(min, max), 100, randomInRange(min, max))
     if (terrain) {
       const ground = findGround(terrain, x, z)
-      if (ground)
+      if (ground && ground.y > 0) {
+        console.log(ground.y)
         group.add(createFir(x, ground.y, z))
+      }
     } else group.add(createFir(x, 0, z))
   }
   return group
+}
+
+export const createWater = size => {
+  const resolution = 1
+  const material = new THREE.MeshLambertMaterial({
+    color: 0x6699ff,
+    transparent: true,
+    opacity: 0.5,
+  })
+  const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
+  geometry.rotateX(-Math.PI / 2)
+  return new THREE.Mesh(geometry, material)
 }

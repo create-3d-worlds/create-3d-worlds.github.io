@@ -1,6 +1,6 @@
 /* global SimplexNoise */
 import {scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
-import {createFirs, createPlane, createTrees} from '../utils/three-helpers.js'
+import {createFirs, createWater} from '../utils/three-helpers.js'
 import {randomInRange} from '../utils/helpers.js'
 
 const size = 1000
@@ -38,32 +38,12 @@ const createHillTerrain = (size, avgHeight = 30) => {
   return mesh
 }
 
-const createWater = size => {
-  const resolution = 1
-  const material = new THREE.MeshLambertMaterial({
-    color: 0x6699ff,
-    transparent: true,
-    opacity: 0.5,
-  })
-  const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
-  geometry.rotateX(-Math.PI / 2)
-  return new THREE.Mesh(geometry, material)
-}
+scene.add(createWater(size))
+const land = createHillTerrain(size, 30)
+scene.add(land)
+scene.add(createFirs(land))
 
-const generateTerrain = function(size = 1000, avgHeight = 30) {
-  const land = createHillTerrain(size, avgHeight)
-  const water = createWater(size)
-  const terrain = new THREE.Object3D()
-  terrain.name = 'terrain'
-  terrain.add(land)
-  terrain.add(water)
-  terrain.receiveShadow = true
-  return terrain
-}
-
-const terrain = generateTerrain(size)
-scene.add(terrain)
-scene.add(createFirs(terrain))
+/* INIT */
 
 void function animate() {
   requestAnimationFrame(animate)
