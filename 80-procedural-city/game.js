@@ -10,9 +10,6 @@ controls.movementSpeed = 20
 controls.lookSpeed = 0.05
 
 scene.fog = new THREE.FogExp2(0xd0e0f0, 0.0025)
-const light = new THREE.HemisphereLight(0xfffff0, 0x101020, 1)
-scene.add(light)
-
 scene.add(createPlane(2000, 2000, 0x101018))
 
 /* FUNCTIONS */

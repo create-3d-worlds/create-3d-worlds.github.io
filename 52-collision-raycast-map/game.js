@@ -14,9 +14,6 @@ scene.add(avatar.mesh)
 camera.position.z = 100
 avatar.mesh.add(camera)
 
-const light = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75)
-scene.add(light)
-
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()

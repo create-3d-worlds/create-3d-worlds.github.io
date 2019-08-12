@@ -5,10 +5,6 @@ import Avatar from '../classes/Avatar.js'
 const avatar = new Avatar(25, 25, 0.1)
 scene.add(avatar.mesh)
 
-const light = new THREE.HemisphereLight(0xeeeeff, 0x777788, 1)
-light.position.set(0.5, 1, 0.75)
-scene.add(light)
-
 const terrain = createTerrain()
 scene.add(terrain)
 
