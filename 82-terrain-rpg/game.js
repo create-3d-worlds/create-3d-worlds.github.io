@@ -3,27 +3,9 @@ import {scene, renderer, camera, createOrbitControls} from '../utils/three-scene
 import {createTrees} from '../utils/three-helpers.js'
 
 createOrbitControls()
-camera.position.y = 450
-camera.position.z = 450
-camera.lookAt(scene.position)
-
-scene.add(createTrees())
-
-// lights
-const dirLight = new THREE.DirectionalLight(0xffffcc, 0.5, 500)
-const hemiLight = new THREE.HemisphereLight(0xffffcc, 0xffffcc, 0.6)
-const pointLight = new THREE.PointLight(0xffffcc)
-
-hemiLight.color.setHSL(0.6, 1, 0.6)
-hemiLight.groundColor.setHSL(0.095, 1, 0.75)
-hemiLight.position.set(0, 500, 0)
-
-pointLight.intensity = 0.75
-pointLight.position.set(new THREE.Vector3(1000, 800, -1000))
-
-scene.add(dirLight)
-scene.add(hemiLight)
-scene.add(pointLight)
+camera.position.y = 250
+camera.position.z = 250
+scene.add(new THREE.HemisphereLight())
 
 const generateTerrain = function() {
   const resolution = 20
@@ -85,6 +67,7 @@ const generateTerrain = function() {
 }
 
 scene.add(generateTerrain())
+scene.add(createTrees())
 
 void function animate() {
   requestAnimationFrame(animate)

@@ -8,7 +8,6 @@ scene.add(createFloor(500, 500, 'ground.jpg'))
 scene.add(createTrees())
 
 camera.position.set(0, 200, 350)
-camera.lookAt(scene.position)
 
 const chaseCamera = camera.clone()
 let currentCamera = camera
