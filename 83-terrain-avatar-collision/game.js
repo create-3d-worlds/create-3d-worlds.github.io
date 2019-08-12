@@ -1,33 +1,9 @@
 import { scene, camera, renderer, clock, createOrbitControls } from '../utils/three-scene.js'
-import {createTerrain, createFloor, createPlane, createTrees} from '../utils/three-helpers.js'
+import {createFir, createTerrain, createFloor, createPlane, createTrees} from '../utils/three-helpers.js'
 import {rndInt} from '../utils/helpers.js'
 import Avatar from '../classes/Avatar.js'
 
 const size = 1000
-
-const createFir = () => {
-  const geom = {
-    leaves: new THREE.CylinderGeometry(0, 25, 60, 4, 1),
-    trunk: new THREE.BoxGeometry(5, 20, 5)
-  }
-  const materials = {
-    leaves: new THREE.MeshLambertMaterial({ color: 0x3EA055}),
-    trunk: new THREE.MeshLambertMaterial({ color: 0x966F33})
-  }
-  const tree = new THREE.Object3D()
-  const leaves = new THREE.Mesh(geom.leaves, materials.leaves)
-  const trunk = new THREE.Mesh(geom.trunk, materials.trunk)
-  leaves.name = 'leaves'
-  trunk.name = 'trunk'
-  leaves.castShadow = true
-  trunk.castShadow = true
-  leaves.position.y += 50
-  trunk.position.y += 20
-  tree.add(leaves)
-  tree.add(trunk)
-  tree.castShadow = true
-  return tree
-}
 
 class Fir {
   constructor(pos) {

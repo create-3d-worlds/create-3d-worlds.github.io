@@ -188,3 +188,22 @@ export function createRandomBoxes(boxNum = 100, size = 20) {
   }
   return group
 }
+
+export const createFir = (height = 80) => {
+  const tree = new THREE.Object3D()
+  const leaves = new THREE.Mesh(
+    new THREE.CylinderGeometry(0, 25, height * 2 / 3, 4, 1), 
+    new THREE.MeshLambertMaterial({ color: 0x3EA055})
+  )
+  const trunk = new THREE.Mesh(
+    new THREE.BoxGeometry(5, height / 3, 5),
+    new THREE.MeshLambertMaterial({ color: 0x966F33})
+  )
+  leaves.position.y = height / 2
+  leaves.castShadow = true
+  trunk.castShadow = true
+  tree.castShadow = true
+  tree.add(leaves)
+  tree.add(trunk)
+  return tree
+}
