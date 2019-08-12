@@ -218,7 +218,7 @@ export const findGround = function(terrain, x, z) {
   return intersects.length > 0 ? intersects[0].point : null
 }
 
-export const createFirs = function(numTrees = 50, mapSize = 1000, terrain) {
+export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
   const group = new THREE.Group()
   for (let i = 0; i < numTrees; i++) {
     const min = -mapSize / 2, max = mapSize / 2

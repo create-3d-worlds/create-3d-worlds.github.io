@@ -9,7 +9,7 @@ scene.add(avatar.mesh)
 
 const terrain = createTerrain(size, size)
 scene.add(terrain)
-scene.add(createFirs(50, size, terrain))
+scene.add(createFirs(terrain, 50, size))
 
 const controls = createOrbitControls()
 camera.position.y = 200

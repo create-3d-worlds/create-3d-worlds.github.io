@@ -1,26 +1,20 @@
 /* global SimplexNoise */
 import {scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
-import {createFloor, createPlane, createTrees} from '../utils/three-helpers.js'
-import {rndInt} from '../utils/helpers.js'
+import {createFirs, createPlane, createTrees} from '../utils/three-helpers.js'
 
 const size = 1000
 
 createOrbitControls()
 camera.position.y = 250
 camera.position.z = 250
-scene.add(new THREE.HemisphereLight())
 
 const generateTerrain = function(size = 1000, avgHeight = 30) {
   const resolution = 20
   const landMaterial = new THREE.MeshLambertMaterial({
     color: 0x33aa33,
-    flatShading: true,
     vertexColors: THREE.FaceColors
   })
   const landGeo = new THREE.PlaneGeometry(size, size, resolution, resolution)
-  landGeo.dynamic = true
-  landGeo.verticesNeedUpdate = true
-  // landGeo.computeCentroids()
 
   const noise = new SimplexNoise()
   const factorX = 50
@@ -39,7 +33,6 @@ const generateTerrain = function(size = 1000, avgHeight = 30) {
   })
 
   const land = new THREE.Mesh(landGeo, landMaterial)
-  land.receiveShadow = true
   land.name = 'land'
   land.rotateX(-Math.PI / 2)
   land.position.set(0, avgHeight, 0)
@@ -47,9 +40,8 @@ const generateTerrain = function(size = 1000, avgHeight = 30) {
   const waterMaterial = new THREE.MeshLambertMaterial({
     color: 0x6699ff,
     transparent: true,
-    opacity: 0.75,
-    vertexColors: THREE.FaceColors,
-    flatShading: true
+    opacity: 0.5,
+    vertexColors: THREE.FaceColors
   })
   const waterGeo = new THREE.PlaneGeometry(size, size, resolution, resolution)
   waterGeo.faces.forEach(face => {
@@ -59,8 +51,6 @@ const generateTerrain = function(size = 1000, avgHeight = 30) {
   })
 
   const water = new THREE.Mesh(waterGeo, waterMaterial)
-  water.receiveShadow = true
-  water.name = 'water'
   water.rotateX(-Math.PI / 2)
 
   const terrain = new THREE.Object3D()
@@ -71,80 +61,9 @@ const generateTerrain = function(size = 1000, avgHeight = 30) {
   return terrain
 }
 
-const createFir = () => {
-  const geom = {
-    leaves: new THREE.CylinderGeometry(0, 25, 60, 4, 1),
-    trunk: new THREE.BoxGeometry(5, 20, 5)
-  }
-  const materials = {
-    leaves: new THREE.MeshLambertMaterial({ color: 0x3EA055}),
-    trunk: new THREE.MeshLambertMaterial({ color: 0x966F33})
-  }
-  const tree = new THREE.Object3D()
-  const leaves = new THREE.Mesh(geom.leaves, materials.leaves)
-  const trunk = new THREE.Mesh(geom.trunk, materials.trunk)
-  leaves.name = 'leaves'
-  trunk.name = 'trunk'
-  leaves.castShadow = true
-  trunk.castShadow = true
-  leaves.position.y += 50
-  trunk.position.y += 20
-  tree.add(leaves)
-  tree.add(trunk)
-  tree.castShadow = true
-  return tree
-}
-
-class Fir {
-  constructor(pos) {
-    this.name = 'tree'
-    this.mesh = createFir()
-    const {x, y, z} = pos
-    this.mesh.position.set(x, y, z)
-  }
-}
-
-const place = function(position) {
-  const direction = new THREE.Vector3(0, -1, 0)
-  const origin = { x: position.x, y: 100, z: position.z }
-
-  const raycaster = new THREE.Raycaster()
-  raycaster.set(origin, direction)
-
-  const arrowHelper = new THREE.ArrowHelper(direction, origin, 100)
-  scene.add(arrowHelper)
-
-  const land = scene.getObjectByName('floor')
-  const intersects = raycaster.intersectObject(land, true)
-  console.log(intersects)
-  if (intersects.length > 0) {
-    console.log(intersects[0].point)
-    return intersects[0].point
-  }
-  return null
-}
-
-const createFirs = function(numTrees = 50) {
-  const group = new THREE.Group()
-  for (let i = 0; i < numTrees; i++) {
-    const rndPoint = new THREE.Vector3(rndInt(size / 2), 100, rndInt(size / 2))
-    // console.log(rndPoint)
-    // group.add(new Fir(rndPoint).mesh)
-    const position = place(rndPoint)
-    if (position) {
-      console.log(position)
-      // if (position.y > 0) {
-      //   position.y -= 10
-      // }
-      group.add(new Fir(position).mesh)
-    }
-  }
-  return group
-}
-
-scene.add(createFloor(size))
-scene.add(createFirs())
-// scene.add(createTrees())
+const terrain = generateTerrain(size)
+scene.add(terrain)
+scene.add(createFirs(terrain))
 
 void function animate() {
   requestAnimationFrame(animate)
