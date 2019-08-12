@@ -14,26 +14,20 @@ const createHillTerrain = (size, avgHeight = 30) => {
   const material = new THREE.MeshLambertMaterial({
     color: 0x33aa33,
     vertexColors: THREE.FaceColors,
-    // side: THREE.DoubleSide
   })
   const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
   geometry.rotateX(-Math.PI / 2)
 
   const noise = new SimplexNoise()
   const factorX = 50
-  const factorY = 25
-  const factorZ = 60
-
-  // geometry.vertices.forEach(vertex => {
-  //   let n = noise.noise(vertex.x / resolution / factorX, vertex.y / resolution / factorY)
-  //   n -= 0.25
-  //   vertex.z = n * factorZ
-  // })
+  const factorZ = 25
+  const factorY = 60
 
   geometry.vertices.forEach(vertex => {
     vertex.x += randomInRange(-factorX, factorX)
-    vertex.y += randomInRange(-factorY, factorY)
     vertex.z += randomInRange(-factorZ, factorZ)
+    const dist = noise.noise(vertex.x / resolution / factorX, vertex.z / resolution / factorZ)
+    vertex.y = (dist - 0.2) * factorY
   })
   geometry.faces.forEach(face => {
     const { color } = face
@@ -41,6 +35,7 @@ const createHillTerrain = (size, avgHeight = 30) => {
     face.color.setRGB(color.r + rand, color.g + rand, color.b + rand)
   })
   const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.y = avgHeight
   return mesh
 }
 
@@ -68,7 +63,7 @@ const generateTerrain = function(size = 1000, avgHeight = 30) {
   const terrain = new THREE.Object3D()
   terrain.name = 'terrain'
   terrain.add(land)
-  // terrain.add(water)
+  terrain.add(water)
   terrain.receiveShadow = true
   return terrain
 }
