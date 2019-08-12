@@ -21,7 +21,7 @@ export const clock = new THREE.Clock()
 
 export function createOrbitControls() {
   const controls = new OrbitControls(camera, renderer.domElement)
-  controls.maxPolarAngle = Math.PI / 2 - 0.1 // prevent bellow ground
+  // controls.maxPolarAngle = Math.PI / 2 - 0.1 // prevent bellow ground
   controls.minDistance = 2
   // controls.maxDistance = 20
   controls.zoomSpeed = .3
