@@ -189,8 +189,8 @@ export function createRandomBoxes(boxNum = 100, size = 20) {
   return group
 }
 
-export const createFir = (height = 80) => {
-  const tree = new THREE.Object3D()
+export const createFir = (x = 0, y = 0, z = 0, height = 80) => {
+  const fir = new THREE.Object3D()
   const leaves = new THREE.Mesh(
     new THREE.CylinderGeometry(0, 25, height * 2 / 3, 4, 1), 
     new THREE.MeshLambertMaterial({ color: 0x3EA055})
@@ -202,8 +202,32 @@ export const createFir = (height = 80) => {
   leaves.position.y = height / 2
   leaves.castShadow = true
   trunk.castShadow = true
-  tree.castShadow = true
-  tree.add(leaves)
-  tree.add(trunk)
-  return tree
+  fir.castShadow = true
+  fir.add(leaves)
+  fir.add(trunk)
+  fir.position.set(x, y, z)
+  return fir
+}
+
+export const findGround = function(terrain, x, z) {
+  const direction = new THREE.Vector3(0, -1, 0)
+  const origin = { x, y: 1000, z }
+  const raycaster = new THREE.Raycaster()
+  raycaster.set(origin, direction)
+  const intersects = raycaster.intersectObject(terrain, true)
+  return intersects.length > 0 ? intersects[0].point : null
+}
+
+export const createFirs = function(numTrees = 50, mapSize = 1000, terrain) {
+  const group = new THREE.Group()
+  for (let i = 0; i < numTrees; i++) {
+    const min = -mapSize / 2, max = mapSize / 2
+    const {x, z} = new THREE.Vector3(randomInRange(min, max), 100, randomInRange(min, max))
+    if (terrain) {
+      const ground = findGround(terrain, x, z)
+      if (ground)
+        group.add(createFir(x, ground.y, z))
+    } else group.add(createFir(x, 0, z))
+  }
+  return group
 }
