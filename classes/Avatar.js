@@ -132,9 +132,10 @@ export default class Avatar {
   /* both solids and terrain are optional */
   update(delta, solids, terrain) {
     this.checkKeys(delta, solids)
-    const env = [terrain]
-    if (solids) env.push(solids)
-    if (terrain) this.checkGround(env)
+    const ground = []
+    if (terrain) ground.push(terrain)
+    if (solids && solids.length) ground.push(...solids)
+    if (ground.length) this.checkGround(ground)
     this.animate()
     TWEEN.update()
   }
