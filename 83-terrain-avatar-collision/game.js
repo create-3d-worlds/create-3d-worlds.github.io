@@ -12,8 +12,8 @@ scene.add(terrain)
 scene.add(createFirs(50, size, terrain))
 
 const controls = createOrbitControls()
-camera.position.y = 75
-camera.position.z = 75
+camera.position.y = 200
+camera.position.z = 200
 
 /* INIT */
 
