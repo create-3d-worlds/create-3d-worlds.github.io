@@ -22,7 +22,6 @@ const createHillTerrain = (size, avgHeight = 30) => {
   const factorX = 50
   const factorZ = 25
   const factorY = 60
-
   geometry.vertices.forEach(vertex => {
     vertex.x += randomInRange(-factorX, factorX)
     vertex.z += randomInRange(-factorZ, factorZ)
@@ -30,7 +29,7 @@ const createHillTerrain = (size, avgHeight = 30) => {
     vertex.y = (dist - 0.2) * factorY
   })
   geometry.faces.forEach(face => {
-    const { color } = face
+    const {color} = face
     const rand = Math.random() / 5
     face.color.setRGB(color.r + rand, color.g + rand, color.b + rand)
   })
@@ -40,20 +39,14 @@ const createHillTerrain = (size, avgHeight = 30) => {
 }
 
 const createWater = size => {
-  const resolution = 10
+  const resolution = 1
   const material = new THREE.MeshLambertMaterial({
     color: 0x6699ff,
     transparent: true,
     opacity: 0.5,
-    vertexColors: THREE.FaceColors
   })
   const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
   geometry.rotateX(-Math.PI / 2)
-  geometry.faces.forEach(face => {
-    const { color } = face
-    const rand = Math.random() / 2
-    face.color.setRGB(color.r + rand, color.g + rand, color.b + rand)
-  })
   return new THREE.Mesh(geometry, material)
 }
 
