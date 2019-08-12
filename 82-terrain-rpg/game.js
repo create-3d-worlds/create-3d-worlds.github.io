@@ -70,7 +70,6 @@ const generateTerrain = function(size = 1000, avgHeight = 30) {
 }
 
 scene.add(generateTerrain())
-// scene.add(createTrees())
 
 const createFir = () => {
   const geom = {
@@ -106,36 +105,47 @@ class Fir {
 }
 
 const place = function(position) {
-  const caster = new THREE.Raycaster()
-  const ray = new THREE.Vector3(0, -1, 0)
-  caster.set(position, ray)
-  const land = scene.getObjectByName('terrain').children[0]
-  const collisions = caster.intersectObject(land)
-  if (collisions.length > 0) {
-    console.log(collisions[0].point)
-    return collisions[0].point
-  }
-  return null
+  const rayCaster = new THREE.Raycaster()
+  const direction = new THREE.Vector3(0, -1, 0)
+  const origin = { x: position.x, y: 100, z: position.z }
+  rayCaster.origin = origin
+  rayCaster.direction = direction
+  const arrowHelper = new THREE.ArrowHelper(direction, origin, 100)
+  scene.add(arrowHelper)
+
+  const terrain = scene.getObjectByName('terrain')
+  console.log(rayCaster.intersectObject(terrain))
+  // nigde ne preseca teren??
+
+  // const land = scene.getObjectByName('terrain').children[0]
+  // const collisions = rayCaster.intersectObject(land)
+  // if (collisions.length > 0) {
+  //   console.log(collisions[0].point)
+  //   return collisions[0].point
+  // }
+  // return null
 }
 
 const createFirs = function(numTrees = 50) {
   const group = new THREE.Group()
   for (let i = 0; i < numTrees; i++) {
     const rndPoint = new THREE.Vector3(rndInt(size / 2), 100, rndInt(size / 2))
+    // console.log(rndPoint)
+    // group.add(new Fir(rndPoint).mesh)
     const position = place(rndPoint)
-    if (position) {
+    if (position)
       console.log('ima')
       // if (position.y > 0) {
       //   position.y -= 10
       // }
-      group.add(new Fir(position).mesh)
-    }
+      // group.add(new Fir(position).mesh)
+
   }
   return group
 }
 
-// scene.add(createFirs())
-scene.add(createTrees())
+scene.add(createFirs())
+// scene.add(createTrees())
 
 void function animate() {
   requestAnimationFrame(animate)
