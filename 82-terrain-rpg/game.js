@@ -1,6 +1,6 @@
 /* global SimplexNoise */
 import {scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
-import {createTrees} from '../utils/three-helpers.js'
+// import {createTrees} from '../utils/three-helpers.js'
 
 createOrbitControls()
 camera.position.y = 250
@@ -67,7 +67,76 @@ const generateTerrain = function() {
 }
 
 scene.add(generateTerrain())
-scene.add(createTrees())
+// scene.add(createTrees())
+
+const treeModel = (function() {
+  const treeData = {
+    geom: {
+      leaves: new THREE.CylinderGeometry(0, 25, 60, 4, 1),
+      trunk: new THREE.BoxGeometry(5, 20, 5)
+    },
+    materials: {
+      leaves: new THREE.MeshLambertMaterial({ color: 0x3EA055, shading: THREE.SmoothShading }),
+      trunk: new THREE.MeshLambertMaterial({ color: 0x966F33, shading: THREE.SmoothShading })
+    }
+  }
+  const tree = new THREE.Object3D()
+  const leaves = new THREE.Mesh(treeData.geom.leaves, treeData.materials.leaves)
+  const trunk = new THREE.Mesh(treeData.geom.trunk, treeData.materials.trunk)
+  leaves.name = 'leaves'
+  trunk.name = 'trunk'
+
+  leaves.castShadow = true
+  trunk.castShadow = true
+
+  leaves.position.y += 50
+  trunk.position.y += 20
+
+  tree.add(leaves)
+  tree.add(trunk)
+  tree.castShadow = true
+
+  return tree
+})()
+
+class Entity {
+  constructor(color = 0xffffff) {
+    this.pos      = new THREE.Vector3(0, 0, 0)
+    this.destination = new THREE.Vector3(0, 0, 0)
+    this.vel      = new THREE.Vector3(0, 0, 0)
+    this.rotation = new THREE.Euler(0, 0, 0)
+    this.timeMult = 1
+    this.remove   = false
+    this.shadow   = false
+    this.state = null
+    this.color = color
+    this.create()
+  }
+
+  create() {
+    const geometry = new THREE.BoxGeometry(10, 10, 10)
+    const material = new THREE.MeshLambertMaterial({ color: 0xff0000, shading: THREE.SmoothShading })
+    this.mesh = new THREE.Mesh(geometry, material)
+    this.mesh.castShadow = true
+  }
+}
+
+class Tree extends Entity {
+  constructor(pos) {
+    super()
+    this.name = 'tree'
+    this.pos = pos
+    this.units = 4
+  }
+
+  create() {
+    this.mesh = treeModel.clone()
+  }
+}
+
+const tree = new Tree({x: 0, y: 0, z: 0})
+console.log(tree)
+scene.add(tree.mesh)
 
 void function animate() {
   requestAnimationFrame(animate)
