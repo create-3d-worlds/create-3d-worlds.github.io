@@ -14,9 +14,8 @@ const generateTerrain = function(size = 1000, avgHeight = 30) {
   const resolution = 20
   const landMaterial = new THREE.MeshLambertMaterial({
     color: 0x33aa33,
-    shading: THREE.FlatShading,
-    vertexColors: THREE.FaceColors,
-    overdraw: true
+    flatShading: true,
+    vertexColors: THREE.FaceColors
   })
   const landGeo = new THREE.PlaneGeometry(size, size, resolution, resolution)
 
@@ -47,7 +46,7 @@ const generateTerrain = function(size = 1000, avgHeight = 30) {
     transparent: true,
     opacity: 0.75,
     vertexColors: THREE.FaceColors,
-    shading: THREE.FlatShading
+    flatShading: true
   })
   const waterGeo = new THREE.PlaneGeometry(size, size, resolution, resolution)
   waterGeo.faces.forEach(face => {
@@ -105,16 +104,18 @@ class Fir {
 }
 
 const place = function(position) {
-  const raycaster = new THREE.Raycaster()
   const direction = new THREE.Vector3(0, -1, 0)
   const origin = { x: position.x, y: 100, z: position.z }
+
+  const raycaster = new THREE.Raycaster()
   raycaster.origin = origin
   raycaster.direction = direction
+
   const arrowHelper = new THREE.ArrowHelper(direction, origin, 100)
   scene.add(arrowHelper)
 
-  const terrain = scene.getObjectByName('terrain')
-  const intersects = raycaster.intersectObjects(terrain.children) // raycaster.intersectObject(terrain)
+  const terrain = scene.getObjectByName('land')
+  const intersects = raycaster.intersectObject(terrain, true) // raycaster.intersectObject(terrain)
 
   console.log(intersects)
   // nigde ne preseca teren??
