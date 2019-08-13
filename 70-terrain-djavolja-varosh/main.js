@@ -1,8 +1,6 @@
 /* global noise */
 import { scene, camera, renderer, createOrbitControls } from '../utils/three-scene.js'
 
-const MAX_HEIGHT = 25
-
 camera.position.set(100, 100, 100)
 createOrbitControls()
 
@@ -12,14 +10,15 @@ scene.add(spotLight)
 
 /* FUNCTIONS */
 
-function create3DTerrain(width, depth, spacingX, spacingZ, height) {
+function create3DTerrain(width = 140, depth = 140, spacingX = 2.5, spacingZ = 2.5, height = 50) {
   const date = new Date()
   noise.seed(date.getMilliseconds())
   const geometry = new THREE.Geometry()
-
+  const factor = 7
   for (let z = 0; z < depth; z++)
     for (let x = 0; x < width; x++) {
-      const y = Math.abs(noise.perlin2(x / 7, z / 7) * height * 2)
+      // abs to make sure the value is positive, since perlin2 returns from - 1 to 1
+      const y = Math.abs(noise.perlin2(x / factor, z / factor) * height)
       const vertex = new THREE.Vector3(x * spacingX, y, z * spacingZ)
       geometry.vertices.push(vertex)
     }
@@ -60,7 +59,7 @@ function create3DTerrain(width, depth, spacingX, spacingZ, height) {
 
 /* INIT */
 
-scene.add(create3DTerrain(140, 140, 2.5, 2.5, MAX_HEIGHT))
+scene.add(create3DTerrain())
 
 void function render() {
   renderer.render(scene, camera)
