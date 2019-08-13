@@ -1,9 +1,14 @@
 import { scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
-import { createWater} from '../utils/three-helpers.js'
+import { createFirs, createWater, createHillyTerrain } from '../utils/three-helpers.js'
 import { roll, randomInRange } from '../utils/helpers.js'
 import '../node_modules/three/examples/js/loaders/deprecated/LegacyJSONLoader.js'
 
 const size = 600
+
+scene.add(createWater(1000))
+const land = createHillyTerrain(1000, 30)
+scene.add(land)
+scene.add(createFirs(land))
 
 const loader = new THREE.LegacyJSONLoader()
 const clouds = new THREE.Group()
@@ -14,7 +19,7 @@ function createCloud(geometry, materials) {
   cloud.castShadow = true
   cloud.position.x = randomInRange(-size, size)
   cloud.position.z = randomInRange(-size, size)
-  cloud.position.y = randomInRange(10, 100)
+  cloud.position.y = randomInRange(60, 100)
   return cloud
 }
 
