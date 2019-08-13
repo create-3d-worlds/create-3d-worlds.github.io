@@ -10,9 +10,6 @@ scene.add(avatar.mesh)
 scene.add(createFloor(500, 500, 'ground.jpg'))
 scene.add(createMap(matrix, 20))
 
-camera.position.z = 250
-camera.position.y = 200
-
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()

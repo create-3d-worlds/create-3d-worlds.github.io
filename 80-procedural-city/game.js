@@ -1,4 +1,3 @@
-// http://learningthreejs.com/blog/2013/08/02/how-to-do-a-procedural-city-in-100lines/
 // TODO: change roof color or texture
 import { scene, camera, renderer, clock } from '../utils/three-scene.js'
 import {createPlane} from '../utils/three-helpers.js'

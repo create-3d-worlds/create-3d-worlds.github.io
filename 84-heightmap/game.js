@@ -1,25 +1,13 @@
 /* global chroma */
+import { scene, camera, renderer, createOrbitControls } from '../utils/three-scene.js'
+
+createOrbitControls()
 
 const scale = chroma.scale(['blue', 'green', 'red']).domain([0, 50])
-
-const scene = new THREE.Scene()
-
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000)
-
-const renderer = new THREE.WebGLRenderer()
-renderer.setClearColor(0x000000, 1.0)
-renderer.setSize(window.innerWidth, window.innerHeight)
 
 const light = new THREE.DirectionalLight()
 light.position.set(600, 600, 600)
 scene.add(light)
-
-camera.position.x = 600
-camera.position.y = 500
-camera.position.z = 600
-camera.lookAt(scene.position)
-
-document.body.appendChild(renderer.domElement)
 
 function getHighPoint(geometry, face) {
   const v1 = geometry.vertices[face.a].y

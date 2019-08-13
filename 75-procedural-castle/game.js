@@ -14,7 +14,6 @@ const towers = [
   [wallWidth, wallWidth]
 ]
 
-camera.position.set(55, 150, 250)
 createOrbitControls()
 
 /* FUNCTIONS */

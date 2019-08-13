@@ -2,7 +2,7 @@
 import { scene, camera, renderer, createOrbitControls } from '../utils/three-scene.js'
 import createDjavoljaVarosh from '../utils/createDjavoljaVarosh.js'
 
-camera.position.set(100, 100, 100)
+camera.position.set(150, 150, 150)
 createOrbitControls()
 
 const spotLight = new THREE.SpotLight(0xffffff)

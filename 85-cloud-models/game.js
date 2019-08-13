@@ -32,8 +32,6 @@ loader.load('../assets/models/cloud.json', (geometry, materials) => {
 })
 
 createOrbitControls()
-camera.position.y = 250
-camera.position.z = 250
 
 scene.add(createWater(1000))
 
