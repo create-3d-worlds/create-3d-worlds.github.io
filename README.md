@@ -40,10 +40,9 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [x] napraviti tlo
 - [x] dodati koliziju na tlo
 - [x] dodati osnovnu geometriju
-  - [ ] dodati okruzenje (drveće, nebo, zgrade)
-  - [ ] dodati neke stvari (sanduke i slicno)
+  - [x] dodati okruzenje (drveće, nebo, zgrade)
+  - [x] dodati neke stvari (sanduke i slicno)
 - [ ] proceduralno kreirati okruženje
-  - https://subscription.packtpub.com/book/web_development/9781783980864/5/ch05lvl1sec34/creating-a-3d-terrain-from-scratch
   - https://github.com/mudroljub/mini-rpg
 - [ ] kreirati stepenice u krug od kocki
 - [ ] prebaciti da tlo bude okruglo
@@ -68,6 +67,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
 ### Fizika
 
 - [ ] dodati fiziku https://github.com/chandlerprall/Physijs
+- [ ] dodati fiziku na proceruralni zamak i top koji puca i rusi zidine
 
 ### Mehanika igre
 

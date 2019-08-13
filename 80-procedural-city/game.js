@@ -1,3 +1,5 @@
+// http://learningthreejs.com/blog/2013/08/02/how-to-do-a-procedural-city-in-100lines/
+// TODO: change roof color or texture
 import { scene, camera, renderer, clock } from '../utils/three-scene.js'
 import {createPlane} from '../utils/three-helpers.js'
 import {randomInRange} from '../utils/helpers.js'
@@ -15,16 +17,18 @@ scene.add(createPlane(2000, 2000, 0x101018))
 /* FUNCTIONS */
 
 function generateBuilding() {
-  const box = new THREE.CubeGeometry(1, 1, 1)
-  box.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0.5, 0))
+  const geometry = new THREE.CubeGeometry(1, 1, 1)
+  // change the pivot point to be at the bottom of the cube
+  geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0.5, 0))
+  geometry.faces.splice(6, 2) // remove floor for optimization
 
-  const building = new THREE.Mesh(box)
-  building.position.x = randomInRange(-1000, 1000)
-  building.position.z = randomInRange(-1000, 1000)
-  building.rotation.y = Math.random()
-  building.scale.x = building.scale.z = randomInRange(10, 20, false)
-  building.scale.y = (Math.random() * Math.random() * Math.random() * building.scale.x) * 8 + 8
-  return building
+  const mesh = new THREE.Mesh(geometry)
+  mesh.position.x = randomInRange(-1000, 1000)
+  mesh.position.z = randomInRange(-1000, 1000)
+  mesh.rotation.y = Math.random()
+  mesh.scale.x = mesh.scale.z = randomInRange(10, 20, false)
+  mesh.scale.y = (Math.random() * Math.random() * Math.random() * mesh.scale.x) * 8 + 8
+  return mesh
 }
 
 function generateCityTexture() {
