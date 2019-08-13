@@ -95,6 +95,8 @@ Prikazuje pomocnu strelicu za raycaster:
 scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300))
 ```
 
+All libraries in `/libs` folder are updated by hand to support ES6 export.
+
 ## Resursi
 
 - [Build a basic combat game with three.js](http://www.creativebloq.com/web-design/build-basic-combat-game-threejs-101517540)

@@ -1,4 +1,4 @@
-import noise from './libs/noise.js'
+import noise from '../libs/noise.js'
 
 export default function createDjavoljaVarosh(width = 140, depth = 140, spacingX = 2.5, spacingZ = 2.5, height = 50) {
   const date = new Date()

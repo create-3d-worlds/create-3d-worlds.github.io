@@ -1,4 +1,4 @@
-/* global TWEEN */
+import TWEEN from '../libs/Tween.js'
 import {clock} from '../utils/three-scene.js'
 import keyboard from '../classes/Keyboard.js'
 const {pressed} = keyboard

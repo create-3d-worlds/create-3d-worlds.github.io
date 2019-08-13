@@ -1,5 +1,5 @@
 import {randomInRange} from './helpers.js'
-import { SimplexNoise } from './libs/SimplexNoise.js'
+import { SimplexNoise } from '../libs/SimplexNoise.js'
 const {PI, random, floor} = Math
 
 const loader = new THREE.TextureLoader()
