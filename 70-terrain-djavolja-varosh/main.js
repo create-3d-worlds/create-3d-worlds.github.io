@@ -9,9 +9,9 @@ const spotLight = new THREE.SpotLight(0xffffff)
 spotLight.position.set(10, 300, 10)
 scene.add(spotLight)
 
-/* INIT */
-
 scene.add(createDjavoljaVarosh())
+
+/* INIT */
 
 void function render() {
   renderer.render(scene, camera)
