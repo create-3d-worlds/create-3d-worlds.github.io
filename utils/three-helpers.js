@@ -190,23 +190,25 @@ export function createRandomBoxes(boxNum = 100, size = 20) {
   return group
 }
 
-export const createFir = (x = 0, y = 0, z = 0, height = 80) => {
+export const createFir = (x = 0, y = 0, z = 0, leavesHeight = 60) => {
   const fir = new THREE.Object3D()
   const leaves = new THREE.Mesh(
-    new THREE.CylinderGeometry(0, 25, height * 2 / 3, 4, 1),
+    new THREE.CylinderGeometry(0, 25, leavesHeight, 4, 1),
     new THREE.MeshLambertMaterial({ color: 0x3EA055})
   )
+  const trunkHeight = leavesHeight / 3 // 20
   const trunk = new THREE.Mesh(
-    new THREE.BoxGeometry(5, height / 3, 5),
+    new THREE.BoxGeometry(5, trunkHeight, 5),
     new THREE.MeshLambertMaterial({ color: 0x966F33})
   )
-  leaves.position.y = height / 2
-  leaves.castShadow = true
-  trunk.castShadow = true
-  fir.castShadow = true
+  trunk.position.y = trunkHeight / 2
+  leaves.position.y = trunkHeight * 2
+  // leaves.castShadow = true
+  // trunk.castShadow = true
+  // fir.castShadow = true
   fir.add(leaves)
   fir.add(trunk)
-  fir.position.set(x, y + height / 2, z)
+  fir.position.set(x, y + leavesHeight / 2, z)
   return fir
 }
 
@@ -226,8 +228,10 @@ export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
     const {x, z} = new THREE.Vector3(randomInRange(min, max), 100, randomInRange(min, max))
     if (terrain) {
       const ground = findGround(terrain, x, z)
-      if (ground && ground.y > 0)
+      if (ground && ground.y > 0) { // eslint-disable-line
+        // console.log(ground.y)
         group.add(createFir(x, ground.y, z))
+      }
     } else group.add(createFir(x, 0, z))
   }
   return group
