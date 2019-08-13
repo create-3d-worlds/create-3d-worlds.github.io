@@ -10,7 +10,8 @@ const light = new THREE.DirectionalLight()
 light.position.set(1200, 1200, 1200)
 scene.add(light)
 
-function meshFromHeightmap(src, depth = 256, width = 256) {
+
+function meshFromHeightmap(src, callback, size = 256) {
   const img = new Image()
   img.src = src
   img.onload = function() {
@@ -19,27 +20,27 @@ function meshFromHeightmap(src, depth = 256, width = 256) {
     const heightOffset = 2
 
     const canvas = document.createElement('canvas')
-    canvas.width = width
-    canvas.height = depth
+    canvas.size = size
+    canvas.height = size
     const ctx = canvas.getContext('2d')
 
     ctx.drawImage(img, 0, 0)
-    const pixel = ctx.getImageData(0, 0, width, depth)
+    const pixel = ctx.getImageData(0, 0, size, size)
     const geometry = new THREE.Geometry
 
-    for (let x = 0; x < depth; x++)
-      for (let z = 0; z < width; z++) {
-        const yValue = pixel.data[z * 4 + (depth * x * 4)] / heightOffset
+    for (let x = 0; x < size; x++)
+      for (let z = 0; z < size; z++) {
+        const yValue = pixel.data[z * 4 + (size * x * 4)] / heightOffset
         const vertex = new THREE.Vector3(x * spacingX, yValue, z * spacingZ)
         geometry.vertices.push(vertex)
       }
 
-    for (let z = 0; z < depth - 1; z++)
-      for (let x = 0; x < width - 1; x++) {
-        const a = x + z * width
-        const b = (x + 1) + (z * width)
-        const c = x + ((z + 1) * width)
-        const d = (x + 1) + ((z + 1) * width)
+    for (let z = 0; z < size - 1; z++)
+      for (let x = 0; x < size - 1; x++) {
+        const a = x + z * size
+        const b = (x + 1) + (z * size)
+        const c = x + ((z + 1) * size)
+        const d = (x + 1) + ((z + 1) * size)
 
         const face1 = new THREE.Face3(a, b, d)
         const face2 = new THREE.Face3(d, c, a)
@@ -59,11 +60,13 @@ function meshFromHeightmap(src, depth = 256, width = 256) {
     }))
     mesh.translateX(-max.x / 2)
     mesh.translateZ(-max.z / 2)
-    scene.add(mesh) // ne more return jer je u callbacku
+    callback(mesh)
   }
 }
 
-meshFromHeightmap('../assets/heightmaps/wiki.png')
+meshFromHeightmap('../assets/heightmaps/wiki.png', mesh => {
+  scene.add(mesh)
+})
 
 /* INIT */
 
