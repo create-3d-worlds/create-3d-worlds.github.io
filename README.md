@@ -63,6 +63,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
   - [ ] dodati avion kako nadlece
   - [ ] dodati tenk kako se krece
 - [ ] reagovati na koliziju
+- https://threejsfundamentals.org/threejs/lessons/threejs-load-obj.html
 
 ### Fizika
 
