@@ -1,4 +1,5 @@
 import {randomInRange} from './helpers.js'
+import { SimplexNoise } from './libs/SimplexNoise.js'
 const {PI, random, floor} = Math
 
 const loader = new THREE.TextureLoader()
@@ -192,7 +193,7 @@ export function createRandomBoxes(boxNum = 100, size = 20) {
 export const createFir = (x = 0, y = 0, z = 0, height = 80) => {
   const fir = new THREE.Object3D()
   const leaves = new THREE.Mesh(
-    new THREE.CylinderGeometry(0, 25, height * 2 / 3, 4, 1), 
+    new THREE.CylinderGeometry(0, 25, height * 2 / 3, 4, 1),
     new THREE.MeshLambertMaterial({ color: 0x3EA055})
   )
   const trunk = new THREE.Mesh(
@@ -225,10 +226,8 @@ export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
     const {x, z} = new THREE.Vector3(randomInRange(min, max), 100, randomInRange(min, max))
     if (terrain) {
       const ground = findGround(terrain, x, z)
-      if (ground && ground.y > 0) {
-        console.log(ground.y)
+      if (ground && ground.y > 0)
         group.add(createFir(x, ground.y, z))
-      }
     } else group.add(createFir(x, 0, z))
   }
   return group
@@ -239,9 +238,38 @@ export const createWater = size => {
   const material = new THREE.MeshLambertMaterial({
     color: 0x6699ff,
     transparent: true,
-    opacity: 0.5,
+    opacity: 0.75,
   })
   const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
   geometry.rotateX(-Math.PI / 2)
   return new THREE.Mesh(geometry, material)
+}
+
+export const createHillyTerrain = (size, avgHeight = 30) => {
+  const resolution = 20
+  const material = new THREE.MeshLambertMaterial({
+    color: 0x33aa33,
+    vertexColors: THREE.FaceColors,
+  })
+  const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
+  geometry.rotateX(-Math.PI / 2)
+
+  const noise = new SimplexNoise()
+  const factorX = 50
+  const factorZ = 25
+  const factorY = 60
+  geometry.vertices.forEach(vertex => {
+    vertex.x += randomInRange(-factorX, factorX)
+    vertex.z += randomInRange(-factorZ, factorZ)
+    const dist = noise.noise(vertex.x / resolution / factorX, vertex.z / resolution / factorZ)
+    vertex.y = (dist - 0.2) * factorY
+  })
+  geometry.faces.forEach(face => {
+    const { color } = face
+    const rand = Math.random() / 5
+    face.color.setRGB(color.r + rand, color.g + rand, color.b + rand)
+  })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.y = avgHeight
+  return mesh
 }
