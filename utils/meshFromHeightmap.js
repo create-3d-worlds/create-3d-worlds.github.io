@@ -43,7 +43,7 @@ export default function meshFromHeightmap(src, callback, size = 256) {
       }
 
     geometry.computeVertexNormals(true)
-    geometry.computeFaceNormals()
+    // geometry.computeFaceNormals()
     geometry.computeBoundingBox()
     const {max} = geometry.boundingBox
 
