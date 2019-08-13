@@ -13,6 +13,8 @@ scene.add(createFirs(land))
 const loader = new THREE.LegacyJSONLoader()
 const clouds = new THREE.Group()
 
+// TODO: create Cloud class
+
 function createCloud(geometry, materials) {
   const cloud = new THREE.Mesh(geometry, materials)
   cloud.scale.set(roll(50) + 10, 15, roll(10) + 10)
@@ -23,14 +25,10 @@ function createCloud(geometry, materials) {
   return cloud
 }
 
-function createClouds(geometry, materials, num = 10) {
-  for (let i = 0; i < num; i++)
+loader.load('../assets/models/cloud.json', (geometry, materials) => {
+  for (let i = 0; i < 10; i++)
     clouds.add(createCloud(geometry, materials))
   scene.add(clouds)
-}
-
-loader.load('../assets/models/cloud.json', (geometry, materials) => {
-  createClouds(geometry, materials)
 })
 
 createOrbitControls()
@@ -44,12 +42,12 @@ scene.add(createWater(1000))
 void function animate() {
   requestAnimationFrame(animate)
   // update clouds
-  if (clouds.children.length) {
+  if (clouds.children.length)
     clouds.children.forEach(cloud => {
       cloud.position.x += Math.random()
       if (cloud.position.x > size)
         cloud.position.x = -size
     })
-  }
+
   renderer.render(scene, camera)
 }()

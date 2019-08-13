@@ -39,11 +39,9 @@ Repo: https://github.com/mudroljub/create-rpg-game
 
 - [x] napraviti tlo
 - [x] dodati koliziju na tlo
-- [x] dodati osnovnu geometriju
-  - [x] dodati okruzenje (drveće, nebo, zgrade)
-  - [x] dodati neke stvari (sanduke i slicno)
-- [ ] proceduralno kreirati okruženje
-  - https://github.com/mudroljub/mini-rpg
+- [x] proceduralno kreirati okruženje
+  - [x] dodati drveće, zgrade
+  - [ ] dodati neke stvari (sanduke i slicno)
 - [ ] kreirati stepenice u krug od kocki
 - [ ] prebaciti da tlo bude okruglo
 - [ ] heightmap:
