@@ -44,15 +44,14 @@ function create3DTerrain(width = 140, depth = 140, spacingX = 2.5, spacingZ = 2.
     }
 
   geometry.computeVertexNormals()
-  geometry.computeFaceNormals()
-
-  const material = new THREE.MeshPhongMaterial()
-  material.map = new THREE.TextureLoader().load('../../assets/textures/ground.jpg')
-
+  // geometry.computeFaceNormals()
+  const material = new THREE.MeshPhongMaterial({
+    map: new THREE.TextureLoader().load('../../assets/textures/ground.jpg')
+  })
   const terrain = new THREE.Mesh(geometry, material)
   terrain.translateX(-width / 1.5)
   terrain.translateZ(-depth / 4)
-  terrain.translateY(50)
+  terrain.translateY(height)
   terrain.name = 'terrain'
   return terrain
 }
