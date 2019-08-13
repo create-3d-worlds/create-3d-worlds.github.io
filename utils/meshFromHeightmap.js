@@ -1,4 +1,4 @@
-/* global chroma */
+import chroma from './libs/chroma.js'
 import {getHighPoint} from '../utils/helpers.js'
 
 const scale = chroma.scale(['brown', 'green', 'gray']).domain([0, 50])
