@@ -1,7 +1,7 @@
 import chroma from '../libs/chroma.js'
 import {getHighPoint} from './helpers.js'
 
-const scale = chroma.scale(['brown', '#473922', '#967848', '#dbc496', '#636f3f', '#7a8a46', '#473922', '#967848', '#dbc496', 'white']).domain([0, 100])
+const scale = chroma.scale(['#473922', '#967848', '#dbc496', '#636f3f', '#7a8a46', '#473922', '#967848', '#dbc496', 'white']).domain([0, 100])
 
 export default function(src, callback, size = 256) {
   const img = new Image()
