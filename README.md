@@ -45,7 +45,6 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [ ] kreirati stepenice u krug od kocki
 - [ ] prebaciti da tlo bude okruglo
 - [ ] heightmap:
-    - https://stemkoski.github.io/Three.js/Shader-Heightmap-Textures.html
     - https://stackoverflow.com/questions/7638008/webgl-textured-terrain-with-heightmap
     - https://github.com/mrdoob/three.js/issues/1003
     - http://oos.moxiecode.com/js_webgl/terrain/index.html

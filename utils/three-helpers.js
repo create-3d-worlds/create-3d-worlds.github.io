@@ -237,7 +237,7 @@ export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
   return group
 }
 
-export const createWater = size => {
+export const createWater = (size = 1000) => {
   const resolution = 1
   const material = new THREE.MeshLambertMaterial({
     color: 0x6699ff,
