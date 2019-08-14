@@ -1,13 +1,9 @@
 import {scene, camera, renderer, createOrbitControls} from '../utils/three-scene.js'
-import meshFromHeightmap from '../utils/meshFromHeightmap.js'
+import terrainFromHeightmap from '../utils/terrainFromHeightmap.js'
 
 createOrbitControls()
 
-const light = new THREE.DirectionalLight()
-light.position.set(1200, 1200, 1200)
-scene.add(light)
-
-meshFromHeightmap('../assets/heightmaps/wiki.png', mesh => {
+terrainFromHeightmap('../assets/heightmaps/wiki.png', mesh => {
   scene.add(mesh)
 })
 
