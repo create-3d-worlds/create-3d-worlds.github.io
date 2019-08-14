@@ -1,7 +1,7 @@
 import chroma from '../libs/chroma.js'
 import {getHighPoint} from './helpers.js'
 
-const scale = chroma.scale(['#636f3f', '#7a8a46', '#473922', '#967848', '#dbc496', 'white']).domain([0, 100])
+const scale = chroma.scale(['brown', '#636f3f', '#7a8a46', '#473922', '#967848', '#dbc496', 'white']).domain([0, 100])
 
 export default function(src, callback, size = 256) {
   const img = new Image()
@@ -17,12 +17,14 @@ export default function(src, callback, size = 256) {
     const ctx = canvas.getContext('2d')
 
     ctx.drawImage(img, 0, 0)
+    const geometry = new THREE.Geometry()
     const pixel = ctx.getImageData(0, 0, size, size)
-    const geometry = new THREE.Geometry
 
+    const step = 4 // step is rgba
     for (let x = 0; x < size; x++)
       for (let z = 0; z < size; z++) {
-        const yValue = pixel.data[z * 4 + (size * x * 4)] / heightOffset
+        const i = z * step + (size * x * step)
+        const yValue = pixel.data[i] / heightOffset
         const vertex = new THREE.Vector3(x * spacingX, yValue, z * spacingZ)
         geometry.vertices.push(vertex)
       }
