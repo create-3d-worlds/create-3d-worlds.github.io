@@ -1,6 +1,6 @@
-import { scene, renderer, camera, createOrbitControls } from '../utils/three-scene.js'
+import {scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
+import {loader, createWater} from '../utils/three-helpers.js'
 
-const loader = new THREE.TextureLoader()
 createOrbitControls()
 
 const bumpTexture = loader.load('../assets/heightmaps/stemkoski.png')
@@ -10,13 +10,9 @@ const grassTexture = loader.load('../assets/textures/grass-512.jpg')
 const rockyTexture = loader.load('../assets/textures/rock-512.jpg')
 const snowyTexture = loader.load('../assets/textures/snow-512.jpg')
 
-oceanTexture.wrapS = oceanTexture.wrapT = THREE.RepeatWrapping
-sandyTexture.wrapS = sandyTexture.wrapT = THREE.RepeatWrapping
-grassTexture.wrapS = grassTexture.wrapT = THREE.RepeatWrapping
-rockyTexture.wrapS = rockyTexture.wrapT = THREE.RepeatWrapping
-snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping
+oceanTexture.wrapS = oceanTexture.wrapT = sandyTexture.wrapS = sandyTexture.wrapT = grassTexture.wrapS = grassTexture.wrapT = rockyTexture.wrapS = rockyTexture.wrapT = snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping
 
-const customUniforms = {
+const uniforms = {
   bumpTexture: { type: 't', value: bumpTexture },
   bumpScale: { type: 'f', value: 300.0 },
   oceanTexture: { type: 't', value: oceanTexture },
@@ -26,41 +22,20 @@ const customUniforms = {
   snowyTexture: { type: 't', value: snowyTexture },
 }
 
-const customMaterial = new THREE.ShaderMaterial(
+const material = new THREE.ShaderMaterial(
   {
-    uniforms: customUniforms,
+    uniforms,
     vertexShader: document.getElementById('vertexShader').textContent,
     fragmentShader: document.getElementById('fragmentShader').textContent,
   })
 
-const planeGeo = new THREE.PlaneGeometry(1000, 1000, 100, 100)
-const plane = new THREE.Mesh(planeGeo, customMaterial)
-plane.rotation.x = -Math.PI / 2
-plane.position.y = -60
-scene.add(plane)
+const geometry = new THREE.PlaneGeometry(1000, 1000, 100, 100)
+geometry.rotateX(-Math.PI / 2)
+const mesh = new THREE.Mesh(geometry, material)
+mesh.position.y = -60
+scene.add(mesh)
 
-function createWater(size = 1000, useTexture = false) {
-  const geometry = new THREE.PlaneGeometry(size, size, 1, 1)
-  const material = new THREE.MeshBasicMaterial({
-    transparent: true,
-    opacity: 0.40
-  })
-
-  if (useTexture) {
-    const texture = loader.load('../assets/textures/water512.jpg')
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
-    texture.repeat.set(5, 5)
-    material.map = texture
-  } else
-    material.color.setHex(0x6699ff)
-
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.rotation.x = -Math.PI / 2
-  mesh.position.y = 0
-  return mesh
-}
-
-scene.add(createWater(1000, true))
+scene.add(createWater(1000, true, 0.60))
 
 /* INIT */
 

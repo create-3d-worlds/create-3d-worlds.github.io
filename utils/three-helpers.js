@@ -2,7 +2,7 @@ import {randomInRange} from './helpers.js'
 import { SimplexNoise } from '../libs/SimplexNoise.js'
 const {PI, random, floor} = Math
 
-const loader = new THREE.TextureLoader()
+export const loader = new THREE.TextureLoader()
 const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 
 export const randomColor = (h = 0.1, s = 0.75, l = 0.5) =>
@@ -237,15 +237,22 @@ export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
   return group
 }
 
-export const createWater = (size = 1000) => {
-  const resolution = 1
-  const material = new THREE.MeshLambertMaterial({
-    color: 0x6699ff,
-    transparent: true,
-    opacity: 0.75,
-  })
-  const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
+export function createWater(size = 1000, useTexture = false, opacity = 0.75) {
+  const geometry = new THREE.PlaneGeometry(size, size, 1, 1)
   geometry.rotateX(-Math.PI / 2)
+  const material = new THREE.MeshBasicMaterial({
+    transparent: true,
+    opacity
+  })
+
+  if (useTexture) {
+    const texture = loader.load('../assets/textures/water512.jpg')
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+    texture.repeat.set(5, 5)
+    material.map = texture
+  } else
+    material.color.setHex(0x6699ff)
+
   return new THREE.Mesh(geometry, material)
 }
 
