@@ -1,19 +1,61 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>02.06 - Create terrain from heightmap</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-    </style>
+    <title>Shader - Height Map (Three.js)</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
-
 <body>
-    <!-- https://github.com/josdirksen/threejs-cookbook/blob/master/02-geometries-meshes/02.06-create-terrain-from-heightmap.html -->
 
-    <script src="../../node_modules/three/build/three.js"></script>
-    <script src="game.js" type="module"></script>
+<script src="../../node_modules/three/build/three.js"></script>
+
+<!-- ---------------- Custom Shader Code ------------------------ -->
+<script id="vertexShader" type="x-shader/x-vertex">
+uniform sampler2D bumpTexture;
+uniform float bumpScale;
+
+varying float vAmount;
+varying vec2 vUV;
+
+void main() 
+{ 
+	vUV = uv;
+	vec4 bumpData = texture2D( bumpTexture, uv );
+	
+	vAmount = bumpData.r; // assuming map is grayscale it doesn't matter if you use r, g, or b.
+	
+	// move the position along the normal
+    vec3 newPosition = position + normal * bumpScale * vAmount;
+	
+	gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
+}
+</script>
+
+<!-- fragment shader a.k.a. pixel shader -->
+<script id="fragmentShader" type="x-shader/x-vertex"> 
+uniform sampler2D oceanTexture;
+uniform sampler2D sandyTexture;
+uniform sampler2D grassTexture;
+uniform sampler2D rockyTexture;
+uniform sampler2D snowyTexture;
+
+varying vec2 vUV;
+
+varying float vAmount;
+
+void main() 
+{
+	vec4 water = (smoothstep(0.01, 0.25, vAmount) - smoothstep(0.24, 0.26, vAmount)) * texture2D( oceanTexture, vUV * 10.0 );
+	vec4 sandy = (smoothstep(0.24, 0.27, vAmount) - smoothstep(0.28, 0.31, vAmount)) * texture2D( sandyTexture, vUV * 10.0 );
+	vec4 grass = (smoothstep(0.28, 0.32, vAmount) - smoothstep(0.35, 0.40, vAmount)) * texture2D( grassTexture, vUV * 20.0 );
+	vec4 rocky = (smoothstep(0.30, 0.50, vAmount) - smoothstep(0.40, 0.70, vAmount)) * texture2D( rockyTexture, vUV * 20.0 );
+	vec4 snowy = (smoothstep(0.50, 0.65, vAmount))                                   * texture2D( snowyTexture, vUV * 10.0 );
+	gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0) + water + sandy + grass + rocky + snowy; //, 1.0);
+}  
+</script>
+<!-- ----------------------------------------------------------- -->
+
+<script src="game.js" type="module"></script>
+
 </body>
 </html>
