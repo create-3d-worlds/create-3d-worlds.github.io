@@ -39,24 +39,28 @@ plane.rotation.x = -Math.PI / 2
 plane.position.y = -60
 scene.add(plane)
 
-function createWater(size = 1000) {
+function createWater(size = 1000, useTexture = false) {
   const geometry = new THREE.PlaneGeometry(size, size, 1, 1)
-  const texture = loader.load('../assets/textures/water512.jpg')
-  texture.wrapS = texture.wrapT = THREE.RepeatWrapping
-  texture.repeat.set(5, 5)
   const material = new THREE.MeshBasicMaterial({
-    map: texture,
-    // color: 0x6699ff,
     transparent: true,
     opacity: 0.40
   })
+
+  if (useTexture) {
+    const texture = loader.load('../assets/textures/water512.jpg')
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+    texture.repeat.set(5, 5)
+    material.map = texture
+  } else
+    material.color.setHex(0x6699ff)
+
   const mesh = new THREE.Mesh(geometry, material)
   mesh.rotation.x = -Math.PI / 2
   mesh.position.y = 0
   return mesh
 }
 
-scene.add(createWater())
+scene.add(createWater(1000, true))
 
 /* INIT */
 
