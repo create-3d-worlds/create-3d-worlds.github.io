@@ -35,15 +35,15 @@ Repo: https://github.com/mudroljub/create-rpg-game
   - [x] probati koliziju geometrijom
 - [x] postaviti lavirint sa kolizijom
 
-### Terrain
+### Terrain (procedural generation, heightmap, textures)
 
 - [x] napraviti tlo
 - [x] dodati koliziju na tlo
 - [x] proceduralno kreirati okruženje
   - [x] dodati drveće, zgrade
-  - [ ] dodati neke stvari (sanduke i slicno)
+  - [ ] dodati sanduke sa teksturom
 - [ ] kreirati stepenice u krug od kocki
-- [ ] prebaciti da tlo bude okruglo
+- [x] prebaciti da tlo bude okruglo (moze samo kad je ravna podloga)
 - [x] heightmap
 - [x] heightmap with texture
 

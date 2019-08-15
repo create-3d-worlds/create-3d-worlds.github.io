@@ -47,8 +47,9 @@ export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
   return floor
 }
 
+// TODO: merge with createFloor
 export function createPlane(w = 100000, h = 100000, color = 0x336633) {
-  const geometry = new THREE.PlaneBufferGeometry(w, h)
+  const geometry = new THREE.CircleGeometry(w, h)
   geometry.rotateX(- PI / 2)
   const material = new THREE.MeshToonMaterial({ color })
   const plane = new THREE.Mesh(geometry, material)
@@ -78,7 +79,6 @@ export function createWater(size = 1000, useTexture = false, opacity = 0.75) {
     transparent: true,
     opacity
   })
-
   if (useTexture) {
     const texture = loader.load('../assets/textures/water512.jpg')
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping
