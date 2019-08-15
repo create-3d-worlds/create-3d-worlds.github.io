@@ -6,15 +6,13 @@ export const loader = new THREE.TextureLoader()
 
 /* SHAPES */
 
-export function createBox(x = 0, y = 0, z = 0, size = 1, file, color = 0xff0000) {
+export function createBox(x = 0, y = 0, z = 0, size = 10, texture = 'crate.gif', color = 0xff0000) {
   if (size < 0.5) size = 0.5 // eslint-disable-line
   const geometry = new THREE.BoxGeometry(size, size, size)
   geometry.translate(0, size / 2, 0)
   const options = {}
-  if (file)
-    options.map = loader.load(`../assets/textures/${file}`)
-  else
-    options.color = color
+  if (texture) options.map = loader.load(`../assets/textures/${texture}`)
+  else options.color = color
   const material = new THREE.MeshLambertMaterial(options)
   const cube = new THREE.Mesh(geometry, material)
   cube.position.set(x, y, z)
@@ -261,7 +259,7 @@ export function createSketchTrees(num = 10, min = -800, max = 800, size = 50) {
 
 /* MAP */
 
-export function createMap(matrix, size = 1) {
+export function createMap(matrix, size = 5) {
   const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
   const group = new THREE.Group()
   matrix.forEach((row, z) => row.forEach((val, x) => {

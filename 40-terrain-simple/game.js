@@ -1,12 +1,12 @@
 import { scene, camera, renderer, createOrbitControls } from '../utils/three-scene.js'
-import {createTerrain, createRandomBoxes} from '../utils/three-helpers.js'
+import {createTerrain, createBox} from '../utils/three-helpers.js'
 
 scene.add(createTerrain())
-scene.add(createRandomBoxes())
+scene.add(createBox())
 
 const controls = createOrbitControls()
-camera.position.y = 75
-camera.position.z = 75
+camera.position.y = 50
+camera.position.z = 50
 
 void function animate() {
   requestAnimationFrame(animate)
