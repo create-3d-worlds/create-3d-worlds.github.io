@@ -11,7 +11,8 @@ scene.add(avatar.mesh)
 scene.add(createTrees())
 scene.add(createFloor(500, 500, 'ground.jpg'))
 
-camera.position.z = 400 // distance from player
+camera.position.y = 100
+// camera.position.z = 400 // distance from player
 avatar.mesh.add(camera)
 
 void function animate() {

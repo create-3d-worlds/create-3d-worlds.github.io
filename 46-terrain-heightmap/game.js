@@ -2,6 +2,7 @@ import {scene, camera, renderer, createOrbitControls} from '../utils/three-scene
 import terrainFromHeightmap from '../utils/terrainFromHeightmap.js'
 
 createOrbitControls()
+camera.position.y = 150
 
 terrainFromHeightmap('../assets/heightmaps/wiki.png', mesh => {
   scene.add(mesh)

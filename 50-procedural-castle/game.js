@@ -1,12 +1,14 @@
 import { scene, camera, renderer, createOrbitControls } from '../utils/three-scene.js'
 
+camera.position.y = 250
+
 const rows = 10
 const brickInWall = 24  // ne sme mnogo zbog rekurzije
 const rowSize = 10
 const spacing = 0.2
 const brickSize = rowSize + spacing
 const wallWidth = brickSize * brickInWall
-const towerRadius = 25
+const towerRadius = 15
 const towers = [
   [0, 0],
   [0, wallWidth],

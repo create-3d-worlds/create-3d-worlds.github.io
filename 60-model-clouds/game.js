@@ -5,6 +5,7 @@ import '../node_modules/three/examples/js/loaders/deprecated/LegacyJSONLoader.js
 
 const size = 600
 
+camera.position.y = 250
 scene.add(createWater(1000))
 const land = createHillyTerrain(1000, 30)
 scene.add(land)

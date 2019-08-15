@@ -2,6 +2,9 @@ import { scene, renderer, clock, camera } from '../utils/three-scene.js'
 import { createTrees, createFloor } from '../utils/three-helpers.js'
 import {keyboard, Avatar} from '../classes/index.js'
 
+camera.position.z = 500
+camera.position.y = 250
+
 const avatar = new Avatar()
 scene.add(avatar.mesh)
 scene.add(createFloor(500, 500, 'ground.jpg'))
