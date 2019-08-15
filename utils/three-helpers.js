@@ -6,7 +6,7 @@ export const loader = new THREE.TextureLoader()
 
 /* SHAPES */
 
-export function createBox(x = 0, y = 0, z = 0, size = 10, texture = 'crate.gif', color = 0xff0000) {
+export function createBox(x = 0, y = 0, z = 0, size = 20, color = randomColor(0.1, 0.01, .75), texture) {
   if (size < 0.5) size = 0.5 // eslint-disable-line
   const geometry = new THREE.BoxGeometry(size, size, size)
   geometry.translate(0, size / 2, 0)
@@ -18,6 +18,8 @@ export function createBox(x = 0, y = 0, z = 0, size = 10, texture = 'crate.gif',
   cube.position.set(x, y, z)
   return cube
 }
+
+export const createCrate = (x, y, z, size, texture = 'crate.gif') => createBox(x, y, z, size, null, texture)
 
 // TODO: merge with createBox
 export function createSketchBox(size) {
@@ -44,12 +46,12 @@ export function createSphere(z = 0, x = 0, radius = 0.5, color = 0xff0000) {
   return sphere
 }
 
-export function createRandomBoxes(boxNum = 100, size = 20) {
+export function createRandomBoxes(boxNum = 100, size = 20, texture) {
   const group = new THREE.Group()
   for (let i = 0; i < boxNum; i++) {
     const color = randomColor(0.1, 0.01, .75)
     const x = randomInRange(-200, 200), y = randomInRange(-5, 100), z = randomInRange(-200, 200)
-    const box = createBox(x, y, z, size, undefined, color)
+    const box = createBox(x, y, z, size, texture, color)
     group.add(box)
   }
   return group
@@ -84,7 +86,7 @@ export function createTerrain() {
   geometry.rotateX(- PI / 2)
   geometry.vertices.forEach(vertex => {
     vertex.x += randomInRange(-10, 10)
-    vertex.y += randomInRange(-5, 5)
+    vertex.y += randomInRange(-5, 15)
     vertex.z += randomInRange(-10, 10)
   })
   geometry.faces.forEach(face => {

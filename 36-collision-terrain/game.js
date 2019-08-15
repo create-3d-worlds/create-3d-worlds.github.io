@@ -3,7 +3,6 @@ import {createTerrain, createRandomBoxes} from '../utils/three-helpers.js'
 import Avatar from '../classes/Avatar.js'
 
 const avatar = new Avatar(25, 25, 0.1)
-// avatar.add(camera)
 scene.add(avatar.mesh)
 
 const terrain = createTerrain()
