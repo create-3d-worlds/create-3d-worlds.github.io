@@ -6,7 +6,7 @@ export const loader = new THREE.TextureLoader()
 
 /* SHAPES */
 
-export function createBox(x = 0, y = 0, z = 0, size = 20, color = randomColor(0.1, 0.01, .75), texture) {
+export function createBox(x = 0, y = 0, z = 0, size = 20, texture, color = randomColor(0.1, 0.01, .75)) {
   if (size < 0.5) size = 0.5 // eslint-disable-line
   const geometry = new THREE.BoxGeometry(size, size, size)
   geometry.translate(0, size / 2, 0)
@@ -19,7 +19,7 @@ export function createBox(x = 0, y = 0, z = 0, size = 20, color = randomColor(0.
   return cube
 }
 
-export const createCrate = (x, y, z, size, texture = 'crate.gif') => createBox(x, y, z, size, null, texture)
+export const createCrate = (x, y, z, size, texture = 'crate.gif') => createBox(x, y, z, size, texture)
 
 // TODO: merge with createBox
 export function createSketchBox(size) {
