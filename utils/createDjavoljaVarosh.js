@@ -1,15 +1,15 @@
 import noise from '../libs/noise.js'
 
-export default function createDjavoljaVarosh(width = 140, depth = 140, spacingX = 2.5, spacingZ = 2.5, height = 50) {
+export default function createDjavoljaVarosh(width = 140, depth = 140, scale = 2.5, height = 50) {
   const date = new Date()
   noise.seed(date.getMilliseconds())
   const geometry = new THREE.Geometry()
   const factor = 7
   for (let z = 0; z < depth; z++)
     for (let x = 0; x < width; x++) {
-      // abs to make value positive, since perlin2 returns from - 1 to 1
+      // abs() to make value positive, perlin2 returns from - 1 to 1
       const y = Math.abs(noise.perlin2(x / factor, z / factor) * height)
-      const vertex = new THREE.Vector3(x * spacingX, y, z * spacingZ)
+      const vertex = new THREE.Vector3(x * scale, y, z * scale)
       geometry.vertices.push(vertex)
     }
 

@@ -45,8 +45,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [ ] kreirati stepenice u krug od kocki
 - [ ] prebaciti da tlo bude okruglo
 - [x] heightmap
-- [x] heightmap with texture
-    - http://oos.moxiecode.com/js_webgl/terrain/index.html
+- [ ] heightmap with texture (primer djavolja varos)
     - https://davideprati.com/2016/06/07/terrain-from-texture.html
 
 ### Modeli
@@ -81,10 +80,11 @@ Repo: https://github.com/mudroljub/create-rpg-game
   - [ ] bežanje od štuke koja bombarduje
   - [ ] skrivanje od reflektora logora
 
-### VR
+### Ostalo
 
 - [ ] probati VR
   - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
+- [ ] Dodati panoramu (skybox)
 
 ## Documentation
 
