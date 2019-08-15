@@ -7,7 +7,6 @@ export const loader = new THREE.TextureLoader()
 /* SHAPES */
 
 export function createBox(x = 0, y = 0, z = 0, size = 20, texture, color = randomColor(0.1, 0.01, .75)) {
-  if (size < 0.5) size = 0.5 // eslint-disable-line
   const geometry = new THREE.BoxGeometry(size, size, size)
   const options = {}
   if (texture) options.map = loader.load(`../assets/textures/${texture}`)
