@@ -5,6 +5,8 @@ const {PI, random, floor} = Math
 export const loader = new THREE.TextureLoader()
 const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 
+/* HELPERS */
+
 export const randomColor = (h = 0.1, s = 0.75, l = 0.5) =>
   new THREE.Color().setHSL(random() * 0.3 + h, s, random() * 0.25 + l)
 
@@ -20,6 +22,18 @@ export function createBounds(mesh) {
   }
   return bounds
 }
+
+// refactor to recursion?
+export const findGround = function(terrain, x, z) {
+  const direction = new THREE.Vector3(0, -1, 0)
+  const origin = { x, y: 1000, z }
+  const raycaster = new THREE.Raycaster()
+  raycaster.set(origin, direction)
+  const intersects = raycaster.intersectObject(terrain, true)
+  return intersects.length > 0 ? intersects[0].point : null
+}
+
+/* LAND */
 
 export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
   const texture = loader.load(`../assets/textures/${file}`)
@@ -41,6 +55,71 @@ export function createPlane(w = 100000, h = 100000, color = 0x336633) {
   plane.position.y = 0
   return plane
 }
+
+export function createTerrain() {
+  const geometry = new THREE.PlaneGeometry(1000, 1000, 50, 50)
+  geometry.rotateX(- PI / 2)
+  geometry.vertices.forEach(vertex => {
+    vertex.x += randomInRange(-10, 10)
+    vertex.y += randomInRange(-5, 5)
+    vertex.z += randomInRange(-10, 10)
+  })
+  geometry.faces.forEach(face => {
+    face.vertexColors.push(randomColor(), randomColor(), randomColor())
+  })
+  const material = new THREE.MeshBasicMaterial({ vertexColors: THREE.VertexColors })
+  return new THREE.Mesh(geometry, material)
+}
+
+export function createWater(size = 1000, useTexture = false, opacity = 0.75) {
+  const geometry = new THREE.PlaneGeometry(size, size, 1, 1)
+  geometry.rotateX(-Math.PI / 2)
+  const material = new THREE.MeshBasicMaterial({
+    transparent: true,
+    opacity
+  })
+
+  if (useTexture) {
+    const texture = loader.load('../assets/textures/water512.jpg')
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+    texture.repeat.set(5, 5)
+    material.map = texture
+  } else
+    material.color.setHex(0x6699ff)
+
+  return new THREE.Mesh(geometry, material)
+}
+
+export const createHillyTerrain = (size, avgHeight = 30) => {
+  const resolution = 20
+  const material = new THREE.MeshLambertMaterial({
+    color: 0x33aa33,
+    vertexColors: THREE.FaceColors,
+  })
+  const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
+  geometry.rotateX(-Math.PI / 2)
+
+  const noise = new SimplexNoise()
+  const factorX = 50
+  const factorZ = 25
+  const factorY = 60
+  geometry.vertices.forEach(vertex => {
+    vertex.x += randomInRange(-factorX, factorX)
+    vertex.z += randomInRange(-factorZ, factorZ)
+    const dist = noise.noise(vertex.x / resolution / factorX, vertex.z / resolution / factorZ)
+    vertex.y = (dist - 0.2) * factorY
+  })
+  geometry.faces.forEach(face => {
+    const { color } = face
+    const rand = Math.random() / 5
+    face.color.setRGB(color.r + rand, color.g + rand, color.b + rand)
+  })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.y = avgHeight
+  return mesh
+}
+
+/* SHAPES */
 
 export function createBox(z = 0, x = 0, size = 1, file, color = 0xff0000) {
   size = size < 0.5 ? 0.5 : size // eslint-disable-line
@@ -78,13 +157,22 @@ export function createSphere(z = 0, x = 0, radius = 0.5, color = 0xff0000) {
   return sphere
 }
 
-export function createMap(matrix, size = 1) {
+export function createRandomBoxes(boxNum = 100, size = 20) {
   const group = new THREE.Group()
-  matrix.forEach((row, z) => row.forEach((val, x) => {
-    if (val) group.add(createBox(z * size, x * size, size, textures[val - 1]))
-  }))
+  const geometry = new THREE.BoxGeometry(size, size, size)
+  for (let i = 0; i < boxNum; i++) {
+    const material = new THREE.MeshPhongMaterial({flatShading: true})
+    material.color = randomColor(0.1, 0.01, .75)
+    const box = new THREE.Mesh(geometry, material)
+    box.position.x = randomInRange(-200, 200)
+    box.position.y = randomInRange(-5, 100)
+    box.position.z = randomInRange(-200, 200)
+    group.add(box)
+  }
   return group
 }
+
+/* TREES */
 
 export function createTree(x, z, height = 50) {
   const y = height / 2
@@ -107,6 +195,44 @@ export function createTrees(num = 20, min = -250, max = 250, height = 50) {
   const group = new THREE.Group()
   const coords = Array(num).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
   coords.forEach(coord => group.add(createTree(...coord, height)))
+  return group
+}
+
+export const createFir = (x = 0, y = 0, z = 0, leavesHeight = 60) => {
+  const fir = new THREE.Object3D()
+  const leaves = new THREE.Mesh(
+    new THREE.CylinderGeometry(0, 25, leavesHeight, 4, 1),
+    new THREE.MeshLambertMaterial({ color: 0x3EA055})
+  )
+  const trunkHeight = leavesHeight / 3 // 20
+  const trunk = new THREE.Mesh(
+    new THREE.BoxGeometry(5, trunkHeight, 5),
+    new THREE.MeshLambertMaterial({ color: 0x966F33})
+  )
+  trunk.position.y = trunkHeight / 2
+  leaves.position.y = trunkHeight * 2
+  // leaves.castShadow = true
+  // trunk.castShadow = true
+  // fir.castShadow = true
+  fir.add(leaves)
+  fir.add(trunk)
+  fir.position.set(x, y + leavesHeight / 2, z)
+  return fir
+}
+
+export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
+  const group = new THREE.Group()
+  for (let i = 0; i < numTrees; i++) {
+    const min = -mapSize / 2, max = mapSize / 2
+    const {x, z} = new THREE.Vector3(randomInRange(min, max), 100, randomInRange(min, max))
+    if (terrain) {
+      const ground = findGround(terrain, x, z)
+      if (ground && ground.y > 0) { // eslint-disable-line
+        // console.log(ground.y)
+        group.add(createFir(x, ground.y, z))
+      }
+    } else group.add(createFir(x, 0, z))
+  }
   return group
 }
 
@@ -160,127 +286,12 @@ export function createSketchTrees(num = 10, min = -800, max = 800, size = 50) {
   return {group, solids}
 }
 
-export function createTerrain() {
-  const geometry = new THREE.PlaneGeometry(1000, 1000, 50, 50)
-  geometry.rotateX(- PI / 2)
-  geometry.vertices.forEach(vertex => {
-    vertex.x += randomInRange(-10, 10)
-    vertex.y += randomInRange(-5, 5)
-    vertex.z += randomInRange(-10, 10)
-  })
-  geometry.faces.forEach(face => {
-    face.vertexColors.push(randomColor(), randomColor(), randomColor())
-  })
-  const material = new THREE.MeshBasicMaterial({ vertexColors: THREE.VertexColors })
-  return new THREE.Mesh(geometry, material)
-}
+/* MAP */
 
-export function createRandomBoxes(boxNum = 100, size = 20) {
+export function createMap(matrix, size = 1) {
   const group = new THREE.Group()
-  const geometry = new THREE.BoxGeometry(size, size, size)
-  for (let i = 0; i < boxNum; i++) {
-    const material = new THREE.MeshPhongMaterial({flatShading: true})
-    material.color = randomColor(0.1, 0.01, .75)
-    const box = new THREE.Mesh(geometry, material)
-    box.position.x = randomInRange(-200, 200)
-    box.position.y = randomInRange(-5, 100)
-    box.position.z = randomInRange(-200, 200)
-    group.add(box)
-  }
+  matrix.forEach((row, z) => row.forEach((val, x) => {
+    if (val) group.add(createBox(z * size, x * size, size, textures[val - 1]))
+  }))
   return group
-}
-
-export const createFir = (x = 0, y = 0, z = 0, leavesHeight = 60) => {
-  const fir = new THREE.Object3D()
-  const leaves = new THREE.Mesh(
-    new THREE.CylinderGeometry(0, 25, leavesHeight, 4, 1),
-    new THREE.MeshLambertMaterial({ color: 0x3EA055})
-  )
-  const trunkHeight = leavesHeight / 3 // 20
-  const trunk = new THREE.Mesh(
-    new THREE.BoxGeometry(5, trunkHeight, 5),
-    new THREE.MeshLambertMaterial({ color: 0x966F33})
-  )
-  trunk.position.y = trunkHeight / 2
-  leaves.position.y = trunkHeight * 2
-  // leaves.castShadow = true
-  // trunk.castShadow = true
-  // fir.castShadow = true
-  fir.add(leaves)
-  fir.add(trunk)
-  fir.position.set(x, y + leavesHeight / 2, z)
-  return fir
-}
-
-export const findGround = function(terrain, x, z) {
-  const direction = new THREE.Vector3(0, -1, 0)
-  const origin = { x, y: 1000, z }
-  const raycaster = new THREE.Raycaster()
-  raycaster.set(origin, direction)
-  const intersects = raycaster.intersectObject(terrain, true)
-  return intersects.length > 0 ? intersects[0].point : null
-}
-
-export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
-  const group = new THREE.Group()
-  for (let i = 0; i < numTrees; i++) {
-    const min = -mapSize / 2, max = mapSize / 2
-    const {x, z} = new THREE.Vector3(randomInRange(min, max), 100, randomInRange(min, max))
-    if (terrain) {
-      const ground = findGround(terrain, x, z)
-      if (ground && ground.y > 0) { // eslint-disable-line
-        // console.log(ground.y)
-        group.add(createFir(x, ground.y, z))
-      }
-    } else group.add(createFir(x, 0, z))
-  }
-  return group
-}
-
-export function createWater(size = 1000, useTexture = false, opacity = 0.75) {
-  const geometry = new THREE.PlaneGeometry(size, size, 1, 1)
-  geometry.rotateX(-Math.PI / 2)
-  const material = new THREE.MeshBasicMaterial({
-    transparent: true,
-    opacity
-  })
-
-  if (useTexture) {
-    const texture = loader.load('../assets/textures/water512.jpg')
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
-    texture.repeat.set(5, 5)
-    material.map = texture
-  } else
-    material.color.setHex(0x6699ff)
-
-  return new THREE.Mesh(geometry, material)
-}
-
-export const createHillyTerrain = (size, avgHeight = 30) => {
-  const resolution = 20
-  const material = new THREE.MeshLambertMaterial({
-    color: 0x33aa33,
-    vertexColors: THREE.FaceColors,
-  })
-  const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
-  geometry.rotateX(-Math.PI / 2)
-
-  const noise = new SimplexNoise()
-  const factorX = 50
-  const factorZ = 25
-  const factorY = 60
-  geometry.vertices.forEach(vertex => {
-    vertex.x += randomInRange(-factorX, factorX)
-    vertex.z += randomInRange(-factorZ, factorZ)
-    const dist = noise.noise(vertex.x / resolution / factorX, vertex.z / resolution / factorZ)
-    vertex.y = (dist - 0.2) * factorY
-  })
-  geometry.faces.forEach(face => {
-    const { color } = face
-    const rand = Math.random() / 5
-    face.color.setRGB(color.r + rand, color.g + rand, color.b + rand)
-  })
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.y = avgHeight
-  return mesh
 }
