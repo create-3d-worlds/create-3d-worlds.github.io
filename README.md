@@ -85,6 +85,9 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [ ] probati VR
   - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
 - [ ] Dodati panoramu (skybox)
+- [ ] naci vismapu sutjeske
+  - http://www.smartjava.org/content/threejs-render-real-world-terrain-heightmap-using-open-data/
+  - https://blog.mapbox.com/bringing-3d-terrain-to-the-browser-with-three-js-410068138357
 
 ## Documentation
 

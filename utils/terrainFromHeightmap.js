@@ -8,7 +8,7 @@ const paint = chroma
   .scale(['brown', '#636f3f', '#7a8a46', '#473922', '#967848', '#dbc496', 'white'])
   .domain([0, 100])
 
-export default function(src, callback, heightOffset = 2, scale = 3, textureSrc) {
+export default function(src, callback, textureSrc, heightOffset = 2, scale = 3) {
   const img = new Image()
   img.src = src
   img.onload = function() {
@@ -49,7 +49,7 @@ export default function(src, callback, heightOffset = 2, scale = 3, textureSrc) 
         geometry.faces.push(face1)
         geometry.faces.push(face2)
 
-        if (textureSrc) {
+        if (textureSrc) { // UV mapping
           const uva = new THREE.Vector2(x / (width - 1), 1 - z / (depth - 1))
           const uvb = new THREE.Vector2((x + 1) / (width - 1), 1 - z / (depth - 1))
           const uvc = new THREE.Vector2(x / (width - 1), 1 - (z + 1) / (depth - 1))
@@ -66,13 +66,12 @@ export default function(src, callback, heightOffset = 2, scale = 3, textureSrc) 
     // geometry.computeFaceNormals()
     geometry.computeBoundingBox()
     const {max} = geometry.boundingBox
-    const material = new THREE.MeshLambertMaterial()
 
-    if (textureSrc) {
+    const material = new THREE.MeshLambertMaterial()
+    if (textureSrc)
       material.map = loader.load(textureSrc)
-    } else {
+    else
       material.vertexColors = THREE.FaceColors
-    }
 
     const mesh = new THREE.Mesh(geometry, material)
     mesh.translateX(-max.x / 2)

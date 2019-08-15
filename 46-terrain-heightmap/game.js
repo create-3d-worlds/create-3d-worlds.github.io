@@ -3,14 +3,9 @@ import terrainFromHeightmap from '../utils/terrainFromHeightmap.js'
 
 createOrbitControls()
 
-terrainFromHeightmap(
-  '../assets/heightmaps/oos-heightmap-128.jpg', mesh => {
-    scene.add(mesh)
-  },
-  undefined,
-  undefined,
-  // '../../assets/heightmaps/oos-terrain.jpg'
-)
+terrainFromHeightmap('../assets/heightmaps/wiki.png', mesh => {
+  scene.add(mesh)
+})
 
 /* INIT */
 
