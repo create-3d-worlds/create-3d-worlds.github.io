@@ -2,11 +2,13 @@
 import chroma from '../libs/chroma.js'
 import {getHighPoint} from './helpers.js'
 
+const loader = new THREE.TextureLoader()
+
 const paint = chroma
   .scale(['brown', '#636f3f', '#7a8a46', '#473922', '#967848', '#dbc496', 'white'])
   .domain([0, 100])
 
-export default function(src, callback, heightOffset = 2, scale = 3) {
+export default function(src, callback, heightOffset = 2, scale = 3, textureSrc) {
   const img = new Image()
   img.src = src
   img.onload = function() {
@@ -44,20 +46,35 @@ export default function(src, callback, heightOffset = 2, scale = 3) {
 
         const face1 = new THREE.Face3(a, b, d)
         const face2 = new THREE.Face3(d, c, a)
-        face1.color = new THREE.Color(paint(getHighPoint(geometry, face1)).hex())
-        face2.color = new THREE.Color(paint(getHighPoint(geometry, face2)).hex())
         geometry.faces.push(face1)
         geometry.faces.push(face2)
+
+        if (textureSrc) {
+          const uva = new THREE.Vector2(x / (width - 1), 1 - z / (depth - 1))
+          const uvb = new THREE.Vector2((x + 1) / (width - 1), 1 - z / (depth - 1))
+          const uvc = new THREE.Vector2(x / (width - 1), 1 - (z + 1) / (depth - 1))
+          const uvd = new THREE.Vector2((x + 1) / (width - 1), 1 - (z + 1) / (depth - 1))
+          geometry.faceVertexUvs[0].push([uvb, uva, uvc])
+          geometry.faceVertexUvs[0].push([uvc, uvd, uvb])
+        } else {
+          face1.color = new THREE.Color(paint(getHighPoint(geometry, face1)).hex())
+          face2.color = new THREE.Color(paint(getHighPoint(geometry, face2)).hex())
+        }
       }
 
     geometry.computeVertexNormals(true)
     // geometry.computeFaceNormals()
     geometry.computeBoundingBox()
     const {max} = geometry.boundingBox
+    const material = new THREE.MeshLambertMaterial()
 
-    const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({
-      vertexColors: THREE.FaceColors,
-    }))
+    if (textureSrc) {
+      material.map = loader.load(textureSrc)
+    } else {
+      material.vertexColors = THREE.FaceColors
+    }
+
+    const mesh = new THREE.Mesh(geometry, material)
     mesh.translateX(-max.x / 2)
     mesh.translateZ(-max.z / 2)
     callback(mesh)
