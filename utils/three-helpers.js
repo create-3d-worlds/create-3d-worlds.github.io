@@ -1,36 +1,61 @@
-import {randomInRange} from './helpers.js'
+import {randomInRange, randomColor, createBounds, findGround} from './helpers.js'
 import { SimplexNoise } from '../libs/SimplexNoise.js'
 const {PI, random, floor} = Math
 
 export const loader = new THREE.TextureLoader()
-const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 
-/* HELPERS */
+/* SHAPES */
 
-export const randomColor = (h = 0.1, s = 0.75, l = 0.5) =>
-  new THREE.Color().setHSL(random() * 0.3 + h, s, random() * 0.25 + l)
-
-export function createBounds(mesh) {
-  const bbox = new THREE.Box3().setFromObject(mesh)
-  const bounds = {
-    xMin: bbox.min.x,
-    xMax: bbox.max.x,
-    yMin: bbox.min.y,
-    yMax: bbox.max.y,
-    zMin: bbox.min.z,
-    zMax: bbox.max.z,
-  }
-  return bounds
+export function createBox(z = 0, x = 0, size = 1, file, color = 0xff0000) {
+  size = size < 0.5 ? 0.5 : size // eslint-disable-line
+  const geometry = new THREE.BoxGeometry(size, size, size)
+  const options = file ? {map: loader.load(`../assets/textures/${file}`)} : {color, vertexColors: THREE.FaceColors}
+  const material = new THREE.MeshBasicMaterial(options)
+  const cube = new THREE.Mesh(geometry, material)
+  cube.position.y = size / 2
+  cube.position.z = z
+  cube.position.x = x
+  return cube
 }
 
-// refactor to recursion?
-export const findGround = function(terrain, x, z) {
-  const direction = new THREE.Vector3(0, -1, 0)
-  const origin = { x, y: 1000, z }
-  const raycaster = new THREE.Raycaster()
-  raycaster.set(origin, direction)
-  const intersects = raycaster.intersectObject(terrain, true)
-  return intersects.length > 0 ? intersects[0].point : null
+// TODO: merge with createBox
+export function createSketchBox(size) {
+  const outlineSize = size * 0.05
+  const geometry = new THREE.BoxBufferGeometry(size, size, size)
+  const material = new THREE.MeshPhongMaterial({ color: 0x22dd88 })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.y = size / 2
+
+  const outline_geo = new THREE.BoxGeometry(size + outlineSize, size + outlineSize, size + outlineSize)
+  const outline_mat = new THREE.MeshBasicMaterial({ color: 0x0000000, side: THREE.BackSide })
+  const outline = new THREE.Mesh(outline_geo, outline_mat)
+  mesh.add(outline)
+  return mesh
+}
+
+export function createSphere(z = 0, x = 0, radius = 0.5, color = 0xff0000) {
+  const geometry = new THREE.SphereGeometry(radius, 32, 32)
+  const material = new THREE.MeshBasicMaterial({color})
+  const sphere = new THREE.Mesh(geometry, material)
+  sphere.position.y = radius / 2
+  sphere.position.z = z
+  sphere.position.x = x
+  return sphere
+}
+
+export function createRandomBoxes(boxNum = 100, size = 20) {
+  const group = new THREE.Group()
+  const geometry = new THREE.BoxGeometry(size, size, size)
+  for (let i = 0; i < boxNum; i++) {
+    const material = new THREE.MeshPhongMaterial({flatShading: true})
+    material.color = randomColor(0.1, 0.01, .75)
+    const box = new THREE.Mesh(geometry, material)
+    box.position.x = randomInRange(-200, 200)
+    box.position.y = randomInRange(-5, 100)
+    box.position.z = randomInRange(-200, 200)
+    group.add(box)
+  }
+  return group
 }
 
 /* LAND */
@@ -119,59 +144,6 @@ export const createHillyTerrain = (size, avgHeight = 30) => {
   return mesh
 }
 
-/* SHAPES */
-
-export function createBox(z = 0, x = 0, size = 1, file, color = 0xff0000) {
-  size = size < 0.5 ? 0.5 : size // eslint-disable-line
-  const geometry = new THREE.BoxGeometry(size, size, size)
-  const options = file ? {map: loader.load(`../assets/textures/${file}`)} : {color, vertexColors: THREE.FaceColors}
-  const material = new THREE.MeshBasicMaterial(options)
-  const cube = new THREE.Mesh(geometry, material)
-  cube.position.y = size / 2
-  cube.position.z = z
-  cube.position.x = x
-  return cube
-}
-
-export function createSketchBox(size) {
-  const outlineSize = size * 0.05
-  const geometry = new THREE.BoxBufferGeometry(size, size, size)
-  const material = new THREE.MeshPhongMaterial({ color: 0x22dd88 })
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.y = size / 2
-
-  const outline_geo = new THREE.BoxGeometry(size + outlineSize, size + outlineSize, size + outlineSize)
-  const outline_mat = new THREE.MeshBasicMaterial({ color: 0x0000000, side: THREE.BackSide })
-  const outline = new THREE.Mesh(outline_geo, outline_mat)
-  mesh.add(outline)
-  return mesh
-}
-
-export function createSphere(z = 0, x = 0, radius = 0.5, color = 0xff0000) {
-  const geometry = new THREE.SphereGeometry(radius, 32, 32)
-  const material = new THREE.MeshBasicMaterial({color})
-  const sphere = new THREE.Mesh(geometry, material)
-  sphere.position.y = radius / 2
-  sphere.position.z = z
-  sphere.position.x = x
-  return sphere
-}
-
-export function createRandomBoxes(boxNum = 100, size = 20) {
-  const group = new THREE.Group()
-  const geometry = new THREE.BoxGeometry(size, size, size)
-  for (let i = 0; i < boxNum; i++) {
-    const material = new THREE.MeshPhongMaterial({flatShading: true})
-    material.color = randomColor(0.1, 0.01, .75)
-    const box = new THREE.Mesh(geometry, material)
-    box.position.x = randomInRange(-200, 200)
-    box.position.y = randomInRange(-5, 100)
-    box.position.z = randomInRange(-200, 200)
-    group.add(box)
-  }
-  return group
-}
-
 /* TREES */
 
 export function createTree(x, z, height = 50) {
@@ -236,6 +208,7 @@ export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
   return group
 }
 
+// TODO: merge with createTree?
 export function createSketchTree(posX, posZ, size) {
   const outlineSize = size * 0.05
   const randomScale = randomInRange(0.8, 1.6, false)
@@ -274,6 +247,7 @@ export function createSketchTree(posX, posZ, size) {
   return {trunk, bounds}
 }
 
+// TODO: merge with createTrees?
 export function createSketchTrees(num = 10, min = -800, max = 800, size = 50) {
   const group = new THREE.Group()
   const solids = []
@@ -289,6 +263,7 @@ export function createSketchTrees(num = 10, min = -800, max = 800, size = 50) {
 /* MAP */
 
 export function createMap(matrix, size = 1) {
+  const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
   const group = new THREE.Group()
   matrix.forEach((row, z) => row.forEach((val, x) => {
     if (val) group.add(createBox(z * size, x * size, size, textures[val - 1]))

@@ -6,6 +6,15 @@ Repo: https://github.com/mudroljub/create-rpg-game
 
 ## Curriculum
 
+You should know how to [create a scene](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene) in Three.js. We will jump over that very first lesson.
+
+### Geometry
+
+- [x] create a box
+- [x] create a lot of boxes
+- [x] create other basic shapes
+- [x] add texture
+
 ### Tilemaps
 
 - [x] napraviti nekoliko *tilemap*-a
@@ -22,7 +31,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [x] omogućiti 3d kretanje kroz mapu
 - [x] dodati skakanje
 
-### Cameras
+### Camera
 
 - [x] dodati kameru iz prvog lica (fps)
 - [x] dodati kameru odozgo (orbit)

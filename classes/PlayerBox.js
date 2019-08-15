@@ -1,5 +1,5 @@
-import { isCollide } from '../utils/helpers.js'
-import { createSketchBox, createBounds } from '../utils/three-helpers.js'
+import { isCollide, createBounds } from '../utils/helpers.js'
+import { createSketchBox } from '../utils/three-helpers.js'
 
 const playerSpeed = 5
 
