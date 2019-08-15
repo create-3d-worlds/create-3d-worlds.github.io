@@ -1,12 +1,12 @@
-# create-rpg-game
+# Create RPG game with Three.js
 
 Create a role-playing game!
 
 Repo: https://github.com/mudroljub/create-rpg-game
 
-## Plan
+## Curriculum
 
-### Mapa (*tilemaps*)
+### Tilemaps
 
 - [x] napraviti nekoliko *tilemap*-a
   - [x] implementirati algoritam za pravljenje lavirinta
@@ -14,7 +14,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [x] renderovati mapu u 3d
   - [x] renderovati mapu sa teksturama
 
-### Igrac
+### Player
 
 - [x] dodati igraca
 - [x] prikazati polozaj igraca na mapi
@@ -22,20 +22,20 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [x] omogućiti 3d kretanje kroz mapu
 - [x] dodati skakanje
 
-### Kamere
+### Cameras
 
 - [x] dodati kameru iz prvog lica (fps)
 - [x] dodati kameru odozgo (orbit)
 - [x] menjati kamere na taster
 
-### Kolizija
+### Collision
 
 - [x] dodati koliziju kako se ne bi prolazilo kroz predmete
   - [x] probati koliziju bacanjem zraka
   - [x] probati koliziju geometrijom
 - [x] postaviti lavirint sa kolizijom
 
-### Prodecuralna geometrija
+### Terrain
 
 - [x] napraviti tlo
 - [x] dodati koliziju na tlo
@@ -45,10 +45,9 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [ ] kreirati stepenice u krug od kocki
 - [ ] prebaciti da tlo bude okruglo
 - [x] heightmap
-- [ ] heightmap with texture (primer djavolja varos)
-    - https://davideprati.com/2016/06/07/terrain-from-texture.html
+- [x] heightmap with texture
 
-### Modeli
+### 3D Models
 
 - [ ] ucitati 3d model igraca
   - [ ] animirati model (kretanje, trčanje, skok...)
@@ -60,12 +59,12 @@ Repo: https://github.com/mudroljub/create-rpg-game
 - [ ] reagovati na koliziju
 - https://threejsfundamentals.org/threejs/lessons/threejs-load-obj.html
 
-### Fizika
+### Physics
 
 - [ ] dodati fiziku https://github.com/chandlerprall/Physijs
 - [ ] dodati fiziku na proceruralni zamak i top koji puca i rusi zidine
 
-### Mehanika igre
+### Gameplay
 
 - [ ] napraviti inventar
 - [ ] postaviti objekte za sakupljanje i okidace za njih
@@ -74,7 +73,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
   - https://threejsfundamentals.org/threejs/lessons/threejs-picking.html
   - https://codepen.io/kintel/pen/ZboOxw
 
-### Nivoi
+### Levels
 
 - [ ] napraviti igrive nivoe
   - [ ] bežanje od štuke koja bombarduje
@@ -91,7 +90,7 @@ Repo: https://github.com/mudroljub/create-rpg-game
 
 ## Documentation
 
-Prikazuje pomocnu strelicu za raycaster:
+Raycaster arrow helper:
 
 ```
 scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300))
@@ -99,7 +98,7 @@ scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 3
 
 All libraries in `/libs` folder are updated by hand to support ES6 export.
 
-## Resursi
+## Resources
 
 - [Build a basic combat game with three.js](http://www.creativebloq.com/web-design/build-basic-combat-game-threejs-101517540)
 - https://github.com/mudroljub/3D-RPG-Game-With-THREE.js
