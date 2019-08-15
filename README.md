@@ -44,8 +44,10 @@ Repo: https://github.com/mudroljub/create-rpg-game
   - [ ] dodati neke stvari (sanduke i slicno)
 - [ ] kreirati stepenice u krug od kocki
 - [ ] prebaciti da tlo bude okruglo
-- [ ] heightmap:
+- [x] heightmap
+- [x] heightmap with texture
     - http://oos.moxiecode.com/js_webgl/terrain/index.html
+    - https://davideprati.com/2016/06/07/terrain-from-texture.html
 
 ### Modeli
 
