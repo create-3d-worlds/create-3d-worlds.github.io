@@ -37,19 +37,18 @@ export function createSketchBox(size) {
   return box
 }
 
-export function createSphere(z = 0, x = 0, radius = 0.5, color = 0xff0000) {
+export function createSphere(x = 0, y = 0, z = 0, radius = 5, color = 0x000000) {
   const geometry = new THREE.SphereGeometry(radius, 32, 32)
   const material = new THREE.MeshBasicMaterial({color})
-  const sphere = new THREE.Mesh(geometry, material)
-  sphere.position.y = radius / 2
-  sphere.position.z = z
-  sphere.position.x = x
-  return sphere
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.set(x, y, z)
+  mesh.translateY(radius / 2)
+  return mesh
 }
 
-export function createRandomBoxes(boxNum = 100, size = 20, texture) {
+export function createRandomBoxes(n = 100, size = 20, texture) {
   const group = new THREE.Group()
-  for (let i = 0; i < boxNum; i++) {
+  for (let i = 0; i < n; i++) {
     const color = randomColor(0.1, 0.01, .75)
     const x = randomInRange(-200, 200), y = randomInRange(-5, 100), z = randomInRange(-200, 200)
     const box = createBox(x, y, z, size, texture, color)
