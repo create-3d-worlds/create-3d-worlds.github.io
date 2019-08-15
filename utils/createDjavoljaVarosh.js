@@ -1,3 +1,4 @@
+// https://github.com/josdirksen/essential-threejs/blob/master/chapter-05/05.02-3D-plane-from-scratch-perlin.html
 import noise from '../libs/noise.js'
 
 export default function createDjavoljaVarosh(width = 140, depth = 140, scale = 2.5, height = 50) {
@@ -7,14 +8,18 @@ export default function createDjavoljaVarosh(width = 140, depth = 140, scale = 2
   const factor = 7
   for (let z = 0; z < depth; z++)
     for (let x = 0; x < width; x++) {
-      // abs() to make value positive, perlin2 returns from - 1 to 1
+      // abs make value positive, perlin2 returns from - 1 to 1
       const y = Math.abs(noise.perlin2(x / factor, z / factor) * height)
       const vertex = new THREE.Vector3(x * scale, y, z * scale)
       geometry.vertices.push(vertex)
     }
 
+  // UV mapping: U maps to x axis and V to y axis
   for (let z = 0; z < depth - 1; z++)
     for (let x = 0; x < width - 1; x++) {
+      // a - - b
+      // |  /  |
+      // c - - d
       const a = x + z * width
       const b = (x + 1) + (z * width)
       const c = x + ((z + 1) * width)

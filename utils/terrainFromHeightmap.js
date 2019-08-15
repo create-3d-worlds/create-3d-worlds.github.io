@@ -31,11 +31,11 @@ export default function(src, callback, heightOffset = 2, scale = 3) {
         geometry.vertices.push(vertex)
       }
 
-    // create a rectangle between four vertices, and do that as two triangles
+    // create a rectangle (two triangles) between four vertices
     for (let z = 0; z < depth - 1; z++)
       for (let x = 0; x < width - 1; x++) {
         // a - - b
-        // |  x  |
+        // |  /  |
         // c - - d
         const a = x + z * width
         const b = (x + 1) + (z * width)
