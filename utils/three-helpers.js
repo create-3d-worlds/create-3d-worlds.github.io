@@ -6,15 +6,18 @@ export const loader = new THREE.TextureLoader()
 
 /* SHAPES */
 
-export function createBox(z = 0, x = 0, size = 1, file, color = 0xff0000) {
-  size = size < 0.5 ? 0.5 : size // eslint-disable-line
+export function createBox(x = 0, y = 0, z = 0, size = 1, file, color = 0xff0000) {
+  if (size < 0.5) size = 0.5 // eslint-disable-line
   const geometry = new THREE.BoxGeometry(size, size, size)
-  const options = file ? {map: loader.load(`../assets/textures/${file}`)} : {color, vertexColors: THREE.FaceColors}
-  const material = new THREE.MeshBasicMaterial(options)
+  geometry.translate(0, size / 2, 0)
+  const options = {}
+  if (file)
+    options.map = loader.load(`../assets/textures/${file}`)
+  else
+    options.color = color
+  const material = new THREE.MeshLambertMaterial(options)
   const cube = new THREE.Mesh(geometry, material)
-  cube.position.y = size / 2
-  cube.position.z = z
-  cube.position.x = x
+  cube.position.set(x, y, z)
   return cube
 }
 
@@ -45,14 +48,10 @@ export function createSphere(z = 0, x = 0, radius = 0.5, color = 0xff0000) {
 
 export function createRandomBoxes(boxNum = 100, size = 20) {
   const group = new THREE.Group()
-  const geometry = new THREE.BoxGeometry(size, size, size)
   for (let i = 0; i < boxNum; i++) {
-    const material = new THREE.MeshPhongMaterial({flatShading: true})
-    material.color = randomColor(0.1, 0.01, .75)
-    const box = new THREE.Mesh(geometry, material)
-    box.position.x = randomInRange(-200, 200)
-    box.position.y = randomInRange(-5, 100)
-    box.position.z = randomInRange(-200, 200)
+    const color = randomColor(0.1, 0.01, .75)
+    const x = randomInRange(-200, 200), y = randomInRange(-5, 100), z = randomInRange(-200, 200)
+    const box = createBox(x, y, z, size, undefined, color)
     group.add(box)
   }
   return group
@@ -266,7 +265,7 @@ export function createMap(matrix, size = 1) {
   const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
   const group = new THREE.Group()
   matrix.forEach((row, z) => row.forEach((val, x) => {
-    if (val) group.add(createBox(z * size, x * size, size, textures[val - 1]))
+    if (val) group.add(createBox(x * size, 0, z * size, size, textures[val - 1]))
   }))
   return group
 }
