@@ -9,31 +9,32 @@ export const loader = new THREE.TextureLoader()
 export function createBox(x = 0, y = 0, z = 0, size = 20, texture, color = randomColor(0.1, 0.01, .75)) {
   if (size < 0.5) size = 0.5 // eslint-disable-line
   const geometry = new THREE.BoxGeometry(size, size, size)
-  geometry.translate(0, size / 2, 0)
   const options = {}
   if (texture) options.map = loader.load(`../assets/textures/${texture}`)
   else options.color = color
-  const material = new THREE.MeshLambertMaterial(options)
-  const cube = new THREE.Mesh(geometry, material)
-  cube.position.set(x, y, z)
-  return cube
+  const material = new THREE.MeshPhongMaterial(options)
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.set(x, y, z)
+  mesh.translateY(size / 2)
+  return mesh
 }
 
 export const createCrate = (x, y, z, size, texture = 'crate.gif') => createBox(x, y, z, size, texture)
 
-// TODO: merge with createBox
-export function createSketchBox(size) {
-  const outlineSize = size * 0.05
-  const geometry = new THREE.BoxBufferGeometry(size, size, size)
-  const material = new THREE.MeshPhongMaterial({ color: 0x22dd88 })
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.y = size / 2
+export const createBlock = (x, y, z, size, color) => createBox(x, y, z, size, null, color)
 
-  const outline_geo = new THREE.BoxGeometry(size + outlineSize, size + outlineSize, size + outlineSize)
-  const outline_mat = new THREE.MeshBasicMaterial({ color: 0x0000000, side: THREE.BackSide })
-  const outline = new THREE.Mesh(outline_geo, outline_mat)
-  mesh.add(outline)
-  return mesh
+function createOutline(size) {
+  const outlineSize = size * 0.05
+  const geometry = new THREE.BoxGeometry(size + outlineSize, size + outlineSize, size + outlineSize)
+  const material = new THREE.MeshBasicMaterial({ color: 0x0000000, side: THREE.BackSide })
+  return new THREE.Mesh(geometry, material)
+}
+
+export function createSketchBox(size) {
+  const box = createBlock(0, 0, 0, size, 0x22dd88)
+  const outline = createOutline(size)
+  box.add(outline)
+  return box
 }
 
 export function createSphere(z = 0, x = 0, radius = 0.5, color = 0xff0000) {
@@ -220,12 +221,12 @@ export function createSketchTree(posX, posZ, size) {
   trunk.scale.x = trunk.scale.y = trunk.scale.z = randomScale
   const bounds = createBounds(trunk) // bounds of trunk, without treeTop
 
-  let outline_geo = new THREE.CylinderGeometry(size / 3.5 + outlineSize, size / 2.5 + outlineSize, size * 1.3 + outlineSize, 8)
-  let outline_mat = new THREE.MeshBasicMaterial({
+  let outlineGeo = new THREE.CylinderGeometry(size / 3.5 + outlineSize, size / 2.5 + outlineSize, size * 1.3 + outlineSize, 8)
+  let outlineMat = new THREE.MeshBasicMaterial({
     color: 0x0000000,
     side: THREE.BackSide
   })
-  const outlineTrunk = new THREE.Mesh(outline_geo, outline_mat)
+  const outlineTrunk = new THREE.Mesh(outlineGeo, outlineMat)
   trunk.add(outlineTrunk)
 
   geometry = new THREE.DodecahedronGeometry(size)
@@ -236,12 +237,12 @@ export function createSketchTree(posX, posZ, size) {
   treeTop.rotation.y = randomRotateY
   trunk.add(treeTop)
 
-  outline_geo = new THREE.DodecahedronGeometry(size + outlineSize)
-  outline_mat = new THREE.MeshBasicMaterial({
+  outlineGeo = new THREE.DodecahedronGeometry(size + outlineSize)
+  outlineMat = new THREE.MeshBasicMaterial({
     color: 0x0000000,
     side: THREE.BackSide
   })
-  const outlineTreeTop = new THREE.Mesh(outline_geo, outline_mat)
+  const outlineTreeTop = new THREE.Mesh(outlineGeo, outlineMat)
   treeTop.add(outlineTreeTop)
   return {trunk, bounds}
 }
