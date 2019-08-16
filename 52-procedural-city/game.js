@@ -1,6 +1,6 @@
 // TODO: change roof color or texture
 import { scene, camera, renderer, clock } from '../utils/three-scene.js'
-import {createPlane} from '../utils/three-helpers.js'
+import {createFloor} from '../utils/three-helpers.js'
 import {randomInRange} from '../utils/helpers.js'
 import {FirstPersonControls} from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'
 
@@ -11,7 +11,7 @@ controls.movementSpeed = 20
 controls.lookSpeed = 0.05
 
 scene.fog = new THREE.FogExp2(0xd0e0f0, 0.0025)
-scene.add(createPlane(2000, 2000, 0x101018))
+scene.add(createFloor(2000, null, 0x101018))
 
 /* FUNCTIONS */
 

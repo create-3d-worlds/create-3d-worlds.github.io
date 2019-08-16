@@ -9,7 +9,7 @@ new PointerLockControls(camera)
 const avatar = new Avatar()
 scene.add(avatar.mesh)
 scene.add(createTrees())
-scene.add(createFloor(500, 500, 'ground.jpg'))
+scene.add(createFloor())
 
 camera.position.y = 100
 // camera.position.z = 400 // distance from player

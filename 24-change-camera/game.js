@@ -7,7 +7,7 @@ camera.position.y = 250
 
 const avatar = new Avatar()
 scene.add(avatar.mesh)
-scene.add(createFloor(500, 500, 'ground.jpg'))
+scene.add(createFloor())
 scene.add(createTrees())
 
 const chaseCamera = camera.clone()

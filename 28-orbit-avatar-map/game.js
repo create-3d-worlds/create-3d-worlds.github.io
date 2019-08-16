@@ -8,7 +8,7 @@ camera.position.y = 250
 
 const avatar = new Avatar(25, 25, 0.1)
 scene.add(avatar.mesh)
-scene.add(createFloor(500, 500, 'ground.jpg'))
+scene.add(createFloor())
 scene.add(createMap(matrix, 20))
 
 void function animate() {

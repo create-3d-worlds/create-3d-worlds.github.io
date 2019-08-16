@@ -50,11 +50,11 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 - [x] dodati koliziju na tlo
 - [x] proceduralno kreirati okruženje
   - [x] dodati drveće, zgrade
-  - [ ] dodati sanduke sa teksturom
-- [ ] kreirati stepenice u krug od kocki
+  - [x] dodati sanduke sa teksturom
 - [x] prebaciti da tlo bude okruglo (moze samo kad je ravna podloga)
 - [x] heightmap
 - [x] heightmap with texture
+- [ ] kreirati stepenice u krug od kocki
 
 ### 3D Models
 

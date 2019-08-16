@@ -6,10 +6,10 @@ export const loader = new THREE.TextureLoader()
 
 /* SHAPES */
 
-export function createBox(x = 0, y = 0, z = 0, size = 20, texture, color = randomColor(0.1, 0.01, .75)) {
+export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomColor(0.1, 0.01, .75)) {
   const geometry = new THREE.BoxGeometry(size, size, size)
   const options = {}
-  if (texture) options.map = loader.load(`../assets/textures/${texture}`)
+  if (file) options.map = loader.load(`../assets/textures/${file}`)
   else options.color = color
   const material = new THREE.MeshPhongMaterial(options)
   const mesh = new THREE.Mesh(geometry, material)
@@ -18,7 +18,7 @@ export function createBox(x = 0, y = 0, z = 0, size = 20, texture, color = rando
   return mesh
 }
 
-export const createCrate = (x, y, z, size, texture = 'crate.gif') => createBox(x, y, z, size, texture)
+export const createCrate = (x, y, z, size, file = 'crate.gif') => createBox(x, y, z, size, file)
 
 export const createBlock = (x, y, z, size, color) => createBox(x, y, z, size, null, color)
 
@@ -58,26 +58,20 @@ export function createRandomBoxes(n = 100, size = 20, texture) {
 
 /* LAND */
 
-export function createFloor(width = 100, height = 100, file = 'ground.jpg') {
-  const texture = loader.load(`../assets/textures/${file}`)
-  texture.wrapS = THREE.RepeatWrapping
-  texture.wrapT = THREE.RepeatWrapping
-  texture.repeat.set(width / 10, height / 10)
-  const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide })
-  const geometry = new THREE.CircleGeometry(width, height)
+export function createFloor(r = 500, file = 'ground.jpg', color = 0x60bf63) {
+  const options = {}
+  if (file) {
+    const texture = loader.load(`../assets/textures/${file}`)
+    texture.wrapS = THREE.RepeatWrapping
+    texture.wrapT = THREE.RepeatWrapping
+    texture.repeat.set(r / 10, r / 10)
+    options.map = texture
+  } else
+    options.color = color
+  const material = new THREE.MeshBasicMaterial(options)
+  const geometry = new THREE.CircleGeometry(r, 32)
   geometry.rotateX(- PI / 2)
-  const floor = new THREE.Mesh(geometry, material)
-  return floor
-}
-
-// TODO: merge with createFloor
-export function createPlane(w = 100000, h = 100000, color = 0x336633) {
-  const geometry = new THREE.CircleGeometry(w, h)
-  geometry.rotateX(- PI / 2)
-  const material = new THREE.MeshToonMaterial({ color })
-  const plane = new THREE.Mesh(geometry, material)
-  plane.position.y = 0
-  return plane
+  return new THREE.Mesh(geometry, material)
 }
 
 export function createTerrain() {
@@ -161,9 +155,9 @@ export function createTree(x, z, height = 50) {
   return tree
 }
 
-export function createTrees(num = 20, min = -250, max = 250, height = 50) {
+export function createTrees(n = 20, min = -250, max = 250, height = 50) {
   const group = new THREE.Group()
-  const coords = Array(num).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
+  const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
   coords.forEach(coord => group.add(createTree(...coord, height)))
   return group
 }
@@ -209,13 +203,13 @@ export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
 // TODO: merge with createTree?
 export function createSketchTree(posX, posZ, size) {
   const outlineSize = size * 0.05
-  const randomScale = randomInRange(0.8, 1.6, false)
+  const randomScale = Math.random() + .8
   const randomRotateY = PI / (floor((random() * 32) + 1))
 
   let geometry = new THREE.CylinderGeometry(size / 3.5, size / 2.5, size * 1.3, 8)
   let material = new THREE.MeshToonMaterial({ color: 0x664422 })
   const trunk = new THREE.Mesh(geometry, material)
-  trunk.position.set(posX, ((size * 1.3 * randomScale) / 2), posZ)
+  trunk.position.set(posX, ((size * randomScale) / 2), posZ)
   trunk.scale.x = trunk.scale.y = trunk.scale.z = randomScale
   const bounds = createBounds(trunk) // bounds of trunk, without treeTop
 
@@ -246,10 +240,10 @@ export function createSketchTree(posX, posZ, size) {
 }
 
 // TODO: merge with createTrees?
-export function createSketchTrees(num = 10, min = -800, max = 800, size = 50) {
+export function createSketchTrees(n = 5, min = -500, max = 500, size = 50) {
   const group = new THREE.Group()
   const solids = []
-  const coords = Array(num).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
+  const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
   coords.forEach(coord => {
     const tree = createSketchTree(...coord, size)
     group.add(tree.trunk)

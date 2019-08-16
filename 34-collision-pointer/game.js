@@ -1,5 +1,5 @@
 import { scene, renderer, camera, createOrbitControls } from '../utils/three-scene.js'
-import { createPlane, createSketchTrees } from '../utils/three-helpers.js'
+import { createFloor, createSketchTrees } from '../utils/three-helpers.js'
 import PlayerBox from '../classes/PlayerBox.js'
 
 const player = new PlayerBox()
@@ -17,7 +17,7 @@ createOrbitControls()
 
 const {group, solids} = createSketchTrees()
 scene.add(group)
-const plane = createPlane()
+const plane = createFloor(1000, null)
 scene.add(plane)
 player.plane = plane
 
