@@ -1,6 +1,7 @@
 import { scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
-import { createFirs, createWater, createHillyTerrain } from '../utils/three-helpers.js'
 import { roll, randomInRange } from '../utils/helpers.js'
+import { createFirs, createWater } from '../utils/three-helpers.js'
+import {createHillyTerrain} from '../utils/createHillyTerrain.js'
 import '../node_modules/three/examples/js/loaders/deprecated/LegacyJSONLoader.js'
 
 const size = 600

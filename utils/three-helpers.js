@@ -1,5 +1,4 @@
 import {randomInRange, randomColor, createBounds, findGround} from './helpers.js'
-import { SimplexNoise } from '../libs/SimplexNoise.js'
 const {PI, random, floor} = Math
 
 export const loader = new THREE.TextureLoader()
@@ -89,15 +88,15 @@ export function createTerrain() {
   return new THREE.Mesh(geometry, material)
 }
 
-export function createWater(size = 1000, useTexture = false, opacity = 0.75) {
+export function createWater(size = 1000, opacity = 0.75, file) {
   const geometry = new THREE.PlaneGeometry(size, size, 1, 1)
   geometry.rotateX(-Math.PI / 2)
   const material = new THREE.MeshBasicMaterial({
     transparent: true,
     opacity
   })
-  if (useTexture) {
-    const texture = loader.load('../assets/textures/water512.jpg')
+  if (file) {
+    const texture = loader.load(`../assets/textures/${file}`)
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping
     texture.repeat.set(5, 5)
     material.map = texture
@@ -105,35 +104,6 @@ export function createWater(size = 1000, useTexture = false, opacity = 0.75) {
     material.color.setHex(0x6699ff)
 
   return new THREE.Mesh(geometry, material)
-}
-
-export const createHillyTerrain = (size, avgHeight = 30) => {
-  const resolution = 20
-  const material = new THREE.MeshLambertMaterial({
-    color: 0x33aa33,
-    vertexColors: THREE.FaceColors,
-  })
-  const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
-  geometry.rotateX(-Math.PI / 2)
-
-  const noise = new SimplexNoise()
-  const factorX = 50
-  const factorZ = 25
-  const factorY = 60
-  geometry.vertices.forEach(vertex => {
-    vertex.x += randomInRange(-factorX, factorX)
-    vertex.z += randomInRange(-factorZ, factorZ)
-    const dist = noise.noise(vertex.x / resolution / factorX, vertex.z / resolution / factorZ)
-    vertex.y = (dist - 0.2) * factorY
-  })
-  geometry.faces.forEach(face => {
-    const { color } = face
-    const rand = Math.random() / 5
-    face.color.setRGB(color.r + rand, color.g + rand, color.b + rand)
-  })
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.y = avgHeight
-  return mesh
 }
 
 /* TREES */
