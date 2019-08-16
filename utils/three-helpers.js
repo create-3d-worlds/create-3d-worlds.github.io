@@ -127,7 +127,7 @@ export function createTree(x = 0, y = 0, z = 0, height = 50) {
 }
 
 // TODO: merge with createTree?
-export function createSketchTree(posX, posZ, size) {
+export function createSketchTree(x = 0, y = 0, z = 0, size) {
   const outlineSize = size * 0.05
   const randomScale = Math.random() + .8
   const randomRotateY = PI / (floor((random() * 32) + 1))
@@ -135,7 +135,7 @@ export function createSketchTree(posX, posZ, size) {
   let geometry = new THREE.CylinderGeometry(size / 3.5, size / 2.5, size * 1.3, 8)
   let material = new THREE.MeshToonMaterial({ color: 0x664422 })
   const trunk = new THREE.Mesh(geometry, material)
-  trunk.position.set(posX, ((size * randomScale) / 2), posZ)
+  trunk.position.set(x, ((size * randomScale) / 2), z)
   trunk.scale.x = trunk.scale.y = trunk.scale.z = randomScale
 
   let outlineGeo = new THREE.CylinderGeometry(size / 3.5 + outlineSize, size / 2.5 + outlineSize, size * 1.3 + outlineSize, 8)
@@ -207,6 +207,15 @@ export function createTrees(n = 20, mapSize = 500, height = 50) {
   return group
 }
 
+// TODO: merge with createTrees?
+export function createSketchTrees(n = 10, mapSize = 1000, size = 50) {
+  const min = -mapSize / 2, max = mapSize / 2
+  const group = new THREE.Group()
+  const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
+  coords.forEach(([x, y]) => group.add(createSketchTree(x, 0, y, size)))
+  return group
+}
+
 export const createTreesOnTerrain = function(terrain, n = 50, mapSize = 1000) {
   const group = new THREE.Group()
   for (let i = 0; i < n; i++) {
@@ -217,17 +226,6 @@ export const createTreesOnTerrain = function(terrain, n = 50, mapSize = 1000) {
     if (ground && ground.y > 0)
       group.add(createFirTree(x, ground.y + yOffset, z))
   }
-  return group
-}
-
-// TODO: merge with createTrees?
-export function createSketchTrees(n = 5, min = -500, max = 500, size = 50) {
-  const group = new THREE.Group()
-  const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
-  coords.forEach(coord => {
-    const tree = createSketchTree(...coord, size)
-    group.add(tree)
-  })
   return group
 }
 
