@@ -1,4 +1,4 @@
-import {randomInRange, randomColor, createBounds, findGround} from './helpers.js'
+import {randomInRange, randomColor, findGround} from './helpers.js'
 const {PI, random, floor} = Math
 
 export const loader = new THREE.TextureLoader()

@@ -20,19 +20,6 @@ export function getHighPoint(geometry, face) {
 export const randomColor = (h = .1, s = 0.5, l = 0.4) =>
   new THREE.Color().setHSL(Math.random() * 0.3 + h, s, Math.random() * 0.25 + l)
 
-export function createBounds(mesh) {
-  const bbox = new THREE.Box3().setFromObject(mesh)
-  const bounds = {
-    xMin: bbox.min.x,
-    xMax: bbox.max.x,
-    yMin: bbox.min.y,
-    yMax: bbox.max.y,
-    zMin: bbox.min.z,
-    zMax: bbox.max.z,
-  }
-  return bounds
-}
-
 // TODO: refactor to recursion?
 export const findGround = function(terrain, x, z) {
   const direction = new THREE.Vector3(0, -1, 0)
@@ -50,13 +37,4 @@ export const findGround = function(terrain, x, z) {
  */
 export function roll(n) {
   return Math.random() * n | 0
-}
-
-/**
- * roll a random integer between -n and n
- * @param n
- * @returns {number}
- */
-export function rndInt(n) {
-  return (Math.random() * n | 0) - n / 2
 }
