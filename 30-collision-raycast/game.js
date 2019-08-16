@@ -2,23 +2,19 @@ import Avatar from '../classes/Avatar.js'
 import {scene, renderer, camera, clock, createOrbitControls} from '../utils/three-scene.js'
 import {createTrees} from '../utils/three-helpers.js'
 
-const avatar = new Avatar(0, 0, 1)
+const avatar = new Avatar(0, 0)
 scene.add(avatar.mesh)
 
 camera.position.z = 500
 avatar.add(camera)
 // createOrbitControls()
+const trees = createTrees(10, 1000, 50)
 
-scene.add(createTrees(10, -1000, 1000, 200))
-
-const solids = []
-scene.traverse(child => {
-  if (child.name == 'solid') solids.push(child)
-})
+scene.add(trees)
 
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
-  avatar.update(delta, solids, scene)
+  avatar.update(delta, trees.children, scene)
   renderer.render(scene, camera)
 }()

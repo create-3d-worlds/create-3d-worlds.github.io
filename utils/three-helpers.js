@@ -116,7 +116,6 @@ export function createTree(x = 0, y = 0, z = 0, height = 50) {
     new THREE.MeshBasicMaterial({color: 0xA0522D})
   )
   tree.position.set(x, y, z)
-  tree.name = 'solid'
   const crown = new THREE.Mesh(
     new THREE.SphereGeometry(height * 2 / 3),
     new THREE.MeshBasicMaterial({color: 0x228b22})
@@ -201,7 +200,8 @@ export function createFirTree(x = 0, y = 0, z = 0, height = 50, color = 0x3EA055
   return mesh
 }
 
-export function createTrees(n = 20, min = -250, max = 250, height = 50) {
+export function createTrees(n = 20, mapSize = 500, height = 50) {
+  const min = -mapSize / 2, max = mapSize / 2
   const group = new THREE.Group()
   const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
   coords.forEach(([x, y]) => group.add(createFirTree(x, 0, y, height, 0x2d4c1e)))
