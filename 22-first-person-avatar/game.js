@@ -4,8 +4,8 @@ import {scene, renderer, camera, clock, createOrbitControls} from '../utils/thre
 import Avatar from '../classes/Avatar.js'
 import keyboard from '../classes/Keyboard.js'
 
-createOrbitControls()
-// new PointerLockControls(camera)
+// createOrbitControls()
+new PointerLockControls(camera)
 
 const avatar = new Avatar()
 scene.add(avatar.mesh)
@@ -13,7 +13,6 @@ scene.add(createTrees())
 scene.add(createFloor())
 
 camera.position.y = 100
-// camera.position.z = 400 // distance from player
 avatar.mesh.add(camera)
 
 void function animate() {
@@ -26,8 +25,8 @@ void function animate() {
 
 /* EVENTS */
 
-// document.body.addEventListener('click', document.body.requestPointerLock)
+document.body.addEventListener('click', document.body.requestPointerLock)
 
-// document.addEventListener('pointerlockchange', () => {
-//   if (!document.pointerLockElement) camera.lookAt(avatar.mesh.position)
-// })
+document.addEventListener('pointerlockchange', () => {
+  if (!document.pointerLockElement) camera.lookAt(avatar.mesh.position)
+})
