@@ -1,5 +1,5 @@
 import { scene, renderer, clock, camera } from '../utils/three-scene.js'
-import { createTrees, createFloor } from '../utils/three-helpers.js'
+import { createFirTrees, createFloor } from '../utils/three-helpers.js'
 import {keyboard, Avatar} from '../classes/index.js'
 
 camera.position.z = 500
@@ -8,7 +8,7 @@ camera.position.y = 250
 const avatar = new Avatar()
 scene.add(avatar.mesh)
 scene.add(createFloor())
-scene.add(createTrees())
+scene.add(createFirTrees())
 
 const chaseCamera = camera.clone()
 let currentCamera = camera

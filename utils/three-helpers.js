@@ -199,22 +199,19 @@ export function createFirTree(x = 0, y = 0, z = 0, height = 50, color = 0x3EA055
   return mesh
 }
 
-export function createTrees(n = 20, mapSize = 500, height = 50) {
+export function createTrees(n = 20, mapSize = 1000, size = 50, create = createTree) {
   const min = -mapSize / 2, max = mapSize / 2
   const group = new THREE.Group()
   const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
-  coords.forEach(([x, y]) => group.add(createFirTree(x, 0, y, height, 0x2d4c1e)))
+  coords.forEach(([x, y]) => group.add(create(x, 0, y, size, 0x2d4c1e)))
   return group
 }
 
-// TODO: merge with createTrees?
-export function createSketchTrees(n = 10, mapSize = 1000, size = 50) {
-  const min = -mapSize / 2, max = mapSize / 2
-  const group = new THREE.Group()
-  const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
-  coords.forEach(([x, y]) => group.add(createSketchTree(x, 0, y, size)))
-  return group
-}
+export const createFirTrees = (n, mapSize, size) =>
+  createTrees(n, mapSize, size, createFirTree)
+
+export const createSketchTrees = (n, mapSize, size) =>
+  createTrees(n, mapSize, size, createSketchTree)
 
 export const createTreesOnTerrain = function(terrain, n = 50, mapSize = 1000) {
   const group = new THREE.Group()
