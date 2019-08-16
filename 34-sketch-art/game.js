@@ -1,7 +1,8 @@
 import { scene, renderer, camera, createOrbitControls } from '../utils/three-scene.js'
-import { createFloor, createSketchBox, createSketchTrees } from '../utils/three-helpers.js'
+import { createFloor, createSketchBox } from '../utils/three-helpers.js'
+import {createSketchTrees} from '../utils/trees.js'
 
-scene.add(createSketchBox(50))
+// scene.add(createSketchBox(50))
 
 scene.background = new THREE.Color(0xccddff)
 scene.fog = new THREE.Fog(0xccddff, 500, 2000)

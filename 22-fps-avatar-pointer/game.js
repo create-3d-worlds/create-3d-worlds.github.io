@@ -1,19 +1,20 @@
 import { PointerLockControls } from '../node_modules/three/examples/jsm/controls/PointerLockControls.js'
-import {createFirTrees, createFloor} from '../utils/three-helpers.js'
+import {createFloor} from '../utils/three-helpers.js'
+import {createTrees} from '../utils/trees.js'
 import {scene, renderer, camera, clock, createOrbitControls} from '../utils/three-scene.js'
 import Avatar from '../classes/Avatar.js'
 import keyboard from '../classes/Keyboard.js'
 
-// createOrbitControls()
+createOrbitControls()
 new PointerLockControls(camera)
 
 const avatar = new Avatar()
 scene.add(avatar.mesh)
-scene.add(createFirTrees())
+scene.add(createTrees())
 scene.add(createFloor())
 
 camera.position.y = 100
-avatar.mesh.add(camera)
+// avatar.mesh.add(camera)
 
 void function animate() {
   requestAnimationFrame(animate)
@@ -24,9 +25,9 @@ void function animate() {
 }()
 
 /* EVENTS */
-
-document.body.addEventListener('click', document.body.requestPointerLock)
-
-document.addEventListener('pointerlockchange', () => {
-  if (!document.pointerLockElement) camera.lookAt(avatar.mesh.position)
-})
+//
+// document.body.addEventListener('click', document.body.requestPointerLock)
+//
+// document.addEventListener('pointerlockchange', () => {
+//   if (!document.pointerLockElement) camera.lookAt(avatar.mesh.position)
+// })

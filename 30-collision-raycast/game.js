@@ -1,6 +1,6 @@
 import Avatar from '../classes/Avatar.js'
 import {scene, renderer, camera, clock, createOrbitControls} from '../utils/three-scene.js'
-import {createFirTrees} from '../utils/three-helpers.js'
+import {createFirTrees} from '../utils/trees.js'
 
 const avatar = new Avatar(0, 0)
 scene.add(avatar.mesh)
