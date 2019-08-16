@@ -58,7 +58,9 @@ export function createRandomBoxes(n = 100, size = 20, texture) {
 /* LAND */
 
 export function createFloor(r = 500, file = 'ground.jpg', color = 0x60bf63) {
-  const options = {}
+  const options = {
+    side: THREE.DoubleSide // just for debugin
+  }
   if (file) {
     const texture = loader.load(`../assets/textures/${file}`)
     texture.wrapS = THREE.RepeatWrapping
@@ -108,8 +110,7 @@ export function createWater(size = 1000, opacity = 0.75, file) {
 
 /* TREES */
 
-export function createTree(x, z, height = 50) {
-  const y = height / 2
+export function createTree(x = 0, y = 0, z = 0, height = 50) {
   const tree = new THREE.Mesh(
     new THREE.CylinderGeometry(height / 4, height / 4, height),
     new THREE.MeshBasicMaterial({color: 0xA0522D})
@@ -121,53 +122,9 @@ export function createTree(x, z, height = 50) {
     new THREE.MeshBasicMaterial({color: 0x228b22})
   )
   crown.position.y = height + height / 10
+  tree.translateY(height / 2)
   tree.add(crown)
   return tree
-}
-
-export function createTrees(n = 20, min = -250, max = 250, height = 50) {
-  const group = new THREE.Group()
-  const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
-  coords.forEach(coord => group.add(createTree(...coord, height)))
-  return group
-}
-
-export const createFir = (x = 0, y = 0, z = 0, leavesHeight = 60) => {
-  const fir = new THREE.Object3D()
-  const leaves = new THREE.Mesh(
-    new THREE.CylinderGeometry(0, 25, leavesHeight, 4, 1),
-    new THREE.MeshLambertMaterial({ color: 0x3EA055})
-  )
-  const trunkHeight = leavesHeight / 3 // 20
-  const trunk = new THREE.Mesh(
-    new THREE.BoxGeometry(5, trunkHeight, 5),
-    new THREE.MeshLambertMaterial({ color: 0x966F33})
-  )
-  trunk.position.y = trunkHeight / 2
-  leaves.position.y = trunkHeight * 2
-  // leaves.castShadow = true
-  // trunk.castShadow = true
-  // fir.castShadow = true
-  fir.add(leaves)
-  fir.add(trunk)
-  fir.position.set(x, y + leavesHeight / 2, z)
-  return fir
-}
-
-export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
-  const group = new THREE.Group()
-  for (let i = 0; i < numTrees; i++) {
-    const min = -mapSize / 2, max = mapSize / 2
-    const {x, z} = new THREE.Vector3(randomInRange(min, max), 100, randomInRange(min, max))
-    if (terrain) {
-      const ground = findGround(terrain, x, z)
-      if (ground && ground.y > 0) { // eslint-disable-line
-        // console.log(ground.y)
-        group.add(createFir(x, ground.y, z))
-      }
-    } else group.add(createFir(x, 0, z))
-  }
-  return group
 }
 
 // TODO: merge with createTree?
@@ -207,6 +164,64 @@ export function createSketchTree(posX, posZ, size) {
   const outlineTreeTop = new THREE.Mesh(outlineGeo, outlineMat)
   treeTop.add(outlineTreeTop)
   return {trunk, bounds}
+}
+
+export function createFirTree(x = 0, y = 0, z = 0, height = 50, color = 0x3EA055) {
+  const scale = height / 10
+  const material = [
+    new THREE.MeshLambertMaterial({ color: 0x3d2817 }), // brown
+    new THREE.MeshLambertMaterial({ color }), // green 0x2d4c1e or 0x3EA055
+  ]
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 12, 6, 1, true))
+  trunk.position.y = 6
+  const c1 = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 14, 8))
+  c1.position.y = 18
+  const c2 = new THREE.Mesh(new THREE.CylinderGeometry(0, 9, 13, 8))
+  c2.position.y = 25
+  const c3 = new THREE.Mesh(new THREE.CylinderGeometry(0, 8, 12, 8))
+  c3.position.y = 32
+
+  const geometry = new THREE.Geometry()
+  trunk.updateMatrix()
+  c1.updateMatrix()
+  c2.updateMatrix()
+  c3.updateMatrix()
+  geometry.merge(trunk.geometry, trunk.matrix)
+  geometry.merge(c1.geometry, c1.matrix)
+  geometry.merge(c2.geometry, c2.matrix)
+  geometry.merge(c3.geometry, c3.matrix)
+
+  const b = trunk.geometry.faces.length
+  for (let i = 0, l = geometry.faces.length; i < l; i++)
+    geometry.faces[i].materialIndex = i < b ? 0 : 1
+
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.scale.set(scale, randomInRange(scale / 2, scale, false), scale)
+  mesh.position.set(x, y, z)
+  return mesh
+}
+
+export function createTrees(n = 20, min = -250, max = 250, height = 50) {
+  const group = new THREE.Group()
+  const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
+  coords.forEach(([x, y]) => group.add(createFirTree(x, 0, y, height, 0x2d4c1e)))
+  return group
+}
+
+export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
+  const group = new THREE.Group()
+  for (let i = 0; i < numTrees; i++) {
+    const min = -mapSize / 2, max = mapSize / 2
+    const {x, z} = new THREE.Vector3(randomInRange(min, max), 100, randomInRange(min, max))
+    if (terrain) {
+      const ground = findGround(terrain, x, z)
+      if (ground && ground.y > 0) { // eslint-disable-line
+        // console.log(ground.y)
+        group.add(createFirTree(x, ground.y, z))
+      }
+    } else group.add(createFirTree(x, 0, z))
+  }
+  return group
 }
 
 // TODO: merge with createTrees?
