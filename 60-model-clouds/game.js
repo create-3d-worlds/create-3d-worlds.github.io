@@ -1,6 +1,6 @@
 import { scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
 import { roll, randomInRange } from '../utils/helpers.js'
-import { createFirs, createWater } from '../utils/three-helpers.js'
+import { createTreesOnTerrain, createWater } from '../utils/three-helpers.js'
 import {createHillyTerrain} from '../utils/createHillyTerrain.js'
 import '../node_modules/three/examples/js/loaders/deprecated/LegacyJSONLoader.js'
 
@@ -10,7 +10,7 @@ camera.position.y = 250
 scene.add(createWater(1000))
 const land = createHillyTerrain(1000, 30)
 scene.add(land)
-scene.add(createFirs(land))
+scene.add(createTreesOnTerrain(land))
 
 const loader = new THREE.LegacyJSONLoader()
 const clouds = new THREE.Group()

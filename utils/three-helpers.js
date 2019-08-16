@@ -208,18 +208,15 @@ export function createTrees(n = 20, min = -250, max = 250, height = 50) {
   return group
 }
 
-export const createFirs = function(terrain, numTrees = 50, mapSize = 1000) {
+export const createTreesOnTerrain = function(terrain, n = 50, mapSize = 1000) {
   const group = new THREE.Group()
-  for (let i = 0; i < numTrees; i++) {
+  for (let i = 0; i < n; i++) {
     const min = -mapSize / 2, max = mapSize / 2
-    const {x, z} = new THREE.Vector3(randomInRange(min, max), 100, randomInRange(min, max))
-    if (terrain) {
-      const ground = findGround(terrain, x, z)
-      if (ground && ground.y > 0) { // eslint-disable-line
-        // console.log(ground.y)
-        group.add(createFirTree(x, ground.y, z))
-      }
-    } else group.add(createFirTree(x, 0, z))
+    const x = randomInRange(min, max), z = randomInRange(min, max)
+    const ground = findGround(terrain, x, z)
+    const yOffset = 20
+    if (ground && ground.y > 0)
+      group.add(createFirTree(x, ground.y + yOffset, z))
   }
   return group
 }
