@@ -1,9 +1,7 @@
 import { scene, renderer, camera, createOrbitControls } from '../utils/three-scene.js'
-import { createFloor, createSketchTrees } from '../utils/three-helpers.js'
-import PlayerBox from '../classes/PlayerBox.js'
+import { createFloor, createSketchBox, createSketchTrees } from '../utils/three-helpers.js'
 
-const player = new PlayerBox()
-scene.add(player.mesh)
+scene.add(createSketchBox(50))
 
 scene.background = new THREE.Color(0xccddff)
 scene.fog = new THREE.Fog(0xccddff, 500, 2000)
@@ -11,20 +9,14 @@ const ambient = new THREE.AmbientLight(0xffffff)
 scene.add(ambient)
 
 camera.position.y = 100
-player.add(camera)
-
 createOrbitControls()
 
-const {group, solids} = createSketchTrees()
-scene.add(group)
-const plane = createFloor(1000, null)
-scene.add(plane)
-player.plane = plane
+scene.add(createSketchTrees())
+scene.add(createFloor(1000, null))
 
 /* INIT */
 
 void function animate() {
   requestAnimationFrame(animate)
-  player.update(solids)
   renderer.render(scene, camera)
 }()

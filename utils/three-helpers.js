@@ -137,7 +137,6 @@ export function createSketchTree(posX, posZ, size) {
   const trunk = new THREE.Mesh(geometry, material)
   trunk.position.set(posX, ((size * randomScale) / 2), posZ)
   trunk.scale.x = trunk.scale.y = trunk.scale.z = randomScale
-  const bounds = createBounds(trunk) // bounds of trunk, without treeTop
 
   let outlineGeo = new THREE.CylinderGeometry(size / 3.5 + outlineSize, size / 2.5 + outlineSize, size * 1.3 + outlineSize, 8)
   let outlineMat = new THREE.MeshBasicMaterial({
@@ -162,7 +161,7 @@ export function createSketchTree(posX, posZ, size) {
   })
   const outlineTreeTop = new THREE.Mesh(outlineGeo, outlineMat)
   treeTop.add(outlineTreeTop)
-  return {trunk, bounds}
+  return trunk
 }
 
 export function createFirTree(x = 0, y = 0, z = 0, height = 50, color = 0x3EA055) {
@@ -224,14 +223,12 @@ export const createTreesOnTerrain = function(terrain, n = 50, mapSize = 1000) {
 // TODO: merge with createTrees?
 export function createSketchTrees(n = 5, min = -500, max = 500, size = 50) {
   const group = new THREE.Group()
-  const solids = []
   const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
   coords.forEach(coord => {
     const tree = createSketchTree(...coord, size)
-    group.add(tree.trunk)
-    solids.push(tree.bounds)
+    group.add(tree)
   })
-  return {group, solids}
+  return group
 }
 
 /* MAP */
