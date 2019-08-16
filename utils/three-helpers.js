@@ -1,5 +1,5 @@
 import {randomInRange, randomColor, findGround} from './helpers.js'
-const {PI, random, floor} = Math
+const {PI} = Math
 
 export const loader = new THREE.TextureLoader()
 
@@ -111,56 +111,57 @@ export function createWater(size = 1000, opacity = 0.75, file) {
 /* TREES */
 
 export function createTree(x = 0, y = 0, z = 0, height = 50) {
-  const tree = new THREE.Mesh(
+  const trunk = new THREE.Mesh(
     new THREE.CylinderGeometry(height / 4, height / 4, height),
     new THREE.MeshBasicMaterial({color: 0xA0522D})
   )
-  tree.position.set(x, y, z)
+  trunk.position.set(x, y, z)
   const crown = new THREE.Mesh(
     new THREE.SphereGeometry(height * 2 / 3),
     new THREE.MeshBasicMaterial({color: 0x228b22})
   )
   crown.position.y = height + height / 10
-  tree.translateY(height / 2)
-  tree.add(crown)
-  return tree
+  trunk.translateY(height / 2)
+  trunk.add(crown)
+  return trunk
 }
 
 // TODO: merge with createTree?
-export function createSketchTree(x = 0, y = 0, z = 0, size) {
-  const outlineSize = size * 0.05
-  const randomScale = Math.random() + .8
-  const randomRotateY = PI / (floor((random() * 32) + 1))
+export function createSketchTree(x = 0, y = 0, z = 0, size = 50) {
+  const randScale = Math.random() * 0.5 + 1
 
   let geometry = new THREE.CylinderGeometry(size / 3.5, size / 2.5, size * 1.3, 8)
   let material = new THREE.MeshToonMaterial({ color: 0x664422 })
   const trunk = new THREE.Mesh(geometry, material)
-  trunk.position.set(x, ((size * randomScale) / 2), z)
-  trunk.scale.x = trunk.scale.y = trunk.scale.z = randomScale
-
-  let outlineGeo = new THREE.CylinderGeometry(size / 3.5 + outlineSize, size / 2.5 + outlineSize, size * 1.3 + outlineSize, 8)
-  let outlineMat = new THREE.MeshBasicMaterial({
-    color: 0x0000000,
-    side: THREE.BackSide
-  })
-  const outlineTrunk = new THREE.Mesh(outlineGeo, outlineMat)
-  trunk.add(outlineTrunk)
+  trunk.position.set(x, size * randScale / 2, z)
+  trunk.scale.x = trunk.scale.y = trunk.scale.z = randScale
 
   geometry = new THREE.DodecahedronGeometry(size)
-  material = new THREE.MeshToonMaterial({ color: 0x44aa44 })
-  const treeTop = new THREE.Mesh(geometry, material)
-  treeTop.position.y = size * randomScale + randomScale
-  treeTop.scale.x = treeTop.scale.y = treeTop.scale.z = randomScale
-  treeTop.rotation.y = randomRotateY
-  trunk.add(treeTop)
+  material = new THREE.MeshToonMaterial({ color: randomColor() }) // 0x44aa44
+  const crown = new THREE.Mesh(geometry, material)
+  crown.position.y = size * randScale + randScale
+  crown.scale.set(randScale, randScale, randScale)
+  crown.rotation.y = randomInRange(0, Math.PI, false)
+  console.log(crown.rotation.y)
+  trunk.add(crown)
 
-  outlineGeo = new THREE.DodecahedronGeometry(size + outlineSize)
-  outlineMat = new THREE.MeshBasicMaterial({
-    color: 0x0000000,
-    side: THREE.BackSide
-  })
-  const outlineTreeTop = new THREE.Mesh(outlineGeo, outlineMat)
-  treeTop.add(outlineTreeTop)
+  // const outlineSize = size * 0.05
+
+  // let outlineGeo = new THREE.CylinderGeometry(size / 3.5 + outlineSize, size / 2.5 + outlineSize, size * 1.3 + outlineSize, 8)
+  // let outlineMat = new THREE.MeshBasicMaterial({
+  //   color: 0x0000000,
+  //   side: THREE.BackSide
+  // })
+  // const outlineTrunk = new THREE.Mesh(outlineGeo, outlineMat)
+  // trunk.add(outlineTrunk)
+
+  // outlineGeo = new THREE.DodecahedronGeometry(size + outlineSize)
+  // outlineMat = new THREE.MeshBasicMaterial({
+  //   color: 0x0000000,
+  //   side: THREE.BackSide
+  // })
+  // const outlineTreeTop = new THREE.Mesh(outlineGeo, outlineMat)
+  // crown.add(outlineTreeTop)
   return trunk
 }
 

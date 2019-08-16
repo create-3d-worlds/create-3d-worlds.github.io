@@ -17,8 +17,8 @@ export function getHighPoint(geometry, face) {
   return Math.max(v1, v2, v3)
 }
 
-export const randomColor = (h = .1, s = 0.5, l = 0.4) =>
-  new THREE.Color().setHSL(Math.random() * 0.3 + h, s, Math.random() * 0.25 + l)
+export const randomColor = (h = .28, s = 0.5, l = 0.2) =>
+  new THREE.Color().setHSL(Math.random() * 0.05 + h, s, Math.random() * 0.25 + l)
 
 // TODO: refactor to recursion?
 export const findGround = function(terrain, x, z) {
