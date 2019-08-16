@@ -57,7 +57,7 @@ export function createRandomBoxes(n = 100, size = 20, texture) {
 
 /* LAND */
 
-export function createFloor(r = 500, file = 'ground.jpg', color = 0x60bf63) {
+export function createFloor(r = 1000, file = 'ground.jpg', color = 0x60bf63) {
   const options = {
     side: THREE.DoubleSide // just for debugin
   }
@@ -207,16 +207,16 @@ export function createTrees(n = 20, mapSize = 1000, size = 50, create = createTr
   return group
 }
 
-export const createFirTrees = (n, mapSize, size) =>
-  createTrees(n, mapSize, size, createFirTree)
+export const createFirTrees = (n, range, size) =>
+  createTrees(n, range, size, createFirTree)
 
-export const createSketchTrees = (n, mapSize, size) =>
-  createTrees(n, mapSize, size, createSketchTree)
+export const createSketchTrees = (n, range, size) =>
+  createTrees(n, range, size, createSketchTree)
 
-export const createTreesOnTerrain = function(terrain, n = 50, mapSize = 1000) {
+export const createTreesOnTerrain = function(terrain, n = 50, range = 500) {
   const group = new THREE.Group()
   for (let i = 0; i < n; i++) {
-    const min = -mapSize / 2, max = mapSize / 2
+    const min = -range, max = range
     const x = randomInRange(min, max), z = randomInRange(min, max)
     const ground = findGround(terrain, x, z)
     const yOffset = 20

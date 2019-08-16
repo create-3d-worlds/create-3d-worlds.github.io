@@ -8,7 +8,7 @@ scene.add(avatar.mesh)
 camera.position.z = 500
 avatar.add(camera)
 // createOrbitControls()
-const trees = createFirTrees(10, 1000, 50)
+const trees = createFirTrees(10, 500, 50)
 
 scene.add(trees)
 
