@@ -4,7 +4,7 @@ const sketchSize = 0.04
 
 /* HELPERS */
 
-function createTrunk(size, color, sketch = false) { // 0x664422, 0xA0522D
+function createTrunk(size, color, sketch = false) { // 0x664422, 0xA0522D, 0x3d2817
   const geometry = new THREE.CylinderGeometry(size / 3.5, size / 3, size, 8)
   const material = new THREE.MeshToonMaterial({
     color: color || randomColor(1.045, 0.5)
@@ -23,7 +23,7 @@ function createTrunk(size, color, sketch = false) { // 0x664422, 0xA0522D
   return mesh
 }
 
-function createCrown(size, color, sketch = false) { // 0x44aa44, 0x228b22
+function createCrown(size, color, sketch = false) { // 0x44aa44, 0x228b22, 0x2d4c1e, 0x3EA055
   const Shape = Math.random() > .2 ? THREE.DodecahedronGeometry : THREE.SphereGeometry
   const geometry = new Shape(size)
   const material = new THREE.MeshToonMaterial({
@@ -65,11 +65,10 @@ export const createColorfulTree = (x, y, z, size, sketch = false) => createTree(
 
 export const createSketchTree = (x, y, z, size, sketch = true) => createTree(x, y, z, size, false, false, sketch)
 
-export function createFirTree(x = 0, y = 0, z = 0, size = 50, color = 0x3EA055) {
-  const scale = size / 10
+export function createFirTree(x = 0, y = 0, z = 0, size = 50) {
   const material = [
-    new THREE.MeshLambertMaterial({ color: 0x3d2817 }), // brown
-    new THREE.MeshLambertMaterial({ color }), // green 0x2d4c1e or 0x3EA055
+    new THREE.MeshLambertMaterial({ color: randomColor(1.045, 0.5) }), // 0x3d2817
+    new THREE.MeshLambertMaterial({ color: randomColor() }),
   ]
   const trunk = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 12, 6, 1, true))
   trunk.position.y = 6
@@ -91,10 +90,11 @@ export function createFirTree(x = 0, y = 0, z = 0, size = 50, color = 0x3EA055) 
   geometry.merge(c3.geometry, c3.matrix)
 
   const b = trunk.geometry.faces.length
-  for (let i = 0, l = geometry.faces.length; i < l; i++)
+  for (let i = 0; i < geometry.faces.length; i++)
     geometry.faces[i].materialIndex = i < b ? 0 : 1
 
   const mesh = new THREE.Mesh(geometry, material)
+  const scale = size / 10 // scale acording to size
   mesh.scale.set(scale, randomInRange(scale / 2, scale, false), scale)
   mesh.position.set(x, y, z)
   return mesh
