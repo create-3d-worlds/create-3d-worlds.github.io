@@ -1,6 +1,7 @@
-import {randomInRange, randomColor, checkGround} from './helpers.js'
+import {randomInRange, randomColor} from './helpers.js'
 
 const sketchSize = 0.04
+const groundOffset = 20
 
 /* HELPERS */
 
@@ -42,6 +43,26 @@ function createCrown(size, color, sketch = false) { // 0x44aa44, 0x228b22, 0x2d4
     mesh.add(outline)
   }
   return mesh
+}
+
+const findGround = function(terrain, x, z) {
+  const direction = new THREE.Vector3(0, -1, 0)
+  const origin = { x, y: 1000, z }
+  const raycaster = new THREE.Raycaster()
+  raycaster.set(origin, direction)
+  const intersects = raycaster.intersectObject(terrain, true)
+  if (intersects.length > 0 && intersects[0].point.y > -groundOffset / 2)
+    return intersects[0].point
+  return null
+}
+
+function findGroundRecursive(terrain, mapSize, counter = 0) {
+  const min = -mapSize, max = mapSize
+  const x = randomInRange(min, max), z = randomInRange(min, max)
+  const ground = findGround(terrain, x, z)
+  if (ground) return ground
+  if (counter > 5) return null
+  return findGroundRecursive(terrain, mapSize, counter + 1)
 }
 
 /* CREATORS */
@@ -116,24 +137,11 @@ export const createFirTrees = (n, mapSize, size) =>
 export const createSketchTrees = (n, mapSize, size) =>
   createTrees(n, mapSize, size, createSketchTree)
 
-function findGround(terrain, mapSize) {
-  let counter = 0
-  const min = -mapSize, max = mapSize
-  let x = randomInRange(min, max), z = randomInRange(min, max)
-  let ground = checkGround(terrain, x, z)
-  while(!ground && counter++ < 5) {
-    x = randomInRange(min, max), z = randomInRange(min, max)
-    ground = checkGround(terrain, x, z)
-  }
-  return ground
-}
-
 export const createTreesOnTerrain = function(terrain, n = 50, mapSize = 500) {
   const group = new THREE.Group()
-  const yOffset = 20
   for (let i = 0; i < n; i++) {
-    const pos = findGround(terrain, mapSize)
-    if (pos) group.add(createFirTree(pos.x, pos.y + yOffset, pos.z))
+    const pos = findGroundRecursive(terrain, mapSize)
+    if (pos) group.add(createFirTree(pos.x, pos.y + groundOffset, pos.z))
   }
   return group
 }
