@@ -29,8 +29,8 @@ export const createCrate = (x, y, z, size, file = 'crate.gif') => createBox(x, y
 
 export const createBlock = (x, y, z, size, color) => createBox(x, y, z, size, null, color)
 
-export function createSketchBox(size) {
-  const box = createBlock(0, 0, 0, size, 0x22dd88)
+export function createSketchBox(x = 0, y = 0, z = 0, size) {
+  const box = createBlock(x, y, z, size, 0x22dd88)
   const outline = createOutline(size)
   box.add(outline)
   return box
