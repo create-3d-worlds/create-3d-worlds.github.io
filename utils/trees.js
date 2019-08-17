@@ -1,65 +1,65 @@
 import {randomInRange, randomColor, findGround} from './helpers.js'
 
-function createTrunk(size, color) { // 0x664422, 0xA0522D
+const sketchSize = 0.04
+
+function createTrunk(size, color, sketch = false) { // 0x664422, 0xA0522D
   const geometry = new THREE.CylinderGeometry(size / 3.5, size / 3, size, 8)
   const material = new THREE.MeshToonMaterial({
     color: color || randomColor(1.045, 0.5)
   })
-  return new THREE.Mesh(geometry, material)
+  const mesh = new THREE.Mesh(geometry, material)
+  if (sketch) {
+    const outlineSize = size * sketchSize
+    const outlineGeo = new THREE.CylinderGeometry(size / 3.5 + outlineSize, size / 3 + outlineSize, size + outlineSize, 8)
+    const outlineMat = new THREE.MeshBasicMaterial({
+      color: 0x0000000,
+      side: THREE.BackSide
+    })
+    const outline = new THREE.Mesh(outlineGeo, outlineMat)
+    mesh.add(outline)
+  }
+  return mesh
 }
 
-function createCrown(size, color) { // 0x44aa44, 0x228b22
+function createCrown(size, color, sketch = false) { // 0x44aa44, 0x228b22
   const Shape = Math.random() > .2 ? THREE.DodecahedronGeometry : THREE.SphereGeometry
   const geometry = new Shape(size)
   const material = new THREE.MeshToonMaterial({
     color: color || randomColor()
   })
-  const crown = new THREE.Mesh(geometry, material)
-  return crown
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.rotation.y = randomInRange(0, Math.PI, false)
+  if (sketch) {
+    const outlineSize = size * sketchSize
+    const outlineGeo = new Shape(size + outlineSize)
+    const outlineMat = new THREE.MeshBasicMaterial({
+      color: 0x0000000,
+      side: THREE.BackSide
+    })
+    const outline = new THREE.Mesh(outlineGeo, outlineMat)
+    mesh.add(outline)
+  }
+  return mesh
 }
 
-export function createTree(x = 0, y = 0, z = 0, size = 50) {
-  const trunk = createTrunk(size, 0xA0522D)
+/* abstract function */
+export function createTree(x = 0, y = 0, z = 0, size = 50, trunkColor, crownColor, sketch = false) {
+  size = size * randomInRange(0.6, 1.8, false) // eslint-disable-line
+  const trunk = createTrunk(size, trunkColor, sketch)
   trunk.position.set(x, y, z)
   trunk.translateY(size / 2)
 
-  const crown = createCrown(size, 0x228b22)
+  const crown = createCrown(size, crownColor, sketch)
   crown.position.y = size + size / 4
   trunk.add(crown)
   return trunk
 }
 
-// TODO: merge with createTree?
-export function createSketchTree(x = 0, y = 0, z = 0, size = 50) {
-  const randScale = Math.random() * 0.5 + 1
-  const trunk = createTrunk(size)
-  trunk.position.set(x, y, z)
-  trunk.translateY(size / 2)
-  trunk.scale.set(randScale, randScale, randScale)
+export const createSimpleTree = (x, y, z, size, trunkColor = 0xA0522D, crownColor = 0x228b22) =>
+  createTree(x, y, z, size, trunkColor, crownColor)
 
-  const crown = createCrown(size)
-  crown.position.y = size * randScale + randScale
-  crown.scale.set(randScale, randScale, randScale)
-  crown.rotation.y = randomInRange(0, Math.PI, false)
-  trunk.add(crown)
-
-  // const outlineSize = size * 0.05
-  // let outlineGeo = new THREE.CylinderGeometry(size / 3.5 + outlineSize, size / 2.5 + outlineSize, size * 1.3 + outlineSize, 8)
-  // let outlineMat = new THREE.MeshBasicMaterial({
-  //   color: 0x0000000,
-  //   side: THREE.BackSide
-  // })
-  // const outlineTrunk = new THREE.Mesh(outlineGeo, outlineMat)
-  // trunk.add(outlineTrunk)
-  // outlineGeo = new THREE.DodecahedronGeometry(size + outlineSize)
-  // outlineMat = new THREE.MeshBasicMaterial({
-  //   color: 0x0000000,
-  //   side: THREE.BackSide
-  // })
-  // const outlineTreeTop = new THREE.Mesh(outlineGeo, outlineMat)
-  // crown.add(outlineTreeTop)
-  return trunk
-}
+export const createColorfulTree = (x, y, z, size, sketch = true) =>
+  createTree(x, y, z, size, false, false, sketch)
 
 export function createFirTree(x = 0, y = 0, z = 0, size = 50, color = 0x3EA055) {
   const scale = size / 10
@@ -96,11 +96,13 @@ export function createFirTree(x = 0, y = 0, z = 0, size = 50, color = 0x3EA055) 
   return mesh
 }
 
-export function createTrees(n = 20, mapSize = 1000, size = 50, create = createTree) {
+/* FACTORIES */
+
+export function createTrees(n = 20, mapSize = 1000, size = 50, create = createSimpleTree) {
   const min = -mapSize / 2, max = mapSize / 2
   const group = new THREE.Group()
   const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
-  coords.forEach(([x, y]) => group.add(create(x, 0, y, size, 0x2d4c1e)))
+  coords.forEach(([x, y]) => group.add(create(x, 0, y, size)))
   return group
 }
 
@@ -108,7 +110,7 @@ export const createFirTrees = (n, range, size) =>
   createTrees(n, range, size, createFirTree)
 
 export const createSketchTrees = (n, range, size) =>
-  createTrees(n, range, size, createSketchTree)
+  createTrees(n, range, size, createColorfulTree)
 
 export const createTreesOnTerrain = function(terrain, n = 50, range = 500) {
   const group = new THREE.Group()

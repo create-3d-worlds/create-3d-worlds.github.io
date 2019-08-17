@@ -55,6 +55,7 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 - [x] heightmap
 - [x] heightmap with texture
 - [ ] kreirati stepenice u krug od kocki
+- [ ] kreirati funkciju randomBetweenColors
 
 ### 3D Models
 
