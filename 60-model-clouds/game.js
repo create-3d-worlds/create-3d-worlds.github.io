@@ -1,5 +1,5 @@
 import { scene, renderer, camera, createOrbitControls} from '../utils/scene.js'
-import { roll, randomInRange } from '../utils/helpers.js'
+import { randomInRange } from '../utils/helpers.js'
 import {createWater} from '../utils/floor.js'
 import {createTreesOnTerrain} from '../utils/trees.js'
 import {createHillyTerrain} from '../utils/createHillyTerrain.js'
@@ -20,11 +20,11 @@ const clouds = new THREE.Group()
 
 function createCloud(geometry, materials) {
   const cloud = new THREE.Mesh(geometry, materials)
-  cloud.scale.set(roll(50) + 10, 15, roll(10) + 10)
+  cloud.scale.set(randomInRange(0, 50) + 10, 15, randomInRange(0, 10) + 10)
   cloud.castShadow = true
   cloud.position.x = randomInRange(-size, size)
   cloud.position.z = randomInRange(-size, size)
-  cloud.position.y = randomInRange(60, 100)
+  cloud.position.y = randomInRange(200, 250)
   return cloud
 }
 

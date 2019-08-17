@@ -17,12 +17,3 @@ export function getHighPoint(geometry, face) {
 
 export const randomColor = (h = .25, s = 0.5, l = 0.2) =>
   new THREE.Color().setHSL(Math.random() * 0.1 + h, s, Math.random() * 0.25 + l)
-
-/**
- * roll a random positive integer <= n
- * @param n
- * @returns {number}
- */
-export function roll(n) {
-  return Math.random() * n | 0
-}
