@@ -2,6 +2,8 @@ import {randomInRange, randomColor, findGround} from './helpers.js'
 
 const sketchSize = 0.04
 
+/* HELPERS */
+
 function createTrunk(size, color, sketch = false) { // 0x664422, 0xA0522D
   const geometry = new THREE.CylinderGeometry(size / 3.5, size / 3, size, 8)
   const material = new THREE.MeshToonMaterial({
@@ -42,7 +44,8 @@ function createCrown(size, color, sketch = false) { // 0x44aa44, 0x228b22
   return mesh
 }
 
-/* abstract function */
+/* CREATORS */
+
 export function createTree(x = 0, y = 0, z = 0, size = 50, trunkColor, crownColor, sketch = false) {
   size = size * randomInRange(0.6, 1.8, false) // eslint-disable-line
   const trunk = createTrunk(size, trunkColor, sketch)
@@ -55,11 +58,12 @@ export function createTree(x = 0, y = 0, z = 0, size = 50, trunkColor, crownColo
   return trunk
 }
 
-export const createSimpleTree = (x, y, z, size, trunkColor = 0xA0522D, crownColor = 0x228b22) =>
+export const createSimpleTree = (x, y, z, size, trunkColor = 0xA0522D, crownColor = 0x228b22) => 
   createTree(x, y, z, size, trunkColor, crownColor)
 
-export const createColorfulTree = (x, y, z, size, sketch = true) =>
-  createTree(x, y, z, size, false, false, sketch)
+export const createColorfulTree = (x, y, z, size, sketch = false) => createTree(x, y, z, size, false, false, sketch)
+
+export const createSketchTree = (x, y, z, size, sketch = true) => createTree(x, y, z, size, false, false, sketch)
 
 export function createFirTree(x = 0, y = 0, z = 0, size = 50, color = 0x3EA055) {
   const scale = size / 10
@@ -110,7 +114,7 @@ export const createFirTrees = (n, range, size) =>
   createTrees(n, range, size, createFirTree)
 
 export const createSketchTrees = (n, range, size) =>
-  createTrees(n, range, size, createColorfulTree)
+  createTrees(n, range, size, createSketchTree)
 
 export const createTreesOnTerrain = function(terrain, n = 50, range = 500) {
   const group = new THREE.Group()
