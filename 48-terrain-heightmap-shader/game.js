@@ -1,4 +1,4 @@
-import {scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
+import {scene, renderer, camera, createOrbitControls} from '../utils/scene.js'
 import {createWater} from '../utils/floor.js'
 import texturedFromHeightmap from '../utils/texturedFromHeightmap.js'
 

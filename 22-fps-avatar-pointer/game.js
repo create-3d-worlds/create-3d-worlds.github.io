@@ -1,7 +1,7 @@
 import { PointerLockControls } from '../node_modules/three/examples/jsm/controls/PointerLockControls.js'
 import {createFloor} from '../utils/floor.js'
 import {createTrees} from '../utils/trees.js'
-import {scene, renderer, camera, clock, createOrbitControls} from '../utils/three-scene.js'
+import {scene, renderer, camera, clock, createOrbitControls} from '../utils/scene.js'
 import Avatar from '../classes/Avatar.js'
 import keyboard from '../classes/Keyboard.js'
 

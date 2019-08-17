@@ -1,4 +1,4 @@
-import {scene, camera, renderer, createOrbitControls} from '../utils/three-scene.js'
+import {scene, camera, renderer, createOrbitControls} from '../utils/scene.js'
 import terrainFromHeightmap from '../utils/terrainFromHeightmap.js'
 
 createOrbitControls()

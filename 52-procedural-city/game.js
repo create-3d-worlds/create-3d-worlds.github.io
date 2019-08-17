@@ -1,5 +1,5 @@
 // TODO: change roof color or texture
-import { scene, camera, renderer, clock } from '../utils/three-scene.js'
+import { scene, camera, renderer, clock } from '../utils/scene.js'
 import { createFloor } from '../utils/floor.js'
 import {randomInRange} from '../utils/helpers.js'
 import {FirstPersonControls} from '../node_modules/three/examples/jsm/controls/FirstPersonControls.js'

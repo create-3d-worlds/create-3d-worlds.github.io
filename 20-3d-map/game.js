@@ -1,5 +1,5 @@
-import {scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
-import {createMap} from '../utils/three-helpers.js'
+import {scene, renderer, camera, createOrbitControls} from '../utils/scene.js'
+import {createMap} from '../utils/shapes.js'
 import {createFloor} from '../utils/floor.js'
 import matrix from '../data/small-map.js'
 

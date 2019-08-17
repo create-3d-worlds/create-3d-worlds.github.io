@@ -1,4 +1,4 @@
-import { scene, renderer, camera, clock } from '../utils/three-scene.js'
+import { scene, renderer, camera, clock } from '../utils/scene.js'
 import Avatar from '../classes/Avatar.js'
 import Tilemap3D from '../classes/Tilemap3D.js'
 import { nemesis as map } from '../data/maps.js'

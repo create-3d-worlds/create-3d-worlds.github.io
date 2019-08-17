@@ -1,4 +1,4 @@
-import { scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
+import { scene, renderer, camera, createOrbitControls} from '../utils/scene.js'
 import { roll, randomInRange } from '../utils/helpers.js'
 import {createWater} from '../utils/floor.js'
 import {createTreesOnTerrain} from '../utils/trees.js'

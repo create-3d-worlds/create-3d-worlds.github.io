@@ -1,5 +1,5 @@
 
-import { scene, camera, renderer, createOrbitControls } from '../utils/three-scene.js'
+import { scene, camera, renderer, createOrbitControls } from '../utils/scene.js'
 import createDjavoljaVarosh from '../utils/createDjavoljaVarosh.js'
 
 camera.position.set(150, 150, 150)

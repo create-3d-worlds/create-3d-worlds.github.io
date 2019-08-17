@@ -1,5 +1,5 @@
-import { scene, camera, renderer, clock, createOrbitControls } from '../utils/three-scene.js'
-import {createRandomBoxes} from '../utils/three-helpers.js'
+import { scene, camera, renderer, clock, createOrbitControls } from '../utils/scene.js'
+import {createRandomBoxes} from '../utils/shapes.js'
 import {createTerrain} from '../utils/floor.js'
 import Avatar from '../classes/Avatar.js'
 

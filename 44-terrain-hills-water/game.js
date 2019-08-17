@@ -1,4 +1,4 @@
-import {scene, renderer, camera, clock, createOrbitControls} from '../utils/three-scene.js'
+import {scene, renderer, camera, clock, createOrbitControls} from '../utils/scene.js'
 import {createWater} from '../utils/floor.js'
 import {createTreesOnTerrain} from '../utils/trees.js'
 import {createHillyTerrain} from '../utils/createHillyTerrain.js'
