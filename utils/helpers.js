@@ -1,5 +1,3 @@
-export const $ = s => document.querySelector(s)
-
 export function randomInRange(min, max, roundDown = true) {
   const rand = Math.random() * (max - min + 1) + min
   return roundDown ? Math.floor(rand) : rand

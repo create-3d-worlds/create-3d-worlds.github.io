@@ -1,5 +1,5 @@
 import {scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
-import { createWater } from '../utils/three-helpers.js'
+import {createWater} from '../utils/floor.js'
 import texturedFromHeightmap from '../utils/texturedFromHeightmap.js'
 
 createOrbitControls()

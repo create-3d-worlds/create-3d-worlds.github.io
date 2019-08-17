@@ -1,5 +1,6 @@
 import {scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
-import {createFloor, createMap} from '../utils/three-helpers.js'
+import {createMap} from '../utils/three-helpers.js'
+import {createFloor} from '../utils/floor.js'
 import matrix from '../data/small-map.js'
 
 camera.position.z = 15

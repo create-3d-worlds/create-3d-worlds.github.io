@@ -1,5 +1,6 @@
 import { PointerLockControls } from '../node_modules/three/examples/jsm/controls/PointerLockControls.js'
-import { createFloor, createMap } from '../utils/three-helpers.js'
+import { createFloor } from '../utils/floor.js'
+import { createMap } from '../utils/three-helpers.js'
 import { scene, renderer, camera, clock } from '../utils/three-scene.js'
 import Avatar from '../classes/Avatar.js'
 import keyboard from '../classes/Keyboard.js'

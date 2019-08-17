@@ -1,4 +1,5 @@
-import { createFloor, createMap } from '../utils/three-helpers.js'
+import { createFloor } from '../utils/floor.js'
+import { createMap } from '../utils/three-helpers.js'
 import { scene, renderer, camera, clock, createOrbitControls } from '../utils/three-scene.js'
 import Avatar from '../classes/Avatar.js'
 import matrix from '../data/small-map.js'

@@ -1,5 +1,6 @@
 import { scene, renderer, camera, createOrbitControls } from '../utils/three-scene.js'
-import { createFloor, createSketchBox } from '../utils/three-helpers.js'
+import { createFloor } from '../utils/floor.js'
+import { createSketchBox } from '../utils/three-helpers.js'
 import {createSketchTrees} from '../utils/trees.js'
 
 // scene.add(createSketchBox(50))

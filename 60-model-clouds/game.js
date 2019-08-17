@@ -1,6 +1,6 @@
 import { scene, renderer, camera, createOrbitControls} from '../utils/three-scene.js'
 import { roll, randomInRange } from '../utils/helpers.js'
-import {createWater} from '../utils/three-helpers.js'
+import {createWater} from '../utils/floor.js'
 import {createTreesOnTerrain} from '../utils/trees.js'
 import {createHillyTerrain} from '../utils/createHillyTerrain.js'
 import '../node_modules/three/examples/js/loaders/deprecated/LegacyJSONLoader.js'

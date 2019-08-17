@@ -1,5 +1,5 @@
 import { scene, renderer, clock, camera } from '../utils/three-scene.js'
-import { createFloor } from '../utils/three-helpers.js'
+import { createFloor } from '../utils/floor.js'
 import {createFirTrees} from '../utils/trees.js'
 import {keyboard, Avatar} from '../classes/index.js'
 
