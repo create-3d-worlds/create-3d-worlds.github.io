@@ -1,4 +1,4 @@
-import {randomInRange, randomColor, findGround} from './helpers.js'
+import {randomInRange, randomColor, checkGround} from './helpers.js'
 
 const sketchSize = 0.04
 
@@ -58,7 +58,7 @@ export function createTree(x = 0, y = 0, z = 0, size = 50, trunkColor, crownColo
   return trunk
 }
 
-export const createSimpleTree = (x, y, z, size, trunkColor = 0xA0522D, crownColor = 0x228b22) => 
+export const createSimpleTree = (x, y, z, size, trunkColor = 0xA0522D, crownColor = 0x228b22) =>
   createTree(x, y, z, size, trunkColor, crownColor)
 
 export const createColorfulTree = (x, y, z, size, sketch = false) => createTree(x, y, z, size, false, false, sketch)
@@ -102,29 +102,38 @@ export function createFirTree(x = 0, y = 0, z = 0, size = 50) {
 
 /* FACTORIES */
 
-export function createTrees(n = 20, mapSize = 1000, size = 50, create = createSimpleTree) {
-  const min = -mapSize / 2, max = mapSize / 2
+export function createTrees(n = 20, mapSize = 500, size = 50, create = createSimpleTree) {
+  const min = -mapSize, max = mapSize
   const group = new THREE.Group()
   const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
   coords.forEach(([x, y]) => group.add(create(x, 0, y, size)))
   return group
 }
 
-export const createFirTrees = (n, range, size) =>
-  createTrees(n, range, size, createFirTree)
+export const createFirTrees = (n, mapSize, size) =>
+  createTrees(n, mapSize, size, createFirTree)
 
-export const createSketchTrees = (n, range, size) =>
-  createTrees(n, range, size, createSketchTree)
+export const createSketchTrees = (n, mapSize, size) =>
+  createTrees(n, mapSize, size, createSketchTree)
 
-export const createTreesOnTerrain = function(terrain, n = 50, range = 500) {
+function findGround(terrain, mapSize) {
+  let counter = 0
+  const min = -mapSize, max = mapSize
+  let x = randomInRange(min, max), z = randomInRange(min, max)
+  let ground = checkGround(terrain, x, z)
+  while(!ground && counter++ < 5) {
+    x = randomInRange(min, max), z = randomInRange(min, max)
+    ground = checkGround(terrain, x, z)
+  }
+  return ground
+}
+
+export const createTreesOnTerrain = function(terrain, n = 50, mapSize = 500) {
   const group = new THREE.Group()
+  const yOffset = 20
   for (let i = 0; i < n; i++) {
-    const min = -range, max = range
-    const x = randomInRange(min, max), z = randomInRange(min, max)
-    const ground = findGround(terrain, x, z)
-    const yOffset = 20
-    if (ground && ground.y > 0)
-      group.add(createFirTree(x, ground.y + yOffset, z))
+    const pos = findGround(terrain, mapSize)
+    if (pos) group.add(createFirTree(pos.x, pos.y + yOffset, pos.z))
   }
   return group
 }

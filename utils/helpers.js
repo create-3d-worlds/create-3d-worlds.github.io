@@ -18,14 +18,24 @@ export function getHighPoint(geometry, face) {
 export const randomColor = (h = .25, s = 0.5, l = 0.2) =>
   new THREE.Color().setHSL(Math.random() * 0.1 + h, s, Math.random() * 0.25 + l)
 
-// TODO: refactor to recursion?
-export const findGround = function(terrain, x, z) {
+export const checkGround = function(terrain, x, z) {
   const direction = new THREE.Vector3(0, -1, 0)
   const origin = { x, y: 1000, z }
   const raycaster = new THREE.Raycaster()
   raycaster.set(origin, direction)
   const intersects = raycaster.intersectObject(terrain, true)
-  return intersects.length > 0 ? intersects[0].point : null
+  if (intersects.length > 0 && intersects[0].point.y > 0)
+    return intersects[0].point
+  return null
+}
+
+export function findGround(terrain, range, counter = 0) {
+  const min = -range, max = range
+  const x = randomInRange(min, max), z = randomInRange(min, max)
+  const ground = checkGround(terrain, x, z)
+  if (ground) return ground
+  if (counter > 10) return null
+  return findGround(terrain, range, counter + 1)
 }
 
 /**
