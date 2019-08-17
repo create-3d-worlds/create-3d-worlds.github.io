@@ -20,7 +20,7 @@ const clouds = new THREE.Group()
 
 function createCloud(geometry, materials) {
   const cloud = new THREE.Mesh(geometry, materials)
-  cloud.scale.set(randomInRange(0, 50) + 10, 15, randomInRange(0, 10) + 10)
+  cloud.scale.set(randomInRange(0, 50) + 20, randomInRange(20, 30), randomInRange(0, 20) + 20)
   cloud.castShadow = true
   cloud.position.x = randomInRange(-size, size)
   cloud.position.z = randomInRange(-size, size)
@@ -45,7 +45,7 @@ void function animate() {
   // update clouds
   if (clouds.children.length)
     clouds.children.forEach(cloud => {
-      cloud.position.x += Math.random()
+      cloud.position.x += Math.random() * 0.3
       if (cloud.position.x > size)
         cloud.position.x = -size
     })
