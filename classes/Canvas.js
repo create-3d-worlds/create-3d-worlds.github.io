@@ -1,5 +1,4 @@
-import {CIRCLE} from '../utils/constants.js'
-
+const CIRCLE = Math.PI * 2
 const colors = ['#fff', '#444', '#701206', '#000']
 
 // Singleton

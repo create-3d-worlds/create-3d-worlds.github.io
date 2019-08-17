@@ -1,6 +1,6 @@
 import { scene, renderer, camera, createOrbitControls } from '../utils/scene.js'
 import { createFloor } from '../utils/floor.js'
-import { createSketchBox } from '../utils/shapes.js'
+import { createSketchBox } from '../utils/boxes.js'
 import {createSketchTrees} from '../utils/trees.js'
 
 // scene.add(createSketchBox(50))
