@@ -59,6 +59,7 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 
 ### 3D Models
 
+- [x] ucitati 3d model
 - [ ] ucitati 3d model igraca
   - [ ] animirati model (kretanje, trčanje, skok...)
   - [ ] da se vide ruke iz prvog lica
@@ -85,9 +86,9 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 
 ### Levels
 
-- [ ] napraviti igrive nivoe
-  - [ ] bežanje od štuke koja bombarduje
-  - [ ] skrivanje od reflektora logora
+- [ ] bežanje od štuke koja bombarduje
+- [ ] skrivanje od reflektora logora
+- [ ] razaranje zamka topom (dodati fiziku)
 
 ### Ostalo
 
