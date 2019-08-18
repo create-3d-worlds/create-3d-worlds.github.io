@@ -25,7 +25,7 @@ function generateBuilding() {
   mesh.position.x = randomInRange(-1000, 1000)
   mesh.position.z = randomInRange(-1000, 1000)
   mesh.rotation.y = Math.random()
-  mesh.scale.x = mesh.scale.z = randomInRange(10, 20, false)
+  mesh.scale.x = mesh.scale.z = randomInRange(10, 20)
   mesh.scale.y = (Math.random() * Math.random() * Math.random() * mesh.scale.x) * 8 + 8
   return mesh
 }
