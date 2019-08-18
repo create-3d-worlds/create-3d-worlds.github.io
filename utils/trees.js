@@ -139,11 +139,11 @@ export const createFirTrees = (n, mapSize, size) =>
 export const createSketchTrees = (n, mapSize, size) =>
   createTrees(n, mapSize, size, createSketchTree)
 
-export const createTreesOnTerrain = function(terrain, n = 50, mapSize = 500) {
+export const createTreesOnTerrain = function(terrain, n = 50, mapSize = 500, size) {
   const group = new THREE.Group()
   for (let i = 0; i < n; i++) {
     const pos = findGroundRecursive(terrain, mapSize)
-    if (pos) group.add(createFirTree(pos.x, pos.y + groundOffset, pos.z))
+    if (pos) group.add(createFirTree(pos.x, pos.y + groundOffset, pos.z, size))
   }
   return group
 }
