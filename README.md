@@ -54,7 +54,7 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 - [x] prebaciti da tlo bude okruglo (moze samo kad je ravna podloga)
 - [x] heightmap
 - [x] heightmap with texture
-- [ ] kreirati stepenice u krug od kocki
+- [x] kreirati stepenice u krug od kocki
 - [ ] kreirati funkciju randomBetweenColors
 
 ### 3D Models
