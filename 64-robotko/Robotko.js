@@ -1,15 +1,13 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
 import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js'
 
-const animNames = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing', 'Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp']
+const animNames = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing', 'Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp', 'WalkJump'] // redosled je bitan
 
-let a = 0 // debug helper
-
+// TODO: dodati izraze lica
 export default class Robotko {
   constructor(scene) {
     this.scene = scene
     this.actions = {}
-    this.model = null
     this.mixer = null
     this.currentAction = null
     this.previousAction = null
@@ -19,22 +17,18 @@ export default class Robotko {
 
   loadModel() {
     const loader = new GLTFLoader()
-    loader.load('models/RobotExpressive.glb', data => {
-      this.model = data.scene
-      this.scene.add(this.model)
-      this.createActions(data.animations)
-      console.log(data.animations)
+    loader.load('models/RobotExpressive.glb', ({scene, animations}) => {
+      this.scene.add(scene)
+      this.createActions(animations, scene)
     })
   }
-
-  createActions(animations) {
-    // https://threejs.org/docs/#api/en/animation/AnimationMixer
-    this.mixer = new THREE.AnimationMixer(this.model)
-    animations.forEach(animation => {
-      const action = this.mixer.clipAction(animation)
-      this.actions[animation.name] = action
-      if (animNames.indexOf(animation.name) >= 4) {
-        console.log(action._clip.name)
+  
+  createActions(animations, model) {
+    this.mixer = new THREE.AnimationMixer(model)
+    animations.forEach(clip => {
+      const action = this.mixer.clipAction(clip)
+      this.actions[clip.name] = action
+      if (animNames.indexOf(clip.name) >= 4) {
         action.clampWhenFinished = true
         action.loop = THREE.LoopOnce
       }
@@ -44,20 +38,18 @@ export default class Robotko {
   }
 
   changeAction(name, duration) {
-    // https://threejs.org/docs/#api/en/animation/AnimationAction
     this.previousAction = this.currentAction
     this.currentAction = this.actions[name]
-
     if (this.previousAction !== this.currentAction)
       this.previousAction.fadeOut(duration)
-
     this.currentAction.fadeIn(duration).play()
   }
 
   addEvents() {
-    document.body.addEventListener('click', () => {
-      const action = animNames[a++ % animNames.length]
-      this.changeAction(action)
+    document.addEventListener('keydown', e => {
+      const num = Number(e.key)
+      if (isNaN(num)) return
+      this.changeAction(animNames[num])
     })
   }
 

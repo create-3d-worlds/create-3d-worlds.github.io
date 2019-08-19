@@ -66,8 +66,11 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
   - http://127.0.0.1:8080/chapter-09/15-animation-from-md2.html
   - http://127.0.0.1:8080/chapter-09/14-animation-from-collada.html
   - https://www.script-tutorials.com/demos/474/index3.html
+  - https://mugen87.github.io/yuka/examples/fsm/
   - [ ] animirati model (kretanje, trčanje, skok...)
   - [ ] da se vide ruke iz prvog lica
+    - https://mugen87.github.io/yuka/examples/entity/shooter/
+    - https://mugen87.github.io/yuka/examples/playground/hideAndSeek/
 - [ ] dodati NPC karaktere
 - [ ] ucitati raspolozive modele vozila i kuca
   - https://threejsfundamentals.org/threejs/lessons/threejs-load-obj.html
