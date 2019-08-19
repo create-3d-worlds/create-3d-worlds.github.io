@@ -59,16 +59,21 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 
 ### 3D Models
 
-- [x] ucitati 3d model
-- [ ] ucitati 3d model igraca
+- [x] dodati 3d model
+- [ ] dodati animirani 3d model
+  - https://threejs.org/examples/webgl_animation_skinning_morph.html
+  - https://www.script-tutorials.com/webgl-with-three-js-lesson-11/
+  - http://127.0.0.1:8080/chapter-09/15-animation-from-md2.html
+  - http://127.0.0.1:8080/chapter-09/14-animation-from-collada.html
+  - https://www.script-tutorials.com/demos/474/index3.html
   - [ ] animirati model (kretanje, trčanje, skok...)
   - [ ] da se vide ruke iz prvog lica
 - [ ] dodati NPC karaktere
 - [ ] ucitati raspolozive modele vozila i kuca
+  - https://threejsfundamentals.org/threejs/lessons/threejs-load-obj.html
   - [ ] dodati avion kako nadlece
   - [ ] dodati tenk kako se krece
 - [ ] reagovati na koliziju
-- https://threejsfundamentals.org/threejs/lessons/threejs-load-obj.html
 
 ### Physics
 
