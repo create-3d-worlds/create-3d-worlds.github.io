@@ -18,12 +18,12 @@ export default class Robotko {
 
   loadModel() {
     const loader = new GLTFLoader()
-    loader.load('models/RobotExpressive.glb', ({scene, animations}) => {
+    loader.load('../assets/models/robot.glb', ({scene, animations}) => {
       this.scene.add(scene)
       this.createActions(animations, scene)
     })
   }
-  
+
   createActions(animations, model) {
     this.mixer = new THREE.AnimationMixer(model)
     animations.forEach(clip => {
