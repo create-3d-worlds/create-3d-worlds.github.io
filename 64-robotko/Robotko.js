@@ -1,8 +1,7 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
 import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js'
 
-const states = [ 'Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing' ]
-const emotes = [ 'Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp' ]
+const animNames = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing', 'Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp']
 
 let a = 0 // debug helper
 
@@ -24,23 +23,22 @@ export default class Robotko {
       this.model = data.scene
       this.scene.add(this.model)
       this.createActions(data.animations)
+      console.log(data.animations)
     })
   }
 
   createActions(animations) {
     // https://threejs.org/docs/#api/en/animation/AnimationMixer
     this.mixer = new THREE.AnimationMixer(this.model)
-  
-    for (let i = 0; i < animations.length; i ++) {
-      const clip = animations[i]
-      const action = this.mixer.clipAction(clip)
-      this.actions[clip.name] = action
-      if (emotes.indexOf(clip.name) >= 0 || states.indexOf(clip.name) >= 4) {
+    animations.forEach(animation => {
+      const action = this.mixer.clipAction(animation)
+      this.actions[animation.name] = action
+      if (animNames.indexOf(animation.name) >= 4) {
+        console.log(action._clip.name)
         action.clampWhenFinished = true
         action.loop = THREE.LoopOnce
       }
-    }
-    // console.log(this.actions)
+    })
     this.currentAction = this.actions.Walking
     this.currentAction.play()
   }
@@ -58,9 +56,8 @@ export default class Robotko {
 
   addEvents() {
     document.body.addEventListener('click', () => {
-      const action = states[a++ % states.length]
+      const action = animNames[a++ % animNames.length]
       this.changeAction(action)
-      console.log(action)
     })
   }
 
