@@ -3,6 +3,9 @@ import { GUI } from '../node_modules/three/examples/jsm/libs/dat.gui.module.js'
 import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js'
 import { scene, renderer, camera, clock, createOrbitControls} from '../utils/scene.js'
 
+const states = [ 'Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing' ]
+const emotes = [ 'Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp' ]
+
 let gui, mixer, actions, activeAction, previousAction, model, face
 
 const api = { state: 'Walking' }
@@ -14,16 +17,13 @@ const loader = new GLTFLoader()
 loader.load('models/RobotExpressive.glb', data => {
   model = data.scene
   scene.add(model)
-  createGUI(model, data.animations)
+  createActions(model, data.animations)
+  // createExpressionsGUI(model)
 })
 
 /* FUNCTIONS */
 
-function createGUI(model, animations) {
-  const states = [ 'Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing' ]
-  const emotes = [ 'Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp' ]
-
-  gui = new GUI()
+function createActions(model, animations) {
   mixer = new THREE.AnimationMixer(model)
   actions = {}
 
@@ -36,46 +36,20 @@ function createGUI(model, animations) {
       action.loop = THREE.LoopOnce
     }
   }
+  // console.log(actions)
+  activeAction = actions.Walking
+  activeAction.play()
+}
 
-  // states
-  const statesFolder = gui.addFolder('States')
-  const clipCtrl = statesFolder.add(api, 'state').options(states)
-  clipCtrl.onChange(() => {
-    fadeToAction(api.state, 0.5)
-  })
-  statesFolder.open()
-
-  // emotes
-  const emoteFolder = gui.addFolder('Emotes')
-  function createEmoteCallback(name) {
-    api[name] = function() {
-      fadeToAction(name, 0.2)
-      mixer.addEventListener('finished', restoreState)
-    }
-    emoteFolder.add(api, name)
-  }
-
-  function restoreState() {
-    mixer.removeEventListener('finished', restoreState)
-    fadeToAction(api.state, 0.2)
-  }
-
-  for (let i = 0; i < emotes.length; i ++)
-    createEmoteCallback(emotes[ i ])
-  emoteFolder.open()
-
-  // expressions
-
+function createExpressionsGUI(model) {
+  gui = new GUI()
   face = model.getObjectByName('Head_2')
   const expressions = Object.keys(face.morphTargetDictionary)
   const expressionFolder = gui.addFolder('Expressions')
-
   for (let i = 0; i < expressions.length; i ++)
-    expressionFolder.add(face.morphTargetInfluences, i, 0, 1, 0.01).name(expressions[i])
-
-  activeAction = actions.Walking
-  activeAction.play()
+  expressionFolder.add(face.morphTargetInfluences, i, 0, 1, 0.01).name(expressions[i])
   expressionFolder.open()
+  // console.log(expressions)
 }
 
 function fadeToAction(name, duration) {
@@ -101,3 +75,12 @@ void function animate() {
   requestAnimationFrame(animate)
   renderer.render(scene, camera)
 }()
+
+/* EVENTS */
+
+let a = 0
+document.body.addEventListener('click', () => {
+  const action = states[a++ % states.length]
+  fadeToAction(action)
+  // console.log(action)
+})
