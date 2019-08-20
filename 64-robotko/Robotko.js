@@ -18,6 +18,7 @@ export default class Robotko {
     this.addEvents()
   }
 
+  // moze i girl.glb
   loadModel() {
     const loader = new GLTFLoader()
     loader.load('../assets/models/robot.glb', ({scene, animations}) => {
