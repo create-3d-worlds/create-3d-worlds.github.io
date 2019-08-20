@@ -2,7 +2,9 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
 import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js'
 
-const animNames = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing', 'Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp', 'WalkJump'] // redosled je bitan
+const loopOnce = ['Death', 'Sitting', 'Standing', 'Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp', 'WalkJump']
+
+let a = 0 // for debug actions
 
 // TODO: dodati izraze lica
 export default class Robotko {
@@ -29,18 +31,18 @@ export default class Robotko {
     animations.forEach(clip => {
       const action = this.mixer.clipAction(clip)
       this.actions[clip.name] = action
-      if (animNames.indexOf(clip.name) >= 4) {
+      if (loopOnce.includes(clip.name)) {
         action.clampWhenFinished = true
         action.loop = THREE.LoopOnce
       }
     })
-    this.currentAction = this.actions.Walking
+    this.currentAction = this.actions[Object.keys(this.actions)[0]]
     this.currentAction.play()
   }
 
-  changeAction(name, duration) {
+  changeAction(action, duration) {
     this.previousAction = this.currentAction
-    this.currentAction = this.actions[name]
+    this.currentAction = action
     if (this.previousAction !== this.currentAction)
       this.previousAction.fadeOut(duration)
     this.currentAction.fadeIn(duration).play()
@@ -50,7 +52,15 @@ export default class Robotko {
     document.addEventListener('keydown', e => {
       const num = Number(e.key)
       if (isNaN(num)) return
-      this.changeAction(animNames[num])
+      const keys = Object.keys(this.actions)
+      const action = this.actions[keys[num]]
+      this.changeAction(action)
+    })
+
+    document.addEventListener('click', () => {
+      const keys = Object.keys(this.actions)
+      const action = this.actions[keys[a++ % keys.length]]
+      this.changeAction(action)
     })
   }
 

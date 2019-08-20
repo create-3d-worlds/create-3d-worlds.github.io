@@ -4,6 +4,7 @@ import Robotko from './Robotko.js'
 
 camera.position.set(- 5, 3, 10)
 camera.lookAt(new THREE.Vector3(0, 2, 0))
+createOrbitControls()
 
 const robot = new Robotko(scene)
 
