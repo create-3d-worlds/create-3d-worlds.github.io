@@ -10,7 +10,7 @@ scene.background = new THREE.Color(0xffffff)
 
 // monster.dae, wolf.dae
 const loader = new ColladaLoader()
-loader.load('../assets/models/rover/MSL_dirty.dae', collada => {
+loader.load('../assets/models/monster/monster.dae', collada => {
   const {animations, scene: model} = collada
   mixer = new THREE.AnimationMixer(model)
   mixer.clipAction(animations[0]).play()
