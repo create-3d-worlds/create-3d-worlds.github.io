@@ -20,20 +20,20 @@ export default class Avatar {
     const body = new THREE.DodecahedronGeometry(size * 2 / 3)
     this.mesh = new THREE.Mesh(body, material)
 
-    const sphere = new THREE.DodecahedronGeometry(size / 3)
-    this.rightHand = new THREE.Mesh(sphere, material)
+    const limb = new THREE.DodecahedronGeometry(size / 2.8)
+    this.rightHand = new THREE.Mesh(limb, material)
     this.rightHand.position.set(-size, 0, 0)
     this.add(this.rightHand)
 
-    this.leftHand = new THREE.Mesh(sphere, material)
+    this.leftHand = new THREE.Mesh(limb, material)
     this.leftHand.position.set(size, 0, 0)
     this.add(this.leftHand)
 
-    this.rightLeg = new THREE.Mesh(sphere, material)
+    this.rightLeg = new THREE.Mesh(limb, material)
     this.rightLeg.position.set(size / 2, -size * 4 / 5, 0)
     this.add(this.rightLeg)
 
-    this.leftLeg = new THREE.Mesh(sphere, material)
+    this.leftLeg = new THREE.Mesh(limb, material)
     this.leftLeg.position.set(-size / 2, -size * 4 / 5, 0)
     this.add(this.leftLeg)
   }
@@ -88,7 +88,7 @@ export default class Avatar {
 
   animate() {
     if (!keyboard.totalPressed) return
-    const elapsed = Math.sin(clock.getElapsedTime() * 5) * 100
+    const elapsed = Math.sin(clock.getElapsedTime() * 5) * size * 3 / 4
     this.leftHand.position.z = -elapsed
     this.rightHand.position.z = elapsed
     this.leftLeg.position.z = -elapsed
