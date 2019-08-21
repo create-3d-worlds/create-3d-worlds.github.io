@@ -15,6 +15,7 @@ export function getHighPoint(geometry, face) {
   return Math.max(v1, v2, v3)
 }
 
+/* param: js hex color */
 export function similarColor(color) {
   const factor = randomInRange(-0.25, 0.25)
   const hsl = {}

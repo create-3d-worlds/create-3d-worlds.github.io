@@ -1,8 +1,8 @@
 import TWEEN from '../libs/Tween.js'
 import {clock} from '../utils/scene.js'
 import keyboard from '../classes/Keyboard.js'
-const {pressed} = keyboard
 
+const {pressed} = keyboard
 const size = 150
 
 export default class Avatar {
@@ -16,24 +16,24 @@ export default class Avatar {
   }
 
   createMesh() {
-    const texture = new THREE.MeshNormalMaterial()
-    const body = new THREE.SphereGeometry(size * 2 / 3)
-    this.mesh = new THREE.Mesh(body, texture)
+    const material = new THREE.MeshStandardMaterial()
+    const body = new THREE.DodecahedronGeometry(size * 2 / 3)
+    this.mesh = new THREE.Mesh(body, material)
 
-    const sphere = new THREE.SphereGeometry(size / 3)
-    this.rightHand = new THREE.Mesh(sphere, texture)
+    const sphere = new THREE.DodecahedronGeometry(size / 3)
+    this.rightHand = new THREE.Mesh(sphere, material)
     this.rightHand.position.set(-size, 0, 0)
     this.add(this.rightHand)
 
-    this.leftHand = new THREE.Mesh(sphere, texture)
+    this.leftHand = new THREE.Mesh(sphere, material)
     this.leftHand.position.set(size, 0, 0)
     this.add(this.leftHand)
 
-    this.rightLeg = new THREE.Mesh(sphere, texture)
+    this.rightLeg = new THREE.Mesh(sphere, material)
     this.rightLeg.position.set(size / 2, -size * 4 / 5, 0)
     this.add(this.rightLeg)
 
-    this.leftLeg = new THREE.Mesh(sphere, texture)
+    this.leftLeg = new THREE.Mesh(sphere, material)
     this.leftLeg.position.set(-size / 2, -size * 4 / 5, 0)
     this.add(this.leftLeg)
   }

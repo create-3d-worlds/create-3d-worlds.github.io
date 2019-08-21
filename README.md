@@ -70,7 +70,7 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 - [ ] ucitati raspolozive modele vozila i kuca
   - [ ] dodati avion kako nadlece
   - [ ] dodati tenk kako se krece
-- [ ] reagovati na koliziju
+- [ ] srediti pufnicu (dodati jos malo geometrije i neku boju, materijal, teksturu...)
 
 ### Physics
 
