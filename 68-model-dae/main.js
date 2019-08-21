@@ -5,12 +5,12 @@ import { ColladaLoader } from '../node_modules/three/examples/jsm/loaders/Collad
 const controls = createOrbitControls()
 let mixer, a = 0
 
-camera.position.set(0, 0, 1)
+// camera.position.set(0, 0, 1)
 scene.background = new THREE.Color(0xffffff)
 
-// monster.dae
+// monster.dae, wolf.dae
 const loader = new ColladaLoader()
-loader.load('../assets/models/wolf-dae/Wolf_With_Baked_Action_Animations_For_Export.dae', collada => {
+loader.load('../assets/models/rover/MSL_dirty.dae', collada => {
   const {animations, scene: model} = collada
   mixer = new THREE.AnimationMixer(model)
   mixer.clipAction(animations[0]).play()
