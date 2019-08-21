@@ -18,10 +18,10 @@ export default class Robotko {
     this.addEvents()
   }
 
-  // moze: robot.glb, girl.glb, black-dragon/scene.gltf, izzy_female_character/scene.gltf, male_adventurer/scene.gltf
+  // moze: robot.glb, girl.glb, izzy_female_character/scene.gltf, male_adventurer/scene.gltf
   loadModel() {
     const loader = new GLTFLoader()
-    loader.load('../assets/models/robot.glb', ({scene, animations}) => {
+    loader.load('../assets/models/girl.glb', ({scene, animations}) => {
       this.scene.add(scene)
       this.createActions(animations, scene)
     })
