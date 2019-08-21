@@ -61,8 +61,6 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 
 - [x] dodati 3d model
 - [x] dodati animirani 3d model
-  - http://127.0.0.1:8080/chapter-09/15-animation-from-md2.html
-  - http://127.0.0.1:8080/chapter-09/14-animation-from-collada.html
   - [ ] animirati model (kretanje, trčanje, skok...)
   - [ ] da se vide ruke iz prvog lica
     - https://mugen87.github.io/yuka/examples/entity/shooter/

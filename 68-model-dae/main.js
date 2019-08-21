@@ -3,18 +3,14 @@ import { scene, renderer, camera, clock, createOrbitControls} from '../utils/sce
 import {ColladaLoader} from '../node_modules/three/examples/jsm/loaders/ColladaLoader.js'
 
 createOrbitControls()
-const actions = {}
 let mixer
 
 const loader = new ColladaLoader()
 loader.load('../assets/models/monster.dae', collada => {
-  mixer = new THREE.AnimationMixer(collada.scene)
-  collada.animations.forEach(clip => {
-    actions[clip.name] = mixer.clipAction(clip)
-  })
-  const currentAction = actions[Object.keys(actions)[0]]
-  currentAction.play()
-  scene.add(collada.scene)
+  const {animations, scene: model} = collada
+  mixer = new THREE.AnimationMixer(model)
+  mixer.clipAction(animations[0]).play()
+  scene.add(model)
 })
 
 void function render() {
