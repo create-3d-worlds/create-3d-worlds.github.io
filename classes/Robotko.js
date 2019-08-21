@@ -18,7 +18,7 @@ export default class Robotko {
     this.addEvents()
   }
 
-  // moze i girl.glb
+  // moze: robot.glb, girl.glb, black-dragon/scene.gltf, izzy_female_character/scene.gltf, male_adventurer/scene.gltf
   loadModel() {
     const loader = new GLTFLoader()
     loader.load('../assets/models/robot.glb', ({scene, animations}) => {
@@ -38,7 +38,7 @@ export default class Robotko {
       }
     })
     this.currentAction = this.actions[Object.keys(this.actions)[0]]
-    this.currentAction.play()
+    if (this.currentAction) this.currentAction.play()
   }
 
   changeAction(action, duration) {
