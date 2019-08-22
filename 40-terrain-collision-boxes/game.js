@@ -3,7 +3,7 @@ import {createBlock} from '../utils/boxes.js'
 import {createTerrain} from '../utils/floor.js'
 import Avatar from '../classes/Avatar.js'
 
-const avatar = new Avatar(25, 25, 0.1)
+const avatar = new Avatar(25, 0, 25, 10)
 scene.add(avatar.mesh)
 
 const terrain = createTerrain()

@@ -8,7 +8,7 @@ import matrix from '../data/small-map.js'
 
 new PointerLockControls(camera)
 
-const avatar = new Avatar(25, 25, 0.1)
+const avatar = new Avatar(25, 0, 25, 10)
 scene.add(avatar.mesh)
 scene.add(createFloor())
 scene.add(createMap(matrix, 20))

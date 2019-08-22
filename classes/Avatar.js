@@ -3,14 +3,14 @@ import {clock} from '../utils/scene.js'
 import keyboard from '../classes/Keyboard.js'
 
 const {pressed} = keyboard
-const size = 40
 
 export default class Avatar {
-  constructor(x = 0, z = 0, scale = 0.2, stoneSkin = true) {
+  constructor(x = 0, y = 0, z = 0, size = 35, stoneSkin = true) {
+    this.size = size
     this.speed = size * 4
     this.createMesh(stoneSkin)
-    // this.mesh.scale.set(scale, scale, scale)
-    // this.position.set(x, y, z)
+    this.position.set(x, y, z)
+    this.mesh.translateY(this.size * 1.1)
     this.jumping = false
   }
 
@@ -18,25 +18,24 @@ export default class Avatar {
     const Material = stoneSkin ? THREE.MeshStandardMaterial : THREE.MeshNormalMaterial
     const material = new Material()
     if (stoneSkin) material.map = new THREE.TextureLoader().load('../assets/textures/snow-512.jpg')
-    const body = new THREE.DodecahedronGeometry(size * 2 / 3)
+    const body = new THREE.DodecahedronGeometry(this.size * .66)
     this.mesh = new THREE.Mesh(body, material)
-    this.mesh.translateY(size * 1.1)
 
     const ud = body.clone().scale(.6, .6, .6)
     this.rightHand = new THREE.Mesh(ud, material)
-    this.rightHand.position.set(-size, 0, 0)
+    this.rightHand.position.set(-this.size, 0, 0)
     this.add(this.rightHand)
 
     this.leftHand = new THREE.Mesh(ud, material)
-    this.leftHand.position.set(size, 0, 0)
+    this.leftHand.position.set(this.size, 0, 0)
     this.add(this.leftHand)
 
     this.rightLeg = new THREE.Mesh(ud, material)
-    this.rightLeg.position.set(size / 2, -size * 4 / 5, 0)
+    this.rightLeg.position.set(this.size / 2, -this.size * .8, 0)
     this.add(this.rightLeg)
 
     this.leftLeg = new THREE.Mesh(ud, material)
-    this.leftLeg.position.set(-size / 2, -size * 4 / 5, 0)
+    this.leftLeg.position.set(-this.size / 2, -this.size * .8, 0)
     this.add(this.leftLeg)
   }
 
@@ -71,7 +70,7 @@ export default class Avatar {
     const vector = this.chooseRaycastVector()
     if (!vector) return false
     const direction = vector.applyQuaternion(this.mesh.quaternion)
-    const raycaster = new THREE.Raycaster(this.position, direction, 0, size)
+    const raycaster = new THREE.Raycaster(this.position, direction, 0, this.size)
     const intersections = raycaster.intersectObjects(solids, true)
     return intersections.length > 0
   }
@@ -90,7 +89,7 @@ export default class Avatar {
 
   animate() {
     if (!keyboard.totalPressed) return
-    const elapsed = Math.sin(clock.getElapsedTime() * 6) * size * 3 / 4
+    const elapsed = Math.sin(clock.getElapsedTime() * 6) * this.size * 3 / 4
     this.leftHand.position.z = -elapsed
     this.rightHand.position.z = elapsed
     this.leftLeg.position.z = -elapsed
@@ -101,7 +100,7 @@ export default class Avatar {
     const raycaster = new THREE.Raycaster()
     raycaster.set(this.position, new THREE.Vector3(0, -1, 0))
     const intersects = raycaster.intersectObjects(terrain)
-    if (intersects[0]) this.position.y = intersects[0].point.y + size
+    if (intersects[0]) this.position.y = intersects[0].point.y + this.size
   }
 
   jump(distance) {

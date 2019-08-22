@@ -8,7 +8,7 @@ scene.add(tilemap.createFloor())
 const walls = tilemap.createWalls()
 scene.add(walls)
 
-const avatar = new Avatar(25, 25, 0.1)
+const avatar = new Avatar(25, 0, 25, 20)
 scene.add(avatar.mesh)
 
 camera.position.z = 100

@@ -7,7 +7,7 @@ import matrix from '../data/small-map.js'
 const controls = createOrbitControls()
 camera.position.y = 250
 
-const avatar = new Avatar(25, 25, 0.1)
+const avatar = new Avatar(25, 0, 25, 10)
 scene.add(avatar.mesh)
 scene.add(createFloor())
 scene.add(createMap(matrix, 20))
