@@ -3,15 +3,14 @@ import {clock} from '../utils/scene.js'
 import keyboard from '../classes/Keyboard.js'
 
 const {pressed} = keyboard
-const size = 150
+const size = 40
 
 export default class Avatar {
   constructor(x = 0, z = 0, scale = 0.2, stoneSkin = true) {
-    this.scale = scale
-    this.speed = 1000 * scale
+    this.speed = size * 4
     this.createMesh(stoneSkin)
-    this.mesh.scale.set(scale, scale, scale)
-    this.position.set(x, size * scale, z)
+    // this.mesh.scale.set(scale, scale, scale)
+    // this.position.set(x, y, z)
     this.jumping = false
   }
 
@@ -21,8 +20,9 @@ export default class Avatar {
     if (stoneSkin) material.map = new THREE.TextureLoader().load('../assets/textures/snow-512.jpg')
     const body = new THREE.DodecahedronGeometry(size * 2 / 3)
     this.mesh = new THREE.Mesh(body, material)
+    this.mesh.translateY(size * 1.1)
 
-    const ud = body.clone().scale(.7, .7, .7)
+    const ud = body.clone().scale(.6, .6, .6)
     this.rightHand = new THREE.Mesh(ud, material)
     this.rightHand.position.set(-size, 0, 0)
     this.add(this.rightHand)
@@ -71,7 +71,7 @@ export default class Avatar {
     const vector = this.chooseRaycastVector()
     if (!vector) return false
     const direction = vector.applyQuaternion(this.mesh.quaternion)
-    const raycaster = new THREE.Raycaster(this.position, direction, 0, size * this.scale)
+    const raycaster = new THREE.Raycaster(this.position, direction, 0, size)
     const intersections = raycaster.intersectObjects(solids, true)
     return intersections.length > 0
   }
@@ -101,7 +101,7 @@ export default class Avatar {
     const raycaster = new THREE.Raycaster()
     raycaster.set(this.position, new THREE.Vector3(0, -1, 0))
     const intersects = raycaster.intersectObjects(terrain)
-    if (intersects[0]) this.position.y = intersects[0].point.y + size * this.scale
+    if (intersects[0]) this.position.y = intersects[0].point.y + size
   }
 
   jump(distance) {
