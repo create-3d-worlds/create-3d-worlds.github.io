@@ -6,34 +6,36 @@ const {pressed} = keyboard
 const size = 150
 
 export default class Avatar {
-  constructor(x = 0, z = 0, scale = 0.2) {
+  constructor(x = 0, z = 0, scale = 0.2, stoneSkin = true) {
     this.scale = scale
     this.speed = 1000 * scale
-    this.createMesh()
+    this.createMesh(stoneSkin)
     this.mesh.scale.set(scale, scale, scale)
     this.position.set(x, size * scale, z)
     this.jumping = false
   }
 
-  createMesh() {
-    const material = new THREE.MeshStandardMaterial()
+  createMesh(stoneSkin) {
+    const Material = stoneSkin ? THREE.MeshStandardMaterial : THREE.MeshNormalMaterial
+    const material = new Material()
+    if (stoneSkin) material.map = new THREE.TextureLoader().load('../assets/textures/snow-512.jpg')
     const body = new THREE.DodecahedronGeometry(size * 2 / 3)
     this.mesh = new THREE.Mesh(body, material)
 
-    const limb = new THREE.DodecahedronGeometry(size / 2.8)
-    this.rightHand = new THREE.Mesh(limb, material)
+    const ud = body.clone().scale(.7, .7, .7)
+    this.rightHand = new THREE.Mesh(ud, material)
     this.rightHand.position.set(-size, 0, 0)
     this.add(this.rightHand)
 
-    this.leftHand = new THREE.Mesh(limb, material)
+    this.leftHand = new THREE.Mesh(ud, material)
     this.leftHand.position.set(size, 0, 0)
     this.add(this.leftHand)
 
-    this.rightLeg = new THREE.Mesh(limb, material)
+    this.rightLeg = new THREE.Mesh(ud, material)
     this.rightLeg.position.set(size / 2, -size * 4 / 5, 0)
     this.add(this.rightLeg)
 
-    this.leftLeg = new THREE.Mesh(limb, material)
+    this.leftLeg = new THREE.Mesh(ud, material)
     this.leftLeg.position.set(-size / 2, -size * 4 / 5, 0)
     this.add(this.leftLeg)
   }
@@ -88,7 +90,7 @@ export default class Avatar {
 
   animate() {
     if (!keyboard.totalPressed) return
-    const elapsed = Math.sin(clock.getElapsedTime() * 5) * size * 3 / 4
+    const elapsed = Math.sin(clock.getElapsedTime() * 6) * size * 3 / 4
     this.leftHand.position.z = -elapsed
     this.rightHand.position.z = elapsed
     this.leftLeg.position.z = -elapsed
@@ -104,8 +106,8 @@ export default class Avatar {
 
   jump(distance) {
     if (this.jumping) return
-    const time = 300
-    const up = { y: this.position.y + distance }
+    const time = 600
+    const up = { y: this.position.y + distance * 2}
     const down = { y: this.position.y }
     const current = { y: this.position.y }
     this.jumping = true
