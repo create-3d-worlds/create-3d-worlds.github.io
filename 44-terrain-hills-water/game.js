@@ -4,18 +4,17 @@ import {createTreesOnTerrain} from '../utils/trees.js'
 import {createHillyTerrain} from '../utils/createHillyTerrain.js'
 import Avatar from '../classes/Avatar.js'
 
-const avatar = new Avatar()
-scene.add(avatar.mesh)
-
 createOrbitControls()
 camera.position.y = 150
 
 scene.add(createWater(1000))
-const land = createHillyTerrain()
-scene.add(land)
-scene.add(createTreesOnTerrain(land))
+const ground = createHillyTerrain()
+scene.add(ground)
+scene.add(createTreesOnTerrain(ground))
 
-avatar.addGround(land)
+const avatar = new Avatar()
+avatar.addGround(ground)
+scene.add(avatar.mesh)
 
 /* LOOP */
 

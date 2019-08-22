@@ -108,15 +108,15 @@ export default class Avatar {
     if (!this.ground.length) return
     const pos = this.position.clone()
     pos.y += this.size
-    const raycaster = new THREE.Raycaster(pos, new THREE.Vector3(0, -1, 0), 0, this.size * 2)
+    const raycaster = new THREE.Raycaster(pos, new THREE.Vector3(0, -1, 0))
     const intersects = raycaster.intersectObjects(this.ground)
-    if (intersects[0]) this.position.y = intersects[0].point.y
+    if (intersects[0]) this.position.y = intersects[0].point.y // TODO: falling transition
   }
 
-  // TODO: fix/remove TWEEN (vidi skakanje po kockama)
+  // TODO: remove TWEEN, fix jump (vidi skakanje po kockama)
   jump(distance) {
     if (this.jumping) return
-    const time = 600
+    const time = 500
     const up = { y: this.position.y + distance * 2}
     const down = { y: this.position.y }
     const current = { y: this.position.y }
@@ -141,16 +141,20 @@ export default class Avatar {
     jumpUp.start()
   }
 
-  addGround(ground) {
-    if (ground.children.length) this.ground.push(...ground.children)
-    else if (ground.length) this.ground.push(...ground)
-    else this.ground.push(ground)
+  addSolid(prop, ...solids) {
+    solids.forEach(solid => {
+      if (solid.children.length) this[prop].push(...solid.children)
+      else if (solid.length) this[prop].push(...solid)
+      else this[prop].push(solid)
+    })
   }
 
-  addSurrounding(surrounding) {
-    if (surrounding.children.length) this.surrounding.push(...surrounding.children)
-    else if (surrounding.length) this.surrounding.push(...surrounding)
-    else this.surrounding.push(surrounding)
+  addGround(...grounds) {
+    this.addSolid('ground', ...grounds)
+  }
+
+  addSurrounding(...surroundings) {
+    this.addSolid('surrounding', ...surroundings)
   }
 
   update(delta) {
