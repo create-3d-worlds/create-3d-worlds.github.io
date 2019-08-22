@@ -8,7 +8,7 @@ createOrbitControls()
 
 const robot = new Robotko(scene)
 
-/* INIT */
+/* LOOP */
 
 void function animate() {
   requestAnimationFrame(animate)

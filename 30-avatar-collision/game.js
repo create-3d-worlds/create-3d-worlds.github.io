@@ -1,16 +1,20 @@
 import Avatar from '../classes/Avatar.js'
-import {scene, renderer, camera, clock, createOrbitControls} from '../utils/scene.js'
+import {scene, renderer, camera, clock} from '../utils/scene.js'
 import {createFirTrees} from '../utils/trees.js'
+import {createFloor} from '../utils/floor.js'
 
-const avatar = new Avatar(0, 0)
+const avatar = new Avatar()
 scene.add(avatar.mesh)
 
-camera.position.z = 500
+camera.position.z = 100
+camera.position.y = 50
 avatar.add(camera)
-// createOrbitControls()
-const trees = createFirTrees(10, 500, 50)
 
+const trees = createFirTrees(10, 500, 50)
 scene.add(trees)
+scene.add(createFloor())
+
+/* LOOP */
 
 void function animate() {
   requestAnimationFrame(animate)

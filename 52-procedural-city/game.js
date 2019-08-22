@@ -59,7 +59,7 @@ function createCity(num = 10000) {
   return new THREE.Mesh(cityGeo, material)
 }
 
-/* INIT */
+/* LOOP */
 
 scene.add(createCity(10000))
 

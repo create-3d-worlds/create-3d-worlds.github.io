@@ -16,7 +16,7 @@ mtlLoader.load('../assets/models/cannon/14054_Pirate_Ship_Cannon_on_Cart_v1_l3.m
   })
 })
 
-/* INIT */
+/* LOOP */
 
 void function render() {
   // const delta = clock.getDelta()

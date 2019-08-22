@@ -15,7 +15,7 @@ const land = createHillyTerrain()
 scene.add(land)
 scene.add(createTreesOnTerrain(land))
 
-/* INIT */
+/* LOOP */
 
 void function animate() {
   requestAnimationFrame(animate)

@@ -17,24 +17,25 @@ scene.add(currentCamera)
 
 /* FUNCTIONS */
 
-const chooseCamera = () => {
-  if (keyboard.pressed.Digit1) currentCamera = camera
-  if (keyboard.pressed.Digit2) currentCamera = chaseCamera
-}
-
-function updateChase() {
-  const distance = new THREE.Vector3(0, 100, 200)
+function followPlayer() {
+  const distance = new THREE.Vector3(0, 50, 100)
   const {x, y, z} = distance.applyMatrix4(avatar.mesh.matrixWorld)
   chaseCamera.position.set(x, y, z)
 }
 
-/* INIT */
+const updateCamera = () => {
+  if (keyboard.pressed.Digit1) currentCamera = camera
+  if (keyboard.pressed.Digit2) currentCamera = chaseCamera
+  if (currentCamera == chaseCamera) followPlayer()
+  currentCamera.lookAt(avatar.position)
+}
+
+/* LOOP */
 
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
   avatar.update(delta)
-  chooseCamera()
-  if (currentCamera == chaseCamera) updateChase()
+  updateCamera()
   renderer.render(scene, currentCamera)
 }()

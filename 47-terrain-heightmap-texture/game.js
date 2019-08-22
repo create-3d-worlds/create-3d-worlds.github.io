@@ -13,7 +13,7 @@ terrainFromHeightmap(
   3
 )
 
-/* INIT */
+/* LOOP */
 
 void function update() {
   renderer.render(scene, camera)

@@ -16,7 +16,7 @@ createOrbitControls()
 scene.add(createSketchTrees())
 scene.add(createFloor(1000, false))
 
-/* INIT */
+/* LOOP */
 
 void function animate() {
   requestAnimationFrame(animate)

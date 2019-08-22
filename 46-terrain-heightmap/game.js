@@ -8,7 +8,7 @@ terrainFromHeightmap('../assets/heightmaps/wiki.png', mesh => {
   scene.add(mesh)
 })
 
-/* INIT */
+/* LOOP */
 
 void function update() {
   renderer.render(scene, camera)

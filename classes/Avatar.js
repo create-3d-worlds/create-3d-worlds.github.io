@@ -73,7 +73,9 @@ export default class Avatar {
     const vector = this.chooseRaycastVector()
     if (!vector) return false
     const direction = vector.applyQuaternion(this.mesh.quaternion)
-    const raycaster = new THREE.Raycaster(this.position, direction, 0, this.size)
+    const pos = this.position.clone()
+    pos.y += this.size
+    const raycaster = new THREE.Raycaster(pos, direction, 0, this.size)
     const intersections = raycaster.intersectObjects(solids, true)
     return intersections.length > 0
   }

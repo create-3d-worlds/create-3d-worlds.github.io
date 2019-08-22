@@ -38,7 +38,7 @@ createOrbitControls()
 
 scene.add(createWater(1000))
 
-/* INIT */
+/* LOOP */
 
 void function animate() {
   requestAnimationFrame(animate)

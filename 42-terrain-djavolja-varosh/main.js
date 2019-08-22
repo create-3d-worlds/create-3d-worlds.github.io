@@ -11,7 +11,7 @@ scene.add(spotLight)
 
 scene.add(createDjavoljaVarosh())
 
-/* INIT */
+/* LOOP */
 
 void function render() {
   renderer.render(scene, camera)
