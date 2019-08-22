@@ -15,11 +15,13 @@ const land = createHillyTerrain()
 scene.add(land)
 scene.add(createTreesOnTerrain(land))
 
+avatar.addGround(land)
+
 /* LOOP */
 
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
-  avatar.update(delta, null, land)
+  avatar.update(delta)
   renderer.render(scene, camera)
 }()

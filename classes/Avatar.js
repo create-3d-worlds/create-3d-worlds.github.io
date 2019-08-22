@@ -8,9 +8,11 @@ export default class Avatar {
   constructor(x = 0, y = 0, z = 0, size = 35, stoneSkin = true) {
     this.size = size
     this.speed = size * 4
+    this.ground = []
+    this.surrounding = []
+    this.jumping = false
     this.createMesh(stoneSkin)
     this.position.set(x, y, z)
-    this.jumping = false
   }
 
   createMesh(stoneSkin) {
@@ -42,14 +44,14 @@ export default class Avatar {
     this.mesh = group
   }
 
-  checkKeys(delta, solids) {
+  checkKeys(delta) {
     if (!keyboard.totalPressed) return
 
     const angle = Math.PI / 2 * delta
     if (pressed.ArrowLeft) this.mesh.rotateY(angle)
     if (pressed.ArrowRight) this.mesh.rotateY(-angle)
 
-    if (solids && this.isCollide(solids)) return
+    if (this.surrounding.length && this.isCollide(this.surrounding)) return
 
     const distance = this.speed * delta // speed (in pixels) per second
     if (pressed.KeyW || pressed.ArrowUp) this.mesh.translateZ(-distance)
@@ -69,6 +71,7 @@ export default class Avatar {
     return null
   }
 
+  // TODO: separate helper
   isCollide(solids) {
     const vector = this.chooseRaycastVector()
     if (!vector) return false
@@ -101,13 +104,16 @@ export default class Avatar {
     this.rightLeg.position.z = elapsed
   }
 
-  checkGround(terrain) {
-    const raycaster = new THREE.Raycaster()
-    raycaster.set(this.position, new THREE.Vector3(0, -1, 0))
-    const intersects = raycaster.intersectObjects(terrain)
-    if (intersects[0]) this.position.y = intersects[0].point.y + this.size
+  checkGround() {
+    if (!this.ground.length) return
+    const pos = this.position.clone()
+    pos.y += this.size
+    const raycaster = new THREE.Raycaster(pos, new THREE.Vector3(0, -1, 0), 0, this.size * 2)
+    const intersects = raycaster.intersectObjects(this.ground)
+    if (intersects[0]) this.position.y = intersects[0].point.y
   }
 
+  // TODO: fix/remove TWEEN (vidi skakanje po kockama)
   jump(distance) {
     if (this.jumping) return
     const time = 600
@@ -135,13 +141,21 @@ export default class Avatar {
     jumpUp.start()
   }
 
-  /* both solids and terrain are optional */
-  update(delta, solids, terrain) {
-    this.checkKeys(delta, solids)
-    const ground = []
-    if (terrain) ground.push(terrain)
-    if (solids && solids.length) ground.push(...solids)
-    if (ground.length) this.checkGround(ground)
+  addGround(ground) {
+    if (ground.children.length) this.ground.push(...ground.children)
+    else if (ground.length) this.ground.push(...ground)
+    else this.ground.push(ground)
+  }
+
+  addSurrounding(surrounding) {
+    if (surrounding.children.length) this.surrounding.push(...surrounding.children)
+    else if (surrounding.length) this.surrounding.push(...surrounding)
+    else this.surrounding.push(surrounding)
+  }
+
+  update(delta) {
+    this.checkKeys(delta)
+    this.checkGround()
     this.animate()
     TWEEN.update()
   }

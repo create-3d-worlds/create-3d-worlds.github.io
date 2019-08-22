@@ -12,6 +12,7 @@ avatar.add(camera)
 
 const trees = createFirTrees(10, 500, 50)
 scene.add(trees)
+avatar.addSurrounding(trees)
 scene.add(createFloor())
 
 /* LOOP */
@@ -19,6 +20,6 @@ scene.add(createFloor())
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
-  avatar.update(delta, trees.children, scene)
+  avatar.update(delta)
   renderer.render(scene, camera)
 }()

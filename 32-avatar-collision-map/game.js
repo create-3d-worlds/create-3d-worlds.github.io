@@ -10,16 +10,17 @@ scene.add(walls)
 
 const avatar = new Avatar(25, 0, 25, 15)
 scene.add(avatar.mesh)
+avatar.addSurrounding(walls)
 
 camera.position.z = 50
 camera.position.y = 15
-avatar.mesh.add(camera)
+avatar.add(camera)
 
 /* LOOP */
 
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
-  avatar.update(delta, walls.children)
+  avatar.update(delta)
   renderer.render(scene, camera)
 }()
