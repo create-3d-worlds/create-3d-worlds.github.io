@@ -10,33 +10,36 @@ export default class Avatar {
     this.speed = size * 4
     this.createMesh(stoneSkin)
     this.position.set(x, y, z)
-    this.mesh.translateY(this.size * 1.1)
     this.jumping = false
   }
 
   createMesh(stoneSkin) {
+    const group = new THREE.Group()
     const Material = stoneSkin ? THREE.MeshStandardMaterial : THREE.MeshNormalMaterial
     const material = new Material()
     if (stoneSkin) material.map = new THREE.TextureLoader().load('../assets/textures/snow-512.jpg')
-    const body = new THREE.DodecahedronGeometry(this.size * .66)
-    this.mesh = new THREE.Mesh(body, material)
+    const bodyGeo = new THREE.DodecahedronGeometry(this.size * .66)
+    const body = new THREE.Mesh(bodyGeo, material)
+    body.position.set(0, this.size, 0)
+    group.add(body)
 
-    const ud = body.clone().scale(.6, .6, .6)
-    this.rightHand = new THREE.Mesh(ud, material)
-    this.rightHand.position.set(-this.size, 0, 0)
-    this.add(this.rightHand)
+    const limbGeo = bodyGeo.clone().scale(.6, .6, .6)
+    this.rightHand = new THREE.Mesh(limbGeo, material)
+    this.rightHand.position.set(-this.size, this.size, 0)
+    group.add(this.rightHand)
 
-    this.leftHand = new THREE.Mesh(ud, material)
-    this.leftHand.position.set(this.size, 0, 0)
-    this.add(this.leftHand)
+    this.leftHand = new THREE.Mesh(limbGeo, material)
+    this.leftHand.position.set(this.size, this.size, 0)
+    group.add(this.leftHand)
 
-    this.rightLeg = new THREE.Mesh(ud, material)
-    this.rightLeg.position.set(this.size / 2, -this.size * .8, 0)
-    this.add(this.rightLeg)
+    this.rightLeg = new THREE.Mesh(limbGeo, material)
+    this.rightLeg.position.set(this.size / 2, this.size * .3, 0)
+    group.add(this.rightLeg)
 
-    this.leftLeg = new THREE.Mesh(ud, material)
-    this.leftLeg.position.set(-this.size / 2, -this.size * .8, 0)
-    this.add(this.leftLeg)
+    this.leftLeg = new THREE.Mesh(limbGeo, material)
+    this.leftLeg.position.set(-this.size / 2, this.size * .3, 0)
+    group.add(this.leftLeg)
+    this.mesh = group
   }
 
   checkKeys(delta, solids) {
