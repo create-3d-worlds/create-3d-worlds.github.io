@@ -141,9 +141,10 @@ export default class Avatar {
     jumpUp.start()
   }
 
+  /* solids could be parent, array or single mesh */
   addSolid(prop, ...solids) {
     solids.forEach(solid => {
-      if (solid.children.length) this[prop].push(...solid.children)
+      if (solid.children && solid.children.length) this[prop].push(...solid.children)
       else if (solid.length) this[prop].push(...solid)
       else this[prop].push(solid)
     })

@@ -5,15 +5,12 @@ import {keyboard, Avatar} from '../classes/index.js'
 
 camera.position.z = 500
 camera.position.y = 250
-
-const avatar = new Avatar()
-scene.add(avatar.mesh)
-scene.add(createFloor())
-scene.add(createFirTrees())
-
 const chaseCamera = camera.clone()
 let currentCamera = camera
-scene.add(currentCamera)
+
+const avatar = new Avatar()
+
+scene.add(avatar.mesh, createFloor(), createFirTrees(), currentCamera)
 
 /* FUNCTIONS */
 

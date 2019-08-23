@@ -5,9 +5,7 @@ import Avatar from '../classes/Avatar.js'
 
 const avatar = new Avatar()
 
-scene.add(avatar.mesh)
-scene.add(createTrees())
-scene.add(createFloor())
+scene.add(avatar.mesh, createTrees(), createFloor())
 
 avatar.mesh.add(camera)
 camera.position.y = 50
