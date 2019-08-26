@@ -7,10 +7,9 @@ export default class Avatar {
   constructor(x = 0, y = 0, z = 0, size = 35, stoneSkin = true) {
     this.size = size
     this.speed = size * 4
-    this.ground = []
-    this.surrounding = []
-    this.jumping = false
-    this.falling = false
+    this.grounds = []
+    this.surroundings = []
+    this.groundY = 0
     this.createMesh(stoneSkin)
     this.position.set(x, y, z)
   }
@@ -51,7 +50,7 @@ export default class Avatar {
     if (pressed.ArrowLeft) this.mesh.rotateY(angle)
     if (pressed.ArrowRight) this.mesh.rotateY(-angle)
 
-    if (this.surrounding.length && this.isCollide(this.surrounding)) return
+    if (this.surroundings.length && this.isCollide(this.surroundings)) return
 
     const distance = this.speed * delta // speed (in pixels) per second
     if (pressed.KeyW || pressed.ArrowUp) this.mesh.translateZ(-distance)
@@ -108,16 +107,15 @@ export default class Avatar {
     const gravity = this.speed * delta * 4
     if (!pressed.Space) this.mesh.translateY(-gravity)
 
-    if (this.ground.length) {
+    if (this.grounds.length) {
       const bodyCenter = this.position.clone()
       bodyCenter.y += this.size
       const raycaster = new THREE.Raycaster(bodyCenter, new THREE.Vector3(0, -1, 0))
-      const intersects = raycaster.intersectObjects(this.ground)
-      if (intersects[0] && this.position.y < intersects[0].point.y)
-        this.position.y = intersects[0].point.y
+      const intersects = raycaster.intersectObjects(this.grounds)
+      if (intersects[0]) this.groundY = intersects[0].point.y
     }
-    if (!this.ground.length)
-      if (this.position.y < 0) this.position.y = 0
+
+    if (this.position.y < this.groundY) this.position.y = this.groundY
   }
 
   /* solids could be mesh parent, array or single mesh */
@@ -130,11 +128,11 @@ export default class Avatar {
   }
 
   addGround(...grounds) {
-    this.addSolid('ground', ...grounds)
+    this.addSolid('grounds', ...grounds)
   }
 
   addSurrounding(...surroundings) {
-    this.addSolid('surrounding', ...surroundings)
+    this.addSolid('surroundings', ...surroundings)
   }
 
   update(delta) {
