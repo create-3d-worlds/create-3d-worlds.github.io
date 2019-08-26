@@ -70,7 +70,6 @@ export default class Avatar {
     return null
   }
 
-  // TODO: separate helper
   isCollide(solids) {
     const vector = this.chooseRaycastVector()
     if (!vector) return false
@@ -118,7 +117,7 @@ export default class Avatar {
     if (this.position.y < this.groundY) this.position.y = this.groundY
   }
 
-  /* solids could be mesh parent, array or single mesh */
+  /* param solids: could be mesh group, array or single mesh */
   addSolid(prop, ...solids) {
     solids.forEach(solid => {
       if (solid.children && solid.children.length) this[prop].push(...solid.children)
