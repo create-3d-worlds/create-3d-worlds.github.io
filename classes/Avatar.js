@@ -61,7 +61,6 @@ export default class Avatar {
   }
 
   chooseRaycastVector() {
-    // TODO: dodati zrak za medjuuglove, kada su pritisnute dve tipke
     if (pressed.Space && pressed.KeyW) return new THREE.Vector3(0, 1, -1)
 
     if (pressed.KeyW) return new THREE.Vector3(0, 0, -1)
@@ -97,11 +96,15 @@ export default class Avatar {
 
   animate() {
     if (!keyboard.totalPressed) return
-    const elapsed = Math.sin(clock.getElapsedTime() * 6) * this.size * 3 / 4
-    this.leftHand.position.z = -elapsed
-    this.rightHand.position.z = elapsed
-    this.leftLeg.position.z = -elapsed
-    this.rightLeg.position.z = elapsed
+    if (pressed.Space) {
+      this.leftHand.position.z = this.leftLeg.position.z = 0
+      this.rightHand.position.z = this.rightLeg.position.z = 0
+    }
+    if (pressed.KeyW || pressed.KeyS || pressed.KeyQ || pressed.KeyE) {
+      const elapsed = Math.sin(clock.getElapsedTime() * 6) * this.size * 3 / 4
+      this.leftHand.position.z = this.leftLeg.position.z = -elapsed
+      this.rightHand.position.z = this.rightLeg.position.z = elapsed
+    }
   }
 
   checkGround(delta) {
