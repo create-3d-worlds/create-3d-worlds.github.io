@@ -37,6 +37,7 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 - [x] dodati kameru odozgo (orbit)
 - [x] menjati kamere na taster
 - [x] srediti redom kamere po scenama
+- [ ] kreirati finalne kamere za ambient i fps (da moze da gleda levo-desno i gore-dole i sl.)
 
 ### Collision
 
