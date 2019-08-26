@@ -9,11 +9,11 @@ scene.add(terrain)
 const boxes = new THREE.Group
 const radius = 100
 
-for (let i = -radius / 2; i < 100; i += 1) {
-  const step = i / 5
+for (let i = 0; i < 100; i += 1) {
+  const step = i / 6
   const x = Math.cos(step) * radius
   const z = Math.sin(step) * radius
-  const block = createBlock(x, i * 8, z)
+  const block = createBlock(x, i * 8, z, 20)
   block.rotateY(Math.cos(step))
   boxes.add(block)
 }
@@ -27,6 +27,7 @@ const avatar = new Avatar(25, 0, 25, 10)
 avatar.add(camera)
 avatar.addGround(terrain, boxes)
 avatar.addSurrounding(boxes)
+avatar.mesh.translateY(50)
 scene.add(avatar.mesh)
 
 /* LOOP */

@@ -1,4 +1,3 @@
-import TWEEN from '../libs/Tween.js'
 import {clock} from '../utils/scene.js'
 import keyboard from '../classes/Keyboard.js'
 
@@ -11,6 +10,7 @@ export default class Avatar {
     this.ground = []
     this.surrounding = []
     this.jumping = false
+    this.falling = false
     this.createMesh(stoneSkin)
     this.position.set(x, y, z)
   }
@@ -58,7 +58,7 @@ export default class Avatar {
     if (pressed.KeyS || pressed.ArrowDown) this.mesh.translateZ(distance)
     if (pressed.KeyA) this.mesh.translateX(-distance)
     if (pressed.KeyD) this.mesh.translateX(distance)
-    if (pressed.Space) this.jump(distance * 20)
+    if (pressed.Space) this.mesh.translateY(distance * 4)
   }
 
   chooseRaycastVector() {
@@ -76,9 +76,9 @@ export default class Avatar {
     const vector = this.chooseRaycastVector()
     if (!vector) return false
     const direction = vector.applyQuaternion(this.mesh.quaternion)
-    const pos = this.position.clone()
-    pos.y += this.size
-    const raycaster = new THREE.Raycaster(pos, direction, 0, this.size)
+    const bodyCenter = this.position.clone()
+    bodyCenter.y += this.size
+    const raycaster = new THREE.Raycaster(bodyCenter, direction, 0, this.size)
     const intersections = raycaster.intersectObjects(solids, true)
     return intersections.length > 0
   }
@@ -104,44 +104,23 @@ export default class Avatar {
     this.rightLeg.position.z = elapsed
   }
 
-  checkGround() {
-    if (!this.ground.length) return
-    const pos = this.position.clone()
-    pos.y += this.size
-    const raycaster = new THREE.Raycaster(pos, new THREE.Vector3(0, -1, 0))
-    const intersects = raycaster.intersectObjects(this.ground)
-    if (intersects[0]) this.position.y = intersects[0].point.y // TODO: falling transition
+  checkGround(delta) {
+    const gravity = this.speed * delta * 4
+    if (!pressed.Space) this.mesh.translateY(-gravity)
+
+    if (this.ground.length) {
+      const bodyCenter = this.position.clone()
+      bodyCenter.y += this.size
+      const raycaster = new THREE.Raycaster(bodyCenter, new THREE.Vector3(0, -1, 0))
+      const intersects = raycaster.intersectObjects(this.ground)
+      if (intersects[0] && this.position.y < intersects[0].point.y)
+        this.position.y = intersects[0].point.y
+    }
+    if (!this.ground.length)
+      if (this.position.y < 0) this.position.y = 0
   }
 
-  // TODO: remove TWEEN, fix jump (vidi skakanje po kockama)
-  jump(distance) {
-    if (this.jumping) return
-    const time = 500
-    const up = { y: this.position.y + distance * 2}
-    const down = { y: this.position.y }
-    const current = { y: this.position.y }
-    this.jumping = true
-
-    const jumpUp = new TWEEN.Tween(current)
-      .to(up, time)
-      .onUpdate(() => {
-        this.position.y = current.y
-      })
-
-    const jumpDown = new TWEEN.Tween(current)
-      .to(down, time)
-      .onUpdate(() => {
-        this.position.y = current.y
-      })
-      .onComplete(() => {
-        this.jumping = false
-      })
-
-    jumpUp.chain(jumpDown)
-    jumpUp.start()
-  }
-
-  /* solids could be parent, array or single mesh */
+  /* solids could be mesh parent, array or single mesh */
   addSolid(prop, ...solids) {
     solids.forEach(solid => {
       if (solid.children && solid.children.length) this[prop].push(...solid.children)
@@ -160,8 +139,7 @@ export default class Avatar {
 
   update(delta) {
     this.checkKeys(delta)
-    this.checkGround()
+    this.checkGround(delta)
     this.animate()
-    TWEEN.update()
   }
 }
