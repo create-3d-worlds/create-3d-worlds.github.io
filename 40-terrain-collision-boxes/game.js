@@ -6,28 +6,35 @@ import Avatar from '../classes/Avatar.js'
 const terrain = createTerrain()
 scene.add(terrain)
 
-const boxes = new THREE.Group
-const radius = 100
+function createSpiralStairs() {
+  const stairs = new THREE.Group
+  const radius = 100
+  const CIRCLE = Math.PI * 2
+  const stairsInCirle = 50
+  const step = CIRCLE / stairsInCirle
+  const yDistance = 80
 
-for (let i = 0; i < 100; i += 1) {
-  const step = i / 6
-  const x = Math.cos(step) * radius
-  const z = Math.sin(step) * radius
-  const block = createStair(x, i * 8, z, 20)
-  block.rotateY(Math.cos(step))
-  boxes.add(block)
+  for (let i = 0; i <= CIRCLE * 5; i += step) {
+    const x = Math.cos(i) * radius
+    const z = Math.sin(i) * radius
+    const block = createStair(x, i * yDistance, z)
+    block.rotateY(Math.PI / 2 -i)
+    stairs.add(block)
+  }
+  return stairs
 }
 
-scene.add(boxes)
+const stairs = createSpiralStairs()
+scene.add(stairs)
 
-camera.position.z = 50
-camera.position.y = 15
+camera.position.z = 30
+camera.position.y = 20
 
-const avatar = new Avatar(25, 0, 25, 10)
+const avatar = new Avatar(100, 50, -50, 10)
+avatar.mesh.rotateY(Math.PI)
 avatar.add(camera)
-avatar.addGround(terrain, boxes)
-avatar.addSurrounding(boxes)
-avatar.mesh.translateY(50)
+avatar.addGround(terrain, stairs)
+avatar.addSurrounding(stairs)
 scene.add(avatar.mesh)
 
 /* LOOP */
