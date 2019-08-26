@@ -52,13 +52,11 @@ export function createRandomBoxes(n = 100, size = 20, texture) {
   return group
 }
 
-export function createSpiralStairs(floors) {
-  const stairs = new THREE.Group
+export function createSpiralStairs(floors, stairsInCirle = 20, yDistance = 80) {
   const radius = 100
+  const stairs = new THREE.Group
   const CIRCLE = Math.PI * 2
-  const stairsInCirle = 40
   const step = CIRCLE / stairsInCirle
-  const yDistance = 80
 
   for (let i = 0; i <= CIRCLE * floors; i += step) {
     const x = Math.cos(i) * radius

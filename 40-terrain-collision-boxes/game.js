@@ -3,12 +3,13 @@ import {createSpiralStairs} from '../utils/boxes.js'
 import {createTerrain} from '../utils/floor.js'
 import Avatar from '../classes/Avatar.js'
 
-camera.position.z = 30
+camera.position.z = 40
 camera.position.y = 20
 
 const terrain = createTerrain()
 scene.add(terrain)
 const stairs = createSpiralStairs(5)
+// const stairs = createSpiralStairs(5, 40, 40)
 scene.add(stairs)
 
 const avatar = new Avatar(100, 50, -50, 10, false)
