@@ -47,23 +47,25 @@ export default class Avatar {
     if (!keyboard.totalPressed) return
 
     const angle = Math.PI / 2 * delta
-    if (pressed.ArrowLeft) this.mesh.rotateY(angle)
-    if (pressed.ArrowRight) this.mesh.rotateY(-angle)
+    if (pressed.KeyA) this.mesh.rotateY(angle)
+    if (pressed.KeyD) this.mesh.rotateY(-angle)
 
     if (this.surroundings.length && this.isCollide(this.surroundings)) return
 
     const distance = this.speed * delta // speed (in pixels) per second
-    if (pressed.KeyW || pressed.ArrowUp) this.mesh.translateZ(-distance)
-    if (pressed.KeyS || pressed.ArrowDown) this.mesh.translateZ(distance)
-    if (pressed.KeyA) this.mesh.translateX(-distance)
-    if (pressed.KeyD) this.mesh.translateX(distance)
+    if (pressed.KeyW) this.mesh.translateZ(-distance)
+    if (pressed.KeyS) this.mesh.translateZ(distance)
+    if (pressed.KeyQ) this.mesh.translateX(-distance)
+    if (pressed.KeyE) this.mesh.translateX(distance)
     if (pressed.Space) this.mesh.translateY(distance * 4)
   }
 
   chooseRaycastVector() {
     // TODO: dodati zrak za medjuuglove, kada su pritisnute dve tipke
-    if (pressed.KeyW || pressed.ArrowUp) return new THREE.Vector3(0, 0, -1)
-    if (pressed.KeyS || pressed.ArrowDown) return new THREE.Vector3(0, 0, 1)
+    if (pressed.Space && pressed.KeyW) return new THREE.Vector3(0, 1, -1)
+
+    if (pressed.KeyW) return new THREE.Vector3(0, 0, -1)
+    if (pressed.KeyS) return new THREE.Vector3(0, 0, 1)
     if (pressed.KeyA) return new THREE.Vector3(-1, 0, 0)
     if (pressed.KeyD) return new THREE.Vector3(1, 0, 0)
     if (pressed.Space) return new THREE.Vector3(0, 1, 0)
