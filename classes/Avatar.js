@@ -95,13 +95,17 @@ export default class Avatar {
   }
 
   animate() {
-    if (!keyboard.totalPressed) return
-    if (pressed.Space) {
+    if (!keyboard.totalPressed) {
       this.leftHand.position.z = this.leftLeg.position.z = 0
       this.rightHand.position.z = this.rightLeg.position.z = 0
+      return
+    }
+    if (pressed.Space) {
+      this.leftHand.position.z = this.rightHand.position.z = this.leftLeg.position.z = this.rightLeg.position.z = this.size / 2
+      return
     }
     if (pressed.KeyW || pressed.KeyS || pressed.KeyQ || pressed.KeyE) {
-      const elapsed = Math.sin(clock.getElapsedTime() * 6) * this.size * 3 / 4
+      const elapsed = Math.sin(clock.getElapsedTime() * 5) * this.size * .666
       this.leftHand.position.z = this.leftLeg.position.z = -elapsed
       this.rightHand.position.z = this.rightLeg.position.z = elapsed
     }
@@ -122,7 +126,7 @@ export default class Avatar {
     if (this.position.y < this.groundY) this.position.y = this.groundY
   }
 
-  /* param solids: could be mesh group, array or single mesh */
+  /* @param solids: could be mesh group, array or single mesh */
   addSolid(prop, ...solids) {
     solids.forEach(solid => {
       if (solid.children && solid.children.length) this[prop].push(...solid.children)
