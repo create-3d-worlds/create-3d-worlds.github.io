@@ -52,6 +52,24 @@ export function createRandomBoxes(n = 100, size = 20, texture) {
   return group
 }
 
+export function createSpiralStairs(floors) {
+  const stairs = new THREE.Group
+  const radius = 100
+  const CIRCLE = Math.PI * 2
+  const stairsInCirle = 40
+  const step = CIRCLE / stairsInCirle
+  const yDistance = 80
+
+  for (let i = 0; i <= CIRCLE * floors; i += step) {
+    const x = Math.cos(i) * radius
+    const z = Math.sin(i) * radius
+    const block = createStair(x, i * yDistance, z)
+    block.rotateY(Math.PI / 2 - i)
+    stairs.add(block)
+  }
+  return stairs
+}
+
 export function createMap(matrix, size = 5) {
   const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
   const group = new THREE.Group()
