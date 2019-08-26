@@ -107,9 +107,9 @@ export default class Avatar {
     if (!pressed.Space) this.mesh.translateY(-gravity)
 
     if (this.grounds.length) {
-      const bodyCenter = this.position.clone()
-      bodyCenter.y += this.size
-      const raycaster = new THREE.Raycaster(bodyCenter, new THREE.Vector3(0, -1, 0))
+      const bodyTop = this.position.clone()
+      bodyTop.y += this.size * 2
+      const raycaster = new THREE.Raycaster(bodyTop, new THREE.Vector3(0, -1, 0))
       const intersects = raycaster.intersectObjects(this.grounds)
       if (intersects[0]) this.groundY = intersects[0].point.y
     }

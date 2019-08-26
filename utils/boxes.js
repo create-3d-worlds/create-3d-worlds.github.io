@@ -13,8 +13,9 @@ function createOutline(size) {
 
 /* creators */
 
-export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomColor(0.1, 0.01, .75)) {
-  const geometry = new THREE.BoxGeometry(size, size, size)
+export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomColor(0.1, 0.01, .75), isRectangle = false) {
+  const depthSize = isRectangle ? size * 2 : size
+  const geometry = new THREE.BoxGeometry(size, size, depthSize)
   const options = {}
   if (file) options.map = loader.load(`../assets/textures/${file}`)
   else options.color = color
@@ -28,6 +29,8 @@ export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomCo
 export const createCrate = (x, y, z, size, file = 'crate.gif') => createBox(x, y, z, size, file)
 
 export const createBlock = (x, y, z, size, color) => createBox(x, y, z, size, null, color)
+
+export const createStair = (x, y, z, size) => createBox(x, y, z, size, null, null, true)
 
 export function createSketchBox(x = 0, y = 0, z = 0, size) {
   const box = createBlock(x, y, z, size, 0x22dd88)

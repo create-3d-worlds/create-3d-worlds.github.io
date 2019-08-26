@@ -1,5 +1,5 @@
 import {scene, camera, renderer, clock} from '../utils/scene.js'
-import {createBlock} from '../utils/boxes.js'
+import {createStair} from '../utils/boxes.js'
 import {createTerrain} from '../utils/floor.js'
 import Avatar from '../classes/Avatar.js'
 
@@ -13,7 +13,7 @@ for (let i = 0; i < 100; i += 1) {
   const step = i / 6
   const x = Math.cos(step) * radius
   const z = Math.sin(step) * radius
-  const block = createBlock(x, i * 8, z, 20)
+  const block = createStair(x, i * 8, z, 20)
   block.rotateY(Math.cos(step))
   boxes.add(block)
 }
