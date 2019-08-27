@@ -1,5 +1,5 @@
 
-import {keyboard, Stoneman} from '../classes/index.js'
+import {keyboard, Model} from '../classes/index.js'
 
 const {pressed} = keyboard
 
@@ -7,16 +7,18 @@ const {pressed} = keyboard
  * Player class, handle keyboard input, move mesh and call model animations.
  * `Model` class should have `mesh` property and animate methods
  */
-export default class Avatar {
-  constructor(x = 0, y = 0, z = 0, size = 35, stoneSkin = true) {
+export default class Player {
+  constructor(x = 0, y = 0, z = 0, size = 35, onLoad) {
     this.size = size
     this.speed = size * 4
     this.grounds = []
     this.surroundings = []
     this.groundY = 0
-    this.model = new Stoneman(size, stoneSkin)
-    this.mesh = this.model.mesh // ukloniti mesh
-    this.position.set(x, y, z)
+    this.model = new Model(mesh => {
+      this.mesh = mesh
+      mesh.position.set(x, y, z)
+      onLoad(mesh)
+    })
   }
 
   /**
@@ -24,20 +26,22 @@ export default class Avatar {
    */
   move(delta) {
     if (!keyboard.totalPressed) return
+    const {mesh} = this.model
+    if (!mesh)return
 
     const angle = Math.PI / 2 * delta
-    if (pressed.KeyA) this.mesh.rotateY(angle)
-    if (pressed.KeyD) this.mesh.rotateY(-angle)
+    if (pressed.KeyA) mesh.rotateY(angle)
+    if (pressed.KeyD) mesh.rotateY(-angle)
 
     if (this.surroundings.length && this.isCollide(this.surroundings)) return
 
     const distance = this.speed * delta // speed (in pixels) per second
-    if (pressed.KeyW) this.mesh.translateZ(-distance)
-    if (pressed.KeyS) this.mesh.translateZ(distance)
-    if (pressed.KeyQ) this.mesh.translateX(-distance)
-    if (pressed.KeyE) this.mesh.translateX(distance)
+    if (pressed.KeyW) mesh.translateZ(-distance)
+    if (pressed.KeyS) mesh.translateZ(distance)
+    if (pressed.KeyQ) mesh.translateX(-distance)
+    if (pressed.KeyE) mesh.translateX(distance)
 
-    if (pressed.Space) this.mesh.translateY(distance * 4)
+    if (pressed.Space) mesh.translateY(distance * 4)
   }
 
   /**
@@ -66,6 +70,7 @@ export default class Avatar {
   }
 
   isCollide(solids) {
+    if (!this.mesh) return
     const vector = this.chooseRaycastVector()
     if (!vector) return false
     const direction = vector.applyQuaternion(this.mesh.quaternion)
@@ -76,16 +81,8 @@ export default class Avatar {
     return intersections.length > 0
   }
 
-  add(child) {
-    this.mesh.add(child)
-  }
-
   get position() {
     return this.mesh.position
-  }
-
-  get rotation() {
-    return this.mesh.rotation
   }
 
   /**
@@ -93,6 +90,7 @@ export default class Avatar {
    * @param {miliseconds} delta
    */
   checkGround(delta) {
+    if (!this.mesh) return
     const gravity = this.speed * delta * 4
     if (!pressed.Space) this.mesh.translateY(-gravity)
 
@@ -132,5 +130,6 @@ export default class Avatar {
     this.checkGround(delta)
     this.move(delta)
     this.animate()
+    this.model.update(delta)
   }
 }
