@@ -1,8 +1,12 @@
-import {clock} from '../utils/scene.js'
-import keyboard from '../classes/Keyboard.js'
+
+import {keyboard, Stoneman} from '../classes/index.js'
 
 const {pressed} = keyboard
 
+/**
+ * Player class, handle keyboard input and call model animations.
+ * `Model` class should have `mesh` property and animations methods
+ */
 export default class Avatar {
   constructor(x = 0, y = 0, z = 0, size = 35, stoneSkin = true) {
     this.size = size
@@ -10,41 +14,16 @@ export default class Avatar {
     this.grounds = []
     this.surroundings = []
     this.groundY = 0
-    this.createMesh(stoneSkin)
+    this.model = new Stoneman(size, stoneSkin)
+    this.mesh = this.model.mesh // ukloniti mesh
     this.position.set(x, y, z)
   }
 
-  createMesh(stoneSkin) {
-    const group = new THREE.Group()
-    const Material = stoneSkin ? THREE.MeshStandardMaterial : THREE.MeshNormalMaterial
-    const material = new Material()
-    if (stoneSkin) material.map = new THREE.TextureLoader().load('../assets/textures/snow-512.jpg')
-    const bodyGeo = new THREE.DodecahedronGeometry(this.size * .66)
-    const body = new THREE.Mesh(bodyGeo, material)
-    body.position.set(0, this.size, 0)
-    group.add(body)
-
-    const limbGeo = bodyGeo.clone().scale(.6, .6, .6)
-    this.rightHand = new THREE.Mesh(limbGeo, material)
-    this.rightHand.position.set(-this.size, this.size, 0)
-    group.add(this.rightHand)
-
-    this.leftHand = new THREE.Mesh(limbGeo, material)
-    this.leftHand.position.set(this.size, this.size, 0)
-    group.add(this.leftHand)
-
-    this.rightLeg = new THREE.Mesh(limbGeo, material)
-    this.rightLeg.position.set(this.size / 2, this.size * .3, 0)
-    group.add(this.rightLeg)
-
-    this.leftLeg = new THREE.Mesh(limbGeo, material)
-    this.leftLeg.position.set(-this.size / 2, this.size * .3, 0)
-    group.add(this.leftLeg)
-    this.mesh = group
-  }
-
   checkKeys(delta) {
-    if (!keyboard.totalPressed) return
+    if (!keyboard.totalPressed) {
+      this.model.idle()
+      return
+    }
 
     const angle = Math.PI / 2 * delta
     if (pressed.KeyA) this.mesh.rotateY(angle)
@@ -57,7 +36,14 @@ export default class Avatar {
     if (pressed.KeyS) this.mesh.translateZ(distance)
     if (pressed.KeyQ) this.mesh.translateX(-distance)
     if (pressed.KeyE) this.mesh.translateX(distance)
-    if (pressed.Space) this.mesh.translateY(distance * 4)
+
+    if (pressed.KeyW || pressed.KeyS || pressed.KeyQ || pressed.KeyE)
+      this.model.walk()
+
+    if (pressed.Space) {
+      this.mesh.translateY(distance * 4)
+      this.model.jump()
+    }
   }
 
   chooseRaycastVector() {
@@ -94,23 +80,6 @@ export default class Avatar {
     return this.mesh.rotation
   }
 
-  animate() {
-    if (!keyboard.totalPressed) {
-      this.leftHand.position.z = this.leftLeg.position.z = 0
-      this.rightHand.position.z = this.rightLeg.position.z = 0
-      return
-    }
-    if (pressed.Space) {
-      this.leftHand.position.z = this.rightHand.position.z = this.leftLeg.position.z = this.rightLeg.position.z = this.size / 2
-      return
-    }
-    if (pressed.KeyW || pressed.KeyS || pressed.KeyQ || pressed.KeyE) {
-      const elapsed = Math.sin(clock.getElapsedTime() * 5) * this.size * .666
-      this.leftHand.position.z = this.leftLeg.position.z = -elapsed
-      this.rightHand.position.z = this.rightLeg.position.z = elapsed
-    }
-  }
-
   checkGround(delta) {
     const gravity = this.speed * delta * 4
     if (!pressed.Space) this.mesh.translateY(-gravity)
@@ -126,7 +95,9 @@ export default class Avatar {
     if (this.position.y < this.groundY) this.position.y = this.groundY
   }
 
-  /* @param solids: could be mesh group, array or single mesh */
+  /*
+    @param solids: mesh group, array or single mesh
+  */
   addSolid(prop, ...solids) {
     solids.forEach(solid => {
       if (solid.children && solid.children.length) this[prop].push(...solid.children)
@@ -146,6 +117,5 @@ export default class Avatar {
   update(delta) {
     this.checkKeys(delta)
     this.checkGround(delta)
-    this.animate()
   }
 }

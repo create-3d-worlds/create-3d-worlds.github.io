@@ -74,6 +74,8 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
   - [ ] dodati tenk kako se krece
 - [x] srediti pufnicu (dodati jos malo geometrije i neku boju, materijal, teksturu...)
   - [x] srediti skok i padanje
+- [x] odvojiti mesh od Avatara
+- [ ] odvojiti klase Igrac i Model (Robotko i model-md2)
 
 ### Physics
 

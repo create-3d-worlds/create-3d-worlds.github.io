@@ -4,9 +4,6 @@ import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoade
 
 const loopOnce = ['Death', 'Sitting', 'Standing', 'Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp', 'WalkJump']
 
-let a = 0 // for debug actions
-
-// TODO: dodati izraze lica
 export default class Robotko {
   constructor(scene) {
     this.scene = scene
@@ -21,9 +18,9 @@ export default class Robotko {
   // moze: robot.glb, girl.glb, izzy_female_character/scene.gltf, male_adventurer/scene.gltf
   loadModel() {
     const loader = new GLTFLoader()
-    loader.load('../assets/models/girl.glb', ({scene, animations}) => {
-      this.scene.add(scene)
-      this.createActions(animations, scene)
+    loader.load('../assets/models/robot.glb', ({scene: model, animations}) => {
+      this.createActions(animations, model)
+      this.scene.add(model)
     })
   }
 
@@ -41,7 +38,7 @@ export default class Robotko {
     if (this.currentAction) this.currentAction.play()
   }
 
-  changeAction(action, duration) {
+  startAction(action, duration) {
     this.previousAction = this.currentAction
     this.currentAction = action
     if (this.previousAction !== this.currentAction)
@@ -55,13 +52,7 @@ export default class Robotko {
       if (isNaN(num)) return
       const keys = Object.keys(this.actions)
       const action = this.actions[keys[num]]
-      this.changeAction(action)
-    })
-
-    document.addEventListener('click', () => {
-      const keys = Object.keys(this.actions)
-      const action = this.actions[keys[a++ % keys.length]]
-      this.changeAction(action)
+      this.startAction(action)
     })
   }
 
