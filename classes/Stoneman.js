@@ -44,7 +44,7 @@ export default class Stoneman {
   }
 
   jump() {
-    this.leftHand.position.z = this.rightHand.position.z = this.leftLeg.position.z = this.rightLeg.position.z = this.size / 2
+    this.leftHand.position.z = this.rightHand.position.z = this.leftLeg.position.z = this.rightLeg.position.z = this.size * .3
   }
 
   walk() {
