@@ -4,7 +4,7 @@ import {keyboard, Stoneman} from '../classes/index.js'
 const {pressed} = keyboard
 
 /**
- * Player class, handle keyboard input and call model animations.
+ * Player class, handle keyboard input, move mesh and call model animations.
  * `Model` class should have `mesh` property and animations methods
  */
 export default class Avatar {
@@ -19,11 +19,11 @@ export default class Avatar {
     this.position.set(x, y, z)
   }
 
-  checkKeys(delta) {
-    if (!keyboard.totalPressed) {
-      this.model.idle()
-      return
-    }
+  /**
+   * Check user input and move mesh
+   */
+  move(delta) {
+    if (!keyboard.totalPressed) return
 
     const angle = Math.PI / 2 * delta
     if (pressed.KeyA) this.mesh.rotateY(angle)
@@ -37,18 +37,26 @@ export default class Avatar {
     if (pressed.KeyQ) this.mesh.translateX(-distance)
     if (pressed.KeyE) this.mesh.translateX(distance)
 
+    if (pressed.Space) this.mesh.translateY(distance * 4)
+  }
+
+  /**
+   * Check user input and call model animations
+   */
+  animate() {
+    if (!keyboard.totalPressed) return this.model.idle()
+
     if (pressed.KeyW || pressed.KeyS || pressed.KeyQ || pressed.KeyE)
       this.model.walk()
 
-    if (pressed.Space) {
-      this.mesh.translateY(distance * 4)
-      this.model.jump()
-    }
+    if (pressed.Space) this.model.jump()
   }
 
+  /**
+   * Raycast in player movement direction
+   */
   chooseRaycastVector() {
     if (pressed.Space && pressed.KeyW) return new THREE.Vector3(0, 1, -1)
-
     if (pressed.KeyW) return new THREE.Vector3(0, 0, -1)
     if (pressed.KeyS) return new THREE.Vector3(0, 0, 1)
     if (pressed.KeyA) return new THREE.Vector3(-1, 0, 0)
@@ -80,6 +88,10 @@ export default class Avatar {
     return this.mesh.rotation
   }
 
+  /**
+   * Check ground level and simulate gravity
+   * @param {miliseconds} delta
+   */
   checkGround(delta) {
     const gravity = this.speed * delta * 4
     if (!pressed.Space) this.mesh.translateY(-gravity)
@@ -95,14 +107,16 @@ export default class Avatar {
     if (this.position.y < this.groundY) this.position.y = this.groundY
   }
 
-  /*
-    @param solids: mesh group, array or single mesh
-  */
-  addSolid(prop, ...solids) {
+  /**
+   * Add solid objects for player to collide
+   * @param {string} type grounds or surroundings
+   * @param {any} solids mesh group, array or a single mesh
+   */
+  addSolid(type, ...solids) {
     solids.forEach(solid => {
-      if (solid.children && solid.children.length) this[prop].push(...solid.children)
-      else if (solid.length) this[prop].push(...solid)
-      else this[prop].push(solid)
+      if (solid.children && solid.children.length) this[type].push(...solid.children)
+      else if (solid.length) this[type].push(...solid)
+      else this[type].push(solid)
     })
   }
 
@@ -115,7 +129,8 @@ export default class Avatar {
   }
 
   update(delta) {
-    this.checkKeys(delta)
     this.checkGround(delta)
+    this.move(delta)
+    this.animate()
   }
 }
