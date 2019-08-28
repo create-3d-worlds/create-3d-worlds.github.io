@@ -1,7 +1,9 @@
+// https://mugen87.github.io/yuka/examples/fsm/
+// https://mugen87.github.io/yuka/examples/goal/
 import {scene, camera, renderer, clock, createOrbitControls} from '../utils/scene.js'
 import {createSpiralStairs} from '../utils/boxes.js'
 import {createFloor} from '../utils/floor.js'
-import {Player, Dupechesh, Ratamahatta, Robotko, Girl} from '../classes/index.js'
+import {Player, Dupechesh, Ratamahatta, Robotko, Girl, GirlModern} from '../classes/index.js'
 
 // createOrbitControls()
 camera.position.z = 40
@@ -16,7 +18,7 @@ const player = new Player(100, 50, -50, 20, mesh => {
   mesh.rotateY(Math.PI)
   mesh.add(camera)
   scene.add(mesh)
-}, Robotko)
+}, GirlModern)
 player.addGround(floor, stairs)
 player.addSurrounding(stairs)
 

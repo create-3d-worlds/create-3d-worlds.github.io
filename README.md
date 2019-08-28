@@ -63,7 +63,9 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 
 - [x] dodati 3d model
 - [x] dodati animirani 3d model
-  - [ ] kontrolama menjati animacije (kretanje, trčanje, skok...)
+  - [x] ucitati fbx zensku iz rpg-a
+    - https://threejs.org/examples/webgl_loader_fbx.html
+  - [x] kontrolama menjati animacije (kretanje, trčanje, skok...)
   - [ ] da se vide ruke iz prvog lica
     - https://mugen87.github.io/yuka/examples/entity/shooter/
     - https://mugen87.github.io/yuka/examples/playground/hideAndSeek/
@@ -101,10 +103,10 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 
 ### Ostalo
 
-- [ ] dodati nebo/zvezde
+- [ ] Dodati panoramu (skybox) nebo/zvezde
 - [ ] probati VR
   - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
-- [ ] Dodati panoramu (skybox)
+- [ ] dodati preloader (ima u 3D-RPG-Game-With-THREE.js)
 - [ ] naci vismapu sutjeske
   - http://www.smartjava.org/content/threejs-render-real-world-terrain-heightmap-using-open-data/
   - https://blog.mapbox.com/bringing-3d-terrain-to-the-browser-with-three-js-410068138357

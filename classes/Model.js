@@ -1,10 +1,12 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
 import { MD2Loader } from '../node_modules/three/examples/jsm/loaders/MD2Loader.js'
 import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js'
+import { FBXLoader } from '../node_modules/three/examples/jsm/loaders/FBXLoader.js'
 
 const textureLoader = new THREE.TextureLoader()
 const md2Loader = new MD2Loader()
 const gltfLoader = new GLTFLoader()
+const fbxLoader = new FBXLoader()
 
 let a = 0
 
@@ -18,6 +20,7 @@ export default class Model {
     this.action = null
     if (format == 'md2') this.loadMd2Model(callback, modelSrc, textureSrc, size)
     if (format == 'glb') this.loadGlbModel(callback, modelSrc, size)
+    if (format == 'fbx') this.loadFbxModel(callback, modelSrc, size)
   }
 
   loadMd2Model(callback, modelSrc, textureSrc, size) {
@@ -36,6 +39,19 @@ export default class Model {
   loadGlbModel(callback, modelSrc, size) {
     gltfLoader.load(modelSrc, ({scene: mesh, animations}) => {
       this.animations = animations
+      callback(this.prepareMesh(mesh, size, Math.PI))
+    })
+  }
+
+  loadFbxModel(callback, modelSrc, size) {
+    fbxLoader.load(modelSrc, mesh => {
+      // mesh.traverse(child => {
+      //   if (child.isMesh) {
+      //     child.castShadow = true
+      //     child.receiveShadow = true
+      //   }
+      // })
+      this.animations = mesh.animations
       callback(this.prepareMesh(mesh, size, Math.PI))
     })
   }
@@ -73,7 +89,7 @@ export default class Model {
   }
 
   changeAnimation(name, loop) {
-    // console.log(name)
+    console.log(name)
     if (!this.mixer || this.shouldNotChange(name)) return
     if (this.action) this.action.stop()
     const clip = this.animations.find(c => c.name == name)

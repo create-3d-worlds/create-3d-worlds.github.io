@@ -54,9 +54,9 @@ export default class Player {
    * Check user input and call model animations
    */
   animate() {
-    if (!keyboard.totalPressed)
-      this.model.idle()
-    else if (pressed.ShiftLeft && pressed.KeyW)
+    // if (!keyboard.totalPressed)
+    //   this.model.idle()
+    if (pressed.ShiftLeft && pressed.KeyW)
       this.model.crwalk()
     else if (pressed.ShiftLeft)
       this.model.crstand()
@@ -116,6 +116,7 @@ export default class Player {
       if (intersects[0]) this.groundY = intersects[0].point.y
     }
 
+    // TODO: srediti trzaj na stepenicama, kada se tlo nadje iznad y
     if (this.position.y < this.groundY) this.position.y = this.groundY
   }
 

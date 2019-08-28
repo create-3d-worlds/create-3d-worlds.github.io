@@ -6,6 +6,7 @@ import Dupechesh from './Dupechesh.js'
 import Ratamahatta from './Ratamahatta.js'
 import Robotko from './Robotko.js'
 import Girl from './Girl.js'
+import GirlModern from './GirlModern.js'
 
 export {
   keyboard,
@@ -15,5 +16,6 @@ export {
   Dupechesh,
   Ratamahatta,
   Robotko,
-  Girl
+  Girl,
+  GirlModern
 }
