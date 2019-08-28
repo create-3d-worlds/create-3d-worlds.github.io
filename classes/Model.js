@@ -10,36 +10,43 @@ let a = 0
  * Model class pass `mesh` to onLoad callback, and has animation methods.
  */
 export default class Model {
-  constructor(onLoad, modelSrc = `${baseDir}ogro.md2`, textureSrc = `${baseDir}skins/arboshak.png`) {
+  constructor(onLoad, modelSrc = `${baseDir}ogro.md2`, textureSrc = `${baseDir}skins/arboshak.png`, size = 35) {
     this.mixer = null
     this.action = null
-    this.loadModel(onLoad, modelSrc, textureSrc)
+    this.loadModel(onLoad, modelSrc, textureSrc, size)
   }
 
-  loadModel(onLoad, modelSrc, textureSrc) {
+  loadModel(onLoad, modelSrc, textureSrc, size) {
     const group = new THREE.Group()
     const texture = textureLoader.load(textureSrc)
     modelLoader.load(modelSrc, geometry => {
-      const {animations} = geometry
-      this.animations = animations
+      this.animations = geometry.animations
       const material = new THREE.MeshLambertMaterial({
         map: texture,
         morphTargets: true,
       })
       const mesh = new THREE.Mesh(geometry, material)
-      mesh.scale.set(.5, .5, .5)
-      const box = new THREE.Box3().setFromObject(mesh)
-      const bottom = box.min.y < 0 ? Math.abs(box.min.y) : 0
-      mesh.rotateY(Math.PI / 2)
-      mesh.translateY(bottom)
+      this.scaleMesh(mesh, size)
+      this.translateY(mesh)
 
       this.mixer = new THREE.AnimationMixer(mesh)
-      // this.changeAnimation('run')
-      this.addEvent()
-
-      group.add(mesh)
-      onLoad(group)
+      this.debugAnimations()
+      onLoad(group.add(mesh))
     })
+  }
+
+  scaleMesh(mesh, size) {
+    const box = new THREE.Box3().setFromObject(mesh)
+    const height = box.max.y - box.min.y
+    const scale = size / height
+    mesh.scale.set(scale, scale, scale)
+  }
+
+  translateY(mesh) {
+    const scaledBox = new THREE.Box3().setFromObject(mesh)
+    const bottom = scaledBox.min.y < 0 ? Math.abs(scaledBox.min.y) : 0
+    mesh.rotateY(Math.PI / 2)
+    mesh.translateY(bottom)
   }
 
   shouldNotChange(name) {
@@ -59,7 +66,7 @@ export default class Model {
     this.action.play()
   }
 
-  addEvent() {
+  debugAnimations() {
     document.addEventListener('click', () => {
       const {name} = this.animations[a++ % this.animations.length]
       this.changeAnimation(name)

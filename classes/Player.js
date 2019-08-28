@@ -17,7 +17,7 @@ export default class Player {
       this.mesh = mesh
       mesh.position.set(x, y, z)
       onLoad(mesh)
-    })
+    }, undefined, undefined, 30)
   }
 
   /**
