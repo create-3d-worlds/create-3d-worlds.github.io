@@ -1,8 +1,10 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
 import { MD2Loader } from '../node_modules/three/examples/jsm/loaders/MD2Loader.js'
+import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js'
 
 const textureLoader = new THREE.TextureLoader()
-const modelLoader = new MD2Loader()
+const md2Loader = new MD2Loader()
+const gltfLoader = new GLTFLoader()
 
 let a = 0
 
@@ -11,16 +13,17 @@ let a = 0
  * @param callback is used to pass `mesh` to the scene.
  */
 export default class Model {
-  constructor(callback, modelSrc, textureSrc, size = 35) {
+  constructor(callback, modelSrc, textureSrc, size = 35, format = 'md2') {
     this.mixer = null
     this.action = null
-    this.loadModel(callback, modelSrc, textureSrc, size)
+    if (format == 'md2') this.loadMd2Model(callback, modelSrc, textureSrc, size)
+    if (format == 'glb') this.loadGlbModel(callback, modelSrc, size)
   }
 
-  loadModel(callback, modelSrc, textureSrc, size) {
+  loadMd2Model(callback, modelSrc, textureSrc, size) {
     const group = new THREE.Group()
     const texture = textureLoader.load(textureSrc)
-    modelLoader.load(modelSrc, geometry => {
+    md2Loader.load(modelSrc, geometry => {
       this.animations = geometry.animations
       const material = new THREE.MeshLambertMaterial({
         map: texture,
@@ -30,6 +33,19 @@ export default class Model {
       this.scaleMesh(mesh, size)
       this.translateY(mesh)
       mesh.rotateY(Math.PI / 2)
+      this.mixer = new THREE.AnimationMixer(mesh)
+      this.debugAnimations()
+      callback(group.add(mesh))
+    })
+  }
+
+  loadGlbModel(callback, modelSrc, size) {
+    const group = new THREE.Group()
+    gltfLoader.load(modelSrc, ({scene: mesh, animations}) => {
+      this.animations = animations
+      this.scaleMesh(mesh, size)
+      this.translateY(mesh)
+      mesh.rotateY(Math.PI)
       this.mixer = new THREE.AnimationMixer(mesh)
       this.debugAnimations()
       callback(group.add(mesh))
