@@ -1,5 +1,5 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
-import {keyboard, Stoneman} from '../classes/index.js'
+import {keyboard, Kamenko} from '../classes/index.js'
 
 const {pressed} = keyboard
 
@@ -14,7 +14,7 @@ export default class Avatar {
     this.grounds = []
     this.surroundings = []
     this.groundY = 0
-    this.model = new Stoneman(size, stoneSkin)
+    this.model = new Kamenko(size, stoneSkin)
     this.mesh = this.model.mesh // ukloniti mesh
     this.position.set(x, y, z)
   }

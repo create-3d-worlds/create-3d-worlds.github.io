@@ -4,7 +4,7 @@ import {clock} from '../utils/scene.js'
 /**
  * Model class has methods for animations and `mesh` property for scene
  */
-export default class Stoneman {
+export default class Kamenko {
   constructor(size, stoneSkin = true) {
     this.size = size
     this.mesh = this.createMesh(stoneSkin)

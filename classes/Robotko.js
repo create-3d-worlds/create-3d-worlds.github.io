@@ -1,62 +1,47 @@
 // https://threejs.org/examples/webgl_animation_skinning_morph.html
 import * as THREE from '../node_modules/three/build/three.module.js'
+import Model from './Model.js'
 import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js'
 
-const loopOnce = ['Death', 'Sitting', 'Standing', 'Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp', 'WalkJump']
+const loader = new GLTFLoader()
 
-export default class Robotko {
-  constructor(scene) {
-    this.scene = scene
-    this.actions = {}
-    this.mixer = null
-    this.currentAction = null
-    this.previousAction = null
-    this.loadModel()
-    this.addEvents()
+export default class Robotko extends Model {
+  constructor(callback, size) {
+    super(callback, '../assets/models/robot.glb', null, size)
   }
 
-  // moze: robot.glb, girl.glb, izzy_female_character/scene.gltf, male_adventurer/scene.gltf
-  loadModel() {
-    const loader = new GLTFLoader()
-    loader.load('../assets/models/robot.glb', ({scene: model, animations}) => {
-      this.createActions(animations, model)
-      this.scene.add(model)
+  loadModel(callback, modelSrc, textureSrc, size) {
+    const group = new THREE.Group()
+    loader.load(modelSrc, ({scene: mesh, animations}) => {
+      this.animations = animations
+      this.scaleMesh(mesh, size)
+      this.translateY(mesh)
+      mesh.rotateY(Math.PI)
+      this.mixer = new THREE.AnimationMixer(mesh)
+      this.debugAnimations()
+      callback(group.add(mesh))
     })
   }
 
-  createActions(animations, model) {
-    this.mixer = new THREE.AnimationMixer(model)
-    animations.forEach(clip => {
-      const action = this.mixer.clipAction(clip)
-      this.actions[clip.name] = action
-      if (loopOnce.includes(clip.name)) {
-        action.clampWhenFinished = true
-        action.loop = THREE.LoopOnce
-      }
-    })
-    this.currentAction = this.actions[Object.keys(this.actions)[0]]
-    if (this.currentAction) this.currentAction.play()
+  idle() {
+    // Idle, Dance, Wave
+    this.changeAnimation('Idle', THREE.LoopRepeat)
   }
 
-  startAction(action, duration) {
-    this.previousAction = this.currentAction
-    this.currentAction = action
-    if (this.previousAction !== this.currentAction)
-      this.previousAction.fadeOut(duration)
-    this.currentAction.fadeIn(duration).play()
+  // Walking
+  walk() {
+    this.changeAnimation('Running', THREE.LoopRepeat)
   }
 
-  addEvents() {
-    document.addEventListener('keydown', e => {
-      const num = Number(e.key)
-      if (isNaN(num)) return
-      const keys = Object.keys(this.actions)
-      const action = this.actions[keys[num]]
-      this.startAction(action)
-    })
+  jump() {
+    this.changeAnimation('Jump', THREE.LoopOnce)
   }
 
-  upadate(delta) {
-    if (this.mixer) this.mixer.update(delta)
+  attack() {
+    this.changeAnimation('Punch', THREE.LoopOnce)
+  }
+
+  death() {
+    this.changeAnimation('Death', THREE.LoopOnce)
   }
 }
