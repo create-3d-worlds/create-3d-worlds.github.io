@@ -6,9 +6,11 @@ const baseDir = '../assets/models/ogro/'
 
 let a = 0
 
+/**
+ * Model class pass `mesh` to onLoad callback, and has animation methods.
+ */
 export default class Model {
   constructor(onLoad, modelSrc = `${baseDir}ogro.md2`, textureSrc = `${baseDir}skins/arboshak.png`) {
-    this.mesh = null
     this.mixer = null
     this.currentAnimation = null
     this.loadModel(onLoad, modelSrc, textureSrc)
@@ -17,28 +19,38 @@ export default class Model {
   loadModel(onLoad, modelSrc, textureSrc) {
     const texture = textureLoader.load(textureSrc)
     modelLoader.load(modelSrc, geometry => {
+      const group = new THREE.Group()
       const {animations} = geometry
-
+      this.animations = animations
       const material = new THREE.MeshLambertMaterial({
-        color: 0xffffff,
-        wireframe: false,
         map: texture,
         morphTargets: true,
         morphNormals: true
       })
-      this.mesh = new THREE.Mesh(geometry, material)
+      const mesh = new THREE.Mesh(geometry, material)
+      mesh.scale.set(.5, .5, .5)
+      const box = new THREE.Box3().setFromObject(mesh)
+      const bottom = box.min.y < 0 ? Math.abs(box.min.y) : 0
+      mesh.rotateY(Math.PI / 2)
+      mesh.translateY(bottom)
 
-      this.mixer = new THREE.AnimationMixer(this.mesh)
+      this.mixer = new THREE.AnimationMixer(mesh)
       this.currentAnimation = animations[0]
       this.mixer.clipAction(this.currentAnimation).play()
-      onLoad(this.mesh)
 
-      document.addEventListener('click', () => {
-        if (this.currentAnimation) this.mixer.clipAction(this.currentAnimation).stop()
-        this.currentAnimation = animations[++a % animations.length]
-        console.log(this.currentAnimation)
-        this.mixer.clipAction(this.currentAnimation).play()
-      })
+      this.handleAnimation()
+
+      group.add(mesh)
+      onLoad(group)
+    })
+  }
+
+  handleAnimation() {
+    document.addEventListener('click', () => {
+      if (this.currentAnimation) this.mixer.clipAction(this.currentAnimation).stop()
+      this.currentAnimation = this.animations[++a % this.animations.length]
+      console.log(this.currentAnimation)
+      this.mixer.clipAction(this.currentAnimation).play()
     })
   }
 

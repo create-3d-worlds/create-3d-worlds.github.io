@@ -1,13 +1,13 @@
 import {scene, camera, renderer, clock} from '../utils/scene.js'
 import {createSpiralStairs} from '../utils/boxes.js'
-import {createTerrain} from '../utils/floor.js'
+import {createFloor} from '../utils/floor.js'
 import Player from '../classes/Player.js'
 
 camera.position.z = 40
 camera.position.y = 20
 
-const terrain = createTerrain()
-scene.add(terrain)
+const floor = createFloor()
+scene.add(floor)
 const stairs = createSpiralStairs(5, 40, 40)
 scene.add(stairs)
 
@@ -16,7 +16,7 @@ const avatar = new Player(100, 50, -50, 10, mesh => {
   mesh.add(camera)
   scene.add(mesh)
 })
-avatar.addGround(terrain, stairs)
+avatar.addGround(floor, stairs)
 avatar.addSurrounding(stairs)
 
 /* LOOP */

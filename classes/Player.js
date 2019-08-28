@@ -4,8 +4,7 @@ import {keyboard, Model} from '../classes/index.js'
 const {pressed} = keyboard
 
 /**
- * Player class, handle keyboard input, move mesh and call model animations.
- * `Model` class should have `mesh` property and animate methods
+ * Player class handle keyboard input, move mesh and call model animations.
  */
 export default class Player {
   constructor(x = 0, y = 0, z = 0, size = 35, onLoad) {
@@ -26,22 +25,21 @@ export default class Player {
    */
   move(delta) {
     if (!keyboard.totalPressed) return
-    const {mesh} = this.model
-    if (!mesh)return
+    if (!this.mesh) return
 
     const angle = Math.PI / 2 * delta
-    if (pressed.KeyA) mesh.rotateY(angle)
-    if (pressed.KeyD) mesh.rotateY(-angle)
+    if (pressed.KeyA) this.mesh.rotateY(angle)
+    if (pressed.KeyD) this.mesh.rotateY(-angle)
 
     if (this.surroundings.length && this.isCollide(this.surroundings)) return
 
     const distance = this.speed * delta // speed (in pixels) per second
-    if (pressed.KeyW) mesh.translateZ(-distance)
-    if (pressed.KeyS) mesh.translateZ(distance)
-    if (pressed.KeyQ) mesh.translateX(-distance)
-    if (pressed.KeyE) mesh.translateX(distance)
+    if (pressed.KeyW) this.mesh.translateZ(-distance)
+    if (pressed.KeyS) this.mesh.translateZ(distance)
+    if (pressed.KeyQ) this.mesh.translateX(-distance)
+    if (pressed.KeyE) this.mesh.translateX(distance)
 
-    if (pressed.Space) mesh.translateY(distance * 4)
+    if (pressed.Space) this.mesh.translateY(distance * 4)
   }
 
   /**
