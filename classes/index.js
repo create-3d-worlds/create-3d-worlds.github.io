@@ -6,6 +6,7 @@ import Player from './Player.js'
 import Dupechesh from './Dupechesh.js'
 import Ratamahatta from './Ratamahatta.js'
 import Robotko from './Robotko.js'
+import Girl from './Girl.js'
 
 export {
   keyboard,
@@ -15,5 +16,6 @@ export {
   Player,
   Dupechesh,
   Ratamahatta,
-  Robotko
+  Robotko,
+  Girl
 }
