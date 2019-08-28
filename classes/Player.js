@@ -1,4 +1,4 @@
-import {keyboard, Dupechesh, Ratamahatta} from '../classes/index.js'
+import {keyboard, Dupechesh, Ratamahatta, Robot} from '../classes/index.js'
 
 const {pressed} = keyboard
 
@@ -12,7 +12,7 @@ export default class Player {
     this.grounds = []
     this.surroundings = []
     this.groundY = 0
-    this.model = new Ratamahatta(mesh => {
+    this.model = new Robot(mesh => {
       this.mesh = mesh
       mesh.position.set(x, y, z)
       onLoad(mesh)

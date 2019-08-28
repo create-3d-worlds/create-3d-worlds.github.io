@@ -27,7 +27,7 @@ export default class Model {
       const mesh = new THREE.Mesh(geometry, material)
       this.scaleMesh(mesh, size)
       this.translateY(mesh)
-
+      mesh.rotateY(Math.PI / 2)
       this.mixer = new THREE.AnimationMixer(mesh)
       this.debugAnimations()
       onLoad(group.add(mesh))
@@ -44,7 +44,6 @@ export default class Model {
   translateY(mesh) {
     const scaledBox = new THREE.Box3().setFromObject(mesh)
     const bottom = scaledBox.min.y < 0 ? Math.abs(scaledBox.min.y) : 0
-    mesh.rotateY(Math.PI / 2)
     mesh.translateY(bottom)
   }
 
@@ -57,19 +56,13 @@ export default class Model {
   }
 
   changeAnimation(name, loop) {
+    // console.log(name)
     if (!this.mixer || this.shouldNotChange(name)) return
-    console.log(name)
     if (this.action) this.action.stop()
-    this.action = this.mixer.clipAction(name)
+    const clip = this.animations.find(c => c.name == name)
+    this.action = this.mixer.clipAction(clip)
     this.action.setLoop(loop)
     this.action.play()
-  }
-
-  debugAnimations() {
-    document.addEventListener('click', () => {
-      const {name} = this.animations[a++ % this.animations.length]
-      this.changeAnimation(name)
-    })
   }
 
   idle() {
@@ -78,6 +71,10 @@ export default class Model {
 
   walk() {
     this.changeAnimation('walk', THREE.LoopRepeat)
+  }
+
+  run() {
+    this.changeAnimation('run', THREE.LoopRepeat)
   }
 
   jump() {
@@ -92,8 +89,19 @@ export default class Model {
     this.changeAnimation('crwalk', THREE.LoopRepeat)
   }
 
+  attack() {
+    this.changeAnimation('attack', THREE.LoopOnce)
+  }
+
   death() {
     this.changeAnimation('death', THREE.LoopOnce)
+  }
+
+  debugAnimations() {
+    document.addEventListener('click', () => {
+      const {name} = this.animations[a++ % this.animations.length]
+      this.changeAnimation(name)
+    })
   }
 
   update(delta) {
