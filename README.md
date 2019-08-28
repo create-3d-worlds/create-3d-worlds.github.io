@@ -76,7 +76,7 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
   - [x] srediti skok i padanje
 - [x] odvojiti mesh od Avatara
 - [x] odvojiti klase Player i Model
-- [ ] napraviti izvedene klase koje nasledjuju Model (Dupechesh, Robotko i sl)
+- [ ] napraviti izvedene klase koje nasledjuju Model (Dupechesh, Robotko, Girl i sl)
 - [ ] spojiti klase Avatar i Player
 
 ### Physics
