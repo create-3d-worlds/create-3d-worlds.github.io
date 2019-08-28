@@ -2,7 +2,7 @@ import {scene, renderer, camera, clock, createOrbitControls} from '../utils/scen
 import {createWater} from '../utils/floor.js'
 import {createTreesOnTerrain} from '../utils/trees.js'
 import {createHillyTerrain} from '../utils/createHillyTerrain.js'
-import Avatar from '../classes/Avatar.js'
+import Player from '../classes/Player.js'
 
 createOrbitControls()
 camera.position.y = 150
@@ -12,7 +12,7 @@ const ground = createHillyTerrain()
 scene.add(ground)
 scene.add(createTreesOnTerrain(ground))
 
-const avatar = new Avatar()
+const avatar = new Player()
 avatar.addGround(ground)
 scene.add(avatar.mesh)
 

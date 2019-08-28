@@ -1,12 +1,12 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
-import {keyboard} from '../classes/index.js'
+import {keyboard, Kamenko} from '../classes/index.js'
 
 const {pressed} = keyboard
 
 /**
  * Player class handle user input, move mesh and call model animations.
- * @param callback is used to pass `mesh` to the scene.
  * @param ModelSubclass is used to create a `mesh`.
+ * @param callback is used to pass `mesh` to the scene.
  */
 export default class Player {
   constructor(x = 0, y = 0, z = 0, size = 35, callback, ModelSubclass) {
@@ -15,11 +15,17 @@ export default class Player {
     this.grounds = []
     this.surroundings = []
     this.groundY = 0
-    this.model = new ModelSubclass(mesh => {
-      this.mesh = mesh
-      mesh.position.set(x, y, z)
-      callback(mesh)
-    }, size)
+    if (typeof callback === 'function')
+      this.model = new ModelSubclass(mesh => {
+        this.mesh = mesh
+        mesh.position.set(x, y, z)
+        callback(mesh)
+      }, size)
+    else {
+      this.model = new Kamenko(size, callback)
+      this.mesh = this.model.mesh
+      this.mesh.position.set(x, y, z)
+    }
   }
 
   /**
@@ -89,6 +95,10 @@ export default class Player {
     return this.mesh.position
   }
 
+  add(obj) {
+    this.mesh.add(obj)
+  }
+
   /**
    * Check ground level and simulate gravity
    * @param {miliseconds} delta
@@ -134,6 +144,6 @@ export default class Player {
     this.checkGround(delta)
     this.move(delta)
     this.animate()
-    this.model.update(delta)
+    if (this.model.update) this.model.update(delta)
   }
 }

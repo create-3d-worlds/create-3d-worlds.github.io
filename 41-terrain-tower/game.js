@@ -2,7 +2,7 @@ import * as THREE from '../node_modules/three/build/three.module.js'
 import {scene, camera, renderer, clock} from '../utils/scene.js'
 import {createStair} from '../utils/boxes.js'
 import {createTerrain} from '../utils/floor.js'
-import Avatar from '../classes/Avatar.js'
+import Player from '../classes/Player.js'
 
 camera.position.z = 40
 camera.position.y = 20
@@ -33,7 +33,7 @@ const tower = createTower(6)
 const terrain = createTerrain()
 scene.add(terrain, tower)
 
-const avatar = new Avatar(120, 10, 0, 5, false)
+const avatar = new Player(120, 10, 0, 5, false)
 avatar.add(camera)
 avatar.addGround(terrain, tower)
 avatar.addSurrounding(tower)

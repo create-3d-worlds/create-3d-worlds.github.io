@@ -1,5 +1,5 @@
 import {scene, renderer, camera, clock} from '../utils/scene.js'
-import Avatar from '../classes/Avatar.js'
+import Player from '../classes/Player.js'
 import Tilemap3D from '../classes/Tilemap3D.js'
 import {nemesis as map} from '../data/maps.js'
 
@@ -8,7 +8,7 @@ scene.add(tilemap.createFloor())
 const walls = tilemap.createWalls()
 scene.add(walls)
 
-const avatar = new Avatar(25, 0, 25, 15)
+const avatar = new Player(25, 0, 25, 15)
 scene.add(avatar.mesh)
 avatar.addSurrounding(walls)
 
