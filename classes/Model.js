@@ -5,7 +5,6 @@ const modelLoader = new MD2Loader()
 const baseDir = '../assets/models/ogro/'
 
 let a = 0
-// Dupechesh animations: stand, run, attack, paina, painb, painc, jump, flip, salute_alt, bumflop, wavealt, sniffsniff, cstand001f, cstand002f, cstand003f, cstand004f, cstand005f, cstand006f, cstand007f, cstand008f, cstand009f, cstand010f, cstand011f, cstand012f, cstand013f, cstand014f, cstand015f, cstand016f, cstand017f, cstand018f, cstand019f, cwalk0009f, cwalk0019f, cwalk0029f, cwalk0039f, cwalk0049f, cwalk0059f, crattack, crpain, crdeath, deatha, deathb, deathc, boomhc
 
 /**
  * Model class pass `mesh` to onLoad callback, and has animation methods.
