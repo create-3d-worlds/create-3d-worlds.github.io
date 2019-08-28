@@ -1,15 +1,15 @@
 // https://threejs.org/examples/webgl_loader_md2_control.html
 import Model from './Model.js'
 
-const baseDir = '../assets/models/ogro/'
+const baseDir = '../assets/models/ratamahatta/'
 
-export default class Dupechesh extends Model {
+export default class Ratamahatta extends Model {
   constructor(onLoad, size) {
-    super(onLoad, `${baseDir}ogro.md2`, `${baseDir}skins/arboshak.png`, size)
+    super(onLoad, `${baseDir}ratamahatta.md2`, `${baseDir}skins/ratamahatta.png`, size)
   }
 
   idle() {
-    // stand, flip, salute_alt
+    // flip, salute, taunt
     this.changeAnimation('stand', THREE.LoopRepeat)
   }
 
@@ -22,11 +22,7 @@ export default class Dupechesh extends Model {
   }
 
   death() {
-    // crdeath, deatha, deathb, deathc
+    // crdeath, death
     this.changeAnimation('deathc', THREE.LoopOnce)
-  }
-
-  chesh() {
-    this.changeAnimation('flip', THREE.LoopRepeat)
   }
 }

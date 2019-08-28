@@ -3,7 +3,7 @@ import {createSpiralStairs} from '../utils/boxes.js'
 import {createFloor} from '../utils/floor.js'
 import Player from '../classes/Player.js'
 
-createOrbitControls()
+// createOrbitControls()
 camera.position.z = 40
 camera.position.y = 20
 

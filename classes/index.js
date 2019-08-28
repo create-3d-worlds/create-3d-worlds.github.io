@@ -4,6 +4,7 @@ import Stoneman from './Stoneman.js'
 import Model from './Model.js'
 import Player from './Player.js'
 import Dupechesh from './Dupechesh.js'
+import Ratamahatta from './Ratamahatta.js'
 
 export {
   keyboard,
@@ -11,5 +12,6 @@ export {
   Stoneman,
   Model,
   Player,
-  Dupechesh
+  Dupechesh,
+  Ratamahatta
 }

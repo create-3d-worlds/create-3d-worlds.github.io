@@ -58,7 +58,7 @@ export default class Model {
 
   changeAnimation(name, loop) {
     if (!this.mixer || this.shouldNotChange(name)) return
-    // console.log(name)
+    console.log(name)
     if (this.action) this.action.stop()
     this.action = this.mixer.clipAction(name)
     this.action.setLoop(loop)
@@ -82,6 +82,14 @@ export default class Model {
 
   jump() {
     this.changeAnimation('jump', THREE.LoopOnce)
+  }
+
+  crstand() {
+    this.changeAnimation('crstand', THREE.LoopRepeat)
+  }
+
+  crwalk() {
+    this.changeAnimation('crwalk', THREE.LoopRepeat)
   }
 
   death() {

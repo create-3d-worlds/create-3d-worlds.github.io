@@ -101,6 +101,7 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 
 ### Ostalo
 
+- [ ] dodati nebo/zvezde
 - [ ] probati VR
   - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
 - [ ] Dodati panoramu (skybox)

@@ -1,4 +1,4 @@
-import {keyboard, Dupechesh} from '../classes/index.js'
+import {keyboard, Dupechesh, Ratamahatta} from '../classes/index.js'
 
 const {pressed} = keyboard
 
@@ -12,7 +12,7 @@ export default class Player {
     this.grounds = []
     this.surroundings = []
     this.groundY = 0
-    this.model = new Dupechesh(mesh => {
+    this.model = new Ratamahatta(mesh => {
       this.mesh = mesh
       mesh.position.set(x, y, z)
       onLoad(mesh)
@@ -45,12 +45,17 @@ export default class Player {
    * Check user input and call model animations
    */
   animate() {
-    if (!keyboard.totalPressed) return this.model.idle()
+    // if (!keyboard.totalPressed) return this.model.idle()
+    if (pressed.ShiftLeft && pressed.KeyW) this.model.crwalk()
 
-    if (pressed.KeyW || pressed.KeyS || pressed.KeyQ || pressed.KeyE)
+    else if (pressed.ShiftLeft) this.model.crstand()
+
+    else if (pressed.KeyW || pressed.KeyS || pressed.KeyQ || pressed.KeyE)
       this.model.walk()
 
-    if (pressed.Space) this.model.jump()
+    // if (pressed.Space) this.model.jump()
+
+
   }
 
   /**
