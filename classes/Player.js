@@ -1,3 +1,4 @@
+import * as THREE from '../node_modules/three/build/three.module.js'
 import {keyboard} from '../classes/index.js'
 
 const {pressed} = keyboard

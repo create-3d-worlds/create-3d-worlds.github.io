@@ -1,3 +1,4 @@
+import * as THREE from '../node_modules/three/build/three.module.js'
 import { scene, renderer, camera, createOrbitControls} from '../utils/scene.js'
 import { randomInRange } from '../utils/helpers.js'
 import {createWater} from '../utils/floor.js'

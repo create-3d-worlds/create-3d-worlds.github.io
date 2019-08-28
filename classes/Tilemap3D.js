@@ -1,3 +1,5 @@
+import * as THREE from '../node_modules/three/build/three.module.js'
+
 export default class Tilemap3D {
   constructor(matrix, unitSize = 250) {
     this.matrix = matrix
@@ -29,7 +31,7 @@ export default class Tilemap3D {
       new THREE.MeshLambertMaterial({map: loader.load('../assets/textures/concrete.jpg')}),
       new THREE.MeshLambertMaterial({color: 0xFBEBCD}),
     ]
-    for (let i = 0; i < this.mHeight; i++) 
+    for (let i = 0; i < this.mHeight; i++)
       for (let j = 0, m = this.mWidth; j < m; j++) {
         if (!this.matrix[i][j]) continue
         const wall = new THREE.Mesh(cube, materials[this.matrix[i][j] - 1])

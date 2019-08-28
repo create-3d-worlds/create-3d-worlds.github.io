@@ -1,4 +1,5 @@
 // https://threejs.org/examples/webgl_animation_skinning_morph.html
+import * as THREE from '../node_modules/three/build/three.module.js'
 import Model from './Model.js'
 import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js'
 

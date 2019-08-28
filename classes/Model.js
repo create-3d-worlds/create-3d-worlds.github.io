@@ -1,3 +1,4 @@
+import * as THREE from '../node_modules/three/build/three.module.js'
 import { MD2Loader } from '../node_modules/three/examples/jsm/loaders/MD2Loader.js'
 
 const textureLoader = new THREE.TextureLoader()

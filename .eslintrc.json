@@ -4,9 +4,6 @@
     "node": true,
     "es6": true
   },
-  "globals": {
-    "THREE": false
-  },
   "rules": {
     "arrow-body-style": ["error", "as-needed"],
     "arrow-parens": ["warn", "as-needed"],

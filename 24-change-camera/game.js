@@ -1,3 +1,4 @@
+import * as THREE from '../node_modules/three/build/three.module.js'
 import { scene, renderer, clock, camera } from '../utils/scene.js'
 import { createFloor } from '../utils/floor.js'
 import {createFirTrees} from '../utils/trees.js'

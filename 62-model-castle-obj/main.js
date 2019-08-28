@@ -1,3 +1,4 @@
+import * as THREE from '../node_modules/three/build/three.module.js'
 import { OBJLoader } from '../node_modules/three/examples/jsm/loaders/OBJLoader.js'
 import { scene, renderer, camera, createOrbitControls} from '../utils/scene.js'
 import {createHillyTerrain} from '../utils/createHillyTerrain.js'

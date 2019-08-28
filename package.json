@@ -4,7 +4,7 @@
   "description": "Create a role-playing game!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint . --fix"
   },
   "repository": {
     "type": "git",
