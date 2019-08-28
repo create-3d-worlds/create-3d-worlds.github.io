@@ -1,8 +1,9 @@
-import {scene, camera, renderer, clock} from '../utils/scene.js'
+import {scene, camera, renderer, clock, createOrbitControls} from '../utils/scene.js'
 import {createSpiralStairs} from '../utils/boxes.js'
 import {createFloor} from '../utils/floor.js'
 import Player from '../classes/Player.js'
 
+createOrbitControls()
 camera.position.z = 40
 camera.position.y = 20
 
