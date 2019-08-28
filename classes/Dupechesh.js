@@ -4,8 +4,8 @@ import Model from './Model.js'
 const baseDir = '../assets/models/ogro/'
 
 export default class Dupechesh extends Model {
-  constructor(onLoad, size) {
-    super(onLoad, `${baseDir}ogro.md2`, `${baseDir}skins/arboshak.png`, size)
+  constructor(callback, size) {
+    super(callback, `${baseDir}ogro.md2`, `${baseDir}skins/arboshak.png`, size)
   }
 
   idle() {

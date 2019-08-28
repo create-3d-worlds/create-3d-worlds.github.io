@@ -1,22 +1,24 @@
-import {keyboard, Dupechesh, Ratamahatta, Robot} from '../classes/index.js'
+import {keyboard} from '../classes/index.js'
 
 const {pressed} = keyboard
 
 /**
- * Player class handle keyboard input, move mesh and call model animations.
+ * Player class handle user input, move mesh and call model animations.
+ * @param callback is used to pass `mesh` to the scene.
+ * @param ModelSubclass is used to create a `mesh`.
  */
 export default class Player {
-  constructor(x = 0, y = 0, z = 0, size = 35, onLoad) {
+  constructor(x = 0, y = 0, z = 0, size = 35, callback, ModelSubclass) {
     this.size = size
     this.speed = size * 4
     this.grounds = []
     this.surroundings = []
     this.groundY = 0
-    this.model = new Robot(mesh => {
+    this.model = new ModelSubclass(mesh => {
       this.mesh = mesh
       mesh.position.set(x, y, z)
-      onLoad(mesh)
-    }, 30)
+      callback(mesh)
+    }, size)
   }
 
   /**

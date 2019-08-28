@@ -6,16 +6,17 @@ const modelLoader = new MD2Loader()
 let a = 0
 
 /**
- * Model class pass `mesh` to onLoad callback, and has animation methods.
+ * Base (abstract) class for load and animate 3D models.
+ * @param callback is used to pass `mesh` to the scene.
  */
 export default class Model {
-  constructor(onLoad, modelSrc, textureSrc, size = 35) {
+  constructor(callback, modelSrc, textureSrc, size = 35) {
     this.mixer = null
     this.action = null
-    this.loadModel(onLoad, modelSrc, textureSrc, size)
+    this.loadModel(callback, modelSrc, textureSrc, size)
   }
 
-  loadModel(onLoad, modelSrc, textureSrc, size) {
+  loadModel(callback, modelSrc, textureSrc, size) {
     const group = new THREE.Group()
     const texture = textureLoader.load(textureSrc)
     modelLoader.load(modelSrc, geometry => {
@@ -30,7 +31,7 @@ export default class Model {
       mesh.rotateY(Math.PI / 2)
       this.mixer = new THREE.AnimationMixer(mesh)
       this.debugAnimations()
-      onLoad(group.add(mesh))
+      callback(group.add(mesh))
     })
   }
 

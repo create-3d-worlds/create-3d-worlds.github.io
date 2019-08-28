@@ -5,11 +5,11 @@ import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoade
 const loader = new GLTFLoader()
 
 export default class Robot extends Model {
-  constructor(onLoad, size) {
-    super(onLoad, '../assets/models/robot.glb', null, size)
+  constructor(callback, size) {
+    super(callback, '../assets/models/robot.glb', null, size)
   }
 
-  loadModel(onLoad, modelSrc, textureSrc, size) {
+  loadModel(callback, modelSrc, textureSrc, size) {
     const group = new THREE.Group()
     loader.load(modelSrc, ({scene: mesh, animations}) => {
       this.animations = animations
@@ -18,7 +18,7 @@ export default class Robot extends Model {
       mesh.rotateY(Math.PI)
       this.mixer = new THREE.AnimationMixer(mesh)
       this.debugAnimations()
-      onLoad(group.add(mesh))
+      callback(group.add(mesh))
     })
   }
 

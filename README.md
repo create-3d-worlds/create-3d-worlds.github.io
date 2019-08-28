@@ -119,8 +119,6 @@ scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 3
 
 All libraries in `/libs` folder are updated by hand to support ES6 export.
 
-`Model` is base (abstract) class for loading models. `Player` use Model class as a mesh.
-
 ## Resources
 
 - [Build a basic combat game with three.js](http://www.creativebloq.com/web-design/build-basic-combat-game-threejs-101517540)

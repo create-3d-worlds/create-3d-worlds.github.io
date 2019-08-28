@@ -4,8 +4,8 @@ import Model from './Model.js'
 const baseDir = '../assets/models/ratamahatta/'
 
 export default class Ratamahatta extends Model {
-  constructor(onLoad, size) {
-    super(onLoad, `${baseDir}ratamahatta.md2`, `${baseDir}skins/ratamahatta.png`, size)
+  constructor(callback, size) {
+    super(callback, `${baseDir}ratamahatta.md2`, `${baseDir}skins/ratamahatta.png`, size)
   }
 
   idle() {
