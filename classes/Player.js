@@ -1,5 +1,4 @@
-
-import {keyboard, Model} from '../classes/index.js'
+import {keyboard, Dupechesh} from '../classes/index.js'
 
 const {pressed} = keyboard
 
@@ -13,11 +12,11 @@ export default class Player {
     this.grounds = []
     this.surroundings = []
     this.groundY = 0
-    this.model = new Model(mesh => {
+    this.model = new Dupechesh(mesh => {
       this.mesh = mesh
       mesh.position.set(x, y, z)
       onLoad(mesh)
-    }, undefined, undefined, 30)
+    }, 30)
   }
 
   /**

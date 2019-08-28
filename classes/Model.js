@@ -2,7 +2,6 @@ import { MD2Loader } from '../node_modules/three/examples/jsm/loaders/MD2Loader.
 
 const textureLoader = new THREE.TextureLoader()
 const modelLoader = new MD2Loader()
-const baseDir = '../assets/models/ogro/'
 
 let a = 0
 
@@ -10,7 +9,7 @@ let a = 0
  * Model class pass `mesh` to onLoad callback, and has animation methods.
  */
 export default class Model {
-  constructor(onLoad, modelSrc = `${baseDir}ogro.md2`, textureSrc = `${baseDir}skins/arboshak.png`, size = 35) {
+  constructor(onLoad, modelSrc, textureSrc, size = 35) {
     this.mixer = null
     this.action = null
     this.loadModel(onLoad, modelSrc, textureSrc, size)
@@ -74,12 +73,11 @@ export default class Model {
   }
 
   idle() {
-    // stand, flip, salute_alt
-    this.changeAnimation('stand', THREE.LoopRepeat)
+    this.changeAnimation('idle', THREE.LoopRepeat)
   }
 
   walk() {
-    this.changeAnimation('run', THREE.LoopRepeat)
+    this.changeAnimation('walk', THREE.LoopRepeat)
   }
 
   jump() {
@@ -87,8 +85,7 @@ export default class Model {
   }
 
   death() {
-    // crdeath, deatha, deathb, deathc
-    this.changeAnimation('deathc', THREE.LoopOnce)
+    this.changeAnimation('death', THREE.LoopOnce)
   }
 
   update(delta) {
