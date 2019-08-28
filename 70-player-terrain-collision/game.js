@@ -16,7 +16,7 @@ const player = new Player(100, 50, -50, 20, mesh => {
   mesh.rotateY(Math.PI)
   mesh.add(camera)
   scene.add(mesh)
-}, Girl)
+}, Robotko)
 player.addGround(floor, stairs)
 player.addSurrounding(stairs)
 

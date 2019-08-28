@@ -9,8 +9,8 @@ const gltfLoader = new GLTFLoader()
 let a = 0
 
 /**
- * Base (abstract) class for load and animate 3D models.
- * @param callback is used to pass `mesh` to the scene.
+ * Base (abstract) class for load and animate 3D models, for Player and NPC's.
+ * @param callback is used to pass `mesh` to the caller, and eventually to the scene.
  */
 export default class Model {
   constructor(callback, modelSrc, textureSrc, size = 35, format = 'md2') {
@@ -21,35 +21,34 @@ export default class Model {
   }
 
   loadMd2Model(callback, modelSrc, textureSrc, size) {
-    const group = new THREE.Group()
     const texture = textureLoader.load(textureSrc)
     md2Loader.load(modelSrc, geometry => {
-      this.animations = geometry.animations
       const material = new THREE.MeshLambertMaterial({
         map: texture,
         morphTargets: true,
       })
       const mesh = new THREE.Mesh(geometry, material)
-      this.scaleMesh(mesh, size)
-      this.translateY(mesh)
-      mesh.rotateY(Math.PI / 2)
-      this.mixer = new THREE.AnimationMixer(mesh)
-      this.debugAnimations()
-      callback(group.add(mesh))
+      this.animations = geometry.animations
+      callback(this.prepareMesh(mesh, size, Math.PI / 2))
     })
   }
 
   loadGlbModel(callback, modelSrc, size) {
-    const group = new THREE.Group()
     gltfLoader.load(modelSrc, ({scene: mesh, animations}) => {
       this.animations = animations
-      this.scaleMesh(mesh, size)
-      this.translateY(mesh)
-      mesh.rotateY(Math.PI)
-      this.mixer = new THREE.AnimationMixer(mesh)
-      this.debugAnimations()
-      callback(group.add(mesh))
+      callback(this.prepareMesh(mesh, size, Math.PI))
     })
+  }
+
+  prepareMesh(mesh, size, rotate) {
+    const group = new THREE.Group()
+    this.scaleMesh(mesh, size)
+    this.translateY(mesh)
+    mesh.rotateY(rotate)
+    this.mixer = new THREE.AnimationMixer(mesh)
+    this.debugAnimations()
+    group.add(mesh)
+    return group
   }
 
   scaleMesh(mesh, size) {
