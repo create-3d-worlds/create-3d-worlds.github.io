@@ -18,6 +18,7 @@ export default class Model {
   constructor(callback, modelSrc, textureSrc, size = 35, format = 'md2') {
     this.mixer = null
     this.action = null
+    this.animations = []
     if (format == 'md2') this.loadMd2Model(callback, modelSrc, textureSrc, size)
     if (format == 'glb') this.loadGlbModel(callback, modelSrc, size)
     if (format == 'fbx') this.loadFbxModel(callback, modelSrc, size)
@@ -45,12 +46,6 @@ export default class Model {
 
   loadFbxModel(callback, modelSrc, size) {
     fbxLoader.load(modelSrc, mesh => {
-      // mesh.traverse(child => {
-      //   if (child.isMesh) {
-      //     child.castShadow = true
-      //     child.receiveShadow = true
-      //   }
-      // })
       this.animations = mesh.animations
       callback(this.prepareMesh(mesh, size, Math.PI))
     })
@@ -61,6 +56,12 @@ export default class Model {
     this.scaleMesh(mesh, size)
     this.translateY(mesh)
     mesh.rotateY(rotate)
+    // mesh.traverse(child => {
+    //   if (child.isMesh) {
+    //     child.castShadow = true
+    //     child.receiveShadow = true
+    //   }
+    // })
     this.mixer = new THREE.AnimationMixer(mesh)
     this.debugAnimations()
     group.add(mesh)
@@ -114,12 +115,12 @@ export default class Model {
     this.changeAnimation('jump', THREE.LoopOnce)
   }
 
-  crstand() {
-    this.changeAnimation('crstand', THREE.LoopRepeat)
+  squat() {
+    this.changeAnimation('squat', THREE.LoopRepeat)
   }
 
-  crwalk() {
-    this.changeAnimation('crwalk', THREE.LoopRepeat)
+  squatWalk() {
+    this.changeAnimation('squatWalk', THREE.LoopRepeat)
   }
 
   attack() {

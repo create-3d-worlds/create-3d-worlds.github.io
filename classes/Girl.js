@@ -15,7 +15,7 @@ export default class Girl extends Model {
     this.changeAnimation('Character_Walk', THREE.LoopRepeat)
   }
 
-  crstand() {
+  squat() {
     this.changeAnimation('Character_Gather', THREE.LoopOnce)
   }
 

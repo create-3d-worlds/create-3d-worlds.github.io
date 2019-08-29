@@ -54,12 +54,12 @@ export default class Player {
    * Check user input and call model animations
    */
   animate() {
-    // if (!keyboard.totalPressed)
-    //   this.model.idle()
-    if (pressed.ShiftLeft && pressed.KeyW)
-      this.model.crwalk()
+    if (!keyboard.totalPressed)
+      this.model.idle()
+    else if (pressed.ShiftLeft && pressed.KeyW)
+      this.model.squatWalk()
     else if (pressed.ShiftLeft)
-      this.model.crstand()
+      this.model.squat()
     else if (pressed.Space)
       this.model.jump()
     else if (pressed.KeyW || pressed.KeyS || pressed.KeyQ || pressed.KeyE)
