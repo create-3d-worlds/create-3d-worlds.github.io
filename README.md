@@ -64,9 +64,8 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 - [x] dodati 3d model
 - [x] dodati animirani 3d model
   - [x] ucitati fbx zensku iz rpg-a
-    - https://threejs.org/examples/webgl_loader_fbx.html
   - [x] kontrolama menjati animacije (kretanje, trčanje, skok...)
-  - [ ] da se vide ruke iz prvog lica
+  - [ ] da se vide ruke iz prvog lica (savo)
     - https://mugen87.github.io/yuka/examples/entity/shooter/
     - https://mugen87.github.io/yuka/examples/playground/hideAndSeek/
 - [ ] dodati NPC karaktere
