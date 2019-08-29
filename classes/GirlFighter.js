@@ -4,7 +4,7 @@ import {FBXLoader} from '../node_modules/three/examples/jsm/loaders/FBXLoader.js
 const fbxLoader = new FBXLoader()
 const dir = '../assets/models/fbx/'
 
-export default class GirlModern extends Model {
+export default class GirlFighter extends Model {
   constructor(callback, size) {
     super(callback, `${dir}girl-walk.fbx`, null, size, 'fbx')
   }
