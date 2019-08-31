@@ -30,6 +30,7 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 - [x] omogućiti 2d kretanje kroz mapu
 - [x] omogućiti 3d kretanje kroz mapu
 - [x] dodati skakanje
+- [ ] vratiti kontrole na strelice
 
 ### Camera
 
@@ -58,6 +59,7 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 - [x] heightmap with texture
 - [x] kreirati stepenice u krug od kocki
 - [x] kreirati funkciju similarColor
+- [ ] proceduralni grad: promeniti boju krova
 
 ### 3D Models
 
@@ -84,6 +86,9 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 
 - [ ] dodati fiziku https://github.com/chandlerprall/Physijs
 - [ ] dodati fiziku na proceruralni zamak i top koji puca i rusi zidine
+- [ ] tenk (steam tenk) koji gazi prepreke
+  - http://127.0.0.1:8080/15-fizika/70-vozilo/
+  - http://127.0.0.1:8080/15-fizika/75-vozilo-razbija/
 
 ### Gameplay
 
@@ -105,10 +110,13 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 - [ ] Dodati panoramu (skybox) nebo/zvezde
 - [ ] probati VR
   - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
+  - https://ski-mountain-vr.herokuapp.com/
 - [ ] dodati preloader (ima u 3D-RPG-Game-With-THREE.js)
 - [ ] naci vismapu sutjeske
   - http://www.smartjava.org/content/threejs-render-real-world-terrain-heightmap-using-open-data/
   - https://blog.mapbox.com/bringing-3d-terrain-to-the-browser-with-three-js-410068138357
+- [ ] dodati eksplozije
+    - http://jeromeetienne.github.io/fireworks.js/
 
 ## Documentation
 
@@ -122,10 +130,35 @@ All libraries in `/libs` folder are updated by hand to support ES6 export.
 
 ## Resources
 
-- [Build a basic combat game with three.js](http://www.creativebloq.com/web-design/build-basic-combat-game-threejs-101517540)
-- https://github.com/mudroljub/3D-RPG-Game-With-THREE.js
-- https://github.com/mudroljub/threejs-monster
-- https://github.com/mudroljub/rpg-threejs (school project)
+```js
+// TODO: reuse drawPlayer
+Camera.prototype.drawWeapon = function(weapon, paces) {
+  const bobX = Math.cos(paces * 2) * this.scale * 6
+  let bobY = Math.sin(paces * 4) * this.scale * 6
+  let left = this.width * 0.20 + bobX
+  let top = this.height * 0.6 + bobY
+  this.ctx.drawImage(weapon.image, left, top, weapon.width * this.scale, weapon.height * this.scale)
+}
+
+// TODO: reuse randomWalls
+Map.prototype.randomize = function() {
+  for (let i = 0; i < this.size * this.size; i++) {
+    this.wallGrid[i] = Math.random() < 0.3 ? 1 : 0
+  }
+}
+
+// TODO: reuse lightning
+Map.prototype.update = function(dt) {
+  if (this.light > 0) {
+    this.light = Math.max(this.light - 10 * dt, 0)
+  }
+  else if (Math.random() * 5 < dt) {
+    this.light = 2
+    this.grom.volume = Math.random()
+    this.grom.play()
+  }
+}
+```
 
 - https://github.com/skolakoda/ucimo-threejs
 - https://github.com/skolakoda/teorija-razvoja-igara
@@ -133,4 +166,7 @@ All libraries in `/libs` folder are updated by hand to support ES6 export.
 
 - https://github.com/mudroljub/savo-mitraljezac
 - https://github.com/mudroljub/igrica-partizani
-- https://github.com/mudroljub/avantura-1941
+- https://github.com/yakudoo/TheAviator
+- https://github.com/juwalbose/ThreeJSEndlessRunner3D
+- https://github.com/mudroljub/mini-rpg (dodati modele zivotinja i sl)
+- https://github.com/mudroljub/1943
