@@ -31,6 +31,7 @@ You should know how to [create a scene](https://threejs.org/docs/index.html#manu
 - [x] omogućiti 3d kretanje kroz mapu
 - [x] dodati skakanje
 - [ ] vratiti kontrole na strelice
+- [ ] probati da Kamenko bude od lave (vidi shader example)
 
 ### Camera
 

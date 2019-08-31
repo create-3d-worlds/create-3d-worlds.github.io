@@ -7,11 +7,13 @@ import matrix from '../data/small-map.js'
 const avatar = new Player(25, 0, 25, 10)
 scene.add(avatar.mesh)
 scene.add(createFloor())
-scene.add(createMap(matrix, 20))
+const walls = createMap(matrix, 20)
+scene.add(walls)
 
 camera.position.z = 20
 camera.position.y = 15
 avatar.mesh.add(camera)
+avatar.addSurrounding(walls)
 
 /* LOOP */
 

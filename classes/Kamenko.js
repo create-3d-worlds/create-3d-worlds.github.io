@@ -13,9 +13,11 @@ export default class Kamenko {
   createMesh(stoneSkin) {
     const group = new THREE.Group()
     const Material = stoneSkin ? THREE.MeshStandardMaterial : THREE.MeshNormalMaterial
+    const Geometry = stoneSkin ? THREE.DodecahedronGeometry : THREE.SphereGeometry
     const material = new Material()
     if (stoneSkin) material.map = new THREE.TextureLoader().load('../assets/textures/snow-512.jpg')
-    const bodyGeo = new THREE.DodecahedronGeometry(this.size * .66)
+    if (!stoneSkin) material.shading = THREE.FlatShading
+    const bodyGeo = new Geometry(this.size * .66)
     const body = new THREE.Mesh(bodyGeo, material)
     body.position.set(0, this.size, 0)
     group.add(body)
