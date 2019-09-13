@@ -75,20 +75,24 @@ live-server
 - [x] dodati animirani 3d model
   - [x] ucitati fbx zensku iz rpg-a
   - [x] kontrolama menjati animacije (kretanje, trčanje, skok...)
-  - [ ] da se vide ruke iz prvog lica (savo)
-    - https://mugen87.github.io/yuka/examples/entity/shooter/
-    - https://mugen87.github.io/yuka/examples/playground/hideAndSeek/
-- [ ] dodati NPC karaktere
-  - https://www.script-tutorials.com/demos/474/index3.html
-- [ ] ucitati raspolozive modele vozila i kuca
-  - [ ] dodati avion kako nadlece
-  - [ ] dodati tenk kako se krece
 - [x] srediti pufnicu (dodati jos malo geometrije i neku boju, materijal, teksturu...)
   - [x] srediti skok i padanje
+  - [ ] srediti penjanje uz stepenice
 - [x] odvojiti mesh od Avatara
 - [x] odvojiti klase Player i Model
 - [x] napraviti izvedene klase koje nasledjuju Model (Dupechesh, Robotko, Girl i sl)
 - [x] spojiti klase Avatar i Player
+
+### Scenes
+
+- [ ] dodati ruke iz prvog lica (Savo)
+  - https://mugen87.github.io/yuka/examples/entity/shooter/
+  - https://mugen87.github.io/yuka/examples/playground/hideAndSeek/
+- [ ] dodati NPC karaktere
+  - https://www.script-tutorials.com/demos/474/index3.html
+- [ ] dodati neke modele vozila i kuca
+  - [ ] dodati avion kako nadlece
+  - [ ] dodati tenk kako se krece
 
 ### Physics
 
