@@ -3,11 +3,11 @@ import * as THREE from '../node_modules/three/build/three.module.js'
 const loader = new THREE.TextureLoader()
 
 export default function(src) {
-  const oceanTexture = loader.load('../assets/textures/dirt-512.jpg')
-  const sandyTexture = loader.load('../assets/textures/sand-512.jpg')
-  const grassTexture = loader.load('../assets/textures/grass-512.jpg')
-  const rockyTexture = loader.load('../assets/textures/rock-512.jpg')
-  const snowyTexture = loader.load('../assets/textures/snow-512.jpg')
+  const oceanTexture = loader.load('/assets/textures/dirt-512.jpg')
+  const sandyTexture = loader.load('/assets/textures/sand-512.jpg')
+  const grassTexture = loader.load('/assets/textures/grass-512.jpg')
+  const rockyTexture = loader.load('/assets/textures/rock-512.jpg')
+  const snowyTexture = loader.load('/assets/textures/snow-512.jpg')
 
   oceanTexture.wrapS = oceanTexture.wrapT = sandyTexture.wrapS = sandyTexture.wrapT = grassTexture.wrapS = grassTexture.wrapT = rockyTexture.wrapS = rockyTexture.wrapT = snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping
 

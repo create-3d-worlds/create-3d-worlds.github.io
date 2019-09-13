@@ -1,5 +1,5 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
-import {clock} from '../utils/scene.js'
+import {clock} from '/utils/scene.js'
 
 /**
  * Model class has methods for animations and `mesh` property for scene
@@ -15,7 +15,7 @@ export default class Kamenko {
     const Material = stoneSkin ? THREE.MeshStandardMaterial : THREE.MeshNormalMaterial
     const Geometry = stoneSkin ? THREE.DodecahedronGeometry : THREE.SphereGeometry
     const material = new Material()
-    if (stoneSkin) material.map = new THREE.TextureLoader().load('../assets/textures/snow-512.jpg')
+    if (stoneSkin) material.map = new THREE.TextureLoader().load('/assets/textures/snow-512.jpg')
     if (!stoneSkin) material.shading = THREE.FlatShading
     const bodyGeo = new Geometry(this.size * .66)
     const body = new THREE.Mesh(bodyGeo, material)

@@ -3,7 +3,7 @@ import Model from './Model.js'
 
 export default class Girl extends Model {
   constructor(callback, size) {
-    super(callback, '../assets/models/girl.glb', null, size, 'glb')
+    super(callback, '/assets/models/girl.glb', null, size, 'glb')
   }
 
   idle() {

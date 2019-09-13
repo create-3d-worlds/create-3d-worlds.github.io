@@ -1,8 +1,8 @@
-import { createFloor } from '../utils/floor.js'
-import { createMap } from '../utils/boxes.js'
-import { scene, renderer, camera, clock } from '../utils/scene.js'
-import Player from '../classes/Player.js'
-import matrix from '../data/small-map.js'
+import { createFloor } from '/utils/floor.js'
+import { createMap } from '/utils/boxes.js'
+import { scene, renderer, camera, clock } from '/utils/scene.js'
+import Player from '/classes/Player.js'
+import matrix from '/data/small-map.js'
 
 const avatar = new Player(25, 0, 25, 10)
 scene.add(avatar.mesh)

@@ -1,7 +1,7 @@
-import {scene, camera, renderer, clock} from '../utils/scene.js'
-import {createSpiralStairs} from '../utils/boxes.js'
-import {createTerrain} from '../utils/floor.js'
-import Player from '../classes/Player.js'
+import {scene, camera, renderer, clock} from '/utils/scene.js'
+import {createSpiralStairs} from '/utils/boxes.js'
+import {createTerrain} from '/utils/floor.js'
+import Player from '/classes/Player.js'
 
 camera.position.z = 40
 camera.position.y = 20

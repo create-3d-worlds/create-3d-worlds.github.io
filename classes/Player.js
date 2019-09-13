@@ -1,5 +1,5 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
-import {keyboard, Kamenko} from '../classes/index.js'
+import {keyboard, Kamenko} from '/classes/index.js'
 
 const {pressed} = keyboard
 

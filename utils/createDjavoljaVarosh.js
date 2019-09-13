@@ -1,6 +1,6 @@
 // https://github.com/josdirksen/essential-threejs/blob/master/chapter-05/05.02-3D-plane-from-scratch-perlin.html
 import * as THREE from '../node_modules/three/build/three.module.js'
-import noise from '../libs/noise.js'
+import noise from '/libs/noise.js'
 
 export default function createDjavoljaVarosh(width = 140, depth = 140, scale = 2.5, height = 50) {
   const date = new Date()
@@ -42,7 +42,7 @@ export default function createDjavoljaVarosh(width = 140, depth = 140, scale = 2
   geometry.computeVertexNormals()
   // geometry.computeFaceNormals()
   const material = new THREE.MeshPhongMaterial({
-    map: new THREE.TextureLoader().load('../../assets/textures/ground.jpg')
+    map: new THREE.TextureLoader().load('/assets/textures/ground.jpg')
   })
   const mesh = new THREE.Mesh(geometry, material)
   mesh.translateX(-width / 1.5)

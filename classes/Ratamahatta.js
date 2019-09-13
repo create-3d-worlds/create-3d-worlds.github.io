@@ -2,7 +2,7 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
 import Model from './Model.js'
 
-const baseDir = '../assets/models/ratamahatta/'
+const baseDir = '/assets/models/ratamahatta/'
 
 export default class Ratamahatta extends Model {
   constructor(callback, size) {

@@ -1,11 +1,11 @@
-import {scene, renderer, camera, createOrbitControls} from '../utils/scene.js'
-import {createWater} from '../utils/floor.js'
-import texturedFromHeightmap from '../utils/texturedFromHeightmap.js'
+import {scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
+import {createWater} from '/utils/floor.js'
+import texturedFromHeightmap from '/utils/texturedFromHeightmap.js'
 
 createOrbitControls()
 camera.position.y = 150
 
-scene.add(texturedFromHeightmap('../assets/heightmaps/stemkoski.png'))
+scene.add(texturedFromHeightmap('/assets/heightmaps/stemkoski.png'))
 scene.add(createWater(1000, 0.60, 'water512.jpg'))
 
 /* LOOP */

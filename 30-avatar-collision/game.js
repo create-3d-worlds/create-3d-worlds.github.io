@@ -1,7 +1,7 @@
-import Player from '../classes/Player.js'
-import {scene, renderer, camera, clock} from '../utils/scene.js'
-import {createFirTrees} from '../utils/trees.js'
-import {createFloor} from '../utils/floor.js'
+import Player from '/classes/Player.js'
+import {scene, renderer, camera, clock} from '/utils/scene.js'
+import {createFirTrees} from '/utils/trees.js'
+import {createFloor} from '/utils/floor.js'
 
 const avatar = new Player()
 scene.add(avatar.mesh)

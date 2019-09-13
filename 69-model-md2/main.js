@@ -1,7 +1,7 @@
 // https://threejs.org/examples/webgl_loader_md2.html
 // https://threejs.org/examples/webgl_loader_md2_control.html
 import * as THREE from '../node_modules/three/build/three.module.js'
-import { scene, renderer, camera, clock, createOrbitControls} from '../utils/scene.js'
+import { scene, renderer, camera, clock, createOrbitControls} from '/utils/scene.js'
 import { MD2Loader } from '../node_modules/three/examples/jsm/loaders/MD2Loader.js'
 
 let mixer, currentAnimation, a = 0
@@ -9,11 +9,11 @@ let mixer, currentAnimation, a = 0
 createOrbitControls()
 camera.position.set(10, 10, 50)
 
-const texture = new THREE.TextureLoader().load('../assets/models/ogro/skins/arboshak.png')
+const texture = new THREE.TextureLoader().load('/assets/models/ogro/skins/arboshak.png')
 const loader = new MD2Loader()
 
 // ogro i ratamahatta
-loader.load('../assets/models/ogro/ogro.md2', geometry => {
+loader.load('/assets/models/ogro/ogro.md2', geometry => {
   const {animations} = geometry
 
   const material = new THREE.MeshLambertMaterial({ color: 0xffffff, wireframe: false, map: texture, morphTargets: true, morphNormals: true })

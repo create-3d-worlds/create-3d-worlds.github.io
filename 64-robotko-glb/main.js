@@ -1,6 +1,6 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
-import { scene, renderer, camera, clock, createOrbitControls} from '../utils/scene.js'
-import {Player, Robotko} from '../classes/index.js'
+import { scene, renderer, camera, clock, createOrbitControls} from '/utils/scene.js'
+import {Player, Robotko} from '/classes/index.js'
 
 camera.position.set(50, 10, 0)
 createOrbitControls()

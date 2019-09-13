@@ -1,6 +1,6 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
-import { scene, camera, renderer, createOrbitControls } from '../utils/scene.js'
-import createDjavoljaVarosh from '../utils/createDjavoljaVarosh.js'
+import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
+import createDjavoljaVarosh from '/utils/createDjavoljaVarosh.js'
 
 camera.position.set(150, 150, 150)
 createOrbitControls()

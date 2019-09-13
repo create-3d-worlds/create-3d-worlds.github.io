@@ -7,7 +7,7 @@ export function createFloor(r = 1000, file = 'ground.jpg', color = 0x60bf63) {
     side: THREE.DoubleSide // just for debugin
   }
   if (file) {
-    const texture = loader.load(`../assets/textures/${file}`)
+    const texture = loader.load(`/assets/textures/${file}`)
     texture.wrapS = THREE.RepeatWrapping
     texture.wrapT = THREE.RepeatWrapping
     texture.repeat.set(r / 10, r / 10)
@@ -43,7 +43,7 @@ export function createWater(size = 1000, opacity = 0.75, file) {
     opacity
   })
   if (file) {
-    const texture = loader.load(`../assets/textures/${file}`)
+    const texture = loader.load(`/assets/textures/${file}`)
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping
     texture.repeat.set(5, 5)
     material.map = texture

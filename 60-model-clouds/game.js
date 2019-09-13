@@ -1,9 +1,9 @@
 // import * as THREE from '../node_modules/three/build/three.module.js'
-import { scene, renderer, camera, createOrbitControls} from '../utils/scene.js'
-import { randomInRange } from '../utils/helpers.js'
-import {createWater} from '../utils/floor.js'
-import {createTreesOnTerrain} from '../utils/trees.js'
-import {createHillyTerrain} from '../utils/createHillyTerrain.js'
+import { scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
+import { randomInRange } from '/utils/helpers.js'
+import {createWater} from '/utils/floor.js'
+import {createTreesOnTerrain} from '/utils/trees.js'
+import {createHillyTerrain} from '/utils/createHillyTerrain.js'
 import '../node_modules/three/examples/js/loaders/deprecated/LegacyJSONLoader.js'
 
 const size = 600
@@ -29,7 +29,7 @@ function createCloud(geometry, materials) {
   return cloud
 }
 
-loader.load('../assets/models/cloud.json', (geometry, materials) => {
+loader.load('/assets/models/cloud.json', (geometry, materials) => {
   for (let i = 0; i < 10; i++)
     clouds.add(createCloud(geometry, materials))
   scene.add(clouds)

@@ -4,7 +4,7 @@ import Model from './Model.js'
 
 export default class Robotko extends Model {
   constructor(callback, size) {
-    super(callback, '../assets/models/robot.glb', null, size, 'glb')
+    super(callback, '/assets/models/robot.glb', null, size, 'glb')
   }
 
   idle() {

@@ -1,5 +1,5 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
-import { scene, camera, renderer, createOrbitControls } from '../utils/scene.js'
+import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 
 camera.position.y = 250
 

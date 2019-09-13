@@ -1,5 +1,5 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
-import { scene, renderer, camera, clock, createOrbitControls} from '../utils/scene.js'
+import { scene, renderer, camera, clock, createOrbitControls} from '/utils/scene.js'
 import { ColladaLoader } from '../node_modules/three/examples/jsm/loaders/ColladaLoader.js'
 
 const controls = createOrbitControls()
@@ -10,7 +10,7 @@ scene.background = new THREE.Color(0xffffff)
 
 // monster.dae, wolf.dae
 const loader = new ColladaLoader()
-loader.load('../assets/models/monster/monster.dae', collada => {
+loader.load('/assets/models/monster/monster.dae', collada => {
   const {animations, scene: model} = collada
   mixer = new THREE.AnimationMixer(model)
   mixer.clipAction(animations[0]).play()

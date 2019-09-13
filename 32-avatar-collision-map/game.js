@@ -1,7 +1,7 @@
-import {scene, renderer, camera, clock} from '../utils/scene.js'
-import Player from '../classes/Player.js'
-import Tilemap3D from '../classes/Tilemap3D.js'
-import {nemesis as map} from '../data/maps.js'
+import {scene, renderer, camera, clock} from '/utils/scene.js'
+import Player from '/classes/Player.js'
+import Tilemap3D from '/classes/Tilemap3D.js'
+import {nemesis as map} from '/data/maps.js'
 
 const tilemap = new Tilemap3D(map, 100)
 scene.add(tilemap.createFloor())

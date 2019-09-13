@@ -2,7 +2,7 @@
 import * as THREE from '../node_modules/three/build/three.module.js'
 import Model from './Model.js'
 
-const baseDir = '../assets/models/ogro/'
+const baseDir = '/assets/models/ogro/'
 
 export default class Dupechesh extends Model {
   constructor(callback, size) {

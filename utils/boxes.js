@@ -18,7 +18,7 @@ export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomCo
   const depthSize = isRectangle ? size * 2 : size
   const geometry = new THREE.BoxGeometry(size, size, depthSize)
   const options = {}
-  if (file) options.map = loader.load(`../assets/textures/${file}`)
+  if (file) options.map = loader.load(`/assets/textures/${file}`)
   else options.color = color
   const material = new THREE.MeshPhongMaterial(options)
   const mesh = new THREE.Mesh(geometry, material)

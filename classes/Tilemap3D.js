@@ -27,8 +27,8 @@ export default class Tilemap3D {
     const loader = new THREE.TextureLoader()
     const cube = new THREE.BoxGeometry(this.unitSize, wallHeight, this.unitSize)
     const materials = [
-      new THREE.MeshLambertMaterial({map: loader.load('../assets/textures/wall-1.jpg')}),
-      new THREE.MeshLambertMaterial({map: loader.load('../assets/textures/concrete.jpg')}),
+      new THREE.MeshLambertMaterial({map: loader.load('/assets/textures/wall-1.jpg')}),
+      new THREE.MeshLambertMaterial({map: loader.load('/assets/textures/concrete.jpg')}),
       new THREE.MeshLambertMaterial({color: 0xFBEBCD}),
     ]
     for (let i = 0; i < this.mHeight; i++)
