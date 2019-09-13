@@ -1,7 +1,7 @@
-import * as THREE from '../node_modules/three/build/three.module.js'
-import { MD2Loader } from '../node_modules/three/examples/jsm/loaders/MD2Loader.js'
-import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js'
-import { FBXLoader } from '../node_modules/three/examples/jsm/loaders/FBXLoader.js'
+import * as THREE from '/node_modules/three/build/three.module.js'
+import { MD2Loader } from '/node_modules/three/examples/jsm/loaders/MD2Loader.js'
+import { GLTFLoader } from '/node_modules/three/examples/jsm/loaders/GLTFLoader.js'
+import { FBXLoader } from '/node_modules/three/examples/jsm/loaders/FBXLoader.js'
 
 const textureLoader = new THREE.TextureLoader()
 const md2Loader = new MD2Loader()

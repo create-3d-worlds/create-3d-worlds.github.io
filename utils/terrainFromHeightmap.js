@@ -1,5 +1,5 @@
 // https://github.com/josdirksen/threejs-cookbook/blob/master/02-geometries-meshes/02.06-create-terrain-from-heightmap.html
-import * as THREE from '../node_modules/three/build/three.module.js'
+import * as THREE from '/node_modules/three/build/three.module.js'
 import chroma from '/libs/chroma.js'
 import {getHighPoint} from './helpers.js'
 
