@@ -77,7 +77,7 @@ live-server
   - [x] kontrolama menjati animacije (kretanje, trčanje, skok...)
 - [x] srediti pufnicu (dodati jos malo geometrije i neku boju, materijal, teksturu...)
   - [x] srediti skok i padanje
-  - [ ] srediti penjanje uz stepenice
+  - [x] srediti penjanje uz stepenice
 - [x] odvojiti mesh od Avatara
 - [x] odvojiti klase Player i Model
 - [x] napraviti izvedene klase koje nasledjuju Model (Dupechesh, Robotko, Girl i sl)

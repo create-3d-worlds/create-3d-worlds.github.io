@@ -32,22 +32,38 @@ export default class Player {
    * Check user input and move mesh
    */
   move(delta) {
-    if (!keyboard.totalPressed) return
     if (!this.mesh) return
-
+    const step = this.speed * delta // speed (in pixels) per second
+    const stepY = this.speed * delta * 2
     const angle = Math.PI / 2 * delta
+
+    if (!pressed.Space) {
+      if (this.position.y > this.groundY) this.mesh.translateY(-stepY)
+      if (this.position.y < this.groundY) this.mesh.translateY(stepY)
+    }
     if (pressed.KeyA) this.mesh.rotateY(angle)
     if (pressed.KeyD) this.mesh.rotateY(-angle)
 
-    if (this.surroundings.length && this.isCollide(this.surroundings)) return
+    if (this.directionBlocked()) return
 
-    const distance = this.speed * delta // speed (in pixels) per second
-    if (pressed.KeyW) this.mesh.translateZ(-distance)
-    if (pressed.KeyS) this.mesh.translateZ(distance)
-    if (pressed.KeyQ) this.mesh.translateX(-distance)
-    if (pressed.KeyE) this.mesh.translateX(distance)
+    if (pressed.KeyW) this.mesh.translateZ(-step)
+    if (pressed.KeyS) this.mesh.translateZ(step)
+    if (pressed.KeyQ) this.mesh.translateX(-step)
+    if (pressed.KeyE) this.mesh.translateX(step)
+    if (pressed.Space) this.mesh.translateY(stepY)
+  }
 
-    if (pressed.Space) this.mesh.translateY(distance * 4)
+  /**
+   * Update ground level
+   * @param {miliseconds} delta
+   */
+  updateGround() {
+    if (!this.grounds.length) return
+    const bodyTop = this.position.clone()
+    bodyTop.y += this.size * 2
+    const raycaster = new THREE.Raycaster(bodyTop, new THREE.Vector3(0, -1, 0))
+    const intersects = raycaster.intersectObjects(this.grounds)
+    if (intersects[0]) this.groundY = intersects[0].point.y
   }
 
   /**
@@ -79,15 +95,15 @@ export default class Player {
     return null
   }
 
-  isCollide(solids) {
-    if (!this.mesh) return
+  directionBlocked() {
+    if (!this.mesh || !this.surroundings.length) return
     const vector = this.chooseRaycastVector()
     if (!vector) return false
     const direction = vector.applyQuaternion(this.mesh.quaternion)
     const bodyCenter = this.position.clone()
     bodyCenter.y += this.size
     const raycaster = new THREE.Raycaster(bodyCenter, direction, 0, this.size)
-    const intersections = raycaster.intersectObjects(solids, true)
+    const intersections = raycaster.intersectObjects(this.surroundings, true)
     return intersections.length > 0
   }
 
@@ -97,27 +113,6 @@ export default class Player {
 
   add(obj) {
     this.mesh.add(obj)
-  }
-
-  /**
-   * Check ground level and simulate gravity
-   * @param {miliseconds} delta
-   */
-  checkGround(delta) {
-    if (!this.mesh) return
-    const gravity = this.speed * delta * 4
-    if (!pressed.Space) this.mesh.translateY(-gravity)
-
-    if (this.grounds.length) {
-      const bodyTop = this.position.clone()
-      bodyTop.y += this.size * 2
-      const raycaster = new THREE.Raycaster(bodyTop, new THREE.Vector3(0, -1, 0))
-      const intersects = raycaster.intersectObjects(this.grounds)
-      if (intersects[0]) this.groundY = intersects[0].point.y
-    }
-
-    // TODO: srediti trzaj na stepenicama, kada se tlo nadje iznad y
-    if (this.position.y < this.groundY) this.position.y = this.groundY
   }
 
   /**
@@ -142,7 +137,7 @@ export default class Player {
   }
 
   update(delta) {
-    this.checkGround(delta)
+    this.updateGround(delta)
     this.move(delta)
     this.animate()
     if (this.model.update) this.model.update(delta)
