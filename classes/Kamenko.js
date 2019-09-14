@@ -5,9 +5,10 @@ import {clock} from '/utils/scene.js'
  * Model class has methods for animations and `mesh` property for scene
  */
 export default class Kamenko {
-  constructor(size, stoneSkin = true) {
+  constructor(x = 0, y = 0, z = 0, size = 35, stoneSkin = true) {
     this.size = size
     this.mesh = this.createMesh(stoneSkin)
+    this.mesh.position.set(x, y, z)
   }
 
   createMesh(stoneSkin) {

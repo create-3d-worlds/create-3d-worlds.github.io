@@ -1,5 +1,5 @@
 import keyboard from './Keyboard.js'
-import Player from './Player.js'
+import Player, {PlayerModel} from './Player.js'
 import Kamenko from './Kamenko.js'
 import Model from './Model.js'
 import Dupechesh from './Dupechesh.js'
@@ -11,6 +11,7 @@ import GirlFighter from './GirlFighter.js'
 export {
   keyboard,
   Player,
+  PlayerModel,
   Kamenko,
   Model,
   Dupechesh,

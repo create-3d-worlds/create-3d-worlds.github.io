@@ -3,7 +3,7 @@
 import {scene, camera, renderer, clock, createOrbitControls} from '/utils/scene.js'
 import {createSpiralStairs} from '/utils/boxes.js'
 import {createFloor} from '/utils/floor.js'
-import {Player, Dupechesh, Ratamahatta, Robotko, Girl, GirlFighter} from '/classes/index.js'
+import {PlayerModel, Dupechesh, Ratamahatta, Robotko, Girl, GirlFighter} from '/classes/index.js'
 
 // createOrbitControls()
 camera.position.z = 40
@@ -14,7 +14,7 @@ scene.add(floor)
 const stairs = createSpiralStairs(5, 40, 40)
 scene.add(stairs)
 
-const player = new Player(100, 50, -50, 20, mesh => {
+const player = new PlayerModel(100, 50, -50, 20, mesh => {
   mesh.rotateY(Math.PI)
   mesh.add(camera)
   scene.add(mesh)

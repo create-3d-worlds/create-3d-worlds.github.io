@@ -5,26 +5,16 @@ const {pressed} = keyboard
 
 /**
  * Player class handle user input, move mesh and call model animations.
- * @param ModelSubclass is used to create a `mesh`.
- * @param callback is used to pass `mesh` to the scene.
  */
 export default class Player {
-  constructor(x = 0, y = 0, z = 0, size = 35, callback, ModelSubclass) {
+  constructor(x = 0, y = 0, z = 0, size = 35, stoneSkin) {
     this.size = size
     this.speed = size * 4
     this.solids = []
     this.groundY = 0
-    if (typeof callback === 'function')
-      this.model = new ModelSubclass(mesh => {
-        this.mesh = mesh
-        mesh.position.set(x, y, z)
-        callback(mesh)
-      }, size)
-    else {
-      this.model = new Kamenko(size, callback)
-      this.mesh = this.model.mesh
-      this.mesh.position.set(x, y, z)
-    }
+    // default model, instead of just a box
+    this.model = new Kamenko(x, y, z, size, stoneSkin)
+    this.mesh = this.model.mesh
   }
 
   /**
@@ -129,7 +119,25 @@ export default class Player {
   update(delta) {
     this.findGround(delta)
     this.moveMesh(delta)
-    this.animateModel()
-    if (this.model.update) this.model.update(delta)
+    if (this.model) {
+      this.animateModel()
+      if (this.model.update) this.model.update(delta)
+    }
+  }
+}
+
+/**
+ * Bridge between Player and Model.
+ * @param ModelClass is used to load `mesh`.
+ * @param callback is used to pass `mesh` to the scene.
+ */
+export class PlayerModel extends Player {
+  constructor(x, y, z, size, callback, ModelClass) {
+    super()
+    this.model = new ModelClass(mesh => {
+      this.mesh = mesh
+      mesh.position.set(x, y, z)
+      callback(mesh)
+    }, size)
   }
 }
