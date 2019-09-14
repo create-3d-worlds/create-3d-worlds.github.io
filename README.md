@@ -37,10 +37,9 @@ live-server
 - [x] omogućiti 2d kretanje kroz mapu
 - [x] omogućiti 3d kretanje kroz mapu
 - [x] dodati skakanje
-  - [ ] srediti skok i padanje (videti lavirint kad skoci izvan)
+  - [x] srediti skok i padanje
   - [x] srediti penjanje uz stepenice
 - [x] vratiti kontrole na strelice
-- [ ] probati da Kamenko bude od lave (vidi shader example)
 
 ### Camera
 
@@ -78,7 +77,7 @@ live-server
   - [x] ucitati fbx zensku iz rpg-a
   - [x] kontrolama menjati animacije (kretanje, trčanje, skok...)
 - [x] srediti pufnicu (dodati jos malo geometrije i neku boju, materijal, teksturu...)
-- [x] odvojiti mesh od Avatara
+  - [ ] probati da Kamenko bude od lave (vidi shader example)
 - [x] odvojiti klase Player i Model
 - [x] napraviti izvedene klase koje nasledjuju Model (Dupechesh, Robotko, Girl i sl)
 - [x] spojiti klase Avatar i Player

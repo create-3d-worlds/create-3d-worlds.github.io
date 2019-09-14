@@ -4,7 +4,7 @@ import {keyboard, Kamenko} from '/classes/index.js'
 const {pressed} = keyboard
 
 /**
- * Player class handle user input, move mesh and call model animations.
+ * Player handle user input, move mesh and call model animations.
  */
 export default class Player {
   constructor(x = 0, y = 0, z = 0, size = 35, stoneSkin) {
@@ -68,7 +68,7 @@ export default class Player {
     bodyTop.y += this.size * 2
     const raycaster = new THREE.Raycaster(bodyTop, new THREE.Vector3(0, -1, 0))
     const intersects = raycaster.intersectObjects(this.solids)
-    if (intersects[0]) this.groundY = intersects[0].point.y
+    this.groundY = intersects[0] ? intersects[0].point.y : 0
   }
 
   /**

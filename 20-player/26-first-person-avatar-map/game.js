@@ -6,7 +6,8 @@ import matrix from '/data/small-map.js'
 
 const avatar = new Player(25, 0, 25, 10)
 scene.add(avatar.mesh)
-scene.add(createFloor())
+const floor = createFloor()
+scene.add(floor)
 const walls = createMap(matrix, 20)
 scene.add(walls)
 
