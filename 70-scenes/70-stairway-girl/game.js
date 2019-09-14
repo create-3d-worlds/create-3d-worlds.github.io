@@ -19,8 +19,7 @@ const player = new Player(100, 50, -50, 20, mesh => {
   mesh.add(camera)
   scene.add(mesh)
 }, GirlFighter)
-player.addGround(floor, stairs)
-player.addSurrounding(stairs)
+player.addSolids(floor, stairs)
 
 /* LOOP */
 

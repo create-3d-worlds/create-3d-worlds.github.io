@@ -17,8 +17,7 @@ player.mesh.rotateY(Math.PI)
 player.mesh.add(camera)
 scene.add(player.mesh)
 
-player.addGround(floor, stairs)
-player.addSurrounding(floor, stairs)
+player.addSolids(floor, stairs)
 
 /* LOOP */
 

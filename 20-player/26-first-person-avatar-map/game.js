@@ -13,7 +13,7 @@ scene.add(walls)
 camera.position.z = 20
 camera.position.y = 15
 avatar.mesh.add(camera)
-avatar.addSurrounding(walls)
+avatar.addSolids(walls)
 
 /* LOOP */
 

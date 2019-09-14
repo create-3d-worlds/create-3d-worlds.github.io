@@ -35,8 +35,7 @@ scene.add(terrain, tower)
 
 const avatar = new Player(120, 10, 0, 5, false)
 avatar.add(camera)
-avatar.addGround(terrain, tower)
-avatar.addSurrounding(tower)
+avatar.addSolids(terrain, tower)
 scene.add(avatar.mesh)
 
 /* LOOP */

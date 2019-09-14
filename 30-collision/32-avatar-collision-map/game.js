@@ -10,7 +10,7 @@ scene.add(walls)
 
 const avatar = new Player(25, 0, 25, 15)
 scene.add(avatar.mesh)
-avatar.addSurrounding(walls)
+avatar.addSolids(walls)
 
 camera.position.z = 50
 camera.position.y = 15

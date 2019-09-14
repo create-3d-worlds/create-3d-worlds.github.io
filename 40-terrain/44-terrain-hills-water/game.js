@@ -13,7 +13,7 @@ scene.add(ground)
 scene.add(createTreesOnTerrain(ground))
 
 const avatar = new Player()
-avatar.addGround(ground)
+avatar.addSolids(ground)
 scene.add(avatar.mesh)
 
 /* LOOP */

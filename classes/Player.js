@@ -12,8 +12,7 @@ export default class Player {
   constructor(x = 0, y = 0, z = 0, size = 35, callback, ModelSubclass) {
     this.size = size
     this.speed = size * 4
-    this.grounds = []
-    this.surroundings = []
+    this.solids = []
     this.groundY = 0
     if (typeof callback === 'function')
       this.model = new ModelSubclass(mesh => {
@@ -74,11 +73,11 @@ export default class Player {
    * @param {miliseconds} delta
    */
   findGround() {
-    if (!this.mesh || !this.grounds.length) return
+    if (!this.mesh || !this.solids.length) return
     const bodyTop = this.position.clone()
     bodyTop.y += this.size * 2
     const raycaster = new THREE.Raycaster(bodyTop, new THREE.Vector3(0, -1, 0))
-    const intersects = raycaster.intersectObjects(this.grounds)
+    const intersects = raycaster.intersectObjects(this.solids)
     if (intersects[0]) this.groundY = intersects[0].point.y
   }
 
@@ -96,14 +95,14 @@ export default class Player {
   }
 
   directionBlocked() {
-    if (!this.mesh || !this.surroundings.length) return
+    if (!this.mesh || !this.solids.length) return
     const vector = this.chooseRaycastVector()
     if (!vector) return false
     const direction = vector.applyQuaternion(this.mesh.quaternion)
     const bodyCenter = this.position.clone()
     bodyCenter.y += this.size
     const raycaster = new THREE.Raycaster(bodyCenter, direction, 0, this.size)
-    const intersections = raycaster.intersectObjects(this.surroundings, true)
+    const intersections = raycaster.intersectObjects(this.solids, true)
     return intersections.length > 0
   }
 
@@ -117,23 +116,14 @@ export default class Player {
 
   /**
    * Add solid objects for player to collide
-   * @param {string} type grounds or surroundings
    * @param {any} solids mesh group, array or a single mesh
    */
-  addSolid(type, ...solids) {
+  addSolids(...solids) {
     solids.forEach(solid => {
-      if (solid.children && solid.children.length) this[type].push(...solid.children)
-      else if (solid.length) this[type].push(...solid)
-      else this[type].push(solid)
+      if (solid.children && solid.children.length) this.solids.push(...solid.children)
+      else if (solid.length) this.solids.push(...solid)
+      else this.solids.push(solid)
     })
-  }
-
-  addGround(...grounds) {
-    this.addSolid('grounds', ...grounds)
-  }
-
-  addSurrounding(...surroundings) {
-    this.addSolid('surroundings', ...surroundings)
   }
 
   update(delta) {
