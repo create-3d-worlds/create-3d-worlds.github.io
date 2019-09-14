@@ -1,4 +1,7 @@
-// Singleton
+/*
+* Singleton object
+* for codes see keycode.info
+*/
 class Keyboard {
 
   constructor() {
@@ -25,7 +28,6 @@ class Keyboard {
     if (e.code == 'Space' || e.code == 'ArrowUp' || e.code == 'ArrowDown') e.preventDefault()
   }
 
-  // keycode.info
   chooseDirection(touch) {
     if (touch.pageY < window.innerHeight / 2) this.pressed.ArrowUp = true
     if (touch.pageY >= window.innerHeight / 2) this.pressed.ArrowDown = true

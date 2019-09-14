@@ -90,7 +90,7 @@ export default class Model {
   }
 
   changeAnimation(name, loop) {
-    console.log(name)
+    // console.log(name)
     if (!this.mixer || this.shouldNotChange(name)) return
     if (this.action) this.action.stop()
     const clip = this.animations.find(c => c.name == name)

@@ -18,7 +18,7 @@ player.mesh.add(camera)
 scene.add(player.mesh)
 
 player.addGround(floor, stairs)
-player.addSurrounding(stairs)
+player.addSurrounding(floor, stairs)
 
 /* LOOP */
 

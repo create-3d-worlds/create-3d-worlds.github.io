@@ -31,7 +31,7 @@ export default class Player {
   /**
    * Check user input and move mesh
    */
-  move(delta) {
+  moveMesh(delta) {
     if (!this.mesh) return
     const step = this.speed * delta // speed (in pixels) per second
     const stepY = this.speed * delta * 2
@@ -41,35 +41,22 @@ export default class Player {
       if (this.position.y > this.groundY) this.mesh.translateY(-stepY)
       if (this.position.y < this.groundY) this.mesh.translateY(stepY)
     }
-    if (pressed.KeyA) this.mesh.rotateY(angle)
-    if (pressed.KeyD) this.mesh.rotateY(-angle)
+    if (pressed.KeyA || pressed.ArrowLeft) this.mesh.rotateY(angle)
+    if (pressed.KeyD || pressed.ArrowRight) this.mesh.rotateY(-angle)
 
     if (this.directionBlocked()) return
 
-    if (pressed.KeyW) this.mesh.translateZ(-step)
-    if (pressed.KeyS) this.mesh.translateZ(step)
+    if (pressed.KeyW || pressed.ArrowUp) this.mesh.translateZ(-step)
+    if (pressed.KeyS || pressed.ArrowDown) this.mesh.translateZ(step)
     if (pressed.KeyQ) this.mesh.translateX(-step)
     if (pressed.KeyE) this.mesh.translateX(step)
     if (pressed.Space) this.mesh.translateY(stepY)
   }
 
   /**
-   * Update ground level
-   * @param {miliseconds} delta
-   */
-  updateGround() {
-    if (!this.grounds.length) return
-    const bodyTop = this.position.clone()
-    bodyTop.y += this.size * 2
-    const raycaster = new THREE.Raycaster(bodyTop, new THREE.Vector3(0, -1, 0))
-    const intersects = raycaster.intersectObjects(this.grounds)
-    if (intersects[0]) this.groundY = intersects[0].point.y
-  }
-
-  /**
    * Check user input and call model animations
    */
-  animate() {
+  animateModel() {
     if (!keyboard.totalPressed)
       this.model.idle()
     else if (pressed.ShiftLeft && pressed.KeyW)
@@ -78,8 +65,21 @@ export default class Player {
       this.model.squat()
     else if (pressed.Space)
       this.model.jump()
-    else if (pressed.KeyW || pressed.KeyS || pressed.KeyQ || pressed.KeyE)
+    else if (pressed.KeyW || pressed.KeyS || pressed.KeyQ || pressed.KeyE || pressed.ArrowUp || pressed.ArrowDown)
       this.model.walk()
+  }
+
+  /**
+   * Update ground level
+   * @param {miliseconds} delta
+   */
+  findGround() {
+    if (!this.mesh || !this.grounds.length) return
+    const bodyTop = this.position.clone()
+    bodyTop.y += this.size * 2
+    const raycaster = new THREE.Raycaster(bodyTop, new THREE.Vector3(0, -1, 0))
+    const intersects = raycaster.intersectObjects(this.grounds)
+    if (intersects[0]) this.groundY = intersects[0].point.y
   }
 
   /**
@@ -137,9 +137,9 @@ export default class Player {
   }
 
   update(delta) {
-    this.updateGround(delta)
-    this.move(delta)
-    this.animate()
+    this.findGround(delta)
+    this.moveMesh(delta)
+    this.animateModel()
     if (this.model.update) this.model.update(delta)
   }
 }
