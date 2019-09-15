@@ -121,7 +121,7 @@ export default class Player {
     this.moveMesh(delta)
     if (this.model) {
       this.animateModel()
-      if (this.model.update) this.model.update(delta)
+      this.model.update(delta)
     }
   }
 }
