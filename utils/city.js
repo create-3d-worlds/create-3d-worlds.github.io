@@ -1,6 +1,17 @@
 import * as THREE from '/node_modules/three/build/three.module.js'
 import {randomInRange} from '/utils/helpers.js'
 
+const windowColor = night => {
+  const value = randomInRange(0, 84, true)
+  if (night) {
+    const chance = Math.random()
+    if (chance > .98) return `rgb(${value * 3}, ${value}, ${value})`
+    if (chance > .9) return `rgb(${value * 2}, ${value * 2}, ${value})`
+    if (chance > .85) return `rgb(${value * 2}, ${value * 2}, ${value * 2})`
+  }
+  return `rgb(${value}, ${value}, ${value})`
+}
+
 export function generateCityTexture(night) {
   const canvas = document.createElement('canvas')
   canvas.width = 32
@@ -10,13 +21,7 @@ export function generateCityTexture(night) {
   context.fillRect(0, 0, canvas.width, canvas.height)
   for (let y = 2; y < canvas.height; y += 2)
     for (let x = 0; x < canvas.width; x += 2) {
-      const value = Math.floor(Math.random() * canvas.height)
-      context.fillStyle = `rgb(${value}, ${value}, ${value})`
-      if (night) {
-        const rand = Math.random()
-        if (rand > .9) context.fillStyle = `rgb(${value * 2}, ${value * 2}, ${value})`
-        if (rand > .98) context.fillStyle = `rgb(${value * 3}, ${value}, ${value})`
-      }
+      context.fillStyle = windowColor(night)
       context.fillRect(x, y, 2, 1)
     }
   return canvas
@@ -48,6 +53,7 @@ export function generateCity(size = 100, night = true) {
   const texture = new THREE.Texture(generateCityTexture(night))
   texture.needsUpdate = true
   const group = new THREE.Group()
-  for (let i = 0; i < size; i++) group.add(generateBuilding(size, texture, night))
+  for (let i = 0; i < size; i++)
+    group.add(generateBuilding(size, texture, night))
   return group
 }
