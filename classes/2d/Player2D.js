@@ -1,4 +1,4 @@
-import keyboard from './Keyboard.js'
+import keyboard from '../Keyboard.js'
 
 const CIRCLE = Math.PI * 2
 
