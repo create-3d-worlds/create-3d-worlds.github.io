@@ -85,6 +85,8 @@ live-server
 ### Scenes
 
 - [ ] dodati ruke iz prvog lica (Savo)
+  - [ ] odvojiti avatara i staviti kutiju kao default Igrac
+  - [ ] mogucnost dodavanja slike na Igraca
   - https://mugen87.github.io/yuka/examples/entity/shooter/
   - https://mugen87.github.io/yuka/examples/playground/hideAndSeek/
 - [ ] dodati NPC karaktere

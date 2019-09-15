@@ -69,4 +69,5 @@ class Canvas extends HTMLCanvasElement {
 }
 
 customElements.define('my-canvas', Canvas, { extends: 'canvas' })
-export default new Canvas
+
+export default new Canvas()
