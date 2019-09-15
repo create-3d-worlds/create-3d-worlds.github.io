@@ -1,6 +1,6 @@
 // TODO: change roof color or texture
 import * as THREE from '/node_modules/three/build/three.module.js'
-import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/floor.js'
 import {randomInRange} from '/utils/helpers.js'
 
@@ -15,7 +15,7 @@ scene.add(createFloor(size * 2, null, 0x101018))
 const texture = new THREE.Texture(generateTexture())
 texture.needsUpdate = true
 
-for (let i = 0; i < size * 2; i++) {
+for (let i = 0; i < size; i++) {
   const building = generateBuilding()
   scene.add(building)
 }
@@ -27,7 +27,7 @@ function generateTexture() {
   canvas.width = 32
   canvas.height = 64
   const context = canvas.getContext('2d')
-  context.fillStyle = '#ffffff'
+  // context.fillStyle = '#ffffff'
   context.fillRect(0, 0, canvas.width, canvas.height)
   for (let y = 2; y < canvas.height; y += 2)
     for (let x = 0; x < canvas.width; x += 2) {
@@ -41,20 +41,22 @@ function generateTexture() {
 function generateBuilding() {
   const geometry = new THREE.CubeGeometry(1, 1, 1)
   geometry.faces.splice(6, 2) // remove floor for optimization
-  const material = new THREE.MeshLambertMaterial({map: texture})
+  const num = randomInRange(0, 30, true)
+  const color = new THREE.Color(`rgb(${num}, ${num}, ${num})`)
   const materials = [
     new THREE.MeshLambertMaterial({ map: texture }),
     new THREE.MeshLambertMaterial({ map: texture }),
-    new THREE.MeshLambertMaterial({ color: 0xeeeeee }),
+    new THREE.MeshLambertMaterial({ color }),
     new THREE.MeshLambertMaterial({ map: texture }),
     new THREE.MeshLambertMaterial({ map: texture }),
     new THREE.MeshLambertMaterial({ map: texture }),
   ]
   const mesh = new THREE.Mesh(geometry, materials)
-  mesh.position.set(randomInRange(-size, size), 0, randomInRange(-size, size))
   mesh.rotation.y = Math.random()
   mesh.scale.x = mesh.scale.z = randomInRange(10, 20)
-  mesh.scale.y = (Math.random() * Math.random() * Math.random() * mesh.scale.x) * 8 + 8
+  const scaleY = Math.random() * mesh.scale.x * 4 + 4
+  mesh.scale.y = scaleY
+  mesh.position.set(randomInRange(-size, size), scaleY / 2, randomInRange(-size, size))
   return mesh
 }
 
