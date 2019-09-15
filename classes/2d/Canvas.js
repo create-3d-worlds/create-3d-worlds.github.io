@@ -2,11 +2,16 @@ const CIRCLE = Math.PI * 2
 const colors = ['#fff', '#444', '#701206', '#000']
 
 export default class Canvas extends HTMLCanvasElement {
-  constructor() {
+  constructor(color = 'lightgray') {
     super()
     this.height = window.innerHeight || 600 // height must first
     this.width = document.body.clientWidth || 800
-    this.style.backgroundColor = 'lightgray'
+    this.style.backgroundColor = color
+    if (color == 'transparent') {
+      this.style.position = 'absolute'
+      this.style.left = 0
+      this.style.top = 0
+    }
     document.body.style.margin = 0
     document.body.style.padding = 0
     document.body.appendChild(this)
