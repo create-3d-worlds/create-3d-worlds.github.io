@@ -12,7 +12,11 @@ export function generateCityTexture(night) {
     for (let x = 0; x < canvas.width; x += 2) {
       const value = Math.floor(Math.random() * canvas.height)
       context.fillStyle = `rgb(${value}, ${value}, ${value})`
-      if (Math.random() > .9) context.fillStyle = `rgb(${value * 2}, ${value * 2}, ${value})`
+      if (night) {
+        const rand = Math.random()
+        if (rand > .9) context.fillStyle = `rgb(${value * 2}, ${value * 2}, ${value})`
+        if (rand > .98) context.fillStyle = `rgb(${value * 3}, ${value}, ${value})`
+      }
       context.fillRect(x, y, 2, 1)
     }
   return canvas
