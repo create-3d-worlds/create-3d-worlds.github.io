@@ -3,9 +3,11 @@ import { createMap } from '/utils/boxes.js'
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import matrix from '/data/small-map.js'
 import Canvas from '/classes/2d/Canvas.js'
-import Player from '/classes/Player.js'
+import Player, {PlayerAvatar} from '/classes/Player.js'
 
-createOrbitControls()
+createOrbitControls() // ne radi sa kanvasom??
+
+// TODO: Player kocka ne radi dobro sa kamerom, PlayerAvatar radi
 
 const canvas = new Canvas('transparent')
 canvas.renderMap(matrix, 30)
