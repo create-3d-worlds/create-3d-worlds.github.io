@@ -7,13 +7,13 @@ const {pressed} = keyboard
  * Player handle user input, move mesh and call model animations.
  */
 export default class Player {
-  constructor(x = 0, y = 0, z = 0, size = 35, stoneSkin) {
+  constructor(x = 0, y = 0, z = 0, size = 35, skin) {
     this.size = size
     this.speed = size * 4
     this.solids = []
     this.groundY = 0
     // default model, instead of just a box
-    this.model = new Kamenko(x, y, z, size, stoneSkin)
+    this.model = new Kamenko(x, y, z, size, skin)
     this.mesh = this.model.mesh
   }
 
@@ -133,7 +133,7 @@ export default class Player {
  */
 export class PlayerModel extends Player {
   constructor(x, y, z, size, callback, ModelClass) {
-    super()
+    super(x, y, z, size)
     this.model = new ModelClass(mesh => {
       this.mesh = mesh
       mesh.position.set(x, y, z)

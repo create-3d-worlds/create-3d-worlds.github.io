@@ -47,7 +47,7 @@ live-server
 - [x] dodati kameru odozgo (orbit)
 - [x] menjati kamere na taster
 - [x] srediti redom kamere po scenama
-- [ ] kreirati finalne kamere za ambient i fps (da moze da gleda levo-desno i gore-dole i sl.)
+- [ ] kreirati finalne kamere i kontrole (da moze da gleda levo-desno i gore-dole i sl.)
 
 ### Collision
 
@@ -77,7 +77,7 @@ live-server
   - [x] ucitati fbx zensku iz rpg-a
   - [x] kontrolama menjati animacije (kretanje, trčanje, skok...)
 - [x] srediti pufnicu (dodati jos malo geometrije i neku boju, materijal, teksturu...)
-  - [ ] probati da Kamenko bude od lave (vidi shader example)
+  - [x] probati da Kamenko bude od lave (vidi shader example)
 - [x] odvojiti klase Player i Model
 - [x] napraviti izvedene klase koje nasledjuju Model (Dupechesh, Robotko, Girl i sl)
 - [x] spojiti klase Avatar i Player

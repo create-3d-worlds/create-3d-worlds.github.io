@@ -33,7 +33,7 @@ const tower = createTower(6)
 const terrain = createTerrain()
 scene.add(terrain, tower)
 
-const avatar = new Player(120, 10, 0, 5, false)
+const avatar = new Player(120, 10, 0, 5, 0)
 avatar.add(camera)
 avatar.addSolids(terrain, tower)
 scene.add(avatar.mesh)

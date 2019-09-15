@@ -12,7 +12,7 @@ const stairs = createSpiralStairs(5)
 // const stairs = createSpiralStairs(5, 40, 40)
 scene.add(stairs)
 
-const avatar = new Player(100, 50, -50, 10, false)
+const avatar = new Player(100, 50, -50, 10, 0)
 avatar.addSolids(terrain, stairs)
 avatar.mesh.rotateY(Math.PI)
 avatar.add(camera)
