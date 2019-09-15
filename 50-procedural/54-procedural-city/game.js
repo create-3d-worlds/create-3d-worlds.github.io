@@ -42,7 +42,15 @@ function generateBuilding() {
   const geometry = new THREE.CubeGeometry(1, 1, 1)
   geometry.faces.splice(6, 2) // remove floor for optimization
   const material = new THREE.MeshLambertMaterial({map: texture})
-  const mesh = new THREE.Mesh(geometry, material)
+  const materials = [
+    new THREE.MeshLambertMaterial({ map: texture }),
+    new THREE.MeshLambertMaterial({ map: texture }),
+    new THREE.MeshLambertMaterial({ color: 0xeeeeee }),
+    new THREE.MeshLambertMaterial({ map: texture }),
+    new THREE.MeshLambertMaterial({ map: texture }),
+    new THREE.MeshLambertMaterial({ map: texture }),
+  ]
+  const mesh = new THREE.Mesh(geometry, materials)
   mesh.position.set(randomInRange(-size, size), 0, randomInRange(-size, size))
   mesh.rotation.y = Math.random()
   mesh.scale.x = mesh.scale.z = randomInRange(10, 20)
