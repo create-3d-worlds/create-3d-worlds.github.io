@@ -1,11 +1,11 @@
 import * as THREE from '/node_modules/three/build/three.module.js'
 import { scene, renderer, camera, clock, createOrbitControls} from '/utils/scene.js'
-import {Player, Robotko} from '/classes/index.js'
+import {PlayerModel, Robotko} from '/classes/index.js'
 
 camera.position.set(50, 10, 0)
 createOrbitControls()
 
-const player = new Player(0, 0, 0, 20, mesh => {
+const player = new PlayerModel(0, 0, 0, 20, mesh => {
   mesh.rotateY(Math.PI)
   mesh.add(camera)
   scene.add(mesh)

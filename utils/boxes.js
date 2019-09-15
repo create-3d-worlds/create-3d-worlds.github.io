@@ -23,8 +23,10 @@ export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomCo
   const material = new THREE.MeshPhongMaterial(options)
   const mesh = new THREE.Mesh(geometry, material)
   mesh.position.set(x, y, z)
+  const group = new THREE.Group()
   mesh.translateY(size / 2)
-  return mesh
+  group.add(mesh)
+  return group
 }
 
 export const createCrate = (x, y, z, size, file = 'crate.gif') => createBox(x, y, z, size, file)

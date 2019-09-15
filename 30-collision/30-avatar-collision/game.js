@@ -1,9 +1,9 @@
-import Player from '/classes/Player.js'
+import {PlayerAvatar} from '/classes/Player.js'
 import {scene, renderer, camera, clock} from '/utils/scene.js'
 import {createFirTrees} from '/utils/trees.js'
 import {createFloor} from '/utils/floor.js'
 
-const avatar = new Player()
+const avatar = new PlayerAvatar()
 scene.add(avatar.mesh)
 
 camera.position.z = 100

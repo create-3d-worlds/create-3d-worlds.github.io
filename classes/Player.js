@@ -1,5 +1,6 @@
 import * as THREE from '/node_modules/three/build/three.module.js'
 import {keyboard, Kamenko} from '/classes/index.js'
+import {createBlock} from '/utils/boxes.js'
 
 const {pressed} = keyboard
 
@@ -7,14 +8,12 @@ const {pressed} = keyboard
  * Player handle user input, move mesh and call model animations.
  */
 export default class Player {
-  constructor(x = 0, y = 0, z = 0, size = 35, skin) {
+  constructor(x = 0, y = 0, z = 0, size = 35) {
     this.size = size
     this.speed = size * 4
     this.solids = []
     this.groundY = 0
-    // default model, instead of just a box
-    this.model = new Kamenko(x, y, z, size, skin)
-    this.mesh = this.model.mesh
+    this.mesh = createBlock(x, y, z, size)
   }
 
   /**
@@ -139,5 +138,13 @@ export class PlayerModel extends Player {
       mesh.position.set(x, y, z)
       callback(mesh)
     }, size)
+  }
+}
+
+export class PlayerAvatar extends Player {
+  constructor(x, y, z, size, skin) {
+    super(x, y, z, size)
+    this.model = new Kamenko(x, y, z, size, skin)
+    this.mesh = this.model.mesh
   }
 }

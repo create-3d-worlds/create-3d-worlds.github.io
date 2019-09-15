@@ -1,9 +1,9 @@
 import {createFloor} from '/utils/floor.js'
 import {createTrees} from '/utils/trees.js'
 import {scene, renderer, camera, clock} from '/utils/scene.js'
-import Player from '/classes/Player.js'
+import {PlayerAvatar} from '/classes/Player.js'
 
-const avatar = new Player()
+const avatar = new PlayerAvatar()
 
 scene.add(avatar.mesh, createTrees(), createFloor())
 
