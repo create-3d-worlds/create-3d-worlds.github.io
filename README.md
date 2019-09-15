@@ -68,7 +68,7 @@ live-server
 - [x] heightmap with texture
 - [x] kreirati stepenice u krug od kocki
 - [x] kreirati funkciju similarColor
-- [ ] proceduralni grad: promeniti boju krova
+- [x] proceduralni grad: promeniti boju krova
 
 ### 3D Models
 
