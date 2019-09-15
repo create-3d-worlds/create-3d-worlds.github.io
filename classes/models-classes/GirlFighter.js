@@ -1,4 +1,4 @@
-import Model from './Model.js'
+import Model from '../Model.js'
 import {FBXLoader} from '/node_modules/three/examples/jsm/loaders/FBXLoader.js'
 
 const fbxLoader = new FBXLoader()

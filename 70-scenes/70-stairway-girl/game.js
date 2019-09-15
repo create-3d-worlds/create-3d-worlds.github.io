@@ -1,11 +1,8 @@
-// https://mugen87.github.io/yuka/examples/fsm/
-// https://mugen87.github.io/yuka/examples/goal/
-import {scene, camera, renderer, clock, createOrbitControls} from '/utils/scene.js'
+import {scene, camera, renderer, clock} from '/utils/scene.js'
 import {createSpiralStairs} from '/utils/boxes.js'
 import {createFloor} from '/utils/floor.js'
 import {PlayerModel, Dupechesh, Ratamahatta, Robotko, Girl, GirlFighter} from '/classes/index.js'
 
-// createOrbitControls()
 camera.position.z = 40
 camera.position.y = 20
 

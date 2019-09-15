@@ -2,11 +2,11 @@ import keyboard from './Keyboard.js'
 import Player, {PlayerModel} from './Player.js'
 import Kamenko from './Kamenko.js'
 import Model from './Model.js'
-import Dupechesh from './Dupechesh.js'
-import Ratamahatta from './Ratamahatta.js'
-import Robotko from './Robotko.js'
-import Girl from './Girl.js'
-import GirlFighter from './GirlFighter.js'
+import Dupechesh from './models-classes/Dupechesh.js'
+import Ratamahatta from './models-classes/Ratamahatta.js'
+import Robotko from './models-classes/Robotko.js'
+import Girl from './models-classes/Girl.js'
+import GirlFighter from './models-classes/GirlFighter.js'
 
 export {
   keyboard,
