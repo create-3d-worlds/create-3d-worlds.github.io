@@ -5,18 +5,11 @@ import matrix from '/data/small-map.js'
 import Canvas from '/classes/2d/Canvas.js'
 import Player from '/classes/Player.js'
 
-const canvas = new Canvas()
-canvas.renderMap(matrix, 30)
-canvas.style.position = 'absolute'
-canvas.style.left = 0
-canvas.style.backgroundColor = 'transparent'
-
-const slika = document.getElementById('savo')
-const x = window.innerWidth / 2 - slika.width / 2
-const y = window.innerHeight - slika.height
-canvas.ctx.drawImage(slika, x, y)
-
 createOrbitControls()
+
+const canvas = new Canvas('transparent')
+canvas.renderMap(matrix, 30)
+canvas.drawFirstPerson(document.getElementById('savo'))
 
 const floor = createFloor()
 scene.add(floor)

@@ -57,6 +57,12 @@ export default class Canvas extends HTMLCanvasElement {
     this.ctx.fillRect(x * size, y * size, size, size)
   }
 
+  drawFirstPerson(img) {
+    const x = window.innerWidth / 2 - img.width / 2
+    const y = window.innerHeight - img.height
+    this.ctx.drawImage(img, x, y)
+  }
+
   renderMap(matrix, cellSize) {
     matrix.forEach((row, y) => row.forEach((val, x) =>
       this.drawRect(x, y, cellSize, colors[val])
