@@ -2,9 +2,10 @@ import { createFloor } from '/utils/floor.js'
 import { createMap } from '/utils/boxes.js'
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import matrix from '/data/small-map.js'
-import canvas from '/classes/2d/Canvas.js'
+import Canvas from '/classes/2d/Canvas.js'
 import Player from '/classes/Player.js'
 
+const canvas = new Canvas()
 canvas.renderMap(matrix, 30)
 canvas.style.position = 'absolute'
 canvas.style.left = 0

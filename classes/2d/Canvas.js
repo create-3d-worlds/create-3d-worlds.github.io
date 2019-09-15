@@ -1,8 +1,7 @@
 const CIRCLE = Math.PI * 2
 const colors = ['#fff', '#444', '#701206', '#000']
 
-// Singleton
-class Canvas extends HTMLCanvasElement {
+export default class Canvas extends HTMLCanvasElement {
   constructor() {
     super()
     this.height = window.innerHeight || 600 // height must first
@@ -69,5 +68,3 @@ class Canvas extends HTMLCanvasElement {
 }
 
 customElements.define('my-canvas', Canvas, { extends: 'canvas' })
-
-export default new Canvas()
