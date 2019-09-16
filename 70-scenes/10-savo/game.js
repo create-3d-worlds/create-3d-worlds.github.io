@@ -7,8 +7,6 @@ import Player, {PlayerAvatar} from '/classes/Player.js'
 
 createOrbitControls() // ne radi sa kanvasom??
 
-// TODO: Player kocka ne radi dobro sa kamerom, PlayerAvatar radi
-
 const canvas = new Canvas('transparent')
 canvas.renderMap(matrix, 30)
 canvas.drawFirstPerson(document.getElementById('savo'))
@@ -18,8 +16,8 @@ scene.add(floor)
 const walls = createMap(matrix, 20)
 scene.add(walls)
 
-camera.position.z = 15
-camera.position.y = 10
+camera.position.y = 12
+camera.position.z = 10
 
 const avatar = new Player(25, 0, 25, 10)
 scene.add(avatar.mesh)
