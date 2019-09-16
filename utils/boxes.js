@@ -14,7 +14,7 @@ function createOutline(size) {
 
 /* creators */
 
-export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomColor(0.1, 0.01, .75), isRectangle = false, transparent = false) {
+export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomColor(0.1, 0.01, .75), isRectangle = false) {
   const depthSize = isRectangle ? size * 2 : size
   const geometry = new THREE.BoxGeometry(size, size, depthSize)
   const options = {}
@@ -22,8 +22,6 @@ export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomCo
   else options.color = color
   const material = new THREE.MeshPhongMaterial(options)
   const mesh = new THREE.Mesh(geometry, material)
-  mesh.material.opacity = transparent ? 0 : 1
-  mesh.material.transparent = transparent
   mesh.position.set(x, y, z)
   mesh.translateY(size / 2)
   return mesh
@@ -31,7 +29,7 @@ export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomCo
 
 export const createCrate = (x, y, z, size, file = 'crate.gif') => createBox(x, y, z, size, file)
 
-export const createBlock = (x, y, z, size, color, transparent) => createBox(x, y, z, size, null, color, false, transparent)
+export const createBlock = (x, y, z, size, color) => createBox(x, y, z, size, null, color, false)
 
 export const createStair = (x, y, z, size) => createBox(x, y, z, size, null, null, true)
 
@@ -40,6 +38,16 @@ export function createSketchBox(x = 0, y = 0, z = 0, size) {
   const outline = createOutline(size)
   box.add(outline)
   return box
+}
+
+export function createPlayerBox(x = 0, y = 0, z = 0, size, transparent) {
+  const box = createBlock(0, 0, 0, size, null, transparent)
+  box.material.opacity = transparent ? 0 : 1
+  box.material.transparent = transparent
+  const group = new THREE.Group()
+  group.add(box)
+  group.position.set(x, y, z)
+  return group
 }
 
 /* factories */

@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three/build/three.module.js'
 import {keyboard, Kamenko} from '/classes/index.js'
-import {createBlock} from '/utils/boxes.js'
+import { createPlayerBox} from '/utils/boxes.js'
 
 const {pressed} = keyboard
 
@@ -13,7 +13,7 @@ export default class Player {
     this.speed = size * 4
     this.solids = []
     this.groundY = 0
-    this.mesh = createBlock(x, y, z, size, null, transparent)
+    this.mesh = createPlayerBox(x, y, z, size, transparent)
   }
 
   /**

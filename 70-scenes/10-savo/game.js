@@ -19,7 +19,7 @@ scene.add(walls)
 camera.position.y = 15
 camera.position.z = 5
 
-const avatar = new Player(25, 0, 25, 10)
+const avatar = new Player(25, 0, 25, 10, false)
 scene.add(avatar.mesh)
 avatar.mesh.add(camera)
 avatar.addSolids(walls)
