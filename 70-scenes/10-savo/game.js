@@ -3,7 +3,7 @@ import { createMap } from '/utils/boxes.js'
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import matrix from '/data/small-map.js'
 import Canvas from '/classes/2d/Canvas.js'
-import Player, {PlayerAvatar} from '/classes/Player.js'
+import Player from '/classes/Player.js'
 
 createOrbitControls() // ne radi sa kanvasom??
 
@@ -16,10 +16,10 @@ scene.add(floor)
 const walls = createMap(matrix, 20)
 scene.add(walls)
 
-camera.position.y = 12
-camera.position.z = 10
+camera.position.y = 15
+camera.position.z = 5
 
-const avatar = new Player(25, 0, 25, 10)
+const avatar = new Player(25, 0, 25, 10, true)
 scene.add(avatar.mesh)
 avatar.mesh.add(camera)
 avatar.addSolids(walls)

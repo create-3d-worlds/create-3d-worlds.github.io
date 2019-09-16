@@ -8,12 +8,14 @@ const {pressed} = keyboard
  * Player handle user input, move mesh and call model animations.
  */
 export default class Player {
-  constructor(x = 0, y = 0, z = 0, size = 35) {
+  constructor(x = 0, y = 0, z = 0, size = 35, transparent = false) {
     this.size = size
     this.speed = size * 4
     this.solids = []
     this.groundY = 0
     this.mesh = createBlock(x, y, z, size)
+    this.mesh.material.opacity = transparent ? 0 : 1
+    this.mesh.material.transparent = transparent
   }
 
   /**
