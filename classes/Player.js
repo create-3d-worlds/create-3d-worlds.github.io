@@ -26,7 +26,8 @@ export default class Player {
     const angle = Math.PI / 2 * delta
 
     if (!pressed.Space) {
-      if (this.position.y > this.groundY) this.mesh.translateY(-stepY)
+      if (this.position.y > this.groundY)
+        if (this.position.y - stepY >= this.groundY) this.mesh.translateY(-stepY)
       if (this.position.y < this.groundY) this.mesh.translateY(stepY)
     }
     if (pressed.KeyA || pressed.ArrowLeft) this.mesh.rotateY(angle)
