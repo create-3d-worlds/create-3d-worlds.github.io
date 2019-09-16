@@ -12,6 +12,7 @@ export default class Canvas extends HTMLCanvasElement {
       this.style.left = 0
       this.style.top = 0
     }
+    this.style.pointerEvents = 'none'
     document.body.style.margin = 0
     document.body.style.padding = 0
     document.body.appendChild(this)
@@ -57,10 +58,14 @@ export default class Canvas extends HTMLCanvasElement {
     this.ctx.fillRect(x * size, y * size, size, size)
   }
 
-  drawFirstPerson(img) {
-    const x = window.innerWidth / 2 - img.width / 2
-    const y = window.innerHeight - img.height
-    this.ctx.drawImage(img, x, y)
+  drawFirstPerson(src) {
+    const img = new Image()
+    img.onload = () => {
+      const x = window.innerWidth / 2 - img.width / 2
+      const y = window.innerHeight - img.height
+      this.ctx.drawImage(img, x, y)
+    }
+    img.src = src
   }
 
   renderMap(matrix, cellSize) {
