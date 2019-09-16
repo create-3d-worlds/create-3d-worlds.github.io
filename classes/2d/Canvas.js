@@ -11,8 +11,8 @@ export default class Canvas extends HTMLCanvasElement {
       this.style.position = 'absolute'
       this.style.left = 0
       this.style.top = 0
+      this.style.pointerEvents = 'none'
     }
-    this.style.pointerEvents = 'none'
     document.body.style.margin = 0
     document.body.style.padding = 0
     document.body.appendChild(this)
