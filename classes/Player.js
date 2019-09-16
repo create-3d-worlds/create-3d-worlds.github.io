@@ -13,9 +13,7 @@ export default class Player {
     this.speed = size * 4
     this.solids = []
     this.groundY = 0
-    this.mesh = createBlock(x, y, z, size)
-    this.mesh.material.opacity = transparent ? 0 : 1
-    this.mesh.material.transparent = transparent
+    this.mesh = createBlock(x, y, z, size, null, transparent)
   }
 
   /**

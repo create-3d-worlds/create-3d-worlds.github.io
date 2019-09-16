@@ -7,9 +7,9 @@ import Player from '/classes/Player.js'
 
 createOrbitControls() // ne radi sa kanvasom??
 
-const canvas = new Canvas('transparent')
-canvas.renderMap(matrix, 30)
-canvas.drawFirstPerson(document.getElementById('savo'))
+// const canvas = new Canvas('transparent')
+// canvas.renderMap(matrix, 30)
+// canvas.drawFirstPerson(document.getElementById('savo'))
 
 const floor = createFloor()
 scene.add(floor)
@@ -19,7 +19,7 @@ scene.add(walls)
 camera.position.y = 15
 camera.position.z = 5
 
-const avatar = new Player(25, 0, 25, 10, true)
+const avatar = new Player(25, 0, 25, 10)
 scene.add(avatar.mesh)
 avatar.mesh.add(camera)
 avatar.addSolids(walls)
