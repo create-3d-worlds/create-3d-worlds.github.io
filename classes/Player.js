@@ -100,6 +100,14 @@ export default class Player {
     return this.mesh.position
   }
 
+  get x() {
+    return this.mesh.position.x
+  }
+
+  get z() {
+    return this.mesh.position.z
+  }
+
   add(obj) {
     this.mesh.add(obj)
   }
