@@ -4,20 +4,22 @@ export default class Tilemap3D {
   constructor(matrix, cellSize = 250) {
     this.matrix = matrix
     this.cellSize = cellSize
-    this.mHeight = matrix.length
-    this.mWidth =  matrix[0].length
-    this.height = this.mHeight * cellSize
-    this.width = this.mWidth * cellSize
+    this.numRows = matrix.length
+    this.numColumns = matrix[0].length
+    this.height = this.numRows * cellSize
+    this.width = this.numColumns * cellSize
   }
 
-  getMapSector(v) {
-    const x = Math.floor((v.x + this.cellSize / 2) / this.cellSize + this.mWidth / 2)
-    const z = Math.floor((v.z + this.cellSize / 2) / this.cellSize + this.mHeight / 2)
-    return {x, z}
+  // TODO: prebaciti 3D koordinate lavirinta u canvas koordinate (x, y) sa ihodistem gore levo
+  // uzeti u obzir negativne vrednosti
+  getMapCoords(v) {
+    const x = Math.floor((v.x + this.cellSize / 2) / this.cellSize + this.numColumns / 2)
+    const y = Math.floor((v.z + this.cellSize / 2) / this.cellSize + this.numRows / 2)
+    return {x, y}
   }
 
   checkWallCollision(v) {
-    const c = this.getMapSector(v)
+    const c = this.getMapCoords(v)
     return this.matrix[c.x][c.z] > 0
   }
 
@@ -31,13 +33,14 @@ export default class Tilemap3D {
       new THREE.MeshLambertMaterial({map: loader.load('/assets/textures/concrete.jpg')}),
       new THREE.MeshLambertMaterial({color: 0xFBEBCD}),
     ]
-    for (let i = 0; i < this.mHeight; i++)
-      for (let j = 0, m = this.mWidth; j < m; j++) {
+    for (let i = 0; i < this.numRows; i++)
+      for (let j = 0, m = this.numColumns; j < m; j++) {
         if (!this.matrix[i][j]) continue
         const wall = new THREE.Mesh(cube, materials[this.matrix[i][j] - 1])
-        wall.position.x = (i - this.mWidth / 2) * this.cellSize
+        wall.position.x = (i - this.numColumns / 2) * this.cellSize
         wall.position.y = wallHeight / 2
-        wall.position.z = (j - this.mWidth / 2) * this.cellSize
+        wall.position.z = (j - this.numColumns / 2) * this.cellSize
+        console.log(wall.position.x) // TODO: uzeti u obzir raspon x, z koordinata za getMapCoords
         group.add(wall)
       }
     return group

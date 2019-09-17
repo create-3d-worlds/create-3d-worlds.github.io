@@ -93,13 +93,13 @@ export default class Canvas extends HTMLCanvasElement {
     this.drawLamp(x, y, size, player.angle, '#ff0')
   }
 
-  render3DPlayer(player, cellSize) {
+  renderPlayerFrom3D(player, map) {
     const size = 5
-    const x = Math.floor(player.x * cellSize)
-    const y = Math.floor(player.z * cellSize)
-    // TODO: prebaciti u canvas koordinate sa (x, y) ihodistem gore levo
+    const playerX = Math.floor(player.x * map.cellSize)
+    const playerZ = Math.floor(player.z * map.cellSize)
+    // TODO: srediti getMapCoords
+    const { x, y } = map.getMapCoords({ x: playerX, z: playerZ })
     console.log(x, y)
-
     this.drawCircle(x, y, size, '#f00')
   }
 }

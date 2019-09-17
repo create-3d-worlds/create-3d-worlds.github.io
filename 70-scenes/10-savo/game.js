@@ -29,7 +29,7 @@ void function animate() {
   const delta = clock.getDelta()
   player.update(delta)
   canvas.renderMap(matrix, 20)
-  canvas.render3DPlayer(player, 20)
+  canvas.renderPlayerFrom3D(player, map)
   canvas.drawFirstPerson('/assets/images/savo.png')
   renderer.render(scene, camera)
 }()
