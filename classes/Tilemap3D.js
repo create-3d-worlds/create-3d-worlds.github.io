@@ -25,7 +25,7 @@ export default class Tilemap3D {
 
   createWalls() {
     const group = new THREE.Group()
-    const wallHeight = this.cellSize / 3
+    const wallHeight = this.cellSize / 2
     const loader = new THREE.TextureLoader()
     const cube = new THREE.BoxGeometry(this.cellSize, wallHeight, this.cellSize)
     const materials = [
