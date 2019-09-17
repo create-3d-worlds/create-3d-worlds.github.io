@@ -15,7 +15,7 @@ scene.add(createFloor())
 const walls = createMap(matrix, 20)
 scene.add(walls)
 
-camera.position.y = 15
+camera.position.y = 10
 camera.position.z = 5
 
 const avatar = new Player(25, 0, 25, 10, true)
