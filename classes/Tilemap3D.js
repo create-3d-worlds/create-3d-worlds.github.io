@@ -1,4 +1,7 @@
 import * as THREE from '/node_modules/three/build/three.module.js'
+import {createBox} from '/utils/boxes.js'
+
+const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
 
 export default class Tilemap3D {
   constructor(matrix, cellSize = 250) {
@@ -25,24 +28,12 @@ export default class Tilemap3D {
 
   createWalls() {
     const group = new THREE.Group()
-    const wallHeight = this.cellSize / 2
-    const loader = new THREE.TextureLoader()
-    const cube = new THREE.BoxGeometry(this.cellSize, wallHeight, this.cellSize)
-    const materials = [
-      new THREE.MeshLambertMaterial({map: loader.load('/assets/textures/wall-1.jpg')}),
-      new THREE.MeshLambertMaterial({map: loader.load('/assets/textures/concrete.jpg')}),
-      new THREE.MeshLambertMaterial({color: 0xFBEBCD}),
-    ]
-    for (let i = 0; i < this.numRows; i++)
-      for (let j = 0, m = this.numColumns; j < m; j++) {
-        if (!this.matrix[i][j]) continue
-        const wall = new THREE.Mesh(cube, materials[this.matrix[i][j] - 1])
-        wall.position.x = (i - this.numColumns / 2) * this.cellSize
-        wall.position.y = wallHeight / 2
-        wall.position.z = (j - this.numColumns / 2) * this.cellSize
-        console.log(wall.position.x) // TODO: uzeti u obzir raspon x, z koordinata za getMapCoords
-        group.add(wall)
-      }
+    this.matrix.forEach((row, z) => row.forEach((val, x) => {
+      if (!val) return
+      // TODO: pomocna funkciju za pravljenje kocke zida, sa manjom visinom od ostalih stranica
+      const wall = createBox(x * this.cellSize, 0, z * this.cellSize, this.cellSize, textures[val - 1])
+      group.add(wall)
+    }))
     return group
   }
 
