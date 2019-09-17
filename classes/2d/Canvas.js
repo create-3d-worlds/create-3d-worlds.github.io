@@ -61,8 +61,18 @@ export default class Canvas extends HTMLCanvasElement {
   drawFirstPerson(src) {
     const img = new Image()
     img.onload = () => {
-      const x = window.innerWidth / 2 - img.width / 2
+      const x = window.innerWidth * 0.5 - img.width * 0.5
       const y = window.innerHeight - img.height
+      this.ctx.drawImage(img, x, y)
+    }
+    img.src = src
+  }
+
+  drawTarget(src) {
+    const img = new Image()
+    img.onload = () => {
+      const x = window.innerWidth * 0.5 - img.width * 0.5
+      const y = window.innerHeight * 0.5 - img.height * 0.5
       this.ctx.drawImage(img, x, y)
     }
     img.src = src

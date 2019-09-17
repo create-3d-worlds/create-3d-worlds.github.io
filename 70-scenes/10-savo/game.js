@@ -6,8 +6,10 @@ import Canvas from '/classes/2d/Canvas.js'
 import Player from '/classes/Player.js'
 
 const canvas = new Canvas('transparent')
-canvas.renderMap(matrix, 30)
+// canvas.renderMap(matrix, 30)
 canvas.drawFirstPerson('/assets/images/savo.png')
+canvas.drawTarget('/assets/images/crosshair.png')
+// document.addEventListener('click', () => canvas.requestPointerLock())
 
 scene.add(createFloor())
 const walls = createMap(matrix, 20)

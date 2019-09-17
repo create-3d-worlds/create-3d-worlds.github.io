@@ -86,8 +86,9 @@ live-server
 
 - [x] dodati ruke iz prvog lica (Savo)
   - [x] odvojiti avatara i staviti kutiju kao default Igrac
-  - https://mugen87.github.io/yuka/examples/entity/shooter/
-  - https://mugen87.github.io/yuka/examples/playground/hideAndSeek/
+  - [x] dodati nisan u centru ekrana i mozda zakljucati mis
+  - [ ] prikazivati igraca na 2d mapi
+  - [ ] dodati dugme za otvaranje/zatvaranje mape
 - [ ] dodati NPC karaktere
   - https://www.script-tutorials.com/demos/474/index3.html
 - [ ] dodati neke modele vozila i kuca
