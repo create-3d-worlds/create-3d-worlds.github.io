@@ -83,6 +83,7 @@ export function createMap(matrix, size = 5) {
   const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
   const group = new THREE.Group()
   matrix.forEach((row, z) => row.forEach((val, x) => {
+    // TODO: pomocna funkcija createWallBox, sa manjom visinom od ostalih stranica
     if (val) group.add(createBox(x * size, 0, z * size, size, textures[val - 1]))
   }))
   return group

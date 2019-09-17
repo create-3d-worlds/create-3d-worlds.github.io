@@ -1,7 +1,5 @@
 import * as THREE from '/node_modules/three/build/three.module.js'
-import {createBox} from '/utils/boxes.js'
-
-const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
+import {createMap} from '/utils/boxes.js'
 
 export default class Tilemap3D {
   constructor(matrix, cellSize = 250) {
@@ -27,14 +25,7 @@ export default class Tilemap3D {
   }
 
   createWalls() {
-    const group = new THREE.Group()
-    this.matrix.forEach((row, z) => row.forEach((val, x) => {
-      if (!val) return
-      // TODO: pomocna funkciju za pravljenje kocke zida, sa manjom visinom od ostalih stranica
-      const wall = createBox(x * this.cellSize, 0, z * this.cellSize, this.cellSize, textures[val - 1])
-      group.add(wall)
-    }))
-    return group
+    return createMap(this.matrix, this.cellSize)
   }
 
   createFloor() {
