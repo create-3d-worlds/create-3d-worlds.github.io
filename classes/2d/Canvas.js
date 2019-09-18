@@ -7,6 +7,8 @@ export default class Canvas extends HTMLCanvasElement {
     this.height = window.innerHeight || 600 // height must first
     this.width = document.body.clientWidth || 800
     this.style.backgroundColor = color
+    this.firstPerson = new Image()
+    this.target = new Image()
     if (color == 'transparent') {
       this.style.position = 'absolute'
       this.style.left = 0
@@ -58,38 +60,39 @@ export default class Canvas extends HTMLCanvasElement {
     this.ctx.fillRect(x * size, y * size, size, size)
   }
 
-  // prebaciti img kao atribut klase
   // ako je ucitano (img.complete) ne slati request!
+  // kada hoda da se pomera
   drawWeapon(src, time) {
-    const img = new Image()
-    img.onload = () => {
+    if (this.firstPerson.complete && this.firstPerson.naturalWidth) {
       const offsetX = Math.cos(time * 2) * 6
       const offsetY = Math.sin(time * 4) * 6
-      const x = window.innerWidth * 0.5 - img.width * 0.5 + offsetX
-      const y = window.innerHeight - img.height + offsetY
-      this.ctx.drawImage(img, x, y)
-    }
-    img.src = src
+      const x = window.innerWidth * 0.5 - this.firstPerson.width * 0.5 + offsetX
+      const y = window.innerHeight - this.firstPerson.height + offsetY
+      this.ctx.drawImage(this.firstPerson, x, y)
+    } else
+      this.firstPerson.src = src
   }
 
+  // ne mora callback ako se poziva redovno
+  // dodati parametre za mrdanje, spojiti sa gornjom metodom
   drawFirstPerson(src) {
-    const img = new Image()
-    img.onload = () => {
-      const x = window.innerWidth * 0.5 - img.width * 0.5
-      const y = window.innerHeight - img.height
-      this.ctx.drawImage(img, x, y)
-    }
-    img.src = src
+    if (this.firstPerson.complete && this.firstPerson.naturalWidth) {
+      const x = window.innerWidth * 0.5 - this.firstPerson.width * 0.5
+      const y = window.innerHeight - this.firstPerson.height
+      this.ctx.drawImage(this.firstPerson, x, y)
+    } else
+      this.firstPerson.src = src
   }
 
+  // mora callback ako se poziva samo jednom
   drawTarget(src) {
-    const img = new Image()
-    img.onload = () => {
-      const x = window.innerWidth * 0.5 - img.width * 0.5
-      const y = window.innerHeight * 0.5 - img.height * 0.5
-      this.ctx.drawImage(img, x, y)
+    this.target = new Image()
+    this.target.onload = () => {
+      const x = window.innerWidth * 0.5 - this.target.width * 0.5
+      const y = window.innerHeight * 0.5 - this.target.height * 0.5
+      this.ctx.drawImage(this.target, x, y)
     }
-    img.src = src
+    this.target.src = src
   }
 
   renderMap(matrix, cellSize) {

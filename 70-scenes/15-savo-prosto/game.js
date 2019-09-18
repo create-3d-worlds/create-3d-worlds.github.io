@@ -31,6 +31,6 @@ void function animate() {
   const delta = clock.getDelta()
   const time = clock.getElapsedTime()
   player.update(delta)
-  canvas.drawWeapon('/assets/images/savo.png', time)
+  canvas.drawFirstPerson('/assets/images/savo.png', time) // drawFirstPerson, drawWeapon
   renderer.render(scene, camera)
 }()
