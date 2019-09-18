@@ -15,10 +15,11 @@ const walls = map.createWalls()
 // const walls = createMap(matrix, 100)
 scene.add(walls)
 
+// kamera u odnosu na igraca
 camera.position.y = 10
 camera.position.z = 5
 
-const player = new Player(25, 0, 25, 10, true)
+const player = new Player(120, 0, 90, 10, true)
 scene.add(player.mesh)
 player.add(camera)
 player.addSolids(walls)
@@ -28,7 +29,8 @@ player.addSolids(walls)
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
+  const time = clock.getElapsedTime()
   player.update(delta)
-  canvas.drawFirstPerson('/assets/images/savo.png')
+  canvas.drawWeapon('/assets/images/savo.png', time)
   renderer.render(scene, camera)
 }()

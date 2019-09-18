@@ -58,6 +58,20 @@ export default class Canvas extends HTMLCanvasElement {
     this.ctx.fillRect(x * size, y * size, size, size)
   }
 
+  // prebaciti img kao atribut klase
+  // ako je ucitano (img.complete) ne slati request!
+  drawWeapon(src, time) {
+    const img = new Image()
+    img.onload = () => {
+      const offsetX = Math.cos(time * 2) * 6
+      const offsetY = Math.sin(time * 4) * 6
+      const x = window.innerWidth * 0.5 - img.width * 0.5 + offsetX
+      const y = window.innerHeight - img.height + offsetY
+      this.ctx.drawImage(img, x, y)
+    }
+    img.src = src
+  }
+
   drawFirstPerson(src) {
     const img = new Image()
     img.onload = () => {

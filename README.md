@@ -144,15 +144,6 @@ All libraries in `/libs` folder are updated by hand to support ES6 export.
 ## Resources
 
 ```js
-// TODO: reuse drawPlayer
-Camera.prototype.drawWeapon = function(weapon, paces) {
-  const bobX = Math.cos(paces * 2) * this.scale * 6
-  let bobY = Math.sin(paces * 4) * this.scale * 6
-  let left = this.width * 0.20 + bobX
-  let top = this.height * 0.6 + bobY
-  this.ctx.drawImage(weapon.image, left, top, weapon.width * this.scale, weapon.height * this.scale)
-}
-
 // TODO: reuse randomWalls
 Map.prototype.randomize = function() {
   for (let i = 0; i < this.size * this.size; i++) {
