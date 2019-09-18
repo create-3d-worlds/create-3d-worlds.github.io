@@ -7,7 +7,7 @@ export default class Canvas extends HTMLCanvasElement {
     this.height = window.innerHeight || 600 // height must first
     this.width = document.body.clientWidth || 800
     this.style.backgroundColor = color
-    this.firstPerson = new Image()
+    this.weapon = new Image()
     this.target = new Image()
     if (color == 'transparent') {
       this.style.position = 'absolute'
@@ -63,25 +63,26 @@ export default class Canvas extends HTMLCanvasElement {
   // ako je ucitano (img.complete) ne slati request!
   // kada hoda da se pomera
   drawWeapon(src, time) {
-    if (this.firstPerson.complete && this.firstPerson.naturalWidth) {
+    if (this.weapon.complete && this.weapon.naturalWidth) {
       const offsetX = Math.cos(time * 2) * 6
       const offsetY = Math.sin(time * 4) * 6
-      const x = window.innerWidth * 0.5 - this.firstPerson.width * 0.5 + offsetX
-      const y = window.innerHeight - this.firstPerson.height + offsetY
-      this.ctx.drawImage(this.firstPerson, x, y)
+      const x = window.innerWidth * 0.5 - this.weapon.width * 0.5 + offsetX
+      const y = window.innerHeight - this.weapon.height + offsetY
+      this.ctx.clearRect(x, y, this.weapon.width + Math.abs(offsetX), this.weapon.height)
+      this.ctx.drawImage(this.weapon, x, y)
     } else
-      this.firstPerson.src = src
+      this.weapon.src = src
   }
 
   // ne mora callback ako se poziva redovno
   // dodati parametre za mrdanje, spojiti sa gornjom metodom
   drawFirstPerson(src) {
-    if (this.firstPerson.complete && this.firstPerson.naturalWidth) {
-      const x = window.innerWidth * 0.5 - this.firstPerson.width * 0.5
-      const y = window.innerHeight - this.firstPerson.height
-      this.ctx.drawImage(this.firstPerson, x, y)
+    if (this.weapon.complete && this.weapon.naturalWidth) {
+      const x = window.innerWidth * 0.5 - this.weapon.width * 0.5
+      const y = window.innerHeight - this.weapon.height
+      this.ctx.drawImage(this.weapon, x, y)
     } else
-      this.firstPerson.src = src
+      this.weapon.src = src
   }
 
   // mora callback ako se poziva samo jednom
