@@ -39,6 +39,10 @@ class Keyboard {
     return this.pressed.ArrowRight || this.pressed.ArrowLeft || this.pressed.ArrowDown || this.pressed.ArrowUp
   }
 
+  get controlsPressed() {
+    return this.arrowPressed || this.pressed.KeyW || this.pressed.KeyA || this.pressed.KeyS || this.pressed.KeyD
+  }
+
   get totalPressed() {
     return Object.values(this.pressed).filter(x => x).length
   }

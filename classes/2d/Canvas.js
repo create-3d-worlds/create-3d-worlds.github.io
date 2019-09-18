@@ -1,3 +1,5 @@
+import keyboard from '../Keyboard.js'
+
 const CIRCLE = Math.PI * 2
 const colors = ['#fff', '#444', '#701206', '#000']
 
@@ -60,40 +62,45 @@ export default class Canvas extends HTMLCanvasElement {
     this.ctx.fillRect(x * size, y * size, size, size)
   }
 
-  // kada miruje da se pozove jednom
-  // kada hoda da se pomera i poziva stalno
-  // (ne mora callback ako se poziva stalno)
-  drawWeapon(src, time) {
-    if (this.weapon.complete && this.weapon.naturalWidth) {
-      // TODO: kada se krece shaking = 6
-      const shaking = 6
-      const offsetX = Math.cos(time * 2) * shaking
-      const offsetY = Math.sin(time * 4) * shaking
-      const x = window.innerWidth * 0.5 - this.weapon.width * 0.5 + offsetX
-      const y = window.innerHeight - this.weapon.height + offsetY + shaking
-      this.ctx.clearRect(x, y, this.weapon.width + Math.abs(offsetX), this.weapon.height)
-      this.ctx.drawImage(this.weapon, x, y)
-    } else this.weapon.src = src
+  clear() {
+    this.ctx.clearRect(0, 0, this.width, this.height)
   }
 
-  // spojiti sa gornjom metodom
-  drawFirstPerson(src) {
-    if (this.weapon.complete && this.weapon.naturalWidth) {
-      const x = window.innerWidth * 0.5 - this.weapon.width * 0.5
-      const y = window.innerHeight - this.weapon.height
-      this.ctx.drawImage(this.weapon, x, y)
-    } else
+  // handle loading and draw weapon
+  drawWeapon(src, time = 1) {
+    if (this.weapon.naturalWidth)
+      this.justDrawWeapon(time)
+    else {
+      this.weapon.onload = () => this.justDrawWeapon(time)
       this.weapon.src = src
+    }
   }
 
-  drawTarget(src) {
-    this.target = new Image()
-    this.target.onload = () => { // mora onload ako se crta samo jednom
-      const x = window.innerWidth * 0.5 - this.target.width * 0.5
-      const y = window.innerHeight * 0.5 - this.target.height * 0.5
-      this.ctx.drawImage(this.target, x, y)
+  justDrawWeapon(time) {
+    const shaking = keyboard.controlsPressed ? 6 : 1
+    const shakeX = Math.cos(time * 2) * shaking
+    const shakeY = Math.sin(time * 4) * shaking
+    const x = window.innerWidth * 0.5 - this.weapon.width * 0.5 + shakeX
+    const y = window.innerHeight - this.weapon.height + shakeY + shaking // da ne ostane praznina
+    this.ctx.drawImage(this.weapon, x, y)
+  }
+
+  drawTarget(src, time = 1) {
+    if (this.target.naturalWidth)
+      this.justDrawTarget(time)
+    else {
+      this.target.onload = () => this.justDrawTarget(time)
+      this.target.src = src
     }
-    this.target.src = src
+  }
+
+  justDrawTarget(time) {
+    const shaking = keyboard.controlsPressed ? 6 : 1
+    const shakeX = Math.cos(time * 2) * shaking
+    const shakeY = Math.sin(time * 4) * shaking
+    const x = window.innerWidth * 0.5 - this.target.width * 0.5 + shakeX
+    const y = window.innerHeight * 0.5 - this.target.height * 0.5 + shakeY
+    this.ctx.drawImage(this.target, x, y)
   }
 
   renderMap(matrix, cellSize) {
