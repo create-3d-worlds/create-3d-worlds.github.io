@@ -84,11 +84,14 @@ live-server
 
 ### Scenes
 
-- [x] dodati ruke iz prvog lica (Savo)
-  - [x] odvojiti avatara i staviti kutiju kao default Igrac
-  - [x] dodati nisan u centru ekrana i mozda zakljucati mis
+- [x] postaviti scenu prvo lice (Savo)
+  - [x] dodati nisan u centru ekrana
+  - [x] weapon shaking
   - [ ] prikazivati igraca na 2d mapi
   - [ ] dodati dugme za otvaranje/zatvaranje mape
+  - [ ] dodati munje i gromove
+  - [ ] dodati kišu
+- [ ] reuse randomWalls
 - [ ] dodati NPC karaktere
   - https://www.script-tutorials.com/demos/474/index3.html
 - [ ] dodati neke modele vozila i kuca
@@ -164,7 +167,6 @@ Map.prototype.update = function(dt) {
 }
 ```
 
-- https://github.com/skolakoda/ucimo-threejs
 - https://github.com/skolakoda/teorija-razvoja-igara
 - https://github.com/skolakoda/ucimo-razvoj-igara
 
@@ -172,5 +174,4 @@ Map.prototype.update = function(dt) {
 - https://github.com/mudroljub/igrica-partizani
 - https://github.com/yakudoo/TheAviator
 - https://github.com/juwalbose/ThreeJSEndlessRunner3D
-- https://github.com/mudroljub/mini-rpg (dodati modele zivotinja i sl)
 - https://github.com/mudroljub/1943
