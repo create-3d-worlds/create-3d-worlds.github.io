@@ -66,14 +66,22 @@ export default class Canvas extends HTMLCanvasElement {
     this.ctx.clearRect(0, 0, this.width, this.height)
   }
 
-  // handle loading and draw weapon
-  drawWeapon(src, time = 1) {
-    if (this.weapon.naturalWidth)
-      this.justDrawWeapon(time)
+  // handle load and draw image
+  handleDraw(img, src, drawMethod, time = 1) {
+    if (img.naturalWidth)
+      this[drawMethod](time)
     else {
-      this.weapon.onload = () => this.justDrawWeapon(time)
-      this.weapon.src = src
+      img.onload = () => this[drawMethod](time)
+      img.src = src
     }
+  }
+
+  drawWeapon(src, time = 1) {
+    this.handleDraw(this.weapon, src, 'justDrawWeapon', time)
+  }
+
+  drawTarget(src, time = 1) {
+    this.handleDraw(this.target, src, 'justDrawTarget', time)
   }
 
   justDrawWeapon(time) {
@@ -83,15 +91,6 @@ export default class Canvas extends HTMLCanvasElement {
     const x = window.innerWidth * 0.5 - this.weapon.width * 0.5 + shakeX
     const y = window.innerHeight - this.weapon.height + shakeY + shaking // da ne ostane praznina
     this.ctx.drawImage(this.weapon, x, y)
-  }
-
-  drawTarget(src, time = 1) {
-    if (this.target.naturalWidth)
-      this.justDrawTarget(time)
-    else {
-      this.target.onload = () => this.justDrawTarget(time)
-      this.target.src = src
-    }
   }
 
   justDrawTarget(time) {
