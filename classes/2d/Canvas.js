@@ -60,8 +60,9 @@ export default class Canvas extends HTMLCanvasElement {
     this.ctx.fillRect(x * size, y * size, size, size)
   }
 
-  // ako je ucitano (img.complete) ne slati request!
-  // kada hoda da se pomera
+  // kada miruje da se pozove jednom
+  // kada hoda da se pomera i poziva stalno
+  // (ne mora callback ako se poziva stalno)
   drawWeapon(src, time) {
     if (this.weapon.complete && this.weapon.naturalWidth) {
       const offsetX = Math.cos(time * 2) * 6
@@ -74,8 +75,7 @@ export default class Canvas extends HTMLCanvasElement {
       this.weapon.src = src
   }
 
-  // ne mora callback ako se poziva redovno
-  // dodati parametre za mrdanje, spojiti sa gornjom metodom
+  // spojiti sa gornjom metodom
   drawFirstPerson(src) {
     if (this.weapon.complete && this.weapon.naturalWidth) {
       const x = window.innerWidth * 0.5 - this.weapon.width * 0.5
@@ -85,10 +85,9 @@ export default class Canvas extends HTMLCanvasElement {
       this.weapon.src = src
   }
 
-  // mora callback ako se poziva samo jednom
   drawTarget(src) {
     this.target = new Image()
-    this.target.onload = () => {
+    this.target.onload = () => { // mora onload ako se crta samo jednom
       const x = window.innerWidth * 0.5 - this.target.width * 0.5
       const y = window.innerHeight * 0.5 - this.target.height * 0.5
       this.ctx.drawImage(this.target, x, y)
