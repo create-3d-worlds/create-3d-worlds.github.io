@@ -65,17 +65,15 @@ export default class Canvas extends HTMLCanvasElement {
   // (ne mora callback ako se poziva stalno)
   drawWeapon(src, time) {
     if (this.weapon.complete && this.weapon.naturalWidth) {
-      // TODO: kada se krece maxOffset = 6
-      const maxOffset = 6
-      const offsetX = Math.cos(time * 2) * maxOffset
-      const offsetY = Math.sin(time * 4) * maxOffset
-      console.log(offsetY)
+      // TODO: kada se krece shaking = 6
+      const shaking = 6
+      const offsetX = Math.cos(time * 2) * shaking
+      const offsetY = Math.sin(time * 4) * shaking
       const x = window.innerWidth * 0.5 - this.weapon.width * 0.5 + offsetX
-      const y = window.innerHeight - this.weapon.height + offsetY + maxOffset
+      const y = window.innerHeight - this.weapon.height + offsetY + shaking
       this.ctx.clearRect(x, y, this.weapon.width + Math.abs(offsetX), this.weapon.height)
       this.ctx.drawImage(this.weapon, x, y)
-    } else
-      this.weapon.src = src
+    } else this.weapon.src = src
   }
 
   // spojiti sa gornjom metodom
