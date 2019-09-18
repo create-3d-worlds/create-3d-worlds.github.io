@@ -6,8 +6,6 @@ import Player from '/classes/Player.js'
 import Tilemap3D from '/classes/Tilemap3D.js'
 
 const canvas = new Canvas('transparent')
-canvas.drawTarget('/assets/images/crosshair.png')
-// document.addEventListener('click', () => canvas.requestPointerLock())
 
 const map = new Tilemap3D(matrix, 100)
 scene.add(createFloor())
@@ -17,7 +15,7 @@ scene.add(walls)
 camera.position.y = 10
 camera.position.z = 5
 
-const player = new Player(25, 0, 25, 10, true)
+const player = new Player(120, 0, 90, 10, true)
 scene.add(player.mesh)
 player.add(camera)
 player.addSolids(walls)
@@ -27,9 +25,12 @@ player.addSolids(walls)
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
+  const time = clock.getElapsedTime()
   player.update(delta)
+  canvas.clear()
+  canvas.drawTarget('/assets/images/crosshair.png', time)
+  canvas.drawWeapon('/assets/images/savo.png', time)
   canvas.renderMap(matrix, 20)
   canvas.renderPlayerFrom3D(player, map)
-  canvas.drawFirstPerson('/assets/images/savo.png')
   renderer.render(scene, camera)
 }()

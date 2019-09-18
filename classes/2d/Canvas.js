@@ -66,31 +66,20 @@ export default class Canvas extends HTMLCanvasElement {
     this.ctx.clearRect(0, 0, this.width, this.height)
   }
 
-  // handle load and draw image
-  handleDraw(img, src, drawMethod, time = 1) {
-    if (img.naturalWidth)
-      this[drawMethod](time)
+  drawWeapon(src, time) {
+    this.handleDraw(this.weapon, src, 'justDrawWeapon', time)
+  }
+
+  drawTarget(src, time) {
+    this.handleDraw(this.target, src, 'justDrawTarget', time)
+  }
+
+  handleDraw(img, src, drawMethod, time) {
+    if (img.naturalWidth) this[drawMethod](time)
     else {
       img.onload = () => this[drawMethod](time)
       img.src = src
     }
-  }
-
-  drawWeapon(src, time = 1) {
-    this.handleDraw(this.weapon, src, 'justDrawWeapon', time)
-  }
-
-  drawTarget(src, time = 1) {
-    this.handleDraw(this.target, src, 'justDrawTarget', time)
-  }
-
-  drawShake(img, time, xAlign = 0.5, yAlign = 1) {
-    const shaking = keyboard.controlsPressed ? 6 : 1
-    const shakeX = Math.cos(time * 2) * shaking
-    const shakeY = Math.sin(time * 4) * shaking
-    const x = window.innerWidth * xAlign - img.width * 0.5 + shakeX
-    const y = window.innerHeight * yAlign - img.height + shakeY + shaking // da ne ostane praznina na dnu
-    this.ctx.drawImage(img, x, y)
   }
 
   justDrawWeapon(time) {
@@ -99,6 +88,15 @@ export default class Canvas extends HTMLCanvasElement {
 
   justDrawTarget(time) {
     this.drawShake(this.target, time, 0.5, 0.55)
+  }
+
+  drawShake(img, time = 1, xAlign = 0.5, yAlign = 1) {
+    const shaking = keyboard.controlsPressed ? 6 : 1
+    const shakeX = Math.cos(time * 2) * shaking
+    const shakeY = Math.sin(time * 4) * shaking
+    const x = window.innerWidth * xAlign - img.width * 0.5 + shakeX
+    const y = window.innerHeight * yAlign - img.height + shakeY + shaking // zbog praznine na dnu
+    this.ctx.drawImage(img, x, y)
   }
 
   renderMap(matrix, cellSize) {
