@@ -31,6 +31,6 @@ void function animate() {
   canvas.drawTarget('/assets/images/crosshair.png', time)
   canvas.drawWeapon('/assets/images/savo.png', time)
   canvas.renderMap(matrix, 20)
-  canvas.renderPlayerFrom3D(player, map)
+  canvas.render3DPlayerOnMap(player, map)
   renderer.render(scene, camera)
 }()

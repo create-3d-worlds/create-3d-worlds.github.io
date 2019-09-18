@@ -105,16 +105,15 @@ export default class Canvas extends HTMLCanvasElement {
     ))
   }
 
-  renderPlayer(player) {
+  renderPlayerOnMap(player) {
     const size = 5
     const x = Math.floor(player.x * player.map.cellSize)
     const y = Math.floor(player.y * player.map.cellSize)
-    console.log(x, y)
     this.drawCircle(x, y, size, '#f00')
     this.drawLamp(x, y, size, player.angle, '#ff0')
   }
 
-  renderPlayerFrom3D(player, map) {
+  render3DPlayerOnMap(player, map) {
     const size = 5
     const playerX = Math.floor(player.x * map.cellSize)
     const playerZ = Math.floor(player.z * map.cellSize)

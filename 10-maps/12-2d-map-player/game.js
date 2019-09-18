@@ -11,5 +11,5 @@ void function gameLoop() {
   requestAnimationFrame(gameLoop)
   player.update()
   canvas.renderMap(matrix, map.cellSize)
-  canvas.renderPlayer(player)
+  canvas.renderPlayerOnMap(player)
 }()
