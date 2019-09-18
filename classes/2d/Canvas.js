@@ -84,22 +84,21 @@ export default class Canvas extends HTMLCanvasElement {
     this.handleDraw(this.target, src, 'justDrawTarget', time)
   }
 
-  justDrawWeapon(time) {
+  drawShake(img, time, xAlign = 0.5, yAlign = 1) {
     const shaking = keyboard.controlsPressed ? 6 : 1
     const shakeX = Math.cos(time * 2) * shaking
     const shakeY = Math.sin(time * 4) * shaking
-    const x = window.innerWidth * 0.5 - this.weapon.width * 0.5 + shakeX
-    const y = window.innerHeight - this.weapon.height + shakeY + shaking // da ne ostane praznina
-    this.ctx.drawImage(this.weapon, x, y)
+    const x = window.innerWidth * xAlign - img.width * 0.5 + shakeX
+    const y = window.innerHeight * yAlign - img.height + shakeY + shaking // da ne ostane praznina na dnu
+    this.ctx.drawImage(img, x, y)
+  }
+
+  justDrawWeapon(time) {
+    this.drawShake(this.weapon, time, 0.51)
   }
 
   justDrawTarget(time) {
-    const shaking = keyboard.controlsPressed ? 6 : 1
-    const shakeX = Math.cos(time * 2) * shaking
-    const shakeY = Math.sin(time * 4) * shaking
-    const x = window.innerWidth * 0.5 - this.target.width * 0.5 + shakeX
-    const y = window.innerHeight * 0.5 - this.target.height * 0.5 + shakeY
-    this.ctx.drawImage(this.target, x, y)
+    this.drawShake(this.target, time, 0.5, 0.55)
   }
 
   renderMap(matrix, cellSize) {
