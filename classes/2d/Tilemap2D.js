@@ -1,28 +1,28 @@
-export default class Tilemap {
-  constructor(model, cellSize = 30) {
-    this.model = model
-    if (!model) this.randomMap()
+export default class Tilemap2D {
+  constructor(matrix, cellSize = 30) {
+    this.matrix = matrix
+    if (!matrix) this.randomMap()
     this.cellSize = cellSize
-    this.height = model.length * cellSize // ne koristi se?
-    this.width = this.model[0].length * cellSize // ne koristi se?
+    // this.height = matrix.length * cellSize // ne koristi se?
+    // this.width = this.matrix[0].length * cellSize // ne koristi se?
   }
 
   randomMap(size = 10) {
     const wallPercent = 0.3
-    this.model = []
+    this.matrix = []
     for (let y = 0; y < size; y++) {
-      this.model[y] = []
+      this.matrix[y] = []
       for (let x = 0; x < size; x++)
-        this.model[y][x] = Math.random() < wallPercent ? 1 : 0
+        this.matrix[y][x] = Math.random() < wallPercent ? 1 : 0
     }
   }
 
   getValue(x, y) {
     x = Math.floor(x) // eslint-disable-line
     y = Math.floor(y) // eslint-disable-line
-    if (x < 0 || x >= this.model[0].length || y < 0 || y >= this.model.length)
+    if (x < 0 || x >= this.matrix[0].length || y < 0 || y >= this.matrix.length)
       return -1
-    return this.model[y][x]
+    return this.matrix[y][x]
   }
 
   nadjiPolje(x, y) {
@@ -32,8 +32,8 @@ export default class Tilemap {
   }
 
   get randomField() {
-    const y = Math.floor(Math.random() * this.model.length)
-    const x = Math.floor(Math.random() * this.model[0].length)
+    const y = Math.floor(Math.random() * this.matrix.length)
+    const x = Math.floor(Math.random() * this.matrix[0].length)
     return {x, y}
   }
 

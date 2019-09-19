@@ -3,6 +3,8 @@ import keyboard from '../Keyboard.js'
 const CIRCLE = Math.PI * 2
 const colors = ['#fff', '#444', '#701206', '#000']
 
+// TODO: separate player class
+// TODO: separate small map canvas?
 export default class Canvas extends HTMLCanvasElement {
   constructor(color = 'lightgray') {
     super()
@@ -105,7 +107,7 @@ export default class Canvas extends HTMLCanvasElement {
     ))
   }
 
-  drawPlayerOnMap(player) {
+  draw2DPlayerOnMap(player) {
     const size = 5
     const x = Math.floor(player.x * player.map.cellSize)
     const y = Math.floor(player.y * player.map.cellSize)
@@ -113,14 +115,11 @@ export default class Canvas extends HTMLCanvasElement {
     this.drawLamp(x, y, size, player.angle, '#ff0')
   }
 
-  draw3DPlayerOnMap(player, map) {
+  draw3DPlayerOnMap(player, map, {matrix, cellSize}) {
     const size = 5
-    const playerX = Math.floor(player.x * map.cellSize)
-    const playerZ = Math.floor(player.z * map.cellSize)
-    // TODO: srediti getMapCoords
-    const { x, y } = map.getMapCoords({ x: playerX, z: playerZ })
-    console.log(x, y)
-    this.drawCircle(x, y, size, '#f00')
+    const { x, y } = map.getPlayerPos(player)
+    const mapRange = (matrix.length - 1) * cellSize
+    this.drawCircle(x * mapRange, y * mapRange, size, '#f00')
   }
 }
 

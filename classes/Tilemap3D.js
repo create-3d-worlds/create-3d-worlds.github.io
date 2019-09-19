@@ -11,20 +11,15 @@ export default class Tilemap3D {
     this.width = this.numColumns * cellSize
   }
 
-  // TODO: prebaciti 3D koordinate lavirinta u canvas koordinate sa ihodistem gore levo
-  // uzeti u obzir negativne vrednosti
-  getMapCoords(v) {
-    const x = Math.floor((v.x + this.cellSize / 2) / this.cellSize + this.numColumns / 2)
-    const y = Math.floor((v.z + this.cellSize / 2) / this.cellSize + this.numRows / 2)
-    return {x, y}
+  /* returns player position unit vector */
+  getPlayerPos(player) {
+    const mapRange = (this.matrix.length - 1) * this.cellSize // pretpostavlja se ishodiste 0
+    return {
+      x: player.x / mapRange,
+      y: player.z / mapRange
+    }
   }
 
-  checkWallCollision(v) {
-    const c = this.getMapCoords(v)
-    return this.matrix[c.x][c.z] > 0
-  }
-
-  // TODO: dodati opciju za niže zidove
   createWalls() {
     return createMap(this.matrix, this.cellSize)
   }
