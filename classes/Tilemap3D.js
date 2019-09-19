@@ -1,4 +1,3 @@
-import * as THREE from '/node_modules/three/build/three.module.js'
 import {createMap} from '/utils/boxes.js'
 
 export default class Tilemap3D {
@@ -8,8 +7,6 @@ export default class Tilemap3D {
     this.origin = origin
     this.numRows = matrix.length
     this.numColumns = matrix[0].length
-    this.height = this.numRows * cellSize
-    this.width = this.numColumns * cellSize
     this.mapRange = (matrix.length - 1) * cellSize - origin
   }
 
@@ -23,13 +20,6 @@ export default class Tilemap3D {
 
   createWalls(yModifier) {
     // TODO: upotrebiti this.origin
-    return createMap(this.matrix, this.cellSize, yModifier)
-  }
-
-  createFloor() {
-    return new THREE.Mesh(
-      new THREE.BoxGeometry(this.width, 0, this.height),
-      new THREE.MeshLambertMaterial({color: 0xEDCBA0})
-    )
+    return createMap(this.matrix, this.cellSize, yModifier, this.origin)
   }
 }
