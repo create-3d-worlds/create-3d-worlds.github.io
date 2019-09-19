@@ -17,7 +17,7 @@ export default class Tilemap2D {
 
   get randomEmptyField() {
     const [x, y] = randomField(this.matrix)
-    if (this.getValue(x, y) === 0) return {x, y}
+    if (this.getValue(x, y) === 0) return [x, y]
     return this.randomEmptyField
   }
 }

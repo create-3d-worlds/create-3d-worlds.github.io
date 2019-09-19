@@ -5,9 +5,9 @@ const CIRCLE = Math.PI * 2
 export default class Player2D {
   constructor(map, x, y, angle = 0) {
     if (x == undefined || y == undefined) {
-      const rand = map.randomEmptyField
-      this.x = rand.x
-      this.y = rand.y
+      const [randX, randY] = map.randomEmptyField
+      this.x = randX
+      this.y = randY
     } else {
       this.x = x
       this.y = y
