@@ -3,8 +3,7 @@ export default class Tilemap2D {
     this.matrix = matrix
     if (!matrix) this.randomMap()
     this.cellSize = cellSize
-    // this.height = matrix.length * cellSize // ne koristi se?
-    // this.width = this.matrix[0].length * cellSize // ne koristi se?
+    this.mapRange = (matrix.length - 1) * cellSize
   }
 
   randomMap(size = 10) {

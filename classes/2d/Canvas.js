@@ -44,14 +44,14 @@ export default class Canvas extends HTMLCanvasElement {
     this.style.display = 'block'
   }
 
-  drawCircle(x, y, radius, color) {
+  drawCircle(x, y, radius = 5, color = '#f00') {
     this.ctx.fillStyle = color
     this.ctx.beginPath()
     this.ctx.arc(x, y, radius, 0, CIRCLE)
     this.ctx.fill()
   }
 
-  drawLamp(x, y, radius, angle, color) {
+  drawLamp(x, y, angle, radius = 5, color = '#ff0') {
     this.ctx.fillStyle = color
     this.ctx.beginPath()
     this.ctx.arc(x, y, radius, angle, angle)
@@ -108,18 +108,15 @@ export default class Canvas extends HTMLCanvasElement {
   }
 
   draw2DPlayerOnMap(player) {
-    const size = 5
     const x = Math.floor(player.x * player.map.cellSize)
     const y = Math.floor(player.y * player.map.cellSize)
-    this.drawCircle(x, y, size, '#f00')
-    this.drawLamp(x, y, size, player.angle, '#ff0')
+    this.drawCircle(x, y)
+    this.drawLamp(x, y, player.angle)
   }
 
-  draw3DPlayerOnMap(player, map, {matrix, cellSize}) {
-    const size = 5
-    const { x, y } = map.getPlayerPos(player)
-    const mapRange = (matrix.length - 1) * cellSize
-    this.drawCircle(x * mapRange, y * mapRange, size, '#f00')
+  draw3DPlayerOnMap(player, map, smallMap) {
+    const { x, y } = map.getPlayer2DPos(player)
+    this.drawCircle(x * smallMap.mapRange, y * smallMap.mapRange)
   }
 }
 

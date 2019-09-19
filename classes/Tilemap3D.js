@@ -9,14 +9,14 @@ export default class Tilemap3D {
     this.numColumns = matrix[0].length
     this.height = this.numRows * cellSize
     this.width = this.numColumns * cellSize
+    this.mapRange = (matrix.length - 1) * cellSize // pretpostavlja se ishodiste 0
   }
 
-  /* returns player position unit vector */
-  getPlayerPos(player) {
-    const mapRange = (this.matrix.length - 1) * this.cellSize // pretpostavlja se ishodiste 0
+  /* returns unit vector */
+  getPlayer2DPos(player) {
     return {
-      x: player.x / mapRange,
-      y: player.z / mapRange
+      x: player.x / this.mapRange,
+      y: player.z / this.mapRange
     }
   }
 
