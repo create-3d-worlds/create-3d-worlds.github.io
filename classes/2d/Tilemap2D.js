@@ -24,12 +24,6 @@ export default class Tilemap2D {
     return this.matrix[y][x]
   }
 
-  nadjiPolje(x, y) {
-    const poljeX = Math.floor(x / this.cellSize)
-    const poljeY = Math.floor(y / this.cellSize)
-    return { y: poljeY, x: poljeX }
-  }
-
   get randomField() {
     const y = Math.floor(Math.random() * this.matrix.length)
     const x = Math.floor(Math.random() * this.matrix[0].length)
