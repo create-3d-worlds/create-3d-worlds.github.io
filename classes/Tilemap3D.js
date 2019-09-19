@@ -11,7 +11,7 @@ export default class Tilemap3D {
     this.width = this.numColumns * cellSize
   }
 
-  // TODO: prebaciti 3D koordinate lavirinta u canvas koordinate (x, y) sa ihodistem gore levo
+  // TODO: prebaciti 3D koordinate lavirinta u canvas koordinate sa ihodistem gore levo
   // uzeti u obzir negativne vrednosti
   getMapCoords(v) {
     const x = Math.floor((v.x + this.cellSize / 2) / this.cellSize + this.numColumns / 2)
@@ -24,6 +24,7 @@ export default class Tilemap3D {
     return this.matrix[c.x][c.z] > 0
   }
 
+  // TODO: dodati opciju za niže zidove
   createWalls() {
     return createMap(this.matrix, this.cellSize)
   }
