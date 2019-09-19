@@ -10,6 +10,6 @@ const player = new Player2D(map)
 void function gameLoop() {
   requestAnimationFrame(gameLoop)
   player.update()
-  canvas.renderMap(matrix, map.cellSize)
-  canvas.renderPlayerOnMap(player)
+  canvas.drawMap(matrix, map.cellSize)
+  canvas.drawPlayerOnMap(player)
 }()

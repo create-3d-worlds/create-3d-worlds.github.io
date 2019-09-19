@@ -99,13 +99,13 @@ export default class Canvas extends HTMLCanvasElement {
     this.ctx.drawImage(img, x, y)
   }
 
-  renderMap(matrix, cellSize) {
+  drawMap(matrix, cellSize) {
     matrix.forEach((row, y) => row.forEach((val, x) =>
       this.drawRect(x, y, cellSize, colors[val])
     ))
   }
 
-  renderPlayerOnMap(player) {
+  drawPlayerOnMap(player) {
     const size = 5
     const x = Math.floor(player.x * player.map.cellSize)
     const y = Math.floor(player.y * player.map.cellSize)
@@ -113,7 +113,7 @@ export default class Canvas extends HTMLCanvasElement {
     this.drawLamp(x, y, size, player.angle, '#ff0')
   }
 
-  render3DPlayerOnMap(player, map) {
+  draw3DPlayerOnMap(player, map) {
     const size = 5
     const playerX = Math.floor(player.x * map.cellSize)
     const playerZ = Math.floor(player.z * map.cellSize)
