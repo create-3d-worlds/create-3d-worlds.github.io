@@ -11,7 +11,7 @@ export default class Tilemap3D {
   }
 
   /* returns unit vector */
-  getPlayer2DPos(player) {
+  getPlayerPos(player) {
     return {
       x: player.x / this.mapRange,
       y: player.z / this.mapRange
