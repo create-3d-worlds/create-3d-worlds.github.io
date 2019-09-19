@@ -14,16 +14,17 @@ function createOutline(size) {
 
 /* creators */
 
-export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomColor(0.1, 0.01, .75), isRectangle = false) {
-  const depthSize = isRectangle ? size * 2 : size
-  const geometry = new THREE.BoxGeometry(size, size, depthSize)
+export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomColor(0.1, 0.01, .75), zModifier = 1, yModifier = 1) {
+  const ySize = size * yModifier
+  const zSize = size * zModifier
+  const geometry = new THREE.BoxGeometry(size, ySize, zSize)
   const options = {}
   if (file) options.map = loader.load(`/assets/textures/${file}`)
   else options.color = color
   const material = new THREE.MeshPhongMaterial(options)
   const mesh = new THREE.Mesh(geometry, material)
   mesh.position.set(x, y, z)
-  mesh.translateY(size / 2)
+  mesh.translateY(ySize / 2)
   return mesh
 }
 
@@ -31,7 +32,9 @@ export const createCrate = (x, y, z, size, file = 'crate.gif') => createBox(x, y
 
 export const createBlock = (x, y, z, size, color) => createBox(x, y, z, size, null, color, false)
 
-export const createStair = (x, y, z, size) => createBox(x, y, z, size, null, null, true)
+export const createStair = (x, y, z, size) => createBox(x, y, z, size, null, null, 2)
+
+export const createWallBlock = (x, z, size, file, yModifier = 0.5) => createBox(x, 0, z, size, file, null, 1, yModifier)
 
 export function createSketchBox(x = 0, y = 0, z = 0, size) {
   const box = createBlock(x, y, z, size, 0x22dd88)
@@ -79,14 +82,14 @@ export function createSpiralStairs(floors, stairsInCirle = 20, yDistance = 80) {
   return stairs
 }
 
-export function createMap(matrix, size = 5) {
+export function createMap(matrix, size = 5, yModifier) {
   const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
   const group = new THREE.Group()
   matrix.forEach((row, rowIndex) => row.forEach((val, columnIndex) => {
     if (!val) return
     const x = columnIndex * size
     const z = rowIndex * size
-    group.add(createBox(x, 0, z, size, textures[val - 1]))
+    group.add(createWallBlock(x, z, size, textures[val - 1], yModifier))
   }))
   return group
 }

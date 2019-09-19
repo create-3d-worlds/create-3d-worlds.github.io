@@ -29,8 +29,8 @@ live-server
 - [x] renderovati mapu u 2d
 - [x] renderovati mapu u 3d
   - [x] renderovati mapu sa teksturama
-  - [ ] dodati parametar createMap za niže zidove
-- [ ] prikazati polozaj igraca iz 3D mape na 2D mapi
+  - [x] dodati parametar za niže zidove
+- [x] prikazati polozaj igraca iz 3D mape na 2D mapi
   - [ ] uzeti u obzir negativne vrednosti 3D mape
 
 ### Player
