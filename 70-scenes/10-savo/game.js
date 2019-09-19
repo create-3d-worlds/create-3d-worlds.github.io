@@ -9,7 +9,7 @@ import Tilemap3D from '/classes/Tilemap3D.js'
 const canvas = new Canvas('transparent')
 
 const smallMap = new Tilemap2D(matrix, 20)
-const map = new Tilemap3D(matrix, 100)
+const map = new Tilemap3D(matrix, 100, {x: 200, z: 200})
 
 scene.add(createFloor())
 const walls = map.createWalls(0.5)
