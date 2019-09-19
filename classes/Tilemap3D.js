@@ -6,14 +6,13 @@ export default class Tilemap3D {
     this.cellSize = cellSize
     this.origin = origin
     this.mapSize = (matrix.length - 1) * cellSize
-    console.log(this.mapSize)
   }
 
   /* returns unit vector */
   getPlayerPos(player) {
     return {
-      x: player.x / this.mapSize,
-      y: player.z / this.mapSize
+      x: (player.x - this.origin.x) / this.mapSize,
+      y: (player.z - this.origin.z) / this.mapSize
     }
   }
 

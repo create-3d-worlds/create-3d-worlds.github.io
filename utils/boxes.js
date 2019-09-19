@@ -87,8 +87,8 @@ export function createMap(matrix, size = 5, yModifier, origin) {
   const group = new THREE.Group()
   matrix.forEach((row, rowIndex) => row.forEach((val, columnIndex) => {
     if (!val) return
-    const x = columnIndex * size + origin.x
-    const z = rowIndex * size + origin.z
+    const x = (columnIndex * size) + origin.x
+    const z = (rowIndex * size) + origin.z
     group.add(createWallBlock(x, z, size, textures[val - 1], yModifier))
   }))
   return group

@@ -31,7 +31,8 @@ live-server
   - [x] renderovati mapu sa teksturama
   - [x] dodati parametar za niže zidove
 - [x] prikazati polozaj igraca iz 3D mape na 2D mapi
-  - [ ] uzeti u obzir negativne vrednosti 3D mape
+  - [x] da radi i kad je negativno izvorište 3D mape
+- [ ] spojiti 3D i 2D Tilemap
 
 ### Player
 

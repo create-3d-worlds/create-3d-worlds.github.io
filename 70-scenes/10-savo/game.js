@@ -9,7 +9,7 @@ import Tilemap3D from '/classes/Tilemap3D.js'
 const canvas = new Canvas('transparent')
 
 const smallMap = new Tilemap2D(matrix, 20)
-const map = new Tilemap3D(matrix, 100, {x: 200, z: 200})
+const map = new Tilemap3D(matrix, 100, {x: -500, z: -500})
 
 scene.add(createFloor())
 const walls = map.createWalls(0.5)
@@ -18,7 +18,7 @@ scene.add(walls)
 camera.position.y = 10
 camera.position.z = 5
 
-const player = new Player(120, 0, 90, 10, true)
+const player = new Player(0, 0, 0, 10, true)
 scene.add(player.mesh)
 player.add(camera)
 player.addSolids(walls)
