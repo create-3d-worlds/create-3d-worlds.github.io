@@ -107,6 +107,7 @@ export default class Canvas extends HTMLCanvasElement {
     ))
   }
 
+  // TODO: spojiti ove motode
   draw2DPlayerOnMap(player) {
     const x = Math.floor(player.x * player.map.cellSize)
     const y = Math.floor(player.y * player.map.cellSize)
