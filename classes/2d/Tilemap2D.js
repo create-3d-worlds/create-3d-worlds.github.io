@@ -1,4 +1,4 @@
-import {randomMatrix} from '/utils/maps.js'
+import {randomMatrix, randomField} from '/utils/maps.js'
 
 export default class Tilemap2D {
   constructor(matrix = randomMatrix(), cellSize = 30) {
@@ -15,14 +15,8 @@ export default class Tilemap2D {
     return this.matrix[y][x]
   }
 
-  get randomField() {
-    const y = Math.floor(Math.random() * this.matrix.length)
-    const x = Math.floor(Math.random() * this.matrix[0].length)
-    return {x, y}
-  }
-
   get randomEmptyField() {
-    const {x, y} = this.randomField
+    const [x, y] = randomField(this.matrix)
     if (this.getValue(x, y) === 0) return {x, y}
     return this.randomEmptyField
   }

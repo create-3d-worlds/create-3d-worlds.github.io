@@ -6,7 +6,7 @@ import { createFloor } from '/utils/floor.js'
 
 const map = new Tilemap3D(matrix, 100)
 scene.add(createFloor())
-const walls = map.createWalls()
+const walls = map.create3DMap()
 scene.add(walls)
 
 const player = new PlayerAvatar(100, 0, 100, 15)

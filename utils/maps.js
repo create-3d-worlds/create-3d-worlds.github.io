@@ -11,7 +11,7 @@ export function randomMatrix(size = 10, wallPercent = .3) {
   return matrix
 }
 
-export function createMap(matrix = randomMatrix(), size = 5, yModifier, origin) {
+export function create3DMap(matrix = randomMatrix(), size = 5, yModifier, origin) {
   const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
   const group = new THREE.Group()
   matrix.forEach((row, rowIndex) => row.forEach((val, columnIndex) => {
@@ -21,4 +21,10 @@ export function createMap(matrix = randomMatrix(), size = 5, yModifier, origin) 
     group.add(createWallBlock(x, z, size, textures[val - 1], yModifier))
   }))
   return group
+}
+
+export function randomField(matrix) {
+  const y = Math.floor(Math.random() * matrix.length)
+  const x = Math.floor(Math.random() * matrix[0].length)
+  return [x, y]
 }

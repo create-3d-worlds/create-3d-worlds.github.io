@@ -1,5 +1,5 @@
 import {scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
-import {createMap} from '/utils/maps.js'
+import {create3DMap} from '/utils/maps.js'
 import {createFloor} from '/utils/floor.js'
 import matrix from '/data/small-map.js'
 
@@ -8,7 +8,7 @@ camera.position.y = 10
 
 const controls = createOrbitControls()
 scene.add(createFloor())
-scene.add(createMap(matrix))
+scene.add(create3DMap(matrix))
 
 void function gameLoop() {
   requestAnimationFrame(gameLoop)
