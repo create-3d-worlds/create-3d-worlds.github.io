@@ -1,5 +1,5 @@
 import {scene, camera, renderer, clock, createOrbitControls} from '/utils/scene.js'
-import {createSpiralStairs} from '/utils/boxes.js'
+import {createRandomBoxes} from '/utils/boxes.js'
 import {createFloor} from '/utils/floor.js'
 import {PlayerAvatar} from '/classes/index.js'
 
@@ -9,15 +9,15 @@ camera.position.y = 20
 
 const floor = createFloor()
 scene.add(floor)
-const stairs = createSpiralStairs(5, 40, 40)
-scene.add(stairs)
+const boxes = createRandomBoxes()
+scene.add(boxes)
 
 const player = new PlayerAvatar(100, 50, -50, 10, 0)
 player.mesh.rotateY(Math.PI)
 player.mesh.add(camera)
 scene.add(player.mesh)
 
-player.addSolids(floor, stairs)
+player.addSolids(floor, boxes)
 
 /* LOOP */
 
