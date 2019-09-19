@@ -1,19 +1,10 @@
+import {randomMatrix} from '/utils/maps.js'
+
 export default class Tilemap2D {
-  constructor(matrix, cellSize = 30) {
+  constructor(matrix = randomMatrix(), cellSize = 30) {
     this.matrix = matrix
-    if (!matrix) this.randomMap()
     this.cellSize = cellSize
     this.mapSize = (matrix.length - 1) * cellSize
-  }
-
-  randomMap(size = 10) {
-    const wallPercent = 0.3
-    this.matrix = []
-    for (let y = 0; y < size; y++) {
-      this.matrix[y] = []
-      for (let x = 0; x < size; x++)
-        this.matrix[y][x] = Math.random() < wallPercent ? 1 : 0
-    }
   }
 
   getValue(x, y) {

@@ -1,11 +1,11 @@
-import {createMap} from '/utils/boxes.js'
+import {randomMatrix, createMap} from '/utils/maps.js'
 
 export default class Tilemap3D {
-  constructor(matrix, cellSize = 250, origin = {x: 0, z: 0}) {
+  constructor(matrix = randomMatrix(), cellSize = 250, origin = {x: 0, z: 0}) {
     this.matrix = matrix
     this.cellSize = cellSize
-    this.origin = origin
     this.mapSize = (matrix.length - 1) * cellSize
+    this.origin = origin
   }
 
   /* returns unit vector */

@@ -1,5 +1,5 @@
 import {scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
-import {createMap} from '/utils/boxes.js'
+import {createMap} from '/utils/maps.js'
 import {createFloor} from '/utils/floor.js'
 import matrix from '/data/small-map.js'
 

@@ -1,5 +1,5 @@
 import { createFloor } from '/utils/floor.js'
-import { createMap } from '/utils/boxes.js'
+import { createMap } from '/utils/maps.js'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import {PlayerAvatar} from '/classes/Player.js'
 import matrix from '/data/small-map.js'
