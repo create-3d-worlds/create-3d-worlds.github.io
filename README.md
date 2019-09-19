@@ -90,7 +90,7 @@ live-server
 - [x] postaviti scenu prvo lice (Savo)
   - [x] dodati nisan u centru ekrana
   - [x] weapon shaking
-  - [ ] prikazivati igraca na 2d mapi
+  - [x] prikazivati igraca na 2d mapi
   - [ ] dodati dugme za otvaranje/zatvaranje mape
   - [ ] dodati munje i gromove
   - [ ] dodati kišu
