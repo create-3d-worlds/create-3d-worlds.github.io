@@ -12,7 +12,7 @@ const smallMap = new Tilemap2D(matrix, 20)
 const map = new Tilemap3D(matrix, 100)
 
 scene.add(createFloor())
-const walls = map.createWalls()
+const walls = map.createWalls(0.5)
 scene.add(walls)
 
 camera.position.y = 10

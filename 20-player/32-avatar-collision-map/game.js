@@ -2,13 +2,14 @@ import {scene, renderer, camera, clock} from '/utils/scene.js'
 import {PlayerAvatar} from '/classes/Player.js'
 import Tilemap3D from '/classes/Tilemap3D.js'
 import {nemesis as matrix} from '/data/maps.js'
+import { createFloor } from '/utils/floor.js'
 
 const map = new Tilemap3D(matrix, 100)
-scene.add(map.createFloor())
+scene.add(createFloor())
 const walls = map.createWalls()
 scene.add(walls)
 
-const player = new PlayerAvatar(25, 0, 25, 15)
+const player = new PlayerAvatar(100, 0, 100, 15)
 scene.add(player.mesh)
 player.addSolids(walls)
 
