@@ -27,8 +27,8 @@ export default class Player2D {
   move(speed = this.speed) {
     const dx = Math.cos(this.angle) * speed
     const dy = Math.sin(this.angle) * speed
-    if (this.map.getValue(this.x + dx, this.y) == 0) this.x += dx
-    if (this.map.getValue(this.x, this.y + dy) == 0) this.y += dy
+    if (this.map.getFieldValue(this.x + dx, this.y) == 0) this.x += dx
+    if (this.map.getFieldValue(this.x, this.y + dy) == 0) this.y += dy
   }
 
   turn(amount) {

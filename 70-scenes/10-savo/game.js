@@ -3,13 +3,13 @@ import { randomMatrix } from '/utils/maps.js'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import Canvas from '/classes/2d/Canvas.js'
 import Player from '/classes/Player.js'
-import Tilemap3D from '/classes/Tilemap3D.js'
+import Tilemap from '/classes/Tilemap.js'
 
 const canvas = new Canvas('transparent')
 const matrix = randomMatrix()
 
-const smallMap = new Tilemap3D(matrix, 20)
-const map = new Tilemap3D(matrix, 100, {x: -500, z: -500})
+const smallMap = new Tilemap(matrix, 20)
+const map = new Tilemap(matrix, 100, {x: -500, z: -500})
 
 scene.add(createFloor())
 const walls = map.create3DMap(0.5)
