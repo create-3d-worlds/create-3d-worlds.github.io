@@ -30,13 +30,13 @@ export default class Player {
         if (this.position.y - stepY >= this.groundY) this.mesh.translateY(-stepY)
       if (this.position.y < this.groundY) this.mesh.translateY(stepY)
     }
-    if (pressed.KeyA || pressed.ArrowLeft) this.mesh.rotateY(angle)
-    if (pressed.KeyD || pressed.ArrowRight) this.mesh.rotateY(-angle)
+    if (keyboard.left) this.mesh.rotateY(angle)
+    if (keyboard.right) this.mesh.rotateY(-angle)
 
     if (this.directionBlocked()) return
 
-    if (pressed.KeyW || pressed.ArrowUp) this.mesh.translateZ(-step)
-    if (pressed.KeyS || pressed.ArrowDown) this.mesh.translateZ(step)
+    if (keyboard.up) this.mesh.translateZ(-step)
+    if (keyboard.down) this.mesh.translateZ(step)
     if (pressed.KeyQ) this.mesh.translateX(-step)
     if (pressed.KeyE) this.mesh.translateX(step)
     if (pressed.Space) this.mesh.translateY(stepY)
@@ -56,6 +56,7 @@ export default class Player {
       this.model.jump()
     else if (pressed.KeyW || pressed.KeyS || pressed.KeyQ || pressed.KeyE || pressed.ArrowUp || pressed.ArrowDown)
       this.model.walk()
+    // dodati sideWalk()
   }
 
   /**

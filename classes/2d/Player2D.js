@@ -18,10 +18,10 @@ export default class Player2D {
   }
 
   checkKeys() {
-    if (keyboard.pressed.ArrowLeft) this.turn(-this.speed)
-    if (keyboard.pressed.ArrowRight) this.turn(this.speed)
-    if (keyboard.pressed.ArrowUp) this.move()
-    if (keyboard.pressed.ArrowDown) this.move(-this.speed / 2)
+    if (keyboard.left) this.turn(-this.speed)
+    if (keyboard.right) this.turn(this.speed)
+    if (keyboard.up) this.move()
+    if (keyboard.down) this.move(-this.speed / 2)
   }
 
   move(speed = this.speed) {

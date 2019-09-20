@@ -35,6 +35,22 @@ class Keyboard {
     if (touch.pageX >= window.innerWidth / 2) this.pressed.ArrowRight = true
   }
 
+  get up() {
+    return this.pressed.ArrowUp || this.pressed.KeyW
+  }
+
+  get down() {
+    return this.pressed.ArrowDown || this.pressed.KeyS
+  }
+
+  get left() {
+    return this.pressed.ArrowLeft || this.pressed.KeyA
+  }
+
+  get right() {
+    return this.pressed.ArrowRight || this.pressed.KeyD
+  }
+
   get arrowPressed() {
     return this.pressed.ArrowRight || this.pressed.ArrowLeft || this.pressed.ArrowDown || this.pressed.ArrowUp
   }
