@@ -108,7 +108,6 @@ export default class Canvas extends HTMLCanvasElement {
   }
 
   draw2DPlayerOnMap(player) {
-    // console.log(player.map.getRelativePos(player))
     const x = player.x * player.map.cellSize
     const y = player.y * player.map.cellSize
     this.drawCircle(x, y)

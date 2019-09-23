@@ -76,11 +76,11 @@ export default class Player {
    * Raycast in player movement direction
    */
   chooseRaycastVector() {
-    if (pressed.Space && pressed.KeyW) return new THREE.Vector3(0, 1, -1)
-    if (pressed.KeyW) return new THREE.Vector3(0, 0, -1)
-    if (pressed.KeyS) return new THREE.Vector3(0, 0, 1)
-    if (pressed.KeyA) return new THREE.Vector3(-1, 0, 0)
-    if (pressed.KeyD) return new THREE.Vector3(1, 0, 0)
+    if (pressed.Space && keyboard.up) return new THREE.Vector3(0, 1, -1)
+    if (keyboard.up) return new THREE.Vector3(0, 0, -1)
+    if (keyboard.down) return new THREE.Vector3(0, 0, 1)
+    if (keyboard.left) return new THREE.Vector3(-1, 0, 0)
+    if (keyboard.right) return new THREE.Vector3(1, 0, 0)
     if (pressed.Space) return new THREE.Vector3(0, 1, 0)
     return null
   }
@@ -109,10 +109,10 @@ export default class Player {
     return this.mesh.position.z
   }
 
-  // TODO: fix angle, ne prikazuje 360 stepeni
   get angle() {
-    console.log(this.mesh.rotation)
-    return -this.mesh.rotation.y - Math.PI * .5
+    const {rotation} = this.mesh
+    const yRotation = rotation.x == 0 ? rotation.y : Math.PI - rotation.y
+    return -yRotation - Math.PI * .5
   }
 
   add(obj) {
