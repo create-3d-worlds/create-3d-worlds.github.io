@@ -107,11 +107,11 @@ export default class Canvas extends HTMLCanvasElement {
     ))
   }
 
-  draw2DPlayerOnMap(player) {
-    const x = Math.floor(player.x * player.map.cellSize)
-    const y = Math.floor(player.y * player.map.cellSize)
+  draw2DPlayerOnMap(mapPlayer) {
+    const x = Math.floor(mapPlayer.x * mapPlayer.map.cellSize)
+    const y = Math.floor(mapPlayer.y * mapPlayer.map.cellSize)
     this.drawCircle(x, y)
-    this.drawLamp(x, y, player.angle)
+    this.drawLamp(x, y, mapPlayer.angle)
   }
 
   draw3DPlayerOnMap(player, map, smallMap) {
@@ -119,6 +119,7 @@ export default class Canvas extends HTMLCanvasElement {
     const x = pos.x * smallMap.mapSize
     const y = pos.y * smallMap.mapSize
     this.drawCircle(x, y)
+    this.drawLamp(x, y, player.angle)
   }
 }
 

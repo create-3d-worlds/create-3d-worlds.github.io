@@ -2,7 +2,7 @@ import keyboard from '../Keyboard.js'
 
 const CIRCLE = Math.PI * 2
 
-export default class Player2D {
+export default class MapPlayer {
   constructor(map, x, y, angle = 0) {
     if (x == undefined || y == undefined) {
       const [randX, randY] = map.randomEmptyField

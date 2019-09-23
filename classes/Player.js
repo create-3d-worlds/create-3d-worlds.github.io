@@ -109,6 +109,12 @@ export default class Player {
     return this.mesh.position.z
   }
 
+  // TODO: fix angle, ne prikazuje 360 stepeni
+  get angle() {
+    console.log(this.mesh.rotation)
+    return -this.mesh.rotation.y - Math.PI * .5
+  }
+
   add(obj) {
     this.mesh.add(obj)
   }
