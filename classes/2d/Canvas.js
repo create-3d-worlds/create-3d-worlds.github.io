@@ -107,11 +107,11 @@ export default class Canvas extends HTMLCanvasElement {
     ))
   }
 
-  draw2DPlayerOnMap(mapPlayer) {
-    const x = Math.floor(mapPlayer.x * mapPlayer.map.cellSize)
-    const y = Math.floor(mapPlayer.y * mapPlayer.map.cellSize)
+  draw2DPlayerOnMap(player) {
+    const x = player.x * player.map.cellSize
+    const y = player.y * player.map.cellSize
     this.drawCircle(x, y)
-    this.drawLamp(x, y, mapPlayer.angle)
+    this.drawLamp(x, y, player.angle)
   }
 
   draw3DPlayerOnMap(player, map, smallMap) {
