@@ -44,6 +44,7 @@ live-server
   - [x] srediti skok i padanje
   - [x] srediti penjanje uz stepenice
 - [x] vratiti kontrole na strelice
+- [ ] obrisati Player2D
 
 ### Camera
 
