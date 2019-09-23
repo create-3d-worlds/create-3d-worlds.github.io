@@ -22,7 +22,6 @@ export default class Tilemap {
     return this.randomEmptyField
   }
 
-  /* in percent */
   getRelativePos(player) {
     return {
       x: (player.x - this.origin.x) / this.mapSize,

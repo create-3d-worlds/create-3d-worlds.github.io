@@ -32,7 +32,7 @@ live-server
   - [x] dodati parametar za niže zidove
 - [x] prikazati polozaj igraca iz 3D mape na 2D mapi
   - [x] da radi i kad je negativno izvorište 3D mape
-- [ ] spojiti 3D i 2D Tilemap
+- [x] spojiti 3D i 2D Tilemap
 
 ### Player
 
@@ -92,6 +92,7 @@ live-server
   - [x] dodati nisan u centru ekrana
   - [x] weapon shaking
   - [x] prikazivati igraca na 2d mapi
+  - [ ] srediti preciznost 2d mape
   - [ ] dodati dugme za otvaranje/zatvaranje mape
   - [ ] dodati munje i gromove
   - [ ] dodati kišu
