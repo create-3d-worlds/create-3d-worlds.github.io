@@ -12,5 +12,5 @@ void function gameLoop() {
   requestAnimationFrame(gameLoop)
   player.update()
   canvas.drawMap(maze, map.cellSize)
-  canvas.draw2DPlayerOnMap(player, map)
+  canvas.draw2DPlayerOnMap(player)
 }()
