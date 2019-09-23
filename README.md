@@ -173,6 +173,7 @@ Map.prototype.update = function(dt) {
 }
 ```
 
+- https://github.com/mudroljub/javaskript-igrice-primeri (3d mapa)
 - https://github.com/skolakoda/teorija-razvoja-igara
 - https://github.com/skolakoda/ucimo-razvoj-igara
 
