@@ -2,7 +2,7 @@ import keyboard from '../Keyboard.js'
 
 const CIRCLE = Math.PI * 2
 
-export default class MapPlayer {
+export default class Player2D {
   constructor(map, x, y, angle = 0) {
     if (x == undefined || y == undefined) {
       const [randX, randY] = map.randomEmptyField
@@ -15,6 +15,10 @@ export default class MapPlayer {
     this.angle = angle
     this.map = map
     this.speed = 0.03
+  }
+
+  get z() {
+    return this.y
   }
 
   checkKeys() {
