@@ -116,8 +116,10 @@ export default class Canvas extends HTMLCanvasElement {
   }
 
   draw3DPlayerOnMap(player, map, smallMap) {
-    const { x, y } = map.getRelativePlayerPos(player)
-    this.drawCircle(x * smallMap.mapSize, y * smallMap.mapSize)
+    const pos = map.getRelativePlayerPos(player)
+    const x = pos.x * smallMap.mapSize
+    const y = pos.y * smallMap.mapSize
+    this.drawCircle(x, y)
   }
 }
 
