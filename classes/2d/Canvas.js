@@ -108,15 +108,15 @@ export default class Canvas extends HTMLCanvasElement {
   }
 
   // TODO: spojiti ove motode
-  draw2DPlayerOnMap(player) {
-    const x = Math.floor(player.x * player.map.cellSize)
-    const y = Math.floor(player.y * player.map.cellSize)
+  draw2DPlayerOnMap(player, map) {
+    const x = Math.floor(player.x * map.cellSize)
+    const y = Math.floor(player.y * map.cellSize)
     this.drawCircle(x, y)
     this.drawLamp(x, y, player.angle)
   }
 
   draw3DPlayerOnMap(player, map, smallMap) {
-    const pos = map.getRelativePlayerPos(player)
+    const pos = map.getRelativePos(player)
     const x = pos.x * smallMap.mapSize
     const y = pos.y * smallMap.mapSize
     this.drawCircle(x, y)

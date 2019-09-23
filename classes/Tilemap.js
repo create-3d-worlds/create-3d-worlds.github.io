@@ -23,7 +23,7 @@ export default class Tilemap {
   }
 
   /* in percent */
-  getRelativePlayerPos(player) {
+  getRelativePos(player) {
     return {
       x: (player.x - this.origin.x) / this.mapSize,
       y: (player.z - this.origin.z) / this.mapSize
