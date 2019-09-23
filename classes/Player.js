@@ -111,8 +111,8 @@ export default class Player {
 
   get angle() {
     const {rotation} = this.mesh
-    const yRotation = rotation.x == 0 ? rotation.y : Math.PI - rotation.y
-    return -yRotation - Math.PI * .5
+    const rotationY = rotation.x == 0 ? rotation.y : Math.PI - rotation.y
+    return -rotationY - Math.PI * .5
   }
 
   add(obj) {
