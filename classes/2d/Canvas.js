@@ -25,10 +25,6 @@ export default class Canvas extends HTMLCanvasElement {
     return this.getContext('2d')
   }
 
-  get diagonal() {
-    return Math.sqrt(this.height * this.height + this.width * this.width)
-  }
-
   hide() {
     this.style.display = 'none'
   }

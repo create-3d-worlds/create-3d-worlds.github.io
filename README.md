@@ -33,7 +33,7 @@ live-server
 - [x] prikazati polozaj igraca iz 3D mape na 2D mapi
   - [x] da radi i kad je negativno izvorište 3D mape
 - [x] spojiti 3D i 2D Tilemap
-- [x] reuse randomWalls
+- [x] reuse randomWalls method
   - [ ] osigurati izlaz pomocu lavirint algoritma
 
 ### Player
