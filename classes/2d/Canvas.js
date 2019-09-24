@@ -3,8 +3,7 @@ import keyboard from '../Keyboard.js'
 const CIRCLE = Math.PI * 2
 const colors = ['#fff', '#444', '#701206', '#000']
 
-// TODO: separate player class
-// TODO: separate small map canvas?
+// TODO: separate player class?
 export default class Canvas extends HTMLCanvasElement {
   constructor(color = 'lightgray') {
     super()

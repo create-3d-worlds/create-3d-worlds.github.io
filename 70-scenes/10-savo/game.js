@@ -2,12 +2,14 @@ import { createFloor } from '/utils/floor.js'
 import { randomMatrix } from '/utils/maps.js'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import Canvas from '/classes/2d/Canvas.js'
+import SmallMapRenderer from '/classes/2d/SmallMapRenderer.js'
 import Player from '/classes/Player.js'
 import Tilemap from '/classes/Tilemap.js'
 
 camera.position.y = 10
 camera.position.z = 5
 const canvas = new Canvas('transparent')
+const mapRenderer = new SmallMapRenderer('transparent')
 
 const matrix = randomMatrix()
 const origin = { x: -500, z: -500 }
@@ -31,10 +33,13 @@ void function animate() {
   const delta = clock.getDelta()
   const time = clock.getElapsedTime()
   player.update(delta)
+
   canvas.clear()
   canvas.drawWeapon('/assets/images/savo.png', time)
   canvas.drawTarget('/assets/images/crosshair.png', time)
-  canvas.drawMap(matrix, smallMap.cellSize)
-  canvas.draw3DPlayerOnMap(player, map, smallMap)
+
+  mapRenderer.drawMap(matrix, smallMap.cellSize)
+  mapRenderer.draw3DPlayerOnMap(player, map, smallMap)
+
   renderer.render(scene, camera)
 }()

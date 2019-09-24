@@ -50,11 +50,11 @@ live-server
 
 ### 2D Renderer
 
-- [x] prikazati prvo lice (Savo)
-  - [x] prikazati nisan u centru ekrana
+- [x] crtati prvo lice (Savo)
+  - [x] crtati nisan u centru ekrana
   - [x] weapon shaking
-  - [x] prikazati 3d igraca na 2d maloj mapi
-- [ ] razdvojiti Canvas (2DRenderer) klasu na SmallMapRenderer i FirstPersonRenderer
+  - [x] crtati 3d igraca na 2d maloj mapi
+- [ ] razdvojiti CanvasRenderer klasu na SmallMapRenderer i FirstPersonRenderer
 
 ### Camera
 
