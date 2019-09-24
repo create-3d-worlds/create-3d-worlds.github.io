@@ -1,16 +1,42 @@
 import Canvas from './Canvas.js'
 
+const CIRCLE = Math.PI * 2
 const colors = ['#fff', '#444', '#701206', '#000']
 
 export default class SmallMapRenderer extends Canvas {
-  // constructor(color = 'transparent') {
-  //   super(color)
-  // }
+  constructor(color = 'transparent') {
+    super(color)
+  }
+
+  drawRect(x, y, size, color) {
+    this.ctx.fillStyle = color
+    this.ctx.fillRect(x * size, y * size, size, size)
+  }
 
   drawMap(matrix, cellSize) {
     matrix.forEach((row, y) => row.forEach((val, x) =>
       this.drawRect(x, y, cellSize, colors[val])
     ))
+  }
+
+  drawCircle(x, y, radius = 5, color = '#f00') {
+    this.ctx.fillStyle = color
+    this.ctx.beginPath()
+    this.ctx.arc(x, y, radius, 0, CIRCLE)
+    this.ctx.fill()
+  }
+
+  drawLamp(x, y, angle, radius = 5, color = '#ff0') {
+    this.ctx.fillStyle = color
+    this.ctx.beginPath()
+    this.ctx.arc(x, y, radius, angle, angle)
+    this.ctx.arc(x, y, radius * 3, angle - 0.15 * Math.PI, angle + 0.15 * Math.PI)
+    this.ctx.fill()
+  }
+
+  drawPlayerOnMap(x, y, angle) {
+    this.drawCircle(x, y)
+    this.drawLamp(x, y, angle)
   }
 
   draw2DPlayerOnMap(player) {
@@ -25,11 +51,6 @@ export default class SmallMapRenderer extends Canvas {
     const y = pos.y * smallMap.mapSize + smallMap.cellSize / 2
     this.drawPlayerOnMap(x, y, player.angle)
   }
-
-  drawPlayerOnMap(x, y, angle) {
-    this.drawCircle(x, y)
-    this.drawLamp(x, y, angle)
-  }
 }
 
-customElements.define('small-map', SmallMapRenderer, { extends: 'canvas' })
+customElements.define('my-small-map', SmallMapRenderer, { extends: 'canvas' })

@@ -1,8 +1,3 @@
-import keyboard from '../Keyboard.js'
-
-const CIRCLE = Math.PI * 2
-
-// TODO: separate player class?
 export default class Canvas extends HTMLCanvasElement {
   constructor(color = 'lightgray') {
     super()
@@ -42,61 +37,8 @@ export default class Canvas extends HTMLCanvasElement {
     this.style.display = 'block'
   }
 
-  drawCircle(x, y, radius = 5, color = '#f00') {
-    this.ctx.fillStyle = color
-    this.ctx.beginPath()
-    this.ctx.arc(x, y, radius, 0, CIRCLE)
-    this.ctx.fill()
-  }
-
-  drawLamp(x, y, angle, radius = 5, color = '#ff0') {
-    this.ctx.fillStyle = color
-    this.ctx.beginPath()
-    this.ctx.arc(x, y, radius, angle, angle)
-    this.ctx.arc(x, y, radius * 3, angle - 0.15 * Math.PI, angle + 0.15 * Math.PI)
-    this.ctx.fill()
-  }
-
-  drawRect(x, y, size, color) {
-    this.ctx.fillStyle = color
-    this.ctx.fillRect(x * size, y * size, size, size)
-  }
-
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height)
-  }
-
-  drawWeapon(src, time) {
-    this.handleDraw(this.weapon, src, 'justDrawWeapon', time)
-  }
-
-  drawTarget(src, time) {
-    this.handleDraw(this.target, src, 'justDrawTarget', time)
-  }
-
-  handleDraw(img, src, drawMethod, time) {
-    if (img.naturalWidth) this[drawMethod](time)
-    else {
-      img.onload = () => this[drawMethod](time)
-      img.src = src
-    }
-  }
-
-  justDrawWeapon(time) {
-    this.drawShake(this.weapon, time, 0.51)
-  }
-
-  justDrawTarget(time) {
-    this.drawShake(this.target, time, 0.5, 0.55)
-  }
-
-  drawShake(img, time = 1, xAlign = 0.5, yAlign = 1) {
-    const shaking = keyboard.controlsPressed ? 6 : 1
-    const shakeX = Math.cos(time * 2) * shaking
-    const shakeY = Math.sin(time * 4) * shaking
-    const x = window.innerWidth * xAlign - img.width * 0.5 + shakeX
-    const y = window.innerHeight * yAlign - img.height + shakeY + shaking // zbog praznine na dnu
-    this.ctx.drawImage(img, x, y)
   }
 }
 
