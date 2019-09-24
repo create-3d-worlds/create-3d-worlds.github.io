@@ -7,12 +7,10 @@ import Tilemap from '/classes/Tilemap.js'
 
 camera.position.y = 10
 camera.position.z = 5
-
-const origin = { x: -500, z: -500 }
-
 const canvas = new Canvas('transparent')
-const matrix = randomMatrix()
 
+const matrix = randomMatrix()
+const origin = { x: -500, z: -500 }
 const smallMap = new Tilemap(matrix, 20)
 const map = new Tilemap(matrix, 100, origin)
 
@@ -22,9 +20,9 @@ scene.add(walls)
 
 const {x, z} = map.randomEmptyPos
 const player = new Player(x, 0, z, 10, true)
-scene.add(player.mesh)
 player.add(camera)
 player.addSolids(walls)
+scene.add(player.mesh)
 
 /* LOOP */
 

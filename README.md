@@ -33,6 +33,8 @@ live-server
 - [x] prikazati polozaj igraca iz 3D mape na 2D mapi
   - [x] da radi i kad je negativno izvorište 3D mape
 - [x] spojiti 3D i 2D Tilemap
+- [x] reuse randomWalls
+  - [ ] osigurati izlaz pomocu lavirint algoritma
 
 ### Player
 
@@ -43,7 +45,16 @@ live-server
 - [x] dodati skakanje
   - [x] srediti skok i padanje
   - [x] srediti penjanje uz stepenice
-- [x] vratiti kontrole na strelice
+- [x] dodati kontrole i na strelice
+- [ ] dodati dugme za otvaranje/zatvaranje mape
+
+### 2D Renderer
+
+- [x] prikazati prvo lice (Savo)
+  - [x] prikazati nisan u centru ekrana
+  - [x] weapon shaking
+  - [x] prikazati 3d igraca na 2d maloj mapi
+- [ ] razdvojiti Canvas (2DRenderer) klasu na SmallMapRenderer i FirstPersonRenderer
 
 ### Camera
 
@@ -88,15 +99,8 @@ live-server
 
 ### Scenes
 
-- [x] postaviti scenu prvo lice (Savo)
-  - [x] dodati nisan u centru ekrana
-  - [x] weapon shaking
-  - [x] prikazivati igraca na 2d mapi
-  - [x] srediti preciznost prikaza 3d igraca na 2d mapi
-  - [ ] dodati dugme za otvaranje/zatvaranje mape
-  - [ ] dodati munje i gromove
-  - [ ] dodati kišu
-- [ ] reuse randomWalls
+- [ ] dodati munje i gromove
+- [ ] dodati kišu
 - [ ] dodati NPC karaktere
   - https://www.script-tutorials.com/demos/474/index3.html
 - [ ] dodati neke modele vozila i kuca
@@ -152,13 +156,6 @@ All libraries in `/libs` folder are updated by hand to support ES6 export.
 ## Resources
 
 ```js
-// TODO: reuse randomWalls
-Map.prototype.randomize = function() {
-  for (let i = 0; i < this.size * this.size; i++) {
-    this.wallGrid[i] = Math.random() < 0.3 ? 1 : 0
-  }
-}
-
 // TODO: reuse lightning
 Map.prototype.update = function(dt) {
   if (this.light > 0) {
