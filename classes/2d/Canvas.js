@@ -1,7 +1,6 @@
 import keyboard from '../Keyboard.js'
 
 const CIRCLE = Math.PI * 2
-const colors = ['#fff', '#444', '#701206', '#000']
 
 // TODO: separate player class?
 export default class Canvas extends HTMLCanvasElement {
@@ -98,30 +97,6 @@ export default class Canvas extends HTMLCanvasElement {
     const x = window.innerWidth * xAlign - img.width * 0.5 + shakeX
     const y = window.innerHeight * yAlign - img.height + shakeY + shaking // zbog praznine na dnu
     this.ctx.drawImage(img, x, y)
-  }
-
-  drawMap(matrix, cellSize) {
-    matrix.forEach((row, y) => row.forEach((val, x) =>
-      this.drawRect(x, y, cellSize, colors[val])
-    ))
-  }
-
-  draw2DPlayerOnMap(player) {
-    const x = player.x * player.map.cellSize
-    const y = player.y * player.map.cellSize
-    this.drawPlayerOnMap(x, y, player.angle)
-  }
-
-  draw3DPlayerOnMap(player, map, smallMap) {
-    const pos = map.getRelativePos(player)
-    const x = pos.x * smallMap.mapSize + smallMap.cellSize / 2
-    const y = pos.y * smallMap.mapSize + smallMap.cellSize / 2
-    this.drawPlayerOnMap(x, y, player.angle)
-  }
-
-  drawPlayerOnMap(x, y, angle) {
-    this.drawCircle(x, y)
-    this.drawLamp(x, y, angle)
   }
 }
 
