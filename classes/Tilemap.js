@@ -16,6 +16,13 @@ export default class Tilemap {
     return this.matrix[y][x]
   }
 
+  getRelativePos(player) {
+    return {
+      x: (player.x - this.origin.x) / this.mapSize,
+      y: (player.z - this.origin.z) / this.mapSize
+    }
+  }
+
   get randomEmptyField() {
     const [x, y] = randomField(this.matrix)
     if (this.getFieldValue(x, y) === 0) return [x, y]
@@ -27,13 +34,6 @@ export default class Tilemap {
     const x = randFieldX * this.cellSize + this.origin.x
     const z = randFieldZ * this.cellSize + this.origin.z
     return {x, z}
-  }
-
-  getRelativePos(player) {
-    return {
-      x: (player.x - this.origin.x) / this.mapSize,
-      y: (player.z - this.origin.z) / this.mapSize
-    }
   }
 
   create3DMap(yModifier) {

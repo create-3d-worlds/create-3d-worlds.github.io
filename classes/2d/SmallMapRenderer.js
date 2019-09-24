@@ -4,8 +4,11 @@ const CIRCLE = Math.PI * 2
 const colors = ['#fff', '#444', '#701206', '#000']
 
 export default class SmallMapRenderer extends Canvas {
-  constructor(color = 'transparent') {
-    super(color)
+  constructor(matrix, cellSize = 25) {
+    super()
+    this.matrix = matrix
+    this.cellSize = cellSize
+    this.width = this.height = matrix.length * cellSize
   }
 
   drawRect(x, y, size, color) {
@@ -13,9 +16,9 @@ export default class SmallMapRenderer extends Canvas {
     this.ctx.fillRect(x * size, y * size, size, size)
   }
 
-  drawMap(matrix, cellSize) {
-    matrix.forEach((row, y) => row.forEach((val, x) =>
-      this.drawRect(x, y, cellSize, colors[val])
+  drawMap() {
+    this.matrix.forEach((row, y) => row.forEach((val, x) =>
+      this.drawRect(x, y, this.cellSize, colors[val])
     ))
   }
 

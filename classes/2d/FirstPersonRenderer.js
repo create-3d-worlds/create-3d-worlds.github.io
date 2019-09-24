@@ -2,8 +2,10 @@ import Canvas from './Canvas.js'
 import keyboard from '../Keyboard.js'
 
 export default class FirstPersonRenderer extends Canvas {
-  constructor(color = 'transparent') {
-    super(color)
+  constructor() {
+    super()
+    this.weapon = new Image()
+    this.target = new Image()
   }
 
   drawWeapon(src, time) {

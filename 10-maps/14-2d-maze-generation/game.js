@@ -3,14 +3,14 @@ import Player2D from '/classes/2d/Player2D.js'
 import generateMaze from '/utils/generateMaze.js'
 import SmallMapRenderer from '/classes/2d/SmallMapRenderer.js'
 
-const canvas = new SmallMapRenderer()
-const maze = generateMaze(20, 20)
-const map = new Tilemap(maze, 25)
+const matrix = generateMaze(20, 20)
+const map = new Tilemap(matrix, 25)
+const mapRenderer = new SmallMapRenderer(matrix, 25)
 const player = new Player2D(map)
 
 void function gameLoop() {
   requestAnimationFrame(gameLoop)
   player.update()
-  canvas.drawMap(maze, map.cellSize)
-  canvas.draw2DPlayerOnMap(player)
+  mapRenderer.drawMap()
+  mapRenderer.draw2DPlayerOnMap(player)
 }()

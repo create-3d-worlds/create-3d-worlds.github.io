@@ -9,12 +9,12 @@ import Tilemap from '/classes/Tilemap.js'
 camera.position.y = 10
 camera.position.z = 5
 const fpsRenderer = new FirstPersonRenderer()
-const mapRenderer = new SmallMapRenderer()
 
 const matrix = randomMatrix()
-const origin = { x: -500, z: -500 }
-const smallMap = new Tilemap(matrix, 20)
+const origin = {x: -500, z: -500}
 const map = new Tilemap(matrix, 100, origin)
+const smallMap = new Tilemap(matrix, 20)
+const smallMapRenderer = new SmallMapRenderer(matrix, 20)
 
 scene.add(createFloor())
 const walls = map.create3DMap(0.5)
@@ -38,8 +38,8 @@ void function animate() {
   fpsRenderer.drawWeapon('/assets/images/savo.png', time)
   fpsRenderer.drawTarget('/assets/images/crosshair.png', time)
 
-  mapRenderer.drawMap(matrix, smallMap.cellSize)
-  mapRenderer.draw3DPlayerOnMap(player, map, smallMap)
+  smallMapRenderer.drawMap()
+  smallMapRenderer.draw3DPlayerOnMap(player, map, smallMap)
 
   renderer.render(scene, camera)
 }()

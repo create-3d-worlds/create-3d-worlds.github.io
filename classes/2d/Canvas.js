@@ -1,19 +1,24 @@
+const style = `
+  background-color: transparent;
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+`
+
+const bodyStyle = `
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+`
+
 export default class Canvas extends HTMLCanvasElement {
-  constructor(color = 'lightgray') {
+  constructor() {
     super()
-    this.height = window.innerHeight || 600 // height must first
-    this.width = document.body.clientWidth || 800
-    this.style.backgroundColor = color
-    this.weapon = new Image()
-    this.target = new Image()
-    if (color == 'transparent') {
-      this.style.position = 'absolute'
-      this.style.left = 0
-      this.style.top = 0
-      this.style.pointerEvents = 'none'
-    }
-    document.body.style.margin = 0
-    document.body.style.padding = 0
+    this.width = window.innerWidth
+    this.height = window.innerHeight
+    this.style = style
+    document.body.style = bodyStyle
     document.body.appendChild(this)
   }
 

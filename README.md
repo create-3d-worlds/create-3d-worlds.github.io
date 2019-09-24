@@ -54,7 +54,8 @@ live-server
   - [x] crtati nisan u centru ekrana
   - [x] weapon shaking
   - [x] crtati 3d igraca na 2d maloj mapi
-- [ ] razdvojiti CanvasRenderer klasu na SmallMapRenderer i FirstPersonRenderer
+- [x] razdvojiti CanvasRenderer klasu na SmallMapRenderer i FirstPersonRenderer
+- [ ] malu mapu iscrtavati samo nakon promene tipki
 
 ### Camera
 
