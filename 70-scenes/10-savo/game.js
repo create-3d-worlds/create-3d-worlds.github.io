@@ -5,20 +5,23 @@ import Canvas from '/classes/2d/Canvas.js'
 import Player from '/classes/Player.js'
 import Tilemap from '/classes/Tilemap.js'
 
+camera.position.y = 10
+camera.position.z = 5
+
+const origin = { x: -500, z: -500 }
+
 const canvas = new Canvas('transparent')
 const matrix = randomMatrix()
 
 const smallMap = new Tilemap(matrix, 20)
-const map = new Tilemap(matrix, 100, {x: -500, z: -500})
+const map = new Tilemap(matrix, 100, origin)
 
 scene.add(createFloor())
 const walls = map.create3DMap(0.5)
 scene.add(walls)
 
-camera.position.y = 10
-camera.position.z = 5
-
-const player = new Player(0, 0, 0, 10, true)
+const {x, z} = map.randomEmptyPos
+const player = new Player(x, 0, z, 10, true)
 scene.add(player.mesh)
 player.add(camera)
 player.addSolids(walls)

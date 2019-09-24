@@ -22,6 +22,13 @@ export default class Tilemap {
     return this.randomEmptyField
   }
 
+  get randomEmptyPos() {
+    const [randFieldX, randFieldZ] = this.randomEmptyField
+    const x = randFieldX * this.cellSize + this.origin.x
+    const z = randFieldZ * this.cellSize + this.origin.z
+    return {x, z}
+  }
+
   getRelativePos(player) {
     return {
       x: (player.x - this.origin.x) / this.mapSize,
