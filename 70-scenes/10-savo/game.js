@@ -38,8 +38,7 @@ void function animate() {
   fpsRenderer.drawWeapon('/assets/images/savo.png', time)
   fpsRenderer.drawTarget('/assets/images/crosshair.png', time)
 
-  smallMapRenderer.drawMap()
-  smallMapRenderer.drawPlayer(player, map)
+  smallMapRenderer.update(player, map)
 
   renderer.render(scene, camera)
 }()

@@ -3,6 +3,9 @@ import keyboard from '../Keyboard.js'
 
 const CIRCLE = Math.PI * 2
 const colors = ['#fff', '#444', '#701206', '#000']
+let rendered = false
+
+const shouldRender = () => keyboard.controlsPressed || !rendered
 
 export default class SmallMapRenderer extends Canvas {
   constructor(smallMap) {
@@ -51,11 +54,17 @@ export default class SmallMapRenderer extends Canvas {
   }
 
   drawPlayer(player, map) {
-    // if (!keyboard.controlsPressed) return
     const pos = map.getRelativePos(player)
     const x = pos.x * this.mapSize + this.cellSize * .5
     const y = pos.y * this.mapSize + this.cellSize * .5
     this.drawPlayerOnMap(x, y, player.angle)
+  }
+
+  update(player, map) {
+    if (!shouldRender()) return
+    this.drawMap()
+    this.drawPlayer(player, map)
+    rendered = true
   }
 }
 
