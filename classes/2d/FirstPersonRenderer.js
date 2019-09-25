@@ -4,7 +4,7 @@ import keyboard from '../Keyboard.js'
 const targetSrc = '/assets/images/crosshair.png'
 
 export default class FirstPersonRenderer extends Canvas {
-  constructor(weaponSrc = '/assets/images/savo.png') {
+  constructor(weaponSrc = '/assets/images/savo-big.png') {
     super()
     this.weaponSrc = weaponSrc
     this.weapon = new Image()
@@ -12,14 +12,14 @@ export default class FirstPersonRenderer extends Canvas {
   }
 
   drawWeapon(time) {
-    this.handleDraw(this.weapon, this.weaponSrc, 'justDrawWeapon', time)
+    this.handleLoad(this.weapon, this.weaponSrc, 'drawWeaponOnLoad', time)
   }
 
   drawTarget(time) {
-    this.handleDraw(this.target, targetSrc, 'justDrawTarget', time)
+    this.handleLoad(this.target, targetSrc, 'drawTargetOnLoad', time)
   }
 
-  handleDraw(img, src, drawMethod, time) {
+  handleLoad(img, src, drawMethod, time) {
     if (img.complete && img.naturalWidth) this[drawMethod](time)
     else {
       img.onload = () => this[drawMethod](time)
@@ -27,11 +27,11 @@ export default class FirstPersonRenderer extends Canvas {
     }
   }
 
-  justDrawWeapon(time) {
+  drawWeaponOnLoad(time) {
     this.drawShake(this.weapon, time, 0.51)
   }
 
-  justDrawTarget(time) {
+  drawTargetOnLoad(time) {
     this.drawShake(this.target, time, 0.5, 0.55)
   }
 
