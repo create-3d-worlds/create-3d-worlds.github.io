@@ -33,12 +33,7 @@ void function animate() {
   const delta = clock.getDelta()
   const time = clock.getElapsedTime()
   player.update(delta)
-
-  fpsRenderer.clear()
-  fpsRenderer.drawWeapon(time)
-  fpsRenderer.drawTarget(time)
-
-  smallMapRenderer.update(player, map)
-
   renderer.render(scene, camera)
+  smallMapRenderer.render(player, map)
+  fpsRenderer.render(time)
 }()

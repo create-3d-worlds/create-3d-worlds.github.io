@@ -43,6 +43,12 @@ export default class FirstPersonRenderer extends Canvas {
     const y = window.innerHeight * yAlign - img.height + shakeY + shaking // zbog praznine na dnu
     this.ctx.drawImage(img, x, y)
   }
+
+  render(time) {
+    this.clear()
+    this.drawWeapon(time)
+    this.drawTarget(time)
+  }
 }
 
 customElements.define('my-first-person', FirstPersonRenderer, { extends: 'canvas' })

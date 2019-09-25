@@ -60,7 +60,7 @@ export default class SmallMapRenderer extends Canvas {
     this.drawPlayerOnMap(x, y, player.angle)
   }
 
-  update(player, map) {
+  render(player, map) {
     if (!shouldRender()) return
     this.drawMap()
     this.drawPlayer(player, map)
