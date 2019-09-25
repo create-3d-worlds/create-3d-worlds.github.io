@@ -9,6 +9,7 @@ export default class SmallMapRenderer extends Canvas {
     super()
     this.matrix = smallMap.matrix
     this.cellSize = smallMap.cellSize
+    this.mapSize = smallMap.mapSize
     this.width = this.height = this.matrix.length * this.cellSize
   }
 
@@ -49,11 +50,11 @@ export default class SmallMapRenderer extends Canvas {
     this.drawPlayerOnMap(x, y, player.angle)
   }
 
-  drawPlayer(player, map, smallMap) {
+  drawPlayer(player, map) {
     // if (!keyboard.controlsPressed) return
     const pos = map.getRelativePos(player)
-    const x = pos.x * smallMap.mapSize + smallMap.cellSize * .5
-    const y = pos.y * smallMap.mapSize + smallMap.cellSize * .5
+    const x = pos.x * this.mapSize + this.cellSize * .5
+    const y = pos.y * this.mapSize + this.cellSize * .5
     this.drawPlayerOnMap(x, y, player.angle)
   }
 }
