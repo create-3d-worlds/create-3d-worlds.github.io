@@ -4,9 +4,11 @@ import generateMaze from '/utils/generateMaze.js'
 import SmallMapRenderer from '/classes/2d/SmallMapRenderer.js'
 
 const matrix = generateMaze(20, 20)
-const map = new Tilemap(matrix, 25)
-const smallMapRenderer = new SmallMapRenderer(matrix, 25)
-const player = new Player2D(map)
+const smallMap = new Tilemap(matrix, 25)
+const smallMapRenderer = new SmallMapRenderer(smallMap)
+const player = new Player2D(smallMap)
+
+/* LOOP */
 
 void function gameLoop() {
   requestAnimationFrame(gameLoop)

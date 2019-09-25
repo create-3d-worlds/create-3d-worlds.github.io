@@ -1,14 +1,15 @@
 import Canvas from './Canvas.js'
+import keyboard from '../Keyboard.js'
 
 const CIRCLE = Math.PI * 2
 const colors = ['#fff', '#444', '#701206', '#000']
 
 export default class SmallMapRenderer extends Canvas {
-  constructor(matrix, cellSize = 25) {
+  constructor(smallMap) {
     super()
-    this.matrix = matrix
-    this.cellSize = cellSize
-    this.width = this.height = matrix.length * cellSize
+    this.matrix = smallMap.matrix
+    this.cellSize = smallMap.cellSize
+    this.width = this.height = this.matrix.length * this.cellSize
   }
 
   drawRect(x, y, size, color) {
@@ -49,9 +50,10 @@ export default class SmallMapRenderer extends Canvas {
   }
 
   drawPlayer(player, map, smallMap) {
+    // if (!keyboard.controlsPressed) return
     const pos = map.getRelativePos(player)
-    const x = pos.x * smallMap.mapSize + smallMap.cellSize / 2
-    const y = pos.y * smallMap.mapSize + smallMap.cellSize / 2
+    const x = pos.x * smallMap.mapSize + smallMap.cellSize * .5
+    const y = pos.y * smallMap.mapSize + smallMap.cellSize * .5
     this.drawPlayerOnMap(x, y, player.angle)
   }
 }
