@@ -35,8 +35,8 @@ void function animate() {
   player.update(delta)
 
   fpsRenderer.clear()
-  fpsRenderer.drawWeapon('/assets/images/savo.png', time)
-  fpsRenderer.drawTarget('/assets/images/crosshair.png', time)
+  fpsRenderer.drawWeapon(time)
+  fpsRenderer.drawTarget(time)
 
   smallMapRenderer.update(player, map)
 

@@ -1,23 +1,26 @@
 import Canvas from './Canvas.js'
 import keyboard from '../Keyboard.js'
 
+const targetSrc = '/assets/images/crosshair.png'
+
 export default class FirstPersonRenderer extends Canvas {
-  constructor() {
+  constructor(weaponSrc = '/assets/images/savo.png') {
     super()
+    this.weaponSrc = weaponSrc
     this.weapon = new Image()
     this.target = new Image()
   }
 
-  drawWeapon(src, time) {
-    this.handleDraw(this.weapon, src, 'justDrawWeapon', time)
+  drawWeapon(time) {
+    this.handleDraw(this.weapon, this.weaponSrc, 'justDrawWeapon', time)
   }
 
-  drawTarget(src, time) {
-    this.handleDraw(this.target, src, 'justDrawTarget', time)
+  drawTarget(time) {
+    this.handleDraw(this.target, targetSrc, 'justDrawTarget', time)
   }
 
   handleDraw(img, src, drawMethod, time) {
-    if (img.naturalWidth) this[drawMethod](time)
+    if (img.complete && img.naturalWidth) this[drawMethod](time)
     else {
       img.onload = () => this[drawMethod](time)
       img.src = src
