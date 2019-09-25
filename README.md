@@ -34,7 +34,6 @@ live-server
   - [x] da radi i kad je negativno izvorište 3D mape
 - [x] spojiti 3D i 2D Tilemap
 - [x] reuse randomWalls method
-  - [ ] osigurati izlaz pomocu lavirint algoritma
 
 ### Player
 
@@ -46,7 +45,7 @@ live-server
   - [x] srediti skok i padanje
   - [x] srediti penjanje uz stepenice
 - [x] dodati kontrole i na strelice
-- [ ] dodati dugme za otvaranje/zatvaranje mape
+- [x] dodati dugme (m) za otvaranje/zatvaranje mape
 
 ### 2D Renderer
 

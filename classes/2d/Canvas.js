@@ -23,7 +23,7 @@ export default class Canvas extends HTMLCanvasElement {
   }
 
   connectedCallback() {
-    this.focus()
+    // this.focus()
   }
 
   get ctx() {

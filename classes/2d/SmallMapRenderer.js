@@ -3,9 +3,9 @@ import keyboard from '../Keyboard.js'
 
 const CIRCLE = Math.PI * 2
 const colors = ['#fff', '#444', '#701206', '#000']
-let rendered = false
+let initiallyRendered = false
 
-const shouldRender = () => keyboard.controlsPressed || !rendered
+const shouldRender = () => keyboard.controlsPressed || !initiallyRendered
 
 export default class SmallMapRenderer extends Canvas {
   constructor(smallMap) {
@@ -14,6 +14,13 @@ export default class SmallMapRenderer extends Canvas {
     this.cellSize = smallMap.cellSize
     this.mapSize = smallMap.mapSize
     this.width = this.height = this.matrix.length * this.cellSize
+    this.hide()
+    document.addEventListener('keypress', this.toggleMap.bind(this))
+  }
+
+  toggleMap(e) {
+    if (e.code != 'KeyM') return
+    this.style.display = this.style.display == 'none' ? 'block' : 'none'
   }
 
   drawRect(x, y, size, color) {
@@ -64,7 +71,7 @@ export default class SmallMapRenderer extends Canvas {
     if (!shouldRender()) return
     this.drawMap()
     this.drawPlayer(player, map)
-    rendered = true
+    initiallyRendered = true
   }
 }
 
