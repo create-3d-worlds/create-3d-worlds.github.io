@@ -5,7 +5,7 @@ import SmallMapRenderer from '/classes/2d/SmallMapRenderer.js'
 
 const map = new Tilemap(matrix, 30)
 const player = new Player2D(map)
-const smallMapRenderer = new SmallMapRenderer(matrix, 30, player)
+const smallMapRenderer = new SmallMapRenderer(matrix, 30)
 
 /* LOOP */
 
@@ -13,5 +13,5 @@ void function gameLoop() {
   requestAnimationFrame(gameLoop)
   player.update()
   smallMapRenderer.drawMap()
-  smallMapRenderer.draw2DPlayerOnMap(player)
+  smallMapRenderer.draw2DPlayer(player)
 }()

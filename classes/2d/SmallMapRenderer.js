@@ -42,13 +42,13 @@ export default class SmallMapRenderer extends Canvas {
     this.drawLamp(x, y, angle)
   }
 
-  draw2DPlayerOnMap(player) {
+  draw2DPlayer(player) {
     const x = player.x * player.map.cellSize
     const y = player.y * player.map.cellSize
     this.drawPlayerOnMap(x, y, player.angle)
   }
 
-  draw3DPlayerOnMap(player, map, smallMap) {
+  drawPlayer(player, map, smallMap) {
     const pos = map.getRelativePos(player)
     const x = pos.x * smallMap.mapSize + smallMap.cellSize / 2
     const y = pos.y * smallMap.mapSize + smallMap.cellSize / 2

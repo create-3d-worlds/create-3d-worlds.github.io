@@ -39,7 +39,7 @@ void function animate() {
   fpsRenderer.drawTarget('/assets/images/crosshair.png', time)
 
   smallMapRenderer.drawMap()
-  smallMapRenderer.draw3DPlayerOnMap(player, map, smallMap)
+  smallMapRenderer.drawPlayer(player, map, smallMap)
 
   renderer.render(scene, camera)
 }()

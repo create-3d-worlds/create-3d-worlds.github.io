@@ -12,5 +12,5 @@ void function gameLoop() {
   requestAnimationFrame(gameLoop)
   player.update()
   smallMapRenderer.drawMap()
-  smallMapRenderer.draw2DPlayerOnMap(player)
+  smallMapRenderer.draw2DPlayer(player)
 }()
