@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/mudroljub/create-rpg-game#readme",
   "dependencies": {
-    "three": "0.107.0"
+    "three": "0.108.0"
   }
 }
