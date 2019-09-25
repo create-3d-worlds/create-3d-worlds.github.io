@@ -5,12 +5,12 @@ import SmallMapRenderer from '/classes/2d/SmallMapRenderer.js'
 
 const matrix = generateMaze(20, 20)
 const map = new Tilemap(matrix, 25)
-const mapRenderer = new SmallMapRenderer(matrix, 25)
+const smallMapRenderer = new SmallMapRenderer(matrix, 25)
 const player = new Player2D(map)
 
 void function gameLoop() {
   requestAnimationFrame(gameLoop)
   player.update()
-  mapRenderer.drawMap()
-  mapRenderer.draw2DPlayerOnMap(player)
+  smallMapRenderer.drawMap()
+  smallMapRenderer.draw2DPlayerOnMap(player)
 }()
