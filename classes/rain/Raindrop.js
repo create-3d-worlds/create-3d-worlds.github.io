@@ -5,7 +5,7 @@ import { randomInRange } from './helpers.js'
 const minDropHeight = 3
 const maxDropHeight = 10
 const avgHeight = (minDropHeight + maxDropHeight) / 2
-const avgSpeed = 5.8
+const avgSpeed = 20
 
 let windDirection = 0
 let lastMouseX = 0
@@ -26,7 +26,7 @@ export default class Raindrop {
 
   reset() {
     this.x = randomInRange(-window.innerWidth / 2, window.innerWidth * 2)
-    this.y = -10
+    this.y = randomInRange(-100, -10)
   }
 
   update() {
@@ -40,7 +40,7 @@ export default class Raindrop {
   }
 
   render() {
-    const dropColor = Math.random > .5 ? 'rgba(200, 200, 255, 0.5)' : 'rgba(205, 190, 232, 0.9)'
+    const dropColor = 'rgba(200, 200, 255, .6)' // 'rgba(205, 190, 232, .75)'
     ctx.fillStyle = ctx.strokeStyle = dropColor
     ctx.fillRect(this.x, this.y, 1, this.height)
     if (this.prskanje) this.prskanje.render()

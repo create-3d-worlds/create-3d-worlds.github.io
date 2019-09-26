@@ -99,8 +99,9 @@ live-server
 
 ### Scenes
 
+- [x] dodati kišu
+- [ ] napraviti 3D kišu
 - [ ] dodati munje i gromove
-- [ ] dodati kišu
 - [ ] dodati NPC karaktere
   - https://www.script-tutorials.com/demos/474/index3.html
 - [ ] dodati neke modele vozila i kuca

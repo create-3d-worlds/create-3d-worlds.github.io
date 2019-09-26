@@ -14,7 +14,7 @@ export default class SmallMapRenderer extends Canvas {
     this.cellSize = smallMap.cellSize
     this.mapSize = smallMap.mapSize
     this.width = this.height = this.matrix.length * this.cellSize
-    this.hide()
+    this.show()
     document.addEventListener('keypress', this.toggleMap.bind(this))
   }
 

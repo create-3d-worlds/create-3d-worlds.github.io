@@ -22,10 +22,6 @@ export default class Canvas extends HTMLCanvasElement {
     document.body.appendChild(this)
   }
 
-  connectedCallback() {
-    // this.focus()
-  }
-
   get ctx() {
     return this.getContext('2d')
   }
