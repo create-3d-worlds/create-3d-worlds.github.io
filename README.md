@@ -100,7 +100,7 @@ live-server
 ### Scenes
 
 - [x] dodati kišu
-- [ ] napraviti 3D kišu
+- [ ] napraviti 3D kišu (https://danni-three.blogspot.com/2013/09/threejs-particle-engine.html)
 - [ ] dodati munje i gromove
 - [ ] dodati NPC karaktere
   - https://www.script-tutorials.com/demos/474/index3.html

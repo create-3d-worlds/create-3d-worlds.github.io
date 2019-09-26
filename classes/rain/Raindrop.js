@@ -19,7 +19,7 @@ export default class Raindrop {
   constructor() {
     this.height = Math.random() * (maxDropHeight - minDropHeight) + minDropHeight
     const heightDiff = this.height - avgHeight
-    this.speed = avgSpeed + heightDiff / 5
+    this.speed = avgSpeed + heightDiff
     this.reset()
     document.addEventListener('mousemove', handleWind)
   }
@@ -40,7 +40,7 @@ export default class Raindrop {
   }
 
   render() {
-    const dropColor = 'rgba(200, 200, 255, .6)' // 'rgba(205, 190, 232, .75)'
+    const dropColor = 'rgba(200, 200, 255, .8)'
     ctx.fillStyle = ctx.strokeStyle = dropColor
     ctx.fillRect(this.x, this.y, 1, this.height)
     if (this.prskanje) this.prskanje.render()

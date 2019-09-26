@@ -40,7 +40,7 @@ export default class FirstPersonRenderer extends Canvas {
     const shakeX = Math.cos(time * 2) * shaking
     const shakeY = Math.sin(time * 4) * shaking
     const x = window.innerWidth * xAlign - img.width * 0.5 + shakeX
-    const y = window.innerHeight * yAlign - img.height + shakeY + shaking // zbog praznine na dnu
+    const y = window.innerHeight * yAlign - img.height + shakeY + 10 // zbog praznine na dnu
     this.ctx.drawImage(img, x, y)
   }
 
