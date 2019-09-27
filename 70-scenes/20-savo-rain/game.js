@@ -15,7 +15,7 @@ const matrix = randomMatrix()
 const map = new Tilemap(matrix, 100)
 const smallMap = new Tilemap(matrix, 20)
 const smallMapRenderer = new SmallMapRenderer(smallMap)
-smallMapRenderer.hide()
+// smallMapRenderer.hide()
 
 scene.add(createFloor())
 const walls = map.create3DMap(0.5)

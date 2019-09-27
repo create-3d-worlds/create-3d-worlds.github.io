@@ -4,6 +4,7 @@ export default class Tilemap {
   constructor(matrix = randomMatrix(), cellSize = 250, origin) {
     this.matrix = matrix
     this.cellSize = cellSize
+    this.mapSize = (matrix.length - 1) * cellSize
     this.origin = origin ? origin : {x: this.originX, z: this.originZ}
   }
 
@@ -24,10 +25,9 @@ export default class Tilemap {
   }
 
   getRelativePos(player) {
-    const mapSize = (this.matrix.length - 1) * this.cellSize
     return {
-      x: (player.x - this.origin.x) / mapSize,
-      y: (player.z - this.origin.z) / mapSize
+      x: (player.x - this.origin.x) / this.mapSize,
+      y: (player.z - this.origin.z) / this.mapSize
     }
   }
 
