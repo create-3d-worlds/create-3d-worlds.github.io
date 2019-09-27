@@ -1,11 +1,18 @@
 import { randomMatrix, randomField, create3DMap} from '/utils/maps.js'
 
 export default class Tilemap {
-  constructor(matrix = randomMatrix(), cellSize = 250, origin = {x: 0, z: 0}) {
+  constructor(matrix = randomMatrix(), cellSize = 250, origin) {
     this.matrix = matrix
     this.cellSize = cellSize
-    this.mapSize = (matrix.length - 1) * cellSize
-    this.origin = origin
+    this.origin = origin ? origin : {x: this.originX, z: this.originZ}
+  }
+
+  get originX() {
+    return -this.matrix[0].length * this.cellSize / 2
+  }
+
+  get originZ() {
+    return -this.matrix.length * this.cellSize / 2
   }
 
   getFieldValue(x, y) {
@@ -17,9 +24,10 @@ export default class Tilemap {
   }
 
   getRelativePos(player) {
+    const mapSize = (this.matrix.length - 1) * this.cellSize
     return {
-      x: (player.x - this.origin.x) / this.mapSize,
-      y: (player.z - this.origin.z) / this.mapSize
+      x: (player.x - this.origin.x) / mapSize,
+      y: (player.z - this.origin.z) / mapSize
     }
   }
 

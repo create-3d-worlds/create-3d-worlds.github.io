@@ -12,7 +12,7 @@ camera.position.z = 5
 const fpsRenderer = new FirstPersonRenderer()
 
 const matrix = randomMatrix()
-const map = new Tilemap(matrix, 100, { x: -500, z: -500 })
+const map = new Tilemap(matrix, 100)
 const smallMap = new Tilemap(matrix, 20)
 const smallMapRenderer = new SmallMapRenderer(smallMap)
 smallMapRenderer.hide()

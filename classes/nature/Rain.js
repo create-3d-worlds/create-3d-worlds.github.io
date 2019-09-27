@@ -15,7 +15,7 @@ const createDrop = () => {
 }
 
 export default class Rain {
-  constructor(center = {x: 0, y: 200, z: 0}, size = 500, dropsNum = 1000) {
+  constructor(center = {x: 0, y: 250, z: 0}, size = 800, dropsNum = 1000) {
     this.size = size
     this.y = center.y
     this.createDrops(center.x, center.z, size, dropsNum)
