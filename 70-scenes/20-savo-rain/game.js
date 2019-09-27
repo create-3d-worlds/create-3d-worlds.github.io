@@ -1,16 +1,15 @@
 import { createFloor } from '/utils/floor.js'
 import { randomMatrix } from '/utils/maps.js'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
-import {fpsRenderer} from '/classes/2d/fpsRenderer.js'
+import FirstPersonRenderer from '/classes/2d/FirstPersonRenderer.js'
 import SmallMapRenderer from '/classes/2d/SmallMapRenderer.js'
 import Player from '/classes/Player.js'
 import Tilemap from '/classes/Tilemap.js'
-import Rain from '/classes/rain/Rain.js'
-
-const rain = new Rain()
+import Rain from '/classes/nature/Rain.js'
 
 camera.position.y = 10
 camera.position.z = 5
+const fpsRenderer = new FirstPersonRenderer()
 
 const matrix = randomMatrix()
 const map = new Tilemap(matrix, 100, { x: -500, z: -500 })
@@ -27,6 +26,9 @@ const player = new Player(x, 0, z, 10, true)
 player.add(camera)
 player.addSolids(walls)
 scene.add(player.mesh)
+
+const rain = new Rain()
+scene.add(...rain.drops)
 
 /* LOOP */
 
