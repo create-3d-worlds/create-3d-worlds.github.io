@@ -37,10 +37,8 @@ export default class Rain {
   update() {
     this.drops.forEach(drop => {
       drop.position.y -= drop.velocity
-      if (drop.position.y < 0) {
+      if (drop.position.y < 0)
         drop.position.y += this.y
-        drop.velocity = randomInRange(3, 6)
-      }
     })
   }
 }
