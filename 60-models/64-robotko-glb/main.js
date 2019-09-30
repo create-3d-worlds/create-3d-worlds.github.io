@@ -1,4 +1,3 @@
-import * as THREE from '/node_modules/three/build/three.module.js'
 import { scene, renderer, camera, clock, createOrbitControls} from '/utils/scene.js'
 import {PlayerModel, Robotko} from '/classes/index.js'
 

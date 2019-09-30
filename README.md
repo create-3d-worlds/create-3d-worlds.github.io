@@ -102,7 +102,6 @@ live-server
 - [x] dodati kišu
 - [x] napraviti 3D kišu
 - [x] napraviti sneg
-- [ ] dodati munje i gromove
 - [ ] dodati NPC karaktere
   - https://www.script-tutorials.com/demos/474/index3.html
 - [ ] dodati neke modele vozila i kuca
@@ -156,20 +155,6 @@ scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 3
 All libraries in `/libs` folder are updated by hand to support ES6 export.
 
 ## Resources
-
-```js
-// TODO: reuse lightning
-Map.prototype.update = function(dt) {
-  if (this.light > 0) {
-    this.light = Math.max(this.light - 10 * dt, 0)
-  }
-  else if (Math.random() * 5 < dt) {
-    this.light = 2
-    this.grom.volume = Math.random()
-    this.grom.play()
-  }
-}
-```
 
 - https://github.com/mudroljub/javaskript-igrice-primeri (3d mapa)
 - https://github.com/skolakoda/teorija-razvoja-igara
