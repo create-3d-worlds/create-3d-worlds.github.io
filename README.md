@@ -101,7 +101,7 @@ live-server
 
 - [x] dodati kišu
 - [x] napraviti 3D kišu
-  - [ ] dodati prskanje
+- [x] napraviti sneg
 - [ ] dodati munje i gromove
 - [ ] dodati NPC karaktere
   - https://www.script-tutorials.com/demos/474/index3.html
