@@ -36,13 +36,6 @@ export const createStair = (x, y, z, size) => createBox(x, y, z, size, null, nul
 
 export const createWallBlock = (x, z, size, file, yModifier) => createBox(x, 0, z, size, file, null, 1, yModifier)
 
-export function createSketchBox(x = 0, y = 0, z = 0, size) {
-  const box = createBlock(x, y, z, size, 0x22dd88)
-  const outline = createOutline(size)
-  box.add(outline)
-  return box
-}
-
 export function createPlayerBox(x = 0, y = 0, z = 0, size, transparent) {
   const box = createBlock(0, 0, 0, size, null, transparent)
   box.material.opacity = transparent ? 0 : 1
