@@ -28,5 +28,7 @@ export function createOrbitControls() {
   // controls.maxDistance = 20
   controls.zoomSpeed = .3
   controls.enableKeys = false
+  controls.enableDamping = true
+  controls.dampingFactor = 0.1
   return controls
 }
