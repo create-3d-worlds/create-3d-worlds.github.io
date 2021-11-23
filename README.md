@@ -99,44 +99,64 @@ live-server
 
 ### Scenes
 
-- [x] dodati kišu
-- [x] napraviti 3D kišu
-- [x] napraviti sneg
-- [ ] dodati NPC karaktere
-  - https://www.script-tutorials.com/demos/474/index3.html
-- [ ] dodati neke modele vozila i kuca
-  - [ ] dodati tenk kako se krece
-  - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
+- [x] Savo (ww2 fps)
+  - [x] dodati kišu
+  - [x] napraviti 3D kišu
+  - [x] napraviti sneg
+  - [ ] dodati NPC karaktere (vidi 80-primeri/80-nemesis)
+    - https://www.script-tutorials.com/demos/474/index3.html
+  - [ ] dodati neke modele vozila i kuca
+  - [ ] dodati tenk kako prolazi
+  - [ ] dodati munje https://threejs.org/examples/?q=light#webgl_lightningstrike
 - [ ] scena svemir (model ring arcology)
-- [ ] avion leti, dodati senku (vidi 3d-warplane)
+  - [ ] letenje kroz zvezde (70-cestice/10-zvezde/)
+  - [ ] sletanje na platformu (naći 2d primer)
+  - [ ] sletanje na mesec (80-primeri/12-mesec)
+- [ ] avion leti (ww1 scena)
+  - [ ] dodati suncevu svetlost (https://threejs.org/examples/webgl_lights_hemisphere.html)
+  - [ ] dodati senku i maglu (vidi 3d-warplane)
+  - [ ] dodati 38-teren-dinamicki
+  - [ ] probati leti ptica (50-rad-sa-modelima/70-ptice)
+  - [ ] dodati oblake/dim (70-cestice/80-dim)
+- [ ] grad scena (vidi 34-spojena-geometrija, 70-grad, 65-proceduralni-grad)
+- [ ] fantasy scena (dodati modele 50-rad-sa-modelima/90-modeli-dae/)
+  - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
+  - [ ] karakter dolazi do kuće i ulazi (vidi 50-rad-sa-modelima/35-kuca-unutrasnost)
+  - [ ] uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)
+  - [ ] oblaci, životinje, zamak (vidi 80-primeri/90-simulacija-sveta)
+- [ ] konj trči po šumi (50-rad-sa-modelima/60-konj-glb)
+
+### Effects
+
 - [x] isprobati lagani prelaz (lerp ili tween.js)
+- [ ] dodati panoramu (skybox), nebo/zvezde (vidi 50-svod)
+- [ ] dodati eksplozije (70-cestice/60-eksplozija-geometrije/)
+    - http://jeromeetienne.github.io/fireworks.js/
+- [ ] dodati lavu (vidi 65-lava-avatar)
 
 ### Physics
 
-- [ ] dodati fiziku https://github.com/chandlerprall/Physijs
-- [ ] dodati fiziku na proceruralni zamak i top koji puca i rusi zidine
-- [ ] tenk (steam tenk) koji gazi prepreke
+- [ ] razaranje zamka topom
+  - [ ] dodati proceduralni zamak (vidi 75-zamak-fizika, 60-fizika/20-gradjevina-physijs)
+  - [ ] dodati top (ima model)
+  - [ ] top puca i rusi zidine (60-fizika/30-kugle-pucanje-cannon)
+- [ ] tenk (steam tenk) koji gazi prepreke ili lokomotiva (60-fizika/70-vozilo-physijs)
   - http://127.0.0.1:8080/15-fizika/70-vozilo/
   - http://127.0.0.1:8080/15-fizika/75-vozilo-razbija/
 
 ### Gameplay
 
-- [ ] napraviti inventar
-- [ ] postaviti objekte za sakupljanje i okidace za njih
+- [ ] konj trči endless-runner (80-primeri/30-endless-runner, 50-rad-sa-modelima/60-konj-glb)
+- [ ] inventar za frp
+  - [ ] postaviti objekte za sakupljanje i okidace za njih
   - https://www.the-art-of-web.com/javascript/maze-game/#box1 (2D)
   - https://threejs.org/examples/?q=cube#webgl_interactive_cubes
   - https://threejsfundamentals.org/threejs/lessons/threejs-picking.html
   - https://codepen.io/kintel/pen/ZboOxw
-
-### Levels
-
 - [ ] bežanje od štuke koja bombarduje
-- [ ] skrivanje od reflektora logora
-- [ ] razaranje zamka topom (dodati fiziku)
 
 ### Ostalo
 
-- [ ] Dodati panoramu (skybox) nebo/zvezde
 - [ ] probati VR
   - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
   - https://ski-mountain-vr.herokuapp.com/
@@ -144,8 +164,6 @@ live-server
 - [ ] naci vismapu sutjeske
   - http://www.smartjava.org/content/threejs-render-real-world-terrain-heightmap-using-open-data/
   - https://blog.mapbox.com/bringing-3d-terrain-to-the-browser-with-three-js-410068138357
-- [ ] dodati eksplozije
-    - http://jeromeetienne.github.io/fireworks.js/
 
 ## Documentation
 

@@ -18,8 +18,6 @@ const controls = createOrbitControls()
 const ground = createFloor(10000)
 scene.background = new THREE.Color(0x87CEEB) // 0x3299CC
 scene.add(ground)
-// const hemiLight = new THREE.HemisphereLight( 0x0000ff, 0x00ff00, 0.6 ); 
-// scene.add(hemiLight)
 
 /* UPDATE */
 
