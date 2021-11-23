@@ -108,7 +108,8 @@ live-server
   - [ ] dodati tenk kako se krece
   - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
 - [ ] scena svemir (model ring arcology)
-- [ ] avion leti (morane-saulnier aircraft ili british aircraft se 5a)
+- [ ] avion leti, dodati senku (vidi 3d-warplane)
+- [x] isprobati lagani prelaz (lerp ili tween.js)
 
 ### Physics
 

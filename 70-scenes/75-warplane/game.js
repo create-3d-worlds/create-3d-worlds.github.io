@@ -4,26 +4,33 @@ import { ColladaLoader } from '/node_modules/three/examples/jsm/loaders/ColladaL
 import {createTerrain} from '/utils/floor.js'
 
 const controls = createOrbitControls()
+controls.minDistance = 5
+const loader = new ColladaLoader()
 
 const terrain = createTerrain()
 scene.add(terrain)
 
-camera.position.z = 40
-camera.position.y = 20
-scene.background = new THREE.Color(0xffffff)
+const camPos = new THREE.Vector3(0, 0, 0)
+const targetPos = new THREE.Vector3(100, 50, -50)
 
-const loader = new ColladaLoader()
-// assets/models/morane-saulnier-L/model.dae
+scene.background = new THREE.Color(0xe0f0ff)
+
 loader.load('/assets/models/s-e-5a/model.dae', collada => {
   const {scene: model} = collada
   model.position.set(100, 50, -50)
-  controls.target = model.position // centar kamere
-  controls.maxDistance = 20
+  controls.target = model.position
   scene.add(model)
 })
 
-void function render() {
-  requestAnimationFrame(render)
+void function animate() {
+  requestAnimationFrame(animate)
   controls.update()
+
+  // interpolate camera toward target
+  if (camPos.distanceTo(targetPos) > controls.minDistance) {
+    camPos.lerp(targetPos, 0.05)
+    camera.position.copy(camPos)
+  }
+
   renderer.render(scene, camera)
 }()
