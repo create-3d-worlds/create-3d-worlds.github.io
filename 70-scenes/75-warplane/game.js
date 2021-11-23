@@ -2,17 +2,24 @@ import * as THREE from '/node_modules/three/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three/examples/jsm/loaders/ColladaLoader.js'
 import { scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
 import Avion from './Avion.js'
+import {createFloor} from '/utils/floor.js'
+
+/**
+ * TODO:
+ * dodati sunce
+ * dodati drveće
+ * srediti kontrole: skretanje, spuštanje, dizanje, brzinu
+ */
 
 let avion
 let mouseDown = false
 
 const controls = createOrbitControls()
-
-const geometry = new THREE.CircleGeometry(5000, 32)
-const material = new THREE.MeshBasicMaterial({ color: 0x006600 })
-const ground = new THREE.Mesh(geometry, material)
-ground.rotateX(-Math.PI / 2)
+const ground = createFloor(10000)
+scene.background = new THREE.Color(0x87CEEB) // 0x3299CC
 scene.add(ground)
+// const hemiLight = new THREE.HemisphereLight( 0x0000ff, 0x00ff00, 0.6 ); 
+// scene.add(hemiLight)
 
 /* UPDATE */
 
@@ -20,9 +27,9 @@ const animate = () => {
   requestAnimationFrame(animate)
   controls.update()
   avion.normalizePlane()
-  avion.position.z += 1
+  avion.position.z += .5
   if (!mouseDown)
-    camera.position.lerp(new THREE.Vector3(avion.position.x, avion.position.y, avion.position.z - 100), 0.05)
+    camera.position.lerp({ ...avion.position, z: avion.position.z - 100 }, 0.05)
   // camera.lookAt(avion.position)
   renderer.render(scene, camera)
 }
