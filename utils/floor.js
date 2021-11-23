@@ -20,8 +20,8 @@ export function createFloor(r = 1000, file = 'ground.jpg', color = 0x60bf63) {
   return new THREE.Mesh(geometry, material)
 }
 
-export function createTerrain() {
-  const geometry = new THREE.PlaneGeometry(1000, 1000, 50, 50)
+export function createTerrain(width = 1000, height = 1000, widthSegments = 50, heightSegments = 50) {
+  const geometry = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments)
   geometry.rotateX(- Math.PI / 2)
   geometry.vertices.forEach(vertex => {
     vertex.x += randomInRange(-10, 10)

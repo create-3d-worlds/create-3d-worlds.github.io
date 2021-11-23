@@ -16,6 +16,7 @@ const player = new PlayerModel(100, 50, -50, 20, mesh => {
   mesh.add(camera)
   scene.add(mesh)
 }, GirlFighter)
+
 player.addSolids(floor, stairs)
 
 /* LOOP */

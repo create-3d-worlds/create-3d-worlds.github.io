@@ -1,35 +1,50 @@
 import * as THREE from '/node_modules/three/build/three.module.js'
-import { scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
 import { ColladaLoader } from '/node_modules/three/examples/jsm/loaders/ColladaLoader.js'
-import {createTerrain} from '/utils/floor.js'
+import { scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
+import Avion from './Avion.js'
+
+let avion
+let mouseDown = false
 
 const controls = createOrbitControls()
-controls.minDistance = 5
-const loader = new ColladaLoader()
 
-const terrain = createTerrain()
-scene.add(terrain)
-scene.background = new THREE.Color(0xe0f0ff)
+const geometry = new THREE.CircleGeometry(5000, 32)
+const material = new THREE.MeshBasicMaterial({ color: 0x006600 })
+const ground = new THREE.Mesh(geometry, material)
+ground.rotateX(-Math.PI / 2)
+scene.add(ground)
 
-const camPos = new THREE.Vector3(0, 80, 40)
-const targetPos = controls.target = new THREE.Vector3(100, 50, -50)
+/* UPDATE */
 
-loader.load('/assets/models/s-e-5a/model.dae', collada => {
-  const {scene: model} = collada
-  model.position.copy(targetPos)
-  controls.target = model.position
-  scene.add(model)
-})
-
-void function animate() {
+const animate = () => {
   requestAnimationFrame(animate)
   controls.update()
-
-  // interpolate camera toward target
-  if (camPos.distanceTo(controls.target) > controls.minDistance * 2) {
-    camPos.lerp(controls.target, 0.05)
-    camera.position.copy(camPos)
-  }
-
+  avion.normalizePlane()
+  avion.position.z += 1
+  if (!mouseDown)
+    camera.position.lerp(new THREE.Vector3(avion.position.x, avion.position.y, avion.position.z - 100), 0.05)
+  // camera.lookAt(avion.position)
   renderer.render(scene, camera)
-}()
+}
+
+/* LOAD */
+
+new ColladaLoader().load('/assets/models/s-e-5a/model.dae', collada => {
+  avion = new Avion(collada.scene)
+  avion.rotateZ(Math.PI)
+  avion.position.y = 50
+  controls.target = avion.position
+  camera.position.set(-68, 100, -90)
+  scene.add(avion, ground)
+  animate()
+})
+
+/* EVENTS */
+
+document.body.onmousedown = () => {
+  mouseDown = true
+}
+document.body.onmouseup = () => {
+  mouseDown = false
+}
+
