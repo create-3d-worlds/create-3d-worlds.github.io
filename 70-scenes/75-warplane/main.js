@@ -8,7 +8,8 @@ camera.position.set(5, 1, 5)
 scene.background = new THREE.Color(0xffffff)
 
 const loader = new ColladaLoader()
-loader.load('/assets/models/me-109/model.dae', collada => {
+// assets/models/morane-saulnier-L/model.dae
+loader.load('/assets/models/s-e-5a/model.dae', collada => {
   const {scene: model} = collada
   controls.target = model.position
   scene.add(model)

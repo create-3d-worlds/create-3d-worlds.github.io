@@ -105,8 +105,10 @@ live-server
 - [ ] dodati NPC karaktere
   - https://www.script-tutorials.com/demos/474/index3.html
 - [ ] dodati neke modele vozila i kuca
-  - [ ] dodati avion kako nadlece
   - [ ] dodati tenk kako se krece
+  - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
+- [ ] scena svemir (model ring arcology)
+- [ ] avion leti (morane-saulnier aircraft ili british aircraft se 5a)
 
 ### Physics
 
