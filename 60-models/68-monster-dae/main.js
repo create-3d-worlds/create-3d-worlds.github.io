@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, camera, clock, createOrbitControls} from '/utils/scene.js'
-import { ColladaLoader } from '/node_modules/three/examples/jsm/loaders/ColladaLoader.js'
+import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 
 const controls = createOrbitControls()
 let mixer, a = 0

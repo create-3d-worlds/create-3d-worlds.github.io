@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, camera, clock, createOrbitControls} from '/utils/scene.js'
-import { GLTFLoader } from '/node_modules/three/examples/jsm/loaders/GLTFLoader.js'
+import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
 
 let mixer, a = 0
 
