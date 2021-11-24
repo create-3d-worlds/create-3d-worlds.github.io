@@ -1,18 +1,13 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import { renderer, createFullScene } from '/utils/scene.js' // camera, createOrbitControls
-import {createGround} from '/utils/floor.js'
 import Avion from './Avion.js'
 
 let avion
 
-const scene = createFullScene()
+const scene = createFullScene({ color:0xFFC880 })
 const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 5000)
 camera.position.set(0, 10, 250)
-
-const ground = createGround(10000, null)
-ground.position.y = 1
-scene.add(ground)
 
 // MODEL
 

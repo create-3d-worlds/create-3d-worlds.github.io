@@ -2,27 +2,20 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import {randomInRange, randomColor} from './helpers.js'
 const loader = new THREE.TextureLoader()
 
-// TODO: obrisati, merge with createFloor
-export function createGround(size = 10000, file = 'ground.jpg', color = 0xffffff) {
-  const options = {
-    side: THREE.DoubleSide // for debugin
-  }
-  if (file) {
-    const texture = loader.load(`/assets/textures/${file}`)
-    texture.wrapS = THREE.RepeatWrapping
-    texture.wrapT = THREE.RepeatWrapping
-    texture.repeat.set(size / 10, size / 10)
-    options.map = texture
-  } else
-    options.color = color
-  const geometry = new THREE.PlaneGeometry(size, size)
+function createShadowMaterial(options) {
+  // https://stackoverflow.com/questions/47367181/threejs-material-with-shadows-but-no-lights
+  THREE.ShaderLib.lambert.fragmentShader = THREE.ShaderLib.lambert.fragmentShader.replace(
+    'vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;',
+    `#ifndef CUSTOM
+          vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;
+      #else
+          vec3 outgoingLight = diffuseColor.rgb * ( 1.0 - 0.5 * ( 1.0 - getShadowMask() ) ); // shadow intensity hardwired to 0.5 here
+      #endif`
+  )
   const material = new THREE.MeshLambertMaterial(options)
-  material.color.setHSL(0.095, 1, 0.75)
-
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.receiveShadow = true
-  mesh.rotateX(-Math.PI / 2)
-  return mesh
+  material.defines = material.defines || {}
+  material.defines.CUSTOM = ''
+  return material
 }
 
 export function createFloor({ r = 4000, color = 0x60bf63, file } = {}) {
@@ -40,11 +33,10 @@ export function createFloor({ r = 4000, color = 0x60bf63, file } = {}) {
 
   const geometry = new THREE.CircleGeometry(r, 32)
   geometry.rotateX(-Math.PI / 2)
-  const material = new THREE.MeshBasicMaterial(options)
-
+  const material = createShadowMaterial(options)
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
-  return new THREE.Mesh(geometry, material)
+  return mesh
 }
 
 export function createTerrain(size = 1000, segments = 50) {
