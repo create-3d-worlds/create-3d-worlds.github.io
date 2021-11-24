@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import {randomInRange, randomColor} from './helpers.js'
 const loader = new THREE.TextureLoader()
 
-// TODO: merge createGround and createFloor
+// TODO: merge createGround and createFloor, default bez fajla
 export function createGround(size = 10000, file = 'ground.jpg', color = 0xffffff) {
   const options = {
     side: THREE.DoubleSide // for debugin
