@@ -1,10 +1,9 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
+import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
+import { renderer } from '/utils/scene.js' // camera, createOrbitControls
+import Avion from './Avion.js'
 
-const mixers = []
-
-const clock = new THREE.Clock()
-const container = document.getElementById('container')
+let avion
 
 const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 5000)
 camera.position.set(0, 0, 250)
@@ -81,40 +80,19 @@ scene.add(sky)
 
 // MODEL
 
-const loader = new GLTFLoader()
-
-loader.load('flamingo.glb', gltf => {
-  const mesh = gltf.scene.children[ 0 ]
-  const s = 0.35
-  mesh.scale.set(s, s, s)
-  mesh.position.y = 15
-  mesh.rotation.y = - 1
-
-  mesh.castShadow = true
-  mesh.receiveShadow = true
-
-  scene.add(mesh)
-
-  const mixer = new THREE.AnimationMixer(mesh)
-  mixer.clipAction(gltf.animations[ 0 ]).setDuration(1).play()
-  mixers.push(mixer)
+new ColladaLoader().load('/assets/models/s-e-5a/model.dae', collada => {
+  avion = new Avion(collada.scene)
+  // avion.rotateZ(Math.PI)
+  avion.position.y = 15
+  // controls.target = avion.position
+  // avion.castShadow = true
+  avion.receiveShadow = true
+  scene.add(avion, ground)
+  animate()
 })
 
-// RENDERER
-
-const renderer = new THREE.WebGLRenderer({ antialias: true })
-renderer.setPixelRatio(window.devicePixelRatio)
-renderer.setSize(window.innerWidth, window.innerHeight)
-container.appendChild(renderer.domElement)
-renderer.outputEncoding = THREE.sRGBEncoding
-renderer.shadowMap.enabled = true
-
-void function animate() {
+function animate() {
   requestAnimationFrame(animate)
-  const delta = clock.getDelta()
-
-  for (let i = 0; i < mixers.length; i ++)
-    mixers[ i ].update(delta)
 
   renderer.render(scene, camera)
-}()
+}

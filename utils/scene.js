@@ -12,10 +12,13 @@ camera.position.z = 250
 camera.lookAt(scene.position)
 
 export const renderer = new THREE.WebGLRenderer()
-renderer.setSize(window.innerWidth, window.innerHeight)
-document.body.style.margin = 0
 document.body.appendChild(renderer.domElement)
+document.body.style.margin = 0
 renderer.domElement.focus()
+renderer.outputEncoding = THREE.sRGBEncoding
+renderer.setPixelRatio(window.devicePixelRatio)
+renderer.setSize(window.innerWidth, window.innerHeight)
+renderer.shadowMap.enabled = true
 
 export const clock = new THREE.Clock()
 
