@@ -11,9 +11,11 @@ npm i
 live-server
 ```
 
-## Curriculum
+## TODO
 
-<!-- You should know how to [create a scene](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene) in Three.js. We will jump over that very first lesson. -->
+- ujednačiti default veličinu zemlje i neba
+
+## Curriculum
 
 ### Geometry
 
@@ -124,7 +126,7 @@ live-server
   - [ ] karakter dolazi do kuće i ulazi (vidi 50-rad-sa-modelima/35-kuca-unutrasnost)
   - [ ] uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)
   - [ ] oblaci, životinje, zamak (vidi 80-primeri/90-simulacija-sveta)
-- [ ] konj trči po šumi (50-rad-sa-modelima/60-konj-glb)
+- [ ] dodati zvezdani svod
 
 ### Effects
 
@@ -132,7 +134,7 @@ live-server
 - [ ] dodati panoramu (skybox), nebo/zvezde (vidi 50-svod)
 - [ ] dodati eksplozije (70-cestice/60-eksplozija-geometrije/)
     - http://jeromeetienne.github.io/fireworks.js/
-- [ ] dodati lavu (vidi 65-lava-avatar)
+- [x] dodati lavu (vidi lava-avatar)
 
 ### Physics
 

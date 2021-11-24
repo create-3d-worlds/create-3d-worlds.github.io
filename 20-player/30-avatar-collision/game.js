@@ -1,5 +1,5 @@
 import {PlayerAvatar} from '/classes/Player.js'
-import {scene, renderer, camera, clock} from '/utils/scene.js'
+import {scene, renderer, camera, clock} from '/utils/scene-day.js'
 import {createFirTrees} from '/utils/trees.js'
 import {createFloor} from '/utils/floor.js'
 

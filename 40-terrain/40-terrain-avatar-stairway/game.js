@@ -1,4 +1,4 @@
-import {scene, camera, renderer, clock} from '/utils/scene.js'
+import {scene, camera, renderer, clock} from '/utils/scene-day.js'
 import {createSpiralStairs} from '/utils/boxes.js'
 import {createTerrain} from '/utils/floor.js'
 import {PlayerAvatar} from '/classes/Player.js'

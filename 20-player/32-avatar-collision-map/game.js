@@ -1,4 +1,4 @@
-import {scene, renderer, camera, clock} from '/utils/scene.js'
+import {scene, renderer, camera, clock} from '/utils/scene-day.js'
 import {PlayerAvatar} from '/classes/Player.js'
 import Tilemap from '/classes/Tilemap.js'
 import {nemesis as matrix} from '/data/maps.js'
