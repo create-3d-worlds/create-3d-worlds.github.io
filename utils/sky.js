@@ -30,30 +30,12 @@ export function createBlueSky({ radius = 4000 } = {}) {
     'offset': { value: 33 },
     'exponent': { value: 0.6 }
   }
-  const skyGeo = new THREE.SphereGeometry(radius, 32, 15)
-  const skyMat = new THREE.ShaderMaterial({
+  const geometry = new THREE.SphereGeometry(radius, 32, 15)
+  const material = new THREE.ShaderMaterial({
     uniforms,
     vertexShader,
     fragmentShader,
     side: THREE.BackSide
   })
-  return new THREE.Mesh(skyGeo, skyMat)
-}
-
-export function createSunLight({ d = 500 } = {}) {
-  const dirLight = new THREE.DirectionalLight(0xffffff, 1)
-  dirLight.color.setHSL(0.1, 1, 0.95)
-  dirLight.position.set(- 10, 17.5, 10)
-  dirLight.position.multiplyScalar(30)
-  dirLight.castShadow = true
-  dirLight.shadow.mapSize.width = 2048
-  dirLight.shadow.mapSize.height = 2048
-  // dužina bacanja senke
-  dirLight.shadow.camera.left = - d
-  dirLight.shadow.camera.right = d
-  dirLight.shadow.camera.top = d
-  dirLight.shadow.camera.bottom = - d
-  dirLight.shadow.camera.far = 3500
-  dirLight.shadow.bias = - 0.0001
-  return dirLight
+  return new THREE.Mesh(geometry, material)
 }

@@ -2,6 +2,7 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import {randomInRange, randomColor} from './helpers.js'
 const loader = new THREE.TextureLoader()
 
+// TODO: delete
 function createShadowMaterial(options) {
   // https://stackoverflow.com/questions/47367181/threejs-material-with-shadows-but-no-lights
   THREE.ShaderLib.lambert.fragmentShader = THREE.ShaderLib.lambert.fragmentShader.replace(
@@ -18,6 +19,7 @@ function createShadowMaterial(options) {
   return material
 }
 
+// TODO: rename to ground.js and createGround
 export function createFloor({ r = 4000, color = 0x60bf63, file } = {}) {
   const options = {
     side: THREE.DoubleSide // for debugin
@@ -33,7 +35,7 @@ export function createFloor({ r = 4000, color = 0x60bf63, file } = {}) {
 
   const geometry = new THREE.CircleGeometry(r, 32)
   geometry.rotateX(-Math.PI / 2)
-  const material = createShadowMaterial(options)
+  const material = new THREE.MeshLambertMaterial(options)
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
   return mesh
