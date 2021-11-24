@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
-import { renderer, createFullScene } from '/utils/scene.js' // camera, createOrbitControls
+import { createFullScene, renderer } from '/utils/scene.js' // camera, createOrbitControls
 import Avion from './Avion.js'
 
 let avion

@@ -1,23 +1,21 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
-import { scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
+import { createFullScene, renderer, camera, createOrbitControls} from '/utils/scene.js'
 import Avion from './Avion.js'
-import {createFloor} from '/utils/floor.js'
 
 /**
  * TODO:
  * dodati sunce
  * dodati drveće
  * srediti kontrole: skretanje, spuštanje, dizanje, brzinu
+ * BUG:
+ * senka ubrzo nestaje
  */
 
 let avion
 let mouseDown = false
 
+const scene = createFullScene({ color:0xFFC880 })
 const controls = createOrbitControls()
-const ground = createFloor(10000)
-scene.background = new THREE.Color(0x87CEEB) // 0x3299CC
-scene.add(ground)
 
 /* UPDATE */
 
@@ -40,7 +38,7 @@ new ColladaLoader().load('/assets/models/s-e-5a/model.dae', collada => {
   avion.position.y = 50
   controls.target = avion.position
   camera.position.set(-68, 100, -90)
-  scene.add(avion, ground)
+  scene.add(avion)
   animate()
 })
 
