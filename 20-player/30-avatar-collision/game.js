@@ -13,7 +13,7 @@ avatar.add(camera)
 const trees = createFirTrees(10, 500, 50)
 scene.add(trees)
 avatar.addSolids(trees)
-scene.add(createFloor())
+scene.add(createFloor(1000, null))
 
 /* LOOP */
 
