@@ -40,7 +40,7 @@ new ColladaLoader().load('/assets/models/s-e-5a/model.dae', collada => {
   avion.position.y = 50
   controls.target = avion.position
   camera.position.set(-68, 100, -90)
-  scene.add(avion)
+  scene.add(avion, ground)
   animate()
 })
 
