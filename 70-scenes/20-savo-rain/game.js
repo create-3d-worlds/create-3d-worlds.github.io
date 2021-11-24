@@ -17,7 +17,7 @@ const smallMap = new Tilemap(matrix, 20)
 const smallMapRenderer = new SmallMapRenderer(smallMap)
 smallMapRenderer.hide()
 
-scene.add(createFloor())
+scene.add(createFloor({file: 'ground.jpg'}))
 const walls = map.create3DMap(0.5)
 scene.add(walls)
 

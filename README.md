@@ -14,6 +14,7 @@ live-server
 ## TODO
 
 - ujednačiti default veličinu zemlje i neba
+- hakovati heroforge.com
 
 ## Curriculum
 

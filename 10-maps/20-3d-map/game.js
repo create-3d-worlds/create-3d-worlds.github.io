@@ -7,7 +7,7 @@ camera.position.z = 15
 camera.position.y = 10
 
 const controls = createOrbitControls()
-scene.add(createFloor())
+scene.add(createFloor({file: 'ground.jpg'}))
 scene.add(create3DMap(matrix))
 
 void function gameLoop() {

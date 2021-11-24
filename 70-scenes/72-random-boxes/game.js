@@ -7,7 +7,7 @@ import {PlayerAvatar} from '/classes/index.js'
 camera.position.z = 40
 camera.position.y = 20
 
-const floor = createFloor()
+const floor = createFloor({file: 'ground.jpg'})
 scene.add(floor)
 const boxes = createRandomBoxes()
 scene.add(boxes)

@@ -11,7 +11,7 @@ let currentCamera = camera
 
 const avatar = new PlayerAvatar()
 
-scene.add(avatar.mesh, createFloor(), createFirTrees(), currentCamera)
+scene.add(avatar.mesh, createFloor({file: 'ground.jpg'}), createFirTrees(), currentCamera)
 
 /* FUNCTIONS */
 

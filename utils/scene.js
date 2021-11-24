@@ -1,5 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { OrbitControls } from '/node_modules/three108/examples/jsm/controls/OrbitControls.js'
+import { createBlueSky, createSunLight } from './sky.js'
+import { createFloor } from './floor.js'
 
 export const clock = new THREE.Clock()
 export const scene = new THREE.Scene()
@@ -7,7 +9,6 @@ export const scene = new THREE.Scene()
 const hemiLight = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75)
 // const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6)
 hemiLight.position.set(0.5, 1, 0.75)
-// hemiLight.position.set(0, 50, 0)
 scene.add(hemiLight)
 
 // CAMERA
@@ -26,6 +27,15 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.shadowMap.enabled = true
 
 /* FUNCTIONS */
+
+export function createFullScene(floorParam, skyParam, lightParam) {
+  // scene.background = new THREE.Color().setHSL(0.6, 0, 1)
+  scene.fog = new THREE.Fog(0xffffff, 1, 5000) // color, near, far
+  scene.add(createFloor(floorParam))
+  scene.add(createBlueSky(skyParam))
+  scene.add(createSunLight(lightParam))
+  return scene
+}
 
 export function createOrbitControls() {
   const controls = new OrbitControls(camera, renderer.domElement)

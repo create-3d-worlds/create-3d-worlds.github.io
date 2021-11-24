@@ -6,7 +6,7 @@ import {PlayerModel, Dupechesh, Ratamahatta, Robotko, Girl, GirlFighter} from '/
 camera.position.z = 40
 camera.position.y = 20
 
-const floor = createFloor()
+const floor = createFloor({file: 'ground.jpg'})
 scene.add(floor)
 const stairs = createSpiralStairs(5, 40, 40)
 scene.add(stairs)

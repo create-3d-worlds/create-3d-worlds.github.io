@@ -1,8 +1,8 @@
 import {PlayerAvatar} from '/classes/Player.js'
-import {scene, renderer, camera, clock} from '/utils/scene-day.js'
+import {createFullScene, renderer, camera, clock} from '/utils/scene.js'
 import {createFirTrees} from '/utils/trees.js'
-import {createFloor} from '/utils/floor.js'
 
+const scene = createFullScene()
 const avatar = new PlayerAvatar()
 scene.add(avatar.mesh)
 
@@ -13,7 +13,6 @@ avatar.add(camera)
 const trees = createFirTrees(10, 500, 50)
 scene.add(trees)
 avatar.addSolids(trees)
-scene.add(createFloor(1000, null))
 
 /* LOOP */
 

@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import {randomInRange, randomColor} from './helpers.js'
 const loader = new THREE.TextureLoader()
 
-// TODO: merge createGround and createFloor, default bez fajla
+// TODO: obrisati, merge with createFloor
 export function createGround(size = 10000, file = 'ground.jpg', color = 0xffffff) {
   const options = {
     side: THREE.DoubleSide // for debugin
@@ -19,13 +19,13 @@ export function createGround(size = 10000, file = 'ground.jpg', color = 0xffffff
   const material = new THREE.MeshLambertMaterial(options)
   material.color.setHSL(0.095, 1, 0.75)
 
-  const ground = new THREE.Mesh(geometry, material)
-  ground.receiveShadow = true
-  ground.rotateX(-Math.PI / 2)
-  return ground
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.receiveShadow = true
+  mesh.rotateX(-Math.PI / 2)
+  return mesh
 }
 
-export function createFloor(r = 1000, file = 'ground.jpg', color = 0x60bf63) {
+export function createFloor({ r = 4000, color = 0x60bf63, file } = {}) {
   const options = {
     side: THREE.DoubleSide // for debugin
   }
@@ -47,8 +47,8 @@ export function createFloor(r = 1000, file = 'ground.jpg', color = 0x60bf63) {
   return new THREE.Mesh(geometry, material)
 }
 
-export function createTerrain(width = 1000, height = 1000, widthSegments = 50, heightSegments = 50) {
-  const geometry = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments)
+export function createTerrain(size = 1000, segments = 50) {
+  const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
   geometry.rotateX(- Math.PI / 2)
   geometry.vertices.forEach(vertex => {
     vertex.x += randomInRange(-10, 10)

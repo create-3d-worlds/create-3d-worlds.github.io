@@ -12,7 +12,7 @@ camera.position.y = 100
 createOrbitControls()
 
 scene.add(createSketchTrees())
-scene.add(createFloor(1000, false))
+scene.add(createFloor())
 
 /* LOOP */
 

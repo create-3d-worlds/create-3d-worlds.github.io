@@ -1,11 +1,11 @@
-import {createFloor} from '/utils/floor.js'
 import {createTrees} from '/utils/trees.js'
-import {scene, renderer, camera, clock} from '/utils/scene-day.js'
+import {renderer, camera, clock, createFullScene} from '/utils/scene.js'
 import {PlayerAvatar} from '/classes/Player.js'
 
+const scene = createFullScene({file: 'ground.jpg'})
 const avatar = new PlayerAvatar()
 
-scene.add(avatar.mesh, createTrees(), createFloor())
+scene.add(avatar.mesh, createTrees())
 
 avatar.mesh.add(camera)
 camera.position.y = 50
