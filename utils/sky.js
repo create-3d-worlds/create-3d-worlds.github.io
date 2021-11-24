@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 
-export function createBlueSky(radius = 4000) {
+export function createBlueSky({ radius = 4000 } = {}) {
   const vertexShader = `
   varying vec3 vWorldPosition;
   
@@ -40,7 +40,7 @@ export function createBlueSky(radius = 4000) {
   return new THREE.Mesh(skyGeo, skyMat)
 }
 
-export function createSunLight() {
+export function createSunLight({ d = 500 } = {}) {
   const dirLight = new THREE.DirectionalLight(0xffffff, 1)
   dirLight.color.setHSL(0.1, 1, 0.95)
   dirLight.position.set(- 10, 17.5, 10)
@@ -48,7 +48,7 @@ export function createSunLight() {
   dirLight.castShadow = true
   dirLight.shadow.mapSize.width = 2048
   dirLight.shadow.mapSize.height = 2048
-  const d = 50
+  // dužina bacanja senke
   dirLight.shadow.camera.left = - d
   dirLight.shadow.camera.right = d
   dirLight.shadow.camera.top = d
