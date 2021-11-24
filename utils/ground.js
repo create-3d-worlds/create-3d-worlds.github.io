@@ -2,24 +2,7 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import {randomInRange, randomColor} from './helpers.js'
 const loader = new THREE.TextureLoader()
 
-// TODO: delete
-function createShadowMaterial(options) {
-  // https://stackoverflow.com/questions/47367181/threejs-material-with-shadows-but-no-lights
-  THREE.ShaderLib.lambert.fragmentShader = THREE.ShaderLib.lambert.fragmentShader.replace(
-    'vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;',
-    `#ifndef CUSTOM
-          vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;
-      #else
-          vec3 outgoingLight = diffuseColor.rgb * ( 1.0 - 0.5 * ( 1.0 - getShadowMask() ) ); // shadow intensity hardwired to 0.5 here
-      #endif`
-  )
-  const material = new THREE.MeshLambertMaterial(options)
-  material.defines = material.defines || {}
-  material.defines.CUSTOM = ''
-  return material
-}
-
-export function createGround({ r = 4000, color = 0x60bf63, file } = {}) {
+export function createGround({ r = 4000, color = 0x509f53, file } = {}) {
   const options = {
     side: THREE.DoubleSide // for debugin
   }
@@ -40,6 +23,7 @@ export function createGround({ r = 4000, color = 0x60bf63, file } = {}) {
   return mesh
 }
 
+// TODO: add color param
 export function createTerrain(size = 1000, segments = 50) {
   const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
   geometry.rotateX(- Math.PI / 2)
@@ -51,14 +35,16 @@ export function createTerrain(size = 1000, segments = 50) {
   geometry.faces.forEach(face => {
     face.vertexColors.push(randomColor(), randomColor(), randomColor())
   })
-  const material = new THREE.MeshBasicMaterial({ vertexColors: THREE.VertexColors })
-  return new THREE.Mesh(geometry, material)
+  const material = new THREE.MeshLambertMaterial({ vertexColors: THREE.VertexColors })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.receiveShadow = true
+  return mesh
 }
 
 export function createWater(size = 1000, opacity = 0.75, file) {
   const geometry = new THREE.PlaneGeometry(size, size, 1, 1)
   geometry.rotateX(-Math.PI / 2)
-  const material = new THREE.MeshBasicMaterial({
+  const material = new THREE.MeshLambertMaterial({
     transparent: true,
     opacity
   })
@@ -70,5 +56,7 @@ export function createWater(size = 1000, opacity = 0.75, file) {
   } else
     material.color.setHex(0x6699ff)
 
-  return new THREE.Mesh(geometry, material)
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.receiveShadow = true
+  return mesh
 }

@@ -13,7 +13,9 @@ live-server
 
 ## TODO
 
-- ujednačiti default veličinu zemlje i neba
+- dodavati:
+    mesh.castShadow = true; //default is false
+    mesh.receiveShadow = true;
 - hakovati heroforge.com
 
 ## Curriculum

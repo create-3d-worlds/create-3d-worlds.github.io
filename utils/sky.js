@@ -1,5 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 
+// TODO: oblaci
 export function createBlueSky({ radius = 4000 } = {}) {
   const vertexShader = `
   varying vec3 vWorldPosition;

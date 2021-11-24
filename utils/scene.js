@@ -7,10 +7,9 @@ import { createGround } from './ground.js'
 export const clock = new THREE.Clock()
 export const scene = new THREE.Scene()
 
-const hemiLight = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75)
-// const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6)
-hemiLight.position.set(0.5, 1, 0.75)
-scene.add(hemiLight)
+const hemisphereLight = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75)
+hemisphereLight.position.set(0.5, 1, 0.75)
+scene.add(hemisphereLight)
 
 // CAMERA
 
@@ -26,15 +25,19 @@ renderer.outputEncoding = THREE.sRGBEncoding
 renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
 /* FUNCTIONS */
 
 export function createFullScene(floorParam, skyParam, lightParam) {
-  // scene.background = new THREE.Color().setHSL(0.6, 0, 1)
   scene.fog = new THREE.Fog(0xffffff, 1, 5000) // color, near, far
+  // scene.fog = new THREE.Fog(0xE5C5AB, 200, 950) // probati razne boje
   scene.add(createGround(floorParam))
   scene.add(createBlueSky(skyParam))
-  scene.add(createSunLight(lightParam))
+  const light = createSunLight(lightParam)
+  // const helper = new THREE.CameraHelper(light.shadow.camera)
+  // scene.add(helper)
+  scene.add(light)
   return scene
 }
 
