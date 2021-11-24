@@ -1,4 +1,4 @@
-import { createFloor } from '/utils/floor.js'
+import { createGround } from '/utils/ground.js'
 import { randomMatrix } from '/utils/maps.js'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import FirstPersonRenderer from '/classes/2d/FirstPersonRenderer.js'
@@ -17,7 +17,7 @@ const smallMap = new Tilemap(matrix, 20)
 const smallMapRenderer = new SmallMapRenderer(smallMap)
 smallMapRenderer.hide()
 
-scene.add(createFloor(1000, 'snow-512.jpg'))
+scene.add(createGround(1000, 'snow-512.jpg'))
 const walls = map.create3DMap(0.5)
 scene.add(walls)
 

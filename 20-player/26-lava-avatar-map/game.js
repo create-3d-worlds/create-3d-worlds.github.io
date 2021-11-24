@@ -1,4 +1,4 @@
-import { createFloor } from '/utils/floor.js'
+import { createGround } from '/utils/ground.js'
 import { create3DMap } from '/utils/maps.js'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import {PlayerAvatar} from '/classes/Player.js'
@@ -6,7 +6,7 @@ import matrix from '/data/small-map.js'
 
 const avatar = new PlayerAvatar(25, 0, 25, 10, 2)
 scene.add(avatar.mesh)
-const floor = createFloor({file: 'ground.jpg'})
+const floor = createGround({file: 'ground.jpg'})
 scene.add(floor)
 const walls = create3DMap(matrix, 20)
 scene.add(walls)

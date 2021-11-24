@@ -19,8 +19,7 @@ function createShadowMaterial(options) {
   return material
 }
 
-// TODO: rename to ground.js and createGround
-export function createFloor({ r = 4000, color = 0x60bf63, file } = {}) {
+export function createGround({ r = 4000, color = 0x60bf63, file } = {}) {
   const options = {
     side: THREE.DoubleSide // for debugin
   }

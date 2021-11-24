@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
-import {createFloor} from '/utils/floor.js'
+import {createGround} from '/utils/ground.js'
 
 let model
 
@@ -10,7 +10,7 @@ controls.maxPolarAngle = Math.PI / 2 // prevent bellow ground
 // controls.minDistance = 5
 const loader = new ColladaLoader()
 
-const terrain = createFloor(5000)
+const terrain = createGround(5000)
 scene.add(terrain)
 scene.background = new THREE.Color(0xe0f0ff)
 

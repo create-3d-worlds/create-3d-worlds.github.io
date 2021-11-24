@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
-import { createFloor } from '/utils/floor.js'
+import { createGround } from '/utils/ground.js'
 import {createSketchTrees} from '/utils/trees.js'
 
 scene.background = new THREE.Color(0xccddff)
@@ -12,7 +12,7 @@ camera.position.y = 100
 createOrbitControls()
 
 scene.add(createSketchTrees())
-scene.add(createFloor())
+scene.add(createGround())
 
 /* LOOP */
 
