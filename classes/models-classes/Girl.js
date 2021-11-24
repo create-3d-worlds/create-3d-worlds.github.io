@@ -1,7 +1,7 @@
 // https://mugen87.github.io/yuka/examples/fsm/
 // https://mugen87.github.io/yuka/examples/goal/
 
-import * as THREE from '/node_modules/three/build/three.module.js'
+import * as THREE from '/node_modules/three108/build/three.module.js'
 import Model from '../Model.js'
 
 export default class Girl extends Model {

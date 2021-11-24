@@ -1,5 +1,5 @@
 // https://github.com/josdirksen/essential-threejs/blob/master/chapter-05/05.02-3D-plane-from-scratch-perlin.html
-import * as THREE from '/node_modules/three/build/three.module.js'
+import * as THREE from '/node_modules/three108/build/three.module.js'
 import noise from '/libs/noise.js'
 
 export default function createDjavoljaVarosh(width = 140, depth = 140, scale = 2.5, height = 50) {

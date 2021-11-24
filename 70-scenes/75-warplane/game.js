@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three/build/three.module.js'
+import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three/examples/jsm/loaders/ColladaLoader.js'
 import { scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
 import Avion from './Avion.js'
@@ -40,7 +40,7 @@ new ColladaLoader().load('/assets/models/s-e-5a/model.dae', collada => {
   avion.position.y = 50
   controls.target = avion.position
   camera.position.set(-68, 100, -90)
-  scene.add(avion, ground)
+  scene.add(avion)
   animate()
 })
 
