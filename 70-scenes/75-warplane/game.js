@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three125/build/three.module.js'
+import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import { scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
 import Avion from './Avion.js'
