@@ -89,7 +89,7 @@ const chooseGeometry = skin => {
  * Model class has methods for animations and `mesh` property for scene
  */
 export default class Kamenko {
-  constructor(x = 0, y = 0, z = 0, size = 35, skin = 1) {
+  constructor(x = 0, y = 0, z = 0, size = 35, skin = STONE) {
     this.size = size
     this.mesh = this.createMesh(skin)
     this.mesh.position.set(x, y, z)

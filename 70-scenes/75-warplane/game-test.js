@@ -24,13 +24,18 @@ const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerH
 camera.position.set(0, 10, 250)
 const controls = createOrbitControls(camera)
 
+const player = new Airplane()
+player.mesh.position.y = 15
+scene.add(player.mesh)
+
 /* UPDATE */
 
 const animate = () => {
   requestAnimationFrame(animate)
   controls.update()
   // avion.normalizePlane()
-  avion.position.z -= .5
+  // avion.position.z -= .5
+  player.update()
   if (!mouseDown)
     camera.position.lerp({ ...avion.position, z: avion.position.z + 150 }, 0.05)
   // camera.lookAt(avion.position)

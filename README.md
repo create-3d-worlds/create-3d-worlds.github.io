@@ -13,7 +13,7 @@ live-server
 
 ## TODO
 
-- dodavati:
+- dodavati (vidi Model.js):
     mesh.castShadow = true; //default is false
     mesh.receiveShadow = true;
 - hakovati heroforge.com

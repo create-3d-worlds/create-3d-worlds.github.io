@@ -8,7 +8,7 @@ const minHeight = 50
 export default function Avion(model) {
 
   model.traverse(child => child.castShadow = true) // eslint-disable-line no-return-assign
-  model.scale.set(.2, .2, .2)
+  model.scale.set(.15, .15, .15)
   model.position.y = 100
 
   model.normalizePlane = () => {
