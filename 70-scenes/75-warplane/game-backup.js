@@ -1,45 +1,65 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
-import {createGround} from '/utils/ground.js'
+import { createFullScene, renderer, createOrbitControls} from '/utils/scene.js'
+import {createTerrain} from '/utils/ground.js'
 
-let model
+import Avion from './Avion.js'
+
+/**
+ * TODO:
+ * probati pticu
+ * dodati sunce
+ * dodati drveće
+ * srediti kontrole: skretanje, spuštanje, dizanje, brzinu
+ */
+
+let avion
+let mouseDown = false
+let scene
+// const scene = createFullScene({ color:0xFFC880 }) // 0xdba262
 
 const controls = createOrbitControls()
-controls.maxPolarAngle = Math.PI / 2 // prevent bellow ground
-// controls.minDistance = 5
-const loader = new ColladaLoader()
 
-const terrain = createGround(5000)
-scene.add(terrain)
-scene.background = new THREE.Color(0xe0f0ff)
+const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 5000)
+camera.position.set(0, 10, 250)
 
-const camPos = new THREE.Vector3(0, 80, 40)
+/* UPDATE */
 
-loader.load('/assets/models/s-e-5a/model.dae', collada => {
-  model = collada.scene
-  model.rotateZ(Math.PI)
-  model.position.set(0, 10, 0)
-  controls.target = model.position
-  model.add(camera)
-  // camera.position.y -= 200
-  // camera.lookAt(model.position)
-  scene.add(model)
+const animate = () => {
+  requestAnimationFrame(animate)
+  controls.update()
+  // avion.normalizePlane()
+  avion.position.z -= .5 // pokretati avion u pravcu napred, kako god bio okrenut
+  // if (!mouseDown)
+  //   camera.position.lerp({ ...avion.position, z: avion.position.z + 100 }, 0.05)
+  // camera.lookAt(avion.position)
+  renderer.render(scene, camera)
+}
+
+/* LOAD */
+
+new ColladaLoader().load('/assets/models/s-e-5a/model.dae', collada => {
+  avion = new Avion(collada.scene)
+  // avion.rotateZ(Math.PI)
+  avion.position.y = 15
+
+  scene = createFullScene({ color:0xFFC880 }, undefined, { target: avion })
+  // scene.add(createTerrain(4000, 200))
+  scene.fog = new THREE.Fog(0xFFC880, 200, 950)
+
+  controls.target = avion.position
+  // camera.position.set(-68, 100, -90)
+  avion.receiveShadow = true
+  scene.add(avion)
+  animate()
 })
 
-void function animate() {
-  requestAnimationFrame(animate)
-  // controls.update()
+/* EVENTS */
 
-  // interpolate camera toward target
-  // if (camPos.distanceTo(controls.target) > controls.minDistance * 2) {
-  //   camPos.lerp(controls.target, 0.03)
-  //   camera.position.copy(camPos)
-  // }
+document.body.onmousedown = () => {
+  mouseDown = true
+}
+document.body.onmouseup = () => {
+  mouseDown = false
+}
 
-  if (model) {
-    model.position.z+=.1
-  }
-
-  renderer.render(scene, camera)
-}()

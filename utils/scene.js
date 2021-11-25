@@ -41,9 +41,9 @@ export function createFullScene(floorParam, skyParam, lightParam) {
   return scene
 }
 
-export function createOrbitControls() {
-  const controls = new OrbitControls(camera, renderer.domElement)
-  // controls.maxPolarAngle = Math.PI / 2 - 0.1 // prevent bellow ground
+export function createOrbitControls(cam = camera, el = renderer.domElement) {
+  const controls = new OrbitControls(cam, el)
+  controls.maxPolarAngle = Math.PI / 2 - 0.1 // prevent bellow ground, negde ne radi, za avion radi
   // controls.maxDistance = 20
   controls.enableKeys = false
   controls.minDistance = 2
