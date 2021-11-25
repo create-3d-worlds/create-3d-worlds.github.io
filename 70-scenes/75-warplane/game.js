@@ -5,6 +5,7 @@ import Avion from './Avion.js'
 
 /**
  * TODO:
+ * uporediti klase drugih modela
  * srediti komande: skretanje, spuštanje, dizanje, brzinu
  * dodati sunce
  * dodati drveće
@@ -36,11 +37,9 @@ const animate = () => {
 
 new ColladaLoader().load('/assets/models/s-e-5a/model.dae', collada => {
   avion = new Avion(collada.scene)
-  avion.scale.set(.2, .2, .2)
   avion.position.y = 15
 
-  scene = createFullScene({ color:0xFFC880 }, undefined, { target: avion })
-  scene.fog = new THREE.Fog(0xFFC880, 1000, 3000)
+  scene = createFullScene({ color:0xFFC880 }, undefined, { target: avion }, { color: 0xE5C5AB })
 
   controls.target = avion.position
   scene.add(avion)
