@@ -2,20 +2,15 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import { createFullScene, renderer, createOrbitControls} from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
-import Avion from './Avion.js'
 import Airplane from '/classes/Airplane.js'
 
 /**
  * TODO:
- * uporediti klase drugih modela
- * napraviti Vehicle klasu po ugledu na Player
  * srediti komande: skretanje, spuštanje, dizanje, brzinu
- * dodati sunce
- * dodati drveće
+ * dodati sunce, drveće
  * probati pticu
  */
 
-let avion
 let mouseDown = false
 const scene = createFullScene({ color:0xFFC880 }, undefined, undefined, { color: 0xE5C5AB })
 scene.add(createTerrain(4000, 200))
@@ -25,33 +20,27 @@ camera.position.set(0, 10, 250)
 const controls = createOrbitControls(camera)
 
 const player = new Airplane()
-player.mesh.position.y = 15
 scene.add(player.mesh)
+// player.mesh.add(camera)
+controls.target = player.position
 
 /* UPDATE */
 
-const animate = () => {
+void function animate() {
   requestAnimationFrame(animate)
   controls.update()
-  // avion.normalizePlane()
-  // avion.position.z -= .5
   player.update()
-  if (!mouseDown)
-    camera.position.lerp({ ...avion.position, z: avion.position.z + 150 }, 0.05)
-  // camera.lookAt(avion.position)
+  if (!mouseDown) {
+    const  distance = 150
+    const playerDir = new THREE.Vector3(0, 0, -1).applyQuaternion(player.mesh.quaternion)
+    const newPosition = player.mesh.position.clone()
+    newPosition.sub(playerDir.multiplyScalar(distance))
+    camera.position.lerp(newPosition, 0.05)
+  }
+
+  camera.lookAt(player.mesh.position)
   renderer.render(scene, camera)
-}
-
-/* LOAD */
-
-new ColladaLoader().load('/assets/models/s-e-5a/model.dae', collada => {
-  avion = new Avion(collada.scene)
-  avion.position.y = 15
-  scene.getObjectByName('sunLight').target = avion
-  controls.target = avion.position
-  scene.add(avion)
-  animate()
-})
+}()
 
 /* EVENTS */
 
@@ -61,4 +50,3 @@ document.body.onmousedown = () => {
 document.body.onmouseup = () => {
   mouseDown = false
 }
-

@@ -3,15 +3,13 @@ import keyboard from '/classes/Keyboard.js'
 
 const {pressed} = keyboard
 
-const direction = new THREE.Vector3
-const speed = 1.0
 const angle = Math.PI / 180
 
-export default class Kamenko {
+export default class Airplane {
 
-  constructor(position) {
-    this.position = position
+  constructor({x = 0, y = 30, z = 0} = {}) {
     this.mesh = this.createMesh()
+    this.mesh.position.set(x, y, z)
   }
 
   createMesh() {
@@ -25,11 +23,11 @@ export default class Kamenko {
   }
 
   up() {
-    // this.mesh.translateZ(-step)
+    this.mesh.translateY(.3)
   }
 
   down() {
-    // this.mesh.translateZ(step)
+    this.mesh.translateY(-.3)
   }
 
   left() {
@@ -40,14 +38,16 @@ export default class Kamenko {
     this.mesh.rotateY(-angle)
   }
 
-  accelerate() {
-
-  }
+  accelerate() {}
 
   moveForward() {
-    this.mesh.getWorldDirection(direction)
-    this.mesh.position.addScaledVector(direction, speed)
-    console.log(this.mesh.getWorldDirection(direction))
+    // https://github.com/mrdoob/three.js/issues/1606
+    // const matrix = new THREE.Matrix4()
+    // matrix.extractRotation(this.mesh.matrix)
+    // const direction = matrix.multiplyVector3(new THREE.Vector3(0, 0, 1))
+    const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(this.mesh.quaternion)
+    // https://stackoverflow.com/questions/38052621/moving-the-camera-in-the-direction-its-facing-with-threejs
+    this.mesh.position.add(direction)
   }
 
   update() {
@@ -60,6 +60,14 @@ export default class Kamenko {
     if (keyboard.up) this.up()
     if (keyboard.down) this.down()
     if (pressed.Space) this.accelerate()
+  }
+
+  get position() {
+    return this.mesh.position
+  }
+
+  set position(pos) {
+    this.mesh.position.set(...pos)
   }
 
 }
