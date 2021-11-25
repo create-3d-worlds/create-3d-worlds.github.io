@@ -22,6 +22,7 @@ const controls = createOrbitControls(camera)
 const player = new Airplane(() => {
   scene.add(player.mesh)
   controls.target = player.mesh.position
+  scene.getObjectByName('sunLight').target = player.mesh
 })
 
 /* UPDATE */

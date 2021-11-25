@@ -3,17 +3,6 @@ import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/Colla
 import { createFullScene, renderer, createOrbitControls} from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
 import Avion from './Avion.js'
-// import Airplane from '/classes/Airplane.js'
-
-/**
- * TODO:
- * uporediti klase drugih modela
- * napraviti Vehicle klasu po ugledu na Player
- * srediti komande: skretanje, spuštanje, dizanje, brzinu
- * dodati sunce
- * dodati drveće
- * probati pticu
- */
 
 let avion
 let mouseDown = false
@@ -29,7 +18,7 @@ const controls = createOrbitControls(camera)
 const animate = () => {
   requestAnimationFrame(animate)
   controls.update()
-  // avion.normalizePlane()
+  avion.normalizePlane()
   avion.position.z -= .5
   if (!mouseDown)
     camera.position.lerp({ ...avion.position, z: avion.position.z + 150 }, 0.05)
