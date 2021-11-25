@@ -1,6 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { createFullScene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
+import { cameraFollowObject } from '/utils/helpers.js'
 import Airplane from '/classes/Airplane.js'
 import keyboard from '/classes/Keyboard.js'
 
@@ -20,7 +21,7 @@ const controls = createOrbitControls(camera)
 
 const player = new Airplane(() => {
   scene.add(player.mesh)
-  controls.target = player.position
+  controls.target = player.mesh.position
 })
 
 /* UPDATE */
@@ -29,15 +30,7 @@ void function animate() {
   requestAnimationFrame(animate)
   controls.update()
   player.update()
-  if (player.mesh) {
-    if (!keyboard.mouseDown) {
-      const  distance = 150
-      const playerDir = new THREE.Vector3(0, 0, -1).applyQuaternion(player.mesh.quaternion)
-      const newPosition = player.mesh.position.clone()
-      newPosition.sub(playerDir.multiplyScalar(distance))
-      camera.position.lerp(newPosition, 0.05)
-    }
-    camera.lookAt(player.mesh.position)
-  }
+  if (!keyboard.mouseDown)
+    cameraFollowObject(camera, player.mesh)
   renderer.render(scene, camera)
 }()

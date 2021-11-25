@@ -2,19 +2,13 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import keyboard from '/classes/Keyboard.js'
 
-const { pressed } = keyboard
-
 const angle = Math.PI / 180
 
 export default class Airplane {
-
-  constructor(
-    callback,
-    { x = 0, y = 30, z = 0, modelSrc = '/assets/models/s-e-5a/model.dae', scale = 0.3 } = {}
-  ) {
+  constructor(callback, { modelSrc = '/assets/models/s-e-5a/model.dae', scale = 0.2 } = {}) {
     new ColladaLoader().load(modelSrc, collada => {
-      this.mesh = this.prepareMesh(collada.scene, scale, Math.PI / 2)
-      this.mesh.position.set(x, y, z)
+      this.mesh = this.prepareMesh(collada.scene, scale)
+      this.mesh.position.y = 15
       callback(this.mesh)
     })
   }
@@ -66,15 +60,7 @@ export default class Airplane {
 
     if (keyboard.up) this.up()
     if (keyboard.down) this.down()
-    if (pressed.Space) this.accelerate()
-  }
-
-  get position() {
-    return this.mesh.position
-  }
-
-  set position(pos) {
-    this.mesh.position.set(...pos)
+    if (keyboard.pressed.Space) this.accelerate()
   }
 
 }
