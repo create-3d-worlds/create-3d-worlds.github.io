@@ -39,6 +39,7 @@
     "no-useless-constructor": "error",
     "no-useless-rename": "error",
     "no-var": "error",
+    "object-curly-spacing": ["warn", "always"],
     "object-shorthand": "error",
     "operator-assignment": ["error", "always"],
     "prefer-arrow-callback": "warn",

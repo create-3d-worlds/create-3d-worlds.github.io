@@ -3,7 +3,7 @@ import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/Colla
 import { createFullScene, renderer, createOrbitControls} from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
 import Avion from './Avion.js'
-import Airplane from '/classes/Airplane.js'
+// import Airplane from '/classes/Airplane.js'
 
 /**
  * TODO:
