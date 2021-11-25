@@ -13,6 +13,7 @@ export default class Airplane {
     })
   }
 
+  // TODO: https://stackoverflow.com/questions/28848863/threejs-how-to-rotate-around-objects-own-center-instead-of-world-center
   prepareMesh(mesh, scale) {
     const group = new THREE.Group()
     mesh.scale.set(scale, scale, scale)
