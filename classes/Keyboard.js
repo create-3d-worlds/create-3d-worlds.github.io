@@ -1,17 +1,25 @@
 /*
-* Singleton object
-* for codes see keycode.info
+* Singleton object for User Input (including Keyboard, Touchscreen and Mouse)
+* for key codes see keycode.info
 */
 class Keyboard {
 
   constructor() {
     this.pressed = {}
+    this.mouseDown = false
+
     document.addEventListener('keydown', e => {
       this.preventShake(e)
       this.pressed[e.code] = true
     })
     document.addEventListener('keyup', e => {
       this.pressed[e.code] = false
+    })
+    document.addEventListener('mousedown', () => {
+      this.mouseDown = true
+    })
+    document.addEventListener('mouseup', () => {
+      this.mouseDown = false
     })
     document.addEventListener('touchstart', e => this.chooseDirection(e.touches[0]))
     document.addEventListener('touchmove', e => this.chooseDirection(e.touches[0]))
