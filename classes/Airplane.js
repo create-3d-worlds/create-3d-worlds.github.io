@@ -1,24 +1,34 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
+import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import keyboard from '/classes/Keyboard.js'
 
-const {pressed} = keyboard
+const { pressed } = keyboard
 
 const angle = Math.PI / 180
 
 export default class Airplane {
 
-  constructor({x = 0, y = 30, z = 0} = {}) {
-    this.mesh = this.createMesh()
-    this.mesh.position.set(x, y, z)
+  constructor(
+    callback,
+    { x = 0, y = 30, z = 0, modelSrc = '/assets/models/s-e-5a/model.dae', scale = 0.3 } = {}
+  ) {
+    new ColladaLoader().load(modelSrc, collada => {
+      this.mesh = this.prepareMesh(collada.scene, scale, Math.PI / 2)
+      this.mesh.position.set(x, y, z)
+      callback(this.mesh)
+    })
   }
 
-  createMesh() {
+  prepareMesh(mesh, scale) {
     const group = new THREE.Group()
-    const cube = new THREE.Mesh(
-      new THREE.BoxGeometry(20, 20, 40),
-      new THREE.MeshNormalMaterial()
-    )
-    group.add(cube)
+    mesh.scale.set(scale, scale, scale)
+    mesh.traverse(child => {
+      if (child.isMesh) {
+        child.castShadow = true
+        child.receiveShadow = true
+      }
+    })
+    group.add(mesh)
     return group
   }
 
@@ -42,9 +52,6 @@ export default class Airplane {
 
   moveForward() {
     // https://github.com/mrdoob/three.js/issues/1606
-    // const matrix = new THREE.Matrix4()
-    // matrix.extractRotation(this.mesh.matrix)
-    // const direction = matrix.multiplyVector3(new THREE.Vector3(0, 0, 1))
     const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(this.mesh.quaternion)
     // https://stackoverflow.com/questions/38052621/moving-the-camera-in-the-direction-its-facing-with-threejs
     this.mesh.position.add(direction)

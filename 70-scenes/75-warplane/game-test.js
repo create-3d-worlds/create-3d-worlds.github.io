@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
-import { createFullScene, renderer, createOrbitControls} from '/utils/scene.js'
+import { createFullScene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
 import Airplane from '/classes/Airplane.js'
 
@@ -19,10 +19,11 @@ const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerH
 camera.position.set(0, 10, 250)
 const controls = createOrbitControls(camera)
 
-const player = new Airplane()
-scene.add(player.mesh)
-// player.mesh.add(camera)
-controls.target = player.position
+const player = new Airplane(() => {
+  scene.add(player.mesh)
+  // player.mesh.add(camera)
+  controls.target = player.position
+})
 
 /* UPDATE */
 
@@ -30,15 +31,16 @@ void function animate() {
   requestAnimationFrame(animate)
   controls.update()
   player.update()
-  if (!mouseDown) {
-    const  distance = 150
-    const playerDir = new THREE.Vector3(0, 0, -1).applyQuaternion(player.mesh.quaternion)
-    const newPosition = player.mesh.position.clone()
-    newPosition.sub(playerDir.multiplyScalar(distance))
-    camera.position.lerp(newPosition, 0.05)
+  if (player.mesh) {
+    if (!mouseDown) {
+      const  distance = 150
+      const playerDir = new THREE.Vector3(0, 0, -1).applyQuaternion(player.mesh.quaternion)
+      const newPosition = player.mesh.position.clone()
+      newPosition.sub(playerDir.multiplyScalar(distance))
+      camera.position.lerp(newPosition, 0.05)
+    }
+    camera.lookAt(player.mesh.position)
   }
-
-  camera.lookAt(player.mesh.position)
   renderer.render(scene, camera)
 }()
 
