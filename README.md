@@ -118,11 +118,15 @@ live-server
   - [ ] sletanje na platformu (naći 2d primer)
   - [ ] sletanje na mesec (80-primeri/12-mesec)
 - [ ] avion leti (ww1 scena)
-  - [ ] dodati suncevu svetlost (https://threejs.org/examples/webgl_lights_hemisphere.html)
-  - [ ] dodati senku i maglu (vidi 3d-warplane)
+  - [x] dodati suncevu svetlost (https://threejs.org/examples/webgl_lights_hemisphere.html)
+  - [x] dodati senku i maglu (vidi 3d-warplane)
+  - [ ] srediti komande: skretanje, spuštanje, dizanje, brzinu
   - [ ] dodati 38-teren-dinamicki
-  - [ ] probati leti ptica (50-rad-sa-modelima/70-ptice)
+  - [ ] probati pticu (50-rad-sa-modelima/70-ptice)
+  - [ ] probati zepelin
   - [ ] dodati oblake/dim (70-cestice/80-dim)
+  - [ ] dodati sunce
+  - [ ] dodati drveće
 - [ ] grad scena (vidi 34-spojena-geometrija, 70-grad, 65-proceduralni-grad)
 - [ ] fantasy scena (dodati modele 50-rad-sa-modelima/90-modeli-dae/)
   - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
