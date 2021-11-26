@@ -70,6 +70,10 @@ class Keyboard {
   get totalPressed() {
     return Object.values(this.pressed).filter(x => x).length
   }
+
+  get keyPressed() {
+    return this.totalPressed > 0
+  }
 }
 
 export default new Keyboard

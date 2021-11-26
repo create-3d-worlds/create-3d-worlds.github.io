@@ -3,12 +3,13 @@ import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/Colla
 import keyboard from '/classes/Keyboard.js'
 
 const angle = 0.015
-const maxRoll = Math.PI / 3
-const maxPitch = Math.PI / 8
-const maxYaw = Math.PI / 8
+const maxRoll = Math.PI * 0.38
+const maxPitch = Math.PI * 0.2
+const maxSpeed = 1
 
 export default class Airplane {
   constructor(callback, { modelSrc = '/assets/models/s-e-5a/model.dae', scale = .2, minHeight = 15 } = {}) {
+    this.speed = 1
     this.minHeight = minHeight
     new ColladaLoader().load(modelSrc, collada => {
       this.mesh = this.prepareModel(collada.scene, scale)
@@ -47,17 +48,13 @@ export default class Airplane {
   }
 
   left() {
-    this.roll(angle)
-    // jaw right
-    // if (this.mesh.rotation.y < maxYaw)
-    //   this.mesh.rotateY(angle / 2)
+    if (this.speed < 0.2) this.yaw(angle * 0.3) // ako je sleteo
+    else this.roll(angle)
   }
 
   right() {
-    this.roll(-angle)
-    // jaw left
-    // if (this.mesh.rotation.y > -maxYaw)
-    //   this.mesh.rotateY(-angle / 2)
+    if (this.speed < 0.2) this.yaw(-angle * 0.3)
+    else this.roll(-angle)
   }
 
   pitch(angle) {
@@ -65,6 +62,10 @@ export default class Airplane {
     if (angle > 0 && this.mesh.rotation.x > maxPitch) return
 
     this.mesh.rotateX(angle)
+  }
+
+  yaw(angle) {
+    this.mesh.rotateY(angle)
   }
 
   roll(angle) {
@@ -75,33 +76,32 @@ export default class Airplane {
   }
 
   stabilize() {
-    const pitch = Math.abs(this.mesh.rotation.x)
+    const pitchAngle = Math.abs(this.mesh.rotation.x)
+    if (this.mesh.position.y < this.minHeight && this.mesh.rotation.x < 0) {
+      this.pitch(pitchAngle * 0.15)
+      this.speed *= 0.99
+    }
 
-    // if too low, pitch up (maybe land down too)
-    if (this.mesh.position.y < this.minHeight)
-      if (this.mesh.rotation.x < 0) this.mesh.rotation.x += pitch * 0.1
+    if (keyboard.keyPressed) return
 
-    if (keyboard.totalPressed) return
+    if (this.mesh.rotation.x > 0) this.pitch(-pitchAngle * 0.15)
+    if (this.mesh.rotation.x < 0) this.pitch(pitchAngle * 0.15)
 
-    if (this.mesh.rotation.x > 0) this.mesh.rotation.x -= pitch * 0.15
-    if (this.mesh.rotation.x < 0) this.mesh.rotation.x += pitch * 0.15
-
-    const roll = Math.abs(this.mesh.rotation.z)
-    if (this.mesh.rotation.z > 0) this.mesh.rotation.z -= roll * 0.15
-    if (this.mesh.rotation.z < 0) this.mesh.rotation.z += roll * 0.15
-
-    const yaw = Math.abs(this.mesh.rotation.y)
-    if (this.mesh.rotation.y > 0) this.mesh.rotation.y -= yaw * 0.15
-    if (this.mesh.rotation.y < 0) this.mesh.rotation.y += yaw * 0.15
+    const rollAngle = Math.abs(this.mesh.rotation.z)
+    if (this.mesh.rotation.z > 0) this.roll(-rollAngle * 0.15)
+    if (this.mesh.rotation.z < 0) this.roll(rollAngle * 0.15)
   }
 
-  accelerate() {}
+  accelerate() {
+    if (this.speed < maxSpeed)
+      this.speed += 0.1
+  }
 
   moveForward() {
     // https://github.com/mrdoob/three.js/issues/1606
     // https://stackoverflow.com/questions/38052621/
     const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(this.mesh.quaternion)
-    this.mesh.position.add(direction)
+    this.mesh.position.add(direction.multiplyScalar(this.speed))
   }
 
   update() {
