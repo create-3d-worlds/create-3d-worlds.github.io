@@ -4,7 +4,6 @@ import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/Colla
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { drawAxes } from './drawAxes.js'
 
-let mesh
 let pivot
 // const scene = createFullScene()
 
@@ -51,7 +50,7 @@ function createAirplane() {
 
 const controls = createOrbitControls(camera)
 
-camera.position.set(0, 0, 150)
+camera.position.set(0, 0, 100)
 camera.lookAt(scene.position)
 
 const light = new THREE.DirectionalLight(0xFFFFFF, 1.0)
@@ -70,19 +69,22 @@ gui.add(controller, 'z', -360, 360).name('Blue: z (roll)')
 
 /* LOAD */
 
-new ColladaLoader().load('/assets/models/s-e-5a/model.dae', collada => {
-  mesh = collada.scene
-  // normalizacija
-  mesh.scale.set(.5, .5, .5)
+function normalizeModel(mesh) {
+  mesh.scale.set(.3, .3, .3)
   mesh.rotateX(-Math.PI / 20)
   mesh.translateX(8)
   mesh.translateY(-20)
-  // centriranje ose rotacije
+  // centar ose rotacije
   const box = new THREE.Box3().setFromObject(mesh)
   box.center(mesh.position) // re-sets the mesh position
   mesh.position.multiplyScalar(- 1)
-  pivot = new THREE.Group()
-  pivot.add(mesh)
+  const group = new THREE.Group()
+  group.add(mesh)
+  return group
+}
+
+new ColladaLoader().load('/assets/models/s-e-5a/model.dae', collada => {
+  pivot = normalizeModel(collada.scene)
   scene.add(pivot)
   animate()
 })

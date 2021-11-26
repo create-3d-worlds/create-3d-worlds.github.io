@@ -10,7 +10,6 @@ mtlLoader.load('/assets/models/cannon/14054_Pirate_Ship_Cannon_on_Cart_v1_l3.mtl
   const objLoader = new OBJLoader()
   objLoader.setMaterials(materials)
   objLoader.load('/assets/models/cannon/14054_Pirate_Ship_Cannon_on_Cart_v1_l3.obj', object => {
-    console.log(object)
     scene.add(object)
     controls.target = object.position
   })

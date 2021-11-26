@@ -7,13 +7,14 @@ class Keyboard {
   constructor() {
     this.pressed = {}
     this.mouseDown = false
+    this.keyPressed = false
 
     document.addEventListener('keydown', e => {
       this.preventShake(e)
-      this.pressed[e.code] = true
+      this.pressed[e.code] = this.keyPressed = true
     })
     document.addEventListener('keyup', e => {
-      this.pressed[e.code] = false
+      this.pressed[e.code] = this.keyPressed = false
     })
     document.addEventListener('mousedown', () => {
       this.mouseDown = true

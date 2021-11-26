@@ -2,8 +2,8 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { createFullScene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
 import { cameraFollowObject } from '/utils/helpers.js'
-import Airplane from '/classes/Airplane.js'
 import keyboard from '/classes/Keyboard.js'
+import Airplane from './Airplane.js'
 
 /**
  * TODO:

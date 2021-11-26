@@ -1,4 +1,4 @@
-let keyPressed = false
+import keyboard from '/classes/Keyboard.js'
 
 const rotationAngle = 0.02
 const maxRoll = Math.PI / 3
@@ -7,13 +7,8 @@ const minHeight = 15
 
 export default function Avion(model) {
 
-  model.traverse(child => child.castShadow = true) // eslint-disable-line no-return-assign
-  model.scale.set(.15, .15, .15)
-  model.position.y = 100
-
   model.normalizePlane = () => {
-    if (keyPressed) return
-    console.log(model.rotation)
+    if (keyboard.keyPressed) return
     // const pitch = Math.abs(model.rotation.x)
     // if (model.rotation.x > 0) model.rotation.x -= pitch * 0.25
     // if (model.rotation.x < 0) model.rotation.x += pitch * 0.25
@@ -22,33 +17,29 @@ export default function Avion(model) {
     // if (model.rotation.y < 0) model.rotation.y += roll * 0.25
   }
 
-  document.onkeydown = e => {
-    keyPressed = true
-    switch (e.code) {
-      case 'KeyA':
-        model.position.x -= displacement
-        if (model.rotation.y > -maxRoll)
-          model.rotation.y -= rotationAngle
-        break
-      case 'KeyD':
-        model.position.x += displacement
-        if (model.rotation.y < maxRoll)
-          model.rotation.y += rotationAngle
-        break
-      case 'KeyW':
-        model.rotation.x += rotationAngle * 0.25
-        model.position.y += displacement * 0.5
-        break
-      case 'KeyS':
-        model.rotation.x -= rotationAngle * 0.25
-        if (model.position.y > minHeight)
-          model.position.y -= displacement * 0.5
-        break
+  model.update = () => {
+    if (keyboard.left) {
+      model.position.x -= displacement
+      if (model.rotation.y > -maxRoll)
+        model.rotation.y -= rotationAngle
     }
-  }
 
-  document.onkeyup = () => {
-    keyPressed = false
+    if (keyboard.right) {
+      model.position.x += displacement
+      if (model.rotation.y < maxRoll)
+        model.rotation.y += rotationAngle
+    }
+
+    if (keyboard.up) {
+      model.rotation.x += rotationAngle * 0.25
+      model.position.y += displacement * 0.5
+    }
+
+    if (keyboard.down) {
+      model.rotation.x -= rotationAngle * 0.25
+      if (model.position.y > minHeight)
+        model.position.y -= displacement * 0.5
+    }
   }
 
   return model
