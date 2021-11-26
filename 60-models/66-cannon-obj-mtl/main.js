@@ -1,7 +1,7 @@
-import { scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
-import {OBJLoader} from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
+import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
+import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
 // import {FBXLoader} from '/node_modules/three108/examples/jsm/loaders/FBXLoader.js'
-import {MTLLoader} from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
+import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
 
 const controls = createOrbitControls()
 

@@ -1,7 +1,7 @@
 // https://github.com/josdirksen/threejs-cookbook/blob/master/02-geometries-meshes/02.06-create-terrain-from-heightmap.html
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import chroma from '/libs/chroma.js'
-import {getHighPoint} from './helpers.js'
+import { getHighPoint } from './helpers.js'
 
 const loader = new THREE.TextureLoader()
 
@@ -14,7 +14,7 @@ export default function(src, callback, textureSrc, heightOffset = 2, scale = 3) 
   img.src = src
   img.onload = function() {
     const depth = img.height
-    const {width} = img
+    const { width } = img
 
     const canvas = document.createElement('canvas')
     canvas.width = width
@@ -66,7 +66,7 @@ export default function(src, callback, textureSrc, heightOffset = 2, scale = 3) 
     geometry.computeVertexNormals(true)
     // geometry.computeFaceNormals()
     geometry.computeBoundingBox()
-    const {max} = geometry.boundingBox
+    const { max } = geometry.boundingBox
 
     const material = new THREE.MeshLambertMaterial()
     if (textureSrc)

@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import {randomInRange} from './helpers.js'
-import {SimplexNoise} from '/libs/SimplexNoise.js'
+import { randomInRange } from './helpers.js'
+import { SimplexNoise } from '/libs/SimplexNoise.js'
 
 export const createHillyTerrain = (size = 1000, y = 30) => {
   const resolution = 20

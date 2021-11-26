@@ -19,7 +19,7 @@ export const SimplexNoise = function(r) {
 
   // To remove the need for index wrapping, double the permutation table length
   this.perm = []
-  for(var i = 0; i < 512; i++)
+  for (var i = 0; i < 512; i++)
     this.perm[i] = this.p[i & 255]
 
   // A lookup table to traverse the simplex around a given point in 4D.
@@ -55,7 +55,7 @@ SimplexNoise.prototype.noise = function(xin, yin) {
   // For the 2D case, the simplex shape is an equilateral triangle.
   // Determine which simplex we are in.
   let i1, j1 // Offsets for second (middle) corner of simplex in (i,j) coords
-  if(x0 > y0) {i1 = 1; j1 = 0} // lower triangle, XY order: (0,0)->(1,0)->(1,1)
+  if (x0 > y0) {i1 = 1; j1 = 0} // lower triangle, XY order: (0,0)->(1,0)->(1,1)
   else {i1 = 0; j1 = 1}      // upper triangle, YX order: (0,0)->(0,1)->(1,1)
   // A step of (1,0) in (i,j) means a step of (1-c,-c) in (x,y), and
   // a step of (0,1) in (i,j) means a step of (-c,1-c) in (x,y), where
@@ -72,19 +72,19 @@ SimplexNoise.prototype.noise = function(xin, yin) {
   const gi2 = this.perm[ii + 1 + this.perm[jj + 1]] % 12
   // Calculate the contribution from the three corners
   let t0 = 0.5 - x0 * x0 - y0 * y0
-  if(t0 < 0) n0 = 0.0
+  if (t0 < 0) n0 = 0.0
   else {
     t0 *= t0
     n0 = t0 * t0 * this.dot(this.grad3[gi0], x0, y0)  // (x,y) of grad3 used for 2D gradient
   }
   let t1 = 0.5 - x1 * x1 - y1 * y1
-  if(t1 < 0) n1 = 0.0
+  if (t1 < 0) n1 = 0.0
   else {
     t1 *= t1
     n1 = t1 * t1 * this.dot(this.grad3[gi1], x1, y1)
   }
   let t2 = 0.5 - x2 * x2 - y2 * y2
-  if(t2 < 0) n2 = 0.0
+  if (t2 < 0) n2 = 0.0
   else {
     t2 *= t2
     n2 = t2 * t2 * this.dot(this.grad3[gi2], x2, y2)
@@ -115,15 +115,15 @@ SimplexNoise.prototype.noise3d = function(xin, yin, zin) {
   // Determine which simplex we are in.
   let i1, j1, k1 // Offsets for second corner of simplex in (i,j,k) coords
   let i2, j2, k2 // Offsets for third corner of simplex in (i,j,k) coords
-  if(x0 >= y0)
-    if(y0 >= z0)
+  if (x0 >= y0)
+    if (y0 >= z0)
     { i1 = 1; j1 = 0; k1 = 0; i2 = 1; j2 = 1; k2 = 0 } // X Y Z order
-    else if(x0 >= z0) { i1 = 1; j1 = 0; k1 = 0; i2 = 1; j2 = 0; k2 = 1 } // X Z Y order
+    else if (x0 >= z0) { i1 = 1; j1 = 0; k1 = 0; i2 = 1; j2 = 0; k2 = 1 } // X Z Y order
     else { i1 = 0; j1 = 0; k1 = 1; i2 = 1; j2 = 0; k2 = 1 } // Z X Y order
 
   else  // x0<y0
-  if(y0 < z0) { i1 = 0; j1 = 0; k1 = 1; i2 = 0; j2 = 1; k2 = 1 } // Z Y X order
-  else if(x0 < z0) { i1 = 0; j1 = 1; k1 = 0; i2 = 0; j2 = 1; k2 = 1 } // Y Z X order
+  if (y0 < z0) { i1 = 0; j1 = 0; k1 = 1; i2 = 0; j2 = 1; k2 = 1 } // Z Y X order
+  else if (x0 < z0) { i1 = 0; j1 = 1; k1 = 0; i2 = 0; j2 = 1; k2 = 1 } // Y Z X order
   else { i1 = 0; j1 = 1; k1 = 0; i2 = 1; j2 = 1; k2 = 0 } // Y X Z order
 
   // A step of (1,0,0) in (i,j,k) means a step of (1-c,-c,-c) in (x,y,z),
@@ -149,25 +149,25 @@ SimplexNoise.prototype.noise3d = function(xin, yin, zin) {
   const gi3 = this.perm[ii + 1 + this.perm[jj + 1 + this.perm[kk + 1]]] % 12
   // Calculate the contribution from the four corners
   let t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0
-  if(t0 < 0) n0 = 0.0
+  if (t0 < 0) n0 = 0.0
   else {
     t0 *= t0
     n0 = t0 * t0 * this.dot(this.grad3[gi0], x0, y0, z0)
   }
   let t1 = 0.6 - x1 * x1 - y1 * y1 - z1 * z1
-  if(t1 < 0) n1 = 0.0
+  if (t1 < 0) n1 = 0.0
   else {
     t1 *= t1
     n1 = t1 * t1 * this.dot(this.grad3[gi1], x1, y1, z1)
   }
   let t2 = 0.6 - x2 * x2 - y2 * y2 - z2 * z2
-  if(t2 < 0) n2 = 0.0
+  if (t2 < 0) n2 = 0.0
   else {
     t2 *= t2
     n2 = t2 * t2 * this.dot(this.grad3[gi2], x2, y2, z2)
   }
   let t3 = 0.6 - x3 * x3 - y3 * y3 - z3 * z3
-  if(t3 < 0) n3 = 0.0
+  if (t3 < 0) n3 = 0.0
   else {
     t3 *= t3
     n3 = t3 * t3 * this.dot(this.grad3[gi3], x3, y3, z3)

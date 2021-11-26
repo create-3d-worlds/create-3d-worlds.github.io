@@ -1,12 +1,12 @@
-import {scene, camera, renderer, clock} from '/utils/scene.js'
-import {createSpiralStairs} from '/utils/boxes.js'
-import {createGround} from '/utils/ground.js'
-import {PlayerModel, Dupechesh, Ratamahatta, Robotko, Girl, GirlFighter} from '/classes/index.js'
+import { scene, camera, renderer, clock } from '/utils/scene.js'
+import { createSpiralStairs } from '/utils/boxes.js'
+import { createGround } from '/utils/ground.js'
+import { PlayerModel, Dupechesh, Ratamahatta, Robotko, Girl, GirlFighter } from '/classes/index.js'
 
 camera.position.z = 40
 camera.position.y = 20
 
-const floor = createGround({file: 'ground.jpg'})
+const floor = createGround({ file: 'ground.jpg' })
 scene.add(floor)
 const stairs = createSpiralStairs(5, 40, 40)
 scene.add(stairs)

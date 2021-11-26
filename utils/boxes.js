@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import {randomInRange, randomColor} from './helpers.js'
+import { randomInRange, randomColor } from './helpers.js'
 
 const loader = new THREE.TextureLoader()
 

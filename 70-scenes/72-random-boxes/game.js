@@ -1,13 +1,13 @@
-import {scene, camera, renderer, clock, createOrbitControls} from '/utils/scene.js'
-import {createRandomBoxes} from '/utils/boxes.js'
-import {createGround} from '/utils/ground.js'
-import {PlayerAvatar} from '/classes/index.js'
+import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
+import { createRandomBoxes } from '/utils/boxes.js'
+import { createGround } from '/utils/ground.js'
+import { PlayerAvatar } from '/classes/index.js'
 
 // createOrbitControls()
 camera.position.z = 40
 camera.position.y = 20
 
-const floor = createGround({file: 'ground.jpg'})
+const floor = createGround({ file: 'ground.jpg' })
 scene.add(floor)
 const boxes = createRandomBoxes()
 scene.add(boxes)

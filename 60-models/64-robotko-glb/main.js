@@ -1,5 +1,5 @@
-import { scene, renderer, camera, clock, createOrbitControls} from '/utils/scene.js'
-import {PlayerModel, Robotko} from '/classes/index.js'
+import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
+import { PlayerModel, Robotko } from '/classes/index.js'
 
 camera.position.set(50, 10, 0)
 createOrbitControls()

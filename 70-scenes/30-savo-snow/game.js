@@ -21,7 +21,7 @@ scene.add(createGround(1000, 'snow-512.jpg'))
 const walls = map.create3DMap(0.5)
 scene.add(walls)
 
-const {x, z} = map.randomEmptyPos
+const { x, z } = map.randomEmptyPos
 const player = new Player(x, 0, z, 10, true)
 player.add(camera)
 player.addSolids(walls)

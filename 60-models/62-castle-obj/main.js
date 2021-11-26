@@ -1,9 +1,9 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
-import { scene, renderer, camera, createOrbitControls} from '/utils/scene.js'
-import {createHillyTerrain} from '/utils/createHillyTerrain.js'
-import {createWater} from '/utils/ground.js'
-import {createTreesOnTerrain} from '/utils/trees.js'
+import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
+import { createHillyTerrain } from '/utils/createHillyTerrain.js'
+import { createWater } from '/utils/ground.js'
+import { createTreesOnTerrain } from '/utils/trees.js'
 
 const terrain = createHillyTerrain()
 scene.add(terrain)

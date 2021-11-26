@@ -17,11 +17,11 @@ const smallMap = new Tilemap(matrix, 20)
 const smallMapRenderer = new SmallMapRenderer(smallMap)
 smallMapRenderer.hide()
 
-scene.add(createGround({file: 'ground.jpg'}))
+scene.add(createGround({ file: 'ground.jpg' }))
 const walls = map.create3DMap(0.5)
 scene.add(walls)
 
-const {x, z} = map.randomEmptyPos
+const { x, z } = map.randomEmptyPos
 const player = new Player(x, 0, z, 10, true)
 player.add(camera)
 player.addSolids(walls)

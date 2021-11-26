@@ -1,5 +1,5 @@
 import keyboard from './Keyboard.js'
-import Player, {PlayerModel, PlayerAvatar} from './Player.js'
+import Player, { PlayerModel, PlayerAvatar } from './Player.js'
 import Kamenko from './Kamenko.js'
 import Model from './Model.js'
 import Dupechesh from './models-classes/Dupechesh.js'

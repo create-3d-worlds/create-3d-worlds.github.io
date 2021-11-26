@@ -1,8 +1,8 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import {keyboard, Kamenko} from '/classes/index.js'
-import { createPlayerBox} from '/utils/boxes.js'
+import { keyboard, Kamenko } from '/classes/index.js'
+import { createPlayerBox } from '/utils/boxes.js'
 
-const {pressed} = keyboard
+const { pressed } = keyboard
 
 /**
  * Player handle user input, move mesh and call model animations.
@@ -110,7 +110,7 @@ export default class Player {
   }
 
   get angle() {
-    const {rotation} = this.mesh
+    const { rotation } = this.mesh
     const rotationY = rotation.x == 0 ? rotation.y : Math.PI - rotation.y
     return -rotationY - Math.PI * .5
   }

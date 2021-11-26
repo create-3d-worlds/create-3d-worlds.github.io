@@ -1,7 +1,7 @@
 // https://threejs.org/examples/webgl_loader_md2.html
 // https://threejs.org/examples/webgl_loader_md2_control.html
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { scene, renderer, camera, clock, createOrbitControls} from '/utils/scene.js'
+import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { MD2Loader } from '/node_modules/three108/examples/jsm/loaders/MD2Loader.js'
 
 let mixer, currentAnimation, a = 0
@@ -14,7 +14,7 @@ const loader = new MD2Loader()
 
 // ogro i ratamahatta
 loader.load('/assets/models/ogro/ogro.md2', geometry => {
-  const {animations} = geometry
+  const { animations } = geometry
 
   const material = new THREE.MeshLambertMaterial({ color: 0xffffff, wireframe: false, map: texture, morphTargets: true, morphNormals: true })
   const mesh = new THREE.Mesh(geometry, material)

@@ -1,6 +1,6 @@
-import {PlayerAvatar} from '/classes/Player.js'
-import {createFullScene, renderer, camera, clock} from '/utils/scene.js'
-import {createFirTrees} from '/utils/trees.js'
+import { PlayerAvatar } from '/classes/Player.js'
+import { createFullScene, renderer, camera, clock } from '/utils/scene.js'
+import { createFirTrees } from '/utils/trees.js'
 
 const scene = createFullScene()
 const avatar = new PlayerAvatar()

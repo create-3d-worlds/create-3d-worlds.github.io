@@ -1,7 +1,7 @@
-import {createFullScene, camera, renderer, clock} from '/utils/scene.js'
-import {createSpiralStairs} from '/utils/boxes.js'
-import {createTerrain} from '/utils/ground.js'
-import {PlayerAvatar} from '/classes/Player.js'
+import { createFullScene, camera, renderer, clock } from '/utils/scene.js'
+import { createSpiralStairs } from '/utils/boxes.js'
+import { createTerrain } from '/utils/ground.js'
+import { PlayerAvatar } from '/classes/Player.js'
 
 const scene = createFullScene()
 camera.position.z = 40

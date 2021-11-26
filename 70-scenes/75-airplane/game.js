@@ -5,7 +5,7 @@ import keyboard from '/classes/Keyboard.js'
 import Airplane from '/classes/Airplane.js'
 
 const scene = createFullScene({ color:0xFFC880 }, undefined, undefined, { color: 0xE5C5AB })
-scene.add(createTerrain(4000, 200))
+// scene.add(createTerrain(4000, 200))
 
 const controls = createOrbitControls()
 

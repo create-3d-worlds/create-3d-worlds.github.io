@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import {randomInRange} from '/utils/helpers.js'
+import { randomInRange } from '/utils/helpers.js'
 
 const windowColor = night => {
   const value = randomInRange(0, 84, true)

@@ -1,11 +1,11 @@
-import { randomMatrix, randomField, create3DMap} from '/utils/maps.js'
+import { randomMatrix, randomField, create3DMap } from '/utils/maps.js'
 
 export default class Tilemap {
   constructor(matrix = randomMatrix(), cellSize = 250, origin) {
     this.matrix = matrix
     this.cellSize = cellSize
     this.mapSize = (matrix.length - 1) * cellSize
-    this.origin = origin ? origin : {x: this.originX, z: this.originZ}
+    this.origin = origin ? origin : { x: this.originX, z: this.originZ }
   }
 
   get originX() {
@@ -41,7 +41,7 @@ export default class Tilemap {
     const [randFieldX, randFieldZ] = this.randomEmptyField
     const x = randFieldX * this.cellSize + this.origin.x
     const z = randFieldZ * this.cellSize + this.origin.z
-    return {x, z}
+    return { x, z }
   }
 
   create3DMap(yModifier) {

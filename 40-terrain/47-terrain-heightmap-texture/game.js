@@ -1,4 +1,4 @@
-import {createFullScene, camera, renderer, createOrbitControls} from '/utils/scene.js'
+import { createFullScene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import terrainFromHeightmap from '/utils/terrainFromHeightmap.js'
 
 const scene = createFullScene({ color: 0x6666ff })

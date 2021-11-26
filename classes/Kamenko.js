@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import {clock} from '/utils/scene.js'
+import { clock } from '/utils/scene.js'
 
 const DISCO = 0
 const STONE = 1

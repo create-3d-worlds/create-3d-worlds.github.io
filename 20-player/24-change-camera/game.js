@@ -1,8 +1,8 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, clock, camera } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
-import {createFirTrees} from '/utils/trees.js'
-import {keyboard, PlayerAvatar} from '/classes/index.js'
+import { createFirTrees } from '/utils/trees.js'
+import { keyboard, PlayerAvatar } from '/classes/index.js'
 
 camera.position.z = 500
 camera.position.y = 250
@@ -11,13 +11,13 @@ let currentCamera = camera
 
 const avatar = new PlayerAvatar()
 
-scene.add(avatar.mesh, createGround({file: 'ground.jpg'}), createFirTrees(), currentCamera)
+scene.add(avatar.mesh, createGround({ file: 'ground.jpg' }), createFirTrees(), currentCamera)
 
 /* FUNCTIONS */
 
 function followPlayer() {
   const distance = new THREE.Vector3(0, 50, 100)
-  const {x, y, z} = distance.applyMatrix4(avatar.mesh.matrixWorld)
+  const { x, y, z } = distance.applyMatrix4(avatar.mesh.matrixWorld)
   chaseCamera.position.set(x, y, z)
 }
 

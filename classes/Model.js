@@ -38,7 +38,7 @@ export default class Model {
   }
 
   loadGlbModel(callback, modelSrc, size) {
-    gltfLoader.load(modelSrc, ({scene: mesh, animations}) => {
+    gltfLoader.load(modelSrc, ({ scene: mesh, animations }) => {
       this.animations = animations
       callback(this.prepareMesh(mesh, size, Math.PI))
     })
@@ -82,7 +82,7 @@ export default class Model {
   }
 
   shouldNotChange(name) {
-    const {action} = this, {LoopOnce, LoopRepeat} = THREE
+    const { action } = this, { LoopOnce, LoopRepeat } = THREE
     return action && (
       action.loop == LoopOnce && action.isRunning() // should finish one-time action
       || action._clip.name == name && action.loop == LoopRepeat // don't start same repeating action
@@ -133,7 +133,7 @@ export default class Model {
 
   debugAnimations() {
     document.addEventListener('click', () => {
-      const {name} = this.animations[a++ % this.animations.length]
+      const { name } = this.animations[a++ % this.animations.length]
       this.changeAnimation(name)
     })
   }
