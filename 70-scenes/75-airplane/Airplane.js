@@ -39,7 +39,7 @@ export default class Airplane {
   up() {
     // move down
     if (this.mesh.position.y < this.minHeight) return
-    this.mesh.translateY(-displacement)
+    // this.mesh.translateY(-displacement)
 
     // pitch down
     if (this.mesh.rotation.x > -maxPitch)
@@ -48,7 +48,7 @@ export default class Airplane {
 
   down() {
     // move up
-    this.mesh.translateY(displacement)
+    // this.mesh.translateY(displacement)
     // pitch up
     if (this.mesh.rotation.x < maxPitch)
       this.mesh.rotateX(angle / 10)
@@ -58,22 +58,37 @@ export default class Airplane {
     // roll right
     if (this.mesh.rotation.z > Math.PI / 3) return
     this.mesh.rotateZ(angle)
+    // jaw right
+    this.mesh.rotateY(angle / 10)
   }
 
   right() {
     // roll left
     if (this.mesh.rotation.z < -Math.PI / 3) return
     this.mesh.rotateZ(-angle)
+    // jaw left
+    this.mesh.rotateY(-angle / 10)
   }
 
   stabilize() {
-    if (keyboard.keyPressed) return
     const pitch = Math.abs(this.mesh.rotation.x)
+
+    // if too low, pitch up (maybe land down too)
+    if (this.mesh.position.y < this.minHeight)
+      if (this.mesh.rotation.x < 0) this.mesh.rotation.x += pitch * 0.1
+
+    if (keyboard.totalPressed) return
+
     if (this.mesh.rotation.x > 0) this.mesh.rotation.x -= pitch * 0.25
     if (this.mesh.rotation.x < 0) this.mesh.rotation.x += pitch * 0.25
+
     const roll = Math.abs(this.mesh.rotation.z)
     if (this.mesh.rotation.z > 0) this.mesh.rotation.z -= roll * 0.25
     if (this.mesh.rotation.z < 0) this.mesh.rotation.z += roll * 0.25
+
+    const yaw = Math.abs(this.mesh.rotation.y)
+    if (this.mesh.rotation.y > 0) this.mesh.rotation.y -= yaw * 0.25
+    if (this.mesh.rotation.y < 0) this.mesh.rotation.y += yaw * 0.25
   }
 
   accelerate() {}
@@ -87,7 +102,7 @@ export default class Airplane {
 
   update() {
     if (!this.mesh) return
-    // this.moveForward()
+    this.moveForward()
     this.stabilize()
 
     if (keyboard.left) this.left()

@@ -8,7 +8,7 @@ const minHeight = 15
 export default function Avion(mesh) {
 
   mesh.normalizePlane = () => {
-    if (keyboard.keyPressed) return
+    if (keyboard.totalPressed) return
     // const pitch = Math.abs(mesh.rotation.x)
     // if (mesh.rotation.x > 0) mesh.rotation.x -= pitch * 0.25
     // if (mesh.rotation.x < 0) mesh.rotation.x += pitch * 0.25
