@@ -1,5 +1,4 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
-import { createFullScene, renderer, createOrbitControls } from '/utils/scene.js'
+import { createFullScene, renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
@@ -8,9 +7,7 @@ import Airplane from './Airplane.js'
 const scene = createFullScene({ color:0xFFC880 }, undefined, undefined, { color: 0xE5C5AB })
 scene.add(createTerrain(4000, 200))
 
-const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 5000)
-camera.position.set(0, 10, 250)
-const controls = createOrbitControls(camera)
+const controls = createOrbitControls()
 
 const player = new Airplane(() => {
   scene.add(player.mesh)

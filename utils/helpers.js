@@ -18,7 +18,7 @@ export function getHighPoint(geometry, face) {
   return Math.max(v1, v2, v3)
 }
 
-export function cameraFollowObject(camera, obj, distance = 150, alpha = 0.05) {
+export function cameraFollowObject(camera, obj, distance = 50, alpha = 0.05) {
   if (!obj) return
   const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(obj.quaternion)
   const newPosition = obj.position.clone()

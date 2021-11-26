@@ -7,16 +7,24 @@ const angle = Math.PI / 180
 export default class Airplane {
   constructor(callback, { modelSrc = '/assets/models/s-e-5a/model.dae', scale = 0.2 } = {}) {
     new ColladaLoader().load(modelSrc, collada => {
-      this.mesh = this.prepareMesh(collada.scene, scale)
-      this.mesh.position.y = 15
+      this.mesh = this.normalizeModel(collada.scene, scale)
+      this.mesh.position.y = 50
       callback(this.mesh)
     })
   }
 
-  // TODO: https://stackoverflow.com/questions/28848863/threejs-how-to-rotate-around-objects-own-center-instead-of-world-center
-  prepareMesh(mesh, scale) {
-    const group = new THREE.Group()
+  // https://stackoverflow.com/questions/28848863/
+  normalizeModel(mesh, scale) {
+    mesh.scale.set(.2, .2, .2)
     mesh.scale.set(scale, scale, scale)
+    mesh.translateX(8)
+    mesh.translateY(-20)
+    // center axis of rotation
+    const box = new THREE.Box3().setFromObject(mesh)
+    box.center(mesh.position) // re-sets the mesh position
+    mesh.position.multiplyScalar(- 1)
+    const group = new THREE.Group()
+    // group.traverse(child => child.castShadow = true) // eslint-disable-line no-return-assign
     mesh.traverse(child => {
       if (child.isMesh) {
         child.castShadow = true
