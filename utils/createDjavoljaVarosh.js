@@ -2,7 +2,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import noise from '/libs/noise.js'
 
-export default function createDjavoljaVarosh(width = 140, depth = 140, scale = 2.5, height = 50) {
+export default function createDjavoljaVarosh({ width = 140, depth = 140, scale = 2.5, height = 50 } = {}) {
   const date = new Date()
   noise.seed(date.getMilliseconds())
   const geometry = new THREE.Geometry()
@@ -42,7 +42,8 @@ export default function createDjavoljaVarosh(width = 140, depth = 140, scale = 2
   geometry.computeVertexNormals()
   // geometry.computeFaceNormals()
   const material = new THREE.MeshPhongMaterial({
-    map: new THREE.TextureLoader().load('/assets/textures/ground.jpg')
+    map: new THREE.TextureLoader().load('/assets/textures/ground.jpg'),
+    color: 0xFFC880,
   })
   const mesh = new THREE.Mesh(geometry, material)
   mesh.translateX(-width / 1.5)
