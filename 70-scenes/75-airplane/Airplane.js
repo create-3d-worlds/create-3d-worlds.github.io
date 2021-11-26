@@ -2,10 +2,12 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import keyboard from '/classes/Keyboard.js'
 
-const angle = Math.PI / 180
+const angle = 0.015
+const displacement = .3
 
 export default class Airplane {
-  constructor(callback, { modelSrc = '/assets/models/s-e-5a/model.dae', scale = 0.2 } = {}) {
+  constructor(callback, { modelSrc = '/assets/models/s-e-5a/model.dae', scale = .2, minHeight = 15 } = {}) {
+    this.minHeight = minHeight
     new ColladaLoader().load(modelSrc, collada => {
       this.mesh = this.normalizeModel(collada.scene, scale)
       this.mesh.position.y = 50
@@ -15,10 +17,8 @@ export default class Airplane {
 
   // https://stackoverflow.com/questions/28848863/
   normalizeModel(mesh, scale) {
-    mesh.scale.set(.2, .2, .2)
     mesh.scale.set(scale, scale, scale)
-    mesh.translateX(8)
-    mesh.translateY(-20)
+    mesh.rotateX(-Math.PI / 20) // ispravlja avion
     // center axis of rotation
     const box = new THREE.Box3().setFromObject(mesh)
     box.center(mesh.position) // re-sets the mesh position
@@ -36,19 +36,22 @@ export default class Airplane {
   }
 
   up() {
-    this.mesh.translateY(.3)
+    if (this.mesh.position.y < this.minHeight) return
+    this.mesh.translateY(-displacement)
   }
 
   down() {
-    this.mesh.translateY(-.3)
+    this.mesh.translateY(displacement)
   }
 
   left() {
-    this.mesh.rotateY(angle)
+    if (this.mesh.rotation.z > Math.PI / 3) return
+    this.mesh.rotateZ(angle)
   }
 
   right() {
-    this.mesh.rotateY(-angle)
+    if (this.mesh.rotation.z < -Math.PI / 3) return
+    this.mesh.rotateZ(-angle)
   }
 
   accelerate() {}
@@ -62,7 +65,7 @@ export default class Airplane {
 
   update() {
     if (!this.mesh) return
-    this.moveForward()
+    // this.moveForward()
 
     if (keyboard.left) this.left()
     if (keyboard.right) this.right()

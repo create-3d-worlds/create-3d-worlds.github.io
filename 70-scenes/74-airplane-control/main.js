@@ -63,17 +63,17 @@ const airplane = createAirplane()
 
 const gui = new dat.GUI()
 const controller = { x: 0, y: 0, z: 0 }
-gui.add(controller, 'x', -360, 360).name('Red: x (pitch)')
-gui.add(controller, 'y', -360, 360).name('Green: y (yaw)')
-gui.add(controller, 'z', -360, 360).name('Blue: z (roll)')
+gui.add(controller, 'x', -Math.PI, Math.PI).name('Red: x (pitch)')
+gui.add(controller, 'y', -Math.PI, Math.PI).name('Green: y (yaw)')
+gui.add(controller, 'z', -Math.PI, Math.PI).name('Blue: z (roll)')
 
 /* LOAD */
 
 function normalizeModel(mesh) {
-  mesh.scale.set(.3, .3, .3)
+  mesh.scale.set(.2, .2, .2)
   mesh.rotateX(-Math.PI / 20)
-  mesh.translateX(8)
-  mesh.translateY(-20)
+  // mesh.translateX(8)
+  // mesh.translateY(-20)
   // centar ose rotacije
   const box = new THREE.Box3().setFromObject(mesh)
   box.center(mesh.position) // re-sets the mesh position
@@ -94,12 +94,12 @@ new ColladaLoader().load('/assets/models/s-e-5a/model.dae', collada => {
 function animate() {
   window.requestAnimationFrame(animate)
   controls.update()
-  airplane.rotation.x = controller.x * Math.PI / 180 // pitch
-  airplane.rotation.y = controller.y * Math.PI / 180 // yaw
-  airplane.rotation.z = controller.z * Math.PI / 180 // roll
+  airplane.rotation.x = controller.x // pitch
+  airplane.rotation.y = controller.y // yaw
+  airplane.rotation.z = controller.z // roll
 
-  pivot.rotation.x = controller.x * Math.PI / 180 // pitch
-  pivot.rotation.y = controller.y * Math.PI / 180 // yaw
-  pivot.rotation.z = controller.z * Math.PI / 180 // roll
+  pivot.rotation.x = controller.x // pitch
+  pivot.rotation.y = controller.y // yaw
+  pivot.rotation.z = controller.z // roll
   renderer.render(scene, camera)
 }

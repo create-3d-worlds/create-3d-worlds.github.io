@@ -23,6 +23,8 @@ export function cameraFollowObject(camera, obj, distance = 50, alpha = 0.05) {
   const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(obj.quaternion)
   const newPosition = obj.position.clone()
   newPosition.sub(direction.multiplyScalar(distance))
+  // spustiti ili podici kameru
+  // newPosition.y = obj.position.y - 10
   camera.position.lerp(newPosition, alpha)
   camera.lookAt(obj.position)
 }

@@ -3,9 +3,11 @@ import { createTerrain } from '/utils/ground.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
 import Airplane from './Airplane.js'
+import { drawAxes } from '../74-airplane-control/drawAxes.js'
 
 const scene = createFullScene({ color:0xFFC880 }, undefined, undefined, { color: 0xE5C5AB })
 scene.add(createTerrain(4000, 200))
+drawAxes(scene)
 
 const controls = createOrbitControls()
 
@@ -22,6 +24,7 @@ void function animate() {
   controls.update()
   avion.update()
   if (!keyboard.mouseDown)
-    cameraFollowObject(camera, avion.mesh)
+    cameraFollowObject(camera, avion.mesh, 100)
+
   renderer.render(scene, camera)
 }()
