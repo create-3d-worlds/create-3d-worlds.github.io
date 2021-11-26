@@ -3,8 +3,9 @@ import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/Colla
 import keyboard from '/classes/Keyboard.js'
 
 const angle = 0.015
-const displacement = .3
+const maxRoll = Math.PI / 3
 const maxPitch = Math.PI / 8
+const maxYaw = Math.PI / 8
 
 export default class Airplane {
   constructor(callback, { modelSrc = '/assets/models/s-e-5a/model.dae', scale = .2, minHeight = 15 } = {}) {
@@ -37,37 +38,40 @@ export default class Airplane {
   }
 
   up() {
-    // move down
     if (this.mesh.position.y < this.minHeight) return
-    // this.mesh.translateY(-displacement)
-
-    // pitch down
-    if (this.mesh.rotation.x > -maxPitch)
-      this.mesh.rotateX(-angle / 10)
+    this.pitch(-angle / 10)
   }
 
   down() {
-    // move up
-    // this.mesh.translateY(displacement)
-    // pitch up
-    if (this.mesh.rotation.x < maxPitch)
-      this.mesh.rotateX(angle / 10)
+    this.pitch(angle / 10)
   }
 
   left() {
-    // roll right
-    if (this.mesh.rotation.z > Math.PI / 3) return
-    this.mesh.rotateZ(angle)
+    this.roll(angle)
     // jaw right
-    this.mesh.rotateY(angle / 10)
+    // if (this.mesh.rotation.y < maxYaw)
+    //   this.mesh.rotateY(angle / 2)
   }
 
   right() {
-    // roll left
-    if (this.mesh.rotation.z < -Math.PI / 3) return
-    this.mesh.rotateZ(-angle)
+    this.roll(-angle)
     // jaw left
-    this.mesh.rotateY(-angle / 10)
+    // if (this.mesh.rotation.y > -maxYaw)
+    //   this.mesh.rotateY(-angle / 2)
+  }
+
+  pitch(angle) {
+    if (angle < 0 && this.mesh.rotation.x < -maxPitch) return
+    if (angle > 0 && this.mesh.rotation.x > maxPitch) return
+
+    this.mesh.rotateX(angle)
+  }
+
+  roll(angle) {
+    if (angle > 0 && this.mesh.rotation.z > maxRoll) return
+    if (angle < 0 && this.mesh.rotation.z < -maxRoll) return
+
+    this.mesh.rotateZ(angle)
   }
 
   stabilize() {
@@ -79,16 +83,16 @@ export default class Airplane {
 
     if (keyboard.totalPressed) return
 
-    if (this.mesh.rotation.x > 0) this.mesh.rotation.x -= pitch * 0.25
-    if (this.mesh.rotation.x < 0) this.mesh.rotation.x += pitch * 0.25
+    if (this.mesh.rotation.x > 0) this.mesh.rotation.x -= pitch * 0.15
+    if (this.mesh.rotation.x < 0) this.mesh.rotation.x += pitch * 0.15
 
     const roll = Math.abs(this.mesh.rotation.z)
-    if (this.mesh.rotation.z > 0) this.mesh.rotation.z -= roll * 0.25
-    if (this.mesh.rotation.z < 0) this.mesh.rotation.z += roll * 0.25
+    if (this.mesh.rotation.z > 0) this.mesh.rotation.z -= roll * 0.15
+    if (this.mesh.rotation.z < 0) this.mesh.rotation.z += roll * 0.15
 
     const yaw = Math.abs(this.mesh.rotation.y)
-    if (this.mesh.rotation.y > 0) this.mesh.rotation.y -= yaw * 0.25
-    if (this.mesh.rotation.y < 0) this.mesh.rotation.y += yaw * 0.25
+    if (this.mesh.rotation.y > 0) this.mesh.rotation.y -= yaw * 0.15
+    if (this.mesh.rotation.y < 0) this.mesh.rotation.y += yaw * 0.15
   }
 
   accelerate() {}
