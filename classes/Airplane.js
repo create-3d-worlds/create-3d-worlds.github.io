@@ -2,10 +2,10 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import keyboard from '/classes/Keyboard.js'
 
-const angle = 0.015
-const maxRoll = Math.PI * 0.38
-const maxPitch = Math.PI * 0.2
-const maxSpeed = 1
+const angleSpeed = 0.03
+const maxSpeed = 2
+const maxRoll = Infinity
+const maxPitch = Infinity
 
 export default class Airplane {
   constructor(callback, { modelSrc = '/assets/models/s-e-5a/model.dae', scale = .2, minHeight = 15 } = {}) {
@@ -40,21 +40,21 @@ export default class Airplane {
 
   up() {
     if (this.mesh.position.y < this.minHeight) return
-    this.pitch(-angle / 10)
+    this.pitch(-angleSpeed / 10)
   }
 
   down() {
-    this.pitch(angle / 10)
+    this.pitch(angleSpeed / 10)
   }
 
   left() {
-    if (this.speed < 0.2) this.yaw(angle * 0.3) // ako je sleteo
-    else this.roll(angle)
+    if (this.speed < 0.2) this.yaw(angleSpeed * 0.3) // ako je sleteo
+    else this.roll(angleSpeed)
   }
 
   right() {
-    if (this.speed < 0.2) this.yaw(-angle * 0.3)
-    else this.roll(-angle)
+    if (this.speed < 0.2) this.yaw(-angleSpeed * 0.3)
+    else this.roll(-angleSpeed)
   }
 
   pitch(angle) {
@@ -75,21 +75,30 @@ export default class Airplane {
     this.mesh.rotateZ(angle)
   }
 
+  normalizeAngles() {
+    this.mesh.rotation.x %= Math.PI * 2
+    this.mesh.rotation.y %= Math.PI * 2
+    this.mesh.rotation.z %= Math.PI * 2
+  }
+
   stabilize() {
+    const unpitchFactor = 0.01
+    const unrollFactor = 0.04
     const pitchAngle = Math.abs(this.mesh.rotation.x)
+
     if (this.mesh.position.y < this.minHeight && this.mesh.rotation.x < 0) {
-      this.pitch(pitchAngle * 0.15)
+      this.pitch(pitchAngle * unpitchFactor)
       this.speed *= 0.99
     }
 
     if (keyboard.keyPressed) return
 
-    if (this.mesh.rotation.x > 0) this.pitch(-pitchAngle * 0.15)
-    if (this.mesh.rotation.x < 0) this.pitch(pitchAngle * 0.15)
+    if (this.mesh.rotation.x > 0) this.pitch(-pitchAngle * unpitchFactor)
+    if (this.mesh.rotation.x < 0) this.pitch(pitchAngle * unpitchFactor)
 
     const rollAngle = Math.abs(this.mesh.rotation.z)
-    if (this.mesh.rotation.z > 0) this.roll(-rollAngle * 0.15)
-    if (this.mesh.rotation.z < 0) this.roll(rollAngle * 0.15)
+    if (this.mesh.rotation.z > 0) this.roll(-rollAngle * unrollFactor)
+    if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
   }
 
   accelerate() {
@@ -107,7 +116,13 @@ export default class Airplane {
   update() {
     if (!this.mesh) return
     this.moveForward()
+    this.normalizeAngles()
     this.stabilize()
+
+    if (keyboard.pressed.Space) {
+      console.log('Roll:', this.mesh.rotation.z, 'maxRoll:', maxRoll)
+      console.log('Pitch:', this.mesh.rotation.x, 'maxPitch:', maxPitch)
+    }
 
     if (keyboard.left) this.left()
     if (keyboard.right) this.right()
