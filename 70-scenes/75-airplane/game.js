@@ -5,7 +5,7 @@ import { createTerrain } from '/utils/ground.js'
 import keyboard from '/classes/Keyboard.js'
 import Avion from './Avion.js'
 
-let avion
+let avionMesh
 
 const scene = createFullScene({ color:0xFFC880 }, undefined, undefined, { color: 0xE5C5AB })
 scene.add(createTerrain(4000, 200))
@@ -17,12 +17,12 @@ const controls = createOrbitControls()
 const animate = () => {
   requestAnimationFrame(animate)
   controls.update()
-  avion.update()
-  avion.normalizePlane()
-  avion.position.z -= .5
+  avionMesh.update()
+  avionMesh.normalizePlane()
+  avionMesh.position.z -= .5
   if (!keyboard.mouseDown)
-    camera.position.lerp({ ...avion.position, z: avion.position.z + 100 }, 0.05)
-  // camera.lookAt(avion.position)
+    camera.position.lerp({ ...avionMesh.position, z: avionMesh.position.z + 100 }, 0.05)
+  // camera.lookAt(avionMesh.position)
   renderer.render(scene, camera)
 }
 
@@ -45,11 +45,11 @@ function normalizeModel(mesh) {
 
 new ColladaLoader().load('/assets/models/s-e-5a/model.dae', collada => {
   const group = normalizeModel(collada.scene)
-  avion = new Avion(group) // dodaje komande
-  avion.position.y = 15
-  scene.getObjectByName('sunLight').target = avion
-  controls.target = avion.position
-  scene.add(avion)
+  avionMesh = new Avion(group) // dodaje komande
+  avionMesh.position.y = 15
+  scene.getObjectByName('sunLight').target = avionMesh
+  controls.target = avionMesh.position
+  scene.add(avionMesh)
   animate()
 })
 

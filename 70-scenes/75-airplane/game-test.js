@@ -9,10 +9,10 @@ scene.add(createTerrain(4000, 200))
 
 const controls = createOrbitControls()
 
-const player = new Airplane(() => {
-  scene.add(player.mesh)
-  controls.target = player.mesh.position
-  scene.getObjectByName('sunLight').target = player.mesh
+const avion = new Airplane(() => {
+  scene.add(avion.mesh)
+  controls.target = avion.mesh.position
+  scene.getObjectByName('sunLight').target = avion.mesh
 })
 
 /* UPDATE */
@@ -20,8 +20,8 @@ const player = new Airplane(() => {
 void function animate() {
   requestAnimationFrame(animate)
   controls.update()
-  player.update()
+  avion.update()
   if (!keyboard.mouseDown)
-    cameraFollowObject(camera, player.mesh)
+    cameraFollowObject(camera, avion.mesh)
   renderer.render(scene, camera)
 }()
