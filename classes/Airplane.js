@@ -109,8 +109,12 @@ export default class Airplane {
   moveForward() {
     // https://github.com/mrdoob/three.js/issues/1606
     // https://stackoverflow.com/questions/38052621/
-    const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(this.mesh.quaternion)
-    this.mesh.position.add(direction.multiplyScalar(this.speed))
+    this.mesh.position.add(this.direction.multiplyScalar(this.speed))
+  }
+
+  get direction() {
+    if (!this.mesh) return { x: 0, y: 0, z: 0 }
+    return new THREE.Vector3(0, 0, -1).applyQuaternion(this.mesh.quaternion)
   }
 
   update() {
@@ -118,11 +122,6 @@ export default class Airplane {
     this.moveForward()
     this.normalizeAngles()
     this.stabilize()
-
-    if (keyboard.pressed.Space) {
-      console.log('Roll:', this.mesh.rotation.z, 'maxRoll:', maxRoll)
-      console.log('Pitch:', this.mesh.rotation.x, 'maxPitch:', maxPitch)
-    }
 
     if (keyboard.left) this.left()
     if (keyboard.right) this.right()
