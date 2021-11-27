@@ -9,7 +9,7 @@ export const scene = new THREE.Scene()
 
 const hemisphereLight = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75)
 hemisphereLight.position.set(0.5, 1, 0.75)
-scene.add(hemisphereLight)
+// scene.add(hemisphereLight)
 
 // CAMERA
 
