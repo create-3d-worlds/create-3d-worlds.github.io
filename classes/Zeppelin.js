@@ -12,8 +12,9 @@ export default class Zeppelin extends Aircraft {
   }
 
   prepareModel(model) {
-    super.prepareModel(model)
     model.rotateZ(Math.PI / 2)
+    model.translateX(75)
+    super.prepareModel(model)
   }
 
   up() {

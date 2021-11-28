@@ -1,3 +1,4 @@
+import * as THREE from '/node_modules/three108/build/three.module.js'
 import Aircraft from './Aircraft.js'
 import keyboard from '/classes/Keyboard.js'
 

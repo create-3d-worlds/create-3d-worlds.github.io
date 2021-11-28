@@ -4,6 +4,7 @@ import { createTerrain } from '/utils/ground.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
 import Zeppelin from '/classes/Zeppelin.js'
+import { drawAxes } from '/utils/drawAxes.js'
 
 const scene = createFullScene({ color:0xFFC880 }, undefined, undefined, { color: 0xE5C5AB })
 // scene.add(createTerrain(4000, 200))
@@ -11,6 +12,7 @@ const scene = createFullScene({ color:0xFFC880 }, undefined, undefined, { color:
 const hemisphereLight = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75)
 hemisphereLight.position.set(0.5, 1, 0.75)
 scene.add(hemisphereLight) // puca procedural terrain
+drawAxes(scene)
 
 const controls = createOrbitControls()
 

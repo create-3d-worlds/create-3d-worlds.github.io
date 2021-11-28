@@ -6,6 +6,7 @@ const angleSpeed = 0.03
 const maxRoll = Infinity
 const maxPitch = Infinity
 
+/* Base class for Airplane and Zeppelin */
 export default class Aircraft {
   constructor(callback, {
     file = 's-e-5a/model.dae', scale = .2, minHeight = 15, speed = 1, maxSpeed = 2,
