@@ -3,15 +3,17 @@ import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/Colla
 import keyboard from '/classes/Keyboard.js'
 
 const angleSpeed = 0.03
-const maxSpeed = 2
 const maxRoll = Infinity
 const maxPitch = Infinity
 
 export default class Airplane {
-  constructor(callback, { modelSrc = '/assets/models/s-e-5a/model.dae', scale = .2, minHeight = 15 } = {}) {
-    this.speed = 1
+  constructor(callback, {
+    file = 's-e-5a/model.dae', scale = .2, minHeight = 15, speed = 1, maxSpeed = 2,
+  } = {}) {
+    this.speed = speed
+    this.maxSpeed = maxSpeed
     this.minHeight = minHeight
-    new ColladaLoader().load(modelSrc, collada => {
+    new ColladaLoader().load(`/assets/models/${file}`, collada => {
       this.mesh = this.prepareModel(collada.scene, scale)
       this.mesh.position.y = 50
       callback(this.mesh)
@@ -102,7 +104,7 @@ export default class Airplane {
   }
 
   accelerate() {
-    if (this.speed < maxSpeed)
+    if (this.speed < this.maxSpeed)
       this.speed += 0.1
   }
 
