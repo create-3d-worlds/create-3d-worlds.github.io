@@ -15,29 +15,32 @@ export default class Aircraft {
     this.minHeight = minHeight
     this.scale = scale
     new ColladaLoader().load(`/assets/models/${file}`, collada => {
-      this.mesh = this.prepareModel(collada.scene)
+      this.prepareModel(collada.scene)
+      this.createMesh(collada.scene)
       this.mesh.position.y = 50
       callback(this.mesh)
     })
   }
 
-  // https://stackoverflow.com/questions/28848863/
   prepareModel(model) {
     model.scale.set(this.scale, this.scale, this.scale)
-    // center axis of rotation
+    // https://stackoverflow.com/questions/28848863/
     const box = new THREE.Box3().setFromObject(model)
     box.center(model.position) // re-sets the model position
     model.position.multiplyScalar(- 1)
+    // model.traverse(child => {
+    //   if (child.isMesh) {
+    //     child.castShadow = true
+    //     child.receiveShadow = true
+    //   }
+    // })
+  }
+
+  createMesh(model) {
     const group = new THREE.Group()
-    // group.traverse(child => child.castShadow = true) // eslint-disable-line no-return-assign
-    model.traverse(child => {
-      if (child.isMesh) {
-        child.castShadow = true
-        child.receiveShadow = true
-      }
-    })
+    group.traverse(child => child.castShadow = true) // eslint-disable-line no-return-assign
     group.add(model)
-    return group
+    this.mesh = group
   }
 
   up() {

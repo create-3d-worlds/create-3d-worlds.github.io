@@ -12,22 +12,8 @@ export default class Zeppelin extends Aircraft {
   }
 
   prepareModel(model) {
-    model.scale.set(this.scale, this.scale, this.scale)
+    super.prepareModel(model)
     model.rotateZ(Math.PI / 2)
-    // center axis of rotation
-    const box = new THREE.Box3().setFromObject(model)
-    box.center(model.position) // re-sets the model position
-    model.position.multiplyScalar(- 1)
-    const group = new THREE.Group()
-    // group.traverse(child => child.castShadow = true) // eslint-disable-line no-return-assign
-    model.traverse(child => {
-      if (child.isMesh) {
-        child.castShadow = true
-        child.receiveShadow = true
-      }
-    })
-    group.add(model)
-    return group
   }
 
   up() {
@@ -40,11 +26,11 @@ export default class Zeppelin extends Aircraft {
   }
 
   left() {
-    this.roll(angleSpeed)
+    this.yaw(angleSpeed)
   }
 
   right() {
-    this.roll(-angleSpeed)
+    this.yaw(-angleSpeed)
   }
 
   // update() {
