@@ -104,7 +104,6 @@ export default class Aircraft {
 
   update() {
     if (!this.mesh) return
-    this.moveForward()
     this.normalizeAngles()
 
     if (keyboard.left) this.left()

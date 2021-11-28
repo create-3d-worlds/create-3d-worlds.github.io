@@ -17,12 +17,11 @@ export default class Zeppelin extends Aircraft {
   }
 
   up() {
-    if (this.mesh.position.y < this.minHeight) return
-    this.pitch(-angleSpeed / 10)
+    this.mesh.translateY(0.5)
   }
 
   down() {
-    this.pitch(angleSpeed / 10)
+    this.mesh.translateY(-0.5)
   }
 
   left() {

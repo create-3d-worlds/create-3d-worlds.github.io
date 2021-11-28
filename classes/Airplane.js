@@ -53,6 +53,7 @@ export default class Airplane extends Aircraft {
   update() {
     super.update()
     this.stabilize()
+    this.moveForward()
   }
 
 }
