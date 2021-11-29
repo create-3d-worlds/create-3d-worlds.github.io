@@ -17,12 +17,12 @@ export default class Zeppelin extends Aircraft {
   }
 
   up() {
-    this.mesh.translateY(0.5)
+    this.mesh.translateY(1)
     // this.mesh.rotation.x = .1
   }
 
   down() {
-    this.mesh.translateY(-0.5)
+    this.mesh.translateY(-1)
     // this.mesh.rotation.x = -.1
   }
 
