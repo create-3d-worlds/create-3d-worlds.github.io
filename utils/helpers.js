@@ -18,13 +18,13 @@ export function getHighPoint(geometry, face) {
   return Math.max(v1, v2, v3)
 }
 
-export function cameraFollowObject(camera, obj, distance = 50, alpha = 0.05) {
+export function cameraFollowObject(camera, obj, { distance = 100, alpha = 0.05, y = 0 } = {}) {
   if (!obj) return
   const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(obj.quaternion)
   const newPosition = obj.position.clone()
   newPosition.sub(direction.multiplyScalar(distance))
-  // spustiti ili podici kameru
-  // newPosition.y = obj.position.y - 10
+  // camera height
+  newPosition.y = obj.position.y + y
   camera.position.lerp(newPosition, alpha)
   camera.lookAt(obj.position)
 }

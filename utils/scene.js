@@ -8,8 +8,9 @@ export const clock = new THREE.Clock()
 export const scene = new THREE.Scene()
 
 const hemisphereLight = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75)
+hemisphereLight.name = 'hemisphereLight'
 hemisphereLight.position.set(0.5, 1, 0.75)
-// scene.add(hemisphereLight) // puca procedural terrain, TODO: napraviti izuzetak!
+scene.add(hemisphereLight) // puca procedural terrain, TODO: napraviti izuzetak!
 
 // CAMERA
 

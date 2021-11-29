@@ -3,12 +3,12 @@ import { camera, createFullScene, renderer, createOrbitControls } from '/utils/s
 import { terrain, updateTerrain, renderTerrain } from './terrain.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
-import Airplane from '/classes/Airplane.js'
+import Zeppelin from '/classes/Zeppelin.js'
 
 const scene = createFullScene()
+scene.remove(scene.getObjectByName('hemisphereLight')) // puca procedural terrain
 
 const controls = createOrbitControls()
-camera.position.set(-1200, 800, 1200)
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1.15)
 directionalLight.position.set(500, 2000, 0)
@@ -16,16 +16,16 @@ scene.add(directionalLight)
 
 scene.add(terrain)
 
-const avion = new Airplane(() => {
-  scene.add(avion.mesh)
-  avion.mesh.position.y = 256
-  controls.target = avion.mesh.position
-  // scene.getObjectByName('sunLight').target = avion.mesh
+const zeppelin = new Zeppelin(() => {
+  scene.add(zeppelin.mesh)
+  zeppelin.mesh.position.y = 256
+  controls.target = zeppelin.mesh.position
+  scene.getObjectByName('sunLight').target = zeppelin.mesh
 })
 
 const getPos = () => ({
-  x: avion.direction.x * avion.speed * 4, // ?
-  y: -avion.direction.z * avion.speed * 4, // ?
+  x: zeppelin.direction.x * 2,
+  y: -zeppelin.direction.z * 2,
 })
 
 /* LOOP */
@@ -33,11 +33,11 @@ const getPos = () => ({
 void function animate() {
   requestAnimationFrame(animate)
   controls.update()
-  avion.update()
-  if (avion.mesh && keyboard.mouseDown)
-    console.log(getPos())
-  if (avion.mesh)
+  zeppelin.update()
+  if (zeppelin.mesh)
     updateTerrain(getPos())
   renderTerrain()
+  if (!keyboard.mouseDown)
+    cameraFollowObject(camera, zeppelin.mesh, { y: 30 })
   renderer.render(scene, camera)
 }()
