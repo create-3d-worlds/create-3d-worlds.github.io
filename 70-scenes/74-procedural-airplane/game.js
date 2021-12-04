@@ -5,8 +5,11 @@ import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
 import Zeppelin from '/classes/Zeppelin.js'
 
+// okretati zepelin naviše i naniže
+// detektovati visinu terena i podizati zepelin
+
 const scene = createFullScene()
-scene.remove(scene.getObjectByName('hemisphereLight')) // puca procedural terrain
+scene.remove(scene.getObjectByName('hemisphereLight')) // BUG: sa svetlom puca terrain
 
 const controls = createOrbitControls()
 
@@ -23,11 +26,6 @@ const zeppelin = new Zeppelin(() => {
   scene.getObjectByName('sunLight').target = zeppelin.mesh
 })
 
-const getPos = () => ({
-  x: zeppelin.direction.x * 2,
-  y: -zeppelin.direction.z * 2,
-})
-
 /* LOOP */
 
 void function animate() {
@@ -35,7 +33,7 @@ void function animate() {
   controls.update()
   zeppelin.update()
   if (zeppelin.mesh)
-    updateTerrain(getPos())
+    updateTerrain({ x: zeppelin.direction.x, y: -zeppelin.direction.z })
   renderTerrain()
   if (!keyboard.mouseDown)
     cameraFollowObject(camera, zeppelin.mesh, { y: 30 })
