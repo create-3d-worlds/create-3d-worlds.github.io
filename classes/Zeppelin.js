@@ -1,10 +1,13 @@
+import * as THREE from '/node_modules/three108/build/three.module.js'
 import Aircraft from './Aircraft.js'
+import keyboard from '/classes/Keyboard.js'
 
 const angleSpeed = 0.03
 
 export default class Zeppelin extends Aircraft {
   constructor(callback) {
     super(mesh => {
+      mesh.rotation.order = 'YZX' // default is 'ZYX'
       callback(mesh)
     }, { file: 'santos-dumont-9/model.dae' })
   }
@@ -18,12 +21,14 @@ export default class Zeppelin extends Aircraft {
 
   up() {
     this.mesh.translateY(1)
-    // this.mesh.rotation.x = .1
+    if (this.mesh.rotation.x < .1)
+      this.mesh.rotateX(.005)
   }
 
   down() {
     this.mesh.translateY(-1)
-    // this.mesh.rotation.x = -.1
+    if (this.mesh.rotation.x > -.1)
+      this.mesh.rotateX(-.005)
   }
 
   left() {
@@ -34,18 +39,27 @@ export default class Zeppelin extends Aircraft {
     this.yaw(-angleSpeed)
   }
 
-  // update() {
-  //   if (!this.mesh) return
-  //   this.moveForward()
-  //   this.normalizeAngles()
-  //   this.stabilize()
+  // https://www.youtube.com/watch?v=lcE3s5noEE4
+  // https://www.youtube.com/watch?v=Ocoibc7MoKg
+  stabilize() {
+    // TODO: podizati ako je preblizu zemlje?
+    if (keyboard.keyPressed) return
 
-  //   if (keyboard.left) this.left()
-  //   if (keyboard.right) this.right()
+    if (this.mesh.rotation.x > 0)
+      this.mesh.rotateX(-.005)
+    if (this.mesh.rotation.x < 0)
+      this.mesh.rotateX(.005)
 
-  //   if (keyboard.up) this.up()
-  //   if (keyboard.down) this.down()
-  //   if (keyboard.pressed.Space) this.accelerate()
-  // }
+    if (this.mesh.rotation.z > 0)
+      this.mesh.rotateZ(-.005)
+    if (this.mesh.rotation.z < 0)
+      this.mesh.rotateZ(.005)
+  }
+
+  update() {
+    if (!this.mesh) return
+    super.update()
+    this.stabilize()
+  }
 
 }
