@@ -1,7 +1,7 @@
 /* global dat */
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
-import { terrain, updateTerrain } from './terrain.js'
+import { terrain, updateTerrain } from '../../utils/terrain/index.js'
 
 scene.remove(scene.getObjectByName('hemisphereLight')) // BUG: sa svetlom puca terrain
 
