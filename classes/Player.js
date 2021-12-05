@@ -1,6 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { keyboard, Kamenko } from '/classes/index.js'
 import { createPlayerBox } from '/utils/boxes.js'
+import { addSolids, findGround } from '/classes/actions/index.js'
 
 const { pressed } = keyboard
 
@@ -118,16 +119,8 @@ export default class Player {
     this.mesh.add(obj)
   }
 
-  /**
-   * Add solid objects for player to collide
-   * @param {any} solids mesh group, array or a single mesh
-   */
   addSolids(...solids) {
-    solids.forEach(solid => {
-      if (solid.children && solid.children.length) this.solids.push(...solid.children)
-      else if (solid.length) this.solids.push(...solid)
-      else this.solids.push(solid)
-    })
+    addSolids(this.solids, ...solids)
   }
 
   update(delta) {
