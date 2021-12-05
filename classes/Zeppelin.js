@@ -39,7 +39,6 @@ export default class Zeppelin extends Aircraft {
   }
 
   stabilize() {
-    // TODO: podizati ako je preblizu zemlje, samo na dugme sletati
     if (keyboard.keyPressed) return
 
     if (this.mesh.rotation.x > 0)

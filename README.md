@@ -124,14 +124,16 @@ live-server
   - [x] dodati senku i maglu (vidi 3d-warplane)
   - [x] srediti komande: skretanje, spuštanje, dizanje, brzinu
   - [x] dodati teren-dinamicki
-  - [ ] napraviti dinamički teren koji reaguje na raycast
-    - https://grahamweldon.com/post/2012/01/3d-terrain-generation-with-three.js/
-    - https://www.youtube.com/watch?v=8ot2Ul9ncuQ
   - [ ] probati pticu (50-rad-sa-modelima/70-ptice)
-  - [x] probati zepelin
   - [ ] dodati oblake/dim (70-cestice/80-dim)
   - [ ] dodati sunce
   - [ ] dodati drveće
+- [x] zepelin leti
+  - [ ] napraviti dinamički teren koji reaguje na raycast
+    - https://grahamweldon.com/post/2012/01/3d-terrain-generation-with-three.js/
+    - https://www.youtube.com/watch?v=8ot2Ul9ncuQ
+  - [ ] automatski podizati ako je preblizu zemlje
+  - [ ] sletati na dugme
 - [ ] grad scena (vidi 34-spojena-geometrija, 70-grad, 65-proceduralni-grad)
 - [ ] fantasy scena (dodati modele 50-rad-sa-modelima/90-modeli-dae/)
   - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
