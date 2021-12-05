@@ -80,16 +80,7 @@ terrain.rotation.x = -Math.PI / 2
 const sceneRenderTarget = new THREE.Scene()
 sceneRenderTarget.add(quadTarget)
 
-export function updateTerrain(pos) {
-  animDelta = THREE.Math.clamp(animDelta, 0, 0.05)
-  uniformsNoise.time.value += animDelta
-  uniformsNoise.offset.value.x += pos.x * 0.0005
-  uniformsTerrain.uOffset.value.x = 4 * uniformsNoise.offset.value.x
-  uniformsNoise.offset.value.y += pos.y * 0.0005
-  uniformsTerrain.uOffset.value.y = 4 * uniformsNoise.offset.value.y
-}
-
-export function renderTerrain() {
+function renderTerrain() {
   quadTarget.material = mlib.heightmap
   renderer.setRenderTarget(heightMap)
   renderer.render(sceneRenderTarget, cameraOrtho)
@@ -97,4 +88,14 @@ export function renderTerrain() {
   renderer.setRenderTarget(normalMap)
   renderer.render(sceneRenderTarget, cameraOrtho)
   renderer.setRenderTarget(null)
+}
+
+export function updateTerrain(x, y) {
+  animDelta = THREE.Math.clamp(animDelta, 0, 0.05)
+  uniformsNoise.time.value += animDelta
+  uniformsNoise.offset.value.x += x * 0.0005
+  uniformsTerrain.uOffset.value.x = 4 * uniformsNoise.offset.value.x
+  uniformsNoise.offset.value.y += y * 0.0005
+  uniformsTerrain.uOffset.value.y = 4 * uniformsNoise.offset.value.y
+  renderTerrain()
 }

@@ -61,7 +61,6 @@ export default class Player {
 
   /**
    * Update ground level
-   * @param {miliseconds} delta
    */
   findGround() {
     if (!this.mesh || !this.solids.length) return

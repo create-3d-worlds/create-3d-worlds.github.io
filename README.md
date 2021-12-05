@@ -122,9 +122,12 @@ live-server
   - [x] dodati suncevu svetlost (https://threejs.org/examples/webgl_lights_hemisphere.html)
   - [x] dodati senku i maglu (vidi 3d-warplane)
   - [x] srediti komande: skretanje, spuštanje, dizanje, brzinu
-  - [ ] dodati 38-teren-dinamicki
+  - [x] dodati teren-dinamicki
+  - [ ] napraviti dinamički teren koji reaguje na raycast
+    - https://grahamweldon.com/post/2012/01/3d-terrain-generation-with-three.js/
+    - https://www.youtube.com/watch?v=8ot2Ul9ncuQ
   - [ ] probati pticu (50-rad-sa-modelima/70-ptice)
-  - [ ] probati zepelin
+  - [x] probati zepelin
   - [ ] dodati oblake/dim (70-cestice/80-dim)
   - [ ] dodati sunce
   - [ ] dodati drveće

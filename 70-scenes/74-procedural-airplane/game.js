@@ -1,17 +1,14 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { camera, createFullScene, renderer, createOrbitControls } from '/utils/scene.js'
-import { terrain, updateTerrain, renderTerrain } from './terrain.js'
+import { terrain, updateTerrain } from './terrain.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
 import Zeppelin from '/classes/Zeppelin.js'
 
-// okretati zepelin naviše i naniže
-// detektovati visinu terena i podizati zepelin
-
 const scene = createFullScene()
-scene.remove(scene.getObjectByName('hemisphereLight')) // BUG: sa svetlom puca terrain
-
 const controls = createOrbitControls()
+
+scene.remove(scene.getObjectByName('hemisphereLight')) // BUG: sa svetlom puca terrain
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1.15)
 directionalLight.position.set(500, 2000, 0)
@@ -33,8 +30,7 @@ void function animate() {
   controls.update()
   zeppelin.update()
   if (zeppelin.mesh)
-    updateTerrain({ x: zeppelin.direction.x, y: -zeppelin.direction.z })
-  renderTerrain()
+    updateTerrain(zeppelin.direction.x, -zeppelin.direction.z)
   if (!keyboard.mouseDown)
     cameraFollowObject(camera, zeppelin.mesh, { y: 30 })
   renderer.render(scene, camera)
