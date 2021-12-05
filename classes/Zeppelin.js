@@ -40,8 +40,6 @@ export default class Zeppelin extends Aircraft {
     this.yaw(-angleSpeed)
   }
 
-  // https://www.youtube.com/watch?v=lcE3s5noEE4
-  // https://www.youtube.com/watch?v=Ocoibc7MoKg
   stabilize() {
     // TODO: podizati ako je preblizu zemlje, samo na dugme sletati
     if (keyboard.keyPressed) return console.log(this.groundY)
