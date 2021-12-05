@@ -60,16 +60,8 @@ export default class Player {
     // dodati sideWalk()
   }
 
-  /**
-   * Update ground level
-   */
   findGround() {
-    if (!this.mesh || !this.solids.length) return
-    const bodyTop = this.position.clone()
-    bodyTop.y += this.size * 2
-    const raycaster = new THREE.Raycaster(bodyTop, new THREE.Vector3(0, -1, 0))
-    const intersects = raycaster.intersectObjects(this.solids)
-    this.groundY = intersects[0] ? intersects[0].point.y : 0
+    this.groundY = findGround(this.mesh, this.solids, this.position, this.size * 2)
   }
 
   /**
@@ -119,8 +111,8 @@ export default class Player {
     this.mesh.add(obj)
   }
 
-  addSolids(...solids) {
-    addSolids(this.solids, ...solids)
+  addSolids(...newSolids) {
+    addSolids(this.solids, ...newSolids)
   }
 
   update(delta) {
