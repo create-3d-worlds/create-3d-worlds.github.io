@@ -56,7 +56,6 @@ export default class Zeppelin extends Aircraft {
     if (!this.mesh) return
     super.update()
     this.stabilize()
-    this.findGround()
   }
 
 }
