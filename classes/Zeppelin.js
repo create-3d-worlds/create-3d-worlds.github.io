@@ -9,8 +9,6 @@ export default class Zeppelin extends Aircraft {
       mesh.rotation.order = 'YZX' // default is 'ZYX'
       callback(mesh)
     }, { ...params, file: 'santos-dumont-9/model.dae' })
-    this.solids = []
-    this.groundY = 0
   }
 
   prepareModel(model) {
@@ -42,7 +40,7 @@ export default class Zeppelin extends Aircraft {
 
   stabilize() {
     // TODO: podizati ako je preblizu zemlje, samo na dugme sletati
-    if (keyboard.keyPressed) return console.log(this.groundY)
+    if (keyboard.keyPressed) return
 
     if (this.mesh.rotation.x > 0)
       this.mesh.rotateX(-.005)
