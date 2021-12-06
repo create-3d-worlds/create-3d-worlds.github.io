@@ -45,6 +45,7 @@ export default class Aircraft {
   }
 
   // HANDLE ARROWS
+
   up() {
     if (this.mesh.position.y < this.minHeight) return
     this.pitch(-angleSpeed / 10)
@@ -65,6 +66,7 @@ export default class Aircraft {
   }
 
   // MOVEMENTS
+
   pitch(angle) {
     if (angle < 0 && this.mesh.rotation.x < -this.maxPitch) return
     if (angle > 0 && this.mesh.rotation.x > this.maxPitch) return

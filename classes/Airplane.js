@@ -30,6 +30,7 @@ export default class Airplane extends Aircraft {
     else this.roll(-angleSpeed)
   }
 
+  // TODO: move to parent, reuse method
   stabilize() {
     const unpitchFactor = 0.01
     const unrollFactor = 0.04

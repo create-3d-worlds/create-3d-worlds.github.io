@@ -2,6 +2,7 @@ import Aircraft from './Aircraft.js'
 import keyboard from '/classes/Keyboard.js'
 
 const angleSpeed = .01
+const pitchSpeed = angleSpeed / 5
 
 export default class Zeppelin extends Aircraft {
   constructor(callback, params) {
@@ -20,12 +21,12 @@ export default class Zeppelin extends Aircraft {
 
   up() {
     this.mesh.translateY(1)
-    this.pitch(angleSpeed / 5)
+    this.pitch(pitchSpeed)
   }
 
   down() {
     this.mesh.translateY(-1)
-    this.pitch(-angleSpeed / 5)
+    this.pitch(-pitchSpeed)
   }
 
   left() {
@@ -36,18 +37,20 @@ export default class Zeppelin extends Aircraft {
     this.yaw(-angleSpeed)
   }
 
+  // TODO: move to parent, reuse method
   stabilize() {
     if (keyboard.keyPressed) return
 
-    if (this.mesh.rotation.x > 0)
-      this.mesh.rotateX(-.005)
-    if (this.mesh.rotation.x < 0)
-      this.mesh.rotateX(.005)
+    const unpitchFactor = 0.01
+    const unrollFactor = 0.04
+    const pitchAngle = Math.abs(this.mesh.rotation.x)
 
-    if (this.mesh.rotation.z > 0)
-      this.mesh.rotateZ(-.005)
-    if (this.mesh.rotation.z < 0)
-      this.mesh.rotateZ(.005)
+    if (this.mesh.rotation.x > 0) this.pitch(-pitchAngle * unpitchFactor)
+    if (this.mesh.rotation.x < 0) this.pitch(pitchAngle * unpitchFactor)
+
+    const rollAngle = Math.abs(this.mesh.rotation.z)
+    if (this.mesh.rotation.z > 0) this.roll(-rollAngle * unrollFactor)
+    if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
   }
 
   update() {
