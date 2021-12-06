@@ -1,18 +1,19 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { camera, createFullScene, renderer, createOrbitControls } from '/utils/scene.js'
+import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
+import { createBlueSky } from '/utils/sky.js'
+import { createSunLight } from '/utils/light.js'
 import keyboard from '/classes/Keyboard.js'
 import Zeppelin from '/classes/Zeppelin.js'
 
-const scene = createFullScene()
+scene.add(createBlueSky())
+const light = createSunLight({ x: 500, y: 2000, z: 100 })
+scene.add(light)
 scene.remove(scene.getObjectByName('hemisphereLight')) // BUG: sa svetlom puca terrain
+scene.fog = new THREE.Fog(0xffffff, 1, 5000)
 
 const controls = createOrbitControls()
-
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1.15)
-directionalLight.position.set(500, 2000, 0)
-scene.add(directionalLight)
 
 const ground = createHillyTerrain(
   { size: 10000, y: 100, color: 0x33aa33, factorX : 5, factorZ : 2.5, factorY : 200 })

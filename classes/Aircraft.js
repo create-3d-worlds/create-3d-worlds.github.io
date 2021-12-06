@@ -130,6 +130,7 @@ export default class Aircraft {
 
     if (keyboard.up) this.up()
     if (keyboard.down) this.down()
+    // TODO: promeniti komandu, dodati deaccelerate
     if (keyboard.pressed.Space) this.accelerate()
 
     this.moveForward()

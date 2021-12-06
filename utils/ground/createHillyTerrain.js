@@ -26,6 +26,7 @@ export const createHillyTerrain = (
     face.color.setRGB(color.r + rand, color.g + rand, color.b + rand)
   })
   const mesh = new THREE.Mesh(geometry, material)
+  mesh.receiveShadow = true
   mesh.position.y = y
   return mesh
 }
