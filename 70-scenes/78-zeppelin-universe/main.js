@@ -9,7 +9,7 @@ import keyboard from '/classes/Keyboard.js'
 
 const controls = createOrbitControls()
 
-const stars = createStars({ radiusMin: 5000, radius: 6000, numberOfStars: 100000 })
+const stars = createStars({ radiusMin: 5000, radius: 10000, numberOfStars: 100000 })
 scene.add(stars)
 
 scene.add(createBlueSky({ r: 5000, bottomColor: 0x000000 }))
