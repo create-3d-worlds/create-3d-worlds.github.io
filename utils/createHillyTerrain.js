@@ -2,10 +2,10 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { randomInRange } from './helpers.js'
 import { SimplexNoise } from '/libs/SimplexNoise.js'
 
-export const createHillyTerrain = (size = 1000, y = 30) => {
+export const createHillyTerrain = ({ size = 1000, y = 30, color = 0x33aa33 } = {}) => {
   const resolution = 20
   const material = new THREE.MeshLambertMaterial({
-    color: 0x33aa33,
+    color,
     vertexColors: THREE.FaceColors,
   })
   const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
