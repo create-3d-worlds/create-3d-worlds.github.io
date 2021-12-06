@@ -30,30 +30,15 @@ export default class Airplane extends Aircraft {
     else this.roll(-angleSpeed)
   }
 
-  // TODO: move to parent, reuse method
-  stabilize() {
-    const unpitchFactor = 0.01
-    const unrollFactor = 0.04
-    const pitchAngle = Math.abs(this.mesh.rotation.x)
-
+  checkLanding() {
     if (this.mesh.position.y < this.minHeight && this.mesh.rotation.x < 0) {
-      this.pitch(pitchAngle * unpitchFactor)
+      this.pitch(Math.abs(this.mesh.rotation.x) * 0.01)
       this.speed *= 0.99
     }
-
-    if (keyboard.keyPressed) return
-
-    if (this.mesh.rotation.x > 0) this.pitch(-pitchAngle * unpitchFactor)
-    if (this.mesh.rotation.x < 0) this.pitch(pitchAngle * unpitchFactor)
-
-    const rollAngle = Math.abs(this.mesh.rotation.z)
-    if (this.mesh.rotation.z > 0) this.roll(-rollAngle * unrollFactor)
-    if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
   }
 
-  update() {
-    super.update()
-    this.stabilize()
+  stabilize() {
+    this.checkLanding()
+    super.stabilize()
   }
-
 }

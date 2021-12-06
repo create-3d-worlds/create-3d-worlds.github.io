@@ -107,6 +107,21 @@ export default class Aircraft {
     return new THREE.Vector3(0, 0, -1).applyQuaternion(this.mesh.quaternion)
   }
 
+  stabilize() {
+    if (keyboard.keyPressed) return
+
+    const unpitchFactor = 0.01
+    const unrollFactor = 0.04
+    const pitchAngle = Math.abs(this.mesh.rotation.x)
+
+    if (this.mesh.rotation.x > 0) this.pitch(-pitchAngle * unpitchFactor)
+    if (this.mesh.rotation.x < 0) this.pitch(pitchAngle * unpitchFactor)
+
+    const rollAngle = Math.abs(this.mesh.rotation.z)
+    if (this.mesh.rotation.z > 0) this.roll(-rollAngle * unrollFactor)
+    if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
+  }
+
   update() {
     if (!this.mesh) return
     this.normalizeAngles()
@@ -119,6 +134,7 @@ export default class Aircraft {
     if (keyboard.pressed.Space) this.accelerate()
 
     this.moveForward()
+    this.stabilize()
   }
 
 }
