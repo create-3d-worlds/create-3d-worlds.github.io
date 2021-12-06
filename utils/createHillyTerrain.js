@@ -2,8 +2,10 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { randomInRange } from './helpers.js'
 import { SimplexNoise } from '/libs/SimplexNoise.js'
 
-export const createHillyTerrain = ({ size = 1000, y = 30, color = 0x33aa33 } = {}) => {
-  const resolution = 20
+export const createHillyTerrain = (
+  { size = 1000, y = 30, color = 0x33aa33, factorX = 50, factorZ = 25, factorY = 60 } = {}
+) => {
+  const resolution = size / 50
   const material = new THREE.MeshLambertMaterial({
     color,
     vertexColors: THREE.FaceColors,
@@ -12,9 +14,6 @@ export const createHillyTerrain = ({ size = 1000, y = 30, color = 0x33aa33 } = {
   geometry.rotateX(-Math.PI / 2)
 
   const noise = new SimplexNoise()
-  const factorX = 50
-  const factorZ = 25
-  const factorY = 60
   geometry.vertices.forEach(vertex => {
     vertex.x += randomInRange(-factorX, factorX)
     vertex.z += randomInRange(-factorZ, factorZ)

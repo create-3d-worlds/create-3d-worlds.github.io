@@ -25,21 +25,18 @@ export default class Aircraft {
 
   prepareModel(model) {
     model.scale.set(this.scale, this.scale, this.scale)
-    // https://stackoverflow.com/questions/28848863/
+    // center axis https://stackoverflow.com/questions/28848863/
     const box = new THREE.Box3().setFromObject(model)
-    box.center(model.position) // re-sets the model position
+    box.center(model.position)
     model.position.multiplyScalar(- 1)
-    // model.traverse(child => {
-    //   if (child.isMesh) {
-    //     child.castShadow = true
-    //     child.receiveShadow = true
-    //   }
-    // })
+    model.traverse(child => {
+      if (child.isMesh)
+        child.castShadow = true // child.receiveShadow = true
+    })
   }
 
   createMesh(model) {
     const group = new THREE.Group()
-    group.traverse(child => child.castShadow = true) // eslint-disable-line no-return-assign
     group.add(model)
     this.mesh = group
   }
