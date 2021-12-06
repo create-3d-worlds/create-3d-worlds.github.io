@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 
-// TODO: oblaci
-export function createBlueSky({ r = 4000 } = {}) {
+// createGradientSky
+export function createBlueSky({ r = 4000, topColor = 0x0077ff, bottomColor = 0xffffff } = {}) {
   const vertexShader = `
   varying vec3 vWorldPosition;
   
@@ -26,8 +26,8 @@ export function createBlueSky({ r = 4000 } = {}) {
   }`
 
   const uniforms = {
-    'topColor': { value: new THREE.Color(0x0077ff) },
-    'bottomColor': { value: new THREE.Color(0xffffff) },
+    'topColor': { value: new THREE.Color(topColor) },
+    'bottomColor': { value: new THREE.Color(bottomColor) },
     'offset': { value: 33 },
     'exponent': { value: 0.6 }
   }
