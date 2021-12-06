@@ -1,7 +1,7 @@
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/trees.js'
-import { createHillyTerrain } from '/utils/createHillyTerrain.js'
+import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { PlayerAvatar } from '/classes/Player.js'
 
 createOrbitControls()

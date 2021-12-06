@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { camera, createFullScene, renderer, createOrbitControls } from '/utils/scene.js'
 import { cameraFollowObject } from '/utils/helpers.js'
-import { createHillyTerrain } from '/utils/createHillyTerrain.js'
+import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import keyboard from '/classes/Keyboard.js'
 import Zeppelin from '/classes/Zeppelin.js'
 
