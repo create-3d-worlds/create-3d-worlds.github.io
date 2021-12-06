@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 
 // TODO: oblaci
-export function createBlueSky({ radius = 4000 } = {}) {
+export function createBlueSky({ r = 4000 } = {}) {
   const vertexShader = `
   varying vec3 vWorldPosition;
   
@@ -31,7 +31,7 @@ export function createBlueSky({ radius = 4000 } = {}) {
     'offset': { value: 33 },
     'exponent': { value: 0.6 }
   }
-  const geometry = new THREE.SphereGeometry(radius, 32, 15)
+  const geometry = new THREE.SphereGeometry(r, 32, 15)
   const material = new THREE.ShaderMaterial({
     uniforms,
     vertexShader,

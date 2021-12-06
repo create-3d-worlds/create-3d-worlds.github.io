@@ -30,8 +30,8 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
 /* FUNCTIONS */
 
-export function createFullScene(floorParam, skyParam, lightParam, fogParam = {}) {
-  scene.add(createGround(floorParam))
+export function createFullScene(groundParam, skyParam, lightParam, fogParam = {}) {
+  scene.add(createGround(groundParam))
   scene.add(createBlueSky(skyParam))
   const light = createSunLight(lightParam)
   // const helper = new THREE.CameraHelper(light.shadow.camera)

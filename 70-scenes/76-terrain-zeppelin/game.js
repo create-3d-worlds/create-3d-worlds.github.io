@@ -4,14 +4,16 @@ import { cameraFollowObject } from '/utils/helpers.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { createBlueSky } from '/utils/sky.js'
 import { createSunLight } from '/utils/light.js'
+import { createGround } from '/utils/ground/index.js'
 import keyboard from '/classes/Keyboard.js'
 import Zeppelin from '/classes/Zeppelin.js'
 
-scene.add(createBlueSky())
-const light = createSunLight({ x: 500, y: 2000, z: 100 })
+scene.add(createBlueSky({ r: 5000 }))
+const light = createSunLight({ x: 500, y: 2000, z: 100, far: 5000 })
 scene.add(light)
 scene.remove(scene.getObjectByName('hemisphereLight')) // BUG: sa svetlom puca terrain
 scene.fog = new THREE.Fog(0xffffff, 1, 5000)
+scene.add(createGround({ color: 0x007577 }))
 
 const controls = createOrbitControls()
 
