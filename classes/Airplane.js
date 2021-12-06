@@ -1,5 +1,4 @@
 import Aircraft from './Aircraft.js'
-import keyboard from '/classes/Keyboard.js'
 
 const angleSpeed = 0.03
 

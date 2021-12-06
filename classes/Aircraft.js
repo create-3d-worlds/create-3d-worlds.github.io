@@ -97,7 +97,6 @@ export default class Aircraft {
 
   moveForward() {
     if (!this.shouldMove) return
-    // https://github.com/mrdoob/three.js/issues/1606
     // https://stackoverflow.com/questions/38052621/
     this.mesh.position.add(this.direction.multiplyScalar(this.speed))
   }
