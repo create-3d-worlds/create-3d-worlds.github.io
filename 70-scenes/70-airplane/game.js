@@ -1,5 +1,5 @@
 import { createFullScene, renderer, camera, createOrbitControls } from '/utils/scene.js'
-import { createTerrain } from '/utils/ground.js'
+import { createTerrain } from '/utils/ground/index.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
 import Airplane from '/classes/Airplane.js'

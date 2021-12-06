@@ -1,7 +1,7 @@
 // TODO: change roof color or texture
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { createGround } from '/utils/ground.js'
+import { createGround } from '/utils/ground/index.js'
 import { generateCity } from '/utils/city.js'
 import { FirstPersonControls } from '/node_modules/three108/examples/jsm/controls/FirstPersonControls.js'
 

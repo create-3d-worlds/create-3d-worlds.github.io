@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { OrbitControls } from '/node_modules/three108/examples/jsm/controls/OrbitControls.js'
 import { createBlueSky } from './sky.js'
 import { createSunLight } from './light.js'
-import { createGround } from './ground.js'
+import { createGround } from './ground/index.js'
 
 export const clock = new THREE.Clock()
 export const scene = new THREE.Scene()

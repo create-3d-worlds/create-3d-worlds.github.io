@@ -1,4 +1,4 @@
-import { createGround } from '/utils/ground.js'
+import { createGround } from '/utils/ground/index.js'
 import { create3DMap } from '/utils/maps.js'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { PlayerAvatar } from '/classes/Player.js'

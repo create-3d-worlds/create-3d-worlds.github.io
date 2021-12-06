@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, clock, camera } from '/utils/scene.js'
-import { createGround } from '/utils/ground.js'
+import { createGround } from '/utils/ground/index.js'
 import { createFirTrees } from '/utils/trees.js'
 import { keyboard, PlayerAvatar } from '/classes/index.js'
 

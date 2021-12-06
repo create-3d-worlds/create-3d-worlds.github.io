@@ -1,6 +1,6 @@
 import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createRandomBoxes } from '/utils/boxes.js'
-import { createGround } from '/utils/ground.js'
+import { createGround } from '/utils/ground/index.js'
 import { PlayerAvatar } from '/classes/index.js'
 
 // createOrbitControls()
