@@ -115,6 +115,7 @@ live-server
   - [ ] dodati tenk kako prolazi
   - [ ] dodati munje https://threejs.org/examples/?q=light#webgl_lightningstrike
 - [ ] scena svemir (model ring arcology)
+  - [ ] ambijent https://www.youtube.com/watch?v=XkvH7z4GxHM
   - [ ] letenje kroz zvezde (70-cestice/10-zvezde/)
   - [ ] sletanje na platformu (naći 2d primer)
   - [ ] sletanje na mesec (80-primeri/12-mesec)

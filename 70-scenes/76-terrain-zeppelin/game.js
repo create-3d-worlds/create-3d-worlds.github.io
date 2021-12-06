@@ -18,11 +18,11 @@ const ground = createHillyTerrain(
   { size: 10000, y: 100, color: 0x33aa33, factorX : 5, factorZ : 2.5, factorY : 200 })
 scene.add(ground)
 
-const zeppelin = new Zeppelin(() => {
-  scene.add(zeppelin.mesh)
-  zeppelin.mesh.position.y = 256
-  controls.target = zeppelin.mesh.position
-  scene.getObjectByName('sunLight').target = zeppelin.mesh
+const zeppelin = new Zeppelin(mesh => {
+  scene.add(mesh)
+  mesh.position.y = 256
+  controls.target = mesh.position
+  scene.getObjectByName('sunLight').target = mesh
 })
 
 /* LOOP */

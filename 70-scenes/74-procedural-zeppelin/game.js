@@ -16,12 +16,12 @@ scene.add(directionalLight)
 
 scene.add(terrain)
 
-const zeppelin = new Zeppelin(() => {
-  scene.add(zeppelin.mesh)
-  zeppelin.mesh.position.y = 256
-  controls.target = zeppelin.mesh.position
-  scene.getObjectByName('sunLight').target = zeppelin.mesh
-})
+const zeppelin = new Zeppelin(mesh => {
+  scene.add(mesh)
+  mesh.position.y = 256
+  controls.target = mesh.position
+  scene.getObjectByName('sunLight').target = mesh
+}, { shouldMove: false })
 
 /* LOOP */
 

@@ -8,13 +8,14 @@ const maxRoll = Infinity
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft {
   constructor(callback, {
-    file = 's-e-5a/model.dae', scale = .2, minHeight = 15, speed = 1, maxSpeed = 2, maxPitch = Infinity,
+    file = 's-e-5a/model.dae', scale = .2, minHeight = 15, speed = 1, maxSpeed = 2, maxPitch = Infinity, shouldMove = true
   } = {}) {
-    this.speed = speed
+    this.speed = shouldMove ? speed : 0
     this.maxSpeed = maxSpeed
     this.minHeight = minHeight
     this.scale = scale
     this.maxPitch = maxPitch
+    this.shouldMove = shouldMove
     new ColladaLoader().load(`/assets/models/${file}`, collada => {
       this.prepareModel(collada.scene)
       this.createMesh(collada.scene)
@@ -89,11 +90,13 @@ export default class Aircraft {
   }
 
   accelerate() {
+    if (!this.shouldMove) return
     if (this.speed < this.maxSpeed)
       this.speed += 0.1
   }
 
   moveForward() {
+    if (!this.shouldMove) return
     // https://github.com/mrdoob/three.js/issues/1606
     // https://stackoverflow.com/questions/38052621/
     this.mesh.position.add(this.direction.multiplyScalar(this.speed))
@@ -114,6 +117,8 @@ export default class Aircraft {
     if (keyboard.up) this.up()
     if (keyboard.down) this.down()
     if (keyboard.pressed.Space) this.accelerate()
+
+    this.moveForward()
   }
 
 }
