@@ -4,17 +4,17 @@ import keyboard from '/classes/Keyboard.js'
 
 const angleSpeed = 0.03
 const maxRoll = Infinity
-const maxPitch = Infinity
 
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft {
   constructor(callback, {
-    file = 's-e-5a/model.dae', scale = .2, minHeight = 15, speed = 1, maxSpeed = 2,
+    file = 's-e-5a/model.dae', scale = .2, minHeight = 15, speed = 1, maxSpeed = 2, maxPitch = Infinity,
   } = {}) {
     this.speed = speed
     this.maxSpeed = maxSpeed
     this.minHeight = minHeight
     this.scale = scale
+    this.maxPitch = maxPitch
     new ColladaLoader().load(`/assets/models/${file}`, collada => {
       this.prepareModel(collada.scene)
       this.createMesh(collada.scene)
@@ -44,7 +44,7 @@ export default class Aircraft {
     this.mesh = group
   }
 
-  // ARROWS
+  // HANDLE ARROWS
   up() {
     if (this.mesh.position.y < this.minHeight) return
     this.pitch(-angleSpeed / 10)
@@ -66,8 +66,8 @@ export default class Aircraft {
 
   // MOVEMENTS
   pitch(angle) {
-    if (angle < 0 && this.mesh.rotation.x < -maxPitch) return
-    if (angle > 0 && this.mesh.rotation.x > maxPitch) return
+    if (angle < 0 && this.mesh.rotation.x < -this.maxPitch) return
+    if (angle > 0 && this.mesh.rotation.x > this.maxPitch) return
 
     this.mesh.rotateX(angle)
   }
