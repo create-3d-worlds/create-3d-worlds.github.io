@@ -1,6 +1,6 @@
 import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { createWater } from '/utils/ground/index.js'
-import texturedFromHeightmap from '/utils/texturedFromHeightmap.js'
+import texturedFromHeightmap from '/utils/ground/texturedFromHeightmap.js'
 
 createOrbitControls()
 camera.position.y = 150
