@@ -1,7 +1,7 @@
 import Aircraft from './Aircraft.js'
 import keyboard from '/classes/Keyboard.js'
 
-const angleSpeed = 0.01
+const angleSpeed = .01
 
 export default class Zeppelin extends Aircraft {
   constructor(callback, params) {
@@ -20,12 +20,12 @@ export default class Zeppelin extends Aircraft {
 
   up() {
     this.mesh.translateY(1)
-    this.pitch(.005)
+    this.pitch(angleSpeed / 5)
   }
 
   down() {
     this.mesh.translateY(-1)
-    this.pitch(-.005)
+    this.pitch(-angleSpeed / 5)
   }
 
   left() {
