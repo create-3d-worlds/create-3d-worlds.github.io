@@ -18,7 +18,7 @@ scene.add(createGround({ color: 0x007577 }))
 const controls = createOrbitControls()
 
 const ground = createHillyTerrain(
-  { size: 10000, y: 100, color: 0x33aa33, factorX : 5, factorZ : 2.5, factorY : 200 })
+  { size: 10000, y: 100, color: 0x33aa33, factorX : 5, factorZ : 2.5, factorY : 200, file: 'grasslight-big.jpg' })
 scene.add(ground)
 
 const zeppelin = new Zeppelin(mesh => {

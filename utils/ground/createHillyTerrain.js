@@ -34,6 +34,7 @@ export const createHillyTerrain = (
   })
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
+  mesh.castShadow = true
   mesh.position.y = y
   return mesh
 }

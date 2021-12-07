@@ -9,6 +9,7 @@ import keyboard from '/classes/Keyboard.js'
 
 const controls = createOrbitControls()
 
+// TODO: better stars distribution
 const stars = createStars({ radiusMin: 5000, radius: 10000, numberOfStars: 100000 })
 scene.add(stars)
 
@@ -16,7 +17,7 @@ scene.add(createGradientSky({ r: 5000, bottomColor: 0x000000, topColor: 0x002266
 scene.add(createGround({ color: 0x003133 }))
 
 const ground = createHillyTerrain(
-  { size: 10000, y: 100, color: 0x9D5F38, factorX : 5, factorZ : 2.5, factorY : 200, file: 'grasslight-big.jpg' })
+  { size: 10000, y: 100, color: 0xFFC880, factorX : 5, factorZ : 2.5, factorY : 200, file: 'grasslight-big.jpg' })
 scene.add(ground)
 
 const zeppelin = new Zeppelin(mesh => {
