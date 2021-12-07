@@ -17,7 +17,7 @@ live-server
     mesh.castShadow = true; //default is false
     mesh.receiveShadow = true;
 - hakovati heroforge.com
-- proveriti projekte https://github.com/simondevyoutube?tab=repositories
+- videti http://felixpalmer.github.io/lod-terrain/
 
 ## Curriculum
 

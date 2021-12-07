@@ -3,13 +3,20 @@ import { randomInRange } from '../helpers.js'
 import { SimplexNoise } from '/libs/SimplexNoise.js'
 
 export const createHillyTerrain = (
-  { size = 1000, y = 30, color = 0x33aa33, factorX = 50, factorZ = 25, factorY = 60 } = {}
+  { size = 1000, y = 30, color = 0x33aa33, factorX = 50, factorZ = 25, factorY = 60, file } = {}
 ) => {
   const resolution = size / 50
   const material = new THREE.MeshLambertMaterial({
     color,
     vertexColors: THREE.FaceColors,
   })
+  if (file) {
+    const texture = new THREE.TextureLoader().load(`/assets/textures/${file}`)
+    texture.wrapS = THREE.RepeatWrapping
+    texture.wrapT = THREE.RepeatWrapping
+    texture.repeat.set(16, 16)
+    material.map = texture
+  }
   const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
   geometry.rotateX(-Math.PI / 2)
 
