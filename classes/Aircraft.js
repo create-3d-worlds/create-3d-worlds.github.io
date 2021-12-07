@@ -5,7 +5,8 @@ import { addSolids, findGround } from '/classes/actions/index.js'
 
 const angleSpeed = 0.03
 const maxRoll = Infinity
-const planeSize = 30
+const planeHeight = 30
+const planeLength = 60
 const minSpeed = 0.1
 const speedFactor = 0.03
 
@@ -137,11 +138,15 @@ export default class Aircraft {
   }
 
   findGround() {
-    this.groundY = findGround(this.mesh, this.solids, this.mesh.position) // this.size * 2
+    this.groundY = findGround(this, { z: -planeLength })
   }
 
   isTouchingGround() {
-    return this.groundY >= this.mesh.position.y - planeSize
+    return this.groundY + planeHeight >= this.mesh.position.y
+  }
+
+  isToLow() {
+    return this.groundY + planeHeight * 3 >= this.mesh.position.y
   }
 
   checkLanding() {
@@ -151,10 +156,16 @@ export default class Aircraft {
     }
   }
 
+  autopilot() {
+    if (keyboard.keyPressed) return
+    if (this.isToLow()) this.up()
+  }
+
   update() {
     if (!this.mesh) return
     this.findGround()
     this.normalizeAngles()
+    this.autopilot()
 
     if (keyboard.left) this.left()
     if (keyboard.right) this.right()

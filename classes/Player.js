@@ -61,7 +61,7 @@ export default class Player {
   }
 
   findGround() {
-    this.groundY = findGround(this.mesh, this.solids, this.position, this.size * 2)
+    this.groundY = findGround(this, { y: this.size * 2 })
   }
 
   /**

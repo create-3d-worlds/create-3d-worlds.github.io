@@ -16,10 +16,12 @@ export const addSolids = (oldSolids, ...newSolids) => {
 /**
   * Update ground level
   */
-export const findGround = (mesh, solids, position, height = 0) => {
+export const findGround = ({ mesh, solids }, { x = 0, y = 0, z = 0 } = {}) => {
   if (!mesh || !solids.length) return
-  const pos = position.clone()
-  pos.y += height
+  const pos = mesh.position.clone()
+  pos.x += x // adjustments
+  pos.y += y
+  pos.z += z
   const raycaster = new THREE.Raycaster(pos, new THREE.Vector3(0, -1, 0))
   const intersects = raycaster.intersectObjects(solids)
   const groundY = intersects[0] ? intersects[0].point.y : 0
