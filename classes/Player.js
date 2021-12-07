@@ -116,7 +116,7 @@ export default class Player {
   }
 
   update(delta) {
-    this.findGround(delta)
+    this.findGround()
     this.moveMesh(delta)
     if (this.model) {
       this.animateModel()
