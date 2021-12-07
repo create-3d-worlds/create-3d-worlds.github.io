@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import keyboard from '/classes/Keyboard.js'
-import { addSolids, findGround } from '/classes/actions/index.js'
+import { addSolids, raycastGround } from '/classes/actions/index.js'
 
 const angleSpeed = 0.03
 const maxRoll = Infinity
@@ -137,8 +137,9 @@ export default class Aircraft {
     if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
   }
 
-  findGround() {
-    this.groundY = findGround(this, { z: -planeLength })
+  // TODO: raycast forward
+  raycastGround() {
+    this.groundY = raycastGround(this, { z: -planeLength })
   }
 
   isTouchingGround() {
@@ -146,7 +147,7 @@ export default class Aircraft {
   }
 
   isToLow() {
-    return this.groundY + planeHeight * 2 >= this.mesh.position.y
+    return this.groundY + planeHeight * 3 >= this.mesh.position.y
   }
 
   checkLanding() {
@@ -158,13 +159,13 @@ export default class Aircraft {
 
   autopilot() {
     if (keyboard.down) return
-    if (this.isToLow()) this.up()
+    if (this.isToLow() && this.speed > minSpeed) this.up()
   }
 
   update() {
     if (!this.mesh) return
-    this.findGround()
     this.normalizeAngles()
+    this.raycastGround()
     this.autopilot()
 
     if (keyboard.left) this.left()
@@ -173,7 +174,7 @@ export default class Aircraft {
     if (keyboard.up) this.up()
     if (keyboard.down) this.down()
 
-    if (keyboard.pressed.PageUp) this.accelerate()
+    if (keyboard.pressed.PageUp || keyboard.pressed.Space) this.accelerate()
     if (keyboard.pressed.PageDown) this.deaccelerate()
 
     this.checkLanding()

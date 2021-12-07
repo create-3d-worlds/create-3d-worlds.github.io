@@ -16,7 +16,7 @@ export const addSolids = (oldSolids, ...newSolids) => {
 /**
   * Update ground level
   */
-export const findGround = ({ mesh, solids }, { x = 0, y = 0, z = 0 } = {}) => {
+export const raycastGround = ({ mesh, solids }, { x = 0, y = 0, z = 0 } = {}) => {
   if (!mesh || !solids.length) return
   const pos = mesh.position.clone()
   pos.x += x // adjustments

@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { keyboard, Kamenko } from '/classes/index.js'
 import { createPlayerBox } from '/utils/boxes.js'
-import { addSolids, findGround } from '/classes/actions/index.js'
+import { addSolids, raycastGround } from '/classes/actions/index.js'
 
 const { pressed } = keyboard
 
@@ -60,8 +60,8 @@ export default class Player {
     // dodati sideWalk()
   }
 
-  findGround() {
-    this.groundY = findGround(this, { y: this.size * 2 })
+  raycastGround() {
+    this.groundY = raycastGround(this, { y: this.size * 2 })
   }
 
   /**
@@ -116,7 +116,7 @@ export default class Player {
   }
 
   update(delta) {
-    this.findGround()
+    this.raycastGround()
     this.moveMesh(delta)
     if (this.model) {
       this.animateModel()
