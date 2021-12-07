@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { OrbitControls } from '/node_modules/three108/examples/jsm/controls/OrbitControls.js'
-import { createBlueSky } from './sky.js'
+import { createGradientSky } from './sky.js'
 import { createSunLight } from './light.js'
 import { createGround } from './ground/index.js'
 
@@ -32,7 +32,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
 export function createFullScene(groundParam, skyParam, lightParam, fogParam = {}) {
   scene.add(createGround(groundParam))
-  scene.add(createBlueSky(skyParam))
+  scene.add(createGradientSky(skyParam))
   const light = createSunLight(lightParam)
   // const helper = new THREE.CameraHelper(light.shadow.camera)
   // scene.add(helper)

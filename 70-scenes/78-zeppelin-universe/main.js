@@ -1,7 +1,7 @@
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import { createStars } from '/utils/stars.js'
-import { createBlueSky } from '/utils/sky.js'
+import { createGradientSky } from '/utils/sky.js'
 import { createGround } from '/utils/ground/index.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import Zeppelin from '/classes/Zeppelin.js'
@@ -12,7 +12,7 @@ const controls = createOrbitControls()
 const stars = createStars({ radiusMin: 5000, radius: 10000, numberOfStars: 100000 })
 scene.add(stars)
 
-scene.add(createBlueSky({ r: 5000, bottomColor: 0x000000 }))
+scene.add(createGradientSky({ r: 5000, bottomColor: 0x000000, topColor: 0x002266 }))
 // scene.add(createGround({ color: 0x007577 }))
 
 const ground = createHillyTerrain(

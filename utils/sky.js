@@ -1,7 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 
-// createGradientSky
-export function createBlueSky({ r = 4000, topColor = 0x0077ff, bottomColor = 0xffffff } = {}) {
+export function createGradientSky({ r = 4000, topColor = 0x0077ff, bottomColor = 0xffffff } = {}) {
   const vertexShader = `
   varying vec3 vWorldPosition;
   
