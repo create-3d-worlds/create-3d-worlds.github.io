@@ -146,18 +146,18 @@ export default class Aircraft {
   }
 
   isToLow() {
-    return this.groundY + planeHeight * 3 >= this.mesh.position.y
+    return this.groundY + planeHeight * 2 >= this.mesh.position.y
   }
 
   checkLanding() {
     if (this.isTouchingGround()) {
       this.pitch(Math.abs(this.mesh.rotation.x) * 0.01)
-      this.speed *= 0.9
+      this.speed *= 0.5
     }
   }
 
   autopilot() {
-    if (keyboard.keyPressed) return
+    if (keyboard.down) return
     if (this.isToLow()) this.up()
   }
 
