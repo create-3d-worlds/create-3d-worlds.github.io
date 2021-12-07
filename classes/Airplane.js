@@ -10,8 +10,13 @@ export default class Airplane extends Aircraft {
     }, params)
   }
 
+  prepareModel(model) {
+    super.prepareModel(model)
+    model.rotateX(-Math.PI / 20)
+  }
+
   up() {
-    if (this.mesh.position.y < this.minHeight) return
+    if (this.isTouchingGround()) return
     this.pitch(-angleSpeed / 10)
   }
 
@@ -29,15 +34,19 @@ export default class Airplane extends Aircraft {
     else this.roll(-angleSpeed)
   }
 
+  isTouchingGround() {
+    return this.mesh.position.y < this.minHeight
+  }
+
   checkLanding() {
-    if (this.mesh.position.y < this.minHeight && this.mesh.rotation.x < 0) {
+    if (this.isTouchingGround() && this.mesh.rotation.x < 0) {
       this.pitch(Math.abs(this.mesh.rotation.x) * 0.01)
       this.speed *= 0.99
     }
   }
 
-  stabilize() {
+  update() {
     this.checkLanding()
-    super.stabilize()
+    super.update()
   }
 }

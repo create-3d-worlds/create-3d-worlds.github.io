@@ -1,9 +1,13 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import keyboard from '/classes/Keyboard.js'
+import { addSolids, findGround } from '/classes/actions/index.js'
 
 const angleSpeed = 0.03
 const maxRoll = Infinity
+const planeSize = 30
+const minSpeed = 0.1
+const speedFactor = 0.05
 
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft {
@@ -16,6 +20,8 @@ export default class Aircraft {
     this.scale = scale
     this.maxPitch = maxPitch
     this.shouldMove = shouldMove
+    this.groundY = 0
+    this.solids = []
     new ColladaLoader().load(`/assets/models/${file}`, collada => {
       this.prepareModel(collada.scene)
       this.createMesh(collada.scene)
@@ -32,7 +38,7 @@ export default class Aircraft {
     model.position.multiplyScalar(- 1)
     model.traverse(child => {
       if (child.isMesh)
-        child.castShadow = true // child.receiveShadow = true
+        child.castShadow = child.receiveShadow = true
     })
   }
 
@@ -40,6 +46,10 @@ export default class Aircraft {
     const group = new THREE.Group()
     group.add(model)
     this.mesh = group
+  }
+
+  addSolids(...newSolids) {
+    addSolids(this.solids, ...newSolids)
   }
 
   // HANDLE ARROWS
@@ -83,22 +93,27 @@ export default class Aircraft {
     this.mesh.rotateZ(angle)
   }
 
-  normalizeAngles() {
-    this.mesh.rotation.x %= Math.PI * 2
-    this.mesh.rotation.y %= Math.PI * 2
-    this.mesh.rotation.z %= Math.PI * 2
+  moveForward() {
+    if (!this.shouldMove) return
+    // https://stackoverflow.com/questions/38052621/
+    this.mesh.position.add(this.direction.multiplyScalar(this.speed))
   }
 
   accelerate() {
     if (!this.shouldMove) return
     if (this.speed < this.maxSpeed)
-      this.speed += 0.1
+      this.speed += speedFactor
   }
 
-  moveForward() {
-    if (!this.shouldMove) return
-    // https://stackoverflow.com/questions/38052621/
-    this.mesh.position.add(this.direction.multiplyScalar(this.speed))
+  deaccelerate() {
+    if (this.speed >= minSpeed)
+      this.speed -= speedFactor
+  }
+
+  normalizeAngles() {
+    this.mesh.rotation.x %= Math.PI * 2
+    this.mesh.rotation.y %= Math.PI * 2
+    this.mesh.rotation.z %= Math.PI * 2
   }
 
   get direction() {
@@ -121,8 +136,24 @@ export default class Aircraft {
     if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
   }
 
+  findGround() {
+    this.groundY = findGround(this.mesh, this.solids, this.mesh.position) // this.size * 2
+  }
+
+  isTouchingGround() {
+    return this.groundY >= this.mesh.position.y - planeSize
+  }
+
+  checkLanding() {
+    if (this.isTouchingGround()) {
+      this.pitch(Math.abs(this.mesh.rotation.x) * 0.01)
+      this.speed *= 0.99
+    }
+  }
+
   update() {
     if (!this.mesh) return
+    this.findGround()
     this.normalizeAngles()
 
     if (keyboard.left) this.left()
@@ -130,9 +161,11 @@ export default class Aircraft {
 
     if (keyboard.up) this.up()
     if (keyboard.down) this.down()
-    // TODO: promeniti komandu, dodati deaccelerate
-    if (keyboard.pressed.Space) this.accelerate()
 
+    if (keyboard.pressed.PageUp) this.accelerate()
+    if (keyboard.pressed.PageDown) this.deaccelerate()
+
+    this.checkLanding()
     this.moveForward()
     this.stabilize()
   }

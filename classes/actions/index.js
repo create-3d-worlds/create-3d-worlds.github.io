@@ -16,7 +16,7 @@ export const addSolids = (oldSolids, ...newSolids) => {
 /**
   * Update ground level
   */
-export const findGround = (mesh, solids, position, height) => {
+export const findGround = (mesh, solids, position, height = 0) => {
   if (!mesh || !solids.length) return
   const pos = position.clone()
   pos.y += height
