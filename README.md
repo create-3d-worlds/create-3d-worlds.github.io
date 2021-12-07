@@ -132,8 +132,6 @@ live-server
   - [ ] dodati drveće
 - [x] zepelin leti
   - [ ] napraviti dinamički teren koji reaguje na raycast
-    - https://grahamweldon.com/post/2012/01/3d-terrain-generation-with-three.js/
-    - https://www.youtube.com/watch?v=8ot2Ul9ncuQ
   - [ ] automatski podizati ako je preblizu zemlje
   - [ ] sletati na dugme
 - [ ] grad scena (vidi 34-spojena-geometrija, 70-grad, 65-proceduralni-grad)

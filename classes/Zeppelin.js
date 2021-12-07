@@ -1,14 +1,15 @@
 import Aircraft from './Aircraft.js'
 
-const angleSpeed = .01
-const pitchSpeed = angleSpeed / 5
+const yawAngle = .01
+const pitchAngle = yawAngle / 5
+const pitchSpeed = .5
 
 export default class Zeppelin extends Aircraft {
   constructor(callback, params) {
     super(mesh => {
       mesh.rotation.order = 'YZX' // default is 'ZYX'
       callback(mesh)
-    }, { file: 'santos-dumont-9/model.dae', maxPitch: .1, ...params })
+    }, { file: 'santos-dumont-9/model.dae', maxPitch: .1, speed: .75, ...params })
   }
 
   prepareModel(model) {
@@ -19,21 +20,21 @@ export default class Zeppelin extends Aircraft {
   }
 
   up() {
-    this.mesh.translateY(1)
-    this.pitch(pitchSpeed)
+    this.mesh.translateY(pitchSpeed)
+    this.pitch(pitchAngle)
   }
 
   down() {
-    this.mesh.translateY(-1)
-    this.pitch(-pitchSpeed)
+    this.mesh.translateY(-pitchSpeed)
+    this.pitch(-pitchAngle)
   }
 
   left() {
-    this.yaw(angleSpeed)
+    this.yaw(yawAngle)
   }
 
   right() {
-    this.yaw(-angleSpeed)
+    this.yaw(-yawAngle)
   }
 
 }
