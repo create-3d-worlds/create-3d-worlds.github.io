@@ -25,7 +25,7 @@ export default class Zeppelin extends Aircraft {
   }
 
   down() {
-    if (this.isTouchingGround()) return
+    if (this.isTouchingGround()) return this.slowDown()
     this.mesh.translateY(-pitchSpeed)
     this.pitch(-pitchAngle)
   }

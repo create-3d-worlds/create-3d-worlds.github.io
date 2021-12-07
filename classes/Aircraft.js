@@ -146,20 +146,17 @@ export default class Aircraft {
     return this.groundY + planeHeight >= this.mesh.position.y
   }
 
-  isToLow() {
+  isTooLow() {
     return this.groundY + planeHeight * 3 >= this.mesh.position.y
   }
 
-  checkLanding() {
-    if (this.isTouchingGround()) {
-      this.pitch(Math.abs(this.mesh.rotation.x) * 0.01)
-      this.speed *= 0.5
-    }
+  slowDown(slowDownFactor = 0.5) {
+    this.speed *= slowDownFactor
   }
 
   autopilot() {
     if (keyboard.down) return
-    if (this.isToLow() && this.speed > minSpeed) this.up()
+    if (this.isTooLow() && this.speed > minSpeed) this.up()
   }
 
   update() {
@@ -177,7 +174,6 @@ export default class Aircraft {
     if (keyboard.pressed.PageUp || keyboard.pressed.Space) this.accelerate()
     if (keyboard.pressed.PageDown) this.deaccelerate()
 
-    this.checkLanding()
     this.moveForward()
     this.stabilize()
   }

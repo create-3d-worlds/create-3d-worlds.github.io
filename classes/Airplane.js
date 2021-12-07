@@ -35,13 +35,13 @@ export default class Airplane extends Aircraft {
   }
 
   isTouchingGround() {
-    return this.mesh.position.y < this.minHeight
+    return this.mesh.position.y <= this.minHeight
   }
 
   checkLanding() {
     if (this.isTouchingGround() && this.mesh.rotation.x < 0) {
       this.pitch(Math.abs(this.mesh.rotation.x) * 0.01)
-      this.speed *= 0.99
+      this.slowDown(0.99)
     }
   }
 
