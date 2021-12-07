@@ -7,7 +7,7 @@ const angleSpeed = 0.03
 const maxRoll = Infinity
 const planeSize = 30
 const minSpeed = 0.1
-const speedFactor = 0.05
+const speedFactor = 0.03
 
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft {
@@ -147,7 +147,7 @@ export default class Aircraft {
   checkLanding() {
     if (this.isTouchingGround()) {
       this.pitch(Math.abs(this.mesh.rotation.x) * 0.01)
-      this.speed *= 0.99
+      this.speed *= 0.9
     }
   }
 
