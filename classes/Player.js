@@ -60,7 +60,7 @@ export default class Player {
     // dodati sideWalk()
   }
 
-  raycastGround() {
+  updateGround() {
     this.groundY = raycastGround(this, { y: this.size * 2 })
   }
 
@@ -116,7 +116,7 @@ export default class Player {
   }
 
   update(delta) {
-    this.raycastGround()
+    this.updateGround()
     this.moveMesh(delta)
     if (this.model) {
       this.animateModel()

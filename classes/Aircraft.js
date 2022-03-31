@@ -137,9 +137,9 @@ export default class Aircraft {
     if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
   }
 
-  // TODO: raycast forward
-  raycastGround() {
-    this.groundY = raycastGround(this, { z: -planeLength })
+  // TODO: mozda umesto azuriranja koristiti distancu
+  updateGround() {
+    this.groundY = raycastGround(this) // second arg: { z: -planeLength }
   }
 
   isTouchingGround() {
@@ -162,7 +162,7 @@ export default class Aircraft {
   update() {
     if (!this.mesh) return
     this.normalizeAngles()
-    this.raycastGround()
+    this.updateGround()
     this.autopilot()
 
     if (keyboard.left) this.left()

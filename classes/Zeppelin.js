@@ -1,4 +1,5 @@
 import Aircraft from './Aircraft.js'
+import { raycastFront } from '/classes/actions/index.js'
 
 const yawAngle = .01
 const pitchAngle = yawAngle / 5
@@ -36,6 +37,12 @@ export default class Zeppelin extends Aircraft {
 
   right() {
     this.yaw(-yawAngle)
+  }
+
+  update() {
+    super.update()
+    const distance = raycastFront(this)
+    if (distance < 50) this.slowDown()
   }
 
 }
