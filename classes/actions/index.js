@@ -1,5 +1,4 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { scene } from '/utils/scene.js'
 
 /**
    * Add solid objects for player to collide

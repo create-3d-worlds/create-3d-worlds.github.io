@@ -122,13 +122,12 @@ live-server
   - [ ] sletanje na mesec (80-primeri/12-mesec)
   - [ ] dodati proceduralnu planetu http://colordodge.com/ProceduralPlanet/?seed=Ridi%20Genow
 - [x] Avion leti (ww1 scena)
-  - [ ] dodati teren-dinamicki
   - [x] dodati suncevu svetlost (https://threejs.org/examples/webgl_lights_hemisphere.html)
   - [x] dodati senku i maglu (vidi 3d-warplane)
+  - [x] dodati sunce
   - [x] srediti komande: skretanje, spuštanje, dizanje, brzinu
   - [ ] probati pticu (50-rad-sa-modelima/70-ptice)
   - [ ] dodati oblake/dim (70-cestice/80-dim)
-  - [ ] dodati sunce
   - [ ] dodati drveće
 - [x] Zepelin leti
   - [x] dodati raycast
