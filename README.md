@@ -114,14 +114,14 @@ live-server
   - [ ] dodati neke modele vozila i kuca
   - [ ] dodati tenk kako prolazi
   - [ ] dodati munje https://threejs.org/examples/?q=light#webgl_lightningstrike
-- [ ] scena svemir (model ring arcology)
+- [ ] Svemir (model ring arcology)
   - [ ] napraviti svemir iz neba
   - [ ] bolja distribucija zvezda (perlin noise)
   - [ ] letenje kroz zvezde (70-cestice/10-zvezde/)
   - [ ] sletanje na platformu (naći 2d primer)
   - [ ] sletanje na mesec (80-primeri/12-mesec)
   - [ ] dodati proceduralnu planetu http://colordodge.com/ProceduralPlanet/?seed=Ridi%20Genow
-- [x] avion leti (ww1 scena)
+- [x] Avion leti (ww1 scena)
   - [x] dodati suncevu svetlost (https://threejs.org/examples/webgl_lights_hemisphere.html)
   - [x] dodati senku i maglu (vidi 3d-warplane)
   - [x] srediti komande: skretanje, spuštanje, dizanje, brzinu
@@ -130,11 +130,12 @@ live-server
   - [ ] dodati oblake/dim (70-cestice/80-dim)
   - [ ] dodati sunce
   - [ ] dodati drveće
-- [x] zepelin leti
+- [x] Zepelin leti
+  - [ ] prikazati komande
   - [ ] napraviti dinamički teren koji reaguje na raycast
-  - [ ] automatski podizati ako je preblizu zemlje
-  - [ ] sletati na dugme
-- [ ] grad scena (vidi 34-spojena-geometrija, 70-grad, 65-proceduralni-grad)
+  - [x] automatski podizati ako je preblizu zemlje
+  - [x] sletanje
+- [ ] Grad (vidi 34-spojena-geometrija, 70-grad, 65-proceduralni-grad)
 - [ ] fantasy scena (dodati modele 50-rad-sa-modelima/90-modeli-dae/)
   - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
   - [ ] karakter dolazi do kuće i ulazi (vidi 50-rad-sa-modelima/35-kuca-unutrasnost)
