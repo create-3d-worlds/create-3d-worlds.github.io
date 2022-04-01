@@ -75,3 +75,5 @@ export function addControls(controls) {
   )
   document.body.appendChild(div)
 }
+
+export { createGradientSky, createGround, createSunLight }
