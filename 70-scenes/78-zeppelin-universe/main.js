@@ -1,4 +1,4 @@
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls, addControls } from '/utils/scene.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import { createStars } from '/utils/stars.js'
 import { createGradientSky } from '/utils/sky.js'
@@ -8,6 +8,14 @@ import Zeppelin from '/classes/Zeppelin.js'
 import keyboard from '/classes/Keyboard.js'
 
 const controls = createOrbitControls()
+addControls({
+  '←': 'levo',
+  '→': 'desno',
+  '↑': 'gore',
+  '↓': 'dole',
+  'PgUp': 'ubrzanje',
+  'PgDn': 'kočenje',
+})
 
 // TODO: better stars distribution
 const stars = createStars({ radiusMin: 5000, radius: 10000, numberOfStars: 100000 })

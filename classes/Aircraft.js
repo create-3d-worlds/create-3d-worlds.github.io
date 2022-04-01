@@ -165,11 +165,7 @@ export default class Aircraft {
     if (this.isTooNear() || this.isTooLow()) this.up()
   }
 
-  update() {
-    if (!this.mesh) return
-    this.normalizeAngles()
-    this.autopilot()
-
+  handleInput() {
     if (keyboard.left) this.left()
     if (keyboard.right) this.right()
 
@@ -178,9 +174,14 @@ export default class Aircraft {
 
     if (keyboard.pressed.PageUp || keyboard.pressed.Space) this.accelerate()
     if (keyboard.pressed.PageDown) this.deaccelerate()
+  }
 
+  update() {
+    if (!this.mesh) return
+    this.normalizeAngles()
+    this.autopilot()
+    this.handleInput()
     this.moveForward()
     this.stabilize()
   }
-
 }

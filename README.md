@@ -174,6 +174,7 @@ live-server
 
 ### Ostalo
 
+- [ ] popraviti HTML margine
 - [ ] probati VR
   - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
   - https://ski-mountain-vr.herokuapp.com/

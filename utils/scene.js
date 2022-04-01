@@ -18,6 +18,8 @@ export const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window
 camera.position.z = 250
 camera.lookAt(scene.position)
 
+// RENDERER
+
 export const renderer = new THREE.WebGLRenderer()
 document.body.appendChild(renderer.domElement)
 document.body.style.margin = 0
@@ -27,6 +29,27 @@ renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
+export function addControls(controls) {
+  const style = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    color: '#fff',
+  }
+  const margins = `
+    margin-top:4px;
+    margin-bottom:4px
+  `
+  const div = document.createElement('div')
+  Object.assign(div.style, style)
+  const html = Object.keys(controls).reduce(
+    (acc, key) => acc + `<p style="${margins}">${key}: ${controls[key]}</p>`,
+    `<h3 style="${margins}">KONTROLE</h2>`
+  )
+  div.innerHTML = html
+  document.body.appendChild(div)
+}
 
 /* FUNCTIONS */
 
