@@ -9,7 +9,7 @@ export default class Zeppelin extends Aircraft {
     super(mesh => {
       mesh.rotation.order = 'YZX' // default is 'ZYX'
       callback(mesh)
-    }, { file: 'santos-dumont-9/model.dae', maxPitch: .1, speed: .75, ...params })
+    }, { file: 'santos-dumont-9/model.dae', maxPitch: .1, speed: .75, minHeight: 30, ...params })
   }
 
   prepareModel(model) {

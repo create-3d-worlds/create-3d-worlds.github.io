@@ -5,8 +5,7 @@ import { addSolids, raycastDown, raycastFront } from '/classes/actions/index.js'
 
 const angleSpeed = 0.03
 const maxRoll = Infinity
-const planeHeight = 30
-const planeLength = 60
+const minDistance = 120
 const minSpeed = 0.1
 const speedFactor = 0.03
 
@@ -138,17 +137,17 @@ export default class Aircraft {
 
   isTouchingGround() {
     const groundDistance = raycastDown(this)
-    return groundDistance < planeHeight
+    return groundDistance < this.minHeight
   }
 
   isTooLow() {
     const groundDistance = raycastDown(this)
-    return groundDistance < planeHeight * 2
+    return groundDistance < this.minHeight * 2
   }
 
   isTooNear() {
     const distance = raycastFront(this)
-    return distance < planeLength * 2
+    return distance < minDistance
   }
 
   isMoving() {
