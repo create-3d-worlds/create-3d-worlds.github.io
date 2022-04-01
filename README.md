@@ -132,11 +132,10 @@ live-server
 - [x] Zepelin leti
   - [x] dodati raycast
   - [x] dodati teren-dinamicki
-  - [ ] probati raycast za teren-dinamicki
+  - [x] probati raycast za teren-dinamicki (ne mere)
   - [x] automatski podizati ako je preblizu zemlje
   - [x] sletanje na dole
   - [x] prikazati komande
-  - [ ] better stars distribution
 - [ ] Grad (vidi 34-spojena-geometrija, 70-grad, 65-proceduralni-grad)
 - [ ] fantasy scena (dodati modele 50-rad-sa-modelima/90-modeli-dae/)
   - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)

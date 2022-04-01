@@ -15,13 +15,12 @@ addControls({
   '↓': 'dole',
   'PgUp': 'ubrzanje',
   'PgDn': 'kočenje',
-  'Ctrl+R': 'ispočetka',
 })
 
-const stars = createStars({ radiusMin: 5000, radius: 10000, numberOfStars: 100000 })
+const stars = createStars({ radiusMin: 5000, radius: 10000, numberOfStars: 200000 })
 scene.add(stars)
 
-scene.add(createGradientSky({ r: 5000, bottomColor: 0x000000, topColor: 0x002266 }))
+// scene.add(createGradientSky({ r: 5000, bottomColor: 0x000000, topColor: 0x002266 }))
 const water = createGround({ color: 0x003133 })
 scene.add(water)
 
