@@ -131,10 +131,10 @@ live-server
   - [ ] dodati sunce
   - [ ] dodati drveće
 - [x] Zepelin leti
-  - [ ] prikazati komande
-  - [ ] napraviti dinamički teren koji reaguje na raycast
+  - [x] da raycast detektuje teren
   - [x] automatski podizati ako je preblizu zemlje
-  - [x] sletanje
+  - [x] sletanje na dole
+  - [x] prikazati komande
 - [ ] Grad (vidi 34-spojena-geometrija, 70-grad, 65-proceduralni-grad)
 - [ ] fantasy scena (dodati modele 50-rad-sa-modelima/90-modeli-dae/)
   - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
