@@ -1,5 +1,4 @@
 import Aircraft from './Aircraft.js'
-import { raycastFront } from '/classes/actions/index.js'
 
 const yawAngle = .01
 const pitchAngle = yawAngle / 5

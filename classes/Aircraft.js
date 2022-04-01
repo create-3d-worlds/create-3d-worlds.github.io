@@ -141,11 +141,6 @@ export default class Aircraft {
     return groundDistance < planeHeight
   }
 
-  /*
-    LOGIKA: kad je autopilot, podiže se kad je prenisko. kad upravljam, ne podiže se.
-    TODO: smisliti da li da koči ili da se diže
-  */
-
   isTooLow() {
     const groundDistance = raycastDown(this)
     return groundDistance < planeHeight * 2
@@ -153,20 +148,21 @@ export default class Aircraft {
 
   isTooNear() {
     const distance = raycastFront(this)
-    return distance < 150
-  }
-
-  slowDown(slowDownFactor = 0.5) {
-    this.speed *= slowDownFactor
+    return distance < planeLength * 2
   }
 
   isMoving() {
     return this.speed > minSpeed
   }
 
+  slowDown(slowDownFactor = 0.5) {
+    this.speed *= slowDownFactor
+  }
+
   autopilot() {
     if (keyboard.down) return
-    if ((this.isTooNear() || this.isTooLow()) && this.isMoving()) this.up()
+    if (!this.isMoving()) return
+    if (this.isTooNear() || this.isTooLow()) this.up()
   }
 
   update() {
