@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import keyboard from '/classes/Keyboard.js'
-import { addSolids, raycastGround } from '/classes/actions/index.js'
+import { addSolids, raycastDown, raycastFront } from '/classes/actions/index.js'
 
 const angleSpeed = 0.03
 const maxRoll = Infinity
@@ -21,7 +21,6 @@ export default class Aircraft {
     this.scale = scale
     this.maxPitch = maxPitch
     this.shouldMove = shouldMove
-    this.groundY = 0
     this.solids = []
     new ColladaLoader().load(`/assets/models/${file}`, collada => {
       this.prepareModel(collada.scene)
@@ -137,32 +136,42 @@ export default class Aircraft {
     if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
   }
 
-  // TODO: mozda umesto azuriranja koristiti distancu
-  updateGround() {
-    this.groundY = raycastGround(this) // second arg: { z: -planeLength }
+  isTouchingGround() {
+    const groundDistance = raycastDown(this)
+    return groundDistance < planeHeight
   }
 
-  isTouchingGround() {
-    return this.groundY + planeHeight >= this.mesh.position.y
-  }
+  /*
+    LOGIKA: kad je autopilot, podiže se kad je prenisko. kad upravljam, ne podiže se.
+    TODO: smisliti da li da koči ili da se diže
+  */
 
   isTooLow() {
-    return this.groundY + planeHeight * 3 >= this.mesh.position.y
+    const groundDistance = raycastDown(this)
+    return groundDistance < planeHeight * 2
+  }
+
+  isTooNear() {
+    const distance = raycastFront(this)
+    return distance < 150
   }
 
   slowDown(slowDownFactor = 0.5) {
     this.speed *= slowDownFactor
   }
 
+  isMoving() {
+    return this.speed > minSpeed
+  }
+
   autopilot() {
     if (keyboard.down) return
-    if (this.isTooLow() && this.speed > minSpeed) this.up()
+    if ((this.isTooNear() || this.isTooLow()) && this.isMoving()) this.up()
   }
 
   update() {
     if (!this.mesh) return
     this.normalizeAngles()
-    this.updateGround()
     this.autopilot()
 
     if (keyboard.left) this.left()
