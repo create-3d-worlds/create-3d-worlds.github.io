@@ -43,11 +43,10 @@ export function addControls(controls) {
   `
   const div = document.createElement('div')
   Object.assign(div.style, style)
-  const html = Object.keys(controls).reduce(
+  div.innerHTML = Object.keys(controls).reduce(
     (acc, key) => acc + `<p style="${margins}">${key}: ${controls[key]}</p>`,
     `<h3 style="${margins}">KONTROLE</h2>`
   )
-  div.innerHTML = html
   document.body.appendChild(div)
 }
 
