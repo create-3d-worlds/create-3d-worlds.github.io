@@ -30,26 +30,6 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
-export function addControls(controls) {
-  const style = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    color: '#fff',
-  }
-  const margins = `
-    margin-top:4px;
-    margin-bottom:4px
-  `
-  const div = document.createElement('div')
-  Object.assign(div.style, style)
-  div.innerHTML = Object.keys(controls).reduce(
-    (acc, key) => acc + `<p style="${margins}">${key}: ${controls[key]}</p>`,
-    `<h3 style="${margins}">KONTROLE</h2>`
-  )
-  document.body.appendChild(div)
-}
-
 /* FUNCTIONS */
 
 export function createFullScene(groundParam, skyParam, lightParam, fogParam = {}) {
@@ -74,4 +54,24 @@ export function createOrbitControls(cam = camera, el = renderer.domElement) {
   controls.enableDamping = true
   controls.dampingFactor = 0.1
   return controls
+}
+
+export function addControls(controls) {
+  const style = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    color: '#fff',
+  }
+  const margins = `
+    margin-top:4px;
+    margin-bottom:4px
+  `
+  const div = document.createElement('div')
+  Object.assign(div.style, style)
+  div.innerHTML = Object.keys(controls).reduce(
+    (acc, key) => acc + `<p style="${margins}">${key}: ${controls[key]}</p>`,
+    `<h3 style="${margins}">KONTROLE</h2>`
+  )
+  document.body.appendChild(div)
 }
