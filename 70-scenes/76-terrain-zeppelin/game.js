@@ -13,7 +13,8 @@ const light = createSunLight({ x: 500, y: 2000, z: 100, far: 5000 })
 scene.add(light)
 scene.remove(scene.getObjectByName('hemisphereLight')) // BUG: sa svetlom puca terrain
 scene.fog = new THREE.Fog(0xffffff, 1, 5000)
-scene.add(createGround({ color: 0x007577 }))
+const water = createGround({ color: 0x003133 })
+scene.add(water)
 
 const controls = createOrbitControls()
 
@@ -26,6 +27,7 @@ const zeppelin = new Zeppelin(mesh => {
   mesh.position.y = 256
   controls.target = mesh.position
   scene.getObjectByName('sunLight').target = mesh
+  zeppelin.addSolids(ground, water)
 })
 
 /* LOOP */
