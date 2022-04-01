@@ -122,19 +122,22 @@ live-server
   - [ ] sletanje na mesec (80-primeri/12-mesec)
   - [ ] dodati proceduralnu planetu http://colordodge.com/ProceduralPlanet/?seed=Ridi%20Genow
 - [x] Avion leti (ww1 scena)
+  - [ ] dodati teren-dinamicki
   - [x] dodati suncevu svetlost (https://threejs.org/examples/webgl_lights_hemisphere.html)
   - [x] dodati senku i maglu (vidi 3d-warplane)
   - [x] srediti komande: skretanje, spuštanje, dizanje, brzinu
-  - [x] dodati teren-dinamicki
   - [ ] probati pticu (50-rad-sa-modelima/70-ptice)
   - [ ] dodati oblake/dim (70-cestice/80-dim)
   - [ ] dodati sunce
   - [ ] dodati drveće
 - [x] Zepelin leti
-  - [x] da raycast detektuje teren
+  - [x] dodati raycast
+  - [x] dodati teren-dinamicki
+  - [ ] probati raycast za teren-dinamicki
   - [x] automatski podizati ako je preblizu zemlje
   - [x] sletanje na dole
   - [x] prikazati komande
+  - [ ] better stars distribution
 - [ ] Grad (vidi 34-spojena-geometrija, 70-grad, 65-proceduralni-grad)
 - [ ] fantasy scena (dodati modele 50-rad-sa-modelima/90-modeli-dae/)
   - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
@@ -175,6 +178,7 @@ live-server
 ### Ostalo
 
 - [ ] popraviti HTML margine
+- [ ] svuda sređivati svetla
 - [ ] probati VR
   - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
   - https://ski-mountain-vr.herokuapp.com/

@@ -15,9 +15,9 @@ addControls({
   '↓': 'dole',
   'PgUp': 'ubrzanje',
   'PgDn': 'kočenje',
+  'Ctrl+R': 'ispočetka',
 })
 
-// TODO: better stars distribution
 const stars = createStars({ radiusMin: 5000, radius: 10000, numberOfStars: 100000 })
 scene.add(stars)
 
