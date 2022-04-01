@@ -14,7 +14,7 @@ export const addSolids = (oldSolids, ...newSolids) => {
 }
 
 export const raycast = ({ mesh, solids }, direction) => {
-  if (!mesh || !solids.length) return
+  if (!mesh || !solids.length) return Infinity
   const pos = mesh.position.clone()
   const raycaster = new THREE.Raycaster(pos, direction)
   const intersects = raycaster.intersectObjects(solids)
