@@ -45,6 +45,9 @@ export default class Aircraft {
       this.mixer.clipAction(animations[0]).play()
 
       // this.prepareModel(model)
+      model.rotateY(Math.PI)
+      model.scale.set(this.scale, this.scale, this.scale)
+
       this.createMesh(model)
       callback(this.mesh)
     })
