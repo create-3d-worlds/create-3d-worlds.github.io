@@ -1,7 +1,11 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
+import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
+
 import keyboard from '/classes/Keyboard.js'
 import { addSolids, raycastDown, raycastFront } from '/classes/actions/index.js'
+
+export const clock = new THREE.Clock()
 
 const angleSpeed = 0.03
 const maxRoll = Infinity
@@ -21,10 +25,27 @@ export default class Aircraft {
     this.maxPitch = maxPitch
     this.shouldMove = shouldMove
     this.solids = []
-    new ColladaLoader().load(`/assets/models/${file}`, collada => {
-      this.prepareModel(collada.scene)
-      this.createMesh(collada.scene)
-      this.mesh.position.y = 50
+    const ext = file.split('.').pop()
+    if (ext === 'dae') this.loadColladaModel(callback, file)
+    if (ext == 'glb') this.loadGlbModel(callback, file)
+  }
+
+  loadColladaModel(callback, file) {
+    new ColladaLoader().load(`/assets/models/${file}`, ({ scene: model }) => {
+      this.prepareModel(model)
+      this.createMesh(model)
+      // this.mesh.position.y = 50
+      callback(this.mesh)
+    })
+  }
+
+  loadGlbModel(callback, file) {
+    new GLTFLoader().load(`/assets/models/${file}`, ({ scene: model, animations }) => {
+      this.mixer = new THREE.AnimationMixer(model)
+      this.mixer.clipAction(animations[0]).play()
+
+      // this.prepareModel(model)
+      this.createMesh(model)
       callback(this.mesh)
     })
   }
@@ -182,5 +203,6 @@ export default class Aircraft {
     this.handleInput()
     this.moveForward()
     this.stabilize()
+    if (this.mixer) this.mixer.update(clock.getDelta())
   }
 }

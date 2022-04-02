@@ -3,7 +3,7 @@ import { randomInRange } from '../helpers.js'
 import { SimplexNoise } from '/libs/SimplexNoise.js'
 
 export const createHillyTerrain = (
-  { size = 1000, y = 30, color = 0x33aa33, factorX = 50, factorZ = 25, factorY = 60, file } = {}
+  { size = 1000, y = 30, color = 0x33aa33, factorX = 50, factorZ = 25, factorY = 60, file = 'grasslight-big.jpg' } = {}
 ) => {
   const resolution = size / 50
   const material = new THREE.MeshLambertMaterial({
