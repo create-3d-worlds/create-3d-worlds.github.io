@@ -1,4 +1,5 @@
 import Zeppelin from './Zeppelin.js'
+import keyboard from '/classes/Keyboard.js'
 
 export default class Flamingo extends Zeppelin {
   constructor(callback, params) {
@@ -14,8 +15,8 @@ export default class Flamingo extends Zeppelin {
 
   update() {
     super.update()
-    if (!this.action) return
-    if (this.speed < 0.002) this.action.stop()
-    else this.action.play()
+    if (this.action)
+      if (this.isTouchingGround()) this.action.stop()
+      else this.action.play()
   }
 }
