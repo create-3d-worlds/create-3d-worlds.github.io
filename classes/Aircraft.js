@@ -42,12 +42,8 @@ export default class Aircraft {
   loadGlbModel(callback, file) {
     new GLTFLoader().load(`/assets/models/${file}`, ({ scene: model, animations }) => {
       this.mixer = new THREE.AnimationMixer(model)
-      this.mixer.clipAction(animations[0]).play()
-
-      // this.prepareModel(model)
-      model.rotateY(Math.PI)
-      model.scale.set(this.scale, this.scale, this.scale)
-
+      this.action = this.mixer.clipAction(animations[0])
+      this.prepareModel(model)
       this.createMesh(model)
       callback(this.mesh)
     })

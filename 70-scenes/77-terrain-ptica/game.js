@@ -6,7 +6,7 @@ import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { createGradientSky } from '/utils/sky.js'
 import { createSunLight } from '/utils/light.js'
 import { createGround } from '/utils/ground/index.js'
-import Zeppelin from '/classes/Zeppelin.js'
+import Flamingo from '/classes/Flamingo.js'
 import keyboard from '/classes/Keyboard.js'
 
 scene.add(createGradientSky({ r: 5000 }))
@@ -22,20 +22,20 @@ const controls = createOrbitControls()
 const ground = createHillyTerrain({ size: 10000, y: 100, factorX : 5, factorZ : 2.5, factorY : 200 })
 scene.add(ground)
 
-const ptica = new Zeppelin(mesh => {
+const flamingo = new Flamingo(mesh => {
   scene.add(mesh)
   mesh.position.y = 256
   controls.target = mesh.position
   scene.getObjectByName('sunLight').target = mesh
-  ptica.addSolids(ground, water)
-}, { file: 'ptice/flamingo.glb' })
+  flamingo.addSolids(ground, water)
+})
 
 /* LOOP */
 
 renderer.setAnimationLoop(() => {
   controls.update()
-  ptica.update()
+  flamingo.update()
 
-  if (!keyboard.mouseDown) cameraFollowObject(camera, ptica.mesh, { y: 30 })
+  if (!keyboard.mouseDown) cameraFollowObject(camera, flamingo.mesh, { y: 30 })
   renderer.render(scene, camera)
 })
