@@ -126,7 +126,6 @@ live-server
   - [x] dodati senku i maglu (vidi 3d-warplane)
   - [x] dodati sunce
   - [x] srediti komande: skretanje, spuštanje, dizanje, brzinu
-  - [ ] probati pticu (50-rad-sa-modelima/70-ptice)
   - [ ] dodati oblake/dim (70-cestice/80-dim)
   - [ ] dodati drveće
 - [x] Zepelin leti
@@ -134,8 +133,9 @@ live-server
   - [x] dodati teren-dinamicki
   - [x] probati raycast za teren-dinamicki (ne mere)
   - [x] automatski podizati ako je preblizu zemlje
-  - [x] sletanje na dole
+  - [x] srediti sletanje
   - [x] prikazati komande
+  - [x] probati pticu (50-rad-sa-modelima/70-ptice)
 - [ ] Grad (vidi 34-spojena-geometrija, 70-grad, 65-proceduralni-grad)
 - [ ] fantasy scena (dodati modele 50-rad-sa-modelima/90-modeli-dae/)
   - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
