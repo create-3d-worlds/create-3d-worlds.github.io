@@ -23,7 +23,7 @@ function createCircle(radius = 100, y = 0) {
 }
 
 function createTower(floors = 5) {
-  const group = new THREE.Group
+  const group = new THREE.Group()
   for (let i = 0; i < floors; i++)
     group.add(...createCircle(100 - i * 10, i * 20))
   return group
