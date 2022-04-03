@@ -36,6 +36,6 @@ renderer.setAnimationLoop(() => {
   controls.update()
   flamingo.update()
 
-  if (!keyboard.mouseDown) cameraFollowObject(camera, flamingo.mesh, { y: 30 })
+  if (!keyboard.mouseDown) cameraFollowObject(camera, flamingo.mesh, { distance: 50, y: 25 })
   renderer.render(scene, camera)
 })

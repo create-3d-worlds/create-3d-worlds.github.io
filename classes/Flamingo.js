@@ -1,5 +1,4 @@
 import Zeppelin from './Zeppelin.js'
-import keyboard from '/classes/Keyboard.js'
 
 export default class Flamingo extends Zeppelin {
   constructor(callback, params) {
