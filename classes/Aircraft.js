@@ -5,7 +5,7 @@ import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoad
 import keyboard from '/classes/Keyboard.js'
 import { addSolids, raycastDown, raycastFront } from '/classes/actions/index.js'
 
-export const clock = new THREE.Clock()
+const clock = new THREE.Clock()
 
 const angleSpeed = 0.03
 const maxRoll = Infinity
