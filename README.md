@@ -126,7 +126,7 @@ live-server
   - [x] dodati senku i maglu (vidi 3d-warplane)
   - [x] dodati sunce
   - [x] srediti komande: skretanje, spuštanje, dizanje, brzinu
-  - [ ] dodati oblake/dim (70-cestice/80-dim)
+  - [-] dodati oblake (teško)
   - [ ] dodati drveće
 - [x] Zepelin leti
   - [x] dodati raycast

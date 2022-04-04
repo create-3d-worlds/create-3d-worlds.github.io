@@ -6,6 +6,7 @@ export default class Airplane extends Aircraft {
   constructor(callback, params = {}) {
     super(mesh => {
       mesh.rotateX(-Math.PI / 20) // spusta nos aviona
+      mesh.position.y = 50
       callback(mesh)
     }, params)
   }

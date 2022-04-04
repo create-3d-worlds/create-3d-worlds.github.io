@@ -34,7 +34,6 @@ export default class Aircraft {
     new ColladaLoader().load(`/assets/models/${file}`, ({ scene: model }) => {
       this.prepareModel(model)
       this.createMesh(model)
-      // this.mesh.position.y = 50
       callback(this.mesh)
     })
   }
