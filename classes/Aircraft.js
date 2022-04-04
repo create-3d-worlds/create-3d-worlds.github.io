@@ -10,16 +10,16 @@ const clock = new THREE.Clock()
 const angleSpeed = 0.03
 const maxRoll = Infinity
 const minDistance = 120
-const minSpeed = 0.1
 const speedFactor = 0.03
 
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft {
   constructor(callback, {
-    file = 's-e-5a/model.dae', scale = .2, minHeight = 15, speed = 1, maxSpeed = 2, maxPitch = Infinity, shouldMove = true
+    file = 's-e-5a/model.dae', scale = .2, minHeight = 15, speed = 1, maxSpeed = 2, minSpeed = 0.1, maxPitch = Infinity, shouldMove = true
   } = {}) {
     this.speed = shouldMove ? speed : 0
     this.maxSpeed = maxSpeed
+    this.minSpeed = minSpeed
     this.minHeight = minHeight
     this.scale = scale
     this.maxPitch = maxPitch
@@ -124,7 +124,7 @@ export default class Aircraft {
   }
 
   deaccelerate() {
-    if (this.speed >= minSpeed)
+    if (this.speed >= this.minSpeed)
       this.speed -= speedFactor
   }
 
@@ -170,7 +170,7 @@ export default class Aircraft {
   }
 
   isMoving() {
-    return this.speed > minSpeed
+    return this.speed > this.minSpeed
   }
 
   slowDown(slowDownFactor = 0.5) {
