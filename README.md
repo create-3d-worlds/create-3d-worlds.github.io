@@ -127,7 +127,7 @@ live-server
   - [x] dodati sunce
   - [x] srediti komande: skretanje, spuštanje, dizanje, brzinu
   - [-] dodati oblake (teško)
-  - [ ] dodati drveće
+  - [x] dodati drveće
 - [x] Zepelin leti
   - [x] dodati raycast
   - [x] dodati teren-dinamicki

@@ -5,9 +5,11 @@ import { createTerrain } from '/utils/ground/index.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
 import Airplane from '/classes/Airplane.js'
+import { createFirTrees } from '/utils/trees.js'
 
 const ground = createGround({ color:0xFFC880 })
-scene.add(ground)
+const trees = createFirTrees(500, 4000, 25)
+scene.add(ground, trees)
 scene.add(createGradientSky())
 const light = createSunLight()
 // const helper = new THREE.CameraHelper(light.shadow.camera)
@@ -15,7 +17,7 @@ const light = createSunLight()
 scene.add(light)
 scene.fog = new THREE.Fog(0xE5C5AB, 1, 5000)
 
-const terrain = createTerrain(4000, 200)
+const terrain = createTerrain(8000, 200)
 scene.add(terrain)
 
 const controls = createOrbitControls()
