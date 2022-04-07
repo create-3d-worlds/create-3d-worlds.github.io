@@ -136,7 +136,11 @@ live-server
   - [x] srediti sletanje
   - [x] prikazati komande
   - [x] probati pticu (50-rad-sa-modelima/70-ptice)
-- [ ] Grad (vidi 34-spojena-geometrija, 70-grad, 65-proceduralni-grad)
+- [ ] Grad
+  - [x] srediti 10-geometrija/34-spojena-geometrija/
+  - [x] srediti 10-geometrija/70-grad/, 10-geometrija/74-grad-prozori/
+  - [ ] spojiti geometriju 74-grad-prozori
+  - [ ] srediti 40-proceduralni-svetovi/65-proceduralni-grad
 - [ ] fantasy scena (dodati modele 50-rad-sa-modelima/90-modeli-dae/)
   - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
   - [ ] karakter dolazi do kuće i ulazi (vidi 50-rad-sa-modelima/35-kuca-unutrasnost)
@@ -193,7 +197,13 @@ Raycaster arrow helper:
 scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300))
 ```
 
-All libraries in `/libs` folder are updated by hand to support ES6 export.
+Axes helper:
+
+```
+scene.add(new THREE.AxesHelper(50))
+```
+
+All libraries in `/libs` folder are updated manually to support ES6 export.
 
 ## Resources
 
