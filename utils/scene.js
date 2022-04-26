@@ -7,6 +7,7 @@ import { createGround } from './ground/index.js'
 export const clock = new THREE.Clock()
 export const scene = new THREE.Scene()
 
+// TODO: remove default light, then add to each scene
 const hemisphereLight = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75)
 hemisphereLight.name = 'hemisphereLight'
 hemisphereLight.position.set(0.5, 1, 0.75)
@@ -74,6 +75,30 @@ export function addControls(controls) {
     `<h3 style="${margins}">KONTROLE</h2>`
   )
   document.body.appendChild(div)
+}
+
+/* LIGHT */
+
+export function initLights(theScene = scene, position = new THREE.Vector3(-10, 30, 40)) {
+  const spotLight = new THREE.SpotLight(0xffffff)
+  spotLight.position.copy(position)
+  spotLight.shadow.mapSize.width = 2048
+  spotLight.shadow.mapSize.height = 2048
+  spotLight.shadow.camera.fov = 15
+  spotLight.castShadow = true
+  spotLight.decay = 2
+  spotLight.penumbra = 0.05
+  spotLight.name = 'spotLight'
+  theScene.add(spotLight)
+
+  const ambientLight = new THREE.AmbientLight(0x343434)
+  ambientLight.name = 'ambientLight'
+  theScene.add(ambientLight)
+}
+
+export function addLights(theScene = scene) {
+  const light = new THREE.HemisphereLight(0xfffff0, 0x101020, 1.25)
+  theScene.add(light)
 }
 
 export { createGradientSky, createGround, createSunLight }
