@@ -137,10 +137,15 @@ live-server
   - [x] prikazati komande
   - [x] probati pticu (50-rad-sa-modelima/70-ptice)
 - [ ] Grad
-  - [x] srediti 10-geometrija/34-spojena-geometrija/
-  - [x] srediti 10-geometrija/70-grad/, 10-geometrija/74-grad-prozori/
-  - [ ] spojiti geometriju 74-grad-prozori
-  - [ ] srediti 40-proceduralni-svetovi/65-proceduralni-grad
+  - [x] srediti grad
+  - [x] srediti grad-prozori
+  - [x] optimizovati grad-prozori
+  - [x] srediti uličnu rasvetu
+  - [x] srediti rotaciju spojenih zgrada
+  - [x] ostaviti prostor za park ili trg u centru grada (logika za krug i kvadrat)
+  - [ ] dodati park ili trg u centru
+  - [ ] dodati drveće, za zeleni grad
+  - [ ] ubaciti prvo lice u scenu
 - [ ] fantasy scena (dodati modele 50-rad-sa-modelima/90-modeli-dae/)
   - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
   - [ ] karakter dolazi do kuće i ulazi (vidi 50-rad-sa-modelima/35-kuca-unutrasnost)
@@ -204,6 +209,12 @@ scene.add(new THREE.AxesHelper(50))
 ```
 
 All libraries in `/libs` folder are updated manually to support ES6 export.
+
+Prevent OrbitControls bellow ground:
+
+```
+controls.maxPolarAngle = Math.PI / 2 - 0.1
+```
 
 ## Resources
 
