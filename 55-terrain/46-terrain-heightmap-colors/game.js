@@ -9,8 +9,11 @@ scene.add(light)
 createOrbitControls()
 camera.position.y = 150
 
-terrainFromHeightmap('/assets/heightmaps/wiki.png', mesh => {
-  scene.add(mesh)
+terrainFromHeightmap({
+  src: '/assets/heightmaps/wiki.png',
+  callback: mesh => {
+    scene.add(mesh)
+  }
 })
 
 /* LOOP */

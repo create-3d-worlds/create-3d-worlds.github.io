@@ -5,10 +5,10 @@ import { getHighPoint } from '/utils/helpers.js'
 
 const loader = new THREE.TextureLoader()
 
-// https://gka.github.io/chroma.js/
-const paint = chroma.scale(['brown', '#7a8a46', '#967848', 'white']).domain([0, 100])
+export default function({ src, callback, textureSrc, heightOffset = 2, scale = 3, colors = ['brown', '#7a8a46', '#967848', 'white'], domain = [0, 100] } = {}) {
 
-export default function(src, callback, textureSrc, heightOffset = 2, scale = 3) {
+  const paint = chroma.scale(colors).domain(domain) // https://gka.github.io/chroma.js/
+
   const img = new Image()
   img.src = src
   img.onload = function() {

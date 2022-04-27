@@ -5,15 +5,15 @@ const scene = createFullScene({ color: 0x6666ff })
 createOrbitControls()
 camera.position.y = 150
 
-terrainFromHeightmap(
-  '/assets/heightmaps/oos-heightmap-128.jpg',
-  mesh => {
+terrainFromHeightmap({
+  src: '/assets/heightmaps/oos-heightmap-128.jpg',
+  callback: mesh => {
     scene.add(mesh)
     mesh.position.y = -10
   },
-  '/assets/heightmaps/oos-terrain.jpg',
-  3
-)
+  textureSrc: '/assets/heightmaps/oos-terrain.jpg',
+  heightOffset: 3
+})
 
 /* LOOP */
 
