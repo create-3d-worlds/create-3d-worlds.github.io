@@ -1,13 +1,12 @@
 // https://github.com/josdirksen/threejs-cookbook/blob/master/02-geometries-meshes/02.06-create-terrain-from-heightmap.html
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import chroma from '/libs/chroma.js'
-import { getHighPoint } from '../helpers.js'
+import { getHighPoint } from '/utils/helpers.js'
 
 const loader = new THREE.TextureLoader()
 
-const paint = chroma
-  .scale(['brown', '#636f3f', '#7a8a46', '#473922', '#967848', '#dbc496', 'white'])
-  .domain([0, 100])
+// https://gka.github.io/chroma.js/
+const paint = chroma.scale(['brown', '#7a8a46', '#967848', 'white']).domain([0, 100])
 
 export default function(src, callback, textureSrc, heightOffset = 2, scale = 3) {
   const img = new Image()
@@ -68,11 +67,22 @@ export default function(src, callback, textureSrc, heightOffset = 2, scale = 3) 
     geometry.computeBoundingBox()
     const { max } = geometry.boundingBox
 
-    const material = new THREE.MeshLambertMaterial()
-    if (textureSrc)
-      material.map = loader.load(textureSrc)
-    else
-      material.vertexColors = THREE.FaceColors
+    const getTexture = () => {
+      const texture = loader.load(textureSrc)
+      texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+      texture.magFilter = THREE.NearestFilter
+      return texture
+    }
+
+    const material = textureSrc
+      ? new THREE.MeshLambertMaterial({
+        map: getTexture()
+      })
+      : new THREE.MeshLambertMaterial({
+        vertexColors: THREE.FaceColors,
+        color: 0x666666, // remove?
+        flatShading: false
+      })
 
     const mesh = new THREE.Mesh(geometry, material)
     mesh.translateX(-max.x / 2)

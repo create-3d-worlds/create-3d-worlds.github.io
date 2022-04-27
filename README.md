@@ -216,14 +216,16 @@ Prevent OrbitControls bellow ground:
 controls.maxPolarAngle = Math.PI / 2 - 0.1
 ```
 
-## Resources
+## Sources
 
-- https://github.com/mudroljub/javaskript-igrice-primeri (3d mapa)
-- https://github.com/skolakoda/teorija-razvoja-igara
-- https://github.com/skolakoda/ucimo-razvoj-igara
+Examples are from theese great books and tutorials:
 
-- https://github.com/mudroljub/savo-mitraljezac
-- https://github.com/mudroljub/igrica-partizani
-- https://github.com/yakudoo/TheAviator
-- https://github.com/juwalbose/ThreeJSEndlessRunner3D
-- https://github.com/mudroljub/1943
+* 3D Game Programming for Kids (Chris Strom)
+* [Interactive 3D Graphics](https://in.udacity.com/course/interactive-3d-graphics--cs291/) (Eric Haines)
+* [Three.js tutorials by example](http://stemkoski.github.io/Three.js/) (Lee Stemkoski)
+* [WebGL and Three.js Fundamentals](https://github.com/alexmackey/threeJsBasicExamples) (Alex Mackey)
+* [Examples created by Yomotsu using THREE.js](http://yomotsu.github.io/threejs-examples/) (Akihiro Oyamada)
+* [Learning Threejs](https://github.com/josdirksen/learning-threejs) (Jos Dirksen)
+* [Essential Three.js](https://github.com/josdirksen/essential-threejs) (Jos Dirksen)
+* [Three.js Cookbook](https://github.com/josdirksen/threejs-cookbook) (Jos Dirksen)
+* [How to Design 3D Games with Web Technology - Book 01: Three. Js - HTML5 and WebGL](https://thefiveplanets.org/b01/) (Jordi Josa)

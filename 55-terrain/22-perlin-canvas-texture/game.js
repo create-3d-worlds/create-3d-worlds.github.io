@@ -1,30 +1,34 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { ImprovedNoise } from '/node_modules/three108/examples/jsm/math/ImprovedNoise.js'
-import {camera, scene, renderer, createOrbitControls} from '/utils/scene.js'
+import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 
 const perlin = new ImprovedNoise()
 
-const worldWidth = 256, worldDepth = 256,
-  worldHalfWidth = worldWidth / 2, worldHalfDepth = worldDepth / 2
+const planeSize = 7500
+const worldSize = 256
 
 createOrbitControls()
+camera.position.y = 1500
 
-const data = generateHeight(worldWidth, worldDepth)
-camera.position.y = data[worldHalfWidth + worldHalfDepth * worldWidth] * 10 + 500
-const geometry = new THREE.PlaneBufferGeometry(7500, 7500, worldWidth - 1, worldDepth - 1)
+const data = generateHeightData(worldSize, worldSize)
+
+const geometry = new THREE.PlaneBufferGeometry(planeSize, planeSize, worldSize - 1, worldSize - 1)
 geometry.rotateX(- Math.PI / 2)
-const vertices = geometry.attributes.position.array
 
+const vertices = geometry.attributes.position.array
 for (let i = 0, j = 0; i < vertices.length; i ++, j += 3)
   vertices[j + 1] = data[i] * 10
 
-const texture = new THREE.CanvasTexture(generateTexture(data, worldWidth, worldDepth))
+const texture = new THREE.CanvasTexture(generateTexture(data, worldSize, worldSize))
 texture.wrapS = THREE.ClampToEdgeWrapping
 texture.wrapT = THREE.ClampToEdgeWrapping
+
 const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ map: texture }))
 scene.add(mesh)
 
-function generateHeight(width, height) {
+/* FUNCTIONS */
+
+function generateHeightData(width, height) {
   const size = width * height
   const data = new Uint8Array(size)
   const z = Math.random() * 100
