@@ -1,11 +1,9 @@
 /* global THREE, Physijs */
-import {renderer, camera } from '/utils/scene.js'
+import { renderer, camera } from '/utils/scene.js'
+import { dirLight } from '/utils/light.js'
 
 Physijs.scripts.worker = 'libs/physijs_worker.js'
 Physijs.scripts.ammo = 'ammo.js'
-
-const loader = new THREE.TextureLoader()
-const rockTexture = loader.load('/assets/textures/rocks.jpg')
 
 const scene = new Physijs.Scene()
 scene.setGravity(new THREE.Vector3(0, -30, 0))
@@ -14,10 +12,7 @@ scene.addEventListener('update', () => scene.simulate(undefined, 2))
 camera.position.set(30, 25, 30)
 camera.lookAt(scene.position)
 
-const light = new THREE.DirectionalLight(0xFFFFFF)
-light.position.set(20, 40, -15)
-light.castShadow = true
-scene.add(light)
+dirLight({ scene, position: [20, 40, -15] })
 
 const ground = createGround()
 scene.add(ground)
@@ -30,13 +25,13 @@ scene.simulate()
 function addCar(scene) {
   const car = {}
   const carMaterial = Physijs.createMaterial(
-    new THREE.MeshLambertMaterial({color: 0xff6666}),
+    new THREE.MeshLambertMaterial({ color: 0xff6666 }),
     .8, // high friction
     .2 // low restitution
   )
 
   const wheelMaterial = Physijs.createMaterial(
-    new THREE.MeshLambertMaterial({color: 0x444444}),
+    new THREE.MeshLambertMaterial({ color: 0x444444 }),
     .8, // high friction
     .5 // medium restitution
   )
@@ -117,17 +112,17 @@ function addCar(scene) {
 }
 
 function createGround() {
-  const groundMaterial = Physijs.createMaterial(
-    new THREE.MeshLambertMaterial({ map: rockTexture}),
+  const material = Physijs.createMaterial(
+    new THREE.MeshLambertMaterial({ map: new THREE.TextureLoader().load('/assets/textures/rocks.jpg') }),
     .8, // high friction
     .4 // low restitution
   )
-  groundMaterial.map.wrapS = groundMaterial.map.wrapT = THREE.RepeatWrapping
-  groundMaterial.map.repeat.set(3, 3)
+  material.map.wrapS = material.map.wrapT = THREE.RepeatWrapping
+  material.map.repeat.set(3, 3)
 
   const ground = new Physijs.BoxMesh(
     new THREE.BoxGeometry(100, 1, 100),
-    groundMaterial,
+    material,
     0 // mass
   )
   return ground
@@ -143,7 +138,7 @@ void function update() {
 /* EVENTS */
 
 document.addEventListener('keydown', ev => {
-  switch(ev.keyCode) {
+  switch (ev.keyCode) {
     case 37:
     // Left
       car.wheelFlConstraint.configureAngularMotor(1, -Math.PI / 2, Math.PI / 2, 1, 200)
@@ -179,7 +174,7 @@ document.addEventListener('keydown', ev => {
 })
 
 document.addEventListener('keyup', ev => {
-  switch(ev.keyCode) {
+  switch (ev.keyCode) {
     case 37:
     // Left
       car.wheelFlConstraint.disableAngularMotor(1)

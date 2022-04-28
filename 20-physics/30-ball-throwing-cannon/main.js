@@ -1,5 +1,6 @@
 /* global CANNON, THREE, PointerLockControls */
-import {camera, scene, renderer} from '/utils/scene.js'
+import { camera, scene, renderer } from '/utils/scene.js'
+import { dirLight } from '/utils/light.js'
 
 const step = 1 / 60
 const balls = []
@@ -12,13 +13,10 @@ camera.position.z = 5
 const world = new CANNON.World()
 world.gravity.set(0, -20, 0)
 
-const light = new THREE.DirectionalLight(0xffffff, 0.9)
-light.position.set(10, 30, 20)
-light.castShadow = true
-scene.add(light)
+dirLight({ position: [10, 30, 20], intensity: .9 })
 
 const playerShape = new CANNON.Sphere(1.3)  // radius
-const player = new CANNON.Body({mass: 5})
+const player = new CANNON.Body({ mass: 5 })
 player.addShape(playerShape)
 player.position.set(0, 3, 0)
 world.addBody(player)
@@ -35,7 +33,7 @@ for (let i = 0; i < 10; i++) addBox()
 
 function addGround() {
   const groundShape = new CANNON.Plane()
-  const ground = new CANNON.Body({mass: 0})
+  const ground = new CANNON.Body({ mass: 0 })
   ground.addShape(groundShape)
   ground.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
   world.addBody(ground)
@@ -49,7 +47,7 @@ function addGround() {
 
 // TODO: napraviti zidine
 function addBox() {
-  const box = new CANNON.Body({mass: 5})
+  const box = new CANNON.Body({ mass: 5 })
   const boxShape = new CANNON.Box(new CANNON.Vec3(1, 1, 1))
   box.addShape(boxShape)
   box.position.set(
@@ -75,12 +73,12 @@ function getShootDirection() {
 }
 
 function shootBall(velocity = 15) {
-  const ball = new CANNON.Body({mass: 3})
+  const ball = new CANNON.Body({ mass: 3 })
   const ballShape = new CANNON.Sphere(0.4)
   ball.addShape(ballShape)
   world.addBody(ball)
   balls.push(ball)
-  const {x, y, z} = getShootDirection()
+  const { x, y, z } = getShootDirection()
   ball.position.set(
     player.position.x + x,
     player.position.y + y,

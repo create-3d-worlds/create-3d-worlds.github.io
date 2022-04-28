@@ -159,10 +159,12 @@ live-server
 
 ### Physics
 
+- [ ] domine: da manja obara veću
+- [ ] srediti fliper
 - [ ] razaranje zamka topom
   - [ ] dodati proceduralni zamak (vidi 75-zamak-fizika, 60-fizika/20-gradjevina-physijs)
   - [ ] dodati top (ima model)
-  - [ ] top puca i rusi zidine (60-fizika/30-kugle-pucanje-cannon)
+  - [ ] top puca i rusi zidine (vidi ball-trowing)
 - [ ] tenk (steam tenk) koji gazi prepreke ili lokomotiva (60-fizika/70-vozilo-physijs)
   - http://127.0.0.1:8080/15-fizika/70-vozilo/
   - http://127.0.0.1:8080/15-fizika/75-vozilo-razbija/

@@ -13,11 +13,11 @@ initLights(scene)
 const flip_material = Physijs.createMaterial(new THREE.MeshStandardMaterial({ color: 0x44ff44 }), 0,  0)
 const slider_material = Physijs.createMaterial(new THREE.MeshStandardMaterial({ color: 0x4444ff }), 0,  0)
 
-const flipperLeftConstraint = createLeftFlipper(scene, flip_material)
-const flipperRightConstraint = createRightFlipper(scene, flip_material)
-createSliderBottom(scene, slider_material)
-createSliderTop(scene, slider_material)
-createGroundAndWalls(scene)
+const flipperLeftConstraint = createLeftFlipper(flip_material)
+const flipperRightConstraint = createRightFlipper(flip_material)
+createSliderBottom(slider_material)
+createSliderTop(slider_material)
+createGroundAndWalls()
 
 const velocity = 10
 const acceleration = 20
@@ -45,7 +45,7 @@ function flipDown() {
   flipperRightConstraint.enableAngularMotor(velocity * 1000, acceleration * 1000)
 }
 
-function createGroundAndWalls(scene) {
+function createGroundAndWalls() {
   const ground_material = Physijs.createMaterial(new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('/assets/textures/wood_1024x1024.png') }), 0.9, 0.7)
   const ground = new Physijs.BoxMesh(new THREE.BoxGeometry(50, 1, 80), ground_material, 0)
   scene.add(ground)
@@ -64,22 +64,22 @@ function createGroundAndWalls(scene) {
   scene.add(wall3)
 }
 
-function createSliderBottom(scene, mat) {
+function createSliderBottom(mat) {
   const sliderCube = new THREE.BoxGeometry(12, 2, 2)
   const sliderMesh = new Physijs.BoxMesh(sliderCube, mat, 1000)
   sliderMesh.position.x = 0
   sliderMesh.position.y = 2
   sliderMesh.position.z = 5
+  // sliderMesh.rotateY(Math.PI / 6)
   scene.add(sliderMesh)
 
   const constraint = new Physijs.SliderConstraint(sliderMesh, new THREE.Vector3(0, 1, 5), new THREE.Vector3(0, 1, 0))
   scene.addConstraint(constraint)
   constraint.setLimits(-18, 18, 0, 0)
   constraint.setRestitution(0.1, 0.1)
-  return constraint
 }
 
-function createSliderTop(scene, mat) {
+function createSliderTop(mat) {
   const sliderSphere = new THREE.BoxGeometry(7, 2, 7)
   const sliderMesh = new Physijs.BoxMesh(sliderSphere, mat, 100)
   sliderMesh.position.z = -15
@@ -91,12 +91,10 @@ function createSliderTop(scene, mat) {
   scene.addConstraint(constraint)
   constraint.setLimits(-18, 18, 0.5, -0, 5)
   constraint.setRestitution(0.1, 0.1)
-
-  return constraint
 }
 
-function createLeftFlipper(scene, mat) {
-  const flipperLeft = new Physijs.BoxMesh(new THREE.BoxGeometry(12, 2, 2), mat, 10)
+function createLeftFlipper(mat) {
+  const flipperLeft = new Physijs.BoxMesh(new THREE.BoxGeometry(13, 2, 2), mat, 10)
   flipperLeft.position.x = -8
   flipperLeft.position.y = 2
   flipperLeft.position.z = 30
@@ -120,8 +118,8 @@ function createLeftFlipper(scene, mat) {
   return constraint
 }
 
-function createRightFlipper(scene, mat) {
-  const flipperright = new Physijs.BoxMesh(new THREE.BoxGeometry(12, 2, 2), mat, 10)
+function createRightFlipper(mat) {
+  const flipperright = new Physijs.BoxMesh(new THREE.BoxGeometry(13, 2, 2), mat, 10)
   flipperright.position.x = 8
   flipperright.position.y = 2
   flipperright.position.z = 30

@@ -12,7 +12,7 @@ world.gravity.set(0, -10, 0)
 const controls = createOrbitControls()
 camera.position.set(5, 1, 0)
 
-dirLight()
+dirLight({ intensity: 1.75 })
 scene.add(new THREE.AmbientLight(0x343434))
 
 // THREE plane

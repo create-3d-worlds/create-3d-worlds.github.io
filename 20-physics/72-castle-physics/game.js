@@ -1,13 +1,13 @@
 /* global THREE, Physijs */
-import {camera, renderer, createOrbitControls} from '/utils/scene.js'
+import { camera, renderer, createOrbitControls } from '/utils/scene.js'
 
 Physijs.scripts.worker = '/libs/physijs_worker.js'
-Physijs.scripts.ammo = 'ammo.js' // relativno u odnosu na worker
+Physijs.scripts.ammo = 'ammo.js'
 
-const brojCigli = 10
-const brojSpratova = 7
-const razmak = 10
-const d = razmak * brojCigli
+const bricks = 10
+const floors = 7
+const spacing = 10
+const d = spacing * bricks
 
 const scene = new Physijs.Scene()
 scene.setGravity(new THREE.Vector3(0, -30, 0))
@@ -17,11 +17,11 @@ createOrbitControls()
 
 scene.add(createRigidGround(500))
 
-void function praviZgradu(y) {
-  if (y > razmak * brojSpratova) return
-  const start = Math.floor(y / razmak) % 2 == 0 ? 0 : razmak / 2
-  praviSprat(y, start)
-  praviZgradu(y + razmak)
+void function createBuilding(y) {
+  if (y > spacing * floors) return
+  const start = Math.floor(y / spacing) % 2 == 0 ? 0 : spacing / 2
+  createFloor(y, start)
+  createBuilding(y + spacing)
 }(0)
 
 /** FUNCTIONS **/
@@ -50,14 +50,14 @@ function createRigidBox(x = 0, y = 0, z = 0, size = 10) {
     new THREE.BoxGeometry(size, size, size),
     boxMaterial
   )
-  box.position.set(x, y + size/2, z)
+  box.position.set(x, y + size / 2, z)
   return box
 }
 
-function praviSprat(y, i) {
+function createFloor(y, i) {
   if (i > d + 1) return
-  ;[[i, y, 0], [i, y, d], [0, y, i], [d, y, i]].map(kord => scene.add(createRigidBox(...kord)))
-  praviSprat(y, i + razmak)
+  ;[[i, y, 0], [i, y, d], [0, y, i], [d, y, i]].map(coord => scene.add(createRigidBox(...coord)))
+  createFloor(y, i + spacing)
 }
 
 /** LOOP **/
