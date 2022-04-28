@@ -2,7 +2,6 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, camera, renderer } from '/utils/scene.js'
 import { randomInRange } from '/utils/helpers.js'
 
-const stars = []
 const numberOfStars = 2000
 camera.position.z = numberOfStars
 
@@ -14,7 +13,6 @@ for (let i = 0; i < numberOfStars; i += 20) {
   sphere.position.y = randomInRange(-500, 500)
   sphere.position.z = i
   scene.add(sphere)
-  stars.push(sphere)
 }
 
 /* LOOP */
