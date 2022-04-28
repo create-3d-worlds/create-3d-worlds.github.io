@@ -1,8 +1,6 @@
-# Create RPG game with Three.js
+# Create a 3D game with Three.js
 
-Create a role-playing game!
-
-Repo: https://github.com/mudroljub/create-rpg-game
+Create a 3D game with Three.js.
 
 ## Start
 
@@ -13,13 +11,11 @@ live-server
 
 ## TODO
 
-- dodavati (vidi Model.js):
-    mesh.castShadow = true; //default is false
-    mesh.receiveShadow = true;
-- hakovati heroforge.com
-- videti http://felixpalmer.github.io/lod-terrain/
+### General
 
-## Curriculum
+- [ ] svuda srediti svetla
+- [ ] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
+- [ ] dodati primere drveća u geometriju
 
 ### Geometry
 
@@ -185,7 +181,6 @@ live-server
 ### Ostalo
 
 - [ ] popraviti HTML margine
-- [ ] svuda sređivati svetla
 - [ ] probati VR
   - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
   - https://ski-mountain-vr.herokuapp.com/

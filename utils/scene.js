@@ -1,17 +1,11 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { OrbitControls } from '/node_modules/three108/examples/jsm/controls/OrbitControls.js'
 import { createGradientSky } from './sky.js'
-import { createSunLight } from './light.js'
+import { createSunLight } from './sun.js'
 import { createGround } from './ground/index.js'
 
 export const clock = new THREE.Clock()
 export const scene = new THREE.Scene()
-
-// TODO: remove default light, then add to each scene
-const hemisphereLight = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75)
-hemisphereLight.name = 'hemisphereLight'
-hemisphereLight.position.set(0.5, 1, 0.75)
-scene.add(hemisphereLight) // puca procedural terrain, tamo se mora ukloniti
 
 // CAMERA
 
@@ -96,9 +90,9 @@ export function initLights(theScene = scene, position = new THREE.Vector3(-10, 3
   theScene.add(ambientLight)
 }
 
-export function addLights(theScene = scene) {
-  const light = new THREE.HemisphereLight(0xfffff0, 0x101020, 1.25)
-  theScene.add(light)
+export function hemLight(theScene = scene) {
+  const hemisphereLight = new THREE.HemisphereLight(0xfffff0, 0x101020, 1.25)
+  theScene.add(hemisphereLight)
 }
 
 export { createGradientSky, createGround, createSunLight }

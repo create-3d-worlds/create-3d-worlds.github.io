@@ -1,19 +1,13 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import {camera, scene, renderer, createOrbitControls} from '/utils/scene.js'
-
-createOrbitControls()
-camera.position.set(0, 50, 100)
-camera.lookAt(scene.position)
+import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
+import { createFloor } from '/utils/helpers.js'
 
 const textureLoader = new THREE.TextureLoader()
 
-// floor
+createOrbitControls()
+camera.position.set(0, 50, 100)
 
-const floorMaterial = new THREE.MeshBasicMaterial({side: THREE.DoubleSide})
-const floorGeometry = new THREE.PlaneGeometry(100, 100, 10, 10)
-const floor = new THREE.Mesh(floorGeometry, floorMaterial)
-floor.rotation.x = -Math.PI / 2
-scene.add(floor)
+scene.add(createFloor({ size: 100 }))
 
 // skybox
 
@@ -21,7 +15,7 @@ const directions = ['xpos', 'xneg', 'ypos', 'yneg', 'zpos', 'zneg']
 const skyGeometry = new THREE.CubeGeometry(5000, 5000, 5000)
 
 const materialArray = []
-for (let i = 0; i < 6; i++) 
+for (let i = 0; i < 6; i++)
   materialArray.push(new THREE.MeshBasicMaterial({
     map: textureLoader.load('images/dawnmountain-' + directions[i] + '.png'),
     side: THREE.BackSide

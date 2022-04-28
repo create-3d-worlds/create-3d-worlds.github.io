@@ -1,13 +1,13 @@
 // http://learningthreejs.com/blog/2013/08/02/how-to-do-a-procedural-city-in-100lines/
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { scene, camera, renderer, createOrbitControls, addLights } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls, hemLight } from '/utils/scene.js'
 import { createFloor } from '/utils/helpers.js'
 import { createCity } from '/utils/city.js'
 
 const size = 2000
 const numBuildings = 10000
 
-addLights()
+hemLight()
 const controls = createOrbitControls()
 camera.position.set(0, 100, 400)
 camera.lookAt(new THREE.Vector3(0, 100, 0))

@@ -1,8 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { Sky } from '/node_modules/three108/examples/jsm/objects/Sky.js'
-
-const degToRad = deg => deg * Math.PI / 180
+import { degToRad } from '/utils/helpers.js'
 
 createOrbitControls()
 createSky()

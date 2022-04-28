@@ -1,14 +1,13 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import {camera, scene, renderer} from '/utils/scene.js'
+import { camera, scene, renderer } from '/utils/scene.js'
 
 const loader = new THREE.TextureLoader()
-const map = loader.load('/assets/textures/crate.gif')
 
 camera.position.z = 100
 
 const cube = new THREE.Mesh(
   new THREE.BoxGeometry(40, 40, 40),
-  new THREE.MeshBasicMaterial({map})
+  new THREE.MeshBasicMaterial({ map:loader.load('/assets/textures/crate.gif') })
 )
 scene.add(cube)
 
