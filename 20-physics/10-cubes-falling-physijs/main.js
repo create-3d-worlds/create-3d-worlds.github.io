@@ -1,9 +1,8 @@
 /* global THREE, Physijs */
-import {camera, renderer, createOrbitControls} from '/utils/scene.js'
+import { camera, renderer, createOrbitControls } from '/utils/scene.js'
 Physijs.scripts.worker = '/libs/physijs_worker.js'
-Physijs.scripts.ammo = 'ammo.js' // relativno u odnosu na worker
+Physijs.scripts.ammo = 'ammo.js' // relativ to the worker
 
-let brojac = 0
 createOrbitControls()
 
 const scene = new Physijs.Scene()
@@ -48,12 +47,14 @@ function createRigidGround(size = 150) {
 
 /* UPDATE */
 
+let timeStep = 0
+
 void function update() {
   window.requestAnimationFrame(update)
   scene.simulate()
-  renderer.render(scene, camera)
-  if (brojac++ > 100) {
+  if (timeStep++ > 100) {
     scene.add(createRigidBox())
-    brojac = 0
+    timeStep = 0
   }
+  renderer.render(scene, camera)
 }()
