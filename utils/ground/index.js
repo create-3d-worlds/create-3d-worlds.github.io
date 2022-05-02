@@ -26,10 +26,11 @@ export function createGround({ size = 4000, color = 0x509f53, circle = true, fil
 }
 
 // TODO: add color param
-export function createTerrain(size = 1000, segments = 50) {
+export function createTerrain({ size = 1000, segments = 50 } = {}) {
   const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
   geometry.rotateX(- Math.PI / 2)
   geometry.vertices.forEach(vertex => {
+    // TODO: better randomness
     vertex.x += randomInRange(-10, 10)
     vertex.y += randomInRange(-5, 15)
     vertex.z += randomInRange(-10, 10)
