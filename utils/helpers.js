@@ -41,22 +41,6 @@ export function randomInSquare(size, emptyCenter = 0) {
 //   return { x, z }
 // }
 
-export function randomGrey(min = 75, max = 150) {
-  const v = (randomInRange(min, max) | 0).toString(16)
-  return '#' + v + v + v
-}
-
-// colorful = 0 for gray nianses only
-export function randomColor({ min = .3, max = .7, colorful = .02 } = {}) {
-  const gray = randomInRange(min, max)
-  const color = new THREE.Color(
-    gray + randomInRange(-colorful, colorful),
-    gray + randomInRange(-colorful, colorful),
-    gray + randomInRange(-colorful, colorful)
-  )
-  return color
-}
-
 export const isCollide = (bounds1, bounds2) =>
   bounds1.xMin <= bounds2.xMax && bounds1.xMax >= bounds2.xMin &&
   bounds1.yMin <= bounds2.yMax && bounds1.yMax >= bounds2.yMin &&
@@ -80,8 +64,35 @@ export function cameraFollowObject(camera, obj, { distance = 100, alpha = 0.05, 
   camera.lookAt(obj.position)
 }
 
+export const degToRad = deg => deg * Math.PI / 180
+
+export function createFloor(params) {
+  return createGround({ size: 1000, color: 0x808080, ...params })
+}
+
+/* COLORS */
+
+export const randomColor = (h = .25, s = 0.5, l = 0.2) =>
+  new THREE.Color().setHSL(Math.random() * 0.1 + h, s, Math.random() * 0.25 + l)
+
+export function randomGrey(min = 75, max = 150) {
+  const v = (randomInRange(min, max) | 0).toString(16)
+  return '#' + v + v + v
+}
+
+// colorful = 0 for gray nianses only
+export function randomGrayish({ min = .3, max = .7, colorful = .02 } = {}) {
+  const gray = randomInRange(min, max)
+  const color = new THREE.Color(
+    gray + randomInRange(-colorful, colorful),
+    gray + randomInRange(-colorful, colorful),
+    gray + randomInRange(-colorful, colorful)
+  )
+  return color
+}
+
 /*
- * param: js hex color
+ * param: color in hex
  * return: THREE.Color()
 */
 export function similarColor(color) {
@@ -90,14 +101,4 @@ export function similarColor(color) {
   const { h, s, l } = new THREE.Color(color).getHSL(hsl)
   const newCol = new THREE.Color().setHSL(h + h * factor, s, l + l * factor / 4)
   return newCol
-}
-
-// TODO: check for usage
-// export const randomColor = (h = .25, s = 0.5, l = 0.2) =>
-//   new THREE.Color().setHSL(Math.random() * 0.1 + h, s, Math.random() * 0.25 + l)
-
-export const degToRad = deg => deg * Math.PI / 180
-
-export function createFloor(params) {
-  return createGround({ size: 1000, color: 0x808080, ...params })
 }

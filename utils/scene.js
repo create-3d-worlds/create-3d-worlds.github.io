@@ -36,6 +36,7 @@ export function createFullScene(groundParam, skyParam, lightParam, fogParam = {}
   scene.add(light)
   const { color = 0xffffff, near = 1, far = 5000 } = fogParam
   scene.fog = new THREE.Fog(color, near, far)
+  hemLight({ scene })
   return scene
 }
 
@@ -90,8 +91,8 @@ export function initLights(theScene = scene, position = new THREE.Vector3(-10, 3
   theScene.add(ambientLight)
 }
 
-export function hemLight(theScene = scene) {
-  const hemisphereLight = new THREE.HemisphereLight(0xfffff0, 0x101020, 1.25)
+export function hemLight({ theScene = scene, intensity = 1 } = {}) {
+  const hemisphereLight = new THREE.HemisphereLight(0xfffff0, 0x101020, intensity)
   theScene.add(hemisphereLight)
 }
 

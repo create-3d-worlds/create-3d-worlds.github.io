@@ -1,18 +1,20 @@
 import { createGround } from '/utils/ground/index.js'
 import { create3DMap } from '/utils/maps.js'
-import { scene, renderer, camera, clock } from '/utils/scene.js'
+import { scene, renderer, camera, clock,hemLight } from '/utils/scene.js'
 import { PlayerAvatar } from '/classes/Player.js'
 import matrix from '/data/small-map.js'
 
+hemLight()
+
 const avatar = new PlayerAvatar(25, 0, 25, 10, 2)
-scene.add(avatar.mesh)
 const floor = createGround({ file: 'ground.jpg' })
-scene.add(floor)
 const walls = create3DMap(matrix, 20)
-scene.add(walls)
+
+scene.add(avatar.mesh, floor, walls)
 
 camera.position.z = 20
 camera.position.y = 15
+
 avatar.mesh.add(camera)
 avatar.addSolids(walls)
 

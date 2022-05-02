@@ -37,7 +37,7 @@ export const raycastFront = ({ mesh, solids }) => {
 
 // TODO: deprecated, find and replace with raycastDown
 export const raycastGround = ({ mesh, solids }, { x = 0, y = 0, z = 0 } = {}) => {
-  if (!mesh || !solids.length) return
+  if (!mesh || !solids.length) return 0
   const pos = mesh.position.clone()
   pos.x += x // adjustments
   pos.y += y

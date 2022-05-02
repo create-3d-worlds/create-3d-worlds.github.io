@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { randomInRange, randomColor, randomInCircle, randomInSquare } from '/utils/helpers.js'
+import { randomInRange, randomGrayish, randomInCircle, randomInSquare } from '/utils/helpers.js'
 
 function createWindow(wWidth, wHeight) {
   const colors = [0xffff00, 0xF5F5DC, 0xFFEA00, 0xFDDA0D, 0xFFFF8F, 0xFFFDD0]
@@ -94,7 +94,7 @@ export function createCity({
 } = {}) {
   const cityGeometry = new THREE.Geometry()
   for (let i = 0; i < numBuildings; i++) {
-    const color = colorParams ? randomColor(colorParams) : new THREE.Color(0x000000)
+    const color = colorParams ? randomGrayish(colorParams) : new THREE.Color(0x000000)
     const { x, z } = circle ? randomInCircle(size * .9, emptyCenter) : randomInSquare(size, emptyCenter)
     const rotY = shouldRotate(rotateEvery, i) ? Math.random() * Math.PI : 0
     const bWidth = shouldEnlarge(enlargeEvery, i)
