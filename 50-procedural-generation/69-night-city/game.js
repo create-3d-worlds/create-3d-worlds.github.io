@@ -7,7 +7,7 @@ const size = 100
 
 const controls = createOrbitControls()
 scene.fog = new THREE.FogExp2(0xd0e0f0, 0.0025)
-scene.add(createGround({ r: size * 2, color: 0x101018 }))
+scene.add(createGround({ size: size * 2, color: 0x101018 }))
 
 scene.add(generateCity(size))
 

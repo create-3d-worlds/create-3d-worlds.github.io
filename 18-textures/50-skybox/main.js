@@ -1,13 +1,13 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
-import { createFloor } from '/utils/helpers.js'
+import { createGround } from '/utils/ground/index.js'
 
 const textureLoader = new THREE.TextureLoader()
 
 createOrbitControls()
 camera.position.set(0, 50, 100)
 
-scene.add(createFloor({ size: 100 }))
+scene.add(createGround({ size: 100 }))
 
 // skybox
 

@@ -2,22 +2,24 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { randomInRange, randomColor } from '../helpers.js'
 const loader = new THREE.TextureLoader()
 
-export function createGround({ r = 4000, color = 0x509f53, file } = {}) {
-  const options = {
-    side: THREE.DoubleSide // for debugin
-  }
-  if (file) {
+export function createGround({ size = 4000, color = 0x509f53, circle = true, file } = {}) {
+  const getTexture = () => {
     const texture = loader.load(`/assets/textures/${file}`)
     texture.wrapS = THREE.RepeatWrapping
     texture.wrapT = THREE.RepeatWrapping
-    texture.repeat.set(r / 10, r / 10)
-    options.map = texture
-  } else
-    options.color = color
+    texture.repeat.set(size / 10, size / 10)
+    return texture
+  }
+  const params = { side: THREE.DoubleSide }
+  const material = file
+    ? new THREE.MeshBasicMaterial({ ...params, map: getTexture() })
+    : new THREE.MeshLambertMaterial({ ...params, color }) // MeshPhongMaterial
 
-  const geometry = new THREE.CircleGeometry(r, 32)
-  geometry.rotateX(-Math.PI / 2)
-  const material = new THREE.MeshLambertMaterial(options)
+  const geometry = circle
+    ? new THREE.CircleGeometry(size, 32)
+    : new THREE.PlaneGeometry(size, size)
+
+  geometry.rotateX(-Math.PI * 0.5)
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
   return mesh

@@ -17,7 +17,7 @@ const floor = createFloor({ size: size * 1.1, circle: false, color: 0x101018 })
 const lampposts = createLampposts({ size, numLampposts, circle: false })
 const streetLights = createCityLights({ size, numLights: numCityLights })
 
-const city = createCity({ numBuildings, size, circle: false, colorParams: null, rotateEvery: 9, fromCenter: 50 })
+const city = createCity({ numBuildings, size, circle: false, colorParams: null, rotateEvery: 9, emptyCenter: 50 })
 
 scene.add(floor, lampposts, streetLights, city)
 
