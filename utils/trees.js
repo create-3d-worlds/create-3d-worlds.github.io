@@ -70,7 +70,7 @@ function findGroundRecursive(terrain, mapSize, counter = 0) {
 
 /* CREATORS */
 
-export function createTree(x = 0, y = 0, z = 0, size = 50, trunkColor, crownColor, sketch = false) {
+export function createTree({ x = 0, y = 0, z = 0, size = 50, trunkColor, crownColor, sketch = false } = {}) {
   size = size * randomInRange(0.6, 1.8) // eslint-disable-line
   const trunk = createTrunk(size, trunkColor, sketch)
   trunk.position.set(x, y, z)
@@ -82,14 +82,12 @@ export function createTree(x = 0, y = 0, z = 0, size = 50, trunkColor, crownColo
   return trunk
 }
 
-export const createSimpleTree = (x, y, z, size, trunkColor = browns[2], crownColor = greens[0]) =>
-  createTree(x, y, z, size, trunkColor, crownColor)
+export const createSimpleTree = ({ x, y, z, size } = {}) =>
+  createTree({ x, y, z, size })
 
-export const createColorfulTree = (x, y, z, size, sketch = false) => createTree(x, y, z, size, false, false, sketch)
+export const createSketchTree = ({ x, y, z, size, sketch = true } = {}) => createTree({ x, y, z, size, trunkColor: false, crownColor: false, sketch })
 
-export const createSketchTree = (x, y, z, size, sketch = true) => createTree(x, y, z, size, false, false, sketch)
-
-export function createFirTree(x = 0, y = 0, z = 0, size = 50) {
+export function createFirTree({ x = 0, y = 0, z = 0, size = 50 } = {}) {
   const material = [
     new THREE.MeshLambertMaterial({ color: similarColor(browns[1]) }),
     new THREE.MeshLambertMaterial({ color: randomNuance() }),
@@ -130,7 +128,7 @@ export function createTrees(n = 20, mapSize = 500, size = 50, create = createSim
   const min = -mapSize, max = mapSize
   const group = new THREE.Group()
   const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
-  coords.forEach(([x, y]) => group.add(create(x, 0, y, size)))
+  coords.forEach(([x, z]) => group.add(create({ x, y: 0, z, size })))
   return group
 }
 
@@ -144,7 +142,7 @@ export const createTreesOnTerrain = function(terrain, n = 50, mapSize = 500, siz
   const group = new THREE.Group()
   for (let i = 0; i < n; i++) {
     const pos = findGroundRecursive(terrain, mapSize)
-    if (pos) group.add(createFirTree(pos.x, pos.y + groundOffset, pos.z, size))
+    if (pos) group.add(createFirTree({ x: pos.x, y: pos.y + groundOffset, z: pos.z, size }))
   }
   return group
 }

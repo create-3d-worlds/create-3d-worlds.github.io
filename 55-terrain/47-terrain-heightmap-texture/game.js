@@ -1,7 +1,7 @@
-import { createFullScene, camera, renderer, createOrbitControls } from '/utils/scene.js'
+import { createWorld, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import terrainFromHeightmap from '/utils/ground/terrainFromHeightmap.js'
 
-const scene = createFullScene({ color: 0x6666ff })
+const scene = createWorld({ color: 0x6666ff })
 createOrbitControls()
 camera.position.y = 150
 
