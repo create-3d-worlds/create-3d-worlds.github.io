@@ -1,9 +1,9 @@
-import { createWorld, camera, renderer, clock } from '/utils/scene.js'
+import { createWorldScene, camera, renderer, clock } from '/utils/scene.js'
 import { createSpiralStairs } from '/utils/boxes.js'
 import { createTerrain } from '/utils/ground/index.js'
 import { PlayerAvatar } from '/classes/Player.js'
 
-const scene = createWorld()
+const scene = createWorldScene()
 camera.position.z = 40
 camera.position.y = 20
 

@@ -1,8 +1,8 @@
 import { createTrees } from '/utils/trees.js'
-import { renderer, camera, clock, createWorld } from '/utils/scene.js'
+import { renderer, camera, clock, createWorldScene } from '/utils/scene.js'
 import { PlayerAvatar } from '/classes/Player.js'
 
-const scene = createWorld({ file: 'ground.jpg' })
+const scene = createWorldScene({ file: 'ground.jpg' })
 const avatar = new PlayerAvatar()
 
 scene.add(avatar.mesh, createTrees())

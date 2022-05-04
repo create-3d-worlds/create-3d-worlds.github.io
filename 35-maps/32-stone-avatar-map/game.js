@@ -1,9 +1,9 @@
-import { createWorld, renderer, camera, clock } from '/utils/scene.js'
+import { createWorldScene, renderer, camera, clock } from '/utils/scene.js'
 import { PlayerAvatar } from '/classes/Player.js'
 import Tilemap from '/classes/Tilemap.js'
 import { nemesis } from '/data/maps.js'
 
-const scene = createWorld({ file: 'ground.jpg' })
+const scene = createWorldScene({ file: 'ground.jpg' })
 const map = new Tilemap(nemesis, 100)
 const walls = map.create3DMap()
 scene.add(walls)

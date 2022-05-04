@@ -27,7 +27,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
 /* FUNCTIONS */
 
-export function createWorld(groundParam, skyParam, lightParam, fogParam = {}) {
+export function createWorldScene(groundParam, skyParam, lightParam, fogParam = {}) {
   scene.add(createGround(groundParam))
   scene.add(createGradientSky(skyParam))
   const light = createSunLight(lightParam)

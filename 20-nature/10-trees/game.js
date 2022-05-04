@@ -1,14 +1,11 @@
-import { createWorld, renderer, camera, hemLight, createOrbitControls } from '/utils/scene.js'
+import { createWorldScene, renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { createTree, createSimpleTree, createSketchTree, createFirTree } from '/utils/trees.js'
 import { randomInRange } from '/utils/helpers.js'
 
-const scene = createWorld()
+const scene = createWorldScene()
+const controls = createOrbitControls()
 
-hemLight()
-createOrbitControls()
-
-camera.position.z = 100
-camera.position.y = 50
+camera.position.y = 100
 
 const r = () => randomInRange(-200, 200)
 
@@ -23,5 +20,6 @@ scene.add(
 
 void function animate() {
   requestAnimationFrame(animate)
+  controls.update()
   renderer.render(scene, camera)
 }()
