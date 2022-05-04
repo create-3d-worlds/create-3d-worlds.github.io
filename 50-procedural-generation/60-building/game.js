@@ -1,7 +1,8 @@
-import { scene, camera, renderer, createOrbitControls, initLights } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls, initLights, hemLight } from '/utils/scene.js'
 import { createBuilding } from '/utils/city.js'
 
 initLights()
+hemLight()
 
 const controls = createOrbitControls()
 camera.position.set(0, 75, 75)
