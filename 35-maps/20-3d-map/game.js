@@ -3,7 +3,8 @@ import { create3DMap } from '/utils/maps.js'
 import { createGround } from '/utils/ground/index.js'
 import matrix from '/data/small-map.js'
 
-// hemLight()
+hemLight()
+
 camera.position.z = 15
 camera.position.y = 10
 

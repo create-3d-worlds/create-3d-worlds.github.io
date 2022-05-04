@@ -1,6 +1,6 @@
 import { createGround } from '/utils/ground/index.js'
 import { create3DMap } from '/utils/maps.js'
-import { scene, renderer, camera, clock,hemLight } from '/utils/scene.js'
+import { scene, renderer, camera, clock, hemLight } from '/utils/scene.js'
 import { PlayerAvatar } from '/classes/Player.js'
 import matrix from '/data/small-map.js'
 

@@ -14,7 +14,6 @@ live-server
 ### General
 
 - [ ] svuda srediti svetla
-- [ ] prebaciti scene iz playera u mapu?
 - [ ] dodati primere drveća u geometriju
 - [ ] dovesti veličine u razmeru 1px : 1m
 - [ ] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
