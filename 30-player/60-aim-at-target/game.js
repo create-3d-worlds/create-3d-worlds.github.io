@@ -1,63 +1,75 @@
 /* global dat */
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { scene, camera, renderer } from '/utils/scene.js'
+import { scene, camera, renderer, hemLight } from '/utils/scene.js'
 
-camera.position.set(10, 5, 7)
-camera.lookAt(scene.position)
+hemLight()
+camera.position.set(0, 0, 7)
 
-const cubeGeometry = new THREE.BoxGeometry(1, 1, 7)
-const cubeMaterial = new THREE.MeshLambertMaterial({ color: 'blue' })
-cubeMaterial.transparent = true
-const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
-cube.name = 'cube'
-scene.add(cube)
+const gun = createGun()
+scene.add(gun)
 
-const sphereGeometry = new THREE.SphereGeometry(1, 10, 10)
-const sphereMaterial = new THREE.MeshLambertMaterial({ color: 'green' })
-const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
-sphereMesh.position.set(4, 6, -4)
-scene.add(sphereMesh)
+const sphere = createSphere()
+scene.add(sphere)
 
-const tetraGeometry = new THREE.TetrahedronGeometry(2)
-const tetraMaterial = new THREE.MeshLambertMaterial({ color: 'yellow' })
-const tetraMesh = new THREE.Mesh(tetraGeometry, tetraMaterial)
-tetraMesh.position.set(-6, 0, -4)
-scene.add(tetraMesh)
+const tetra = createTetra()
+scene.add(tetra)
 
-const light1 = new THREE.SpotLight()
-light1.position.set(30, 50, 30)
-scene.add(light1)
+const box = createBox()
+scene.add(box)
 
-const light2 = new THREE.SpotLight()
-light2.position.set(-30, 50, 30)
-scene.add(light2)
+/* GUI */
 
-const boxGeometry = new THREE.BoxGeometry(1, 1, 1)
-const boxMaterial = new THREE.MeshLambertMaterial({ color: 'red' })
-const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial)
-boxMesh.position.set(2, 4, 8)
-scene.add(boxMesh)
-
-const control = new function() {
-  this.lookAtCube = function() {
-    cube.lookAt(boxMesh.position)
-  }
-  this.lookAtSphere = function() {
-    cube.lookAt(sphereMesh.position)
-
-  }
-  this.lookAtTetra = function() {
-    cube.lookAt(tetraMesh.position)
+const control = {
+  lookAtCube() {
+    gun.lookAt(box.position)
+  },
+  lookAtSphere() {
+    gun.lookAt(sphere.position)
+  },
+  lookAtTetra() {
+    gun.lookAt(tetra.position)
   }
 }
 
-addControls(control)
+const gui = new dat.GUI()
+gui.add(control, 'lookAtSphere')
+gui.add(control, 'lookAtCube')
+gui.add(control, 'lookAtTetra')
 
-function addControls(controlObject) {
-  const gui = new dat.GUI()
-  gui.add(controlObject, 'lookAtSphere')
-  gui.add(controlObject, 'lookAtCube')
-  gui.add(controlObject, 'lookAtTetra')
+/* FUNCTIONS */
+
+function createGun() {
+  const geometry = new THREE.CylinderGeometry(.8, .5, 8, 12)
+  geometry.rotateX(Math.PI / 2)
+  const material = new THREE.MeshLambertMaterial({ color: 'gray' })
+  material.transparent = true
+  const gun = new THREE.Mesh(geometry, material)
+  gun.position.y = -2
+  return gun
+}
+
+function createSphere() {
+  const geometry = new THREE.SphereGeometry(1, 10, 10)
+  const material = new THREE.MeshLambertMaterial({ color: 'green' })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.set(-4, 2, -8)
+  return mesh
+}
+
+function createTetra() {
+  const geometry = new THREE.TetrahedronGeometry(2)
+  const material = new THREE.MeshLambertMaterial({ color: 'yellow' })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.set(-6, 0, -4)
+  return mesh
+}
+
+function createBox() {
+  const geometry = new THREE.BoxGeometry(1, 1, 1)
+  const material = new THREE.MeshLambertMaterial({ color: 'red' })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.set(6, 2, -8)
+  return mesh
 }
 
 /* LOOP */

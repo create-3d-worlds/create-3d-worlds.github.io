@@ -31,8 +31,7 @@ export function createTerrain({ size = 1000, segments = 50, colorParam } = {}) {
   geometry.rotateX(- Math.PI / 2)
   geometry.vertices.forEach(vertex => {
     vertex.x += randomInRange(-10, 10)
-    // vertex.y += randomInRange(-5, 15)
-    vertex.y += randomInRange(-50, 75) * Math.random() * Math.random()
+    vertex.y += randomInRange(-50, 75) * Math.random() * Math.random() // vertex.y += randomInRange(-5, 15)
     vertex.z += randomInRange(-10, 10)
   })
   geometry.faces.forEach(face => {
