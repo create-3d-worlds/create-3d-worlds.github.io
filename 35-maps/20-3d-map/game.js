@@ -1,8 +1,9 @@
-import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
+import { scene, renderer, camera, createOrbitControls, hemLight } from '/utils/scene.js'
 import { create3DMap } from '/utils/maps.js'
 import { createGround } from '/utils/ground/index.js'
 import matrix from '/data/small-map.js'
 
+// hemLight()
 camera.position.z = 15
 camera.position.y = 10
 

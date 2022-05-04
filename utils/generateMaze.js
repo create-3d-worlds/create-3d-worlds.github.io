@@ -2,11 +2,11 @@
   Prim's Algorithm
   https://stackoverflow.com/questions/54613229
 */
+const WALL = 1
+const EMPTY = 0
+
 export default function generateMaze(cols = 60, rows = 60) {
   // 1. Start with a grid full of walls.
-  const WALL = 1
-  const EMPTY = 0
-
   const maze = []
   for (let i = 0; i < cols; i++) {
     maze.push([])
@@ -48,7 +48,7 @@ export default function generateMaze(cols = 60, rows = 60) {
     const wall = walls[wallIndex]
 
     // 3.2 If only one of the two cells that the wall divides is visited, then:
-    const uc = [] // uc will be short for 'unvisited cell'
+    const uc = [] // unvisited cell
 
     if (wall.x + 1 < cols && maze[wall.x + 1][wall.y] === EMPTY) uc.push({
       x: wall.x - 1,
