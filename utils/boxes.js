@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { randomInRange, randomColor } from './helpers.js'
+import { randomInRange, randomNuance } from './helpers.js'
 
 const loader = new THREE.TextureLoader()
 
@@ -14,7 +14,7 @@ function createOutline(size) {
 
 /* creators */
 
-export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomColor(0.1, 0.01, .75), zModifier = 1, yModifier = 1) {
+export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomNuance({ h:0.1, s: 0.01, l: .75 }), zModifier = 1, yModifier = 1) {
   const ySize = size * yModifier
   const zSize = size * zModifier
   const geometry = new THREE.BoxGeometry(size, ySize, zSize)
@@ -51,7 +51,7 @@ export function createPlayerBox(x = 0, y = 0, z = 0, size, transparent) {
 export function createRandomBoxes(n = 100, size = 20, texture) {
   const group = new THREE.Group()
   for (let i = 0; i < n; i++) {
-    const color = randomColor(0.1, 0.01, .75)
+    const color = randomNuance({ h:0.1, s:0.01, l:.75 })
     const x = randomInRange(-200, 200), y = randomInRange(-5, 100), z = randomInRange(-200, 200)
     const box = createBox(x, y, z, size, texture, color)
     group.add(box)

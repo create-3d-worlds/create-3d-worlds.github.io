@@ -1,5 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { randomInRange, randomColor } from '../helpers.js'
+import { randomInRange, randomNuance } from '/utils/helpers.js'
+
 const loader = new THREE.TextureLoader()
 
 export function createGround({ size = 4000, color = 0x509f53, circle = true, file } = {}) {
@@ -25,18 +26,17 @@ export function createGround({ size = 4000, color = 0x509f53, circle = true, fil
   return mesh
 }
 
-// TODO: add color param
-export function createTerrain({ size = 1000, segments = 50 } = {}) {
+export function createTerrain({ size = 1000, segments = 50, colorParam } = {}) {
   const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
   geometry.rotateX(- Math.PI / 2)
   geometry.vertices.forEach(vertex => {
-    // TODO: better randomness
     vertex.x += randomInRange(-10, 10)
-    vertex.y += randomInRange(-5, 15)
+    // vertex.y += randomInRange(-5, 15)
+    vertex.y += randomInRange(-50, 75) * Math.random() * Math.random()
     vertex.z += randomInRange(-10, 10)
   })
   geometry.faces.forEach(face => {
-    face.vertexColors.push(randomColor(), randomColor(), randomColor())
+    face.vertexColors.push(randomNuance(colorParam), randomNuance(colorParam), randomNuance(colorParam))
   })
   const material = new THREE.MeshLambertMaterial({ vertexColors: THREE.VertexColors })
   const mesh = new THREE.Mesh(geometry, material)

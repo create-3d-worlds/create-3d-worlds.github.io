@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { randomInRange, similarColor, randomColor } from './helpers.js'
+import { randomInRange, similarColor, randomNuance } from './helpers.js'
 
 const sketchSize = 0.04
 const groundOffset = 20
@@ -11,7 +11,7 @@ const greens = [0x228b22, 0x2d4c1e, 0x3EA055, 0x44aa44]
 function createTrunk(size, color, sketch = false) {
   const geometry = new THREE.CylinderGeometry(size / 3.5, size / 3, size, 8)
   const material = new THREE.MeshToonMaterial({
-    color: color || randomColor(1.045, 0.5)
+    color: color || randomNuance({ h: 1.045, s: 0.5 })
   })
   const mesh = new THREE.Mesh(geometry, material)
   if (sketch) {
@@ -31,7 +31,7 @@ function createCrown(size, color, sketch = false) {
   const Shape = Math.random() > .2 ? THREE.DodecahedronGeometry : THREE.SphereGeometry
   const geometry = new Shape(size)
   const material = new THREE.MeshToonMaterial({
-    color: color || randomColor()
+    color: color || randomNuance()
   })
   const mesh = new THREE.Mesh(geometry, material)
   mesh.rotation.y = randomInRange(0, Math.PI)
@@ -92,7 +92,7 @@ export const createSketchTree = (x, y, z, size, sketch = true) => createTree(x, 
 export function createFirTree(x = 0, y = 0, z = 0, size = 50) {
   const material = [
     new THREE.MeshLambertMaterial({ color: similarColor(browns[1]) }),
-    new THREE.MeshLambertMaterial({ color: randomColor() }),
+    new THREE.MeshLambertMaterial({ color: randomNuance() }),
   ]
   const trunk = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 12, 6, 1, true))
   trunk.position.y = 6

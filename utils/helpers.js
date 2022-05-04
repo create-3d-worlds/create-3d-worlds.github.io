@@ -72,7 +72,7 @@ export function createFloor(params) {
 
 /* COLORS */
 
-export const randomColor = (h = .25, s = 0.5, l = 0.2) =>
+export const randomNuance = ({ h = .25, s = 0.5, l = 0.2 } = {}) =>
   new THREE.Color().setHSL(Math.random() * 0.1 + h, s, Math.random() * 0.25 + l)
 
 export function randomGrey(min = 75, max = 150) {
