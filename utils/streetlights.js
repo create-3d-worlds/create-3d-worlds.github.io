@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { randomInRange, randomInCircle, randomInSquare } from '/utils/helpers.js'
 
-export function createLamppost({ x, z, height = 40 } = {}) {
+export function createLamppost({ x = 0, z = 0, height = 40 } = {}) {
   const group = new THREE.Group()
 
   const sphereGeometry = new THREE.SphereGeometry(2, 12, 16)

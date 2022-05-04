@@ -1,7 +1,9 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls, hemLight } from '/utils/scene.js'
 import { createFloor } from '/utils/helpers.js'
 import { createLampposts } from '/utils/streetlights.js'
+
+hemLight({ intensity: .4 })
 
 const numLampposts = 15
 const size = 200

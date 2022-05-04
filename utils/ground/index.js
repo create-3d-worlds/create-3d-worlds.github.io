@@ -14,7 +14,7 @@ export function createGround({ size = 4000, color = 0x509f53, circle = true, fil
   const params = { side: THREE.DoubleSide }
   const material = file
     ? new THREE.MeshBasicMaterial({ ...params, map: getTexture() })
-    : new THREE.MeshLambertMaterial({ ...params, color }) // MeshPhongMaterial
+    : new THREE.MeshPhongMaterial({ ...params, color }) // MeshLambertMaterial ne radi rasveta
 
   const geometry = circle
     ? new THREE.CircleGeometry(size, 32)

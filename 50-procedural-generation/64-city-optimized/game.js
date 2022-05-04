@@ -1,7 +1,9 @@
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls, hemLight } from '/utils/scene.js'
 import { createFloor } from '/utils/helpers.js'
 import { createCityLights } from '/utils/streetlights.js'
 import { createCity } from '/utils/city.js'
+
+hemLight({ intensity: 1.25 })
 
 const size = 200
 const numBuildings = 200
