@@ -14,6 +14,7 @@ live-server
 ### General
 
 - [ ] svuda srediti svetla
+- [ ] prebaciti scene iz playera u mapu?
 - [ ] dodati primere drveća u geometriju
 - [ ] dovesti veličine u razmeru 1px : 1m
 - [ ] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
@@ -56,7 +57,7 @@ live-server
   - [x] crtati nisan u centru ekrana
   - [x] weapon shaking
   - [x] crtati 3d igraca na 2d maloj mapi
-- [x] razdvojiti CanvasRenderer klasu na SmallMapRenderer i FirstPersonRenderer
+- [x] razdvojiti CanvasRenderer klasu na Map2DRenderer i FirstPersonRenderer
 - [x] malu mapu iscrtavati samo nakon promene tipki
 
 ### Camera

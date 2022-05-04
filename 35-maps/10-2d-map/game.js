@@ -1,5 +1,5 @@
-import SmallMapRenderer from '/classes/2d/SmallMapRenderer.js'
+import Map2DRenderer from '/classes/2d/Map2DRenderer.js'
 import matrix from '/data/small-map.js'
 
-const canvas = new SmallMapRenderer({ matrix, cellSize: 30 })
-canvas.drawMap()
+const mapRenderer = new Map2DRenderer({ matrix, cellSize: 30 })
+mapRenderer.drawMap()

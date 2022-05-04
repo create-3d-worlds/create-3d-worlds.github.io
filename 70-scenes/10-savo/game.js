@@ -2,7 +2,7 @@ import { createGround } from '/utils/ground/index.js'
 import { randomMatrix } from '/utils/maps.js'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import FirstPersonRenderer from '/classes/2d/FirstPersonRenderer.js'
-import SmallMapRenderer from '/classes/2d/SmallMapRenderer.js'
+import Map2DRenderer from '/classes/2d/Map2DRenderer.js'
 import Player from '/classes/Player.js'
 import Tilemap from '/classes/Tilemap.js'
 
@@ -14,7 +14,7 @@ const matrix = randomMatrix()
 const origin = { x: -500, z: -500 }
 const map = new Tilemap(matrix, 100, origin)
 const smallMap = new Tilemap(matrix, 20)
-const smallMapRenderer = new SmallMapRenderer(smallMap)
+const smallMapRenderer = new Map2DRenderer(smallMap)
 
 scene.add(createGround({ file: 'ground.jpg' }))
 const walls = map.create3DMap(0.5)

@@ -7,7 +7,7 @@ let initiallyRendered = false
 
 const shouldRender = () => keyboard.controlsPressed || !initiallyRendered
 
-export default class SmallMapRenderer extends Canvas {
+export default class Map2DRenderer extends Canvas {
   constructor(smallMap) {
     super()
     this.matrix = smallMap.matrix
@@ -75,4 +75,4 @@ export default class SmallMapRenderer extends Canvas {
   }
 }
 
-customElements.define('my-small-map', SmallMapRenderer, { extends: 'canvas' })
+customElements.define('my-small-map', Map2DRenderer, { extends: 'canvas' })
