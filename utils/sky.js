@@ -43,15 +43,11 @@ export function createGradientSky({ r = 4000, topColor = 0x0077ff, bottomColor =
   return new THREE.Mesh(geometry, material)
 }
 
-export function createSunSky() {
+export function createSunSky({ vertical = degToRad(88), horizontal = degToRad(180) } = {}) {
   const sky = new Sky()
   sky.scale.setScalar(450000)
-
   const sun = new THREE.Vector3()
-  const phi = degToRad(90 - 2)
-  const theta = degToRad(180)
-  sun.setFromSphericalCoords(1, phi, theta)
-  const { uniforms } = sky.material
-  uniforms.sunPosition.value.copy(sun)
+  sun.setFromSphericalCoords(1, vertical, horizontal)
+  sky.material.uniforms.sunPosition.value.copy(sun)
   return sky
 }
