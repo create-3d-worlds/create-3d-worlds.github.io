@@ -14,7 +14,6 @@ scene.add(directionalLight)
 
 scene.add(terrain)
 
-// TODO: pomerati u odnosu na igraca
 const gui = new dat.GUI()
 const pos = { x: 2, y: 2 }
 gui.add(pos, 'x', -20, 20).name('x')

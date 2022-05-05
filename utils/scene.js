@@ -93,6 +93,7 @@ export function initLights(theScene = scene, position = new THREE.Vector3(-10, 3
 
 export function hemLight({ theScene = scene, intensity = 1 } = {}) {
   const hemisphereLight = new THREE.HemisphereLight(0xfffff0, 0x101020, intensity)
+  hemisphereLight.name = 'hemisphereLight'
   theScene.add(hemisphereLight)
 }
 
