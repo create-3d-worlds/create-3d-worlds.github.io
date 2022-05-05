@@ -1,16 +1,13 @@
 /* global dat */
-import * as THREE from '/node_modules/three108/build/three.module.js'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { terrain, updateTerrain } from '../../utils/dynamic-terrain/index.js'
+import { dirLight } from '/utils/light.js'
 
-scene.remove(scene.getObjectByName('hemisphereLight')) // BUG: sa svetlom puca terrain
+scene.remove(scene.getObjectByName('hemisphereLight')) // remove bug
+scene.add(dirLight({ position: [500, 2000, 0], intensity: 2 }))
 
 createOrbitControls()
 camera.position.set(-1200, 800, 1200)
-
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1.15)
-directionalLight.position.set(500, 2000, 0)
-scene.add(directionalLight)
 
 scene.add(terrain)
 

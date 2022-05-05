@@ -8,9 +8,8 @@ import Zeppelin from '/classes/Zeppelin.js'
 const scene = createWorldScene()
 const controls = createOrbitControls()
 
-scene.remove(scene.getObjectByName('hemisphereLight')) // BUG: sa svetlom puca terrain
-
-scene.add(dirLight({ position: [500, 2000, 0] }))
+scene.remove(scene.getObjectByName('hemisphereLight')) // remove bug
+scene.add(dirLight({ position: [500, 2000, 0], intensity: 2 }))
 
 scene.add(terrain)
 
