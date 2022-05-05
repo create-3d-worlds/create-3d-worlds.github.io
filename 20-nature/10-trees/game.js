@@ -1,19 +1,15 @@
 import { createWorldScene, renderer, camera, createOrbitControls } from '/utils/scene.js'
-import { createTree, createSimpleTree, createSketchTree, createFirTree } from '/utils/trees.js'
-import { randomInRange } from '/utils/helpers.js'
+import { createTree, createSketchTree, createFirTree } from '/utils/trees.js'
 
 const scene = createWorldScene()
 const controls = createOrbitControls()
 
 camera.position.y = 100
 
-const r = () => randomInRange(-200, 200)
-
 scene.add(
-  createTree({ x: r(), z: r() }),
-  createSimpleTree({ x: r(), z: r() }),
-  createSketchTree({ x: r(), z: r() }),
-  createFirTree({ x: r(), z: r() }),
+  createTree({ x: -150 }),
+  createSketchTree(),
+  createFirTree({ x: 150 }),
 )
 
 /* LOOP */

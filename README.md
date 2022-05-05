@@ -13,7 +13,7 @@ live-server
 
 ### General
 
-- [ ] dodati primere drveća u geometriju
+- [x] dodati primere drveća u geometriju
 - [ ] svuda srediti svetla
 - [ ] dovesti veličine u razmeru 1px : 1m
 - [ ] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba

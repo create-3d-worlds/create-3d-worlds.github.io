@@ -82,9 +82,6 @@ export function createTree({ x = 0, y = 0, z = 0, size = 50, trunkColor, crownCo
   return trunk
 }
 
-export const createSimpleTree = ({ x, y, z, size } = {}) =>
-  createTree({ x, y, z, size })
-
 export const createSketchTree = ({ x, y, z, size, sketch = true } = {}) => createTree({ x, y, z, size, trunkColor: false, crownColor: false, sketch })
 
 export function createFirTree({ x = 0, y = 0, z = 0, size = 50 } = {}) {

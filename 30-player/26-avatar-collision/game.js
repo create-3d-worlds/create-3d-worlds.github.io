@@ -1,9 +1,8 @@
 import { PlayerAvatar } from '/classes/Player.js'
-import { createWorldScene, renderer, camera, clock, hemLight } from '/utils/scene.js'
+import { createWorldScene, renderer, camera, clock } from '/utils/scene.js'
 import { createFirTrees } from '/utils/trees.js'
 
 const scene = createWorldScene()
-hemLight()
 const avatar = new PlayerAvatar()
 scene.add(avatar.mesh)
 
