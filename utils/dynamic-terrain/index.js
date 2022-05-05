@@ -30,10 +30,10 @@ uniformsNormal.resolution.value.set(rx, ry)
 uniformsNormal.heightMap.value = heightMap.texture
 
 // TEXTURES
-const textureLoader = new THREE.TextureLoader()
-const diffuseTexture1 = textureLoader.load('/assets/textures/grasslight-big.jpg')
-const diffuseTexture2 = textureLoader.load('/assets/textures/backgrounddetailed6.jpg')
-const detailTexture = textureLoader.load('/assets/textures/grasslight-big-nm.jpg')
+const loader = new THREE.TextureLoader()
+const diffuseTexture1 = loader.load('/assets/textures/grasslight-big.jpg')
+const diffuseTexture2 = loader.load('/assets/textures/backgrounddetailed6.jpg')
+const detailTexture = loader.load('/assets/textures/grasslight-big-nm.jpg')
 diffuseTexture1.wrapS = diffuseTexture1.wrapT = THREE.RepeatWrapping
 diffuseTexture2.wrapS = diffuseTexture2.wrapT = THREE.RepeatWrapping
 detailTexture.wrapS = detailTexture.wrapT = THREE.RepeatWrapping

@@ -1,16 +1,16 @@
 // https://github.com/josdirksen/essential-threejs/blob/master/chapter-05/05.02-3D-plane-from-scratch-perlin.html
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import noise from '/libs/noise.js'
+import { ImprovedNoise } from '/node_modules/three108/examples/jsm/math/ImprovedNoise.js'
+
+const perlin = new ImprovedNoise()
 
 export default function createDjavoljaVarosh({ width = 140, depth = 140, scale = 2.5, height = 50 } = {}) {
-  const date = new Date()
-  noise.seed(date.getMilliseconds())
   const geometry = new THREE.Geometry()
   const factor = 7
   for (let z = 0; z < depth; z++)
     for (let x = 0; x < width; x++) {
-      // abs make value positive, perlin2 returns from - 1 to 1
-      const y = Math.abs(noise.perlin2(x / factor, z / factor) * height)
+      // abs make value positive, noise returns from - 1 to 1
+      const y = Math.abs(perlin.noise(x / factor, 1, z / factor) * height)
       const vertex = new THREE.Vector3(x * scale, y, z * scale)
       geometry.vertices.push(vertex)
     }
