@@ -5,7 +5,7 @@ import { getHighPoint } from '/utils/helpers.js'
 
 const loader = new THREE.TextureLoader()
 
-export default function({ src, callback, textureSrc, heightOffset = 2, scale = 3, colors = ['brown', '#7a8a46', '#967848', 'white'], domain = [0, 100] } = {}) {
+export default ({ src, textureSrc, heightOffset = 2, scale = 3, colors = ['brown', '#7a8a46', '#967848', 'white'], domain = [0, 100] } = {}) => new Promise(resolve => {
 
   const paint = chroma.scale(colors).domain(domain) // https://gka.github.io/chroma.js/
 
@@ -87,6 +87,7 @@ export default function({ src, callback, textureSrc, heightOffset = 2, scale = 3
     const mesh = new THREE.Mesh(geometry, material)
     mesh.translateX(-max.x / 2)
     mesh.translateZ(-max.z / 2)
-    callback(mesh)
+    resolve(mesh)
   }
-}
+
+})
