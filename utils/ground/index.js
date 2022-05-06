@@ -43,7 +43,7 @@ export function createTerrain({ size = 1000, segments = 50, colorParam } = {}) {
   return mesh
 }
 
-export function createWater(size = 1000, opacity = 0.75, file) {
+export function createWater({ size = 1000, opacity = 0.75, file } = {}) {
   const geometry = new THREE.PlaneGeometry(size, size, 1, 1)
   geometry.rotateX(-Math.PI / 2)
   const material = new THREE.MeshLambertMaterial({
