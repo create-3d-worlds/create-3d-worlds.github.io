@@ -7,7 +7,7 @@ camera.position.z = 100
 
 const cube = new THREE.Mesh(
   new THREE.BoxGeometry(40, 40, 40),
-  new THREE.MeshBasicMaterial({ map:loader.load('/assets/textures/crate.gif') })
+  new THREE.MeshBasicMaterial({ map: loader.load('/assets/textures/crate.gif') })
 )
 scene.add(cube)
 

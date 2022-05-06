@@ -1,12 +1,11 @@
 // https://github.com/josdirksen/threejs-cookbook/blob/master/02-geometries-meshes/02.06-create-terrain-from-heightmap.html
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import chroma from '/libs/chroma.js'
-import { getHighPoint } from '/utils/helpers.js'
+import { getHighPoint, getTexture } from '/utils/helpers.js'
 
-const loader = new THREE.TextureLoader()
 const defaultColors = ['brown', '#7a8a46', '#967848', 'white']
 
-export default ({ src, textureSrc, heightOffset = 2, scale = 3, colors = defaultColors, domain = [0, 100] } = {}) => new Promise(resolve => {
+export default ({ src, textureFile, heightOffset = 2, scale = 3, colors = defaultColors, domain = [0, 100] } = {}) => new Promise(resolve => {
 
   const paint = chroma.scale(colors).domain(domain) // https://gka.github.io/chroma.js/
 
@@ -50,7 +49,7 @@ export default ({ src, textureSrc, heightOffset = 2, scale = 3, colors = default
         geometry.faces.push(face1)
         geometry.faces.push(face2)
 
-        if (textureSrc) { // UV mapping
+        if (textureFile) { // UV mapping
           const uva = new THREE.Vector2(x / (width - 1), 1 - z / (depth - 1))
           const uvb = new THREE.Vector2((x + 1) / (width - 1), 1 - z / (depth - 1))
           const uvc = new THREE.Vector2(x / (width - 1), 1 - (z + 1) / (depth - 1))
@@ -68,23 +67,15 @@ export default ({ src, textureSrc, heightOffset = 2, scale = 3, colors = default
     geometry.computeBoundingBox()
     const { max } = geometry.boundingBox
 
-    const getTexture = () => {
-      const texture = loader.load(textureSrc)
-      texture.wrapS = texture.wrapT = THREE.RepeatWrapping
-      texture.magFilter = THREE.NearestFilter
-      return texture
-    }
-
-    const material = textureSrc
-      ? new THREE.MeshLambertMaterial({
-        map: getTexture()
-      })
-      : new THREE.MeshLambertMaterial({
+    const params = textureFile
+      ? { map: getTexture({ file: textureFile, repeat: 1 }) }
+      : {
         vertexColors: THREE.FaceColors,
-        color: 0x666666, // remove?
+        color: 0xaaaaaa,
         flatShading: false
-      })
+      }
 
+    const material = new THREE.MeshLambertMaterial(params)
     const mesh = new THREE.Mesh(geometry, material)
     mesh.translateX(-max.x / 2)
     mesh.translateZ(-max.z / 2)

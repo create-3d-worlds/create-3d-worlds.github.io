@@ -32,14 +32,8 @@ export function randomInSquare(size, emptyCenter = 0) {
   const z = x > -emptyCenter && x < emptyCenter
     ? randomInRangeExcluded(-size * .5, size * .5, -emptyCenter, emptyCenter)
     : randomInRange(-size * .5, size * .5)
-  return randomBool() ? { x, z } : { x : z, z : x }
+  return randomBool() ? { x, z } : { x: z, z: x }
 }
-
-// export function randomInSquareEmptyCross(size, emptyCenter = 0) {
-//   const x = randomInRangeExcluded(-size * .5, size * .5, -emptyCenter, emptyCenter)
-//   const z = randomInRangeExcluded(-size * .5, size * .5, -emptyCenter, emptyCenter)
-//   return { x, z }
-// }
 
 export const isCollide = (bounds1, bounds2) =>
   bounds1.xMin <= bounds2.xMax && bounds1.xMax >= bounds2.xMin &&
@@ -66,8 +60,22 @@ export function cameraFollowObject(camera, obj, { distance = 100, alpha = 0.05, 
 
 export const degToRad = deg => deg * Math.PI / 180
 
-export function createFloor(params) {
-  return createGround({ size: 1000, color: 0x808080, ...params })
+/* TEXTURES */
+
+export const getTexture = ({ file, repeat = 16 } = {}) => {
+  const texture = new THREE.TextureLoader().load(`/assets/textures/${file}`)
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+  texture.magFilter = THREE.NearestFilter
+  texture.repeat.set(repeat, repeat)
+  return texture
+}
+
+export const addTexture = (model, file = 'concrete.jpg') => {
+  // const texture = new THREE.TextureLoader().load(`/assets/textures/${file}`)
+  const texture = getTexture({ file })
+  model.traverse(child => {
+    if (child.isMesh) child.material.map = texture
+  })
 }
 
 /* COLORS */
@@ -91,14 +99,17 @@ export function randomGrayish({ min = .3, max = .7, colorful = .02 } = {}) {
   return color
 }
 
-/*
- * param: color in hex
- * return: THREE.Color()
-*/
+// param color in hex, return THREE.Color()
 export function similarColor(color) {
   const factor = randomInRange(-0.25, 0.25)
   const hsl = {}
   const { h, s, l } = new THREE.Color(color).getHSL(hsl)
   const newCol = new THREE.Color().setHSL(h + h * factor, s, l + l * factor / 4)
   return newCol
+}
+
+/* ALIAS */
+
+export function createFloor(params) {
+  return createGround({ size: 1000, color: 0x808080, ...params })
 }

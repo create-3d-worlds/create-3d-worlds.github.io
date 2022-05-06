@@ -1,19 +1,12 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { randomInRange, randomNuance } from '/utils/helpers.js'
+import { randomInRange, randomNuance, getTexture } from '/utils/helpers.js'
 
 const loader = new THREE.TextureLoader()
 
 export function createGround({ size = 4000, color = 0x509f53, circle = true, file } = {}) {
-  const getTexture = () => {
-    const texture = loader.load(`/assets/textures/${file}`)
-    texture.wrapS = THREE.RepeatWrapping
-    texture.wrapT = THREE.RepeatWrapping
-    texture.repeat.set(size / 10, size / 10)
-    return texture
-  }
   const params = { side: THREE.DoubleSide }
   const material = file
-    ? new THREE.MeshBasicMaterial({ ...params, map: getTexture() })
+    ? new THREE.MeshBasicMaterial({ ...params, map: getTexture({ file, repeat: size / 10 }) })
     : new THREE.MeshPhongMaterial({ ...params, color }) // MeshLambertMaterial ne radi rasveta
 
   const geometry = circle
