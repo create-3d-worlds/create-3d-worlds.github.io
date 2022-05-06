@@ -1,16 +1,17 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
 import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
-import {scene, camera, renderer, createOrbitControls, initLights} from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls, initLights, hemLight } from '/utils/scene.js'
 
-const scale = 0.2
+const scale = .75
 
+hemLight({ intensity: 2 })
 initLights()
 createOrbitControls()
 
 const objLoader = new OBJLoader()
 const mtlLoader = new MTLLoader()
-mtlLoader.setMaterialOptions({side: THREE.DoubleSide})
+mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
 
 mtlLoader.load('/assets/models/BlackPearl/BlackPearl.mtl', materials => {
   objLoader.setMaterials(materials)

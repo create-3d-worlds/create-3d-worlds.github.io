@@ -2,7 +2,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
 import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
-import {scene, camera, renderer, initLights} from '/utils/scene.js'
+import { scene, camera, renderer, initLights } from '/utils/scene.js'
 
 let tower
 const scale = 1.5
@@ -12,7 +12,7 @@ renderer.gammaInput = true
 renderer.gammaOutput = true
 
 const planeGeometry = new THREE.CircleGeometry(50, 32)
-const planeMaterial = new THREE.MeshPhongMaterial({color:0x23ef13})
+const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x23ef13 })
 const plane = new THREE.Mesh(planeGeometry, planeMaterial)
 plane.rotation.x = -0.5 * Math.PI
 scene.add(plane)
@@ -41,12 +41,12 @@ mtlLoader.load('/assets/models/houses02/house2-02.mtl', materials => {
 function addControlGui(params) {
   const gui = new dat.GUI()
   gui.add(params, 'side', {
-    'THREE.FrontSide' : THREE.FrontSide,
-    'THREE.DoubleSide' : THREE.DoubleSide
+    'THREE.FrontSide': THREE.FrontSide,
+    'THREE.DoubleSide': THREE.DoubleSide
   })
   gui.add(params, 'cameraPos', {
-    'inside' : 0,
-    'outside' : 1
+    'inside': 0,
+    'outside': 1
   })
 }
 
