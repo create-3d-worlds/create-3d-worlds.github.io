@@ -4,8 +4,9 @@ import chroma from '/libs/chroma.js'
 import { getHighPoint } from '/utils/helpers.js'
 
 const loader = new THREE.TextureLoader()
+const defaultColors = ['brown', '#7a8a46', '#967848', 'white']
 
-export default ({ src, textureSrc, heightOffset = 2, scale = 3, colors = ['brown', '#7a8a46', '#967848', 'white'], domain = [0, 100] } = {}) => new Promise(resolve => {
+export default ({ src, textureSrc, heightOffset = 2, scale = 3, colors = defaultColors, domain = [0, 100] } = {}) => new Promise(resolve => {
 
   const paint = chroma.scale(colors).domain(domain) // https://gka.github.io/chroma.js/
 

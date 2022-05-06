@@ -2,7 +2,8 @@ import { createWorldScene, camera, renderer, createOrbitControls } from '/utils/
 import terrainFromHeightmap from '/utils/ground/terrainFromHeightmap.js'
 
 const scene = createWorldScene({ color: 0x6666ff })
-createOrbitControls()
+
+const controls = createOrbitControls()
 camera.position.y = 150
 
 const terrain = await terrainFromHeightmap({
@@ -16,5 +17,6 @@ scene.add(terrain)
 
 void function update() {
   renderer.render(scene, camera)
+  controls.update()
   requestAnimationFrame(update)
 }()
