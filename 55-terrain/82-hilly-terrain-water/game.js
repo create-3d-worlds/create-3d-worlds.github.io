@@ -1,7 +1,7 @@
 import { scene, renderer, camera, clock, createOrbitControls, hemLight } from '/utils/scene.js'
-import { createWater } from '/utils/ground/index.js'
+import { createWater } from '/utils/terrain/index.js'
 import { createTreesOnTerrain } from '/utils/trees.js'
-import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
+import { createHillyTerrain } from '/utils/terrain/createHillyTerrain.js'
 import { PlayerAvatar } from '/classes/Player.js'
 import { dirLight } from '/utils/light.js'
 
@@ -13,12 +13,12 @@ const controls = createOrbitControls()
 camera.position.y = 150
 
 scene.add(createWater({ size: 1000 }))
-const ground = createHillyTerrain()
-scene.add(ground)
-scene.add(createTreesOnTerrain(ground))
+const terrain = createHillyTerrain()
+scene.add(terrain)
+scene.add(createTreesOnTerrain({ terrain }))
 
 const avatar = new PlayerAvatar()
-avatar.addSolids(ground)
+avatar.addSolids(terrain)
 scene.add(avatar.mesh)
 
 /* LOOP */

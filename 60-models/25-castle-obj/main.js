@@ -6,12 +6,12 @@ import { createWater } from '/utils/ground/index.js'
 import { createTreesOnTerrain } from '/utils/trees.js'
 import { addTexture } from '/utils/helpers.js'
 
-hemLight()
+hemLight({ intensity: 1.2 })
 
 const terrain = createHillyTerrain()
 scene.add(terrain)
 scene.add(createWater())
-scene.add(createTreesOnTerrain(terrain, 50, 500, 25))
+scene.add(createTreesOnTerrain({ terrain, n: 50, mapSize: 1000, size: 25 }))
 
 createOrbitControls()
 camera.position.y = 100
@@ -24,7 +24,7 @@ new OBJLoader().load('models/magic-castle.obj', model => {
   model.scale.set(8, 8, 8)
   const box = new THREE.Box3().setFromObject(model)
   model.translateY(box.getSize().y / 4)
-  addTexture(model)
+  addTexture({ model })
   scene.add(model)
 })
 

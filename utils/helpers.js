@@ -70,8 +70,8 @@ export const getTexture = ({ file, repeat = 16 } = {}) => {
   return texture
 }
 
-export const addTexture = (model, file = 'concrete.jpg') => {
-  const texture = getTexture({ file, repeat: 16 })
+export const addTexture = ({ model, file = 'concrete.jpg', repeat = 1 } = {}) => {
+  const texture = getTexture({ file, repeat })
   model.traverse(child => {
     if (child.isMesh) child.material.map = texture
   })

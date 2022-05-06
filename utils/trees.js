@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { randomInRange, similarColor, randomNuance } from './helpers.js'
+import { randomInRange, similarColor, randomNuance, randomInSquare } from './helpers.js'
 
 const sketchSize = 0.04
 const groundOffset = 20
@@ -60,8 +60,7 @@ const findGround = function(terrain, x, z) {
 }
 
 function findGroundRecursive(terrain, mapSize, counter = 0) {
-  const min = -mapSize, max = mapSize
-  const x = randomInRange(min, max), z = randomInRange(min, max)
+  const { x, z } = randomInSquare(mapSize)
   const ground = findGround(terrain, x, z)
   if (ground) return ground
   if (counter > 5) return null
@@ -135,7 +134,7 @@ export const createFirTrees = (n, mapSize, size) =>
 export const createSketchTrees = (n, mapSize, size) =>
   createTrees(n, mapSize, size, createSketchTree)
 
-export const createTreesOnTerrain = function(terrain, n = 50, mapSize = 500, size) {
+export const createTreesOnTerrain = ({ terrain, n = 50, mapSize = 500, size } = {}) => {
   const group = new THREE.Group()
   for (let i = 0; i < n; i++) {
     const pos = findGroundRecursive(terrain, mapSize)
