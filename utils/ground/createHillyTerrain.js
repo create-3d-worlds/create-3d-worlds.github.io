@@ -2,6 +2,8 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { randomInRange } from '../helpers.js'
 import { SimplexNoise } from '/libs/SimplexNoise.js'
 
+const noise = new SimplexNoise()
+
 const getTexture = (material, file) => {
   const texture = new THREE.TextureLoader().load(`/assets/textures/${file}`)
   texture.wrapS = THREE.RepeatWrapping
@@ -23,7 +25,6 @@ export const createHillyTerrain = ({ size = 1000, y = 30, color = 0x33aa33, fact
   const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
   geometry.rotateX(-Math.PI / 2)
 
-  const noise = new SimplexNoise()
   geometry.vertices.forEach(vertex => {
     vertex.x += randomInRange(-factorX, factorX)
     vertex.z += randomInRange(-factorZ, factorZ)
@@ -37,7 +38,7 @@ export const createHillyTerrain = ({ size = 1000, y = 30, color = 0x33aa33, fact
   })
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
-  mesh.castShadow = true
+  // mesh.castShadow = true
   mesh.position.y = y
   return mesh
 }
