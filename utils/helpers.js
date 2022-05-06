@@ -71,8 +71,7 @@ export const getTexture = ({ file, repeat = 16 } = {}) => {
 }
 
 export const addTexture = (model, file = 'concrete.jpg') => {
-  // const texture = new THREE.TextureLoader().load(`/assets/textures/${file}`)
-  const texture = getTexture({ file })
+  const texture = getTexture({ file, repeat: 16 })
   model.traverse(child => {
     if (child.isMesh) child.material.map = texture
   })

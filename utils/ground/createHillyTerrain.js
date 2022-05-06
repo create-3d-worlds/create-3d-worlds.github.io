@@ -11,7 +11,7 @@ export const createHillyTerrain = ({ size = 1000, y = 30, color = 0x33aa33, fact
   const material = new THREE.MeshLambertMaterial({
     color,
     vertexColors: THREE.FaceColors,
-    map: file ? getTexture({ file }) : null
+    map: file ? getTexture({ file, repeat: 16 }) : null
   })
 
   const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
