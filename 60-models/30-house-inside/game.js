@@ -1,11 +1,7 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
-import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
-import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
 import { scene, camera, renderer, initLights, createOrbitControls, addControlUI } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { keyboard } from '/classes/index.js'
-
-const scale = 1.5
+import { loadObject } from '/utils/loaders.js'
 
 camera.position.set(1.5, 2.5, -6.5)
 const controls = createOrbitControls()
@@ -18,17 +14,8 @@ scene.add(ground)
 
 initLights()
 
-const objLoader = new OBJLoader()
-const mtlLoader = new MTLLoader()
-mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
-
-mtlLoader.load('/assets/models/houses02/house2-02.mtl', materials => {
-  objLoader.setMaterials(materials)
-  objLoader.load('/assets/models/houses02/house2-02.obj', object => {
-    object.scale.set(scale, scale, scale)
-    scene.add(object)
-  })
-})
+const object = await loadObject({ obj: 'houses02/house2-02.obj', mtl: 'houses02/house2-02.mtl', scale: 1.5 })
+scene.add(object)
 
 addControlUI({ commands: {
   '1': 'inside',

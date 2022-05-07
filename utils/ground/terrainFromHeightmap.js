@@ -5,7 +5,7 @@ import { getHighPoint, getTexture } from '/utils/helpers.js'
 
 const defaultColors = ['brown', '#7a8a46', '#967848', 'white']
 
-export default ({ src, textureFile, heightOffset = 2, scale = 3, colors = defaultColors, domain = [0, 100] } = {}) => new Promise(resolve => {
+const terrainFromHeightmap = ({ src, textureFile, heightOffset = 2, scale = 3, colors = defaultColors, domain = [0, 100] } = {}) => new Promise(resolve => {
 
   const paint = chroma.scale(colors).domain(domain) // https://gka.github.io/chroma.js/
 
@@ -81,5 +81,6 @@ export default ({ src, textureFile, heightOffset = 2, scale = 3, colors = defaul
     mesh.translateZ(-max.z / 2)
     resolve(mesh)
   }
-
 })
+
+export default terrainFromHeightmap
