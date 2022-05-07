@@ -1,6 +1,6 @@
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createSpiralStairs } from '/utils/boxes.js'
-import { createGround } from '/utils/ground/index.js'
+import { createGround } from '/utils/ground.js'
 import { PlayerModel, Dupechesh, Ratamahatta, Robotko, Girl, GirlFighter } from '/classes/index.js'
 
 camera.position.z = 40

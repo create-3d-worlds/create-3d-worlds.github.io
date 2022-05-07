@@ -1,5 +1,6 @@
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
-import { scene, camera, renderer, createOrbitControls, initLights } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
+import { initLights } from '/utils/light.js'
 
 const scale = 0.1
 

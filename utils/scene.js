@@ -2,10 +2,24 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { OrbitControls } from '/node_modules/three108/examples/jsm/controls/OrbitControls.js'
 import { createGradientSky } from './sky.js'
 import { createSunLight } from './sun.js'
-import { createGround } from './ground/index.js'
+import { createGround } from './ground.js'
+import { initLights, hemLight } from './light.js'
 
 export const clock = new THREE.Clock()
 export const scene = new THREE.Scene()
+
+export function createWorldScene(groundParam, skyParam, lightParam, fogParam = {}) {
+  scene.add(createGround(groundParam))
+  scene.add(createGradientSky(skyParam))
+  const light = createSunLight(lightParam)
+  // const helper = new THREE.CameraHelper(light.shadow.camera)
+  // scene.add(helper)
+  scene.add(light)
+  const { color = 0xffffff, near = 1, far = 5000 } = fogParam
+  scene.fog = new THREE.Fog(color, near, far)
+  hemLight({ scene })
+  return scene
+}
 
 // CAMERA
 
@@ -25,20 +39,7 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
-/* FUNCTIONS */
-
-export function createWorldScene(groundParam, skyParam, lightParam, fogParam = {}) {
-  scene.add(createGround(groundParam))
-  scene.add(createGradientSky(skyParam))
-  const light = createSunLight(lightParam)
-  // const helper = new THREE.CameraHelper(light.shadow.camera)
-  // scene.add(helper)
-  scene.add(light)
-  const { color = 0xffffff, near = 1, far = 5000 } = fogParam
-  scene.fog = new THREE.Fog(color, near, far)
-  hemLight({ scene })
-  return scene
-}
+/* CONTROLS */
 
 export function createOrbitControls(cam = camera, el = renderer.domElement) {
   const controls = new OrbitControls(cam, el)
@@ -52,7 +53,7 @@ export function createOrbitControls(cam = camera, el = renderer.domElement) {
   return controls
 }
 
-export function addControls(controls) {
+export function addControlUI({ commands, title = 'KOMANDE' }) {
   const style = {
     position: 'absolute',
     top: 0,
@@ -65,36 +66,13 @@ export function addControls(controls) {
   `
   const div = document.createElement('div')
   Object.assign(div.style, style)
-  div.innerHTML = Object.keys(controls).reduce(
-    (acc, key) => acc + `<p style="${margins}">${key}: ${controls[key]}</p>`,
-    `<h3 style="${margins}">KONTROLE</h2>`
+  div.innerHTML = Object.keys(commands).reduce(
+    (acc, key) => acc + `<p style="${margins}">${key}: ${commands[key]}</p>`,
+    `<h3 style="${margins}">${title}</h2>`
   )
   document.body.appendChild(div)
 }
 
-/* LIGHT */
+/* SHORTCUTS */
 
-export function initLights(theScene = scene, position = new THREE.Vector3(-10, 30, 40)) {
-  const spotLight = new THREE.SpotLight(0xffffff)
-  spotLight.position.copy(position)
-  spotLight.shadow.mapSize.width = 2048
-  spotLight.shadow.mapSize.height = 2048
-  spotLight.shadow.camera.fov = 15
-  spotLight.castShadow = true
-  spotLight.decay = 2
-  spotLight.penumbra = 0.05
-  spotLight.name = 'spotLight'
-  theScene.add(spotLight)
-
-  const ambientLight = new THREE.AmbientLight(0x343434)
-  ambientLight.name = 'ambientLight'
-  theScene.add(ambientLight)
-}
-
-export function hemLight({ theScene = scene, intensity = 1 } = {}) {
-  const hemisphereLight = new THREE.HemisphereLight(0xfffff0, 0x101020, intensity)
-  hemisphereLight.name = 'hemisphereLight'
-  theScene.add(hemisphereLight)
-}
-
-export { createGradientSky, createGround, createSunLight }
+export { createGradientSky, createGround, createSunLight, initLights, hemLight }

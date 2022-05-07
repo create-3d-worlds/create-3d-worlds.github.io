@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { scene, renderer, clock, camera, hemLight } from '/utils/scene.js'
-import { createGround } from '/utils/ground/index.js'
+import { scene, renderer, clock, camera, hemLight, addControlUI } from '/utils/scene.js'
+import { createGround } from '/utils/ground.js'
 import { createFirTrees } from '/utils/trees.js'
 import { keyboard, PlayerAvatar } from '/classes/index.js'
 
@@ -13,6 +13,12 @@ let currentCamera = camera
 
 const avatar = new PlayerAvatar()
 scene.add(avatar.mesh, createGround({ file: 'ground.jpg' }), createFirTrees())
+
+const commands = {
+  '1': 'Distant camera',
+  '2': 'FPS camera',
+}
+addControlUI({ commands, title: 'CONTROLS' })
 
 /* FUNCTIONS */
 

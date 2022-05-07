@@ -1,5 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { camera, scene, renderer, initLights } from '/utils/scene.js'
+import { camera, scene, renderer } from '/utils/scene.js'
+import { initLights } from '/utils/light.js'
 
 const rotSpeed = 0.005
 const bumpScale = 1

@@ -1,5 +1,6 @@
 /* global THREE, Physijs */
-import { renderer, camera, initLights } from '/utils/scene.js'
+import { renderer, camera } from '/utils/scene.js'
+import { initLights } from '/utils/light.js'
 
 Physijs.scripts.worker = '/libs/physijs_worker.js'
 Physijs.scripts.ammo = './ammo.js'
@@ -8,7 +9,7 @@ camera.position.set(0, 30, 80)
 const scene = new Physijs.Scene({ reportSize: 10, fixedTimeStep: 1 / 60 })
 scene.setGravity(new THREE.Vector3(0, -100, 20))
 
-initLights(scene)
+initLights({ scene })
 
 const flip_material = Physijs.createMaterial(new THREE.MeshStandardMaterial({ color: 0x44ff44 }), 0,  0)
 const slider_material = Physijs.createMaterial(new THREE.MeshStandardMaterial({ color: 0x4444ff }), 0,  0)

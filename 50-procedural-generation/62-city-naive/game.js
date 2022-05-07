@@ -1,7 +1,8 @@
 import { scene, camera, renderer, createOrbitControls, hemLight } from '/utils/scene.js'
-import { randomInCircle, createFloor } from '/utils/helpers.js'
+import { randomInCircle } from '/utils/helpers.js'
 import { createBuilding } from '/utils/city.js'
 import { createCityLights } from '/utils/streetlights.js'
+import { createFloor } from '/utils/ground.js'
 
 hemLight({ intensity: 0.5 })
 

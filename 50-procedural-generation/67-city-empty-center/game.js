@@ -1,5 +1,5 @@
 import { scene, camera, renderer, createOrbitControls, hemLight } from '/utils/scene.js'
-import { createFloor } from '/utils/helpers.js'
+import { createFloor } from '/utils/ground.js'
 import { createLampposts, createCityLights } from '/utils/streetlights.js'
 import { createCity } from '/utils/city.js'
 

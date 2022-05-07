@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import keyboard from '/classes/Keyboard.js'
-import { createFloor } from '/utils/helpers.js'
+import { createFloor } from '/utils/ground.js'
 
 camera.position.set(0, 150, 400)
 camera.lookAt(scene.position)

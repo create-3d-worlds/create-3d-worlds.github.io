@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 
 import { scene, renderer, camera, createOrbitControls, createGradientSky, createSunLight } from '/utils/scene.js'
-import { createTerrain } from '/utils/ground/index.js'
+import { createTerrain } from '/utils/ground.js'
 import { createFirTrees } from '/utils/trees.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'

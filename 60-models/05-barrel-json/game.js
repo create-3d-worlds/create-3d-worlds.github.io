@@ -1,5 +1,6 @@
 /* global THREE */
-import { scene, camera, renderer, createOrbitControls, initLights } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
+import { initLights } from '/utils/light.js'
 
 initLights()
 createOrbitControls()

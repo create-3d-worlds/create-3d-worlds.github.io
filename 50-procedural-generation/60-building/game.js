@@ -1,4 +1,5 @@
-import { scene, camera, renderer, createOrbitControls, initLights, hemLight } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
+import { initLights, hemLight } from '/utils/light.js'
 import { createBuilding } from '/utils/city.js'
 
 initLights()

@@ -1,8 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { randomInRange, randomNuance, getTexture } from '/utils/helpers.js'
 
-const loader = new THREE.TextureLoader()
-
 export function createGround({ size = 4000, color = 0x509f53, circle = true, file } = {}) {
   const params = { side: THREE.DoubleSide }
   const material = file
@@ -43,15 +41,16 @@ export function createWater({ size = 1000, opacity = 0.75, file } = {}) {
     transparent: true,
     opacity
   })
-  if (file) {
-    const texture = loader.load(`/assets/textures/${file}`)
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
-    texture.repeat.set(5, 5)
-    material.map = texture
-  } else
+  if (file)
+    material.map = getTexture({ file, repeat: 5 })
+  else
     material.color.setHex(0x6699ff)
 
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
   return mesh
+}
+
+export function createFloor(params) {
+  return createGround({ size: 1000, color: 0x808080, ...params })
 }

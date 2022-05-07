@@ -4,7 +4,7 @@ import { cameraFollowObject } from '/utils/helpers.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { createGradientSky } from '/utils/sky.js'
 import { createSunLight } from '/utils/sun.js'
-import { createGround } from '/utils/ground/index.js'
+import { createGround } from '/utils/ground.js'
 import keyboard from '/classes/Keyboard.js'
 import Zeppelin from '/classes/Zeppelin.js'
 

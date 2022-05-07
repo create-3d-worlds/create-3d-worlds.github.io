@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
-import { createGround } from '/utils/ground/index.js'
+import { createGround } from '/utils/ground.js'
 
 const textureLoader = new THREE.TextureLoader()
 

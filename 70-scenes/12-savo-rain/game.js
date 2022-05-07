@@ -1,4 +1,4 @@
-import { createGround } from '/utils/ground/index.js'
+import { createGround } from '/utils/ground.js'
 import { randomMatrix } from '/utils/maps.js'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import FirstPersonRenderer from '/classes/2d/FirstPersonRenderer.js'

@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { createGround } from '/utils/ground/index.js'
+import { createGround } from '/utils/ground.js'
 
 /* including min, not including max */
 export function randomInRange(min, max, round = false) {
@@ -105,10 +105,4 @@ export function similarColor(color) {
   const { h, s, l } = new THREE.Color(color).getHSL(hsl)
   const newCol = new THREE.Color().setHSL(h + h * factor, s, l + l * factor / 4)
   return newCol
-}
-
-/* ALIAS */
-
-export function createFloor(params) {
-  return createGround({ size: 1000, color: 0x808080, ...params })
 }
