@@ -1,26 +1,13 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
-import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
-import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
 import { scene, camera, renderer, createOrbitControls, initLights, hemLight } from '/utils/scene.js'
-
-const scale = .75
+import { loadObject } from '/utils/loaders.js'
 
 hemLight({ intensity: 2 })
 initLights()
 createOrbitControls()
 
-const objLoader = new OBJLoader()
-const mtlLoader = new MTLLoader()
-mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
-
-mtlLoader.load('/assets/models/BlackPearl/BlackPearl.mtl', materials => {
-  objLoader.setMaterials(materials)
-  objLoader.load('/assets/models/BlackPearl/BlackPearl.obj', object => {
-    object.scale.set(scale, scale, scale)
-    object.rotateY(Math.PI / 2)
-    scene.add(object)
-  })
-})
+const object = await loadObject({ obj: 'BlackPearl/BlackPearl.obj', mtl: 'BlackPearl/BlackPearl.mtl' })
+object.rotateY(Math.PI / 2)
+scene.add(object)
 
 /** LOOP **/
 
