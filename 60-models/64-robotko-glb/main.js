@@ -1,5 +1,9 @@
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { PlayerModel, Robotko } from '/classes/index.js'
+import { dirLight, hemLight } from '/utils/light.js'
+
+hemLight()
+dirLight()
 
 camera.position.set(50, 10, 0)
 createOrbitControls()
