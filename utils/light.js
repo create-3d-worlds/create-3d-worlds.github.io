@@ -10,8 +10,20 @@ export function dirLight({ scene = defaultScene, position = [20, 20, 20], color 
 
 export function hemLight({ scene = defaultScene, intensity = 1 } = {}) {
   const hemisphereLight = new THREE.HemisphereLight(0xfffff0, 0x101020, intensity)
-  hemisphereLight.name = 'hemisphereLight'
+  hemisphereLight.name = 'hemisphereLight' // needed for some cases
   scene.add(hemisphereLight)
+}
+
+export function spotLight({ scene = defaultScene, position = [75, 75, 75], color = 0xffffff, intensity = 1 } = {}) {
+  const spotLight = new THREE.SpotLight(color, intensity)
+  spotLight.position.set(...position)
+  spotLight.castShadow = true
+  scene.add(spotLight)
+}
+
+export function ambLight({ scene = defaultScene, color = 0xffffff, intensity = 1 } = {}) { // 0x343434
+  const ambient = new THREE.AmbientLight(color, intensity)
+  scene.add(ambient)
 }
 
 export function initLights({ scene = defaultScene, position = [-10, 30, 40] } = {}) {
