@@ -1,28 +1,24 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
-import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
-import { spotLight, hemLight } from '/utils/light.js'
+import { dirLight, hemLight } from '/utils/light.js'
+import { loadGlb } from '/utils/loaders.js'
+import { createGround } from '/utils/ground.js'
 
-let mixer, a = 0
+let animIndex = 1
 
-camera.position.set(50, 50, 50)
+hemLight()
+dirLight()
+
+camera.position.set(0, 20, 50)
 createOrbitControls()
 
-hemLight({ intensity: 2 })
-spotLight({ intensity: 2 })
+scene.add(createGround({ size: 100 }))
 
-const loader = new GLTFLoader()
-loader.load('/assets/models/monster/monster.glb', collada => {
-  const { animations, scene: model } = collada
-  mixer = new THREE.AnimationMixer(model)
-  mixer.clipAction(animations[2]).play()
-  scene.add(model)
+const { model, mixer, animations } = await loadGlb({ glb: 'monster/monster.glb' })
+model.rotateZ(Math.PI / 4)
+model.position.y = -20
+scene.add(model)
 
-  document.addEventListener('click', () => {
-    const animation = animations[++a % animations.length]
-    mixer.clipAction(animation).play()
-  })
-})
+mixer.clipAction(animations[animIndex]).play()
 
 // LOOP
 
@@ -32,3 +28,11 @@ void function render() {
   requestAnimationFrame(render)
   renderer.render(scene, camera)
 }()
+
+// EVENTS
+
+document.addEventListener('click', () => {
+  animIndex++
+  const animation = animations[animIndex % animations.length]
+  mixer.clipAction(animation).play()
+})

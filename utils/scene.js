@@ -38,6 +38,11 @@ renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
+// glb models light
+renderer.gammaFactor = 2.2
+renderer.gammaOutput = true
+// from version 112 replace with:
+// renderer.outputEncoding = THREE.sRGBEncoding
 
 /* CONTROLS */
 

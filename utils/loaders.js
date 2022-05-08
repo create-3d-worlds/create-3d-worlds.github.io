@@ -24,7 +24,7 @@ export function loadGlb({ glb, scale = 1, autoplay = true } = {}) {
     loader.load(`/assets/models/${glb}`, ({ scene: model, animations }) => {
       model.scale.set(scale, scale, scale)
       const mixer = new THREE.AnimationMixer(model)
-      if (autoplay) mixer.clipAction(animations[0]).setDuration(1).play()
+      if (autoplay) mixer.clipAction(animations[0]).play()
       resolve({ model, mixer, animations })
     })
   })
