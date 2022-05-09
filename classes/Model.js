@@ -90,7 +90,6 @@ export default class Model {
   }
 
   changeAnimation(name, loop) {
-    // console.log(name)
     if (!this.mixer || this.shouldNotChange(name)) return
     if (this.action) this.action.stop()
     const clip = this.animations.find(c => c.name == name)
@@ -129,13 +128,6 @@ export default class Model {
 
   death() {
     this.changeAnimation('death', THREE.LoopOnce)
-  }
-
-  debugAnimations() {
-    document.addEventListener('click', () => {
-      const { name } = this.animations[a++ % this.animations.length]
-      this.changeAnimation(name)
-    })
   }
 
   update(delta) {

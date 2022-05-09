@@ -61,6 +61,13 @@ export const degToRad = deg => deg * Math.PI / 180
 
 export const getSize = mesh => new THREE.Box3().setFromObject(mesh).getSize(new THREE.Vector3())
 
+// export const getScale = (mesh, size) => {
+//   const box = new THREE.Box3().setFromObject(mesh)
+//   const height = box.max.y - box.min.y
+//   const scale = size / height
+//   return scale
+// }
+
 /* TEXTURES */
 
 export const getTexture = ({ file, repeat = 16 } = {}) => {
