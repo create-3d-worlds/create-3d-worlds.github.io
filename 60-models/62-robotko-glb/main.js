@@ -9,7 +9,7 @@ dirLight({ intensity: 1.5 })
 camera.position.set(0, 5, 10)
 createOrbitControls()
 
-const { mesh, mixer } = await loadGlb({ glb: 'robot.glb', rotateY: Math.PI })
+const { mesh, mixer } = await loadGlb({ glb: 'robot.glb', rot: { axis: [0, 1, 0], angle: Math.PI } })
 scene.add(mesh)
 // TODO: change animation
 const player = new Player({ mesh })

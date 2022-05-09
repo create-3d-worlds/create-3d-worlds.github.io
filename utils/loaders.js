@@ -10,41 +10,41 @@ mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
 
 export const loadObj = params => params.mtl ? loadObjWithMtl(params) : loadObjOnly(params)
 
-const resolveMesh = ({ resolve, model, scale, rotateY }) => {
+const resolveMesh = ({ resolve, model, scale, rot }) => {
   if (scale !== 1) model.scale.set(scale, scale, scale)
   const mesh = new THREE.Group()
-  if (rotateY) model.rotateY(rotateY)
+  if (rot.angle) model.setRotationFromAxisAngle (new THREE.Vector3(...rot.axis), rot.angle)
   mesh.add(model)
   resolve(mesh)
 }
 
-export function loadObjOnly({ obj, scale = 1, rotateY = 0 } = {}) {
+export function loadObjOnly({ obj, scale = 1, rot = 0 } = {}) {
   return new Promise(resolve => {
     objLoader.load(`/assets/models/${obj}`, model => {
-      resolveMesh({ resolve, model, scale, rotateY })
+      resolveMesh({ resolve, model, scale, rot })
     })
   })
 }
 
-export function loadObjWithMtl({ obj, mtl, scale = 1, rotateY = 0 } = {}) {
+export function loadObjWithMtl({ obj, mtl, scale = 1, rot = { axis: [0, 0, 0], angle: 0 } } = {}) {
   return new Promise(resolve => {
     mtlLoader.load(`/assets/models/${mtl}`, materials => {
       objLoader.setMaterials(materials)
       objLoader.load(`/assets/models/${obj}`, model => {
-        resolveMesh({ resolve, model, scale, rotateY })
+        resolveMesh({ resolve, model, scale, rot })
       })
     })
   })
 }
 
-export function loadGlb({ glb, scale = 1, rotateY = 0, autoplay = true } = {}) {
+export function loadGlb({ glb, scale = 1, rot = {}, autoplay = true } = {}) {
   return new Promise(resolve => {
     gtflLoader.load(`/assets/models/${glb}`, ({ scene: model, animations }) => {
       if (scale !== 1) model.scale.set(scale, scale, scale)
       const mixer = new THREE.AnimationMixer(model)
       if (autoplay) mixer.clipAction(animations[0]).play()
       const mesh = new THREE.Group()
-      if (rotateY) model.rotateY(rotateY)
+      if (rot.angle) model.setRotationFromAxisAngle (new THREE.Vector3(...rot.axis), rot.angle)
       mesh.add(model)
       resolve({ mesh, mixer, animations })
     })
