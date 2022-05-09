@@ -6,14 +6,14 @@ hemLight({ intensity: 2 })
 
 const controls = createOrbitControls()
 
-const { mesh } = await loadObj({ obj: 'cannon/cannon.obj', mtl: 'cannon/cannon.mtl' })
+const { mesh } = await loadObj(
+  { obj: 'cannon/cannon.obj', mtl: 'cannon/cannon.mtl', rot: { axis: [1, 0, 0], angle: -Math.PI * .5 } })
 scene.add(mesh)
 controls.target = mesh.position
 
 /* LOOP */
 
 void function render() {
-  // const delta = clock.getDelta()
   requestAnimationFrame(render)
   renderer.render(scene, camera)
 }()
