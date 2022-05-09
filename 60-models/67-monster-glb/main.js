@@ -13,10 +13,10 @@ createOrbitControls()
 
 scene.add(createGround({ size: 100 }))
 
-const { model, mixer, animations } = await loadGlb({ glb: 'monster/monster.glb' })
-model.rotateZ(Math.PI / 4)
-model.position.y = -20
-scene.add(model)
+const { mesh, mixer, animations } = await loadGlb({ glb: 'monster/monster.glb' })
+mesh.rotateZ(Math.PI / 4)
+mesh.position.y = -20
+scene.add(mesh)
 
 mixer.clipAction(animations[animIndex]).play()
 

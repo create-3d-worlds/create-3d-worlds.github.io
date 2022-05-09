@@ -3,7 +3,7 @@ import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader
 import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
 import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
 
-export function loadObject({ mtl, obj, scale = 1 } = {}) {
+export function loadObject({ obj, mtl, scale = 1 } = {}) {
   const objLoader = new OBJLoader()
   const mtlLoader = new MTLLoader()
   mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
@@ -18,14 +18,19 @@ export function loadObject({ mtl, obj, scale = 1 } = {}) {
   })
 }
 
-export function loadGlb({ glb, scale = 1, autoplay = true } = {}) {
+export function loadGlb({ glb, scale = 1, rotateY = 0, autoplay = true } = {}) {
   const loader = new GLTFLoader()
   return new Promise(resolve => {
     loader.load(`/assets/models/${glb}`, ({ scene: model, animations }) => {
-      model.scale.set(scale, scale, scale)
+      if (scale !== 1) model.scale.set(scale, scale, scale)
       const mixer = new THREE.AnimationMixer(model)
       if (autoplay) mixer.clipAction(animations[0]).play()
-      resolve({ model, mixer, animations })
+
+      const mesh = new THREE.Group()
+      if (rotateY) model.rotateY(rotateY)
+      mesh.add(model)
+
+      resolve({ mesh, mixer, animations })
     })
   })
 }

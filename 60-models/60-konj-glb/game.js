@@ -7,8 +7,8 @@ let theta = 0
 
 dirLight({ color: 0xefefff, intensity: 1.5 })
 
-const { model, mixer } = await loadGlb({ glb: 'horse.glb', scale: 1.5 })
-scene.add(model)
+const { mesh, mixer } = await loadGlb({ glb: 'horse.glb', scale: 1.5 })
+scene.add(mesh)
 
 // FUNCTIONS
 
