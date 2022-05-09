@@ -9,8 +9,6 @@ camera.position.set(50, 10, 0)
 createOrbitControls()
 
 const player = new PlayerModel(0, 0, 0, 20, mesh => {
-  mesh.rotateY(Math.PI)
-  mesh.add(camera)
   scene.add(mesh)
 }, Robotko)
 

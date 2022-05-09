@@ -2,6 +2,7 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { keyboard, Kamenko } from '/classes/index.js'
 import { createPlayerBox } from '/utils/boxes.js'
 import { addSolids, raycastGround } from '/classes/actions/index.js'
+import { getSize } from '/utils/helpers.js'
 
 const { pressed } = keyboard
 
@@ -9,12 +10,12 @@ const { pressed } = keyboard
  * Player handle user input, move mesh and call model animations.
  */
 export default class Player {
-  constructor({ x = 0, y = 0, z = 0, size = 35, transparent = false } = {}) {
-    this.size = size
-    this.speed = size * 4
+  constructor({ x = 0, y = 0, z = 0, size = 35, transparent = false, mesh } = {}) {
+    this.mesh = mesh || createPlayerBox(x, y, z, this.size, transparent)
+    this.size = mesh ? getSize(mesh).y : size
+    this.speed = this.size * 4
     this.solids = []
     this.groundY = 0
-    this.mesh = createPlayerBox(x, y, z, size, transparent)
   }
 
   /**

@@ -1,5 +1,4 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { createGround } from '/utils/ground.js'
 
 /* including min, not including max */
 export function randomInRange(min, max, round = false) {
@@ -59,6 +58,8 @@ export function cameraFollowObject(camera, obj, { distance = 100, alpha = 0.05, 
 }
 
 export const degToRad = deg => deg * Math.PI / 180
+
+export const getSize = mesh => new THREE.Box3().setFromObject(mesh).getSize(new THREE.Vector3())
 
 /* TEXTURES */
 
