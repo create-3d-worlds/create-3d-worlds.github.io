@@ -10,8 +10,13 @@ mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
 
 const resolveMesh = ({ resolve, model, scale, rot, animations }) => {
   if (scale !== 1) model.scale.set(scale, scale, scale)
+  model.traverse(child => {
+    if (!child.isMesh) return
+    child.castShadow = true
+    // child.receiveShadow = true
+  })
   const mesh = new THREE.Group()
-  if (rot.angle) model.setRotationFromAxisAngle (new THREE.Vector3(...rot.axis), rot.angle)
+  if (rot.angle) model.setRotationFromAxisAngle(new THREE.Vector3(...rot.axis), rot.angle)
   mesh.add(model)
   const mixer = new THREE.AnimationMixer(model)
   if (animations) mixer.clipAction(animations[0]).play()
@@ -47,3 +52,5 @@ export function loadGlb({ glb, scale = 1, rot = {} } = {}) {
     })
   })
 }
+
+// TODO: loadModel({ file, scale, rot })
