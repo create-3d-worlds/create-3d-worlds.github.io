@@ -1,7 +1,7 @@
 import { scene, camera, renderer, initLights, createOrbitControls, addControlUI } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { keyboard } from '/classes/index.js'
-import { loadObject } from '/utils/loaders.js'
+import { loadObj } from '/utils/loaders.js'
 
 camera.position.set(1.5, 2.5, -6.5)
 const controls = createOrbitControls()
@@ -14,7 +14,7 @@ scene.add(ground)
 
 initLights()
 
-const object = await loadObject({ obj: 'houses/house2-02.obj', mtl: 'houses/house2-02.mtl', scale: 1.5 })
+const object = await loadObj({ obj: 'houses/house2-02.obj', mtl: 'houses/house2-02.mtl', scale: 1.5 })
 scene.add(object)
 
 addControlUI({ commands: {

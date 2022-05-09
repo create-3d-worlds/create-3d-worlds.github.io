@@ -3,16 +3,21 @@ import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader
 import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
 import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
 
-export function loadObject({ obj, mtl, scale = 1 } = {}) {
+export function loadObj({ obj, mtl, scale = 1, rotateY = 0 } = {}) {
   const objLoader = new OBJLoader()
   const mtlLoader = new MTLLoader()
   mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
   return new Promise(resolve => {
     mtlLoader.load(`/assets/models/${mtl}`, materials => {
       objLoader.setMaterials(materials)
-      objLoader.load(`/assets/models/${obj}`, object => {
-        object.scale.set(scale, scale, scale)
-        resolve(object)
+      objLoader.load(`/assets/models/${obj}`, model => {
+        if (scale !== 1) model.scale.set(scale, scale, scale)
+
+        const mesh = new THREE.Group()
+        if (rotateY) model.rotateY(rotateY)
+        mesh.add(model)
+
+        resolve(mesh)
       })
     })
   })
