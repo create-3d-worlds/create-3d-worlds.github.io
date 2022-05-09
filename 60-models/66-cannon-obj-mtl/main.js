@@ -1,7 +1,9 @@
 import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
-// import {FBXLoader} from '/node_modules/three108/examples/jsm/loaders/FBXLoader.js'
 import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
+import { hemLight } from '/utils/light.js'
+
+hemLight({ intensity: 2 })
 
 const controls = createOrbitControls()
 

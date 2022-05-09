@@ -1,10 +1,10 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
 import { scene, renderer, camera, createOrbitControls, hemLight } from '/utils/scene.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/trees.js'
-import { addTexture } from '/utils/helpers.js'
+import { addTexture, getSize } from '/utils/helpers.js'
+import { loadObj } from '/utils/loaders.js'
 
 hemLight({ intensity: 1.2 })
 
@@ -20,13 +20,10 @@ const directLight = new THREE.DirectionalLight(0xffeedd)
 directLight.position.set(0, 0, 1)
 scene.add(directLight)
 
-new OBJLoader().load('models/magic-castle.obj', model => {
-  model.scale.set(8, 8, 8)
-  const box = new THREE.Box3().setFromObject(model)
-  model.translateY(box.getSize().y / 4)
-  addTexture({ model })
-  scene.add(model)
-})
+const model = await loadObj({ obj: 'magic-castle.obj', scale: 8 })
+model.translateY(getSize(model).y / 4)
+addTexture({ model, file: 'concrete.jpg' })
+scene.add(model)
 
 /** FUNKCIJE **/
 
