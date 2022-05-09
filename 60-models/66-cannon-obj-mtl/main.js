@@ -1,21 +1,14 @@
 import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
-import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
-import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
 import { hemLight } from '/utils/light.js'
+import { loadObj } from '/utils/loaders.js'
 
 hemLight({ intensity: 2 })
 
 const controls = createOrbitControls()
 
-const mtlLoader = new MTLLoader()
-mtlLoader.load('/assets/models/cannon/14054_Pirate_Ship_Cannon_on_Cart_v1_l3.mtl', materials => {
-  const objLoader = new OBJLoader()
-  objLoader.setMaterials(materials)
-  objLoader.load('/assets/models/cannon/14054_Pirate_Ship_Cannon_on_Cart_v1_l3.obj', object => {
-    scene.add(object)
-    controls.target = object.position
-  })
-})
+const object = await loadObj({ obj: 'cannon/cannon.obj', mtl: 'cannon/cannon.mtl' })
+scene.add(object)
+controls.target = object.position
 
 /* LOOP */
 
