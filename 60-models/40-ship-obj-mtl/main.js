@@ -1,6 +1,6 @@
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { loadObj } from '/utils/loaders.js'
 import { initLights, hemLight } from '/utils/light.js'
+import { loadObj } from '/utils/loaders.js'
 
 hemLight({ intensity: 2 })
 initLights()
