@@ -3,35 +3,35 @@ import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader
 import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
 import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
 
+const gtflLoader = new GLTFLoader()
 const objLoader = new OBJLoader()
 const mtlLoader = new MTLLoader()
-const gtflLoader = new GLTFLoader()
+mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
 
 export const loadObj = params => params.mtl ? loadObjWithMtl(params) : loadObjOnly(params)
+
+const resolveMesh = ({ resolve, model, scale, rotateY }) => {
+  if (scale !== 1) model.scale.set(scale, scale, scale)
+  const mesh = new THREE.Group()
+  if (rotateY) model.rotateY(rotateY)
+  mesh.add(model)
+  resolve(mesh)
+}
 
 export function loadObjOnly({ obj, scale = 1, rotateY = 0 } = {}) {
   return new Promise(resolve => {
     objLoader.load(`/assets/models/${obj}`, model => {
-      if (scale !== 1) model.scale.set(scale, scale, scale)
-      const mesh = new THREE.Group()
-      if (rotateY) model.rotateY(rotateY)
-      mesh.add(model)
-      resolve(mesh)
+      resolveMesh({ resolve, model, scale, rotateY })
     })
   })
 }
 
 export function loadObjWithMtl({ obj, mtl, scale = 1, rotateY = 0 } = {}) {
-  mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
   return new Promise(resolve => {
     mtlLoader.load(`/assets/models/${mtl}`, materials => {
       objLoader.setMaterials(materials)
       objLoader.load(`/assets/models/${obj}`, model => {
-        if (scale !== 1) model.scale.set(scale, scale, scale)
-        const mesh = new THREE.Group()
-        if (rotateY) model.rotateY(rotateY)
-        mesh.add(model)
-        resolve(mesh)
+        resolveMesh({ resolve, model, scale, rotateY })
       })
     })
   })
