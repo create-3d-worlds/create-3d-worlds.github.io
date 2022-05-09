@@ -8,12 +8,14 @@ const objLoader = new OBJLoader()
 const mtlLoader = new MTLLoader()
 mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
 
-const resolveMesh = ({ resolve, model, scale, rot }) => {
+const resolveMesh = ({ resolve, model, scale, rot, animations }) => {
   if (scale !== 1) model.scale.set(scale, scale, scale)
   const mesh = new THREE.Group()
   if (rot.angle) model.setRotationFromAxisAngle (new THREE.Vector3(...rot.axis), rot.angle)
   mesh.add(model)
-  resolve({ mesh })
+  const mixer = new THREE.AnimationMixer(model)
+  if (animations) mixer.clipAction(animations[0]).play()
+  resolve({ mesh, animations, mixer })
 }
 
 export const loadObj = ({ obj, mtl, scale = 1, rot = { axis: [0, 0, 0], angle: 0 } } = {}) =>
@@ -38,16 +40,10 @@ export function loadObjWithMtl({ obj, mtl, scale, rot }) {
   })
 }
 
-export function loadGlb({ glb, scale = 1, rot = {}, autoplay = true } = {}) {
+export function loadGlb({ glb, scale = 1, rot = {} } = {}) {
   return new Promise(resolve => {
     gtflLoader.load(`/assets/models/${glb}`, ({ scene: model, animations }) => {
-      if (scale !== 1) model.scale.set(scale, scale, scale)
-      const mixer = new THREE.AnimationMixer(model)
-      if (autoplay) mixer.clipAction(animations[0]).play()
-      const mesh = new THREE.Group()
-      if (rot.angle) model.setRotationFromAxisAngle (new THREE.Vector3(...rot.axis), rot.angle)
-      mesh.add(model)
-      resolve({ mesh, mixer, animations })
+      resolveMesh({ resolve, model, scale, rot, animations })
     })
   })
 }
