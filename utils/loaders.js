@@ -8,17 +8,18 @@ const objLoader = new OBJLoader()
 const mtlLoader = new MTLLoader()
 mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
 
-export const loadObj = params => params.mtl ? loadObjWithMtl(params) : loadObjOnly(params)
-
 const resolveMesh = ({ resolve, model, scale, rot }) => {
   if (scale !== 1) model.scale.set(scale, scale, scale)
   const mesh = new THREE.Group()
   if (rot.angle) model.setRotationFromAxisAngle (new THREE.Vector3(...rot.axis), rot.angle)
   mesh.add(model)
-  resolve(mesh)
+  resolve({ mesh })
 }
 
-export function loadObjOnly({ obj, scale = 1, rot = 0 } = {}) {
+export const loadObj = ({ obj, mtl, scale = 1, rot = { axis: [0, 0, 0], angle: 0 } } = {}) =>
+  mtl ? loadObjWithMtl({ obj, mtl, scale, rot }) : loadObjOnly({ obj, scale, rot })
+
+export function loadObjOnly({ obj, scale, rot }) {
   return new Promise(resolve => {
     objLoader.load(`/assets/models/${obj}`, model => {
       resolveMesh({ resolve, model, scale, rot })
@@ -26,7 +27,7 @@ export function loadObjOnly({ obj, scale = 1, rot = 0 } = {}) {
   })
 }
 
-export function loadObjWithMtl({ obj, mtl, scale = 1, rot = { axis: [0, 0, 0], angle: 0 } } = {}) {
+export function loadObjWithMtl({ obj, mtl, scale, rot }) {
   return new Promise(resolve => {
     mtlLoader.load(`/assets/models/${mtl}`, materials => {
       objLoader.setMaterials(materials)

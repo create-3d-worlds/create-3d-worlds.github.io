@@ -6,8 +6,9 @@ hemLight({ intensity: 2 })
 initLights()
 createOrbitControls()
 
-const object = await loadObj({ obj: 'ship/BlackPearl.obj', mtl: 'ship/BlackPearl.mtl', rot: { axis: [0, 1, 0], angle: Math.PI / 2 } })
-scene.add(object)
+const { mesh } = await loadObj(
+  { obj: 'ship/BlackPearl.obj', mtl: 'ship/BlackPearl.mtl', rot: { axis: [0, 1, 0], angle: Math.PI / 2 } })
+scene.add(mesh)
 
 /** LOOP **/
 

@@ -14,8 +14,8 @@ scene.add(ground)
 
 initLights()
 
-const object = await loadObj({ obj: 'houses/house2-02.obj', mtl: 'houses/house2-02.mtl', scale: 1.5 })
-scene.add(object)
+const { mesh } = await loadObj({ obj: 'houses/house2-02.obj', mtl: 'houses/house2-02.mtl', scale: 1.5 })
+scene.add(mesh)
 
 addControlUI({ commands: {
   '1': 'inside',

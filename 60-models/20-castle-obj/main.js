@@ -4,9 +4,9 @@ import { loadObj } from '/utils/loaders.js'
 createOrbitControls()
 initLights()
 
-const model = await loadObj({ obj: 'zamak.obj' })
-model.position.y = -95
-scene.add(model)
+const { mesh } = await loadObj({ obj: 'zamak.obj' })
+mesh.position.y = -95
+scene.add(mesh)
 
 /** LOOP **/
 

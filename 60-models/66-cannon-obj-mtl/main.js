@@ -6,9 +6,9 @@ hemLight({ intensity: 2 })
 
 const controls = createOrbitControls()
 
-const object = await loadObj({ obj: 'cannon/cannon.obj', mtl: 'cannon/cannon.mtl' })
-scene.add(object)
-controls.target = object.position
+const { mesh } = await loadObj({ obj: 'cannon/cannon.obj', mtl: 'cannon/cannon.mtl' })
+scene.add(mesh)
+controls.target = mesh.position
 
 /* LOOP */
 
