@@ -60,8 +60,8 @@ export const loadObj = ({ file, mtl, size, rot } = {}) => {
 export function loadGlb({ file, size, rot } = {}) {
   const gtflLoader = new GLTFLoader()
   return new Promise(resolve => {
-    gtflLoader.load(`/assets/models/${file}`, ({ scene: model, animations }) => {
-      resolveMesh({ resolve, model, size, rot, animations })
+    gtflLoader.load(`/assets/models/${file}`, ({ scene, animations }) => {
+      resolveMesh({ resolve, model: scene.children[0], size, rot, animations })
     })
   })
 }

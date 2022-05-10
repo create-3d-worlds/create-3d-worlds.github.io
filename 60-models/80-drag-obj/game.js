@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
 import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
 import { TrackballControls } from '/node_modules/three108/examples/jsm/controls/TrackballControls.js'
-import {scene, camera, renderer, initLights} from '/utils/scene.js'
+import { scene, camera, renderer, initLights } from '/utils/scene.js'
 
 let SELECTED, DRAGGED, CHEST
 
@@ -22,29 +22,28 @@ camera.position.y = 4
 const controls = new TrackballControls(camera)
 initLights()
 
-loadOBJ('potion.mtl', 'potion.obj', potion => placeModel(potion, false, 4))
-loadOBJ('potion2.mtl', 'potion.obj', potion2 => placeModel(potion2, false, 4))
-loadOBJ('potion3.mtl', 'potion.obj', potion3 => placeModel(potion3, false, 4))
-loadOBJ('money.mtl', 'money.obj', money => placeModel(money, false, 4))
-loadOBJ('axe.mtl', 'axe.obj', axe => placeModel(axe, true, 2))
-loadOBJ('hammer.mtl', 'hammer.obj', hammer => placeModel(hammer, true, 2))
-loadOBJ('shield.mtl', 'shield.obj', shield => placeModel(shield, true))
-loadOBJ('sword.mtl', 'sword.obj', sword => placeModel(sword, true))
-loadOBJ('staff.mtl', 'staff.obj', staff => placeModel(staff, true))
+loadOBJ('potion.mtl', 'potion.obj', model => placeModel(model, false, 4))
+loadOBJ('potion2.mtl', 'potion.obj', model => placeModel(model, false, 4))
+loadOBJ('potion3.mtl', 'potion.obj', model => placeModel(model, false, 4))
+loadOBJ('money.mtl', 'money.obj', model => placeModel(model, false, 4))
+loadOBJ('axe.mtl', 'axe.obj', model => placeModel(model, true, 2))
+loadOBJ('hammer.mtl', 'hammer.obj', model => placeModel(model, true, 2))
 
-loadOBJ('chest.mtl', 'chest.obj', chest => {
-  CHEST = chest
-  chest.position.x = 0
-  chest.position.z = 0
-  chest.rotation.y = -Math.PI / 2
-  scene.add(chest)
+loadOBJ('shield.mtl', 'shield.obj', model => placeModel(model, true))
+loadOBJ('sword.mtl', 'sword.obj', model => placeModel(model, true))
+loadOBJ('staff.mtl', 'staff.obj', model => placeModel(model, true))
+
+loadOBJ('chest.mtl', 'chest.obj', model => {
+  CHEST = model
+  model.rotation.y = -Math.PI / 2
+  scene.add(model)
 })
 
 /* FUNCTIONS */
 
 function placeModel(model, shouldRotate = false, itemsNum = 1) {
   for (let i = 0; i < itemsNum; i++) {
-    const object = model.clone()
+    const object = model.clone() // to add multiple items
     object.position.x = Math.random() * 20 - 10
     object.position.z = Math.random() * 10 - 10
     object.rotation.y = Math.random() * 2 * Math.PI
@@ -58,8 +57,8 @@ function placeModel(model, shouldRotate = false, itemsNum = 1) {
 }
 
 function loadOBJ(fileMaterial, fileOBJ, callback) {
+  const objLoader = new OBJLoader() // mora nova instanca zbog setMaterials
   mtlLoader.load(fileMaterial, materials => {
-    const objLoader = new OBJLoader() // mora nova instanca zbog setMaterials
     objLoader.setPath('/assets/models/items/')
     objLoader.setMaterials(materials)
     objLoader.load(fileOBJ, object => {
