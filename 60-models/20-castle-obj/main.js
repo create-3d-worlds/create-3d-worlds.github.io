@@ -1,10 +1,10 @@
 import { scene, camera, renderer, createOrbitControls, initLights } from '/utils/scene.js'
-import { loadObj } from '/utils/loaders.js'
+import { loadModel } from '/utils/loaders.js'
 
 createOrbitControls()
 initLights()
 
-const { mesh } = await loadObj({ obj: 'zamak.obj' })
+const { mesh } = await loadModel({ file: 'zamak.obj' })
 mesh.position.y = -95
 scene.add(mesh)
 

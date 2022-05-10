@@ -1,11 +1,11 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
-import { loadDae } from '/utils/loaders.js'
+import { loadModel } from '/utils/loaders.js'
 
 createOrbitControls()
 camera.position.set(0, 10, 150)
 
-const { mesh, animations } = await loadDae({ dae: 'monster/monster.dae', size: 2 })
+const { mesh, animations } = await loadModel({ file: 'monster/monster.dae', size: 2 })
 scene.add(mesh)
 
 const mixer = new THREE.AnimationMixer(mesh)

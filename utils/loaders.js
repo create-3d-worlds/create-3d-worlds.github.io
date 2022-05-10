@@ -12,6 +12,8 @@ const mtlLoader = new MTLLoader()
 const colladaLoader = new ColladaLoader()
 mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
 
+/* HELPER */
+
 const resolveMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }, animations }) => {
   const scale = size ? getScale(model, size) : 1
   model.scale.set(scale, scale, scale)
@@ -28,33 +30,27 @@ const resolveMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }
 
 /* OBJ */
 
-export const loadObj = ({ obj, mtl, size, rot } = {}) =>
-  mtl ? loadObjWithMtl({ obj, mtl, size, rot }) : loadObjOnly({ obj, size, rot })
-
-export function loadObjOnly({ obj, size, rot }) {
-  return new Promise(resolve => {
-    objLoader.load(`/assets/models/${obj}`, model => {
-      resolveMesh({ resolve, model, size, rot })
+export const loadObj = ({ file, mtl, size, rot } = {}) =>
+  mtl
+    ? new Promise(resolve => {
+      mtlLoader.load(`/assets/models/${mtl}`, materials => {
+        objLoader.setMaterials(materials)
+        objLoader.load(`/assets/models/${file}`, model => {
+          resolveMesh({ resolve, model, size, rot })
+        })
+      })
     })
-  })
-}
-
-export function loadObjWithMtl({ obj, mtl, size, rot }) {
-  return new Promise(resolve => {
-    mtlLoader.load(`/assets/models/${mtl}`, materials => {
-      objLoader.setMaterials(materials)
-      objLoader.load(`/assets/models/${obj}`, model => {
+    : new Promise(resolve => {
+      objLoader.load(`/assets/models/${file}`, model => {
         resolveMesh({ resolve, model, size, rot })
       })
     })
-  })
-}
 
 /* GLB */
 
-export function loadGlb({ glb, size, rot } = {}) {
+export function loadGlb({ file, size, rot } = {}) {
   return new Promise(resolve => {
-    gtflLoader.load(`/assets/models/${glb}`, ({ scene: model, animations }) => {
+    gtflLoader.load(`/assets/models/${file}`, ({ scene: model, animations }) => {
       resolveMesh({ resolve, model, size, rot, animations })
     })
   })
@@ -62,12 +58,26 @@ export function loadGlb({ glb, size, rot } = {}) {
 
 /* DAE */
 
-export function loadDae({ dae, size, rot } = {}) {
+export function loadDae({ file, size, rot } = {}) {
   return new Promise(resolve => {
-    colladaLoader.load(`/assets/models/${dae}`, ({ scene: model, animations }) => {
+    colladaLoader.load(`/assets/models/${file}`, ({ scene: model, animations }) => {
       resolveMesh({ resolve, model, size, rot, animations })
     })
   })
 }
 
-// TODO: loadModel({ file, size, rot })
+/* UNIVERSAL */
+
+export const loadModel = ({ file, size, rot, mtl }) => {
+  const ext = file.split('.').pop()
+  switch (ext) {
+    case 'obj':
+      return loadObj({ file, mtl, size, rot })
+    case 'glb':
+      return loadGlb({ file, size, rot })
+    case 'dae':
+      return loadDae({ file, size, rot })
+    default:
+      throw new Error(`Unknown file extension: ${ext}`)
+  }
+}

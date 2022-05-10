@@ -4,7 +4,7 @@ import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/trees.js'
 import { addTexture, getSize } from '/utils/helpers.js'
-import { loadObj } from '/utils/loaders.js'
+import { loadModel } from '/utils/loaders.js'
 
 hemLight({ intensity: 1.2 })
 
@@ -20,7 +20,7 @@ const directLight = new THREE.DirectionalLight(0xffeedd)
 directLight.position.set(0, 0, 1)
 scene.add(directLight)
 
-const { mesh } = await loadObj({ obj: 'magic-castle.obj', size: 150 })
+const { mesh } = await loadModel({ file: 'magic-castle.obj', size: 150 })
 mesh.translateY(getSize(mesh).y / 4)
 addTexture({ mesh, file: 'concrete.jpg' })
 scene.add(mesh)
