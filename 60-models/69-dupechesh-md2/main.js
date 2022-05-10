@@ -24,6 +24,8 @@ document.addEventListener('click', () => {
   mixer.clipAction(clip.name).play()
 })
 
+// LOOP
+
 void function render() {
   const delta = clock.getDelta()
   if (mixer) mixer.update(delta)
