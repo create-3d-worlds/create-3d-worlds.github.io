@@ -1,3 +1,4 @@
+import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { dirLight, hemLight } from '/utils/light.js'
 import { loadGlb } from '/utils/loaders.js'
@@ -13,12 +14,12 @@ createOrbitControls()
 
 scene.add(createGround({ size: 100 }))
 
-const { mesh, mixer, animations } = await loadGlb({ glb: 'monster/monster.glb' })
-mesh.rotateZ(Math.PI / 4)
-mesh.position.y = -20
+const { mesh, animations } = await loadGlb({ glb: 'monster/monster.glb' })
 scene.add(mesh)
 
-mixer.clipAction(animations[animIndex]).play()
+const mixer = new THREE.AnimationMixer(mesh)
+const action = mixer.clipAction(animations[animIndex])
+action.play()
 
 // LOOP
 
