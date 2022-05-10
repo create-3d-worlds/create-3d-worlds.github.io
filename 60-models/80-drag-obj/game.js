@@ -1,26 +1,25 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
 import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
-import { TrackballControls } from '/node_modules/three108/examples/jsm/controls/TrackballControls.js'
-import { scene, camera, renderer, initLights } from '/utils/scene.js'
+import { scene, camera, renderer, initLights, createOrbitControls } from '/utils/scene.js'
+import { randomInRange } from '/utils/helpers.js'
 
-let SELECTED, DRAGGED, CHEST
+let selectedItem, draggedItem, CHEST
 
 const items = []
 const plane = new THREE.Plane()
 const raycaster = new THREE.Raycaster()
-const mouse = new THREE.Vector2()
 const offset = new THREE.Vector3()
 const intersection = new THREE.Vector3()
+
 const mtlLoader = new MTLLoader()
 mtlLoader.setPath('/assets/models/items/')
 
 scene.background = new THREE.Color(0xe0e0e0)
-camera.position.z = 6
-camera.position.y = 4
-
-const controls = new TrackballControls(camera)
 initLights()
+
+camera.position.set(0, 5, 5)
+const controls = createOrbitControls()
 
 loadOBJ('potion.mtl', 'potion.obj', model => placeModel(model, false, 4))
 loadOBJ('potion2.mtl', 'potion.obj', model => placeModel(model, false, 4))
@@ -28,7 +27,6 @@ loadOBJ('potion3.mtl', 'potion.obj', model => placeModel(model, false, 4))
 loadOBJ('money.mtl', 'money.obj', model => placeModel(model, false, 4))
 loadOBJ('axe.mtl', 'axe.obj', model => placeModel(model, true, 2))
 loadOBJ('hammer.mtl', 'hammer.obj', model => placeModel(model, true, 2))
-
 loadOBJ('shield.mtl', 'shield.obj', model => placeModel(model, true))
 loadOBJ('sword.mtl', 'sword.obj', model => placeModel(model, true))
 loadOBJ('staff.mtl', 'staff.obj', model => placeModel(model, true))
@@ -44,8 +42,8 @@ loadOBJ('chest.mtl', 'chest.obj', model => {
 function placeModel(model, shouldRotate = false, itemsNum = 1) {
   for (let i = 0; i < itemsNum; i++) {
     const object = model.clone() // to add multiple items
-    object.position.x = Math.random() * 20 - 10
-    object.position.z = Math.random() * 10 - 10
+    object.position.x = randomInRange(-10, 10)
+    object.position.z = randomInRange(-5, 5)
     object.rotation.y = Math.random() * 2 * Math.PI
     if (shouldRotate) {
       object.rotation.z = Math.PI / 2
@@ -67,6 +65,56 @@ function loadOBJ(fileMaterial, fileOBJ, callback) {
   })
 };
 
+/* EVENTS */
+
+renderer.domElement.addEventListener('mousemove', onMouseMove, false)
+renderer.domElement.addEventListener('mousedown', onMouseDown, false)
+renderer.domElement.addEventListener('mouseup', onMouseUp, false)
+
+function onMouseMove(e) {
+  const x = e.clientX / window.innerWidth * 2 - 1
+  const y = -e.clientY / window.innerHeight * 2 + 1
+
+  raycaster.setFromCamera({ x, y }, camera) // mouse x, y
+
+  if (draggedItem) {
+    if (raycaster.ray.intersectPlane(plane, intersection))
+      draggedItem.position.copy(intersection.sub(offset))
+    return
+  }
+
+  const intersects = raycaster.intersectObjects(items)
+  if (intersects.length > 0) {
+    if (selectedItem != intersects[0].object) {
+      selectedItem = intersects[0].object
+      plane.setFromNormalAndCoplanarPoint(camera.getWorldDirection(plane.normal), selectedItem.position)
+    }
+    document.body.style.cursor = 'grab'
+  } else {
+    selectedItem = null
+    document.body.style.cursor = 'pointer'
+  }
+}
+
+function onMouseDown() {
+  if (!selectedItem) return
+  controls.enabled = false
+  draggedItem = selectedItem
+  document.body.style.cursor = 'grabbing'
+  if (raycaster.ray.intersectPlane(plane, intersection))
+    offset.copy(intersection).sub(draggedItem.position)
+}
+
+function onMouseUp() {
+  controls.enabled = true
+  document.body.style.cursor = 'pointer'
+  if (draggedItem) {
+    const intersects = raycaster.intersectObject(CHEST)
+    if (intersects.length > 0) scene.remove(draggedItem)
+    draggedItem = null
+  }
+}
+
 /* LOOP */
 
 void function animate() {
@@ -74,57 +122,3 @@ void function animate() {
   controls.update()
   renderer.render(scene, camera)
 }()
-
-/* EVENTS */
-
-renderer.domElement.addEventListener('mousemove', onDocumentMouseMove, false)
-renderer.domElement.addEventListener('mousedown', onDocumentMouseDown, false)
-renderer.domElement.addEventListener('mouseup', onDocumentMouseUp, false)
-
-function onDocumentMouseMove(e) {
-  e.preventDefault()
-  mouse.x = e.clientX / window.innerWidth * 2 - 1
-  mouse.y = -e.clientY / window.innerHeight * 2 + 1
-
-  raycaster.setFromCamera(mouse, camera)
-
-  if (DRAGGED) {
-    if (raycaster.ray.intersectPlane(plane, intersection))
-      DRAGGED.position.copy(intersection.sub(offset))
-    return
-  }
-
-  const intersects = raycaster.intersectObjects(items)
-  if (intersects.length > 0) {
-    if (SELECTED != intersects[0].object) {
-      SELECTED = intersects[0].object
-      plane.setFromNormalAndCoplanarPoint(camera.getWorldDirection(plane.normal), SELECTED.position)
-    }
-    document.body.style.cursor = 'pointer'
-  } else {
-    SELECTED = null
-    document.body.style.cursor = 'auto'
-  }
-}
-
-function onDocumentMouseDown(e) {
-  e.preventDefault()
-  if (SELECTED) {
-    controls.enabled = false
-    DRAGGED = SELECTED
-    if (raycaster.ray.intersectPlane(plane, intersection))
-      offset.copy(intersection).sub(DRAGGED.position)
-    document.body.style.cursor = 'move'
-  }
-}
-
-function onDocumentMouseUp(e) {
-  e.preventDefault()
-  controls.enabled = true
-  if (DRAGGED) {
-    const intersects = raycaster.intersectObject(CHEST)
-    if (intersects.length > 0) scene.remove(DRAGGED)
-    DRAGGED = null
-  }
-  document.body.style.cursor = 'auto'
-}
