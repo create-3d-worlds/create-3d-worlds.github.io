@@ -2,11 +2,14 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
 import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
 import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
+import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
+
 import { getScale } from '/utils/helpers.js'
 
 const gtflLoader = new GLTFLoader()
 const objLoader = new OBJLoader()
 const mtlLoader = new MTLLoader()
+const colladaLoader = new ColladaLoader()
 mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
 
 const resolveMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }, animations }) => {
@@ -52,6 +55,16 @@ export function loadObjWithMtl({ obj, mtl, size, rot }) {
 export function loadGlb({ glb, size, rot } = {}) {
   return new Promise(resolve => {
     gtflLoader.load(`/assets/models/${glb}`, ({ scene: model, animations }) => {
+      resolveMesh({ resolve, model, size, rot, animations })
+    })
+  })
+}
+
+/* DAE */
+
+export function loadDae({ dae, size, rot } = {}) {
+  return new Promise(resolve => {
+    colladaLoader.load(`/assets/models/${dae}`, ({ scene: model, animations }) => {
       resolveMesh({ resolve, model, size, rot, animations })
     })
   })
