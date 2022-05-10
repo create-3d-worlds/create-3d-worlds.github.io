@@ -28,8 +28,8 @@ loadOBJ('money.mtl', 'money.obj', model => placeModel(model, false, 4))
 loadOBJ('axe.mtl', 'axe.obj', model => placeModel(model, true, 2))
 loadOBJ('hammer.mtl', 'hammer.obj', model => placeModel(model, true, 2))
 loadOBJ('shield.mtl', 'shield.obj', model => placeModel(model, true))
-loadOBJ('sword.mtl', 'sword.obj', model => placeModel(model, true))
 loadOBJ('staff.mtl', 'staff.obj', model => placeModel(model, true))
+loadOBJ('sword.mtl', 'sword.obj', model => placeModel(model, true))
 
 loadOBJ('chest.mtl', 'chest.obj', model => {
   CHEST = model
@@ -42,13 +42,10 @@ loadOBJ('chest.mtl', 'chest.obj', model => {
 function placeModel(model, shouldRotate = false, itemsNum = 1) {
   for (let i = 0; i < itemsNum; i++) {
     const object = model.clone() // to add multiple items
-    object.position.x = randomInRange(-10, 10)
-    object.position.z = randomInRange(-5, 5)
-    object.rotation.y = Math.random() * 2 * Math.PI
-    if (shouldRotate) {
+    object.position.set(randomInRange(-10, 10), 0, randomInRange(-5, 5))
+    if (shouldRotate)
       object.rotation.z = Math.PI / 2
-      object.rotation.y = Math.random() * 2 * Math.PI
-    }
+    object.rotation.y = Math.random() * 2 * Math.PI
     scene.add(object)
     items.push(object)
   }
@@ -63,7 +60,7 @@ function loadOBJ(fileMaterial, fileOBJ, callback) {
       callback(object.children[0])
     })
   })
-};
+}
 
 /* EVENTS */
 
