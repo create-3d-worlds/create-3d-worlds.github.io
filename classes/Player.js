@@ -5,33 +5,44 @@ import { addSolids, raycastGround } from '/classes/actions/index.js'
 import { getSize } from '/utils/helpers.js'
 
 const { pressed } = keyboard
+const { LoopOnce, LoopRepeat, Vector3 } = THREE
 
 /**
  * Player handle user input, move mesh and call model animations.
  */
 export default class Player {
-  constructor({ x = 0, y = 0, z = 0, size = 35, transparent = false, mesh, mixer, animations } = {}) {
-    this.mesh = mesh || createPlayerBox(x, y, z, this.size, transparent)
+  constructor({ x = 0, y = 0, z = 0, size, transparent = false, mesh = createPlayerBox(x, y, z, size, transparent), mixer, animations } = {}) {
+    this.mesh = mesh
+    // TODO: resize mesh if size is set
     this.size = mesh ? getSize(mesh).y : size
     this.speed = this.size * 4
     this.solids = []
     this.groundY = 0
-    // only for animated models
-    this.mixer = mixer
-    this.animations = animations
-    this.action = mixer.clipAction(animations[0])
+    // animated models
+    if (mixer) {
+      this.mixer = mixer
+      this.animations = animations
+      this.action = mixer.clipAction(animations[0])
+    }
+  }
+
+  idle() {
+    this.animate('Idle', LoopRepeat)
   }
 
   walk(step) {
     this.mesh.translateZ(step)
+    this.animate('Running', LoopRepeat)
   }
 
   sideWalk(step) {
     this.mesh.translateX(step)
+    this.animate('Running', LoopRepeat)
   }
 
   jump(stepY) {
     this.mesh.translateY(stepY)
+    this.animate('Jump', LoopOnce)
   }
 
   turn(angle) {
@@ -44,16 +55,18 @@ export default class Player {
     // if (this.position.y < this.groundY) this.mesh.translateY(stepY)
   }
 
-  /**
-   * Check user input and move mesh
-   */
-  moveMesh(delta) {
-    if (!this.mesh) return
+  // TODO: map animations with keywords
+
+  /* USER INPUT */
+
+  handleMove(delta) {
     const step = this.speed * delta // speed in pixels per second
     const stepY = this.speed * delta * 1.5
     const angle = Math.PI / 2 * delta
 
     if (!pressed.Space) this.freeFall(stepY)
+
+    if (!keyboard.totalPressed) this.idle()
 
     if (keyboard.left) this.turn(angle)
     if (keyboard.right) this.turn(-angle)
@@ -67,19 +80,6 @@ export default class Player {
     if (pressed.Space) this.jump(stepY)
   }
 
-  /**
-   * Check user input and call model animations
-   */
-  // TODO: map animations with keywords
-  animateModel() {
-    if (!keyboard.totalPressed)
-      this.changeAnimation('Idle', THREE.LoopRepeat)
-    else if (pressed.Space)
-      this.changeAnimation('Jump', THREE.LoopOnce)
-    else if (pressed.KeyW || pressed.KeyS || pressed.KeyQ || pressed.KeyE || pressed.ArrowUp || pressed.ArrowDown)
-      this.changeAnimation('Running', THREE.LoopRepeat)
-  }
-
   updateGround() {
     this.groundY = raycastGround(this, { y: this.size * 2 })
   }
@@ -88,12 +88,12 @@ export default class Player {
    * Raycast in player movement direction
    */
   chooseRaycastVector() {
-    if (pressed.Space && keyboard.up) return new THREE.Vector3(0, 1, -1)
-    if (keyboard.up) return new THREE.Vector3(0, 0, -1)
-    if (keyboard.down) return new THREE.Vector3(0, 0, 1)
-    if (keyboard.left) return new THREE.Vector3(-1, 0, 0)
-    if (keyboard.right) return new THREE.Vector3(1, 0, 0)
-    if (pressed.Space) return new THREE.Vector3(0, 1, 0)
+    if (pressed.Space && keyboard.up) return new Vector3(0, 1, -1)
+    if (keyboard.up) return new Vector3(0, 0, -1)
+    if (keyboard.down) return new Vector3(0, 0, 1)
+    if (keyboard.left) return new Vector3(-1, 0, 0)
+    if (keyboard.right) return new Vector3(1, 0, 0)
+    if (pressed.Space) return new Vector3(0, 1, 0)
     return null
   }
 
@@ -140,12 +140,13 @@ export default class Player {
   shouldFinish(name) {
     const { action } = this
     return action && (
-      action.loop == THREE.LoopOnce && action.isRunning() // finish one-time action
-      || action._clip.name == name && action.loop == THREE.LoopRepeat // don't start same repeating action
+      action.loop == LoopOnce && action.isRunning() // finish one-time action
+      || action._clip.name == name && action.loop == LoopRepeat // don't start same repeating action
     )
   }
 
-  changeAnimation(name, loop) {
+  animate(name, loop) {
+    if (!this.mixer) return
     if (this.shouldFinish(name)) return
     if (this.action) this.action.stop()
     const clip = this.animations.find(c => c.name == name)
@@ -157,7 +158,7 @@ export default class Player {
   // debugAnimations() {
   //   document.addEventListener('click', () => {
   //     const {name} = this.animations[a++ % this.animations.length]
-  //     this.changeAnimation(name)
+  //     this.animate(name)
   //   })
   // }
 
@@ -165,11 +166,8 @@ export default class Player {
 
   update(delta) {
     this.updateGround()
-    this.moveMesh(delta)
-    if (this.mixer) {
-      this.animateModel()
-      this.mixer.update(delta)
-    }
+    this.handleMove(delta)
+    if (this.mixer) this.mixer.update(delta)
   }
 }
 

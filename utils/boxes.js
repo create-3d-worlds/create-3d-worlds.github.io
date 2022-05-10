@@ -36,7 +36,7 @@ export const createStair = (x, y, z, size) => createBox(x, y, z, size, null, nul
 
 export const createWallBlock = (x, z, size, file, yModifier) => createBox(x, 0, z, size, file, null, 1, yModifier)
 
-export function createPlayerBox(x = 0, y = 0, z = 0, size, transparent) {
+export function createPlayerBox(x = 0, y = 0, z = 0, size = 2, transparent = false) {
   const box = createBlock(0, 0, 0, size, null, transparent)
   box.material.opacity = transparent ? 0 : 1
   box.material.transparent = transparent
