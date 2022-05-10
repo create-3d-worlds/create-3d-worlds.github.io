@@ -1,11 +1,12 @@
 // https://threejs.org/examples/webgl_loader_md2.html
 // https://threejs.org/examples/webgl_loader_md2_control.html
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
+import { scene, renderer, camera, clock, createOrbitControls, hemLight } from '/utils/scene.js'
 import { MD2Loader } from '/node_modules/three108/examples/jsm/loaders/MD2Loader.js'
 
 let mixer, currentAnimation, a = 0
 
+hemLight()
 createOrbitControls()
 camera.position.set(10, 10, 50)
 
