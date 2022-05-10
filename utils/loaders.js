@@ -17,7 +17,7 @@ const translateY = mesh => {
   mesh.translateY(bottom)
 }
 
-// needed to preserve rotation of model (not working for .md2 ?)
+// needed to preserve model orientation
 const createGroup = (model, rot) => {
   const group = new THREE.Group()
   model.setRotationFromAxisAngle(new THREE.Vector3(...rot.axis), rot.angle)
@@ -96,7 +96,7 @@ export function loadMd2({ file, size, rot, texture } = {}) {
       const { animations } = geometry
       const material = new THREE.MeshLambertMaterial({ map, morphTargets: true }) // morphNormals: true
       const model = new THREE.Mesh(geometry, material)
-      model.name = 'model'
+      model.name = 'model' // ?
       prepareMesh({ resolve, model, size, rot, animations })
     })
   })

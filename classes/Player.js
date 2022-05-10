@@ -5,7 +5,7 @@ import { addSolids, raycastGround } from '/classes/actions/index.js'
 import { getSize } from '/utils/helpers.js'
 
 const { pressed } = keyboard
-const { LoopOnce, LoopRepeat, Vector3 } = THREE
+const { LoopOnce, LoopRepeat, Vector3, AnimationMixer } = THREE
 
 let a = 0 // for debuging
 
@@ -13,18 +13,17 @@ let a = 0 // for debuging
  * Player handle user input, move mesh and animate model.
  */
 export default class Player {
-  constructor({ size, transparent = false, mesh = createPlayerBox(size, transparent), animations, animNames = {} } = {}) {
+  constructor({ size, transparent = false, mesh = createPlayerBox(size, transparent), speed, animations, animNames = {} } = {}) {
     this.mesh = mesh
     // TODO: resize mesh if size is set
     this.size = mesh ? getSize(mesh).y : size
-    this.speed = this.size * 2
+    this.speed = speed || this.size * 2
     this.solids = []
     this.groundY = 0
-    // if (animations) {
-      this.mixer = new THREE.AnimationMixer(mesh)
-      this.animations = animations
-      this.animNames = animNames
-    // }
+    // some animation not work in group
+    this.mixer = new AnimationMixer(mesh.type === 'Group' ? mesh.children[0] : mesh)
+    this.animNames = animNames
+    this.animations = animations
   }
 
   /* MOVEMENTS */
@@ -46,7 +45,7 @@ export default class Player {
 
   jump(stepY) {
     this.mesh.translateY(stepY)
-    this.playAnimation(this.animNames.jump, LoopOnce)
+    this.playAnimation(this.animNames.jump, LoopOnce) // TODO: da ne počinje ponovno ako je stisnut space
   }
 
   turn(angle) {
@@ -56,7 +55,6 @@ export default class Player {
   freeFall(stepY) {
     if (this.position.y > this.groundY)
       if (this.position.y - stepY >= this.groundY) this.mesh.translateY(-stepY)
-      else if (this.position.y > this.groundY) this.position.y = this.groundY
     // if (this.position.y < this.groundY) this.mesh.translateY(stepY)
   }
 
@@ -79,7 +77,7 @@ export default class Player {
     if (this.directionBlocked()) return
 
     if (keyboard.up) this.walk(-step)
-    if (keyboard.down) this.walk(step * .5)
+    if (keyboard.down) this.walk(step)
     if (pressed.KeyQ) this.sideWalk(-step)
     if (pressed.KeyE) this.sideWalk(step)
     if (pressed.Space) this.jump(jumpStep)
@@ -147,7 +145,7 @@ export default class Player {
     const { action } = this
     return action && (
       action.loop == LoopOnce && action.isRunning() // finish one-time action
-      || action._clip.name == name && action.loop == LoopRepeat // don't start same repeating action
+    || action._clip.name == name && action.loop == LoopRepeat // don't start same repeating action
     )
   }
 

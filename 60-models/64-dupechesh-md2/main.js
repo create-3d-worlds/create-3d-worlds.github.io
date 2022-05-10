@@ -12,7 +12,7 @@ createOrbitControls()
 camera.position.set(0, 2, 5)
 
 const { mesh, animations } = await loadModel({ file: 'ogro/ogro.md2', texture: 'ogro/skins/arboshak.png', size: 2, rot: { axis: [0, 1, 0], angle: Math.PI * .5 } })
-const player = new Player({ mesh }) // animations, animNames: dupecheshAnimations
+const player = new Player({ mesh, animations, animNames: dupecheshAnimations })
 scene.add(mesh)
 
 const ground = createGround({ size: 10 })
