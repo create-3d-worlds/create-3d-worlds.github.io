@@ -3,6 +3,7 @@ import { dirLight } from '/utils/light.js'
 import { loadGlb } from '/utils/loaders.js'
 import Player from '/classes/Player.js'
 import { createGround } from '/utils/ground.js'
+import { robotAnimations } from '/data/animations.js'
 
 dirLight({ intensity: 1.5 })
 
@@ -11,20 +12,8 @@ createOrbitControls()
 
 // TODO: loader to resize mesh if size is set
 const { mesh, animations } = await loadGlb({ glb: 'robot.glb', rot: { axis: [0, 1, 0], angle: Math.PI } })
-
-// TODO: map animations with keywords
-const robotAnimations = {
-  idle: 'Idle', // Dance
-  walk: 'Walking',
-  run: 'Running',
-  jump: 'Jump',
-  attack: 'Punch',
-  death: 'Death',
-  // ThumbsUp, WalkJump, Wave, Yes, No, Dance
-}
-
 const player = new Player({ mesh, animations, animationNames: robotAnimations })
-scene.add(player.mesh)
+scene.add(mesh)
 
 scene.add(createGround({ size: 100 }))
 
