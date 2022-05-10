@@ -1,12 +1,13 @@
 /*
 * Singleton object for User Input (including Keyboard, Touchscreen and Mouse)
-* for key codes see keycode.info
+* see keycode.info
 */
 class Keyboard {
 
   constructor() {
     this.pressed = {}
     this.mouseDown = false
+    this.capsLock = false
 
     document.addEventListener('keydown', e => {
       this.preventShake(e)
@@ -14,6 +15,7 @@ class Keyboard {
     })
     document.addEventListener('keyup', e => {
       this.pressed[e.code] = false
+      this.capsLock = e.getModifierState('CapsLock')
     })
     document.addEventListener('mousedown', () => {
       this.mouseDown = true

@@ -13,7 +13,17 @@ createOrbitControls()
 const { mesh, animations } = await loadGlb({ glb: 'robot.glb', rot: { axis: [0, 1, 0], angle: Math.PI } })
 
 // TODO: map animations with keywords
-const player = new Player({ mesh, animations })
+const robotAnimations = {
+  idle: 'Idle', // Dance
+  walk: 'Walking',
+  run: 'Running',
+  jump: 'Jump',
+  attack: 'Punch',
+  death: 'Death',
+  // ThumbsUp, WalkJump, Wave, Yes, No, Dance
+}
+
+const player = new Player({ mesh, animations, animationNames: robotAnimations })
 scene.add(player.mesh)
 
 scene.add(createGround({ size: 100 }))

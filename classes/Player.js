@@ -11,37 +11,38 @@ const { LoopOnce, LoopRepeat, Vector3 } = THREE
  * Player handle user input, move mesh and call model animations.
  */
 export default class Player {
-  constructor({ x = 0, y = 0, z = 0, size, transparent = false, mesh = createPlayerBox(x, y, z, size, transparent), animations } = {}) {
+  constructor({ size, transparent = false, mesh = createPlayerBox(size, transparent), animations, animationNames } = {}) {
     this.mesh = mesh
     // TODO: resize mesh if size is set
     this.size = mesh ? getSize(mesh).y : size
-    this.speed = this.size * 4
+    this.speed = this.size * 2
     this.solids = []
     this.groundY = 0
     if (animations) {
       this.mixer = new THREE.AnimationMixer(mesh)
       this.animations = animations
-      this.action = this.mixer.clipAction(animations[0])
+      this.animationNames = animationNames
     }
   }
 
   idle() {
-    this.playAnimation('Idle', LoopRepeat)
+    this.playAnimation(this.animationNames.idle, LoopRepeat)
   }
 
   walk(step) {
     this.mesh.translateZ(step)
-    this.playAnimation('Running', LoopRepeat)
+    const animation = this.running ? this.animationNames.run : this.animationNames.walk
+    this.playAnimation(animation, LoopRepeat)
   }
 
   sideWalk(step) {
     this.mesh.translateX(step)
-    this.playAnimation('Running', LoopRepeat)
+    this.playAnimation(this.animationNames.sideWalk || this.animationNames.walk, LoopRepeat)
   }
 
   jump(stepY) {
     this.mesh.translateY(stepY)
-    this.playAnimation('Jump', LoopOnce)
+    this.playAnimation(this.animationNames.jump, LoopOnce)
   }
 
   turn(angle) {
@@ -59,8 +60,10 @@ export default class Player {
   /* USER INPUT */
 
   handleMove(delta) {
-    const step = this.speed * delta // speed in pixels per second
-    const stepY = this.speed * delta * 1.5
+    this.running = keyboard.capsLock
+    const speed = this.running ? this.speed * 2 : this.speed
+    const step = speed * delta // speed in pixels per second
+    const stepY = speed * delta * 1.5
     const angle = Math.PI / 2 * delta
 
     if (!pressed.Space) this.freeFall(stepY)
@@ -156,7 +159,8 @@ export default class Player {
 
   // debugAnimations() {
   //   document.addEventListener('click', () => {
-  //     const {name} = this.animations[a++ % this.animations.length]
+  //     const { name } = this.animations[a++ % this.animations.length]
+  //     console.log(name)
   //     this.playAnimation(name)
   //   })
   // }
