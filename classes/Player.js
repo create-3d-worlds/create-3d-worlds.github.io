@@ -7,11 +7,13 @@ import { getSize } from '/utils/helpers.js'
 const { pressed } = keyboard
 const { LoopOnce, LoopRepeat, Vector3 } = THREE
 
+let a = 0 // for debuging
+
 /**
- * Player handle user input, move mesh and call model animations.
+ * Player handle user input, move mesh and animate model.
  */
 export default class Player {
-  constructor({ size, transparent = false, mesh = createPlayerBox(size, transparent), animations, animationNames } = {}) {
+  constructor({ size, transparent = false, mesh = createPlayerBox(size, transparent), animations, animNames } = {}) {
     this.mesh = mesh
     // TODO: resize mesh if size is set
     this.size = mesh ? getSize(mesh).y : size
@@ -21,28 +23,30 @@ export default class Player {
     if (animations) {
       this.mixer = new THREE.AnimationMixer(mesh)
       this.animations = animations
-      this.animationNames = animationNames
+      this.animNames = animNames
     }
   }
 
+  /* MOVEMENTS */
+
   idle() {
-    this.playAnimation(this.animationNames.idle, LoopRepeat)
+    this.playAnimation(this.animNames.idle, LoopRepeat)
   }
 
   walk(step) {
     this.mesh.translateZ(step)
-    const animation = this.running ? this.animationNames.run : this.animationNames.walk
+    const animation = this.running ? this.animNames.run : this.animNames.walk
     this.playAnimation(animation, LoopRepeat)
   }
 
   sideWalk(step) {
     this.mesh.translateX(step)
-    this.playAnimation(this.animationNames.sideWalk || this.animationNames.walk, LoopRepeat)
+    this.playAnimation(this.animNames.sideWalk || this.animNames.walk, LoopRepeat)
   }
 
   jump(stepY) {
     this.mesh.translateY(stepY)
-    this.playAnimation(this.animationNames.jump, LoopOnce)
+    this.playAnimation(this.animNames.jump, LoopOnce)
   }
 
   turn(angle) {
@@ -55,23 +59,21 @@ export default class Player {
     // if (this.position.y < this.groundY) this.mesh.translateY(stepY)
   }
 
-  // TODO: map animations with keywords
-
   /* USER INPUT */
 
   handleMove(delta) {
     this.running = keyboard.capsLock
     const speed = this.running ? this.speed * 2 : this.speed
     const step = speed * delta // speed in pixels per second
-    const stepY = speed * delta * 1.5
-    const angle = Math.PI / 2 * delta
+    const jumpStep = speed * delta * 1.5
+    const turnAngle = Math.PI / 2 * delta
 
-    if (!pressed.Space) this.freeFall(stepY)
+    if (!pressed.Space) this.freeFall(jumpStep)
 
     if (!keyboard.keyPressed) this.idle()
 
-    if (keyboard.left) this.turn(angle)
-    if (keyboard.right) this.turn(-angle)
+    if (keyboard.left) this.turn(turnAngle)
+    if (keyboard.right) this.turn(-turnAngle)
 
     if (this.directionBlocked()) return
 
@@ -79,16 +81,15 @@ export default class Player {
     if (keyboard.down) this.walk(step * .5)
     if (pressed.KeyQ) this.sideWalk(-step)
     if (pressed.KeyE) this.sideWalk(step)
-    if (pressed.Space) this.jump(stepY)
+    if (pressed.Space) this.jump(jumpStep)
   }
 
   updateGround() {
     this.groundY = raycastGround(this, { y: this.size * 2 })
   }
 
-  /**
-   * Raycast in player movement direction
-   */
+  /* RAYCAST */
+
   chooseRaycastVector() {
     if (pressed.Space && keyboard.up) return new Vector3(0, 1, -1)
     if (keyboard.up) return new Vector3(0, 0, -1)
@@ -110,6 +111,8 @@ export default class Player {
     const intersections = raycaster.intersectObjects(this.solids, true)
     return intersections.length > 0
   }
+
+  /* GETTERS */
 
   get position() {
     return this.mesh.position
@@ -157,13 +160,13 @@ export default class Player {
     this.action.play()
   }
 
-  // debugAnimations() {
-  //   document.addEventListener('click', () => {
-  //     const { name } = this.animations[a++ % this.animations.length]
-  //     console.log(name)
-  //     this.playAnimation(name)
-  //   })
-  // }
+  debugAnimations() {
+    document.addEventListener('click', () => {
+      const { name } = this.animations[a++ % this.animations.length]
+      console.log(name)
+      this.playAnimation(name)
+    })
+  }
 
   /* LOOP */
 

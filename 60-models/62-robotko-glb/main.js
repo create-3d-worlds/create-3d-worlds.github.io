@@ -12,7 +12,7 @@ createOrbitControls()
 
 // TODO: loader to resize mesh if size is set
 const { mesh, animations } = await loadGlb({ glb: 'robot.glb', rot: { axis: [0, 1, 0], angle: Math.PI } })
-const player = new Player({ mesh, animations, animationNames: robotAnimations })
+const player = new Player({ mesh, animations, animNames: robotAnimations })
 scene.add(mesh)
 
 scene.add(createGround({ size: 100 }))
