@@ -1,25 +1,20 @@
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
-
-const scale = 0.1
+import { loadModel } from '/utils/loaders.js'
 
 initLights()
 
-createOrbitControls()
-camera.position.set(3, 2, 10)
+const controls = createOrbitControls()
+camera.position.set(0, 2, 10)
 
-const loader = new ColladaLoader()
-loader.load('/assets/models/tvrdjava.dae', data => {
-  const model = data.scene
-  model.scale.set(scale, scale, scale)
-  model.rotateX(Math.PI / 2)
-  scene.add(model)
-})
+const { mesh } = await loadModel({ file: 'tvrdjava.dae', size: 10, rot: { angle: Math.PI / 2, axis: [0, 1, 0] } })
+scene.add(mesh)
 
 /** LOOP **/
 
 void function update() {
   requestAnimationFrame(update)
+  controls.update()
   renderer.render(scene, camera)
 }()
