@@ -3,16 +3,21 @@ import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader
 import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
 import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
+import { MD2Loader } from '/node_modules/three108/examples/jsm/loaders/MD2Loader.js'
 
 import { getScale } from '/utils/helpers.js'
 
-const gtflLoader = new GLTFLoader()
-const objLoader = new OBJLoader()
-const mtlLoader = new MTLLoader()
-const colladaLoader = new ColladaLoader()
-mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
+const textureLoader = new THREE.TextureLoader()
 
-/* HELPER */
+/* HELPERS */
+
+// needed to preserve rotation of model (not working for .md2)
+const createGroup = (model, rot) => {
+  const group = new THREE.Group()
+  model.setRotationFromAxisAngle(new THREE.Vector3(...rot.axis), rot.angle)
+  group.add(model)
+  return group
+}
 
 const resolveMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }, animations }) => {
   const scale = size ? getScale(model, size) : 1
@@ -22,16 +27,18 @@ const resolveMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }
     child.castShadow = true
     // child.receiveShadow = true
   })
-  const mesh = new THREE.Group()
-  if (rot.angle) model.setRotationFromAxisAngle(new THREE.Vector3(...rot.axis), rot.angle)
-  mesh.add(model)
+  const mesh = rot.angle ? createGroup(model, rot) : model
   resolve({ mesh, animations })
 }
 
 /* OBJ */
 
-export const loadObj = ({ file, mtl, size, rot } = {}) =>
-  mtl
+export const loadObj = ({ file, mtl, size, rot } = {}) => {
+  const objLoader = new OBJLoader()
+  const mtlLoader = new MTLLoader()
+  mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
+
+  return mtl
     ? new Promise(resolve => {
       mtlLoader.load(`/assets/models/${mtl}`, materials => {
         objLoader.setMaterials(materials)
@@ -46,9 +53,12 @@ export const loadObj = ({ file, mtl, size, rot } = {}) =>
       })
     })
 
+}
+
 /* GLB */
 
 export function loadGlb({ file, size, rot } = {}) {
+  const gtflLoader = new GLTFLoader()
   return new Promise(resolve => {
     gtflLoader.load(`/assets/models/${file}`, ({ scene: model, animations }) => {
       resolveMesh({ resolve, model, size, rot, animations })
@@ -59,8 +69,26 @@ export function loadGlb({ file, size, rot } = {}) {
 /* DAE */
 
 export function loadDae({ file, size, rot } = {}) {
+  const colladaLoader = new ColladaLoader()
   return new Promise(resolve => {
     colladaLoader.load(`/assets/models/${file}`, ({ scene: model, animations }) => {
+      resolveMesh({ resolve, model, size, rot, animations })
+    })
+  })
+}
+
+/* DAE */
+
+export function loadMd2({ file, size, rot, texture } = {}) {
+  const loader = new MD2Loader()
+  const map = textureLoader.load(`/assets/models/${texture}`)
+
+  return new Promise(resolve => {
+    loader.load(`/assets/models/${file}`, geometry => {
+      const { animations } = geometry
+      const material = new THREE.MeshLambertMaterial({ map, morphTargets: true }) // morphNormals: true
+      const model = new THREE.Mesh(geometry, material)
+      model.name = 'model'
       resolveMesh({ resolve, model, size, rot, animations })
     })
   })

@@ -5,7 +5,7 @@
     "es6": true
   },
   "rules": {
-    "arrow-body-style": ["error", "as-needed"],
+    "arrow-body-style": ["warn", "as-needed"],
     "arrow-parens": ["warn", "as-needed"],
     "arrow-spacing": "warn",
     "block-scoped-var": "error",

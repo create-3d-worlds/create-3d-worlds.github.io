@@ -2,35 +2,26 @@
 // https://threejs.org/examples/webgl_loader_md2_control.html
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, camera, clock, createOrbitControls, hemLight } from '/utils/scene.js'
-import { MD2Loader } from '/node_modules/three108/examples/jsm/loaders/MD2Loader.js'
+import { loadMd2 } from '/utils/loaders.js'
 
-let mixer, currentAnimation, a = 0
+let a = 0
 
 hemLight()
 createOrbitControls()
 camera.position.set(10, 10, 50)
 
-const texture = new THREE.TextureLoader().load('/assets/models/ogro/skins/arboshak.png')
-const loader = new MD2Loader()
+const { mesh, animations } = await loadMd2({ file: 'ogro/ogro.md2', texture: 'ogro/skins/arboshak.png' })
+scene.add(mesh)
 
-// ogro i ratamahatta
-loader.load('/assets/models/ogro/ogro.md2', geometry => {
-  const { animations } = geometry
+const mixer = new THREE.AnimationMixer(mesh)
+let clip = animations[0]
+mixer.clipAction(clip).play()
 
-  const material = new THREE.MeshLambertMaterial({ color: 0xffffff, wireframe: false, map: texture, morphTargets: true, morphNormals: true })
-  const mesh = new THREE.Mesh(geometry, material)
-
-  mixer = new THREE.AnimationMixer(mesh)
-  currentAnimation = animations[0]
-  mixer.clipAction(currentAnimation).play()
-  scene.add(mesh)
-
-  document.addEventListener('click', () => {
-    if (currentAnimation) mixer.clipAction(currentAnimation).stop()
-    currentAnimation = animations[++a % animations.length]
-    console.log(currentAnimation)
-    mixer.clipAction(currentAnimation).play()
-  })
+document.addEventListener('click', () => {
+  if (clip) mixer.clipAction(clip).stop()
+  clip = animations[++a % animations.length]
+  console.log(clip.name)
+  mixer.clipAction(clip.name).play()
 })
 
 void function render() {
