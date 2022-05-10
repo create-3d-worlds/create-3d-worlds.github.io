@@ -7,11 +7,10 @@ import { robotAnimations } from '/data/animations.js'
 
 dirLight({ intensity: 1.5 })
 
-camera.position.set(0, 10, 15)
+camera.position.set(0, 3, 5)
 createOrbitControls()
 
-// TODO: loader to resize mesh if size is set
-const { mesh, animations } = await loadGlb({ glb: 'robot.glb', rot: { axis: [0, 1, 0], angle: Math.PI } })
+const { mesh, animations } = await loadGlb({ glb: 'robot.glb', size: 2, rot: { axis: [0, 1, 0], angle: Math.PI } })
 const player = new Player({ mesh, animations, animNames: robotAnimations })
 scene.add(mesh)
 
