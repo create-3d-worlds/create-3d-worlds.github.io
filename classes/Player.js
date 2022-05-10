@@ -11,38 +11,37 @@ const { LoopOnce, LoopRepeat, Vector3 } = THREE
  * Player handle user input, move mesh and call model animations.
  */
 export default class Player {
-  constructor({ x = 0, y = 0, z = 0, size, transparent = false, mesh = createPlayerBox(x, y, z, size, transparent), mixer, animations } = {}) {
+  constructor({ x = 0, y = 0, z = 0, size, transparent = false, mesh = createPlayerBox(x, y, z, size, transparent), animations } = {}) {
     this.mesh = mesh
     // TODO: resize mesh if size is set
     this.size = mesh ? getSize(mesh).y : size
     this.speed = this.size * 4
     this.solids = []
     this.groundY = 0
-    // animated models
-    if (mixer) {
-      this.mixer = mixer
+    if (animations) {
+      this.mixer = new THREE.AnimationMixer(mesh)
       this.animations = animations
-      this.action = mixer.clipAction(animations[0])
+      this.action = this.mixer.clipAction(animations[0])
     }
   }
 
   idle() {
-    this.animate('Idle', LoopRepeat)
+    this.playAnimation('Idle', LoopRepeat)
   }
 
   walk(step) {
     this.mesh.translateZ(step)
-    this.animate('Running', LoopRepeat)
+    this.playAnimation('Running', LoopRepeat)
   }
 
   sideWalk(step) {
     this.mesh.translateX(step)
-    this.animate('Running', LoopRepeat)
+    this.playAnimation('Running', LoopRepeat)
   }
 
   jump(stepY) {
     this.mesh.translateY(stepY)
-    this.animate('Jump', LoopOnce)
+    this.playAnimation('Jump', LoopOnce)
   }
 
   turn(angle) {
@@ -66,7 +65,7 @@ export default class Player {
 
     if (!pressed.Space) this.freeFall(stepY)
 
-    if (!keyboard.totalPressed) this.idle()
+    if (!keyboard.keyPressed) this.idle()
 
     if (keyboard.left) this.turn(angle)
     if (keyboard.right) this.turn(-angle)
@@ -145,7 +144,7 @@ export default class Player {
     )
   }
 
-  animate(name, loop) {
+  playAnimation(name, loop) {
     if (!this.mixer) return
     if (this.shouldFinish(name)) return
     if (this.action) this.action.stop()
@@ -158,7 +157,7 @@ export default class Player {
   // debugAnimations() {
   //   document.addEventListener('click', () => {
   //     const {name} = this.animations[a++ % this.animations.length]
-  //     this.animate(name)
+  //     this.playAnimation(name)
   //   })
   // }
 

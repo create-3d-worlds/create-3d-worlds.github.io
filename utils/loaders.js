@@ -18,8 +18,7 @@ const resolveMesh = ({ resolve, model, scale, rot, animations }) => {
   const mesh = new THREE.Group()
   if (rot.angle) model.setRotationFromAxisAngle(new THREE.Vector3(...rot.axis), rot.angle)
   mesh.add(model)
-  const mixer = new THREE.AnimationMixer(model)
-  resolve({ mesh, animations, mixer })
+  resolve({ mesh, animations })
 }
 
 export const loadObj = ({ obj, mtl, scale = 1, rot = { axis: [0, 0, 0], angle: 0 } } = {}) =>

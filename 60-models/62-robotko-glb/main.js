@@ -9,8 +9,11 @@ dirLight({ intensity: 1.5 })
 camera.position.set(0, 10, 15)
 createOrbitControls()
 
-const { mesh, mixer, animations } = await loadGlb({ glb: 'robot.glb', rot: { axis: [0, 1, 0], angle: Math.PI } })
-const player = new Player({ mesh, mixer, animations })
+// TODO: loader to resize mesh if size is set
+const { mesh, animations } = await loadGlb({ glb: 'robot.glb', rot: { axis: [0, 1, 0], angle: Math.PI } })
+
+// TODO: map animations with keywords
+const player = new Player({ mesh, animations })
 scene.add(player.mesh)
 
 scene.add(createGround({ size: 100 }))
