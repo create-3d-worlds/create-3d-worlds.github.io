@@ -11,17 +11,25 @@ const textureLoader = new THREE.TextureLoader()
 
 /* HELPERS */
 
-// needed to preserve rotation of model (not working for .md2)
+const translateY = mesh => {
+  const box = new THREE.Box3().setFromObject(mesh)
+  const bottom = box.min.y < 0 ? Math.abs(box.min.y) : 0
+  mesh.translateY(bottom)
+}
+
+// needed to preserve rotation of model (not working for .md2 ?)
 const createGroup = (model, rot) => {
   const group = new THREE.Group()
   model.setRotationFromAxisAngle(new THREE.Vector3(...rot.axis), rot.angle)
+
   group.add(model)
   return group
 }
 
-const resolveMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }, animations }) => {
+const prepareMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }, animations }) => {
   const scale = size ? getScale(model, size) : 1
   model.scale.set(scale, scale, scale)
+  translateY(model)
   model.traverse(child => {
     if (!child.isMesh) return
     child.castShadow = true
@@ -43,13 +51,13 @@ export const loadObj = ({ file, mtl, size, rot } = {}) => {
       mtlLoader.load(`/assets/models/${mtl}`, materials => {
         objLoader.setMaterials(materials)
         objLoader.load(`/assets/models/${file}`, model => {
-          resolveMesh({ resolve, model, size, rot })
+          prepareMesh({ resolve, model, size, rot })
         })
       })
     })
     : new Promise(resolve => {
       objLoader.load(`/assets/models/${file}`, model => {
-        resolveMesh({ resolve, model, size, rot })
+        prepareMesh({ resolve, model, size, rot })
       })
     })
 
@@ -61,7 +69,7 @@ export function loadGlb({ file, size, rot } = {}) {
   const gtflLoader = new GLTFLoader()
   return new Promise(resolve => {
     gtflLoader.load(`/assets/models/${file}`, ({ scene, animations }) => {
-      resolveMesh({ resolve, model: scene.children[0], size, rot, animations })
+      prepareMesh({ resolve, model: scene.children[0], size, rot, animations })
     })
   })
 }
@@ -72,7 +80,7 @@ export function loadDae({ file, size, rot } = {}) {
   const colladaLoader = new ColladaLoader()
   return new Promise(resolve => {
     colladaLoader.load(`/assets/models/${file}`, ({ scene: model, animations }) => {
-      resolveMesh({ resolve, model, size, rot, animations })
+      prepareMesh({ resolve, model, size, rot, animations })
     })
   })
 }
@@ -89,13 +97,17 @@ export function loadMd2({ file, size, rot, texture } = {}) {
       const material = new THREE.MeshLambertMaterial({ map, morphTargets: true }) // morphNormals: true
       const model = new THREE.Mesh(geometry, material)
       model.name = 'model'
-      resolveMesh({ resolve, model, size, rot, animations })
+      prepareMesh({ resolve, model, size, rot, animations })
     })
   })
 }
 
-/* UNIVERSAL */
+/* UNIVERSAL LOADER */
 
+/*
+* Handle model load, resize, rotate, etc.
+* returns a promise that resolves with the { mesh, animations }
+*/
 export const loadModel = ({ file, size, rot, mtl, texture }) => {
   const ext = file.split('.').pop()
   switch (ext) {

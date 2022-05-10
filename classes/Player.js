@@ -13,18 +13,18 @@ let a = 0 // for debuging
  * Player handle user input, move mesh and animate model.
  */
 export default class Player {
-  constructor({ size, transparent = false, mesh = createPlayerBox(size, transparent), animations, animNames } = {}) {
+  constructor({ size, transparent = false, mesh = createPlayerBox(size, transparent), animations, animNames = {} } = {}) {
     this.mesh = mesh
     // TODO: resize mesh if size is set
     this.size = mesh ? getSize(mesh).y : size
     this.speed = this.size * 2
     this.solids = []
     this.groundY = 0
-    if (animations) {
+    // if (animations) {
       this.mixer = new THREE.AnimationMixer(mesh)
       this.animations = animations
       this.animNames = animNames
-    }
+    // }
   }
 
   /* MOVEMENTS */
@@ -56,6 +56,7 @@ export default class Player {
   freeFall(stepY) {
     if (this.position.y > this.groundY)
       if (this.position.y - stepY >= this.groundY) this.mesh.translateY(-stepY)
+      else if (this.position.y > this.groundY) this.position.y = this.groundY
     // if (this.position.y < this.groundY) this.mesh.translateY(stepY)
   }
 
@@ -151,7 +152,7 @@ export default class Player {
   }
 
   playAnimation(name, loop) {
-    if (!this.mixer) return
+    if (!this.animations) return
     if (this.shouldFinish(name)) return
     if (this.action) this.action.stop()
     const clip = this.animations.find(c => c.name == name)
