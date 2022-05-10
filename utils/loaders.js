@@ -9,8 +9,8 @@ const objLoader = new OBJLoader()
 const mtlLoader = new MTLLoader()
 mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
 
-const resolveMesh = ({ resolve, model, size, rot, animations }) => {
-  const scale = getScale(model, size)
+const resolveMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }, animations }) => {
+  const scale = size ? getScale(model, size) : 1
   model.scale.set(scale, scale, scale)
   model.traverse(child => {
     if (!child.isMesh) return
@@ -23,7 +23,9 @@ const resolveMesh = ({ resolve, model, size, rot, animations }) => {
   resolve({ mesh, animations })
 }
 
-export const loadObj = ({ obj, mtl, size, rot = { axis: [0, 0, 0], angle: 0 } } = {}) =>
+/* OBJ */
+
+export const loadObj = ({ obj, mtl, size, rot } = {}) =>
   mtl ? loadObjWithMtl({ obj, mtl, size, rot }) : loadObjOnly({ obj, size, rot })
 
 export function loadObjOnly({ obj, size, rot }) {
@@ -45,7 +47,9 @@ export function loadObjWithMtl({ obj, mtl, size, rot }) {
   })
 }
 
-export function loadGlb({ glb, size, rot = {} } = {}) {
+/* GLB */
+
+export function loadGlb({ glb, size, rot } = {}) {
   return new Promise(resolve => {
     gtflLoader.load(`/assets/models/${glb}`, ({ scene: model, animations }) => {
       resolveMesh({ resolve, model, size, rot, animations })
