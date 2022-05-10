@@ -18,8 +18,8 @@ scene.add(createGround({ size: 100 }))
 
 // LOOP
 
-void function animate() {
-  requestAnimationFrame(animate)
+void function update() {
+  requestAnimationFrame(update)
   const delta = clock.getDelta()
   player.update(delta)
   renderer.render(scene, camera)
