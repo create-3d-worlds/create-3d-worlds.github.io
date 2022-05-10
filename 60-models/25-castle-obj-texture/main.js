@@ -20,7 +20,7 @@ const directLight = new THREE.DirectionalLight(0xffeedd)
 directLight.position.set(0, 0, 1)
 scene.add(directLight)
 
-const { mesh } = await loadObj({ obj: 'magic-castle.obj', scale: 8 })
+const { mesh } = await loadObj({ obj: 'magic-castle.obj', size: 150 })
 mesh.translateY(getSize(mesh).y / 4)
 addTexture({ mesh, file: 'concrete.jpg' })
 scene.add(mesh)
