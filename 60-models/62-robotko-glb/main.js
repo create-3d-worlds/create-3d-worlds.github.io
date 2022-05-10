@@ -6,13 +6,13 @@ import { createGround } from '/utils/ground.js'
 
 dirLight({ intensity: 1.5 })
 
-camera.position.set(0, 5, 10)
+camera.position.set(0, 10, 15)
 createOrbitControls()
 
-const { mesh, mixer } = await loadGlb({ glb: 'robot.glb', rot: { axis: [0, 1, 0], angle: Math.PI } })
+const { mesh, mixer, animations } = await loadGlb({ glb: 'robot.glb', rot: { axis: [0, 1, 0], angle: Math.PI } })
 scene.add(mesh)
-// TODO: change animation
-const player = new Player({ mesh })
+
+const player = new Player({ mesh, mixer, animations })
 
 scene.add(createGround({ size: 100 }))
 
@@ -21,7 +21,6 @@ scene.add(createGround({ size: 100 }))
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
-  if (mixer) mixer.update(delta)
   player.update(delta)
   renderer.render(scene, camera)
 }()

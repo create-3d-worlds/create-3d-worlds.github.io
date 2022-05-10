@@ -15,9 +15,10 @@ live-server
 
 - [x] dodati primere drveća u geometriju
 - [ ] svuda srediti svetla
-- [ ] hemLight to lights.js
+  - [x] hemLight to lights.js
 - [ ] dovesti veličine u razmeru 1px : 1m
-- [ ] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
+- [ ] probati ai https://github.com/erosmarcon/three-steer
+- [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
 
 ### Geometry
 

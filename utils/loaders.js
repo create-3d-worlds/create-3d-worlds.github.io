@@ -19,7 +19,6 @@ const resolveMesh = ({ resolve, model, scale, rot, animations }) => {
   if (rot.angle) model.setRotationFromAxisAngle(new THREE.Vector3(...rot.axis), rot.angle)
   mesh.add(model)
   const mixer = new THREE.AnimationMixer(model)
-  if (animations) mixer.clipAction(animations[0]).play()
   resolve({ mesh, animations, mixer })
 }
 
