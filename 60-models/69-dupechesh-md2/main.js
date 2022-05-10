@@ -2,7 +2,7 @@
 // https://threejs.org/examples/webgl_loader_md2_control.html
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, camera, clock, createOrbitControls, hemLight } from '/utils/scene.js'
-import { loadMd2 } from '/utils/loaders.js'
+import { loadModel } from '/utils/loaders.js'
 
 let a = 0
 
@@ -10,7 +10,7 @@ hemLight()
 createOrbitControls()
 camera.position.set(10, 10, 50)
 
-const { mesh, animations } = await loadMd2({ file: 'ogro/ogro.md2', texture: 'ogro/skins/arboshak.png' })
+const { mesh, animations } = await loadModel({ file: 'ogro/ogro.md2', texture: 'ogro/skins/arboshak.png' })
 scene.add(mesh)
 
 const mixer = new THREE.AnimationMixer(mesh)

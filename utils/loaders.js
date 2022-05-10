@@ -96,7 +96,7 @@ export function loadMd2({ file, size, rot, texture } = {}) {
 
 /* UNIVERSAL */
 
-export const loadModel = ({ file, size, rot, mtl }) => {
+export const loadModel = ({ file, size, rot, mtl, texture }) => {
   const ext = file.split('.').pop()
   switch (ext) {
     case 'obj':
@@ -105,6 +105,8 @@ export const loadModel = ({ file, size, rot, mtl }) => {
       return loadGlb({ file, size, rot })
     case 'dae':
       return loadDae({ file, size, rot })
+    case 'md2':
+      return loadMd2({ file, size, rot, texture })
     default:
       throw new Error(`Unknown file extension: ${ext}`)
   }
