@@ -20,7 +20,7 @@ void function animate() {
   requestAnimationFrame(animate)
   controls.update()
   avion.update()
-  if (!keyboard.mouseDown) cameraFollowObject(camera, avion.mesh)
+  if (!keyboard.pressed.mouse) cameraFollowObject(camera, avion.mesh)
 
   renderer.render(scene, camera)
 }()

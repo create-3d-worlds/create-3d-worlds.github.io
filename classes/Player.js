@@ -47,27 +47,26 @@ export default class Player {
   }
 
   freeFall(stepY) {
-    this.jumping = false
-    if (this.position.y > this.groundY)
-      if (this.position.y - stepY >= this.groundY) this.mesh.translateY(-stepY)
+    if (this.position.y - stepY >= this.groundY) this.mesh.translateY(-stepY)
     // if (this.position.y < this.groundY) this.mesh.translateY(stepY)
   }
 
   jump(stepY) {
     this.mesh.translateY(stepY)
-    if (!this.jumping) this.playAnimation(this.animNames.jump, LoopOnce)
-    this.jumping = true
+    if (!this.busy) this.playAnimation(this.animNames.jump, LoopOnce)
+    this.busy = true
   }
 
   attack() {
-    this.playAnimation(this.animNames.attack, LoopOnce)
+    if (!this.busy) this.playAnimation(this.animNames.attack, LoopOnce)
+    this.busy = true
   }
 
   // TODO: special() {}
 
-  /* USER INPUT */
+  /* INPUT */
 
-  handleMove(delta) {
+  handleInput(delta) {
     this.running = keyboard.capsLock
     const speed = this.running ? this.speed * 2 : this.speed
     const step = speed * delta // speed in pixels per second
@@ -76,12 +75,13 @@ export default class Player {
 
     if (!pressed.Space) this.freeFall(jumpStep)
 
-    if (!keyboard.keyPressed) this.idle()
+    if (!keyboard.keyPressed || this.busy) this.idle()
+    if (!keyboard.keyPressed) this.busy = false
 
     if (keyboard.left) this.turn(turnAngle)
     if (keyboard.right) this.turn(-turnAngle)
 
-    if (keyboard.mouseDown) this.attack()
+    if (keyboard.pressed.mouse) this.attack()
 
     if (this.directionBlocked()) return
 
@@ -94,7 +94,7 @@ export default class Player {
 
   /* ANIMATIONS */
 
-  shouldFinish(name) {
+  shouldFinishCurrentAnimation(name) {
     const { action } = this
     return action && (
       action.loop == LoopOnce && action.isRunning() || // finish one-time action
@@ -102,11 +102,8 @@ export default class Player {
     )
   }
 
-  // TODO: dok je isto dugme pritisnuto, da ne ponavlja (jednokratnu) animaciju
   playAnimation(name, loop) {
-    if (!this.animations) return
-
-    if (this.shouldFinish(name)) return
+    if (!this.animations || this.shouldFinishCurrentAnimation(name)) return
 
     if (this.action) this.action.stop()
     const clip = this.animations.find(c => c.name == name)
@@ -183,7 +180,7 @@ export default class Player {
 
   update(delta) {
     this.updateGround()
-    this.handleMove(delta)
+    this.handleInput(delta)
     if (this.mixer) this.mixer.update(delta)
   }
 }

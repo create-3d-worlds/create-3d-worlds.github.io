@@ -6,7 +6,6 @@ class Keyboard {
 
   constructor() {
     this.pressed = {}
-    this.mouseDown = false
     this.capsLock = false
 
     document.addEventListener('keydown', e => {
@@ -18,10 +17,10 @@ class Keyboard {
       this.capsLock = e.getModifierState('CapsLock')
     })
     document.addEventListener('mousedown', () => {
-      this.mouseDown = true
+      this.pressed.mouse = true
     })
     document.addEventListener('mouseup', () => {
-      this.mouseDown = false
+      this.pressed.mouse = false
     })
     document.addEventListener('touchstart', e => this.chooseDirection(e.touches[0]))
     document.addEventListener('touchmove', e => this.chooseDirection(e.touches[0]))

@@ -28,7 +28,7 @@ void function animate() {
   zeppelin.update()
   if (zeppelin.mesh)
     updateTerrain(zeppelin.direction.x, -zeppelin.direction.z)
-  if (!keyboard.mouseDown)
+  if (!keyboard.pressed.mouse)
     cameraFollowObject(camera, zeppelin.mesh, { y: 30 })
   renderer.render(scene, camera)
 }()
