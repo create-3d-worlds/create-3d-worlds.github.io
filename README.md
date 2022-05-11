@@ -101,6 +101,11 @@ live-server
 - [x] odvojiti klase Player i Model
 - [x] napraviti izvedene klase koje nasledjuju Model (Dupechesh, Robotko, Girl i sl)
 - [x] spojiti klase Avatar i Player
+- [ ] spojiti klase Player i Model
+  - [ ] obrisati naslednice
+- [x] srediti da se ne ponavlja animacija skakanja
+- [ ] srediti da se ne ponavljaju jednokratne animacije (napad, specijal, itd) 
+- [ ] da unazad ide sporije i ima sporiju animaciju
 
 ### Scenes
 

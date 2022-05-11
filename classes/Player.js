@@ -42,19 +42,25 @@ export default class Player {
     this.playAnimation(this.animNames.sideWalk || this.animNames.walk, LoopRepeat)
   }
 
-  jump(stepY) {
-    this.mesh.translateY(stepY)
-    this.playAnimation(this.animNames.jump, LoopOnce) // TODO: da ne počinje ponovno ako je stisnut space
-  }
-
   turn(angle) {
     this.mesh.rotateY(angle)
   }
 
   freeFall(stepY) {
+    this.jumping = false
     if (this.position.y > this.groundY)
       if (this.position.y - stepY >= this.groundY) this.mesh.translateY(-stepY)
     // if (this.position.y < this.groundY) this.mesh.translateY(stepY)
+  }
+
+  jump(stepY) {
+    this.mesh.translateY(stepY)
+    if (!this.jumping) this.playAnimation(this.animNames.jump, LoopOnce)
+    this.jumping = true
+  }
+
+  attack() {
+    this.playAnimation(this.animNames.attack, LoopOnce)
   }
 
   // TODO: special() {}
@@ -75,6 +81,8 @@ export default class Player {
     if (keyboard.left) this.turn(turnAngle)
     if (keyboard.right) this.turn(-turnAngle)
 
+    if (keyboard.mouseDown) this.attack()
+
     if (this.directionBlocked()) return
 
     if (keyboard.up) this.walk(-step)
@@ -84,8 +92,35 @@ export default class Player {
     if (pressed.Space) this.jump(jumpStep)
   }
 
-  updateGround() {
-    this.groundY = raycastGround(this, { y: this.size * 2 })
+  /* ANIMATIONS */
+
+  shouldFinish(name) {
+    const { action } = this
+    return action && (
+      action.loop == LoopOnce && action.isRunning() || // finish one-time action
+      action.loop == LoopRepeat && action._clip.name == name   // don't start same repeating action
+    )
+  }
+
+  // TODO: dok je isto dugme pritisnuto, da ne ponavlja (jednokratnu) animaciju
+  playAnimation(name, loop) {
+    if (!this.animations) return
+
+    if (this.shouldFinish(name)) return
+
+    if (this.action) this.action.stop()
+    const clip = this.animations.find(c => c.name == name)
+    this.action = this.mixer.clipAction(clip)
+    this.action.setLoop(loop)
+    this.action.play()
+  }
+
+  debugAnimations() {
+    document.addEventListener('click', () => {
+      const { name } = this.animations[a++ % this.animations.length]
+      console.log(name)
+      this.playAnimation(name)
+    })
   }
 
   /* RAYCAST */
@@ -140,35 +175,11 @@ export default class Player {
     addSolids(this.solids, ...newSolids)
   }
 
-  /* ANIMATIONS */
-
-  shouldFinish(name) {
-    const { action } = this
-    return action && (
-      action.loop == LoopOnce && action.isRunning() // finish one-time action
-    || action._clip.name == name && action.loop == LoopRepeat // don't start same repeating action
-    )
-  }
-
-  playAnimation(name, loop) {
-    if (!this.animations) return
-    if (this.shouldFinish(name)) return
-    if (this.action) this.action.stop()
-    const clip = this.animations.find(c => c.name == name)
-    this.action = this.mixer.clipAction(clip)
-    this.action.setLoop(loop)
-    this.action.play()
-  }
-
-  debugAnimations() {
-    document.addEventListener('click', () => {
-      const { name } = this.animations[a++ % this.animations.length]
-      console.log(name)
-      this.playAnimation(name)
-    })
-  }
-
   /* LOOP */
+
+  updateGround() {
+    this.groundY = raycastGround(this, { y: this.size * 2 })
+  }
 
   update(delta) {
     this.updateGround()
