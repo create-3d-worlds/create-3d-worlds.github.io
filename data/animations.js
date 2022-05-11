@@ -5,18 +5,18 @@ export const robotAnimations = {
   jump: 'Jump',
   attack: 'Punch',
   death: 'Death',
-  special: 'ThumbsUp',
-  // ThumbsUp, WalkJump, Wave, Yes, No, Dance
+  special: 'Wave',
+  // ThumbsUp, WalkJump, Yes, No, Dance
 }
 
 export const dupecheshAnimations = {
   idle: 'stand',
   walk: 'run',
   run: 'run',
-  jump: 'wavealt',
+  jump: 'jump', // wavealt
   fall: 'bumflop',
-  attack: 'jump', // attack, crattack, jump
+  attack: 'salute_alt', // attack, crattack
   death: 'deathc', // deatha, deathb, deathc, crdeath
-  special: 'flip', // flip (češe dupe), sniffsniff (miriše pazuh), salute_alt
+  special: 'flip', // sniffsniff
   // paina, painb, painc, crpain
 }
