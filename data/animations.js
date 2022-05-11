@@ -15,8 +15,8 @@ export const dupecheshAnimations = {
   run: 'run',
   jump: 'wavealt',
   fall: 'bumflop',
-  attack: 'jump',
-  death: 'deathc',
-  special: 'flip', // flip, salute_alt, bumflop, sniffsniff
-  // paina, painb, painc, flip (češe dupe), salute_alt, bumflop (pada), wavealt, sniffsniff (miriše pazuh), crattack, crpain, crdeath, deatha, deathb, deathc
+  attack: 'jump', // attack, crattack, jump
+  death: 'deathc', // deatha, deathb, deathc, crdeath
+  special: 'flip', // flip (češe dupe), sniffsniff (miriše pazuh), salute_alt
+  // paina, painb, painc, crpain
 }

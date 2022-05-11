@@ -1,6 +1,8 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 
-/* including min, not including max */
+/* MATH */
+
+// include min, not include max
 export function randomInRange(min, max, round = false) {
   const random = Math.random() * (max - min) + min
   return round ? Math.floor(random) : random
@@ -34,6 +36,10 @@ export function randomInSquare(size, emptyCenter = 0) {
   return randomBool() ? { x, z } : { x: z, z: x }
 }
 
+export const degToRad = deg => deg * Math.PI / 180
+
+/* OBJECTS */
+
 export const isCollide = (bounds1, bounds2) =>
   bounds1.xMin <= bounds2.xMax && bounds1.xMax >= bounds2.xMin &&
   bounds1.yMin <= bounds2.yMax && bounds1.yMax >= bounds2.yMin &&
@@ -46,6 +52,11 @@ export function getHighPoint(geometry, face) {
   return Math.max(v1, v2, v3)
 }
 
+export const getHeight = mesh => {
+  const box = new THREE.Box3().setFromObject(mesh)
+  return box.max.y - box.min.y
+}
+
 export function cameraFollowObject(camera, obj, { distance = 100, alpha = 0.05, y = 0 } = {}) {
   if (!obj) return
   const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(obj.quaternion)
@@ -55,13 +66,6 @@ export function cameraFollowObject(camera, obj, { distance = 100, alpha = 0.05, 
   newPosition.y = obj.position.y + y
   camera.position.lerp(newPosition, alpha)
   camera.lookAt(obj.position)
-}
-
-export const degToRad = deg => deg * Math.PI / 180
-
-export const getHeight = mesh => {
-  const box = new THREE.Box3().setFromObject(mesh)
-  return box.max.y - box.min.y
 }
 
 /* TEXTURES */
