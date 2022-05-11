@@ -54,12 +54,10 @@ export default class Player {
   jump(stepY) {
     this.mesh.translateY(stepY)
     if (!this.busy) this.playAnimation(this.animNames.jump, LoopOnce)
-    this.busy = true
   }
 
   attack() {
     if (!this.busy) this.playAnimation(this.animNames.attack, LoopOnce)
-    this.busy = true
   }
 
   // TODO: special() {}
@@ -110,6 +108,7 @@ export default class Player {
     this.action = this.mixer.clipAction(clip)
     this.action.setLoop(loop)
     this.action.play()
+    if (this.action.loop == LoopOnce) this.busy = true
   }
 
   debugAnimations() {
