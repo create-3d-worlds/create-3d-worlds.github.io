@@ -23,6 +23,7 @@ export default class Player {
     this.mixer = new AnimationMixer(mesh.type === 'Group' ? mesh.children[0] : mesh)
     this.animNames = animNames
     this.animations = animations
+    this.loopOncePressed = false
   }
 
   /* MOVEMENTS */
@@ -53,11 +54,11 @@ export default class Player {
 
   jump(stepY) {
     this.mesh.translateY(stepY)
-    if (!this.busy) this.playAnimation(this.animNames.jump, LoopOnce)
+    this.playAnimation(this.animNames.jump, LoopOnce)
   }
 
   attack() {
-    if (!this.busy) this.playAnimation(this.animNames.attack, LoopOnce)
+    this.playAnimation(this.animNames.attack, LoopOnce)
   }
 
   // TODO: special() {}
@@ -73,8 +74,8 @@ export default class Player {
 
     if (!pressed.Space) this.freeFall(jumpStep)
 
-    if (!keyboard.keyPressed || this.busy) this.idle()
-    if (!keyboard.keyPressed) this.busy = false
+    if (!keyboard.keyPressed || this.loopOncePressed) this.idle()
+    if (!keyboard.keyPressed) this.loopOncePressed = false
 
     if (keyboard.left) this.turn(turnAngle)
     if (keyboard.right) this.turn(-turnAngle)
@@ -101,6 +102,7 @@ export default class Player {
   }
 
   playAnimation(name, loop) {
+    if (loop === LoopOnce && this.loopOncePressed) return // prevent multiple one-time animations
     if (!this.animations || this.shouldFinishCurrentAnimation(name)) return
 
     if (this.action) this.action.stop()
@@ -108,7 +110,7 @@ export default class Player {
     this.action = this.mixer.clipAction(clip)
     this.action.setLoop(loop)
     this.action.play()
-    if (this.action.loop == LoopOnce) this.busy = true
+    if (loop == LoopOnce) this.loopOncePressed = true
   }
 
   debugAnimations() {
