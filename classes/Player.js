@@ -45,7 +45,6 @@ export default class Player {
 
   turn(angle) {
     this.mesh.rotateY(angle)
-    this.playAnimation(this.animNames.idle, LoopRepeat)
   }
 
   fall(jumpStep) {
@@ -93,6 +92,7 @@ export default class Player {
     if (this.directionBlocked()) return
 
     if (pressed.Space) this.jump(jumpStep)
+
     if (keyboard.up) this.walk(-step)
     if (keyboard.down) this.walk(step)
     if (pressed.KeyQ) this.sideWalk(-step)
@@ -101,17 +101,17 @@ export default class Player {
 
   /* ANIMATIONS */
 
-  shouldFinishCurrentAnimation(name) {
+  shouldNotPlay(nextClip, nextLoop) {
     const { action } = this
     return action && (
-      action.loop == LoopOnce && action.isRunning() || // finish one-time action
-      action.loop == LoopRepeat && action._clip.name == name   // don't start same repeating action
+      action._clip.name == nextClip || // don't start the same clip over again
+      action.loop == LoopOnce && action.isRunning() || // wait one-time animation to finish
+      nextLoop === LoopOnce && this.loopOncePressed // don't play one-time animations twice
     )
   }
 
   playAnimation(name, loop) {
-    if (loop === LoopOnce && this.loopOncePressed) return // prevent multiple one-time animations
-    if (!this.animations || this.shouldFinishCurrentAnimation(name)) return
+    if (!this.animations || this.shouldNotPlay(name, loop)) return
 
     if (this.action) this.action.stop()
     const clip = this.animations.find(c => c.name == name)
