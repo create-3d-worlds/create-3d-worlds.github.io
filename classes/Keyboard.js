@@ -16,11 +16,13 @@ class Keyboard {
       this.pressed[e.code] = false
       this.capsLock = e.getModifierState('CapsLock')
     })
-    document.addEventListener('mousedown', () => {
-      this.pressed.mouse = true
+    document.addEventListener('mousedown', e => {
+      this.pressed.mouse = e.button === 0
+      this.pressed.mouse2 = e.button === 2
     })
-    document.addEventListener('mouseup', () => {
-      this.pressed.mouse = false
+    document.addEventListener('mouseup', e => {
+      if (e.button === 0) this.pressed.mouse = false
+      if (e.button === 2) this.pressed.mouse2 = false
     })
     document.addEventListener('touchstart', e => this.chooseDirection(e.touches[0]))
     document.addEventListener('touchmove', e => this.chooseDirection(e.touches[0]))

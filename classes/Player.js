@@ -16,7 +16,7 @@ export default class Player {
   constructor({ transparent = false, mesh = createPlayerBox(2, transparent), speed, animations, animNames = {} } = {}) {
     this.mesh = mesh
     this.size = getHeight(mesh)
-    this.speed = speed || this.size * 2
+    this.speed = speed || this.size * 2 // TODO: da utiče na brzinu animacije
     this.solids = []
     this.groundY = 0
     // some animation not work in group
@@ -47,13 +47,17 @@ export default class Player {
     this.mesh.rotateY(angle)
   }
 
-  freeFall(stepY) {
-    if (this.position.y - stepY >= this.groundY) this.mesh.translateY(-stepY)
-    // if (this.position.y < this.groundY) this.mesh.translateY(stepY)
+  fall(jumpStep) {
+    if (this.position.y == this.groundY) return
+    if (this.position.y - jumpStep >= this.groundY) {
+      this.mesh.translateY(-jumpStep)
+      this.playAnimation(this.animNames.fall, LoopOnce)
+    }
+    // if (this.position.y < this.groundY) this.mesh.translateY(jumpStep)
   }
 
-  jump(stepY) {
-    this.mesh.translateY(stepY)
+  jump(jumpStep) {
+    this.mesh.translateY(jumpStep)
     this.playAnimation(this.animNames.jump, LoopOnce)
   }
 
@@ -61,7 +65,9 @@ export default class Player {
     this.playAnimation(this.animNames.attack, LoopOnce)
   }
 
-  // TODO: special() {}
+  special() {
+    this.playAnimation(this.animNames.special, LoopOnce)
+  }
 
   /* INPUT */
 
@@ -72,15 +78,18 @@ export default class Player {
     const jumpStep = speed * delta * 1.5
     const turnAngle = Math.PI / 2 * delta
 
-    if (!pressed.Space) this.freeFall(jumpStep)
+    if (!pressed.Space) this.fall(jumpStep)
+    // TODO: blokirati komande tokom skoka/pada?
 
     if (!keyboard.keyPressed || this.loopOncePressed) this.idle()
-    if (!keyboard.keyPressed) this.loopOncePressed = false
+    if (!keyboard.keyPressed) this.loopOncePressed = false // BUG: ukoči se kada držim napred ili nazad posle skoka
+    // ne treba čekati da se svi dugmići otpuste, samo okidači jednokratnih animacija
 
     if (keyboard.left) this.turn(turnAngle)
     if (keyboard.right) this.turn(-turnAngle)
 
     if (keyboard.pressed.mouse) this.attack()
+    if (keyboard.pressed.mouse2) this.special()
 
     if (this.directionBlocked()) return
 
@@ -107,7 +116,7 @@ export default class Player {
 
     if (this.action) this.action.stop()
     const clip = this.animations.find(c => c.name == name)
-    this.action = this.mixer.clipAction(clip)
+    this.action = clip ? this.mixer.clipAction(clip) : this.action
     this.action.setLoop(loop)
     this.action.play()
     if (loop == LoopOnce) this.loopOncePressed = true
