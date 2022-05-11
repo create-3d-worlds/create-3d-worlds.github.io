@@ -59,13 +59,9 @@ export function cameraFollowObject(camera, obj, { distance = 100, alpha = 0.05, 
 
 export const degToRad = deg => deg * Math.PI / 180
 
-export const getSize = mesh => new THREE.Box3().setFromObject(mesh).getSize(new THREE.Vector3())
-
-export const getScale = (mesh, newHeight) => {
+export const getHeight = mesh => {
   const box = new THREE.Box3().setFromObject(mesh)
-  const height = box.max.y - box.min.y
-  const scale = newHeight / height
-  return scale
+  return box.max.y - box.min.y
 }
 
 /* TEXTURES */

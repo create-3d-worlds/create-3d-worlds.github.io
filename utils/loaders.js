@@ -5,11 +5,16 @@ import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoad
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import { MD2Loader } from '/node_modules/three108/examples/jsm/loaders/MD2Loader.js'
 
-import { getScale } from '/utils/helpers.js'
-
 const textureLoader = new THREE.TextureLoader()
 
 /* HELPERS */
+
+const getScale = (mesh, newHeight) => {
+  const box = new THREE.Box3().setFromObject(mesh)
+  const height = box.max.y - box.min.y
+  const scale = newHeight / height
+  return scale
+}
 
 const translateY = mesh => {
   const box = new THREE.Box3().setFromObject(mesh)
@@ -17,11 +22,10 @@ const translateY = mesh => {
   mesh.translateY(bottom)
 }
 
-// needed to preserve model orientation
+// need to preserve model orientation
 const createGroup = (model, rot) => {
   const group = new THREE.Group()
   model.setRotationFromAxisAngle(new THREE.Vector3(...rot.axis), rot.angle)
-
   group.add(model)
   return group
 }
@@ -102,7 +106,7 @@ export function loadMd2({ file, size, rot, texture } = {}) {
   })
 }
 
-/* UNIVERSAL LOADER */
+/* MASTER LOADER */
 
 /*
 * Handle model load, resize, rotate, etc.

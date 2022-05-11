@@ -3,7 +3,7 @@ import { scene, renderer, camera, createOrbitControls, hemLight } from '/utils/s
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/trees.js'
-import { addTexture, getSize } from '/utils/helpers.js'
+import { addTexture, getHeight } from '/utils/helpers.js'
 import { loadModel } from '/utils/loaders.js'
 
 hemLight({ intensity: 1.2 })
@@ -21,7 +21,7 @@ directLight.position.set(0, 0, 1)
 scene.add(directLight)
 
 const { mesh } = await loadModel({ file: 'magic-castle.obj', size: 150 })
-mesh.translateY(getSize(mesh).y / 4)
+mesh.translateY(getHeight(mesh) / 4)
 addTexture({ mesh, file: 'concrete.jpg' })
 scene.add(mesh)
 

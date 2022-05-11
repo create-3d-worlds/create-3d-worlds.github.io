@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { keyboard, Kamenko } from '/classes/index.js'
 import { createPlayerBox } from '/utils/boxes.js'
 import { addSolids, raycastGround } from '/classes/actions/index.js'
-import { getSize } from '/utils/helpers.js'
+import { getHeight } from '/utils/helpers.js'
 
 const { pressed } = keyboard
 const { LoopOnce, LoopRepeat, Vector3, AnimationMixer } = THREE
@@ -13,10 +13,9 @@ let a = 0 // for debuging
  * Player handle user input, move mesh and animate model.
  */
 export default class Player {
-  constructor({ size, transparent = false, mesh = createPlayerBox(size, transparent), speed, animations, animNames = {} } = {}) {
+  constructor({ transparent = false, mesh = createPlayerBox(2, transparent), speed, animations, animNames = {} } = {}) {
     this.mesh = mesh
-    // TODO: resize mesh if size is set
-    this.size = mesh ? getSize(mesh).y : size
+    this.size = getHeight(mesh)
     this.speed = speed || this.size * 2
     this.solids = []
     this.groundY = 0
@@ -57,6 +56,8 @@ export default class Player {
       if (this.position.y - stepY >= this.groundY) this.mesh.translateY(-stepY)
     // if (this.position.y < this.groundY) this.mesh.translateY(stepY)
   }
+
+  // TODO: special() {}
 
   /* USER INPUT */
 
