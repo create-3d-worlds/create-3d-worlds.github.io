@@ -40,11 +40,12 @@ export default class Player {
 
   sideWalk(step) {
     this.mesh.translateX(step)
-    this.playAnimation(this.animNames.sideWalk || this.animNames.walk, LoopRepeat)
+    this.playAnimation(this.animNames.walk, LoopRepeat)
   }
 
   turn(angle) {
     this.mesh.rotateY(angle)
+    this.playAnimation(this.animNames.idle, LoopRepeat)
   }
 
   fall(jumpStep) {
@@ -79,25 +80,23 @@ export default class Player {
     const turnAngle = Math.PI / 2 * delta
 
     if (!pressed.Space) this.fall(jumpStep)
-    // TODO: blokirati komande tokom skoka/pada?
 
     if (!keyboard.keyPressed || this.loopOncePressed) this.idle()
-    if (!keyboard.keyPressed) this.loopOncePressed = false // BUG: ukoči se kada držim napred ili nazad posle skoka
-    // ne treba čekati da se svi dugmići otpuste, samo okidači jednokratnih animacija
+    if (!pressed.mouse && !pressed.mouse2 && !pressed.Space) this.loopOncePressed = false
 
     if (keyboard.left) this.turn(turnAngle)
     if (keyboard.right) this.turn(-turnAngle)
 
-    if (keyboard.pressed.mouse) this.attack()
-    if (keyboard.pressed.mouse2) this.special()
+    if (pressed.mouse) this.attack()
+    if (pressed.mouse2) this.special()
 
     if (this.directionBlocked()) return
 
+    if (pressed.Space) this.jump(jumpStep)
     if (keyboard.up) this.walk(-step)
     if (keyboard.down) this.walk(step)
     if (pressed.KeyQ) this.sideWalk(-step)
     if (pressed.KeyE) this.sideWalk(step)
-    if (pressed.Space) this.jump(jumpStep)
   }
 
   /* ANIMATIONS */

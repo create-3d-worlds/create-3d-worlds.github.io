@@ -104,8 +104,9 @@ live-server
 - [ ] spojiti klase Player i Model
   - [ ] obrisati naslednice
 - [x] srediti da se ne ponavlja animacija skakanja
-- [ ] srediti da se ne ponavljaju jednokratne animacije (napad, specijal, itd) 
-- [ ] da unazad ide sporije i ima sporiju animaciju
+- [x] srediti da se ne ponavljaju jednokratne animacije (napad, specijal, itd) 
+- [ ] usporiti animaciju po potrebi (u odnosu na brzinu, nazad sporije i sl.)
+- [ ] blokirati komande tokom skoka/pada? ograničiti visinu skoka?
 
 ### Scenes
 
