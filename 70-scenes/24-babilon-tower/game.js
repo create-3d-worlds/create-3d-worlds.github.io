@@ -2,10 +2,14 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createStair } from '/utils/boxes.js'
 import { createTerrain } from '/utils/ground.js'
-import { PlayerAvatar } from '/classes/Player.js'
+import { Kamenko } from '/classes/index.js'
+import { dirLight, hemLight } from '/utils/light.js'
 
-camera.position.z = 40
-camera.position.y = 20
+dirLight()
+hemLight({ intensity: .75 })
+
+camera.position.z = 20
+camera.position.y = 10
 
 function createCircle(radius = 100, y = 0) {
   const blocks = []
@@ -33,7 +37,8 @@ const tower = createTower(6)
 const terrain = createTerrain()
 scene.add(terrain, tower)
 
-const avatar = new PlayerAvatar(120, 10, 0, 5, 0)
+const avatar = new Kamenko({ size: 5, skin: 0 })
+avatar.position.set(120, 10, 0)
 avatar.add(camera)
 avatar.addSolids(terrain, tower)
 scene.add(avatar.mesh)

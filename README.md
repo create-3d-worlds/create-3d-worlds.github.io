@@ -108,13 +108,15 @@ live-server
 - [x] odvojiti klase Player i Model
 - [x] napraviti izvedene klase koje nasledjuju Model (Dupechesh, Robotko, Girl i sl)
 - [x] spojiti klase Avatar i Player
-- [ ] spojiti klase Player i Model
-  - [ ] obrisati naslednice
+- [x] spojiti klase Player i Model
+  - [x] obrisati naslednice
 - [x] srediti da se ne ponavlja animacija skakanja
 - [x] srediti da se ne ponavljaju jednokratne animacije (napad, specijal, itd) 
 - [ ] usporiti animaciju po potrebi (u odnosu na brzinu, nazad sporije i sl.)
 - [ ] blokirati komande tokom skoka/pada? ograničiti visinu skoka?
 - [ ] kad skok udari glavom u nešto, da ne ostaje u vazduhu već da pada
+- [ ] ako u skoku ide gore-pravo, ako je blokirano pravo da nastavi gore (da nastavi bar jedan od dva pritisnuta pravca)
+- [ ] možda da ne korač u skoku kad ide napred
 
 ### Scenes
 

@@ -77,7 +77,7 @@ export default class Player {
       this.mesh.translateY(-this.jumpStep)
       this.fallAnim()
     }
-    // if (this.position.y < this.groundY) this.mesh.translateY(jumpStep)
+    if (this.position.y < this.groundY) this.mesh.translateY(this.jumpStep) // za neravne terene
   }
 
   jump() {

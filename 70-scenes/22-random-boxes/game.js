@@ -1,4 +1,4 @@
-import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
+import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createRandomBoxes } from '/utils/boxes.js'
 import { createGround } from '/utils/ground.js'
 import { Kamenko } from '/classes/index.js'
@@ -6,7 +6,6 @@ import { hemLight } from '/utils/light.js'
 
 hemLight()
 
-createOrbitControls()
 camera.position.z = 40
 camera.position.y = 20
 
