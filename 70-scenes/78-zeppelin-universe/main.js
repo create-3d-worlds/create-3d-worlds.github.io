@@ -6,7 +6,9 @@ import { createGround } from '/utils/ground.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import Zeppelin from '/classes/Zeppelin.js'
 import keyboard from '/classes/Keyboard.js'
+import {hemLight} from '/utils/light.js'
 
+hemLight({ intensity: .25 })
 const controls = createOrbitControls()
 const commands = {
   '←': 'levo',
@@ -21,12 +23,12 @@ addControlUI({ commands })
 const stars = createStars({ radiusMin: 5000, radius: 10000, numberOfStars: 200000 })
 scene.add(stars)
 
-// scene.add(createGradientSky({ r: 5000, bottomColor: 0x000000, topColor: 0x002266 }))
+scene.add(createGradientSky({ r: 5000, bottomColor: 0x000000, topColor: 0x002266 }))
 const water = createGround({ color: 0x003133 })
 scene.add(water)
 
 const ground = createHillyTerrain(
-  { size: 10000, y: 100, color: 0xFFC880, factorX: 5, factorZ: 2.5, factorY: 200, file: 'grasslight-big.jpg' })
+  { size: 10000, y: 100, color: 0x030303, factorX: 5, factorZ: 2.5, factorY: 200, file: 'grasslight-big.jpg' })
 scene.add(ground)
 
 const zeppelin = new Zeppelin(mesh => {
