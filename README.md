@@ -32,6 +32,7 @@ live-server
 - [x] napraviti 3D kišu
   - [x] kiša da prati igraca
 - [x] napraviti sneg
+  - [ ] sneg da prati igraca
 
 ### Tilemaps
 
