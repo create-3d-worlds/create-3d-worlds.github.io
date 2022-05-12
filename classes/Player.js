@@ -48,11 +48,13 @@ export default class Player {
     if (this.directionBlocked()) return
 
     if (pressed.Space) this.jump()
-
     if (keyboard.up) this.walk()
-    if (keyboard.down) this.walk(1)
-    if (pressed.KeyQ) this.sideWalk()
-    if (pressed.KeyE) this.sideWalk(1)
+
+    if (!this.directionBlocked()) {
+      if (keyboard.down) this.walk(1)
+      if (pressed.KeyQ) this.sideWalk()
+      if (pressed.KeyE) this.sideWalk(1)
+    }
   }
 
   /* MOVEMENTS */
@@ -143,8 +145,10 @@ export default class Player {
     if (pressed.Space && keyboard.up) return new Vector3(0, 1, -1)
     if (keyboard.up) return new Vector3(0, 0, -1)
     if (keyboard.down) return new Vector3(0, 0, 1)
-    if (keyboard.left) return new Vector3(-1, 0, 0)
-    if (keyboard.right) return new Vector3(1, 0, 0)
+    // if (keyboard.left) return new Vector3(-1, 0, 0)
+    // if (keyboard.right) return new Vector3(1, 0, 0)
+    if (pressed.KeyQ) return new Vector3(-1, 0, 0)
+    if (pressed.KeyE) return new Vector3(1, 0, 0)
     if (pressed.Space) return new Vector3(0, 1, 0)
     return null
   }
