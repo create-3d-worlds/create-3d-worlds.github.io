@@ -1,7 +1,13 @@
-import { scene, camera, renderer, clock } from '/utils/scene.js'
+import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createSpiralStairs } from '/utils/boxes.js'
 import { createGround } from '/utils/ground.js'
-import { PlayerModel, Dupechesh, Ratamahatta, Robotko, Girl, GirlFighter } from '/classes/index.js'
+// import { PlayerModel, Dupechesh, Ratamahatta, Robotko, Girl, GirlFighter } from '/classes/index.js'
+import { loadModel } from '/utils/loaders.js'
+import Player from '/classes/Player.js'
+import { dirLight } from '/utils/light.js'
+
+dirLight({ intensity: 1.5 })
+createOrbitControls()
 
 camera.position.z = 40
 camera.position.y = 20
@@ -11,11 +17,11 @@ scene.add(floor)
 const stairs = createSpiralStairs(5, 40, 40)
 scene.add(stairs)
 
-const player = new PlayerModel(100, 50, -50, 20, mesh => {
-  mesh.rotateY(Math.PI)
-  mesh.add(camera)
-  scene.add(mesh)
-}, GirlFighter)
+const { mesh, animations } = await loadModel({ file: 'girl.glb', size: .4, rot: { axis: [1, 0, 0], angle: Math.PI * .5 } })
+
+const player = new Player({ mesh, animations })
+//   mesh.add(camera)
+scene.add(mesh)
 
 player.addSolids(floor, stairs)
 

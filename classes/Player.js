@@ -10,7 +10,8 @@ const { LoopOnce, LoopRepeat, Vector3, AnimationMixer } = THREE
 let a = 0 // for debuging
 
 /**
- * Player handle user input, move mesh and animate model.
+ * Player handles user input, move mesh and animate model.
+ * (loadModel handles size and rotation)
  */
 export default class Player {
   constructor({ transparent = false, mesh = createPlayerBox(2, transparent), speed, animations, animNames = {} } = {}) {
@@ -116,6 +117,7 @@ export default class Player {
     if (this.action) this.action.stop()
     const clip = this.animations.find(c => c.name == name)
     this.action = clip ? this.mixer.clipAction(clip) : this.action
+    if (!this.action) return
     this.action.setLoop(loop)
     this.action.play()
     if (loop == LoopOnce) this.loopOncePressed = true
