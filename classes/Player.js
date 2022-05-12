@@ -7,8 +7,6 @@ import { getHeight } from '/utils/helpers.js'
 const { pressed } = keyboard
 const { LoopOnce, LoopRepeat, Vector3, AnimationMixer } = THREE
 
-let a = 0 // for debuging
-
 /**
  * Player handles user input, move mesh and animate model.
  * (loadModel handles size and rotation)
@@ -25,7 +23,6 @@ export default class Player {
     this.animNames = animNames
     this.animations = animations
     this.loopOncePressed = false
-    this.debugAnimations()
   }
 
   /* MOVEMENTS */
@@ -122,14 +119,6 @@ export default class Player {
     this.action.setLoop(loop)
     this.action.play()
     if (loop == LoopOnce) this.loopOncePressed = true
-  }
-
-  debugAnimations() {
-    document.addEventListener('click', () => {
-      const { name } = this.animations[a++ % this.animations.length]
-      console.log(name)
-      this.playAnimation(name)
-    })
   }
 
   /* RAYCAST */

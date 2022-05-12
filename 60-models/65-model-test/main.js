@@ -5,10 +5,10 @@ import { loadModel } from '/utils/loaders.js'
 let a = 0
 
 hemLight()
-createOrbitControls()
-camera.position.set(10, 10, 50)
+const controls = createOrbitControls()
+camera.position.set(1, 2, 3)
 
-const { mesh, animations } = await loadModel({ file: 'girl-fighter/girl-walk.fbx' })
+const { mesh, animations } = await loadModel({ file: 'girl-fighter/girl-walk.fbx', size: 2 })
 scene.add(mesh)
 
 const mixer = new THREE.AnimationMixer(mesh)
@@ -25,8 +25,9 @@ document.addEventListener('click', () => {
 // LOOP
 
 void function render() {
+  requestAnimationFrame(render)
   const delta = clock.getDelta()
   if (mixer) mixer.update(delta)
-  requestAnimationFrame(render)
+  controls.update()
   renderer.render(scene, camera)
 }()
