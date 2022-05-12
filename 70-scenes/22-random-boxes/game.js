@@ -1,9 +1,12 @@
 import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createRandomBoxes } from '/utils/boxes.js'
 import { createGround } from '/utils/ground.js'
-import { PlayerAvatar } from '/classes/index.js'
+import { Kamenko } from '/classes/index.js'
+import { hemLight } from '/utils/light.js'
 
-// createOrbitControls()
+hemLight()
+
+createOrbitControls()
 camera.position.z = 40
 camera.position.y = 20
 
@@ -12,7 +15,7 @@ scene.add(floor)
 const boxes = createRandomBoxes()
 scene.add(boxes)
 
-const player = new PlayerAvatar(100, 50, -50, 10, 0)
+const player = new Kamenko({ size: 10, skin: 0 })
 player.mesh.rotateY(Math.PI)
 player.mesh.add(camera)
 scene.add(player.mesh)

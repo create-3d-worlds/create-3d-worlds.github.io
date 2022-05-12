@@ -1,5 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { clock } from '/utils/scene.js'
+import Player from '/classes/Player.js'
 
 const DISCO = 0
 const STONE = 1
@@ -75,24 +76,22 @@ const createMaterial = skin => {
     fragmentShader
   })
   return new THREE.MeshNormalMaterial({
-    shading: THREE.FlatShading
+    flatShading: THREE.FlatShading
   })
 }
 
 const chooseGeometry = skin => {
   if (skin == STONE) return THREE.DodecahedronGeometry
   if (skin == LAVA) return  THREE.SphereGeometry
+  if (skin == DISCO) return THREE.SphereGeometry
   return THREE.SphereGeometry
 }
 
-/**
- * Model class has methods for animations and `mesh` property for scene
- */
-export default class Kamenko {
-  constructor(x = 0, y = 0, z = 0, size = 35, skin = STONE) {
+export default class Kamenko extends Player {
+  constructor({ size = 2, speed = size * 3, skin = STONE }) {
+    super({ speed })
     this.size = size
     this.mesh = this.createMesh(skin)
-    this.mesh.position.set(x, y, z)
   }
 
   createMesh(skin) {
@@ -124,21 +123,23 @@ export default class Kamenko {
   }
 
   idle() {
-    this.leftHand.position.z = this.leftLeg.position.z = 0
+    this.leftHand.position.z = this.leftLeg.position.z =
     this.rightHand.position.z = this.rightLeg.position.z = 0
   }
 
-  jump() {
-    this.leftHand.position.z = this.rightHand.position.z = this.leftLeg.position.z = this.rightLeg.position.z = this.size * .3
+  jumpAnim() {
+    this.leftHand.position.z = this.rightHand.position.z =
+    this.leftLeg.position.z = this.rightLeg.position.z = this.size * .3
   }
 
-  walk() {
+  walkAnim() {
     const elapsed = Math.sin(clock.getElapsedTime() * 5) * this.size * .666
     this.leftHand.position.z = this.leftLeg.position.z = -elapsed
     this.rightHand.position.z = this.rightLeg.position.z = elapsed
   }
 
   update(delta) {
+    super.update(delta)
     uniforms.time.value += 0.8 * delta
   }
 }

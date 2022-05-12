@@ -25,38 +25,86 @@ export default class Player {
     this.loopOncePressed = false
   }
 
+  /* INPUT */
+
+  handleInput(delta) {
+    this.running = keyboard.capsLock
+    const speed = this.running ? this.speed * 2 : this.speed
+    this.step = speed * delta // speed in pixels per second
+    this.jumpStep = speed * delta * 1.5
+    this.turnAngle = Math.PI / 2 * delta
+
+    if (!pressed.Space) this.fall()
+
+    if (!keyboard.keyPressed || this.loopOncePressed) this.idle()
+    if (!pressed.mouse && !pressed.mouse2 && !pressed.Space) this.loopOncePressed = false
+
+    if (keyboard.left) this.turn(1)
+    if (keyboard.right) this.turn()
+
+    if (pressed.mouse) this.attack()
+    if (pressed.mouse2) this.special()
+
+    if (this.directionBlocked()) return
+
+    if (pressed.Space) this.jump()
+
+    if (keyboard.up) this.walk()
+    if (keyboard.down) this.walk(1)
+    if (pressed.KeyQ) this.sideWalk()
+    if (pressed.KeyE) this.sideWalk(1)
+  }
+
   /* MOVEMENTS */
+
+  walk(dir = -1) {
+    this.mesh.translateZ(this.step * dir)
+    this.walkAnim()
+  }
+
+  sideWalk(dir = -1) {
+    this.mesh.translateX(this.step * dir)
+    this.sideWalkAnim()
+  }
+
+  turn(dir = -1) {
+    this.mesh.rotateY(this.turnAngle * dir)
+  }
+
+  fall() {
+    if (this.position.y == this.groundY) return
+    if (this.position.y - this.jumpStep >= this.groundY) {
+      this.mesh.translateY(-this.jumpStep)
+      this.fallAnim()
+    }
+    // if (this.position.y < this.groundY) this.mesh.translateY(jumpStep)
+  }
+
+  jump() {
+    this.mesh.translateY(this.jumpStep)
+    this.jumpAnim()
+  }
+
+  /* ANIMATIONS */
 
   idle() {
     this.playAnimation(this.animNames.idle, LoopRepeat)
   }
 
-  walk(step) {
-    this.mesh.translateZ(step)
+  walkAnim() {
     const animation = this.running ? this.animNames.run : this.animNames.walk
     this.playAnimation(animation, LoopRepeat)
   }
 
-  sideWalk(step) {
-    this.mesh.translateX(step)
+  sideWalkAnim() {
     this.playAnimation(this.animNames.walk, LoopRepeat)
   }
 
-  turn(angle) {
-    this.mesh.rotateY(angle)
+  fallAnim() {
+    this.playAnimation(this.animNames.fall, LoopOnce)
   }
 
-  fall(jumpStep) {
-    if (this.position.y == this.groundY) return
-    if (this.position.y - jumpStep >= this.groundY) {
-      this.mesh.translateY(-jumpStep)
-      this.playAnimation(this.animNames.fall, LoopOnce)
-    }
-    // if (this.position.y < this.groundY) this.mesh.translateY(jumpStep)
-  }
-
-  jump(jumpStep) {
-    this.mesh.translateY(jumpStep)
+  jumpAnim() {
     this.playAnimation(this.animNames.jump, LoopOnce)
   }
 
@@ -66,47 +114,6 @@ export default class Player {
 
   special() {
     this.playAnimation(this.animNames.special, LoopOnce)
-  }
-
-  /* INPUT */
-
-  handleInput(delta) {
-    this.running = keyboard.capsLock
-    const speed = this.running ? this.speed * 2 : this.speed
-    const step = speed * delta // speed in pixels per second
-    const jumpStep = speed * delta * 1.5
-    const turnAngle = Math.PI / 2 * delta
-
-    if (!pressed.Space) this.fall(jumpStep)
-
-    if (!keyboard.keyPressed || this.loopOncePressed) this.idle()
-    if (!pressed.mouse && !pressed.mouse2 && !pressed.Space) this.loopOncePressed = false
-
-    if (keyboard.left) this.turn(turnAngle)
-    if (keyboard.right) this.turn(-turnAngle)
-
-    if (pressed.mouse) this.attack()
-    if (pressed.mouse2) this.special()
-
-    if (this.directionBlocked()) return
-
-    if (pressed.Space) this.jump(jumpStep)
-
-    if (keyboard.up) this.walk(-step)
-    if (keyboard.down) this.walk(step)
-    if (pressed.KeyQ) this.sideWalk(-step)
-    if (pressed.KeyE) this.sideWalk(step)
-  }
-
-  /* ANIMATIONS */
-
-  shouldNotPlay(nextClip, nextLoop) {
-    const { action } = this
-    return action && (
-      action._clip.name == nextClip || // don't start the same clip over again
-      action.loop == LoopOnce && action.isRunning() || // wait one-time animation to finish
-      nextLoop === LoopOnce && this.loopOncePressed // don't play one-time animations twice
-    )
   }
 
   playAnimation(name, loop) {
@@ -119,6 +126,15 @@ export default class Player {
     this.action.setLoop(loop)
     this.action.play()
     if (loop == LoopOnce) this.loopOncePressed = true
+  }
+
+  shouldNotPlay(nextClip, nextLoop) {
+    const { action } = this
+    return action && (
+      action._clip.name == nextClip || // don't start the same clip over again
+      action.loop == LoopOnce && action.isRunning() || // wait one-time animation to finish
+      nextLoop === LoopOnce && this.loopOncePressed // don't play one-time animations twice
+    )
   }
 
   /* RAYCAST */
@@ -183,30 +199,5 @@ export default class Player {
     this.updateGround()
     this.handleInput(delta)
     if (this.mixer) this.mixer.update(delta)
-  }
-}
-
-// TODO: DELETE!!!!
-/**
- * Bridge between Player and Model.
- * @param ModelClass is used to load `mesh`.
- * @param callback is used to pass `mesh` to the scene.
- */
-export class PlayerModel extends Player {
-  constructor(x, y, z, size, callback, ModelClass) {
-    super({ x, y, z, size })
-    this.model = new ModelClass(mesh => {
-      this.mesh = mesh
-      mesh.position.set(x, y, z)
-      callback(mesh)
-    }, size)
-  }
-}
-
-export class PlayerAvatar extends Player {
-  constructor(x, y, z, size, skin) {
-    super({ x, y, z, size })
-    this.model = new Kamenko(x, y, z, size, skin)
-    this.mesh = this.model.mesh
   }
 }
