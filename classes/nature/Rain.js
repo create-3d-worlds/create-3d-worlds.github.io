@@ -17,7 +17,7 @@ const createDrop = () => {
 export default class Rain {
   constructor({ center = { x: 0, y: 250, z: 0 }, size = 800, dropsNum = 1000, ground = -100 } = {}) {
     this.size = size
-    this.y = center.y
+    this.center = center
     this.ground = ground
     this.createDrops(center, size, dropsNum)
   }
@@ -38,8 +38,9 @@ export default class Rain {
 
   update() {
     this.drops.forEach(drop => {
+      // drop.position.x = center.x
+      // drop.position.z = center.z
       drop.position.y -= drop.velocity
-      // if (drop.position.y < this.ground) drop.position.y += this.y
       if (drop.position.y < this.ground) drop.position.y += this.size * 2
     })
   }

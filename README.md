@@ -13,7 +13,6 @@ live-server
 
 ### General
 
-- [x] dodati primere drveća u geometriju
 - [ ] svuda srediti svetla
   - [x] hemLight to lights.js
 - [ ] dovesti veličine u razmeru 1px : 1m
@@ -26,6 +25,13 @@ live-server
 - [x] create a lot of boxes
 - [x] create other basic shapes
 - [x] add texture
+- [x] dodati primere drveća u geometriju
+
+### Particles
+
+- [x] napraviti 3D kišu
+  - [ ] kiša da prati polozaj igraca
+- [x] napraviti sneg
 
 ### Tilemaps
 
@@ -112,13 +118,12 @@ live-server
 
 - [x] Savo (ww2 fps)
   - [x] dodati kišu
-  - [x] napraviti 3D kišu
-  - [x] napraviti sneg
   - [ ] dodati NPC karaktere (vidi 80-primeri/80-nemesis)
     - https://www.script-tutorials.com/demos/474/index3.html
   - [ ] dodati neke modele vozila i kuca
   - [ ] dodati tenk kako prolazi
   - [ ] dodati munje https://threejs.org/examples/?q=light#webgl_lightningstrike
+  - [ ] dodati pucanje
 - [ ] Svemir (model ring arcology)
   - [ ] napraviti svemir iz neba
   - [ ] bolja distribucija zvezda (perlin noise)
@@ -180,14 +185,13 @@ live-server
 
 ### Gameplay
 
-- [ ] konj trči endless-runner (80-primeri/30-endless-runner, 50-rad-sa-modelima/60-konj-glb)
+- [ ] konj trči endless-runner (primeri/endless-runner)
 - [ ] inventar za frp
   - [ ] postaviti objekte za sakupljanje i okidace za njih
   - https://www.the-art-of-web.com/javascript/maze-game/#box1 (2D)
   - https://threejs.org/examples/?q=cube#webgl_interactive_cubes
   - https://threejsfundamentals.org/threejs/lessons/threejs-picking.html
   - https://codepen.io/kintel/pen/ZboOxw
-- [ ] bežanje od štuke koja bombarduje
 
 ### Ostalo
 
