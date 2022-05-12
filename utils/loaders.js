@@ -4,14 +4,14 @@ import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader
 import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import { MD2Loader } from '/node_modules/three108/examples/jsm/loaders/MD2Loader.js'
+import { getHeight } from '/utils/helpers.js'
 
 const textureLoader = new THREE.TextureLoader()
 
 /* HELPERS */
 
 const getScale = (mesh, newHeight) => {
-  const box = new THREE.Box3().setFromObject(mesh)
-  const height = box.max.y - box.min.y
+  const height = getHeight(mesh)
   const scale = newHeight / height
   return scale
 }
@@ -25,7 +25,9 @@ const translateY = mesh => {
 // need to preserve model orientation
 const createGroup = (model, rot) => {
   const group = new THREE.Group()
-  model.setRotationFromAxisAngle(new THREE.Vector3(...rot.axis), rot.angle)
+  model.rotateOnWorldAxis(new THREE.Vector3(...rot.axis), rot.angle)
+  // model.rotateOnAxis(new THREE.Vector3(...rot.axis), rot.angle)
+  // model.setRotationFromAxisAngle(new THREE.Vector3(...rot.axis), rot.angle)
   group.add(model)
   return group
 }
