@@ -14,7 +14,7 @@ function createOutline(size) {
 
 /* creators */
 
-export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomNuance({ h: 0.1, s: 0.01, l: .75 }), zModifier = 1, yModifier = 1) {
+export function createBox({ x = 0, y = 0, z = 0, size = 20, file, color = randomNuance({ h: 0.1, s: 0.01, l: .75 }), zModifier = 1, yModifier = 1 } = {}) {
   const ySize = size * yModifier
   const zSize = size * zModifier
   const geometry = new THREE.BoxGeometry(size, ySize, zSize)
@@ -28,16 +28,14 @@ export function createBox(x = 0, y = 0, z = 0, size = 20, file, color = randomNu
   return mesh
 }
 
-export const createCrate = (x, y, z, size, file = 'crate.gif') => createBox(x, y, z, size, file)
+export const createCrate = (x, y, z, size, file = 'crate.gif') => createBox({ x, y, z, size, file })
 
-export const createBlock = (x, y, z, size, color) => createBox(x, y, z, size, null, color, false)
+export const createBlock = (x, y, z, size, color) => createBox({ x, y, z, size, file: null, color })
 
-export const createStair = (x, y, z, size) => createBox(x, y, z, size, null, null, 2)
-
-export const createWallBlock = (x, z, size, file, yModifier) => createBox(x, 0, z, size, file, null, 1, yModifier)
+export const createWallBlock = (x, z, size, file, yModifier) => createBox({ x, z, size, file, yModifier })
 
 export function createPlayerBox(x = 0, y = 0, z = 0, size = 2, transparent = false) {
-  const box = createBlock(0, 0, 0, size, null, transparent)
+  const box = createBlock({ size })
   box.material.opacity = transparent ? 0 : 1
   box.material.transparent = transparent
   const group = new THREE.Group()
@@ -68,7 +66,7 @@ export function createSpiralStairs(floors, stairsInCirle = 20, yDistance = 80) {
   for (let i = 0; i <= CIRCLE * floors; i += step) {
     const x = Math.cos(i) * radius
     const z = Math.sin(i) * radius
-    const block = createStair(x, i * yDistance, z)
+    const block = createBox({ x, y: i * yDistance, z, zModifier: 2 })
     block.rotateY(Math.PI / 2 - i)
     stairs.add(block)
   }

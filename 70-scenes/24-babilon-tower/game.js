@@ -1,6 +1,6 @@
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
-import { Kamenko } from '/classes/index.js'
+import Kamenko from '/classes/Kamenko.js'
 import { dirLight, hemLight } from '/utils/light.js'
 import { createBabelTower } from '/utils/towers.js'
 

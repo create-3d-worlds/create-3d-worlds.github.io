@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { createStair } from '/utils/boxes.js'
+import { createBox } from '/utils/boxes.js'
 
 const CIRCLE = Math.PI * 2
 
@@ -10,7 +10,7 @@ function createCircle(radius = 100, y = 0) {
   for (let i = 0; i <= CIRCLE; i += step) {
     const x = Math.cos(i) * radius
     const z = Math.sin(i) * radius
-    const block = createStair(x, y, z)
+    const block = createBox({ x, y, z, zModifier: 2 })
     block.rotateY(-i)
     blocks.push(block)
   }

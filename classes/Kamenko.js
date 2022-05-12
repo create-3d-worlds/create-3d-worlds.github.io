@@ -87,6 +87,7 @@ const chooseGeometry = skin => {
   return THREE.SphereGeometry
 }
 
+// extends Player kills Player??
 export default class Kamenko extends Player {
   constructor({ size = 2, speed = size * 3, skin = STONE }) {
     super({ speed })
