@@ -23,3 +23,18 @@ export function createBabelTower({ floors = 5 } = {}) {
     group.add(...createCircle(100 - i * 10, i * 20))
   return group
 }
+
+export function createSpiralStairs(floors, stairsInCirle = 20, yDistance = 80) {
+  const radius = 100
+  const stairs = new THREE.Group
+  const step = CIRCLE / stairsInCirle
+
+  for (let i = 0; i <= CIRCLE * floors; i += step) {
+    const x = Math.cos(i) * radius
+    const z = Math.sin(i) * radius
+    const block = createBox({ x, y: i * yDistance, z, zModifier: 2 })
+    block.rotateY(Math.PI / 2 - i)
+    stairs.add(block)
+  }
+  return stairs
+}

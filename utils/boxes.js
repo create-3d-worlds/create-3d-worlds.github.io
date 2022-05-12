@@ -3,17 +3,6 @@ import { randomInRange, randomNuance } from './helpers.js'
 
 const loader = new THREE.TextureLoader()
 
-/* helpers */
-
-function createOutline(size) {
-  const outlineSize = size * 0.05
-  const geometry = new THREE.BoxGeometry(size + outlineSize, size + outlineSize, size + outlineSize)
-  const material = new THREE.MeshBasicMaterial({ color: 0x0000000, side: THREE.BackSide })
-  return new THREE.Mesh(geometry, material)
-}
-
-/* creators */
-
 export function createBox({ x = 0, y = 0, z = 0, size = 20, file, color = randomNuance({ h: 0.1, s: 0.01, l: .75 }), zModifier = 1, yModifier = 1 } = {}) {
   const ySize = size * yModifier
   const zSize = size * zModifier
@@ -55,20 +44,4 @@ export function createRandomBoxes(n = 100, size = 20, texture) {
     group.add(box)
   }
   return group
-}
-
-export function createSpiralStairs(floors, stairsInCirle = 20, yDistance = 80) {
-  const radius = 100
-  const stairs = new THREE.Group
-  const CIRCLE = Math.PI * 2
-  const step = CIRCLE / stairsInCirle
-
-  for (let i = 0; i <= CIRCLE * floors; i += step) {
-    const x = Math.cos(i) * radius
-    const z = Math.sin(i) * radius
-    const block = createBox({ x, y: i * yDistance, z, zModifier: 2 })
-    block.rotateY(Math.PI / 2 - i)
-    stairs.add(block)
-  }
-  return stairs
 }
