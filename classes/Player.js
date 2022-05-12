@@ -1,11 +1,13 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { keyboard, Kamenko } from '/classes/index.js'
+import { keyboard } from '/classes/index.js'
 import { createPlayerBox } from '/utils/boxes.js'
 import { addSolids, raycastGround } from '/classes/actions/index.js'
 import { getHeight } from '/utils/helpers.js'
 
 const { pressed } = keyboard
 const { LoopOnce, LoopRepeat, Vector3, AnimationMixer } = THREE
+
+const onGround = (playerY, groundY) => Math.round(playerY) == Math.round(groundY)
 
 /**
  * Player handles user input, move mesh and animate model.
@@ -61,7 +63,7 @@ export default class Player {
 
   walk(dir = -1) {
     this.mesh.translateZ(this.step * dir)
-    this.walkAnim()
+    if (onGround(this.position.y, this.groundY)) this.walkAnim()
   }
 
   sideWalk(dir = -1) {
@@ -74,7 +76,7 @@ export default class Player {
   }
 
   fall() {
-    if (this.position.y == this.groundY) return
+    if (onGround(this.position.y, this.groundY)) return
     if (this.position.y - this.jumpStep >= this.groundY) {
       this.mesh.translateY(-this.jumpStep)
       this.fallAnim()
