@@ -1,6 +1,6 @@
 import { scene, camera, renderer, initLights, createOrbitControls, addControlUI } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
-import { keyboard } from '/classes/index.js'
+import keyboard from '/classes/Keyboard.js'
 import { loadModel } from '/utils/loaders.js'
 
 camera.position.set(1.5, 2.5, -6.5)

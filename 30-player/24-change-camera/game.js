@@ -2,7 +2,8 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, clock, camera, hemLight, addControlUI } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { createFirTrees } from '/utils/trees.js'
-import { keyboard, PlayerAvatar } from '/classes/index.js'
+import keyboard from '/classes/Keyboard.js'
+import Kamenko from '/classes/Kamenko.js'
 
 hemLight({ intensity: 1.25 })
 
@@ -11,7 +12,7 @@ camera.position.y = 250
 const fpsCamera = camera.clone()
 let currentCamera = camera
 
-const avatar = new PlayerAvatar()
+const avatar = new Kamenko({ size: 20 })
 scene.add(avatar.mesh, createGround({ file: 'ground.jpg' }), createFirTrees())
 
 const commands = {

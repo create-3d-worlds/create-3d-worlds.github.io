@@ -1,7 +1,7 @@
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createRandomBoxes } from '/utils/boxes.js'
 import { createGround } from '/utils/ground.js'
-import { Kamenko } from '/classes/index.js'
+import Kamenko from '/classes/Kamenko.js'
 import { hemLight } from '/utils/light.js'
 
 hemLight()

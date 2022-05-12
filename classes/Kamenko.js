@@ -89,7 +89,7 @@ const chooseGeometry = skin => {
 
 // extends Player kills Player??
 export default class Kamenko extends Player {
-  constructor({ size = 2, speed = size * 3, skin = STONE }) {
+  constructor({ size = 2, speed = size * 3, skin = STONE } = {}) {
     super({ speed })
     this.size = size
     this.mesh = this.createMesh(skin)

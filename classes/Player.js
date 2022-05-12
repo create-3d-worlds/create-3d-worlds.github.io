@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { keyboard } from '/classes/index.js'
+import keyboard from '/classes/Keyboard.js'
 import { createPlayerBox } from '/utils/boxes.js'
 import { addSolids, raycastGround } from '/classes/actions/index.js'
 import { getHeight } from '/utils/helpers.js'
