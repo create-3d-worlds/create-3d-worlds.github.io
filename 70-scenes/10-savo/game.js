@@ -5,14 +5,15 @@ import FirstPersonRenderer from '/classes/2d/FirstPersonRenderer.js'
 import Map2DRenderer from '/classes/2d/Map2DRenderer.js'
 import Player from '/classes/Player.js'
 import Tilemap from '/classes/Tilemap.js'
+import { hemLight } from '/utils/light.js'
 
+hemLight()
 camera.position.y = 10
 camera.position.z = 5
 const fpsRenderer = new FirstPersonRenderer()
 
 const matrix = randomMatrix()
-const origin = { x: -500, z: -500 }
-const map = new Tilemap(matrix, 100, origin)
+const map = new Tilemap(matrix, 80, { x: -400, z: -400 })
 const smallMap = new Tilemap(matrix, 20)
 const smallMapRenderer = new Map2DRenderer(smallMap)
 
@@ -21,7 +22,7 @@ const walls = map.create3DMap(0.5)
 scene.add(walls)
 
 const { x, z } = map.randomEmptyPos
-const player = new Player({ x, z, size: 10, transparent: true })
+const player = new Player({ x, z, speed: 20, transparent: true })
 player.add(camera)
 player.addSolids(walls)
 scene.add(player.mesh)
