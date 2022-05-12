@@ -25,6 +25,7 @@ export default class Player {
     this.animNames = animNames
     this.animations = animations
     this.loopOncePressed = false
+    this.debugAnimations()
   }
 
   /* MOVEMENTS */
@@ -117,7 +118,7 @@ export default class Player {
     if (this.action) this.action.stop()
     const clip = this.animations.find(c => c.name == name)
     this.action = clip ? this.mixer.clipAction(clip) : this.action
-    if (!this.action) return
+    // if (!this.action) return
     this.action.setLoop(loop)
     this.action.play()
     if (loop == LoopOnce) this.loopOncePressed = true

@@ -20,3 +20,11 @@ export const dupecheshAnimations = {
   special: 'flip', // sniffsniff
   // paina, painb, painc, crpain
 }
+
+export const girlAnimations = {
+  idle: 'Character_Gather',
+  walk: 'Character_Walk',
+  jump: 'Character_RightTurn',
+  fall: 'Character_LeftTurn',
+  // Character_RightTurn, Character_LeftTurn, Character_TPose
+}

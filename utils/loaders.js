@@ -4,6 +4,7 @@ import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader
 import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import { MD2Loader } from '/node_modules/three108/examples/jsm/loaders/MD2Loader.js'
+import { FBXLoader } from '/node_modules/three108/examples/jsm/loaders/FBXLoader.js'
 import { getHeight } from '/utils/helpers.js'
 
 const textureLoader = new THREE.TextureLoader()
@@ -22,12 +23,11 @@ const translateY = mesh => {
   mesh.translateY(bottom)
 }
 
-// need to preserve model orientation
+// need group to preserve model orientation
 const createGroup = (model, rot) => {
   const group = new THREE.Group()
   model.rotateOnWorldAxis(new THREE.Vector3(...rot.axis), rot.angle)
   // model.rotateOnAxis(new THREE.Vector3(...rot.axis), rot.angle)
-  // model.setRotationFromAxisAngle(new THREE.Vector3(...rot.axis), rot.angle)
   group.add(model)
   return group
 }
@@ -108,6 +108,18 @@ export function loadMd2({ file, size, rot, texture } = {}) {
   })
 }
 
+/* FBX LOADER */
+
+export function loadFbxModel({ file, size, rot } = {}) {
+  const loader = new FBXLoader()
+  return new Promise(resolve => {
+    loader.load(`/assets/models/${file}`, model => {
+      const { animations } = model
+      prepareMesh({ resolve, model, size, rot, animations })
+    })
+  })
+}
+
 /* MASTER LOADER */
 
 /*
@@ -125,6 +137,8 @@ export const loadModel = ({ file, size, rot, mtl, texture }) => {
       return loadDae({ file, size, rot })
     case 'md2':
       return loadMd2({ file, size, rot, texture })
+    case 'fbx':
+      return loadFbxModel({ file, size, rot })
     default:
       throw new Error(`Unknown file extension: ${ext}`)
   }
