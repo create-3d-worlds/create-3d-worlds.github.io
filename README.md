@@ -30,7 +30,7 @@ live-server
 ### Particles
 
 - [x] napraviti 3D kišu
-  - [ ] kiša da prati polozaj igraca
+  - [x] kiša da prati igraca
 - [x] napraviti sneg
 
 ### Tilemaps

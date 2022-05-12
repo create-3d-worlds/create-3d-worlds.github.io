@@ -30,7 +30,7 @@ player.add(camera)
 player.addSolids(walls)
 scene.add(player.mesh)
 
-const rain = new Rain()
+const rain = new Rain({ center: player.position })
 scene.add(...rain.drops)
 
 /* LOOP */
@@ -43,5 +43,5 @@ void function animate() {
   renderer.render(scene, camera)
   smallMapRenderer.render(player, map)
   fpsRenderer.render(time)
-  rain.update()
+  rain.update(player.position)
 }()

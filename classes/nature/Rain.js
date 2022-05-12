@@ -11,13 +11,13 @@ const createDrop = () => {
   const drop = new THREE.Mesh(geometry, material)
   drop.scale.set(0.1, 1, 0.1)
   drop.velocity = randomInRange(5, 10)
+  drop.initialPosition = new THREE.Vector3()
   return drop
 }
 
 export default class Rain {
-  constructor({ center = { x: 0, y: 250, z: 0 }, size = 800, dropsNum = 1000, ground = -100 } = {}) {
+  constructor({ center = new THREE.Vector3(), size = 800, dropsNum = 1000, ground = -100 } = {}) {
     this.size = size
-    this.center = center
     this.ground = ground
     this.createDrops(center, size, dropsNum)
   }
@@ -26,20 +26,18 @@ export default class Rain {
     this.drops = []
     for (let i = 0; i < dropsNum; i++) {
       const drop = createDrop()
-      drop.position.x = randomInRange(center.x - size / 2, center.x + size / 2)
+      drop.position.x = drop.initialPosition.x = randomInRange(center.x - size / 2, center.x + size / 2)
       drop.position.y = randomInRange(-size, size)
-      drop.position.z = randomInRange(center.z - size / 2, center.z + size / 2)
-      // drop.position.set(randomInRange(-size, size), randomInRange(-size, size), randomInRange(-size, size))
+      drop.position.z = drop.initialPosition.z = randomInRange(center.z - size / 2, center.z + size / 2)
       this.drops.push(drop)
     }
   }
 
-  // TODO: updateRainCenter() da prati polozaj igraca
-
-  update() {
+  // optionaly follows player
+  update(center) {
     this.drops.forEach(drop => {
-      // drop.position.x = center.x
-      // drop.position.z = center.z
+      if (center) drop.position.x = drop.initialPosition.x + center.x
+      if (center) drop.position.z = drop.initialPosition.z + center.z
       drop.position.y -= drop.velocity
       if (drop.position.y < this.ground) drop.position.y += this.size * 2
     })
