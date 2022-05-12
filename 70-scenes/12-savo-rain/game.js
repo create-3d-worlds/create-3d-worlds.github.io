@@ -30,7 +30,7 @@ player.add(camera)
 player.addSolids(walls)
 scene.add(player.mesh)
 
-const rain = new Rain({ center: player.position })
+const rain = new Rain({ center: player.position, size: 200, dropsNum: 200, ground: -100 })
 scene.add(...rain.drops)
 
 /* LOOP */

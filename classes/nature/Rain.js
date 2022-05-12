@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { randomInRange } from '/utils/helpers.js'
 
 const createDrop = () => {
-  const geometry = new THREE.SphereGeometry(Math.random() * 5)
+  const geometry = new THREE.SphereGeometry(randomInRange(1, 3))
   const material = new THREE.MeshBasicMaterial({
     color: 0x9999ff,
     transparent: true,
