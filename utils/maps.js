@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { createWallBlock } from '/utils/boxes.js'
+import { createBox } from '/utils/boxes.js'
 
 export function randomMatrix(size = 10, wallPercent = .3) {
   const matrix = []
@@ -11,14 +11,14 @@ export function randomMatrix(size = 10, wallPercent = .3) {
   return matrix
 }
 
-export function create3DMap(matrix = randomMatrix(), size = 5, yModifier, origin = { x: 0, z: 0 }) {
+export function create3DMap({ matrix = randomMatrix(), size = 1, yModifier, origin = { x: 0, z: 0 } } = {}) {
   const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
   const group = new THREE.Group()
   matrix.forEach((row, rowIndex) => row.forEach((val, columnIndex) => {
     if (!val) return
     const x = (columnIndex * size) + origin.x
     const z = (rowIndex * size) + origin.z
-    group.add(createWallBlock(x, z, size, textures[val - 1], yModifier))
+    group.add(createBox({ x, z, size, file: textures[val - 1], yModifier }))
   }))
   return group
 }

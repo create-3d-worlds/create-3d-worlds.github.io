@@ -6,7 +6,7 @@ export default class Avatar extends Player {
   constructor({ size = 2, speed = size * 5, skin = skins.STONE } = {}) {
     super({ speed })
     this.size = size
-    this.mesh = createAvatar({ skin })
+    this.mesh = createAvatar({ skin, size })
     this.leftHand = this.mesh.getObjectByName('leftHand')
     this.rightHand = this.mesh.getObjectByName('rightHand')
     this.leftLeg = this.mesh.getObjectByName('leftLeg')
