@@ -4,7 +4,8 @@ import { createSketchTrees } from '/utils/trees.js'
 const scene = createWorldScene()
 const controls = createOrbitControls()
 
-camera.position.y = 100
+camera.position.z = 20
+camera.position.y = 10
 
 scene.add(createSketchTrees())
 

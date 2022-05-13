@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { randomInRange, randomNuance, getTexture } from '/utils/helpers.js'
 
-export function createGround({ size = 4000, color = 0x509f53, circle = true, file } = {}) {
+export function createGround({ size = 1000, color = 0x509f53, circle = true, file } = {}) {
   const params = { side: THREE.DoubleSide }
   const material = file
     ? new THREE.MeshBasicMaterial({ ...params, map: getTexture({ file, repeat: size / 10 }) })
@@ -52,5 +52,5 @@ export function createWater({ size = 1000, opacity = 0.75, file } = {}) {
 }
 
 export function createFloor(params) {
-  return createGround({ size: 1000, color: 0x808080, ...params })
+  return createGround({ color: 0x808080, ...params })
 }

@@ -7,8 +7,8 @@ import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
 import Airplane from '/classes/Airplane.js'
 
-const terrain = createTerrain({ size: 8000, segments:200 })
-const trees = createFirTrees(500, 4000, 25)
+const terrain = createTerrain({ size: 8000, segments: 200 })
+const trees = createFirTrees({ n: 500, mapSize: 4000, size: 25 })
 
 scene.fog = new THREE.Fog(0xE5C5AB, 1, 5000)
 scene.add(createGradientSky(), createSunLight(), terrain, trees)

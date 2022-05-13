@@ -120,7 +120,7 @@ export function createFirTree({ x = 0, y = 0, z = 0, size = 5 } = {}) {
 
 /* FACTORIES */
 
-export function createTrees(n = 20, mapSize = 500, size = 20, create = createTree) {
+export function createTrees(n = 50, mapSize = 100, size = 5, create = createTree) {
   const min = -mapSize, max = mapSize
   const group = new THREE.Group()
   const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
@@ -128,7 +128,7 @@ export function createTrees(n = 20, mapSize = 500, size = 20, create = createTre
   return group
 }
 
-export const createFirTrees = (n, mapSize, size) =>
+export const createFirTrees = ({ n, mapSize, size } = {}) =>
   createTrees(n, mapSize, size, createFirTree)
 
 export const createSketchTrees = (n, mapSize, size) =>

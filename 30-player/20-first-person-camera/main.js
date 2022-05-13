@@ -3,20 +3,17 @@ import { scene, camera, renderer, clock } from '/utils/scene.js'
 import keyboard from '/classes/Keyboard.js'
 import { createFloor } from '/utils/ground.js'
 
-camera.position.set(0, 150, 400)
-camera.lookAt(scene.position)
-
 const floor = createFloor({ file: 'sand-512.jpg', circle: false })
 scene.add(floor)
 
 const player = new THREE.Mesh()
-player.position.set(0, 25.1, 0)
+player.position.set(0, 2, 0)
 scene.add(player)
 
 function update() {
   const delta = clock.getDelta() // seconds
-  const step = 200 * delta // 200 pixels per second
-  const angle = Math.PI / 2 * delta // pi/2 radians (90 degrees) per second
+  const step = 20 * delta // 200 pixels per second
+  const angle = Math.PI / 8 * delta // pi/2 radians (90 degrees) per second
 
   if (keyboard.left) player.rotateY(angle)
   if (keyboard.right) player.rotateY(-angle)
@@ -26,7 +23,7 @@ function update() {
   if (keyboard.pressed.KeyQ) player.translateX(-step)
   if (keyboard.pressed.KeyE) player.translateX(step)
 
-  const relativeCameraOffset = new THREE.Vector3(0, 50, 200)
+  const relativeCameraOffset = new THREE.Vector3(0, 25, 100)
   const cameraOffset = relativeCameraOffset.applyMatrix4(player.matrixWorld)
 
   camera.position.x = cameraOffset.x

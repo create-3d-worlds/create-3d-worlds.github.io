@@ -10,7 +10,7 @@ camera.position.z = 100
 camera.position.y = 50
 avatar.add(camera)
 
-const trees = createFirTrees(10, 500, 50)
+const trees = createFirTrees({ n: 10, mapSize: 500, size: 50 })
 scene.add(trees)
 avatar.addSolids(trees)
 

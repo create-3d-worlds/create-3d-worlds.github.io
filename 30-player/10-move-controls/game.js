@@ -2,25 +2,24 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import keyboard from '/classes/Keyboard.js'
 
-camera.position.set(0, 150, 400)
+camera.position.set(0, 15, 40)
 camera.lookAt(scene.position)
 
 const floorMaterial = new THREE.MeshBasicMaterial({ color: 0x333333 })
-const floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10)
+const floorGeometry = new THREE.PlaneGeometry(100, 100, 10, 10)
 const floor = new THREE.Mesh(floorGeometry, floorMaterial)
-floor.position.y = -0.5
 floor.rotation.x = -Math.PI / 2
 scene.add(floor)
 
 const cubeMat = new THREE.MeshNormalMaterial()
-const cubeGeom = new THREE.CubeGeometry(50, 50, 50, 1, 1, 1)
+const cubeGeom = new THREE.CubeGeometry(5, 5, 5, 1, 1, 1)
 const player = new THREE.Mesh(cubeGeom, cubeMat)
-player.position.set(0, 25.1, 0)
+player.position.set(0, 2.5, 0)
 scene.add(player)
 
 function update() {
   const delta = clock.getDelta() // seconds.
-  const moveDistance = 200 * delta // 200 pixels per second
+  const moveDistance = 20 * delta // pixels per second
   const rotateAngle = Math.PI / 2 * delta // pi/2 radians (90 degrees) per second
 
   if (keyboard.pressed.KeyW)
