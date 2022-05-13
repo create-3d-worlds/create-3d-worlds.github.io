@@ -7,12 +7,13 @@ import Avatar from '/classes/Avatar.js'
 
 hemLight({ intensity: 1.25 })
 
-camera.position.z = 500
-camera.position.y = 250
+camera.position.z = 30
+camera.position.y = 15
+
 const fpsCamera = camera.clone()
 let currentCamera = camera
 
-const avatar = new Avatar({ size: 20 })
+const avatar = new Avatar({ size: 2 })
 scene.add(avatar.mesh, createGround({ file: 'ground.jpg' }), createFirTrees())
 
 const commands = {
@@ -24,7 +25,7 @@ addControlUI({ commands, title: 'CONTROLS' })
 /* FUNCTIONS */
 
 function followPlayer() {
-  const distance = new THREE.Vector3(0, 50, 100)
+  const distance = new THREE.Vector3(0, 4, 8)
   const { x, y, z } = distance.applyMatrix4(avatar.mesh.matrixWorld)
   fpsCamera.position.set(x, y, z)
 }

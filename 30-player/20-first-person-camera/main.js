@@ -12,8 +12,8 @@ scene.add(player)
 
 function update() {
   const delta = clock.getDelta() // seconds
-  const step = 20 * delta // 200 pixels per second
-  const angle = Math.PI / 8 * delta // pi/2 radians (90 degrees) per second
+  const step = 20 * delta // pixels per second
+  const angle = Math.PI / 8 * delta // radians per second
 
   if (keyboard.left) player.rotateY(angle)
   if (keyboard.right) player.rotateY(-angle)
