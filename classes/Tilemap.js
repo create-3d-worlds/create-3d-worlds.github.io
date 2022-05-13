@@ -44,7 +44,7 @@ export default class Tilemap {
     return { x, z }
   }
 
-  create3DMap(yModifier) {
-    return create3DMap(this.matrix, this.cellSize, yModifier, this.origin)
+  create3DMap({ yModifier } = {}) {
+    return create3DMap({ matrix: this.matrix, size: this.cellSize, yModifier, origin: this.origin })
   }
 }

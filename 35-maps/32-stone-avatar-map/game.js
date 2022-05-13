@@ -1,19 +1,19 @@
 import { createWorldScene, renderer, camera, clock } from '/utils/scene.js'
-import { PlayerAvatar } from '/classes/Player.js'
+import Avatar from '/classes/Avatar.js'
 import Tilemap from '/classes/Tilemap.js'
 import { nemesis } from '/data/maps.js'
 
 const scene = createWorldScene({ file: 'ground.jpg' })
-const map = new Tilemap(nemesis, 100)
+const map = new Tilemap(nemesis, 10)
 const walls = map.create3DMap()
 scene.add(walls)
 
-const player = new PlayerAvatar(100, 0, 100, 15)
+const player = new Avatar()
 scene.add(player.mesh)
 player.addSolids(walls)
 
-camera.position.z = 50
-camera.position.y = 15
+camera.position.z = 5
+camera.position.y = 2.5
 player.add(camera)
 
 /* LOOP */

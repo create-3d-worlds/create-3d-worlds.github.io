@@ -21,7 +21,7 @@ const smallMapRenderer = new Map2DRenderer(smallMap)
 smallMapRenderer.hide()
 
 scene.add(createGround({ file: 'ground.jpg' }))
-const walls = map.create3DMap(0.5)
+const walls = map.create3DMap({ yModifier: 0.5 })
 scene.add(walls)
 
 const { x, z } = map.randomEmptyPos
