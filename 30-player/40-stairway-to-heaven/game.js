@@ -1,11 +1,11 @@
 import { createWorldScene, camera, renderer, clock } from '/utils/scene.js'
 import { createSpiralStairs } from '/utils/towers.js'
 import { createTerrain } from '/utils/ground.js'
-import { PlayerAvatar } from '/classes/Player.js'
+import Avatar from '/classes/Avatar.js'
 
 const scene = createWorldScene()
-camera.position.z = 40
-camera.position.y = 20
+camera.position.z = 6
+camera.position.y = 3
 
 const terrain = createTerrain()
 scene.add(terrain)
@@ -20,7 +20,7 @@ stairsLeft.rotateY(Math.PI / 2)
 stairsRight.position.x = -200
 stairsRight.rotateY(-Math.PI / 4)
 
-const avatar = new PlayerAvatar(100, 50, -50, 10, 0)
+const avatar = new Avatar(100, 50, -50, 10, 0)
 avatar.addSolids(terrain, stairsRight, stairsLeft)
 avatar.mesh.rotateY(Math.PI)
 avatar.add(camera)

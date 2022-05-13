@@ -17,13 +17,14 @@ export function createGround({ size = 1000, color = 0x509f53, circle = true, fil
   return mesh
 }
 
-export function createTerrain({ size = 1000, segments = 50, colorParam } = {}) {
+export function createTerrain({ size = 500, segments = 50, colorParam, factor = 2 } = {}) {
   const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
   geometry.rotateX(- Math.PI / 2)
   geometry.vertices.forEach(vertex => {
-    vertex.x += randomInRange(-10, 10)
-    vertex.y += randomInRange(-50, 75) * Math.random() * Math.random() // vertex.y += randomInRange(-5, 15)
-    vertex.z += randomInRange(-10, 10)
+    vertex.x += randomInRange(-factor, factor)
+    // vertex.y += randomInRange(-factor * .5, factor * 1.5)
+    vertex.y += randomInRange(-factor * 5, factor * 7.5) * Math.random() * Math.random() // 
+    vertex.z += randomInRange(-factor, factor)
   })
   geometry.faces.forEach(face => {
     face.vertexColors.push(randomNuance(colorParam), randomNuance(colorParam), randomNuance(colorParam))
