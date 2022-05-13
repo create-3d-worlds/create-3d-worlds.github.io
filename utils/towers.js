@@ -1,7 +1,10 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { createBox } from '/utils/boxes.js'
+import { centerObject } from '/utils/helpers.js'
 
 const CIRCLE = Math.PI * 2
+
+// TOWER OF BABEL
 
 function createCircle(radius = 100, y = 0) {
   const blocks = []
@@ -24,6 +27,8 @@ export function createBabelTower({ floors = 5 } = {}) {
   return group
 }
 
+// STAIRWAY TO HEAVEN
+
 export function createSpiralStairs({ floors = 5, radius = 30, stairsInCirle = 30, floorHeight = 20, blockSize = 4 } = {}) {
   const stairs = new THREE.Group
   const step = CIRCLE / stairsInCirle
@@ -37,6 +42,8 @@ export function createSpiralStairs({ floors = 5, radius = 30, stairsInCirle = 30
   }
   return stairs
 }
+
+// CASTLE
 
 function buildTower({ x = 0, z = 0, radius = 15, height = 200 } = {}) {
   const towerGeometry = new THREE.Geometry()
@@ -106,5 +113,8 @@ export function buildCastle({ rows = 10, brickInWall = 30, rowSize = 10, towerRa
     tower.updateMatrix()
     castleGeometry.merge(tower.geometry, tower.matrix)
   })
-  return new THREE.Mesh(castleGeometry, new THREE.MeshNormalMaterial())
+  castleGeometry.rotateY(-Math.PI / 2)
+  const castle = new THREE.Mesh(castleGeometry, new THREE.MeshNormalMaterial())
+  centerObject(castle)
+  return castle
 }

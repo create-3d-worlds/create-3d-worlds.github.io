@@ -52,10 +52,13 @@ export function getHighPoint(geometry, face) {
   return Math.max(v1, v2, v3)
 }
 
-export const getHeight = mesh => {
+// key: x, y or z
+export const getSize = (mesh, key) => {
   const box = new THREE.Box3().setFromObject(mesh)
-  return box.max.y - box.min.y
+  return box.max[key] - box.min[key]
 }
+
+export const getHeight = mesh => getSize(mesh, 'y')
 
 export function cameraFollowObject(camera, obj, { distance = 100, alpha = 0.05, y = 0 } = {}) {
   if (!obj) return
@@ -66,6 +69,12 @@ export function cameraFollowObject(camera, obj, { distance = 100, alpha = 0.05, 
   newPosition.y = obj.position.y + y
   camera.position.lerp(newPosition, alpha)
   camera.lookAt(obj.position)
+}
+
+export const centerObject = mesh => {
+  mesh.geometry.center()
+  const height = getHeight(mesh)
+  mesh.translateY(height / 2)
 }
 
 /* TEXTURES */

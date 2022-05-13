@@ -10,8 +10,7 @@ camera.position.z = 150
 createOrbitControls()
 
 const castle = buildCastle()
-castle.rotateY(-Math.PI / 2)
-castle.position.z = -400
+// castle.position.z = -400
 scene.add(castle)
 
 const avatar = new Avatar({ size: 20 })
