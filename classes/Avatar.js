@@ -29,7 +29,7 @@ export default class Avatar extends Player {
     this.rightHand.position.z = this.rightLeg.position.z = elapsed
   }
 
-  update(delta) {
+  update(delta = clock.getDelta()) {
     super.update(delta)
     uniforms.time.value += 0.8 * delta
   }
