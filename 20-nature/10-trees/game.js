@@ -2,20 +2,21 @@ import { createWorldScene, renderer, camera, createOrbitControls } from '/utils/
 import { createTree, createSketchTree, createFirTree } from '/utils/trees.js'
 
 const scene = createWorldScene()
-const controls = createOrbitControls()
+createOrbitControls()
 
-camera.position.y = 100
+camera.position.z = 20
+camera.position.y = 10
 
 scene.add(
-  createTree({ x: -150 }),
+  createTree({ x: -15 }),
   createSketchTree(),
-  createFirTree({ x: 150 }),
+  createFirTree({ x: 15 }),
 )
 
 /* LOOP */
 
 void function animate() {
   requestAnimationFrame(animate)
-  controls.update()
+  // controls.update()
   renderer.render(scene, camera)
 }()

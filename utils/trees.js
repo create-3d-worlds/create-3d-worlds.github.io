@@ -69,8 +69,8 @@ function findGroundRecursive(terrain, mapSize, counter = 0) {
 
 /* CREATORS */
 
-export function createTree({ x = 0, y = 0, z = 0, size = 50, trunkColor, crownColor, sketch = false } = {}) {
-  size = size * randomInRange(0.6, 1.8) // eslint-disable-line
+export function createTree({ x = 0, y = 0, z = 0, size = 5, trunkColor, crownColor, sketch = false } = {}) {
+  size = size * randomInRange(0.6, 1.4) // eslint-disable-line
   const trunk = createTrunk(size, trunkColor, sketch)
   trunk.position.set(x, y, z)
   trunk.translateY(size / 2)
@@ -83,7 +83,7 @@ export function createTree({ x = 0, y = 0, z = 0, size = 50, trunkColor, crownCo
 
 export const createSketchTree = ({ x, y, z, size, sketch = true } = {}) => createTree({ x, y, z, size, trunkColor: false, crownColor: false, sketch })
 
-export function createFirTree({ x = 0, y = 0, z = 0, size = 50 } = {}) {
+export function createFirTree({ x = 0, y = 0, z = 0, size = 5 } = {}) {
   const material = [
     new THREE.MeshLambertMaterial({ color: similarColor(browns[1]) }),
     new THREE.MeshLambertMaterial({ color: randomNuance() }),
@@ -112,7 +112,7 @@ export function createFirTree({ x = 0, y = 0, z = 0, size = 50 } = {}) {
     geometry.faces[i].materialIndex = i < b ? 0 : 1
 
   const mesh = new THREE.Mesh(geometry, material)
-  const scale = size / 10 // scale acording to size
+  const scale = size / 10 // scale whole tree acording to size
   mesh.scale.set(scale, randomInRange(scale / 2, scale), scale)
   mesh.position.set(x, y, z)
   return mesh
@@ -120,7 +120,7 @@ export function createFirTree({ x = 0, y = 0, z = 0, size = 50 } = {}) {
 
 /* FACTORIES */
 
-export function createTrees(n = 20, mapSize = 500, size = 50, create = createSimpleTree) {
+export function createTrees(n = 20, mapSize = 500, size = 20, create = createTree) {
   const min = -mapSize, max = mapSize
   const group = new THREE.Group()
   const coords = Array(n).fill().map(() => [randomInRange(min, max), randomInRange(min, max)])
