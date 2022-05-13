@@ -47,16 +47,13 @@ export default class Player {
     if (pressed.mouse) this.attack()
     if (pressed.mouse2) this.special()
 
-    if (this.directionBlocked()) return
+    if (this.directionBlocked()) return this.fall()
 
     if (pressed.Space) this.jump()
     if (keyboard.up) this.walk()
-
-    if (!this.directionBlocked()) {
-      if (keyboard.down) this.walk(1)
-      if (pressed.KeyQ) this.sideWalk()
-      if (pressed.KeyE) this.sideWalk(1)
-    }
+    if (keyboard.down) this.walk(1)
+    if (pressed.KeyQ) this.sideWalk()
+    if (pressed.KeyE) this.sideWalk(1)
   }
 
   /* MOVEMENTS */

@@ -113,10 +113,9 @@ live-server
 - [x] srediti da se ne ponavlja animacija skakanja
 - [x] srediti da se ne ponavljaju jednokratne animacije (napad, specijal, itd) 
 - [ ] usporiti animaciju po potrebi (u odnosu na brzinu, nazad sporije i sl.)
-- [ ] blokirati komande tokom skoka/pada? ograničiti visinu skoka?
-- [ ] kad skok udari glavom u nešto, da ne ostaje u vazduhu već da pada
-- [ ] ako u skoku ide gore-pravo, ako je blokirano pravo da nastavi gore (da nastavi bar jedan od dva pritisnuta pravca)
-- [ ] možda da ne korač u skoku kad ide napred
+- [ ] ograničiti visinu skoka?
+- [x] ako je skok blokiran da pada
+- [x] da ne korača u skoku kad ide napred
 
 ### Scenes
 
