@@ -7,14 +7,19 @@ createOrbitControls()
 
 /* FUNCTIONS */
 
-function buildTower({ x = 0, z = 0, towerRadius = 15, height = 200 } = {}) {
-  const tower = new THREE.Mesh(
-    new THREE.CylinderGeometry(towerRadius, towerRadius, height * .75, 15), new THREE.MeshNormalMaterial())
+function buildTower({ x = 0, z = 0, radius = 15, height = 200 } = {}) {
+  const towerGeometry = new THREE.Geometry()
+  const material = new THREE.MeshNormalMaterial()
+  const tower = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, height * .75, 15), material)
   tower.position.set(x, 70, z)
-  scene.add(tower)
-  const cone = new THREE.Mesh(new THREE.CylinderGeometry(0, towerRadius * 1.2, height * .25, 15), new THREE.MeshNormalMaterial())
+  tower.updateMatrix()
+  towerGeometry.merge(tower.geometry, tower.matrix)
+
+  const cone = new THREE.Mesh(new THREE.CylinderGeometry(0, radius * 1.2, height * .25, 15), material)
   cone.position.set(x, 170, z)
-  scene.add(cone)
+  cone.updateMatrix()
+  towerGeometry.merge(cone.geometry, cone.matrix)
+  return new THREE.Mesh(towerGeometry, material)
 }
 
 // brickInWall: ne sme mnogo zbog rekurzije
@@ -28,8 +33,9 @@ function buildCastle({ rows = 10, brickInWall = 24, rowSize = 10, towerRadius = 
     [wallWidth, 0],
     [wallWidth, wallWidth]
   ]
+  const castleGeometry = new THREE.Geometry()
 
-  const notPlaceForDoor = (x, y) =>
+  const notPlaceForGate = (x, y) =>
     (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8) || y > rows * brickSize / 2  // not in center and not to hight
 
   const isEven = y => Math.floor(y / brickSize) % 2 == 0
@@ -37,14 +43,15 @@ function buildCastle({ rows = 10, brickInWall = 24, rowSize = 10, towerRadius = 
   function addBlock(x, y, z) {
     const block = new THREE.Mesh(new THREE.BoxGeometry(rowSize, rowSize, rowSize), new THREE.MeshNormalMaterial())
     block.position.set(x, y, z)
-    scene.add(block)
+    block.updateMatrix()
+    castleGeometry.merge(block.geometry, block.matrix)
   }
 
   function addFourBlocks(x, y) {
     addBlock(x, y, 0)
     addBlock(x, y, wallWidth)
     addBlock(0, y, x)
-    if (notPlaceForDoor(x, y)) addBlock(wallWidth, y, x)
+    if (notPlaceForGate(x, y)) addBlock(wallWidth, y, x)
   }
 
   function buildRow(y, x) {
@@ -63,10 +70,16 @@ function buildCastle({ rows = 10, brickInWall = 24, rowSize = 10, towerRadius = 
   }
 
   buildWalls(0)
-  towerCoords.forEach(([x, z]) => buildTower({ x, z, towerRadius }))
+
+  towerCoords.forEach(([x, z]) => {
+    const tower = buildTower({ x, z, radius: towerRadius })
+    tower.updateMatrix()
+    castleGeometry.merge(tower.geometry, tower.matrix)
+  })
+  return new THREE.Mesh(castleGeometry, new THREE.MeshNormalMaterial())
 }
 
-buildCastle()
+scene.add(buildCastle())
 
 /* LOOP **/
 
