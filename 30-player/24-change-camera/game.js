@@ -3,7 +3,7 @@ import { scene, renderer, clock, camera, hemLight, addControlUI } from '/utils/s
 import { createGround } from '/utils/ground.js'
 import { createFirTrees } from '/utils/trees.js'
 import keyboard from '/classes/Keyboard.js'
-import Kamenko from '/classes/Kamenko.js'
+import Avatar from '/classes/Avatar.js'
 
 hemLight({ intensity: 1.25 })
 
@@ -12,7 +12,7 @@ camera.position.y = 250
 const fpsCamera = camera.clone()
 let currentCamera = camera
 
-const avatar = new Kamenko({ size: 20 })
+const avatar = new Avatar({ size: 20 })
 scene.add(avatar.mesh, createGround({ file: 'ground.jpg' }), createFirTrees())
 
 const commands = {

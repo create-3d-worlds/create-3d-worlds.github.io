@@ -5,7 +5,7 @@ import { drawAxes } from './drawAxes.js'
 
 function createAirplane() {
   const airplane = new THREE.Object3D()
-  const material = new THREE.MeshPhongMaterial({shininess: 100})
+  const material = new THREE.MeshPhongMaterial({ shininess: 100 })
 
   const nose = new THREE.Mesh(new THREE.SphereGeometry(15, 32, 16), material)
   nose.rotation.x = 90 * Math.PI / 180
@@ -56,7 +56,7 @@ const airplane = createAirplane()
 scene.add(airplane)
 
 const gui = new dat.GUI()
-const controller = {x: 0, y: 0, z: 0 }
+const controller = { x: 0, y: 0, z: 0 }
 gui.add(controller, 'x', -360, 360).name('Rotate x (pitch)')
 gui.add(controller, 'y', -360, 360).name('Rotate y (yaw)')
 gui.add(controller, 'z', -360, 360).name('Rotate z (roll)')

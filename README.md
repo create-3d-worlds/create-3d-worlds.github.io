@@ -104,7 +104,7 @@ live-server
   - [x] ucitati fbx zensku iz rpg-a
   - [x] kontrolama menjati animacije (kretanje, trčanje, skok...)
 - [x] srediti pufnicu (dodati jos malo geometrije i neku boju, materijal, teksturu...)
-  - [x] probati da Kamenko bude od lave (vidi shader example)
+  - [x] probati da Avatar bude od lave (vidi shader example)
 - [x] odvojiti klase Player i Model
 - [x] napraviti izvedene klase koje nasledjuju Model (Dupechesh, Robotko, Girl i sl)
 - [x] spojiti klase Avatar i Player
