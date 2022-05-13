@@ -1,8 +1,12 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 
-const DISCO = 0
-const STONE = 1
-const LAVA = 2
+export const skins = {
+  STONE: 'stone',
+  LAVA: 'lava',
+  DISCO: 'disco'
+}
+
+const { STONE, LAVA, DISCO } = skins
 
 /* LAVA */
 
@@ -85,10 +89,11 @@ const chooseGeometry = skin => {
   return THREE.SphereGeometry
 }
 
-export function createAvatar({skin = STONE, size = 2 } = {}) {
+export function createAvatar({ skin = STONE, size = 2 } = {}) {
   const group = new THREE.Group()
   const Geometry = chooseGeometry(skin)
   const material = createMaterial(skin)
+
   const bodyGeo = new Geometry(size * .66)
   const body = new THREE.Mesh(bodyGeo, material)
   body.position.set(0, size, 0)
@@ -97,18 +102,23 @@ export function createAvatar({skin = STONE, size = 2 } = {}) {
   const limbGeo = bodyGeo.clone().scale(.6, .6, .6)
   const rightHand = new THREE.Mesh(limbGeo, material)
   rightHand.position.set(-size, size, 0)
+  rightHand.name = 'rightHand'
   group.add(rightHand)
 
   const leftHand = new THREE.Mesh(limbGeo, material)
   leftHand.position.set(size, size, 0)
+  leftHand.name = 'leftHand'
   group.add(leftHand)
 
   const rightLeg = new THREE.Mesh(limbGeo, material)
   rightLeg.position.set(size / 2, size * .3, 0)
+  rightLeg.name = 'rightLeg'
   group.add(rightLeg)
 
   const leftLeg = new THREE.Mesh(limbGeo, material)
   leftLeg.position.set(-size / 2, size * .3, 0)
+  leftLeg.name = 'leftLeg'
   group.add(leftLeg)
+
   return group
 }

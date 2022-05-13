@@ -1,16 +1,17 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
 import { clock } from '/utils/scene.js'
 import Player from '/classes/Player.js'
-
-const DISCO = 0
-const STONE = 1
-const LAVA = 2
+import { createAvatar, uniforms, skins } from '/utils/createAvatar.js'
 
 export default class Avatar extends Player {
-  constructor({ size = 2, speed = size * 3, skin = STONE } = {}) {
+  constructor({ size = 2, speed = size * 3, skin = skins.STONE } = {}) {
     super({ speed })
     this.size = size
-    this.mesh = this.createMesh(skin)
+    console.log(this.size)
+    this.mesh = createAvatar({ skin })
+    this.leftHand = this.mesh.getObjectByName('leftHand')
+    this.rightHand = this.mesh.getObjectByName('rightHand')
+    this.leftLeg = this.mesh.getObjectByName('leftLeg')
+    this.rightLeg = this.mesh.getObjectByName('rightLeg')
   }
 
   idle() {

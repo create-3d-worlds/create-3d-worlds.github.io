@@ -35,12 +35,12 @@ export function createPlayerBox(x = 0, y = 0, z = 0, size = 2, transparent = fal
 
 /* factories */
 
-export function createRandomBoxes(n = 100, size = 20, texture) {
+export function createRandomBoxes({ n = 100, size = 5, mapSize = 50 } = {}) {
   const group = new THREE.Group()
   for (let i = 0; i < n; i++) {
     const color = randomNuance({ h: 0.1, s: 0.01, l: .75 })
-    const x = randomInRange(-200, 200), y = randomInRange(-5, 100), z = randomInRange(-200, 200)
-    const box = createBox(x, y, z, size, texture, color)
+    const x = randomInRange(-mapSize, mapSize), y = randomInRange(-5, mapSize * .5), z = randomInRange(-mapSize, mapSize)
+    const box = createBox({ x, y, z, size, color })
     group.add(box)
   }
   return group
