@@ -3,10 +3,9 @@ import Player from '/classes/Player.js'
 import { createAvatar, uniforms, skins } from '/utils/createAvatar.js'
 
 export default class Avatar extends Player {
-  constructor({ size = 2, speed = size * 3, skin = skins.STONE } = {}) {
+  constructor({ size = 2, speed = size * 5, skin = skins.STONE } = {}) {
     super({ speed })
     this.size = size
-    console.log(this.size)
     this.mesh = createAvatar({ skin })
     this.leftHand = this.mesh.getObjectByName('leftHand')
     this.rightHand = this.mesh.getObjectByName('rightHand')

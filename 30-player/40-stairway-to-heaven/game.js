@@ -1,8 +1,9 @@
-import { createWorldScene, camera, renderer, clock } from '/utils/scene.js'
+import { createWorldScene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createSpiralStairs } from '/utils/towers.js'
 import { createTerrain } from '/utils/ground.js'
 import Avatar from '/classes/Avatar.js'
 
+// createOrbitControls()
 const scene = createWorldScene()
 camera.position.z = 6
 camera.position.y = 3
@@ -10,17 +11,17 @@ camera.position.y = 3
 const terrain = createTerrain()
 scene.add(terrain)
 
-const stairsLeft = createSpiralStairs(5, 40, 40)
-const stairsRight = createSpiralStairs(5)
+const stairsLeft = createSpiralStairs({ floors: 5 })
+const stairsRight = createSpiralStairs({ floors: 5 })
 scene.add(stairsRight)
 scene.add(stairsLeft)
 
-stairsLeft.position.x = 200
+stairsLeft.position.x = 50
 stairsLeft.rotateY(Math.PI / 2)
-stairsRight.position.x = -200
+stairsRight.position.x = -50
 stairsRight.rotateY(-Math.PI / 4)
 
-const avatar = new Avatar(100, 50, -50, 10, 0)
+const avatar = new Avatar()
 avatar.addSolids(terrain, stairsRight, stairsLeft)
 avatar.mesh.rotateY(Math.PI)
 avatar.add(camera)

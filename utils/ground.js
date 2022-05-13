@@ -17,7 +17,7 @@ export function createGround({ size = 1000, color = 0x509f53, circle = true, fil
   return mesh
 }
 
-export function createTerrain({ size = 500, segments = 50, colorParam, factor = 2 } = {}) {
+export function createTerrain({ size = 400, segments = 50, colorParam, factor = 2 } = {}) {
   const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
   geometry.rotateX(- Math.PI / 2)
   geometry.vertices.forEach(vertex => {

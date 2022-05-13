@@ -14,7 +14,7 @@ camera.position.y = 15
 
 const floor = createGround({ file: 'ground.jpg' })
 scene.add(floor)
-const stairs = createSpiralStairs(5, 40, 40)
+const stairs = createSpiralStairs()
 scene.add(stairs)
 
 const { mesh, animations } = await loadModel({ file: 'girl.glb', size: .2, rot: { axis: [0, 1, 0], angle: Math.PI } })
