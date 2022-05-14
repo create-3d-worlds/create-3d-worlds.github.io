@@ -198,6 +198,8 @@ live-server
 
 ### Ostalo
 
+- [ ] optimizacija https://twitter.com/mrdoob/status/966609115140128768
+  - https://attackingpixels.com/tips-tricks-optimizing-three-js-performance/
 - [ ] popraviti HTML margine
 - [ ] probati VR
   - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
