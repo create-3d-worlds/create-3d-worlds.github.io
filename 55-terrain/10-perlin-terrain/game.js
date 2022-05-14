@@ -1,14 +1,12 @@
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
-import { createTerrain } from '/utils/ground/perlin-terrain.js'
+import { createPerlinTerrain } from '/utils/ground/perlin-terrain.js'
 
 const controls = createOrbitControls()
-camera.position.y = 1500
-camera.position.z = 2500
+camera.position.y = 1000
+camera.position.z = 1000
 
-const mesh = createTerrain()
+const mesh = createPerlinTerrain({ planeSize: 2000, worldSize: 32 })
 scene.add(mesh)
-
-/* FUNCTIONS */
 
 /* LOOP */
 

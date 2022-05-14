@@ -19,7 +19,7 @@ function generateHeightData(worldSize) {
   return data
 }
 
-export function createTerrain({ planeSize = 5000, worldSize = 128, file = 'ground.jpg' } = {}) {
+export function createPerlinTerrain({ planeSize = 5000, worldSize = 128, file = 'ground.jpg' } = {}) {
   const data = generateHeightData(worldSize)
   const geometry = new THREE.PlaneBufferGeometry(planeSize, planeSize, worldSize - 1, worldSize - 1)
   geometry.rotateX(- Math.PI / 2)

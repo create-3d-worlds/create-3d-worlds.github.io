@@ -1,8 +1,8 @@
 import { scene, renderer, camera, clock, createOrbitControls, hemLight } from '/utils/scene.js'
-import { createWater } from '/utils/terrain/index.js'
+import { createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/trees.js'
-import { createHillyTerrain } from '/utils/terrain/createHillyTerrain.js'
-import { PlayerAvatar } from '/classes/Player.js'
+import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
+import Avatar from '/classes/Avatar.js'
 import { dirLight } from '/utils/light.js'
 
 hemLight()
@@ -17,7 +17,7 @@ const terrain = createHillyTerrain()
 scene.add(terrain)
 scene.add(createTreesOnTerrain({ terrain }))
 
-const avatar = new PlayerAvatar()
+const avatar = new Avatar()
 avatar.addSolids(terrain)
 scene.add(avatar.mesh)
 
