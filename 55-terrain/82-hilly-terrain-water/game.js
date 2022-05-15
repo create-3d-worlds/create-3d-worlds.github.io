@@ -12,7 +12,7 @@ renderer.setClearColor(0x7ec0ee)
 const controls = createOrbitControls()
 camera.position.y = 150
 
-scene.add(createWater({ size: 1000 }))
+scene.add(createWater({ size: 400 }))
 const terrain = createHillyTerrain()
 scene.add(terrain)
 scene.add(createTreesOnTerrain({ terrain }))

@@ -5,9 +5,10 @@ import { getTexture } from '/utils/helpers.js'
 
 const noise = new SimplexNoise()
 
-export const createHillyTerrain = ({ size = 1000, y = 30, color = 0x33aa33, factorX = 50, factorZ = 25, factorY = 60, file = 'grasslight-big.jpg' } = {}
+// { size = 1000, y = 30, factorX = 50, factorZ = 25, factorY = 60 }
+export const createHillyTerrain = ({ size = 400, y = 30, color = 0x33aa33, factorX = size / 20, factorZ = size / 40, factorY = size / 10, file = 'grasslight-big.jpg' } = {}
 ) => {
-  const resolution = size / 50
+  const resolution = size / 20
   const material = new THREE.MeshLambertMaterial({
     color,
     vertexColors: THREE.FaceColors,
