@@ -2,7 +2,6 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { randomInRange, similarColor, randomNuance, randomInSquare } from './helpers.js'
 
 const sketchSize = 0.04
-const groundOffset = 20
 const browns = [0x3d2817, 0x664422, 0xA0522D]
 const greens = [0x228b22, 0x2d4c1e, 0x3EA055, 0x44aa44]
 
@@ -46,25 +45,6 @@ function createCrown(size, color, sketch = false) {
     mesh.add(outline)
   }
   return mesh
-}
-
-const findGround = function(terrain, x, z) {
-  const direction = new THREE.Vector3(0, -1, 0)
-  const origin = { x, y: 1000, z }
-  const raycaster = new THREE.Raycaster()
-  raycaster.set(origin, direction)
-  const intersects = raycaster.intersectObject(terrain, true)
-  if (intersects.length > 0 && intersects[0].point.y > -groundOffset / 2)
-    return intersects[0].point
-  return null
-}
-
-function findGroundRecursive(terrain, mapSize, counter = 0) {
-  const { x, z } = randomInSquare(mapSize)
-  const ground = findGround(terrain, x, z)
-  if (ground) return ground
-  if (counter > 5) return null
-  return findGroundRecursive(terrain, mapSize, counter + 1)
 }
 
 /* CREATORS */
@@ -134,11 +114,32 @@ export const createFirTrees = ({ n, mapSize, size } = {}) =>
 export const createSketchTrees = (n, mapSize, size) =>
   createTrees(n, mapSize, size, createSketchTree)
 
-export const createTreesOnTerrain = ({ terrain, n = 50, mapSize = 500, size } = {}) => {
+export const createTreesOnTerrain = ({ terrain, n = 50, mapSize = 400, size } = {}) => {
+  const groundY = terrain.position.y
+
+  const findGround = (terrain, x, z) => {
+    const direction = new THREE.Vector3(0, -1, 0)
+    const origin = { x, y: 400, z }
+    const raycaster = new THREE.Raycaster()
+    raycaster.set(origin, direction)
+    const intersects = raycaster.intersectObject(terrain, true)
+    if (intersects.length > 0 && intersects[0].point.y > -groundY / 2)
+      return intersects[0].point
+    return null
+  }
+
+  const findGroundRecursive = (terrain, mapSize, counter = 0) => {
+    const { x, z } = randomInSquare(mapSize)
+    const ground = findGround(terrain, x, z)
+    if (ground) return ground
+    if (counter > 5) return null
+    return findGroundRecursive(terrain, mapSize, counter + 1)
+  }
+
   const group = new THREE.Group()
   for (let i = 0; i < n; i++) {
     const pos = findGroundRecursive(terrain, mapSize)
-    if (pos) group.add(createFirTree({ x: pos.x, y: pos.y + groundOffset, z: pos.z, size }))
+    if (pos) group.add(createFirTree({ x: pos.x, y: pos.y + groundY, z: pos.z, size }))
   }
   return group
 }

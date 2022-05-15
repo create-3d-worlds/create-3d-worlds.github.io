@@ -1,16 +1,16 @@
-import { scene, renderer, camera, clock, createOrbitControls, hemLight } from '/utils/scene.js'
+import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/trees.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import Avatar from '/classes/Avatar.js'
-import { dirLight } from '/utils/light.js'
+import { hemLight } from '/utils/light.js'
 
 hemLight()
-dirLight({ intensity: .5 })
 renderer.setClearColor(0x7ec0ee)
 
 const controls = createOrbitControls()
-camera.position.y = 150
+camera.position.y = 75
+camera.position.z = 50
 
 scene.add(createWater({ size: 400 }))
 const terrain = createHillyTerrain()
