@@ -114,7 +114,7 @@ export const createFirTrees = ({ n, mapSize, size } = {}) =>
 export const createSketchTrees = (n, mapSize, size) =>
   createTrees(n, mapSize, size, createSketchTree)
 
-export const createTreesOnTerrain = ({ terrain, n = 50, mapSize = 400, size } = {}) => {
+export const createTreesOnTerrain = ({ terrain, n = 100, mapSize = 400, size } = {}) => {
   const groundY = terrain.position.y
 
   const findGround = (terrain, x, z) => {
