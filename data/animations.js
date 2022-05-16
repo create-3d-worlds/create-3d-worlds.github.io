@@ -24,7 +24,6 @@ export const dupecheshAnimations = {
 export const girlAnimations = {
   idle: 'Character_Gather',
   walk: 'Character_Walk',
-  jump: 'Character_RightTurn',
-  fall: 'Character_LeftTurn',
+  jump: 'Character_TPose',
   // Character_RightTurn, Character_LeftTurn, Character_TPose
 }

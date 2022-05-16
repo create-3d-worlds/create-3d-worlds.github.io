@@ -7,7 +7,7 @@ import { getHeight } from '/utils/helpers.js'
 const { pressed } = keyboard
 const { LoopOnce, LoopRepeat, Vector3, AnimationMixer } = THREE
 
-const onGround = (playerY, groundY) => Math.round(playerY) == Math.round(groundY)
+const onGround = (playerY, groundY) => Math.abs(playerY) == Math.round(groundY)
 
 /**
  * Player handles user input, move mesh and animate model.
@@ -36,10 +36,10 @@ export default class Player {
     this.jumpStep = speed * delta * 1.5
     this.turnAngle = Math.PI / 2 * delta
 
+    if (!keyboard.keyPressed || this.loopOncePressed) this.idle()
     if (!pressed.Space) this.fall()
 
-    if (!keyboard.keyPressed || this.loopOncePressed) this.idle()
-    if (!pressed.mouse && !pressed.mouse2 && !pressed.Space) this.loopOncePressed = false
+    if (!pressed.mouse && !pressed.mouse2) this.loopOncePressed = false //  && !pressed.Space (ako je jump once)
 
     if (keyboard.left) this.turn(1)
     if (keyboard.right) this.turn()
@@ -50,6 +50,7 @@ export default class Player {
     if (this.directionBlocked()) return this.fall()
 
     if (pressed.Space) this.jump()
+
     if (keyboard.up) this.walk()
     if (keyboard.down) this.walk(1)
     if (pressed.KeyQ) this.sideWalk()
@@ -73,7 +74,7 @@ export default class Player {
   }
 
   fall() {
-    if (onGround(this.position.y, this.groundY)) return
+    if (Math.abs(this.position.y) == Math.round(this.groundY)) return // this.idle()
     if (this.position.y - this.jumpStep >= this.groundY) {
       this.mesh.translateY(-this.jumpStep)
       this.fallAnim()
@@ -101,12 +102,12 @@ export default class Player {
     this.playAnimation(this.animNames.walk, LoopRepeat)
   }
 
-  fallAnim() {
-    this.playAnimation(this.animNames.fall, LoopOnce)
+  jumpAnim() {
+    this.playAnimation(this.animNames.jump, LoopRepeat)
   }
 
-  jumpAnim() {
-    this.playAnimation(this.animNames.jump, LoopOnce)
+  fallAnim() {
+    this.playAnimation(this.animNames.fall || this.animNames.jump, LoopRepeat)
   }
 
   attack() {
@@ -144,8 +145,6 @@ export default class Player {
     if (pressed.Space && keyboard.up) return new Vector3(0, 1, -1)
     if (keyboard.up) return new Vector3(0, 0, -1)
     if (keyboard.down) return new Vector3(0, 0, 1)
-    // if (keyboard.left) return new Vector3(-1, 0, 0)
-    // if (keyboard.right) return new Vector3(1, 0, 0)
     if (pressed.KeyQ) return new Vector3(-1, 0, 0)
     if (pressed.KeyE) return new Vector3(1, 0, 0)
     if (pressed.Space) return new Vector3(0, 1, 0)
