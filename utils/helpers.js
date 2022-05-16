@@ -71,10 +71,12 @@ export function cameraFollowObject(camera, obj, { distance = 100, alpha = 0.05, 
   camera.lookAt(obj.position)
 }
 
+// https://stackoverflow.com/questions/28848863/, geometry.center() not working for groups
 export const centerObject = mesh => {
-  mesh.geometry.center()
-  const height = getHeight(mesh)
-  mesh.translateY(height / 2)
+  const box = new THREE.Box3().setFromObject(mesh)
+  box.getCenter(mesh.position) // re-sets mesh position
+  mesh.position.multiplyScalar(-1)
+  mesh.translateY(getHeight(mesh) / 2)
 }
 
 /* TEXTURES */

@@ -5,7 +5,7 @@ import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoad
 import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
 import { MD2Loader } from '/node_modules/three108/examples/jsm/loaders/MD2Loader.js'
 import { FBXLoader } from '/node_modules/three108/examples/jsm/loaders/FBXLoader.js'
-import { getHeight } from '/utils/helpers.js'
+import { getHeight, centerObject } from '/utils/helpers.js'
 
 const textureLoader = new THREE.TextureLoader()
 
@@ -29,12 +29,6 @@ const createGroup = (model, rot) => {
   model.rotateOnWorldAxis(new THREE.Vector3(...rot.axis), rot.angle)
   group.add(model)
   return group
-}
-
-const centerObject = mesh => {
-  const box = new THREE.Box3().setFromObject(mesh)
-  box.getCenter(mesh.position) // this re-sets the mesh position
-  mesh.position.multiplyScalar(- 1)
 }
 
 const prepareMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }, animations }) => {

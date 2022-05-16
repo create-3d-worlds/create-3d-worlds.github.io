@@ -36,6 +36,7 @@ export default class Aircraft {
   //   })
   // }
 
+  // TODO: check if landing works
   addSolids(...newSolids) {
     addSolids(this.solids, ...newSolids)
   }
