@@ -3,7 +3,7 @@ import { terrain, updateTerrain } from '/utils/dynamic-terrain/index.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
 import keyboard from '/classes/Keyboard.js'
-import Zeppelin from '/classes/Zeppelin.js'
+import Zeppelin from '/classes/aircrafts/Zeppelin.js'
 
 const scene = createWorldScene()
 const controls = createOrbitControls()

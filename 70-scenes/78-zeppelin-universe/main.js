@@ -4,7 +4,7 @@ import { createStars } from '/utils/stars.js'
 import { createGradientSky } from '/utils/sky.js'
 import { createGround } from '/utils/ground.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
-import Zeppelin from '/classes/Zeppelin.js'
+import Zeppelin from '/classes/aircrafts/Zeppelin.js'
 import keyboard from '/classes/Keyboard.js'
 import {hemLight} from '/utils/light.js'
 

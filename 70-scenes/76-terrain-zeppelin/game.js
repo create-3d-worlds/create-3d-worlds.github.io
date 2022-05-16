@@ -6,7 +6,7 @@ import { createGradientSky } from '/utils/sky.js'
 import { createSunLight } from '/utils/sun.js'
 import { createGround } from '/utils/ground.js'
 import keyboard from '/classes/Keyboard.js'
-import Zeppelin from '/classes/Zeppelin.js'
+import Zeppelin from '/classes/aircrafts/Zeppelin.js'
 
 scene.add(createGradientSky({ r: 5000 }))
 const light = createSunLight({ x: 500, y: 2000, z: 100, far: 5000 })

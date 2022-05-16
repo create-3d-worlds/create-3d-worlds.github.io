@@ -5,7 +5,7 @@ import { createTerrain } from '/utils/ground.js'
 import { createFirTrees } from '/utils/trees.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
-import Airplane from '/classes/Airplane.js'
+import Airplane from '/classes/aircrafts/Airplane.js'
 
 const terrain = createTerrain({ size: 8000, segments: 200 })
 const trees = createFirTrees({ n: 500, mapSize: 4000, size: 25 })
