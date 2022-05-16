@@ -7,8 +7,6 @@ import { getHeight } from '/utils/helpers.js'
 const { pressed } = keyboard
 const { LoopOnce, LoopRepeat, Vector3, AnimationMixer } = THREE
 
-const onGround = (playerY, groundY) => Math.abs(playerY) == Math.round(groundY)
-
 /**
  * Player handles user input, move mesh and animate model.
  * (loadModel handles size and rotation)
@@ -17,7 +15,7 @@ export default class Player {
   constructor({ transparent = false, mesh = createPlayerBox(2, transparent), speed, animations, animNames = {} } = {}) {
     this.mesh = mesh
     this.size = getHeight(mesh)
-    this.speed = speed || this.size * 2 // TODO: da utiče na brzinu animacije
+    this.speed = speed || this.size * 2
     this.solids = []
     this.groundY = 0
     // some animation not work in group
@@ -25,6 +23,7 @@ export default class Player {
     this.animNames = animNames
     this.animations = animations
     this.loopOncePressed = false
+    this.flying = false
   }
 
   /* INPUT */
@@ -61,7 +60,7 @@ export default class Player {
 
   walk(dir = -1) {
     this.mesh.translateZ(this.step * dir)
-    if (onGround(this.position.y, this.groundY)) this.walkAnim()
+    if (!this.flying) this.walkAnim()
   }
 
   sideWalk(dir = -1) {
@@ -74,7 +73,10 @@ export default class Player {
   }
 
   fall() {
-    if (Math.abs(this.position.y) == Math.round(this.groundY)) return // this.idle()
+    if (Math.round(this.position.y) == Math.round(this.groundY)) {
+      this.flying = false
+      return
+    }
     if (this.position.y - this.jumpStep >= this.groundY) {
       this.mesh.translateY(-this.jumpStep)
       this.fallAnim()
@@ -83,6 +85,7 @@ export default class Player {
   }
 
   jump() {
+    this.flying = true
     this.mesh.translateY(this.jumpStep)
     this.jumpAnim()
   }
