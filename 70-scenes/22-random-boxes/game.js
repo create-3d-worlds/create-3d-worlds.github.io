@@ -6,7 +6,7 @@ import { hemLight } from '/utils/light.js'
 
 hemLight()
 
-camera.position.z = 4
+camera.position.z = 5
 camera.position.y = 2
 
 const floor = createGround({ file: 'ground.jpg' })

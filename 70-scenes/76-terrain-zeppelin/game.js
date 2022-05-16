@@ -21,6 +21,7 @@ const controls = createOrbitControls()
 const ground = createHillyTerrain({ size: 10000, y: 100, factorX : 5, factorZ : 2.5, factorY : 200 })
 scene.add(ground)
 
+// TODO: refactor class
 const zeppelin = new Zeppelin(mesh => {
   scene.add(mesh)
   mesh.position.y = 256

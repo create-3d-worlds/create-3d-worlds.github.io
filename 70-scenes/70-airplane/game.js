@@ -15,6 +15,7 @@ scene.add(createGradientSky(), createSunLight(), terrain, trees)
 
 const controls = createOrbitControls()
 
+// TODO: refactor class
 const avion = new Airplane(() => {
   scene.add(avion.mesh)
   controls.target = avion.mesh.position
