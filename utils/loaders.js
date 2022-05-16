@@ -27,15 +27,21 @@ const translateY = mesh => {
 const createGroup = (model, rot) => {
   const group = new THREE.Group()
   model.rotateOnWorldAxis(new THREE.Vector3(...rot.axis), rot.angle)
-  // model.rotateOnAxis(new THREE.Vector3(...rot.axis), rot.angle)
   group.add(model)
   return group
+}
+
+const centerObject = mesh => {
+  const box = new THREE.Box3().setFromObject(mesh)
+  box.getCenter(mesh.position) // this re-sets the mesh position
+  mesh.position.multiplyScalar(- 1)
 }
 
 const prepareMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }, animations }) => {
   const scale = size ? getScale(model, size) : 1
   model.scale.set(scale, scale, scale)
-  // TODO: centerObject, see https://stackoverflow.com/questions/28848863/
+  // https://stackoverflow.com/questions/28848863/
+  centerObject(model)
   translateY(model)
   model.traverse(child => {
     if (!child.isMesh) return

@@ -125,17 +125,19 @@ export default class Aircraft {
   }
 
   isTouchingGround() {
-    const groundDistance = raycastDown(this)
+    const { mesh, solids } = this
+    const groundDistance = raycastDown({ mesh, solids })
     return groundDistance < this.minHeight
   }
 
   isTooLow() {
-    const groundDistance = raycastDown(this)
+    const { mesh, solids } = this
+    const groundDistance = raycastDown({ mesh, solids })
     return groundDistance < this.minHeight * 2
   }
 
   isTooNear() {
-    const distance = raycastFront(this)
+    const distance = raycastFront({ mesh: this.mesh, solids: this.solids })
     return distance < minDistance
   }
 
