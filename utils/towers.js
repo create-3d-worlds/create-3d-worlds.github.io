@@ -29,14 +29,14 @@ export function createBabelTower({ floors = 5 } = {}) {
 
 // STAIRWAY TO HEAVEN
 
-export function createSpiralStairs({ floors = 5, radius = 30, stairsInCirle = 30, floorHeight = 20, blockSize = 4 } = {}) {
+export function createSpiralStairs({ floors = 5, radius = 30, stairsInCirle = 30, floorHeight = 20, blockSize = 4, zModifier = 2, xModifier = 1 } = {}) {
   const stairs = new THREE.Group
   const step = CIRCLE / stairsInCirle
 
   for (let i = 0; i <= CIRCLE * floors; i += step) {
     const x = Math.cos(i) * radius
     const z = Math.sin(i) * radius
-    const block = createBox({ x, y: i * floorHeight, z, zModifier: 2, size: blockSize })
+    const block = createBox({ x, y: i * floorHeight, z, zModifier, xModifier, size: blockSize })
     block.rotateY(Math.PI / 2 - i)
     stairs.add(block)
   }

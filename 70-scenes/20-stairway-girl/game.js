@@ -14,10 +14,10 @@ camera.position.y = 15
 
 const floor = createGround({ file: 'ground.jpg' })
 scene.add(floor)
-const stairs = createSpiralStairs()
+const stairs = createSpiralStairs({ radius: 25, stairsInCirle: 40, floorHeight: 15, blockSize: 2, zModifier: 5, xModifier: 2 })
 scene.add(stairs)
 
-const { mesh, animations } = await loadModel({ file: 'girl.glb', size: .2, rot: { axis: [0, 1, 0], angle: Math.PI } })
+const { mesh, animations } = await loadModel({ file: 'girl.glb', size: .1, rot: { axis: [0, 1, 0], angle: Math.PI } })
 
 const player = new Player({ mesh, animations, animNames: girlAnimations })
 mesh.add(camera)
