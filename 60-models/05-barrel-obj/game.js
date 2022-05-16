@@ -1,6 +1,7 @@
-/* global THREE */
+import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
+import { loadModel } from '/utils/loaders.js'
 
 initLights()
 createOrbitControls()
@@ -8,14 +9,9 @@ createOrbitControls()
 camera.position.set(1, 1, 1)
 camera.lookAt(new THREE.Vector3(0, 0.4, 0))
 
-const map = new THREE.TextureLoader().load('textures/WoodBarrel_2k_d.jpg')
-const material = new THREE.MeshPhongMaterial({ map })
+const barrel = await loadModel({ file: 'barrel/Barrel.obj', mtl: 'barrel/Barrel.mtl', size: 1 })
 
-const loader = new THREE.LegacyJSONLoader()
-loader.load('/assets/models/barrel.js', geometry => {
-  const mesh = new THREE.Mesh(geometry, material)
-  scene.add(mesh)
-})
+scene.add(barrel.mesh)
 
 void function animate() {
   requestAnimationFrame(animate)

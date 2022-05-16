@@ -91,7 +91,7 @@ export function loadDae({ file, size, rot } = {}) {
   })
 }
 
-/* DAE */
+/* MD2 */
 
 export function loadMd2({ file, size, rot, texture } = {}) {
   const loader = new MD2Loader()
@@ -108,7 +108,7 @@ export function loadMd2({ file, size, rot, texture } = {}) {
   })
 }
 
-/* FBX LOADER */
+/* FBX */
 
 export function loadFbxModel({ file, size, rot } = {}) {
   const loader = new FBXLoader()
