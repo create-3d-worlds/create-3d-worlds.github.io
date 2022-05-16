@@ -1,7 +1,4 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
-import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
-
 import keyboard from '/classes/Keyboard.js'
 import { addSolids, raycastDown, raycastFront } from '/classes/actions/index.js'
 
@@ -14,57 +11,30 @@ const speedFactor = 0.03
 
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft {
-  constructor(callback, {
-    file = 's-e-5a/model.dae', scale = .2, minHeight = 15, speed = 1, maxSpeed = 2, minSpeed = 0.1, maxPitch = Infinity, shouldMove = true
+  constructor({
+    mesh, minHeight = 15, speed = 1, maxSpeed = 2, minSpeed = 0.1, maxPitch = Infinity, shouldMove = true
   } = {}) {
+    this.mesh = mesh
     this.speed = shouldMove ? speed : 0
     this.maxSpeed = maxSpeed
     this.minSpeed = minSpeed
     this.minHeight = minHeight
-    this.scale = scale
     this.maxPitch = maxPitch
     this.shouldMove = shouldMove
     this.solids = []
-    const ext = file.split('.').pop()
-    if (ext === 'dae') this.loadColladaModel(callback, file)
-    if (ext == 'glb') this.loadGlbModel(callback, file)
   }
 
-  loadColladaModel(callback, file) {
-    new ColladaLoader().load(`/assets/models/${file}`, ({ scene: model }) => {
-      this.prepareModel(model)
-      this.createMesh(model)
-      callback(this.mesh)
-    })
-  }
-
-  loadGlbModel(callback, file) {
-    new GLTFLoader().load(`/assets/models/${file}`, ({ scene: model, animations }) => {
-      this.mixer = new THREE.AnimationMixer(model)
-      this.action = this.mixer.clipAction(animations[0])
-      this.prepareModel(model)
-      this.createMesh(model)
-      callback(this.mesh)
-    })
-  }
-
-  prepareModel(model) {
-    model.scale.set(this.scale, this.scale, this.scale)
-    // center axis https://stackoverflow.com/questions/28848863/
-    const box = new THREE.Box3().setFromObject(model)
-    box.center(model.position)
-    model.position.multiplyScalar(- 1)
-    model.traverse(child => {
-      if (child.isMesh)
-        child.castShadow = child.receiveShadow = true
-    })
-  }
-
-  createMesh(model) {
-    const group = new THREE.Group()
-    group.add(model)
-    this.mesh = group
-  }
+  // prepareModel(model) {
+  //   model.scale.set(this.scale, this.scale, this.scale)
+  //   // center axis https://stackoverflow.com/questions/28848863/
+  //   const box = new THREE.Box3().setFromObject(model)
+  //   box.center(model.position)
+  //   model.position.multiplyScalar(- 1)
+  //   model.traverse(child => {
+  //     if (child.isMesh)
+  //       child.castShadow = child.receiveShadow = true
+  //   })
+  // }
 
   addSolids(...newSolids) {
     addSolids(this.solids, ...newSolids)

@@ -6,6 +6,7 @@ import { createFirTrees } from '/utils/trees.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
 import Airplane from '/classes/aircrafts/Airplane.js'
+import { loadModel } from '/utils/loaders.js'
 
 const terrain = createTerrain({ size: 8000, segments: 200 })
 const trees = createFirTrees({ n: 500, mapSize: 4000, size: 25 })
@@ -15,13 +16,14 @@ scene.add(createGradientSky(), createSunLight(), terrain, trees)
 
 const controls = createOrbitControls()
 
-// TODO: refactor class
-const avion = new Airplane(() => {
-  scene.add(avion.mesh)
-  controls.target = avion.mesh.position
-  scene.getObjectByName('sunLight').target = avion.mesh
-  avion.addSolids(terrain)
-})
+const { mesh } = await loadModel(
+  { file: 's-e-5a/model.dae', size: .75, rot: { axis: [1, 0, 0], angle: -Math.PI / 20 } })
+const avion = new Airplane({ mesh })
+scene.add(avion.mesh)
+avion.addSolids(terrain)
+
+controls.target = avion.mesh.position
+scene.getObjectByName('sunLight').target = avion.mesh
 
 /* UPDATE */
 

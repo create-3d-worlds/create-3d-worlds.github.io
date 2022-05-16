@@ -35,6 +35,7 @@ const createGroup = (model, rot) => {
 const prepareMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }, animations }) => {
   const scale = size ? getScale(model, size) : 1
   model.scale.set(scale, scale, scale)
+  // TODO: centerObject, see https://stackoverflow.com/questions/28848863/
   translateY(model)
   model.traverse(child => {
     if (!child.isMesh) return

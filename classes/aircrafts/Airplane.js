@@ -3,16 +3,9 @@ import Aircraft from './Aircraft.js'
 const angleSpeed = 0.03
 
 export default class Airplane extends Aircraft {
-  constructor(callback, params = { speed: 2, maxSpeed: 3, minSpeed: 0.5 }) {
-    super(mesh => {
-      mesh.position.y = 100
-      callback(mesh)
-    }, params)
-  }
-
-  prepareModel(model) {
-    super.prepareModel(model)
-    model.rotateX(-Math.PI / 20)
+  constructor({ mesh, speed = 2, minSpeed = 0.5, maxSpeed = 3 } = {}) {
+    super({ mesh, speed, minSpeed, maxSpeed })
+    mesh.position.y = 100
   }
 
   up() {
