@@ -24,9 +24,9 @@ scene.add(water)
 const ground = createHillyTerrain()
 scene.add(ground)
 
-const { mesh, animations } = await loadModel({ file: 'ptice/flamingo.glb', size: 1, rot: { axis: [0, 1, 0], angle: Math.PI }, shouldCenter: true, shouldAdjustHeight: true })
+const { mesh, animations } = await loadModel({ file: 'ptice/flamingo.glb', size: 1, rot: { axis: [0, 1, 0], angle: Math.PI }, shouldCenter: false, shouldAdjustHeight: false })
 
-const flamingo = new Zeppelin({ mesh, animations, speed: .05, minHeight: 10 })
+const flamingo = new Zeppelin({ mesh, animations, speed: .05, minHeight: 1 })
 scene.add(mesh)
 
 mesh.position.y = 30
@@ -40,7 +40,6 @@ flamingo.addSolids(ground, water)
 renderer.setAnimationLoop(() => {
   controls.update()
   flamingo.update()
-  console.log(flamingo.speed)
 
   if (!keyboard.pressed.mouse) cameraFollowObject(camera, flamingo.mesh, { distance: 3, y: 2 })
   renderer.render(scene, camera)

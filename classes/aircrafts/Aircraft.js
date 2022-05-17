@@ -11,7 +11,7 @@ const minDistance = 120
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft {
   constructor({
-    mesh, animations, minHeight = 15, speed = 1, maxSpeed = 2, minSpeed = 0.1, maxPitch = Infinity, shouldMove = true
+    mesh, animations, minHeight = 5, speed = 1, maxSpeed = 2, minSpeed = 0.1, maxPitch = Infinity, shouldMove = true
   } = {}) {
     this.mesh = mesh
     this.animations = animations

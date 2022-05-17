@@ -2,7 +2,6 @@ import Aircraft from './Aircraft.js'
 
 const yawAngle = .01
 const pitchAngle = yawAngle / 5
-const pitchSpeed = .5
 
 export default class Zeppelin extends Aircraft {
   constructor({ maxPitch = .1, speed = .75, minHeight = 30, ...params } = {}) {
