@@ -14,6 +14,7 @@ const light = createSunLight({ x: 500, y: 2000, z: 100, far: 5000 })
 scene.add(light)
 scene.remove(scene.getObjectByName('hemisphereLight')) // BUG: sa svetlom puca terrain
 scene.fog = new THREE.Fog(0xffffff, 1, 5000)
+
 const water = createGround({ color: 0x003133 })
 scene.add(water)
 
@@ -38,7 +39,6 @@ void function animate() {
   controls.update()
   zeppelin.update()
 
-  if (!keyboard.pressed.mouse)
-    cameraFollowObject(camera, zeppelin.mesh, { y: 30 })
+  if (!keyboard.pressed.mouse) cameraFollowObject(camera, zeppelin.mesh)
   renderer.render(scene, camera)
 }()

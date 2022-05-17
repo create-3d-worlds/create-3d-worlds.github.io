@@ -161,9 +161,9 @@ export const loadModel = ({ file, size, mtl, texture, rot = { axis: [0, 0, 0], a
 
 export const loadZeppelin = async() => await loadModel({
   file: 'santos-dumont-9/model.dae',
-  size: 8,
+  size: 6,
   rot: { axis: [0, 1, 0], angle: Math.PI / 2 },
   shouldCenter: false,
   shouldAdjustHeight: false,
-  adjust: model => model.translateX(15)
+  adjust: model => model.translateX(12)
 })
