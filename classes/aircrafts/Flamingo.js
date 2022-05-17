@@ -1,8 +1,8 @@
 import Zeppelin from './Zeppelin.js'
 
 export default class Flamingo extends Zeppelin {
-  constructor({ mesh, ...params }) {
-    super({ mesh, minHeight: 10, ...params })
+  constructor({ ...params }) {
+    super({ minHeight: 10, ...params })
   }
 
   update() {

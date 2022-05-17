@@ -12,9 +12,10 @@ const speedFactor = 0.03
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft {
   constructor({
-    mesh, minHeight = 15, speed = 1, maxSpeed = 2, minSpeed = 0.1, maxPitch = Infinity, shouldMove = true
+    mesh, animations, minHeight = 15, speed = 1, maxSpeed = 2, minSpeed = 0.1, maxPitch = Infinity, shouldMove = true
   } = {}) {
     this.mesh = mesh
+    this.animations = animations
     this.speed = shouldMove ? speed : 0
     this.maxSpeed = maxSpeed
     this.minSpeed = minSpeed
@@ -22,6 +23,13 @@ export default class Aircraft {
     this.maxPitch = maxPitch
     this.shouldMove = shouldMove
     this.solids = []
+    // some animation not work in group
+    this.mixer = new THREE.AnimationMixer(mesh.type === 'Group' ? mesh.children[0] : mesh)
+    // this.animNames = animNames
+    this.animations = animations
+    const clip = this.animations[0]
+    this.action = this.mixer.clipAction(clip)
+    this.action.play()
   }
 
   // TODO: fix ground collision isTouchingGround

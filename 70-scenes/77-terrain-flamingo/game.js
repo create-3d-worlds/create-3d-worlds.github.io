@@ -24,9 +24,8 @@ const ground = createHillyTerrain({ size: 10000, y: 100, factorX: 5, factorZ: 2.
 scene.add(ground)
 
 const { mesh, animations } = await loadModel({ file: 'ptice/flamingo.glb', rot: { axis: [0, 1, 0], angle: Math.PI } })
-console.log(animations)
 
-const flamingo = new Flamingo({ mesh })
+const flamingo = new Flamingo({ mesh, animations })
 
 scene.add(mesh)
 mesh.position.y = 256
