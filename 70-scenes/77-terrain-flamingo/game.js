@@ -6,8 +6,9 @@ import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { createGradientSky } from '/utils/sky.js'
 import { createSunLight } from '/utils/sun.js'
 import { createGround } from '/utils/ground.js'
-import Flamingo from '/classes/Flamingo.js'
+import Flamingo from '/classes/aircrafts/Flamingo.js'
 import keyboard from '/classes/Keyboard.js'
+import { loadModel } from '/utils/loaders.js'
 
 scene.add(createGradientSky({ r: 5000 }))
 const light = createSunLight({ x: 500, y: 2000, z: 100, far: 5000 })
@@ -19,16 +20,19 @@ scene.add(water)
 
 const controls = createOrbitControls()
 
-const ground = createHillyTerrain({ size: 10000, y: 100, factorX : 5, factorZ : 2.5, factorY : 200 })
+const ground = createHillyTerrain({ size: 10000, y: 100, factorX: 5, factorZ: 2.5, factorY: 200 })
 scene.add(ground)
 
-const flamingo = new Flamingo(mesh => {
-  scene.add(mesh)
-  mesh.position.y = 256
-  controls.target = mesh.position
-  scene.getObjectByName('sunLight').target = mesh
-  flamingo.addSolids(ground, water)
-})
+const { mesh, animations } = await loadModel({ file: 'ptice/flamingo.glb', rot: { axis: [0, 1, 0], angle: Math.PI } })
+console.log(animations)
+
+const flamingo = new Flamingo({ mesh })
+
+scene.add(mesh)
+mesh.position.y = 256
+controls.target = mesh.position
+scene.getObjectByName('sunLight').target = mesh
+flamingo.addSolids(ground, water)
 
 /* LOOP */
 
