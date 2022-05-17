@@ -5,19 +5,17 @@ const pitchAngle = yawAngle / 5
 const pitchSpeed = .5
 
 export default class Zeppelin extends Aircraft {
-  constructor(callback, params) {
-    super(mesh => {
-      mesh.rotation.order = 'YZX' // default is 'ZYX'
-      callback(mesh)
-    }, { file: 'santos-dumont-9/model.dae', maxPitch: .1, speed: .75, minHeight: 30, ...params })
+  constructor({ mesh, maxPitch = .1, speed = .75, minHeight = 30 } = {}) {
+    super({ mesh, maxPitch, speed, minHeight })
+    mesh.rotation.order = 'YZX' // default is 'ZYX'
   }
 
-  prepareModel(model) {
-    model.rotateZ(Math.PI / 2)
-    model.translateX(75)
-    model.translateZ(40)
-    super.prepareModel(model)
-  }
+  // prepareModel(model) {
+  //   model.rotateZ(Math.PI / 2)
+  //   model.translateX(75)
+  //   model.translateZ(40)
+  //   super.prepareModel(model)
+  // }
 
   up() {
     this.mesh.translateY(pitchSpeed)

@@ -7,6 +7,7 @@ import { createSunLight } from '/utils/sun.js'
 import { createGround } from '/utils/ground.js'
 import keyboard from '/classes/Keyboard.js'
 import Zeppelin from '/classes/aircrafts/Zeppelin.js'
+import { loadModel } from '/utils/loaders.js'
 
 scene.add(createGradientSky({ r: 5000 }))
 const light = createSunLight({ x: 500, y: 2000, z: 100, far: 5000 })
@@ -18,17 +19,17 @@ scene.add(water)
 
 const controls = createOrbitControls()
 
-const ground = createHillyTerrain({ size: 10000, y: 100, factorX : 5, factorZ : 2.5, factorY : 200 })
+const ground = createHillyTerrain({ size: 10000, y: 100, factorX: 5, factorZ: 2.5, factorY: 200 })
 scene.add(ground)
 
-// TODO: refactor class
-const zeppelin = new Zeppelin(mesh => {
-  scene.add(mesh)
-  mesh.position.y = 256
-  controls.target = mesh.position
-  scene.getObjectByName('sunLight').target = mesh
-  zeppelin.addSolids(ground, water)
-})
+const { mesh } = await loadModel({ file: 'santos-dumont-9/model.dae', size: 2 })
+const zeppelin = new Zeppelin({ mesh })
+scene.add(zeppelin.mesh)
+mesh.position.y = 256
+controls.target = mesh.position
+
+scene.getObjectByName('sunLight').target = mesh
+zeppelin.addSolids(ground, water)
 
 /* LOOP */
 

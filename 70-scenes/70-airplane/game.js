@@ -7,8 +7,6 @@ import keyboard from '/classes/Keyboard.js'
 import Airplane from '/classes/aircrafts/Airplane.js'
 import { loadModel } from '/utils/loaders.js'
 
-const modelParams = { file: 's-e-5a/model.dae', size: .75, rot: { axis: [1, 0, 0], angle: -Math.PI / 20 } }
-
 const terrain = createTerrain({ size: 8000, segments: 200 })
 const trees = createFirTrees({ n: 500, mapSize: 4000, size: 25 })
 
@@ -17,7 +15,7 @@ scene.add(createGradientSky(), createSunLight(), terrain, trees)
 
 const controls = createOrbitControls()
 
-const { mesh } = await loadModel(modelParams)
+const { mesh } = await loadModel({ file: 's-e-5a/model.dae', size: .75, rot: { axis: [1, 0, 0], angle: -Math.PI / 20 } })
 const avion = new Airplane({ mesh })
 scene.add(avion.mesh)
 avion.addSolids(terrain)

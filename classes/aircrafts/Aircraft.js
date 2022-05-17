@@ -24,19 +24,7 @@ export default class Aircraft {
     this.solids = []
   }
 
-  // prepareModel(model) {
-  //   model.scale.set(this.scale, this.scale, this.scale)
-  //   // center axis https://stackoverflow.com/questions/28848863/
-  //   const box = new THREE.Box3().setFromObject(model)
-  //   box.center(model.position)
-  //   model.position.multiplyScalar(- 1)
-  //   model.traverse(child => {
-  //     if (child.isMesh)
-  //       child.castShadow = child.receiveShadow = true
-  //   })
-  // }
-
-  // TODO: check if landing works
+  // TODO: fix ground collision isTouchingGround
   addSolids(...newSolids) {
     addSolids(this.solids, ...newSolids)
   }
