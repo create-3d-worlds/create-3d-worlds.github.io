@@ -16,7 +16,7 @@ live-server
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
 - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
-- [ ] dovesti veličine u razmeru 1px : 1m
+- [x] dovesti veličine u razmeru 1px : 1m
 - [ ] probati ai https://github.com/erosmarcon/three-steer
 
 ### Geometry

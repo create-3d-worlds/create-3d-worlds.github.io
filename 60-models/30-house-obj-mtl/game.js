@@ -1,4 +1,4 @@
-import { scene, camera, renderer, initLights, createOrbitControls, addControlUI } from '/utils/scene.js'
+import { scene, camera, renderer, initLights, createOrbitControls, addUIControls } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import keyboard from '/classes/Keyboard.js'
 import { loadModel } from '/utils/loaders.js'
@@ -17,7 +17,7 @@ initLights()
 const { mesh } = await loadModel({ file: 'houses/house2-02.obj', mtl: 'houses/house2-02.mtl', size: 12 })
 scene.add(mesh)
 
-addControlUI({ commands: {
+addUIControls({ commands: {
   '1': 'inside',
   '2': 'outside',
 }, title: 'Change camera' })

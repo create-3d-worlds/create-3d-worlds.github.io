@@ -1,36 +1,34 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { camera, scene, renderer, clock } from '/utils/scene.js'
+import { camera, scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
 
+const textureLoader = new THREE.TextureLoader()
+
+const controls = createOrbitControls()
 camera.position.z = 8
 
-const root = new THREE.Object3D
+const group = new THREE.Group()
 
 let light = new THREE.DirectionalLight(0xffffff, 2)
 light.position.set(.5, 0, 1)
-root.add(light)
+group.add(light)
 light = new THREE.AmbientLight(0) // 0x222222 );
-root.add(light)
+group.add(light)
 
-const group = new THREE.Object3D
-root.add(group)
-
-const textureLoader = new THREE.TextureLoader()
 const map = textureLoader.load('textures/moon_1024.jpg')
 const bumpMap = textureLoader.load('textures/cloud.png')
 const material = new THREE.MeshPhongMaterial({ map, bumpMap })
-
 const geometry = new THREE.SphereGeometry(2, 20, 20)
 const mesh = new THREE.Mesh(geometry, material)
-mesh.visible = true
-group.add(mesh)
 
-scene.add(root)
+group.add(mesh)
+scene.add(group)
 
 /* LOOP */
 
 void function run() {
   requestAnimationFrame(run)
   const dt = clock.getDelta()
-  group.rotation.y += dt / 10 // rotate sphere group
+  mesh.rotation.y += dt / 10
+  controls.update()
   renderer.render(scene, camera)
 }()

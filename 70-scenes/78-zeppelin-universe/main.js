@@ -1,4 +1,4 @@
-import { scene, camera, renderer, createOrbitControls, addControlUI } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls, addUIControls } from '/utils/scene.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import { createStars } from '/utils/stars.js'
 import { createGradientSky } from '/utils/sky.js'
@@ -19,7 +19,7 @@ const commands = {
   'PgUp': 'ubrzanje',
   'PgDn': 'kočenje',
 }
-addControlUI({ commands })
+addUIControls({ commands })
 
 const stars = createStars({ radiusMin: 5000, radius: 10000, numberOfStars: 200000 })
 scene.add(stars)

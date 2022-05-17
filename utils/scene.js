@@ -59,7 +59,7 @@ export function createOrbitControls(cam = camera, el = renderer.domElement) {
   return controls
 }
 
-export function addControlUI({ commands, title = 'KOMANDE' }) {
+export function addUIControls({ commands, title = 'CONTROLS' }) {
   const style = {
     position: 'absolute',
     top: 0,
