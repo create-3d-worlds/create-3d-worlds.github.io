@@ -1,10 +1,10 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { camera, scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
-import {createBall} from './helpers/createBall.js'
-import {createWorld} from './helpers/createWorld.js'
-import {createSun} from './helpers/createSun.js'
-import {createTree} from './helpers/createTree.js'
-import {createParticles} from './helpers/createParticles.js'
+import { createBall } from './helpers/createBall.js'
+import { createWorld } from './helpers/createWorld.js'
+import { createSun } from './helpers/createSun.js'
+import { createTree } from './helpers/createTree.js'
+import { createParticles } from './helpers/createParticles.js'
 
 const rollingSpeed = 0.008
 const worldRadius = 26
@@ -33,16 +33,11 @@ const pathAngleValues = [1.52, 1.57, 1.62]
 scene.fog = new THREE.FogExp2(0xf0fff0, 0.14)
 camera.position.z = 6.5
 camera.position.y = 3
-renderer.setClearColor(0xfffafa, 1)
 
-const orbitControl = createOrbitControls() // helper to rotate around in scene
-orbitControl.enableKeys = false
-orbitControl.enableZoom = false
-orbitControl.minPolarAngle = 1.1
-orbitControl.maxPolarAngle = 1.1
-
+// TODO addScoreUI
 const scoreText = document.createElement('div')
 scoreText.style.position = 'absolute'
+scoreText.style.color = 'yellow'
 scoreText.style.width = 100
 scoreText.style.height = 100
 scoreText.innerHTML = '0'
@@ -129,7 +124,7 @@ function updateTrees() {
     else if (treePos.distanceTo(player.position) <= 0.6) {
       console.log('hit')
       score += 1
-      scoreText.innerHTML = score.toString()
+      scoreText.innerHTML = score
       explode()
     }
   })
@@ -168,20 +163,20 @@ function movePlayer(e) {
   if (jumping) return
   let validMove = true
   if (e.keyCode === 37) // left
-    if (currentLane == middleLane) {
+    if (currentLane == middleLane)
       currentLane = leftLane
-    } else if (currentLane == rightLane) {
+    else if (currentLane == rightLane)
       currentLane = middleLane
-    } else {
+    else
       validMove = false
-    } else if (e.keyCode === 39) // right
-    if (currentLane == middleLane) {
+  else if (e.keyCode === 39) // right
+    if (currentLane == middleLane)
       currentLane = rightLane
-    } else if (currentLane == leftLane) {
+    else if (currentLane == leftLane)
       currentLane = middleLane
-    } else {
+    else
       validMove = false
-    } else {
+  else {
     if (e.keyCode === 38) { // up, jump
       bounceValue = 0.1
       jumping = true
