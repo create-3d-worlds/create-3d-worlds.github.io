@@ -32,12 +32,20 @@ export default class Aircraft {
     }
   }
 
-  // TODO: fix ground collision isTouchingGround
   addSolids(...newSolids) {
     addSolids(this.solids, ...newSolids)
   }
 
-  // HANDLE ARROWS
+  handleInput() {
+    if (keyboard.left) this.left()
+    if (keyboard.right) this.right()
+
+    if (keyboard.up) this.up()
+    if (keyboard.down) this.down()
+
+    if (keyboard.pressed.PageUp || keyboard.pressed.Space) this.accelerate()
+    if (keyboard.pressed.PageDown) this.deaccelerate()
+  }
 
   up() {
     if (this.mesh.position.y < this.minHeight) return
@@ -108,14 +116,7 @@ export default class Aircraft {
 
   stabilize() {
     if (keyboard.keyPressed) return
-
-    const unpitchFactor = 0.01
     const unrollFactor = 0.04
-    const pitchAngle = Math.abs(this.mesh.rotation.x)
-
-    if (this.mesh.rotation.x > 0) this.pitch(-pitchAngle * unpitchFactor)
-    if (this.mesh.rotation.x < 0) this.pitch(pitchAngle * unpitchFactor)
-
     const rollAngle = Math.abs(this.mesh.rotation.z)
     if (this.mesh.rotation.z > 0) this.roll(-rollAngle * unrollFactor)
     if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
@@ -150,17 +151,6 @@ export default class Aircraft {
     if (keyboard.down) return
     if (!this.isMoving()) return
     if (this.isTooNear() || this.isTooLow()) this.up()
-  }
-
-  handleInput() {
-    if (keyboard.left) this.left()
-    if (keyboard.right) this.right()
-
-    if (keyboard.up) this.up()
-    if (keyboard.down) this.down()
-
-    if (keyboard.pressed.PageUp || keyboard.pressed.Space) this.accelerate()
-    if (keyboard.pressed.PageDown) this.deaccelerate()
   }
 
   update() {

@@ -24,7 +24,7 @@ scene.add(water)
 const ground = createHillyTerrain()
 scene.add(ground)
 
-const { mesh, animations } = await loadModel({ file: 'ptice/flamingo.glb', size: 1, rot: { axis: [0, 1, 0], angle: Math.PI }, shouldCenter: false, shouldAdjustHeight: false })
+const { mesh, animations } = await loadModel({ file: 'ptice/flamingo.glb', size: 1, rot: { axis: [0, 1, 0], angle: Math.PI } })
 
 const flamingo = new Zeppelin({ mesh, animations, speed: .05, minHeight: 1 })
 scene.add(mesh)

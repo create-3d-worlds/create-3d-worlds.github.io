@@ -6,7 +6,8 @@ import { createGround } from '/utils/ground.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import Zeppelin from '/classes/aircrafts/Zeppelin.js'
 import keyboard from '/classes/Keyboard.js'
-import {hemLight} from '/utils/light.js'
+import { hemLight } from '/utils/light.js'
+import { loadZeppelin } from '/utils/loaders.js'
 
 hemLight({ intensity: .25 })
 const controls = createOrbitControls()
@@ -31,12 +32,13 @@ const ground = createHillyTerrain(
   { size: 10000, y: 100, color: 0x030303, factorX: 5, factorZ: 2.5, factorY: 200, file: 'grasslight-big.jpg' })
 scene.add(ground)
 
-const zeppelin = new Zeppelin(mesh => {
-  scene.add(mesh)
-  mesh.position.y = 256
-  controls.target = mesh.position
-  zeppelin.addSolids(ground, water)
-})
+const { mesh } = await loadZeppelin()
+const zeppelin = new Zeppelin({ mesh })
+
+scene.add(mesh)
+mesh.position.y = 256
+controls.target = mesh.position
+zeppelin.addSolids(ground, water)
 
 void function animate() {
   requestAnimationFrame(animate)
@@ -44,6 +46,6 @@ void function animate() {
   zeppelin.update()
 
   if (!keyboard.pressed.mouse)
-    cameraFollowObject(camera, zeppelin.mesh, { y: 30 })
+    cameraFollowObject(camera, zeppelin.mesh, { y: 10 })
   renderer.render(scene, camera)
 }()

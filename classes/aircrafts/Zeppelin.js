@@ -27,4 +27,12 @@ export default class Zeppelin extends Aircraft {
   right() {
     this.yaw(-yawAngle)
   }
+
+  stabilize() {
+    super.stabilize()
+    const unpitchFactor = 0.01
+    const pitchAngle = Math.abs(this.mesh.rotation.x)
+    if (this.mesh.rotation.x > 0) this.pitch(-pitchAngle * unpitchFactor)
+    if (this.mesh.rotation.x < 0) this.pitch(pitchAngle * unpitchFactor)
+  }
 }
