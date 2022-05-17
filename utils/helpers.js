@@ -76,6 +76,9 @@ export const centerObject = mesh => {
   const box = new THREE.Box3().setFromObject(mesh)
   box.getCenter(mesh.position) // re-sets mesh position
   mesh.position.multiplyScalar(-1)
+}
+
+export const adjustHeight = mesh => {
   mesh.translateY(getHeight(mesh) / 2)
 }
 

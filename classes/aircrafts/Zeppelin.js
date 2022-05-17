@@ -5,8 +5,8 @@ const pitchAngle = yawAngle / 5
 const pitchSpeed = .5
 
 export default class Zeppelin extends Aircraft {
-  constructor({ mesh, maxPitch = .1, speed = .75, minHeight = 30 } = {}) {
-    super({ mesh, maxPitch, speed, minHeight })
+  constructor({ mesh, maxPitch = .1, speed = .75, minHeight = 30, shouldMove = false } = {}) {
+    super({ mesh, maxPitch, speed, minHeight, shouldMove })
     mesh.rotation.order = 'YZX' // default is 'ZYX'
   }
 
