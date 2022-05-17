@@ -11,17 +11,17 @@ const minDistance = 120
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft {
   constructor({
-    mesh, animations, minHeight = 5, speed = 1, maxSpeed = 2, minSpeed = 0.1, maxPitch = Infinity, shouldMove = true
+    mesh, animations, minHeight = 5, speed = 1, maxSpeed = 2, minSpeed = 0.1, maxPitch = Infinity, movable = true
   } = {}) {
     this.mesh = mesh
     this.animations = animations
-    this.speed = shouldMove ? speed : 0
+    this.speed = movable ? speed : 0
     this.speedFactor = speed * .01
     this.maxSpeed = maxSpeed
     this.minSpeed = minSpeed
     this.minHeight = minHeight
     this.maxPitch = maxPitch
-    this.shouldMove = shouldMove
+    this.movable = movable
     this.solids = []
     this.mixer = new THREE.AnimationMixer(mesh.type === 'Group' ? mesh.children[0] : mesh)
     this.animations = animations
@@ -66,8 +66,6 @@ export default class Aircraft {
     else this.roll(-angleSpeed)
   }
 
-  // MOVEMENTS
-
   pitch(angle) {
     if (angle < 0 && this.mesh.rotation.x < -this.maxPitch) return
     if (angle > 0 && this.mesh.rotation.x > this.maxPitch) return
@@ -87,13 +85,13 @@ export default class Aircraft {
   }
 
   moveForward() {
-    if (!this.shouldMove) return
+    if (!this.movable) return
     // https://stackoverflow.com/questions/38052621/
     this.mesh.position.add(this.direction.multiplyScalar(this.speed))
   }
 
   accelerate() {
-    if (!this.shouldMove) return
+    if (!this.movable) return
     if (this.speed < this.maxSpeed)
       this.speed += this.speedFactor
   }

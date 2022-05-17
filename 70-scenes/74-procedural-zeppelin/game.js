@@ -16,7 +16,7 @@ scene.add(terrain)
 
 const { mesh } = await loadZeppelin()
 
-const zeppelin = new Zeppelin({ mesh, shouldMove: false })
+const zeppelin = new Zeppelin({ mesh, movable: false })
 scene.add(mesh)
 mesh.position.y = 256
 

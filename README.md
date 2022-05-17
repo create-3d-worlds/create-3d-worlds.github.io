@@ -149,7 +149,7 @@ live-server
   - [x] srediti sletanje
   - [x] prikazati komande
   - [x] probati pticu (50-rad-sa-modelima/70-ptice)
-  - [ ] cepelin da prvo poleti pa ubrza (avion prvo ubrza pa poleti)
+  - [x] cepelin da prvo poleti pa ubrza (avion prvo ubrza pa poleti)
 - [ ] Grad
   - [x] srediti grad
   - [x] srediti grad-prozori
