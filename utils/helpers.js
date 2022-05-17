@@ -60,7 +60,7 @@ export const getSize = (mesh, key) => {
 
 export const getHeight = mesh => getSize(mesh, 'y')
 
-export function cameraFollowObject(camera, obj, { distance = 100, alpha = 0.05, y = 0 } = {}) {
+export function cameraFollowObject(camera, obj, { distance = 50, alpha = 0.05, y = 0 } = {}) {
   if (!obj) return
   const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(obj.quaternion)
   const newPosition = obj.position.clone()

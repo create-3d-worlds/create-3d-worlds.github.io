@@ -23,15 +23,17 @@ const controls = createOrbitControls()
 const ground = createHillyTerrain({ size: 10000, y: 100, factorX: 5, factorZ: 2.5, factorY: 200 })
 scene.add(ground)
 
-const { mesh, animations } = await loadModel({ file: 'ptice/flamingo.glb', size: 1, rot: { axis: [0, 1, 0], angle: Math.PI } })
+const { mesh, animations } = await loadModel({ file: 'ptice/flamingo.glb', size: 1, rot: { axis: [0, 1, 0], angle: Math.PI }, shouldCenter: true, shouldAdjustHeight: true })
 
-const flamingo = new Zeppelin({ mesh, animations, minHeight: 10 })
-
+const flamingo = new Zeppelin({ mesh, animations, minHeight: 10, speed: .01 })
 scene.add(mesh)
-mesh.position.y = 50
+
+mesh.position.y = 100
+camera.position.set(0, 103, 3)
+
 controls.target = mesh.position
-scene.getObjectByName('sunLight').target = mesh
-flamingo.addSolids(ground, water)
+// scene.getObjectByName('sunLight').target = mesh
+// flamingo.addSolids(ground, water)
 
 /* LOOP */
 
@@ -39,6 +41,6 @@ renderer.setAnimationLoop(() => {
   controls.update()
   flamingo.update()
 
-  if (!keyboard.pressed.mouse) cameraFollowObject(camera, flamingo.mesh, { distance: -12, y: 1 })
+  if (!keyboard.pressed.mouse) cameraFollowObject(camera, flamingo.mesh, { distance: 1, y: 1 })
   renderer.render(scene, camera)
 })

@@ -23,13 +23,13 @@ export default class Aircraft {
     this.maxPitch = maxPitch
     this.shouldMove = shouldMove
     this.solids = []
-    // some animation not work in group
     this.mixer = new THREE.AnimationMixer(mesh.type === 'Group' ? mesh.children[0] : mesh)
-    // this.animNames = animNames
     this.animations = animations
-    const clip = this.animations[0]
-    this.action = this.mixer.clipAction(clip)
-    this.action.play()
+    if (animations) {
+      const clip = this.animations[0]
+      this.action = this.mixer.clipAction(clip)
+      this.action.play()
+    }
   }
 
   // TODO: fix ground collision isTouchingGround
@@ -170,10 +170,9 @@ export default class Aircraft {
     this.handleInput()
     this.moveForward()
     this.stabilize()
-    if (this.mixer) this.mixer.update(clock.getDelta())
-    if (this.action)
-      if (this.isTouchingGround()) this.action.stop()
-      else this.action.play()
-
+    if (!this.mixer || !this.action) return
+    this.mixer.update(clock.getDelta())
+    if (this.isTouchingGround()) this.action.stop()
+    else this.action.play()
   }
 }
