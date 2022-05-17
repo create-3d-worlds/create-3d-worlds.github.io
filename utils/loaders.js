@@ -156,3 +156,14 @@ export const loadModel = ({ file, size, mtl, texture, rot = { axis: [0, 0, 0], a
       throw new Error(`Unknown file extension: ${ext}`)
   }
 }
+
+/* ALIASES */
+
+export const loadZeppelin = async() => await loadModel({
+  file: 'santos-dumont-9/model.dae',
+  size: 8,
+  rot: { axis: [0, 1, 0], angle: Math.PI / 2 },
+  shouldCenter: false,
+  shouldAdjustHeight: false,
+  adjust: model => model.translateX(15)
+})

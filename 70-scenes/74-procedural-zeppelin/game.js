@@ -3,7 +3,7 @@ import { terrain, updateTerrain } from '/utils/dynamic-terrain/index.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
 import Zeppelin from '/classes/aircrafts/Zeppelin.js'
-import { loadModel } from '/utils/loaders.js'
+import { loadZeppelin } from '/utils/loaders.js'
 import { dirLight } from '/utils/light.js'
 
 const scene = createWorldScene()
@@ -14,11 +14,7 @@ const controls = createOrbitControls()
 
 scene.add(terrain)
 
-const adjust = model => {
-  model.translateX(15)
-}
-
-const { mesh } = await loadModel({ file: 'santos-dumont-9/model.dae', size: 8, rot: { axis: [0, 1, 0], angle: Math.PI / 2 }, shouldCenter: false, shouldAdjustHeight: false, adjust })
+const { mesh } = await loadZeppelin()
 
 const zeppelin = new Zeppelin({ mesh, shouldMove: false })
 scene.add(mesh)
