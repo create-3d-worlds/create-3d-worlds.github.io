@@ -31,7 +31,7 @@ const createGroup = model => {
   return group
 }
 
-const prepareMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }, animations, shouldCenter = false, shouldAdjustHeight = false }) => {
+const prepareMesh = ({ resolve, model, size, rot, animations, shouldCenter, shouldAdjustHeight, adjust }) => {
 
   const scale = size ? getScale(model, size) : 1
   model.scale.set(scale, scale, scale)
@@ -39,6 +39,8 @@ const prepareMesh = ({ resolve, model, size, rot = { axis: [0, 0, 0], angle: 0 }
   // https://stackoverflow.com/questions/28848863/
   if (shouldCenter) centerObject(model)
   if (shouldAdjustHeight) adjustHeight(model)
+
+  adjust(model)
 
   model.traverse(child => {
     if (!child.isMesh) return
@@ -134,19 +136,22 @@ export function loadFbxModel(params) {
 * Handle model load, resize, rotate, etc.
 * returns a promise that resolves with the { mesh, animations }
 */
-export const loadModel = ({ file, size, rot, mtl, texture, shouldCenter, shouldAdjustHeight }) => {
+export const loadModel = ({ file, size, mtl, texture, rot = { axis: [0, 0, 0], angle: 0 }, shouldCenter = false, shouldAdjustHeight = false, adjust = () => {} }) => {
+
+  const params = { file, size, mtl, texture, rot, shouldCenter, shouldAdjustHeight, adjust }
+
   const ext = file.split('.').pop()
   switch (ext) {
     case 'obj':
-      return loadObj({ file, mtl, size, rot, shouldCenter, shouldAdjustHeight })
+      return loadObj(params)
     case 'glb':
-      return loadGlb({ file, size, rot, shouldCenter, shouldAdjustHeight })
+      return loadGlb(params)
     case 'dae':
-      return loadDae({ file, size, rot, shouldCenter, shouldAdjustHeight })
+      return loadDae(params)
     case 'md2':
-      return loadMd2({ file, size, rot, texture, shouldCenter, shouldAdjustHeight })
+      return loadMd2(params)
     case 'fbx':
-      return loadFbxModel({ file, size, rot, shouldCenter, shouldAdjustHeight })
+      return loadFbxModel(params)
     default:
       throw new Error(`Unknown file extension: ${ext}`)
   }

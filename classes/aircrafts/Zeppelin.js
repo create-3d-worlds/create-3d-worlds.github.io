@@ -7,15 +7,8 @@ const pitchSpeed = .5
 export default class Zeppelin extends Aircraft {
   constructor({ mesh, maxPitch = .1, speed = .75, minHeight = 30, shouldMove = false } = {}) {
     super({ mesh, maxPitch, speed, minHeight, shouldMove })
-    mesh.rotation.order = 'YZX' // default is 'ZYX'
+    mesh.rotation.order = 'YZX' // fix controls (default is 'ZYX')
   }
-
-  // prepareModel(model) {
-  //   model.rotateZ(Math.PI / 2)
-  //   model.translateX(75)
-  //   model.translateZ(40)
-  //   super.prepareModel(model)
-  // }
 
   up() {
     this.mesh.translateY(pitchSpeed)
