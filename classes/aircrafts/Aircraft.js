@@ -143,8 +143,8 @@ export default class Aircraft {
     return this.speed > this.minSpeed
   }
 
-  slowDown(slowDownFactor = 0.5) {
-    this.speed *= slowDownFactor
+  slowDown(slowFactor = 0.5) {
+    this.speed *= slowFactor
   }
 
   autopilot() {
@@ -160,8 +160,10 @@ export default class Aircraft {
     this.handleInput()
     this.moveForward()
     this.stabilize()
+
     if (!this.mixer || !this.action) return
     this.mixer.update(clock.getDelta())
+
     if (this.isTouchingGround()) this.action.stop()
     else this.action.play()
   }
