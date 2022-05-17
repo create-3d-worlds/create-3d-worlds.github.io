@@ -1,7 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, addUIControls } from '/utils/scene.js'
-
-// TODO: dodati UI kontrole
+import { randomInRange } from '/utils/helpers.js'
 
 let time = 0,
   speed = 1,
@@ -11,24 +10,21 @@ const ratio = window.innerWidth / window.innerHeight
 const mainCamera = new THREE.PerspectiveCamera(75, ratio, 1, 1e6)
 const earthCameraSun = new THREE.PerspectiveCamera(75, ratio, 1, 1e6)
 const earthCameraMoon = new THREE.PerspectiveCamera(75, ratio, 1, 1e6)
+let defaultCamera = mainCamera
 
 mainCamera.position.z = 1000
 scene.add(mainCamera)
-let defaultCamera = mainCamera
-
-const ambient = new THREE.AmbientLight(0xffffff)
-scene.add(ambient)
 
 const sun = createSun()
 scene.add(sun)
 
 const earth = createEarth()
-const earthOrbit = createEarthOrbit(earth, earthCameraSun)
-sun.add(earthOrbit)
+const earthGroup = createEarthGroup(earth, earthCameraSun)
+sun.add(earthGroup)
 
 const moon = createMoon()
-const moonOrbit = createMoonOrbit(moon, earthCameraMoon)
-earth.add(moonOrbit)
+const moonGroup = createMoonGroup(moon, earthCameraMoon)
+earth.add(moonGroup)
 
 scene.add(createStars())
 
@@ -45,17 +41,16 @@ function createSun() {
 
 function createEarth() {
   const material = new THREE.MeshBasicMaterial({ color: 0x0000cd })
-  const geometry = new THREE.SphereGeometry(20, 20, 32)
+  const geometry = new THREE.SphereGeometry(20, 20, 64)
   return new THREE.Mesh(geometry, material)
 }
 
-function createEarthOrbit(earth, earthCameraSun) {
-  const earthOrbit = new THREE.Object3D()
-  earthOrbit.add(earth)
+function createEarthGroup(earth, earthCameraSun) {
+  const group = new THREE.Group()
+  group.add(earth)
   earth.position.set(250, 0, 0)
-  // earthCameraSun.rotation.set(Math.PI / 2, 0, 0)
-  earthOrbit.add(earthCameraSun)
-  return earthOrbit
+  group.add(earthCameraSun)
+  return group
 }
 
 function createMoon() {
@@ -65,32 +60,36 @@ function createMoon() {
   return moon
 }
 
-function createMoonOrbit(moon, earthCameraMoon) {
-  const moonOrbit = new THREE.Object3D()
-  moonOrbit.add(moon)
+function createMoonGroup(moon, earthCameraMoon) {
+  const group = new THREE.Group()
+  group.add(moon)
   moon.position.set(0, 100, 0)
-  moonOrbit.add(earthCameraMoon)
+  group.add(earthCameraMoon)
   earthCameraMoon.rotation.set(Math.PI / 2, 0, 0)
-  return moonOrbit
+  return group
 }
 
-function createStars() {
+function createStars(numStars = 10000, r = 1e5) {
   const geometry = new THREE.Geometry()
-  while (geometry.vertices.length < 1e4) {
-    const lat = Math.PI * Math.random() - Math.PI / 2
+  while (geometry.vertices.length < numStars) {
+    const lat = randomInRange(-Math.PI / 2, Math.PI / 2)
     const lon = 2 * Math.PI * Math.random()
-    geometry.vertices.push(new THREE.Vector3(1e5 * Math.cos(lon) * Math.cos(lat), 1e5 * Math.sin(lon) * Math.cos(lat), 1e5 * Math.sin(lat)))
+    geometry.vertices.push({
+      x: r * Math.cos(lon) * Math.cos(lat),
+      y: r * Math.sin(lon) * Math.cos(lat),
+      z: r * Math.sin(lat)
+    })
   }
   const material = new THREE.PointsMaterial({ size: 500 })
   return new THREE.Points(geometry, material)
 }
 
-function orbitPlanets() {
+function orbit() {
   time += speed
   const earthSpeed = time * 0.001
   earth.position.set(250 * Math.cos(earthSpeed), 250 * Math.sin(earthSpeed), 0)
   const moonSpeed = time * 0.02
-  moonOrbit.rotation.set(0, 0, moonSpeed)
+  moonGroup.rotation.set(0, 0, moonSpeed)
 }
 
 function updateCamera() {
@@ -101,26 +100,15 @@ function updateCamera() {
 
 /* LOOP */
 
-void function animiraj() {
-  requestAnimationFrame(animiraj)
+void function update() {
+  requestAnimationFrame(update)
   renderer.render(scene, defaultCamera)
   if (pause) return
-  orbitPlanets()
+  orbit()
   updateCamera()
 }()
 
 /* EVENTS */
-
-const commands = {
-  Q: 'earthCameraSun',
-  W: 'earthCameraMoon',
-  E: 'mainCamera',
-  P: 'pause',
-  1: 'speed 1',
-  2: 'speed 2',
-  3: 'speed 3',
-}
-addUIControls({ commands })
 
 document.addEventListener('keydown', event => {
   const code = event.keyCode
@@ -139,3 +127,14 @@ document.addEventListener('keydown', event => {
   if (code == 51)
     speed = 10 // 3
 })
+
+const commands = {
+  Q: 'earthCameraSun',
+  W: 'earthCameraMoon',
+  E: 'mainCamera',
+  P: 'pause',
+  1: 'speed 1',
+  2: 'speed 2',
+  3: 'speed 3',
+}
+addUIControls({ commands })
