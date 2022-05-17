@@ -7,7 +7,6 @@ const clock = new THREE.Clock()
 const angleSpeed = 0.03
 const maxRoll = Infinity
 const minDistance = 120
-const speedFactor = 0.03
 
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft {
@@ -17,6 +16,7 @@ export default class Aircraft {
     this.mesh = mesh
     this.animations = animations
     this.speed = shouldMove ? speed : 0
+    this.speedFactor = speed * .01
     this.maxSpeed = maxSpeed
     this.minSpeed = minSpeed
     this.minHeight = minHeight
@@ -87,12 +87,12 @@ export default class Aircraft {
   accelerate() {
     if (!this.shouldMove) return
     if (this.speed < this.maxSpeed)
-      this.speed += speedFactor
+      this.speed += this.speedFactor
   }
 
   deaccelerate() {
     if (this.speed >= this.minSpeed)
-      this.speed -= speedFactor
+      this.speed -= this.speedFactor
   }
 
   normalizeAngles() {
