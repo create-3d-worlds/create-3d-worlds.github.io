@@ -6,7 +6,7 @@ import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { createGradientSky } from '/utils/sky.js'
 import { createSunLight } from '/utils/sun.js'
 import { createGround } from '/utils/ground.js'
-import Flamingo from '/classes/aircrafts/Flamingo.js'
+import Zeppelin from '/classes/aircrafts/Zeppelin.js'
 import keyboard from '/classes/Keyboard.js'
 import { loadModel } from '/utils/loaders.js'
 
@@ -23,12 +23,12 @@ const controls = createOrbitControls()
 const ground = createHillyTerrain({ size: 10000, y: 100, factorX: 5, factorZ: 2.5, factorY: 200 })
 scene.add(ground)
 
-const { mesh, animations } = await loadModel({ file: 'ptice/flamingo.glb', rot: { axis: [0, 1, 0], angle: Math.PI } })
+const { mesh, animations } = await loadModel({ file: 'ptice/flamingo.glb', size: 1, rot: { axis: [0, 1, 0], angle: Math.PI } })
 
-const flamingo = new Flamingo({ mesh, animations })
+const flamingo = new Zeppelin({ mesh, animations, minHeight: 10 })
 
 scene.add(mesh)
-mesh.position.y = 256
+mesh.position.y = 50
 controls.target = mesh.position
 scene.getObjectByName('sunLight').target = mesh
 flamingo.addSolids(ground, water)
@@ -39,6 +39,6 @@ renderer.setAnimationLoop(() => {
   controls.update()
   flamingo.update()
 
-  if (!keyboard.pressed.mouse) cameraFollowObject(camera, flamingo.mesh, { distance: 50, y: 25 })
+  if (!keyboard.pressed.mouse) cameraFollowObject(camera, flamingo.mesh, { distance: -12, y: 1 })
   renderer.render(scene, camera)
 })

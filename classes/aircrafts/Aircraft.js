@@ -171,5 +171,9 @@ export default class Aircraft {
     this.moveForward()
     this.stabilize()
     if (this.mixer) this.mixer.update(clock.getDelta())
+    if (this.action)
+      if (this.isTouchingGround()) this.action.stop()
+      else this.action.play()
+
   }
 }
