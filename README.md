@@ -34,6 +34,7 @@ live-server
   - [x] kiša da prati igraca
 - [x] napraviti sneg
   - [ ] sneg da prati igraca
+- [x] probati eksplozije
 
 ### Tilemaps
 
@@ -168,14 +169,6 @@ live-server
   - [ ] oblaci, životinje, zamak (vidi 80-primeri/90-simulacija-sveta)
 - [ ] dodati zvezdani svod
 
-### Effects
-
-- [x] isprobati lagani prelaz (lerp ili tween.js)
-- [ ] dodati panoramu (skybox), nebo/zvezde (vidi 50-svod)
-- [ ] dodati eksplozije (70-cestice/60-eksplozija-geometrije/)
-    - http://jeromeetienne.github.io/fireworks.js/
-- [x] dodati lavu (vidi lava-avatar)
-
 ### Physics
 
 - [ ] domine: da manja obara veću
@@ -188,21 +181,23 @@ live-server
   - http://127.0.0.1:8080/15-fizika/70-vozilo/
   - http://127.0.0.1:8080/15-fizika/75-vozilo-razbija/
 
-### Gameplay
+### Examples
 
-- [ ] konj trči endless-runner (primeri/endless-runner)
-- [ ] inventar za frp
-  - [ ] postaviti objekte za sakupljanje i okidace za njih
-  - https://www.the-art-of-web.com/javascript/maze-game/#box1 (2D)
-  - https://threejs.org/examples/?q=cube#webgl_interactive_cubes
-  - https://threejsfundamentals.org/threejs/lessons/threejs-picking.html
-  - https://codepen.io/kintel/pen/ZboOxw
+- [ ] endless-runner
+  - [x] prikazivati poene
+  - [ ] probati konja ili dabra
+- [ ] 1943
+  - [ ] integrisati u projekat
+  - [ ] srediti model aviona
 
 ### Ostalo
 
-- [ ] optimizacija https://twitter.com/mrdoob/status/966609115140128768
-  - https://attackingpixels.com/tips-tricks-optimizing-three-js-performance/
+- [x] isprobati lagani prelaz (lerp ili tween.js)
+- [ ] dodati panoramu (skybox), nebo/zvezde (vidi 50-svod)
 - [ ] popraviti HTML margine
+- [ ] optimizacija 
+  - https://twitter.com/mrdoob/status/966609115140128768
+  - https://attackingpixels.com/tips-tricks-optimizing-three-js-performance/
 - [ ] probati VR
   - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
   - https://ski-mountain-vr.herokuapp.com/
@@ -210,6 +205,7 @@ live-server
 - [ ] naci vismapu sutjeske
   - http://www.smartjava.org/content/threejs-render-real-world-terrain-heightmap-using-open-data/
   - https://blog.mapbox.com/bringing-3d-terrain-to-the-browser-with-three-js-410068138357
+- [x] dodati lavu (dodato na lava-avatar)
 
 ## Documentation
 

@@ -11,8 +11,9 @@ const worldRadius = 26
 const heroRadius = 0.2
 const heroBaseY = 1.8
 const treeReleaseInterval = 0.5
-const treesInPath = []
+const treesInPool = 10
 const treesPool = []
+const treesInPath = []
 const lanes = [-1, 0, 1]
 const heroRollingSpeed = (rollingSpeed * worldRadius / heroRadius) / 5
 const pathAngleValues = [1.52, 1.57, 1.62]
@@ -22,18 +23,17 @@ let jumping = false
 let explosionPower = 1.06
 let bounceValue = 0.1
 
-/* LIGHT */
+/* LIGHT & CAMERA */
 
 scene.add(createSun())
 hemLight({ skyColor: 0xfffafa, groundColor: 0x000000, intensity: .9 })
 
 scene.fog = new THREE.FogExp2(0xf0fff0, 0.14)
 
-/* INIT */
-
+camera.position.set(0, 3, 6.5)
 clock.start()
 
-camera.position.set(0, 3, 6.5)
+/* INIT */
 
 const player = createBall({ radius: heroRadius })
 player.position.set(lanes[laneIndex], heroBaseY, 4.8)
@@ -43,41 +43,22 @@ const world = createWorldSphere({ radius: worldRadius })
 world.position.set(0, -24, 2)
 scene.add(world)
 
-const particles = createParticles(25)
+const particles = createParticles(30)
 scene.add(particles)
 
-createTreesPool()
-addWorldTrees()
+for (let i = 0; i < treesInPool; i++) treesPool.push(createTree())
+
+// side trees
+const numTrees = 36
+const gap = 6.28 / numTrees
+for (let i = 0; i < numTrees; i++) {
+  addTree(false, i * gap, true)
+  addTree(false, i * gap, false)
+}
 
 const updateScore = addScoreUI({ title: 'Pogotaka' })
 
 /* FUNCTIONS */
-
-function createTreesPool() {
-  const maxTreesInPool = 10
-  for (let i = 0; i < maxTreesInPool; i++)
-    treesPool.push(createTree())
-}
-
-function addPathTree() {
-  const options = [0, 1, 2]
-  let lane = Math.floor(Math.random() * 3)
-  addTree(true, lane)
-  options.splice(lane, 1)
-  if (Math.random() > 0.5) {
-    lane = Math.floor(Math.random() * 2)
-    addTree(true, options[lane])
-  }
-}
-
-function addWorldTrees() {
-  const numTrees = 36
-  const gap = 6.28 / 36
-  for (let i = 0; i < numTrees; i++) {
-    addTree(false, i * gap, true)
-    addTree(false, i * gap, false)
-  }
-}
 
 function addTree(inPath, row, isLeft) {
   const sphericalHelper = new THREE.Spherical()
@@ -99,6 +80,17 @@ function addTree(inPath, row, isLeft) {
   newTree.quaternion.setFromUnitVectors(treeVector, worldVector)
   newTree.rotation.x += Math.random() * (2 * Math.PI / 10) - Math.PI / 10
   world.add(newTree)
+}
+
+function addPathTree() {
+  const options = [0, 1, 2]
+  const lane = Math.floor(Math.random() * 3)
+  addTree(true, lane)
+  options.splice(lane, 1)
+  if (Math.random() > 0.5) {
+    const secondLane = Math.floor(Math.random() * 2)
+    addTree(true, options[secondLane])
+  }
 }
 
 function updateTrees() {
