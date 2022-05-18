@@ -110,7 +110,7 @@ function addTree(inPath, row, isLeft) {
   const worldVector = world.position.clone().normalize()
   const treeVector = newTree.position.clone().normalize()
   newTree.quaternion.setFromUnitVectors(treeVector, worldVector)
-  newTree.rotation.x += (Math.random() * (2 * Math.PI / 10)) + -Math.PI / 10
+  newTree.rotation.x += Math.random() * (2 * Math.PI / 10) - Math.PI / 10
   world.add(newTree)
 }
 
@@ -122,7 +122,6 @@ function updateTrees() {
     if (treePos.z > 6 && tree.visible) // gone out of our view zone
       treesToRemove.push(tree)
     else if (treePos.distanceTo(player.position) <= 0.6) {
-      console.log('hit')
       score += 1
       scoreText.innerHTML = score
       explode()
