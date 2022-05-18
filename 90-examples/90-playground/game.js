@@ -1,7 +1,8 @@
-import { camera, renderer, createWorldScene } from '/utils/scene.js'
-import { createFir } from '../30-endless-runner/helpers/createTree.js'
+import { camera, renderer, createWorldScene, createOrbitControls } from '/utils/scene.js'
+import { createFir } from '/utils/trees.js'
 
 const scene = createWorldScene()
+createOrbitControls()
 
 scene.add(createFir())
 

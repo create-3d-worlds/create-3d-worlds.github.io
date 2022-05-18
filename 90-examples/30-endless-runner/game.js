@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { camera, scene, renderer, clock, addScoreUI } from '/utils/scene.js'
 import { createBall, createWorldSphere } from '/utils/spheres.js'
 import { createSun } from './helpers/createSun.js'
-import { createFir } from './helpers/createTree.js'
+import { createFir } from '/utils/trees.js'
 import { createParticles } from './helpers/createParticles.js'
 import { hemLight } from '/utils/light.js'
 
