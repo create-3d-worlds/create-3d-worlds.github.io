@@ -59,12 +59,16 @@ export function createOrbitControls(cam = camera, el = renderer.domElement) {
   return controls
 }
 
+/* UI */
+
 export function addUIControls({ commands, title = 'CONTROLS' }) {
   const style = {
     position: 'absolute',
     top: 0,
     left: 0,
     color: '#fff',
+    paddingTop: '4px',
+    paddingBottom: '4px',
   }
   const margins = `
     margin-top:4px;
@@ -77,6 +81,24 @@ export function addUIControls({ commands, title = 'CONTROLS' }) {
     `<h3 style="${margins}">${title}</h2>`
   )
   document.body.appendChild(div)
+}
+
+export function addScoreUI({ score = 0, title = 'Score' } = {}) {
+  const div = document.createElement('div')
+  const style = `
+    position: absolute;
+    color: yellow;
+    top: 20px;
+    right: 20px;
+  `
+  div.style.cssText = style
+  document.body.appendChild(div)
+
+  const updateScoreUI = score => {
+    div.innerHTML = `${title}: ${score}`
+  }
+  updateScoreUI(score)
+  return updateScoreUI
 }
 
 /* SHORTCUTS */
