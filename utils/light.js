@@ -11,8 +11,8 @@ export function dirLight({ scene = defaultScene, position = [20, 50, 20], color 
   scene.add(light)
 }
 
-export function hemLight({ scene = defaultScene, intensity = 1 } = {}) {
-  const hemisphereLight = new THREE.HemisphereLight(0xfffff0, 0x101020, intensity)
+export function hemLight({ scene = defaultScene, skyColor = 0xfffff0, groundColor = 0x101020, intensity = 1 } = {}) {
+  const hemisphereLight = new THREE.HemisphereLight(skyColor, groundColor, intensity)
   hemisphereLight.name = 'hemisphereLight' // needed for some cases
   scene.add(hemisphereLight)
 }

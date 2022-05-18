@@ -1,10 +1,11 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { camera, scene, renderer, clock, addScoreUI } from '/utils/scene.js'
-import { createBall } from './helpers/createBall.js'
+import { createBall } from '/utils/balls.js'
 import { createWorld } from './helpers/createWorld.js'
 import { createSun } from './helpers/createSun.js'
 import { createTree } from './helpers/createTree.js'
 import { createParticles } from './helpers/createParticles.js'
+import { hemLight } from '/utils/light.js'
 
 const rollingSpeed = 0.008
 const worldRadius = 26
@@ -14,24 +15,26 @@ const treeReleaseInterval = 0.5
 const treesInPath = []
 const treesPool = []
 const lanes = [-1, 0, 1]
+const heroRollingSpeed = (rollingSpeed * worldRadius / heroRadius) / 5
+const pathAngleValues = [1.52, 1.57, 1.62]
 
 let laneIndex = 1
 let jumping = false
 let explosionPower = 1.06
 let bounceValue = 0.1
 
+/* LIGHT */
+
+scene.add(createSun())
+hemLight({ skyColor: 0xfffafa, groundColor: 0x000000, intensity: .9 })
+
+scene.fog = new THREE.FogExp2(0xf0fff0, 0.14)
+
 /* INIT */
 
 clock.start()
 
-const heroRollingSpeed = (rollingSpeed * worldRadius / heroRadius) / 5
-const pathAngleValues = [1.52, 1.57, 1.62]
-
-scene.fog = new THREE.FogExp2(0xf0fff0, 0.14)
-camera.position.z = 6.5
-camera.position.y = 3
-
-const updateScore = addScoreUI({ title: 'Pogotaka' })
+camera.position.set(0, 3, 6.5)
 
 const player = createBall(heroRadius, lanes[laneIndex], heroBaseY)
 scene.add(player)
@@ -44,7 +47,8 @@ scene.add(particles)
 
 createTreesPool()
 addWorldTrees()
-addLight()
+
+const updateScore = addScoreUI({ title: 'Pogotaka' })
 
 /* FUNCTIONS */
 
@@ -52,13 +56,6 @@ function createTreesPool() {
   const maxTreesInPool = 10
   for (let i = 0; i < maxTreesInPool; i++)
     treesPool.push(createTree())
-}
-
-function addLight() {
-  const hemisphereLight = new THREE.HemisphereLight(0xfffafa, 0x000000, .9)
-  scene.add(hemisphereLight)
-  const sun = createSun()
-  scene.add(sun)
 }
 
 function addPathTree() {
@@ -109,12 +106,15 @@ function updateTrees() {
   treesInPath.forEach(tree => {
     if (!tree.visible) return
     treePos.setFromMatrixPosition(tree.matrixWorld)
-    if (treePos.z > 6) // gone out of our view zone
+    if (treePos.z > 6) // gone out of view
       treesToRemove.push(tree)
     else if (treePos.distanceTo(player.position) <= 0.6) {
       explode()
       updateScore()
       tree.visible = false
+      setTimeout(() => {
+        tree.visible = true
+      }, 100)
     }
   })
   treesToRemove.forEach(tree => {
