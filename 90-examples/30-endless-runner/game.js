@@ -10,14 +10,12 @@ const rollingSpeed = 0.008
 const worldRadius = 26
 const heroRadius = 0.2
 const heroBaseY = 1.8
-const leftLane = -1
-const rightLane = 1
-const middleLane = 0
 const treeReleaseInterval = 0.5
 const treesInPath = []
 const treesPool = []
+const lanes = [-1, 0, 1]
 
-let currentLane = 0
+let laneIndex = 1
 let jumping = false
 let explosionPower = 1.06
 let bounceValue = 0.1
@@ -44,7 +42,7 @@ scoreText.innerHTML = '0'
 scoreText.style.top = scoreText.style.left = 20 + 'px'
 document.body.appendChild(scoreText)
 
-const player = createBall(heroRadius, middleLane, heroBaseY)
+const player = createBall(heroRadius, lanes[laneIndex], heroBaseY)
 scene.add(player)
 
 const world = createWorld(worldRadius)
@@ -158,34 +156,26 @@ function explode() {
   particles.visible = true
 }
 
+const jump = val => {
+  jumping = true
+  bounceValue = val
+}
+
 function movePlayer(e) {
   if (jumping) return
-  let validMove = true
-  if (e.keyCode === 37) // left
-    if (currentLane == middleLane)
-      currentLane = leftLane
-    else if (currentLane == rightLane)
-      currentLane = middleLane
-    else
-      validMove = false
-  else if (e.keyCode === 39) // right
-    if (currentLane == middleLane)
-      currentLane = rightLane
-    else if (currentLane == leftLane)
-      currentLane = middleLane
-    else
-      validMove = false
-  else {
-    if (e.keyCode === 38) { // up, jump
-      bounceValue = 0.1
-      jumping = true
-    }
-    validMove = false
+  // left
+  if (e.keyCode === 37 && laneIndex > 0) {
+    laneIndex--
+    jump(0.06)
   }
-  if (validMove) {
-    jumping = true
-    bounceValue = 0.06
+  // right
+  if (e.keyCode === 39 && laneIndex < 2) {
+    laneIndex++
+    jump(0.06)
   }
+  // up
+  if (e.keyCode === 38)
+    jump(0.1)
 }
 
 function updatePlayer() {
@@ -196,7 +186,7 @@ function updatePlayer() {
     bounceValue = (Math.random() * 0.04) + 0.005
   }
   player.position.y += bounceValue
-  player.position.x = THREE.Math.lerp(player.position.x, currentLane, 2 * clock.getDelta())
+  player.position.x = THREE.Math.lerp(player.position.x, lanes[laneIndex], 2 * clock.getDelta())
   bounceValue -= gravity
 }
 
