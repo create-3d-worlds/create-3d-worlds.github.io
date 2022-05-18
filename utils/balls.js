@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 
-export function createBall(radius, x, y) {
+export function createBall({ radius } = {}) {
   const geometry = new THREE.DodecahedronGeometry(radius, 1)
   const material = new THREE.MeshStandardMaterial({
     color: 0xe5f2f2,
@@ -9,9 +9,6 @@ export function createBall(radius, x, y) {
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
   mesh.castShadow = true
-  mesh.position.y = y
-  mesh.position.z = 4.8
-  mesh.position.x = x
   return mesh
 }
 
@@ -57,7 +54,5 @@ export function createWorldSphere({ radius = 26, widthSegments = 40, heightSegme
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = mesh.castShadow = false
   mesh.rotation.z = -Math.PI / 2
-  mesh.position.y = -24
-  mesh.position.z = 2
   return mesh
 }

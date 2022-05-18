@@ -35,10 +35,12 @@ clock.start()
 
 camera.position.set(0, 3, 6.5)
 
-const player = createBall(heroRadius, lanes[laneIndex], heroBaseY)
+const player = createBall({ radius: heroRadius })
+player.position.set(lanes[laneIndex], heroBaseY, 4.8)
 scene.add(player)
 
 const world = createWorldSphere({ radius: worldRadius })
+world.position.set(0, -24, 2)
 scene.add(world)
 
 const particles = createParticles(25)
