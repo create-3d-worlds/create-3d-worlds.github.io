@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 import { camera, scene, renderer, clock, addScoreUI } from '/utils/scene.js'
 import { createBall, createWorldSphere } from '/utils/spheres.js'
 import { createSun } from './helpers/createSun.js'
-import { createTree } from './helpers/createTree.js'
+import { createFir } from './helpers/createTree.js'
 import { createParticles } from './helpers/createParticles.js'
 import { hemLight } from '/utils/light.js'
 
@@ -46,7 +46,7 @@ scene.add(world)
 const particles = createParticles(30)
 scene.add(particles)
 
-for (let i = 0; i < treesInPool; i++) treesPool.push(createTree())
+for (let i = 0; i < treesInPool; i++) treesPool.push(createFir())
 
 // side trees
 const numTrees = 36
@@ -70,7 +70,7 @@ function addTree(inPath, row, isLeft) {
     treesInPath.push(newTree)
     sphericalHelper.set(worldRadius - 0.3, pathAngleValues[row], -world.rotation.x + 4)
   } else {
-    newTree = createTree()
+    newTree = createFir()
     const forestAreaAngle = isLeft ? 1.68 + Math.random() * 0.1 : 1.46 - Math.random() * 0.1
     sphericalHelper.set(worldRadius - 0.3, forestAreaAngle, row)
   }

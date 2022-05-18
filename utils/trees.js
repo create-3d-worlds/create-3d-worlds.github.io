@@ -5,7 +5,7 @@ const sketchSize = 0.04
 const browns = [0x3d2817, 0x664422, 0xA0522D]
 const greens = [0x228b22, 0x2d4c1e, 0x3EA055, 0x44aa44]
 
-/* HELPERS */
+/* SIMPLE TREE */
 
 function createTrunk(size, color, sketch = false) {
   const geometry = new THREE.CylinderGeometry(size / 3.5, size / 3, size, 8)
@@ -47,8 +47,6 @@ function createCrown(size, color, sketch = false) {
   return mesh
 }
 
-/* CREATORS */
-
 export function createTree({ x = 0, y = 0, z = 0, size = 5, trunkColor, crownColor, sketch = false } = {}) {
   size = size * randomInRange(0.6, 1.4) // eslint-disable-line
   const trunk = createTrunk(size, trunkColor, sketch)
@@ -62,6 +60,8 @@ export function createTree({ x = 0, y = 0, z = 0, size = 5, trunkColor, crownCol
 }
 
 export const createSketchTree = ({ x, y, z, size, sketch = true } = {}) => createTree({ x, y, z, size, trunkColor: false, crownColor: false, sketch })
+
+/* FIR TREE */
 
 export function createFirTree({ x = 0, y = 0, z = 0, size = 5 } = {}) {
   const material = [
@@ -97,6 +97,9 @@ export function createFirTree({ x = 0, y = 0, z = 0, size = 5 } = {}) {
   mesh.position.set(x, y, z)
   return mesh
 }
+
+/* ADVANCED FIR TREE */
+
 
 /* FACTORIES */
 

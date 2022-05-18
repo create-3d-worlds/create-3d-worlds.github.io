@@ -1,33 +1,33 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 
-function blowUpTree(vertices, sides, currentTier, rand) {
+function distortFir(vertices, radialSegments, currSegment, factor) {
   let vertexIndex
   let vertexVector = new THREE.Vector3()
   const midPointVector = vertices[0].clone()
   let offset
-  for (let i = 0; i < sides; i++) {
-    vertexIndex = (currentTier * sides) + 1
+  for (let i = 0; i < radialSegments; i++) {
+    vertexIndex = currSegment * radialSegments + 1
     vertexVector = vertices[i + vertexIndex].clone()
     midPointVector.y = vertexVector.y
     offset = vertexVector.sub(midPointVector)
     if (i % 2 === 0) {
-      offset.normalize().multiplyScalar(rand / 6)
+      offset.normalize().multiplyScalar(factor / 6)
       vertices[i + vertexIndex].add(offset)
     } else {
-      offset.normalize().multiplyScalar(rand)
+      offset.normalize().multiplyScalar(factor)
       vertices[i + vertexIndex].add(offset)
-      vertices[i + vertexIndex].y = vertices[i + vertexIndex + sides].y + 0.05
+      vertices[i + vertexIndex].y = vertices[i + vertexIndex + radialSegments].y + 0.05
     }
   }
 }
 
-function tightenTree(vertices, sides, currentTier) {
+function tightenFir(vertices, radialSegments, currSegment) {
   let vertexIndex
   let vertexVector = new THREE.Vector3()
   const midPointVector = vertices[0].clone()
   let offset
-  for (let i = 0; i < sides; i++) {
-    vertexIndex = (currentTier * sides) + 1
+  for (let i = 0; i < radialSegments; i++) {
+    vertexIndex = currSegment * radialSegments + 1
     vertexVector = vertices[i + vertexIndex].clone()
     midPointVector.y = vertexVector.y
     offset = vertexVector.sub(midPointVector)
@@ -36,30 +36,29 @@ function tightenTree(vertices, sides, currentTier) {
   }
 }
 
-function createTreeTop() {
-  const sides = 8
-  const tiers = 6
-  const rand = (Math.random() * (0.25 - 0.1)) + 0.05
-  const geometry = new THREE.ConeGeometry(0.5, 1, sides, tiers)
+function createFirTop({ radius = 0.5, height = 1, radialSegments = 8, heightSegments = 6 } = {}) {
+  const rand = Math.random() * 0.15 + 0.05
+  const geometry = new THREE.ConeGeometry(radius, height, radialSegments, heightSegments)
   const material = new THREE.MeshStandardMaterial({
-    color: 0x33ff33,
+    color: 0x33ff33, // TODO: random green
     flatShading: true
   })
-  blowUpTree(geometry.vertices, sides, 0, rand)
-  tightenTree(geometry.vertices, sides, 1)
-  blowUpTree(geometry.vertices, sides, 2, rand * 1.1)
-  tightenTree(geometry.vertices, sides, 3)
-  blowUpTree(geometry.vertices, sides, 4, rand * 1.2)
-  tightenTree(geometry.vertices, sides, 5)
+
+  distortFir(geometry.vertices, radialSegments, 0, rand)
+  tightenFir(geometry.vertices, radialSegments, 1)
+  distortFir(geometry.vertices, radialSegments, 2, rand * 1.1)
+  tightenFir(geometry.vertices, radialSegments, 3)
+  distortFir(geometry.vertices, radialSegments, 4, rand * 1.2)
+  tightenFir(geometry.vertices, radialSegments, 5)
+
   const mesh = new THREE.Mesh(geometry, material)
-  mesh.castShadow = true
-  mesh.receiveShadow = false
+  mesh.castShadow = mesh.receiveShadow = false
   mesh.position.y = 0.9
   mesh.rotation.y = (Math.random() * (Math.PI))
   return mesh
 }
 
-function createTreeTrunk() {
+function createFirTrunk() {
   const geometry = new THREE.CylinderGeometry(0.1, 0.1, 0.5)
   const material = new THREE.MeshStandardMaterial({
     color: 0x886633,
@@ -70,9 +69,9 @@ function createTreeTrunk() {
   return mesh
 }
 
-export function createTree() {
+export function createFir() {
   const mesh = new THREE.Object3D()
-  mesh.add(createTreeTrunk())
-  mesh.add(createTreeTop())
+  mesh.add(createFirTrunk())
+  mesh.add(createFirTop())
   return mesh
 }
