@@ -1,7 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { camera, scene, renderer, clock, addScoreUI } from '/utils/scene.js'
-import { createBall } from '/utils/balls.js'
-import { createWorld } from './helpers/createWorld.js'
+import { createBall, createWorldSphere } from '/utils/balls.js'
 import { createSun } from './helpers/createSun.js'
 import { createTree } from './helpers/createTree.js'
 import { createParticles } from './helpers/createParticles.js'
@@ -39,7 +38,7 @@ camera.position.set(0, 3, 6.5)
 const player = createBall(heroRadius, lanes[laneIndex], heroBaseY)
 scene.add(player)
 
-const world = createWorld(worldRadius)
+const world = createWorldSphere({ radius: worldRadius })
 scene.add(world)
 
 const particles = createParticles(25)
