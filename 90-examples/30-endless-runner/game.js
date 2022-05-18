@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { camera, scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
+import { camera, scene, renderer, clock } from '/utils/scene.js'
 import { createBall } from './helpers/createBall.js'
 import { createWorld } from './helpers/createWorld.js'
 import { createSun } from './helpers/createSun.js'
