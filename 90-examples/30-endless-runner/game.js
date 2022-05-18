@@ -19,7 +19,6 @@ let laneIndex = 1
 let jumping = false
 let explosionPower = 1.06
 let bounceValue = 0.1
-let score = 0
 
 /* INIT */
 
@@ -108,13 +107,14 @@ function updateTrees() {
   const treePos = new THREE.Vector3()
   const treesToRemove = []
   treesInPath.forEach(tree => {
+    if (!tree.visible) return
     treePos.setFromMatrixPosition(tree.matrixWorld)
-    if (treePos.z > 6 && tree.visible) // gone out of our view zone
+    if (treePos.z > 6) // gone out of our view zone
       treesToRemove.push(tree)
     else if (treePos.distanceTo(player.position) <= 0.6) {
-      score += 1
-      updateScore(score)
       explode()
+      updateScore()
+      tree.visible = false
     }
   })
   treesToRemove.forEach(tree => {

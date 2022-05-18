@@ -94,11 +94,12 @@ export function addScoreUI({ score = 0, title = 'Score' } = {}) {
   div.style.cssText = style
   document.body.appendChild(div)
 
-  const updateScoreUI = score => {
+  const updateScore = (point = 1) => {
+    score += point // eslint-disable-line no-param-reassign
     div.innerHTML = `${title}: ${score}`
   }
-  updateScoreUI(score)
-  return updateScoreUI
+  updateScore(0)
+  return updateScore
 }
 
 /* SHORTCUTS */
