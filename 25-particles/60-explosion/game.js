@@ -1,41 +1,17 @@
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createParticles } from '/utils/particles.js'
-import { randomInRange, mouseToWorld } from '/utils/helpers.js'
-
-let explosionPower
+import { scene, camera, renderer } from '/utils/scene.js'
+import { createParticles, explode, updateExplosion } from '/utils/particles.js'
+import { mouseToWorld } from '/utils/helpers.js'
 
 camera.position.set(5, 5, 3)
-createOrbitControls()
 
-const explosion = createParticles({ num: 30 })
-scene.add(explosion)
-
-function updateExplosion() {
-  if (!explosion.visible) return
-  explosion.geometry.vertices.forEach(vertex => {
-    vertex.multiplyScalar(explosionPower)
-  })
-  if (explosionPower > 1.005) explosionPower -= 0.001
-  else explosion.visible = false
-  explosion.geometry.verticesNeedUpdate = true
-}
-
-function explode({ x = 0, y = 0, z = 0 } = {}) {
-  explosion.position.set(x, y, z)
-  explosion.geometry.vertices.forEach(vertex => {
-    vertex.x = randomInRange(-0.2, 0.2)
-    vertex.y = randomInRange(-0.2, 0.2)
-    vertex.z = randomInRange(-0.2, 0.2)
-  })
-  explosionPower = 1.07
-  explosion.visible = true
-}
+const particles = createParticles({ num: 30 })
+scene.add(particles)
 
 /* LOOP */
 
 void function render() {
   renderer.render(scene, camera)
-  updateExplosion()
+  updateExplosion({ particles })
   requestAnimationFrame(render)
 }()
 
@@ -43,5 +19,5 @@ void function render() {
 
 document.addEventListener('click', e => {
   const pos = mouseToWorld(e, camera)
-  explode(pos)
+  explode({ particles, ...pos })
 })

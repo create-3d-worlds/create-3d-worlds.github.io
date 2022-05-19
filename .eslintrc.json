@@ -26,6 +26,7 @@
     "no-else-return": "error",
     "no-global-assign": "error",
     "no-invalid-this": "error",
+    "no-multi-spaces": ["warn", { "ignoreEOLComments": true }],
     "no-multiple-empty-lines": ["warn", { "max": 1, "maxEOF": 1 }],
     "no-param-reassign": "error",
     "no-redeclare": "error",
