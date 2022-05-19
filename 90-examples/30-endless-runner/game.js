@@ -6,6 +6,7 @@ import { createFir } from '/utils/trees.js'
 import { createParticles } from './helpers/createParticles.js'
 import { hemLight } from '/utils/light.js'
 import { randomInRange } from '/utils/helpers.js'
+import keyboard from '/classes/Keyboard.js'
 
 const rollingSpeed = 0.008
 const worldRadius = 26
@@ -163,27 +164,24 @@ const jump = val => {
   bounceValue = val
 }
 
-function movePlayer(e) {
+function handleInput() {
   if (jumping) return
-  // left
-  if (e.keyCode === 37 && laneIndex > 0) {
+  if (keyboard.left && laneIndex > 0) {
     laneIndex--
     jump(0.06)
   }
-  // right
-  if (e.keyCode === 39 && laneIndex < 2) {
+  if (keyboard.right && laneIndex < 2) {
     laneIndex++
     jump(0.06)
   }
-  // up
-  if (e.keyCode === 38)
-    jump(0.1)
+  if (keyboard.up) jump(0.1)
 }
 
 /* LOOP */
 
 void function update() {
   earth.rotation.x += rollingSpeed
+  handleInput()
   updatePlayer()
   if (clock.getElapsedTime() > treeReleaseInterval) {
     clock.start()
@@ -194,7 +192,3 @@ void function update() {
   renderer.render(scene, camera)
   requestAnimationFrame(update)
 }()
-
-/* EVENTS */
-
-document.onkeydown = movePlayer
