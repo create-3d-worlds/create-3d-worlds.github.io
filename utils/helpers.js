@@ -2,10 +2,9 @@ import * as THREE from '/node_modules/three108/build/three.module.js'
 
 /* MATH */
 
-// include min, not include max
 export function randomInRange(min, max, round = false) {
   const random = Math.random() * (max - min) + min
-  return round ? Math.floor(random) : random
+  return round ? Math.floor(random) : random // include min, not include max
 }
 
 export function randomInCircle(radius, emptyCenter = 0) {
@@ -38,6 +37,16 @@ export function randomInSquare(size, emptyCenter = 0) {
 
 export const degToRad = deg => deg * Math.PI / 180
 
+export const mouseToWorld = (e, camera) => {
+  const mouse3D = new THREE.Vector3(
+    e.clientX / window.innerWidth * 2 - 1,
+    -e.clientY / window.innerHeight * 2 + 1,
+    .9 // initially .5
+  )
+  mouse3D.unproject(camera)
+  return mouse3D
+}
+
 /* OBJECTS */
 
 export const isCollide = (bounds1, bounds2) =>
@@ -52,7 +61,7 @@ export function getHighPoint(geometry, face) {
   return Math.max(v1, v2, v3)
 }
 
-// key: x, y or z
+// @param key: x, y or z
 export const getSize = (mesh, key) => {
   const box = new THREE.Box3().setFromObject(mesh)
   return box.max[key] - box.min[key]

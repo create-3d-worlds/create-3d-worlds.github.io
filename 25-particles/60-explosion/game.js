@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { createParticles } from '/utils/particles.js'
-import { randomInRange } from '/utils/helpers.js'
+import { randomInRange, mouseToWorld } from '/utils/helpers.js'
 
 let explosionPower
 
@@ -43,15 +43,6 @@ void function render() {
 /* EVENTS */
 
 document.addEventListener('click', e => {
-  console.log(e)
-  // const mouse3D = new THREE.Vector3((e.clientX / window.innerWidth) * 2 - 1,   // x
-  //   -(e.clientY / window.innerHeight) * 2 + 1,  // y
-  //   0.5)
-
-  const mouse3D = new THREE.Vector3()
-  mouse3D.x = (e.clientX / window.innerWidth) * 2 - 1
-  mouse3D.y = -(e.clientY / window.innerHeight) * 2 + 1
-  mouse3D.z = 0.5
-  mouse3D.unproject(camera)
-  explode(mouse3D)
+  const pos = mouseToWorld(e, camera)
+  explode(pos)
 })
