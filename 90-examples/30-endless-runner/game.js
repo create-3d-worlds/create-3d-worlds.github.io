@@ -3,7 +3,7 @@ import { camera, scene, renderer, clock, addScoreUI } from '/utils/scene.js'
 import { createBall, createWorldSphere } from '/utils/spheres.js'
 import { createSun } from './helpers/createSun.js'
 import { createFir } from '/utils/trees.js'
-import { createParticles } from './helpers/createParticles.js'
+import { createParticles } from '/utils/particles.js'
 import { hemLight } from '/utils/light.js'
 import { randomInRange } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
@@ -44,7 +44,7 @@ const earth = createWorldSphere({ radius: worldRadius })
 earth.position.set(0, -24, 2)
 scene.add(earth)
 
-const particles = createParticles(30)
+const particles = createParticles({ num: 30 })
 scene.add(particles)
 
 for (let i = 0; i < treesInPool; i++) treesPool.push(createFir({ size: 1 }))

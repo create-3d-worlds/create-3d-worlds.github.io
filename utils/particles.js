@@ -1,8 +1,8 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 
-export function createParticles(particleCount) {
+export function createParticles({ num = 100 }) {
   const geometry = new THREE.Geometry()
-  for (let i = 0; i < particleCount; i++) {
+  for (let i = 0; i < num; i++) {
     const vertex = new THREE.Vector3()
     geometry.vertices.push(vertex)
   }
