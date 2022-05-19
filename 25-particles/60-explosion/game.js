@@ -1,4 +1,3 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { createParticles } from '/utils/particles.js'
 import { randomInRange, mouseToWorld } from '/utils/helpers.js'
