@@ -46,7 +46,7 @@ scene.add(world)
 const particles = createParticles(30)
 scene.add(particles)
 
-for (let i = 0; i < treesInPool; i++) treesPool.push(createFir())
+for (let i = 0; i < treesInPool; i++) treesPool.push(createFir({ size: 1 }))
 
 // side trees
 const numTrees = 36
@@ -61,20 +61,20 @@ const updateScore = addScoreUI({ title: 'Pogotaka' })
 /* FUNCTIONS */
 
 function addTree(inPath, row, isLeft) {
-  const sphericalHelper = new THREE.Spherical()
+  const spherical = new THREE.Spherical()
   let newTree
   if (inPath) {
     if (treesPool.length == 0) return
     newTree = treesPool.pop()
     newTree.visible = true
     treesInPath.push(newTree)
-    sphericalHelper.set(worldRadius - 0.3, pathAngleValues[row], -world.rotation.x + 4)
+    spherical.set(worldRadius - 0.3, pathAngleValues[row], -world.rotation.x + 4)
   } else {
-    newTree = createFir()
+    newTree = createFir({ size: 5 })
     const forestAreaAngle = isLeft ? 1.68 + Math.random() * 0.1 : 1.46 - Math.random() * 0.1
-    sphericalHelper.set(worldRadius - 0.3, forestAreaAngle, row)
+    spherical.set(worldRadius - 0.3, forestAreaAngle, row)
   }
-  newTree.position.setFromSpherical(sphericalHelper)
+  newTree.position.setFromSpherical(spherical)
   const worldVector = world.position.clone().normalize()
   const treeVector = newTree.position.clone().normalize()
   newTree.quaternion.setFromUnitVectors(treeVector, worldVector)
