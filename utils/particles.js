@@ -21,6 +21,7 @@ export function explode({ particles, x = 0, y = 0, z = 0 } = {}) {
     vertex.y = randomInRange(-0.2, 0.2)
     vertex.z = randomInRange(-0.2, 0.2)
   })
+  particles.visible = true
 }
 
 export function updateExplosion({ particles, power = 1.07 } = {}) {
