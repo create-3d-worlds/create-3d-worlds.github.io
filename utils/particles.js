@@ -7,20 +7,19 @@ const randomColor = () => spaceColors[Math.floor(Math.random() * spaceColors.len
 
 /* UNIVERSE */
 
-export function createParticles({ num = 10000, color, size = .5, unitAngle = 1, file, minRange = 100, maxRange = 1000 } = {}) {
+export function createParticles({ num = 10000, color, size = .5, unitAngle = 1, file = 'star.png', minRange = 100, maxRange = 1000 } = {}) {
 
   const geometry = new THREE.Geometry()
-  const scalar = randomInRange(minRange, maxRange)
   for (let i = 0; i < num; i++) {
     const vertex = new THREE.Vector3()
-    geometry.vertices.push(vertex)
     vertex.x = randomInRange(-unitAngle, unitAngle)
     vertex.y = randomInRange(-unitAngle, unitAngle)
     vertex.z = randomInRange(-unitAngle, unitAngle)
+    const scalar = randomInRange(minRange, maxRange)
     vertex.multiplyScalar(scalar)
+    geometry.vertices.push(vertex)
     if (!color) geometry.colors.push(new THREE.Color(randomColor()))
   }
-
   const material = new THREE.PointsMaterial({
     size,
     transparent: true,
@@ -28,7 +27,6 @@ export function createParticles({ num = 10000, color, size = .5, unitAngle = 1, 
   if (file) {
     material.map = new THREE.TextureLoader().load(`/assets/textures/${file}`)
     material.blending = THREE.AdditiveBlending
-    material.depthTest = false
   }
   if (color)
     material.color = new THREE.Color(color)

@@ -1,19 +1,22 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
+import { randomInRange } from '/utils/helpers.js'
 
-// TODO: merge with particles.js
-export function createStars({ radiusMin = 500, radius = 2000, numberOfStars = 10000 } = {}) {
+export function createStars({ minRange = 500, maxRange = 2000, num = 10000, unitAngle = 1 } = {}) {
   const geometry = new THREE.Geometry()
 
-  for (let i = 0; i < numberOfStars; i++) {
-    const direction = new THREE.Vector3(Math.random() * 2 - 1, Math.random() * 2 - 1, Math.random() * 2 - 1)
-    const distance = Math.random() * radius + radiusMin
-    const position = direction.multiplyScalar(distance)
-    geometry.vertices.push(position)
+  for (let i = 0; i < num; i++) {
+    const vertex = new THREE.Vector3()
+    vertex.x = randomInRange(-unitAngle, unitAngle)
+    vertex.y = randomInRange(-unitAngle, unitAngle)
+    vertex.z = randomInRange(-unitAngle, unitAngle)
+    const distance = randomInRange(minRange, maxRange)
+    vertex.multiplyScalar(distance)
+    geometry.vertices.push(vertex)
   }
 
   const material = new THREE.PointsMaterial({
     color: 0xaaaaaa,
-    size: 0.7,
+    size: .7,
     transparent: true,
     map: new THREE.TextureLoader().load('star.png')
   })

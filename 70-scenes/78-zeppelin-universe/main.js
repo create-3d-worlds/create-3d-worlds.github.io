@@ -1,6 +1,7 @@
 import { scene, camera, renderer, createOrbitControls, addUIControls } from '/utils/scene.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import { createStars } from '/utils/stars.js'
+import { createParticles } from '/utils/particles.js'
 import { createGradientSky } from '/utils/sky.js'
 import { createGround } from '/utils/ground.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
@@ -11,17 +12,8 @@ import { loadZeppelin } from '/utils/loaders.js'
 
 hemLight({ intensity: .25 })
 const controls = createOrbitControls()
-const commands = {
-  '←': 'levo',
-  '→': 'desno',
-  '↑': 'gore',
-  '↓': 'dole',
-  'PgUp': 'ubrzanje',
-  'PgDn': 'kočenje',
-}
-addUIControls({ commands })
 
-const stars = createStars({ radiusMin: 5000, radius: 10000, numberOfStars: 200000 })
+const stars = createParticles({ minRange: 5000, maxRange: 15000, num: 200000 })
 scene.add(stars)
 
 scene.add(createGradientSky({ r: 5000, bottomColor: 0x000000, topColor: 0x002266 }))
@@ -40,6 +32,8 @@ mesh.position.y = 256
 controls.target = mesh.position
 zeppelin.addSolids(ground, water)
 
+/* LOOP */
+
 void function animate() {
   requestAnimationFrame(animate)
   controls.update()
@@ -49,3 +43,15 @@ void function animate() {
     cameraFollowObject(camera, zeppelin.mesh, { y: 10 })
   renderer.render(scene, camera)
 }()
+
+/* UI */
+
+const commands = {
+  '←': 'levo',
+  '→': 'desno',
+  '↑': 'gore',
+  '↓': 'dole',
+  'PgUp': 'ubrzanje',
+  'PgDn': 'kočenje',
+}
+addUIControls({ commands })

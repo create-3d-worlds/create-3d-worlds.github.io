@@ -3,7 +3,7 @@ import { createParticles } from '/utils/particles.js'
 
 camera.position.z = 500
 
-const stars = createParticles({ file: 'star.png' })
+const stars = createParticles()
 scene.add(stars)
 
 /* LOOP */

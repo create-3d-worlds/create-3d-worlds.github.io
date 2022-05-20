@@ -2,7 +2,7 @@ import { scene, camera, renderer } from '/utils/scene.js'
 import { createParticles, resetParticles, expandParticles } from '/utils/particles.js'
 import { mouseToWorld } from '/utils/helpers.js'
 
-const particles = createParticles({ num: 30, color: 0xfffafa, size: 0.04, unitAngle: 0.1 })
+const particles = createParticles({ num: 30, file: null, color: 0xfffafa, size: 0.04, unitAngle: 0.1 })
 scene.add(particles)
 
 /* LOOP */
