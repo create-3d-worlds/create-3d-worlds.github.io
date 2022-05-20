@@ -1,8 +1,11 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { randomInRange } from '/utils/helpers.js'
 
-// TODO: random star colors
-export function createParticles({ num = 100, color = 0xdddddd, size = .5, unitAngle = 1, file } = {}) {
+const spaceColors = [0xF0F8FF, 0xFAEBD7, 0xF0FFFF, 0xF5F5DC, 0xF8F8FF, 0xE0FFFF, 0xFFE4E1, 0xFFFFFF, 0xF5F5F5, 0x00FFFF, 0xDC143C, 0xB22222, 0xADD8E6, 0x4169E1, 0x32CD32]
+
+const randomColor = () => spaceColors[Math.floor(Math.random() * spaceColors.length)]
+
+export function createParticles({ num = 100, color, size = .5, unitAngle = 1, file } = {}) {
   const geometry = new THREE.Geometry()
   for (let i = 0; i < num; i++) {
     const vertex = new THREE.Vector3()
@@ -10,13 +13,20 @@ export function createParticles({ num = 100, color = 0xdddddd, size = .5, unitAn
     vertex.x = randomInRange(-unitAngle, unitAngle)
     vertex.y = randomInRange(-unitAngle, unitAngle)
     vertex.z = randomInRange(-unitAngle, unitAngle)
+    if (!color) geometry.colors.push(new THREE.Color(randomColor()))
   }
   const material = new THREE.PointsMaterial({
     size,
-    color,
     transparent: true,
-    map: file ? new THREE.TextureLoader().load(`/assets/textures/${file}`) : null,
   })
+  if (file)
+    material.map = new THREE.TextureLoader().load(`/assets/textures/${file}`)
+
+  if (color)
+    material.color = color
+  else
+    material.vertexColors = THREE.VertexColors
+
   return new THREE.Points(geometry, material)
 }
 
