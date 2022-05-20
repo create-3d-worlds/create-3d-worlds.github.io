@@ -1,6 +1,5 @@
 import { scene, camera, renderer, createOrbitControls, addUIControls } from '/utils/scene.js'
 import { cameraFollowObject } from '/utils/helpers.js'
-import { createStars } from '/utils/stars.js'
 import { createParticles } from '/utils/particles.js'
 import { createGradientSky } from '/utils/sky.js'
 import { createGround } from '/utils/ground.js'
@@ -13,7 +12,7 @@ import { loadZeppelin } from '/utils/loaders.js'
 hemLight({ intensity: .25 })
 const controls = createOrbitControls()
 
-const stars = createParticles({ minRange: 5000, maxRange: 15000, num: 200000 })
+const stars = createParticles({ minRange: 5000, maxRange: 10000, num: 20000, size: .7 })
 scene.add(stars)
 
 scene.add(createGradientSky({ r: 5000, bottomColor: 0x000000, topColor: 0x002266 }))
