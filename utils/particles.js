@@ -1,9 +1,16 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { randomInRange } from '/utils/helpers.js'
 
-export function createParticles({ num = 100, color = 0xdddddd, size = .5, file } = {}) {
+// TODO: random star colors
+export function createParticles({ num = 100, color = 0xdddddd, size = .5, unitAngle = 1, file } = {}) {
   const geometry = new THREE.Geometry()
-  for (let i = 0; i < num; i++) geometry.vertices.push(new THREE.Vector3())
+  for (let i = 0; i < num; i++) {
+    const vertex = new THREE.Vector3()
+    geometry.vertices.push(vertex)
+    vertex.x = randomInRange(-unitAngle, unitAngle)
+    vertex.y = randomInRange(-unitAngle, unitAngle)
+    vertex.z = randomInRange(-unitAngle, unitAngle)
+  }
   const material = new THREE.PointsMaterial({
     size,
     color,
@@ -13,19 +20,19 @@ export function createParticles({ num = 100, color = 0xdddddd, size = .5, file }
   return new THREE.Points(geometry, material)
 }
 
-export function setOrientation({ particles, pos = [0, 0, 0], unitAngle = 1 } = {}) {
+export function expandParticles({ particles, scalar, min = 0, max = 1000 } = {}) {
+  scalar = scalar ? scalar : randomInRange(min, max) // eslint-disable-line no-param-reassign
+  particles.geometry.vertices.forEach(vertex => {
+    vertex.multiplyScalar(scalar)
+  })
+  particles.geometry.verticesNeedUpdate = true
+}
+
+export function resetParticles({ particles, pos = [0, 0, 0], unitAngle = 1 } = {}) {
   particles.position.set(...pos)
   particles.geometry.vertices.forEach(vertex => {
     vertex.x = randomInRange(-unitAngle, unitAngle)
     vertex.y = randomInRange(-unitAngle, unitAngle)
     vertex.z = randomInRange(-unitAngle, unitAngle)
   })
-}
-
-export function moveParticles({ particles, scalar, min = 0, max = 1000 } = {}) {
-  scalar = scalar ? scalar : randomInRange(min, max) // eslint-disable-line no-param-reassign
-  particles.geometry.vertices.forEach(vertex => {
-    vertex.multiplyScalar(scalar)
-  })
-  particles.geometry.verticesNeedUpdate = true
 }
