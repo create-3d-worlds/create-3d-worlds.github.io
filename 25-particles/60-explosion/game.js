@@ -16,6 +16,6 @@ document.addEventListener('click', e => {
 
 void function render() {
   renderer.render(scene, camera)
-  moveParticles({ particles })
+  moveParticles({ particles, distance: 1.07 })
   requestAnimationFrame(render)
 }()

@@ -29,7 +29,8 @@ export function explode({ particles, x = 0, y = 0, z = 0 } = {}) {
   particles.visible = true
 }
 
-export function moveParticles({ particles, distance = 1.07 } = {}) {
+export function moveParticles({ particles, distance, min = 0, max = 1000 } = {}) {
+  distance = distance ? distance : randomInRange(min, max) // eslint-disable-line no-param-reassign
   particles.geometry.vertices.forEach(vertex => {
     vertex.multiplyScalar(distance)
   })

@@ -1,6 +1,5 @@
 import { scene, camera, renderer, createOrbitControls, hemLight } from '/utils/scene.js'
-import { createParticles } from '/utils/particles.js'
-import { randomInRange } from '/utils/helpers.js'
+import { createParticles, moveParticles } from '/utils/particles.js'
 
 createOrbitControls()
 hemLight()
@@ -8,17 +7,7 @@ hemLight()
 const stars = createParticles({ file: 'star.png', num: 10000, color: 0xdddddd, size: .5, unitAngle: .2 })
 scene.add(stars)
 
-moveParticles({ particles: stars, min: 100, max: 1000 })
-
-/* FUNCTIONS */
-
-function moveParticles({ particles, distance, min = 0, max = 1000 } = {}) {
-  distance = distance ? distance : randomInRange(min, max) // eslint-disable-line no-param-reassign
-  particles.geometry.vertices.forEach(vertex => {
-    vertex.multiplyScalar(distance)
-  })
-  // particles.geometry.verticesNeedUpdate = true
-}
+moveParticles({ particles: stars, min: 500, max: 1000 })
 
 /* LOOP */
 
