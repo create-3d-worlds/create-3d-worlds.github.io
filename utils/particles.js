@@ -1,15 +1,9 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { randomInRange } from '/utils/helpers.js'
 
-export function createParticles({ num = 100, color = 0xdddddd, size = .5, unitAngle = 1, file } = {}) {
+export function createParticles({ num = 100, color = 0xdddddd, size = .5, file } = {}) {
   const geometry = new THREE.Geometry()
-  for (let i = 0; i < num; i++) {
-    const vertex = new THREE.Vector3()
-    vertex.x = randomInRange(-unitAngle, unitAngle)
-    vertex.y = randomInRange(-unitAngle, unitAngle)
-    vertex.z = randomInRange(-unitAngle, unitAngle)
-    geometry.vertices.push(vertex)
-  }
+  for (let i = 0; i < num; i++) geometry.vertices.push(new THREE.Vector3())
   const material = new THREE.PointsMaterial({
     size,
     color,
@@ -19,14 +13,13 @@ export function createParticles({ num = 100, color = 0xdddddd, size = .5, unitAn
   return new THREE.Points(geometry, material)
 }
 
-export function explode({ particles, x = 0, y = 0, z = 0 } = {}) {
-  particles.position.set(x, y, z)
+export function resetParticles({ particles, pos = [0, 0, 0], unitAngle = 1, } = {}) {
+  particles.position.set(...pos)
   particles.geometry.vertices.forEach(vertex => {
-    vertex.x = randomInRange(-1, 1)
-    vertex.y = randomInRange(-1, 1)
-    vertex.z = randomInRange(-1, 1)
+    vertex.x = randomInRange(-unitAngle, unitAngle)
+    vertex.y = randomInRange(-unitAngle, unitAngle)
+    vertex.z = randomInRange(-unitAngle, unitAngle)
   })
-  particles.visible = true
 }
 
 export function moveParticles({ particles, scalar, min = 0, max = 1000 } = {}) {
