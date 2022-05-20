@@ -54,7 +54,7 @@ export function resetParticles({ particles, pos = [0, 0, 0], unitAngle = 1 } = {
 
 /* STARS IN SPHERE */
 
-export function createStars({ num = 10000, r = 1000 } = {}) {
+export function createStars({ num = 10000, r = 1000, size = 3 } = {}) {
   const geometry = new THREE.Geometry()
   for (let i = 0; i < num; i++) {
     const lat = randomInRange(-Math.PI / 2, Math.PI / 2)
@@ -66,7 +66,7 @@ export function createStars({ num = 10000, r = 1000 } = {}) {
     })
   }
   const material = new THREE.PointsMaterial({
-    size: 3,
+    size,
   })
   return new THREE.Points(geometry, material)
 }

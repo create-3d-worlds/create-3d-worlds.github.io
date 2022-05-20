@@ -71,7 +71,6 @@ function createMoonGroup(moon, earthCameraMoon) {
   return group
 }
 
-
 function orbit() {
   time += speed
   const earthSpeed = time * 0.001
