@@ -23,7 +23,7 @@ export function createParticles({ num = 100, color, size = .5, unitAngle = 1, fi
     material.map = new THREE.TextureLoader().load(`/assets/textures/${file}`)
 
   if (color)
-    material.color = color
+    material.color = new THREE.Color(color)
   else
     material.vertexColors = THREE.VertexColors
 
