@@ -2,7 +2,7 @@ import { scene, camera, renderer } from '/utils/scene.js'
 import { createParticles, explode, moveParticles } from '/utils/particles.js'
 import { mouseToWorld } from '/utils/helpers.js'
 
-const particles = createParticles({ num: 30 })
+const particles = createParticles({ num: 30, color: 0xfffafa, size: 0.04 })
 scene.add(particles)
 
 /* EVENT */
