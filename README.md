@@ -36,6 +36,7 @@ live-server
   - [ ] sneg da prati igraca
 - [x] probati eksplozije
 - [ ] odvojiti pomagala za čestice
+- [ ] implementirati BufferGeometry https://threejs.org/docs/#api/en/core/BufferGeometry
 
 ### Tilemaps
 

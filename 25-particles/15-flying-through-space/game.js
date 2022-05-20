@@ -1,12 +1,10 @@
 import { scene, camera, renderer } from '/utils/scene.js'
-import { createParticles, expandParticles } from '/utils/particles.js'
+import { createParticles } from '/utils/particles.js'
 
 camera.position.z = 500
 
-const stars = createParticles({ file: 'star.png', num: 10000, size: .5 })
+const stars = createParticles({ file: 'star.png' })
 scene.add(stars)
-
-expandParticles({ particles: stars, min: 200, max: 1000 })
 
 /* LOOP */
 

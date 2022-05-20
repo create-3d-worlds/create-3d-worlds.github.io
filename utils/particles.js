@@ -5,16 +5,22 @@ const spaceColors = [0xF0F8FF, 0xFAEBD7, 0xF0FFFF, 0xF5F5DC, 0xF8F8FF, 0xE0FFFF,
 
 const randomColor = () => spaceColors[Math.floor(Math.random() * spaceColors.length)]
 
-export function createParticles({ num = 100, color, size = .5, unitAngle = 1, file } = {}) {
+/* UNIVERSE */
+
+export function createParticles({ num = 10000, color, size = .5, unitAngle = 1, file, minRange = 100, maxRange = 1000 } = {}) {
+
   const geometry = new THREE.Geometry()
+  const scalar = randomInRange(minRange, maxRange)
   for (let i = 0; i < num; i++) {
     const vertex = new THREE.Vector3()
     geometry.vertices.push(vertex)
     vertex.x = randomInRange(-unitAngle, unitAngle)
     vertex.y = randomInRange(-unitAngle, unitAngle)
     vertex.z = randomInRange(-unitAngle, unitAngle)
+    vertex.multiplyScalar(scalar)
     if (!color) geometry.colors.push(new THREE.Color(randomColor()))
   }
+
   const material = new THREE.PointsMaterial({
     size,
     transparent: true,
@@ -22,8 +28,8 @@ export function createParticles({ num = 100, color, size = .5, unitAngle = 1, fi
   if (file) {
     material.map = new THREE.TextureLoader().load(`/assets/textures/${file}`)
     material.blending = THREE.AdditiveBlending
+    material.depthTest = false
   }
-
   if (color)
     material.color = new THREE.Color(color)
   else
@@ -32,8 +38,7 @@ export function createParticles({ num = 100, color, size = .5, unitAngle = 1, fi
   return new THREE.Points(geometry, material)
 }
 
-export function expandParticles({ particles, scalar, min = 0, max = 1000 } = {}) {
-  scalar = scalar ? scalar : randomInRange(min, max) // eslint-disable-line no-param-reassign
+export function expandParticles({ particles, scalar } = {}) {
   particles.geometry.vertices.forEach(vertex => {
     vertex.multiplyScalar(scalar)
   })
