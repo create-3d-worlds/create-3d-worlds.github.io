@@ -13,7 +13,7 @@ export function createParticles({ num = 100, color = 0xdddddd, size = .5, file }
   return new THREE.Points(geometry, material)
 }
 
-export function resetParticles({ particles, pos = [0, 0, 0], unitAngle = 1 } = {}) {
+export function setPosition({ particles, pos = [0, 0, 0], unitAngle = 1 } = {}) {
   particles.position.set(...pos)
   particles.geometry.vertices.forEach(vertex => {
     vertex.x = randomInRange(-unitAngle, unitAngle)
