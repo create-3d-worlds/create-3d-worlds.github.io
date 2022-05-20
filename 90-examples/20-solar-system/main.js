@@ -1,6 +1,8 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
-import { scene, renderer, addUIControls } from '/utils/scene.js'
-import { randomInRange } from '/utils/helpers.js'
+import { scene, renderer, addUIControls, createOrbitControls } from '/utils/scene.js'
+import { createStars } from '/utils/particles.js'
+
+createOrbitControls()
 
 let time = 0,
   speed = 1,
@@ -69,20 +71,6 @@ function createMoonGroup(moon, earthCameraMoon) {
   return group
 }
 
-function createStars(numStars = 10000, r = 1e5) {
-  const geometry = new THREE.Geometry()
-  while (geometry.vertices.length < numStars) {
-    const lat = randomInRange(-Math.PI / 2, Math.PI / 2)
-    const lon = 2 * Math.PI * Math.random()
-    geometry.vertices.push({
-      x: r * Math.cos(lon) * Math.cos(lat),
-      y: r * Math.sin(lon) * Math.cos(lat),
-      z: r * Math.sin(lat)
-    })
-  }
-  const material = new THREE.PointsMaterial({ size: 500 })
-  return new THREE.Points(geometry, material)
-}
 
 function orbit() {
   time += speed

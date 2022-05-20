@@ -51,3 +51,22 @@ export function resetParticles({ particles, pos = [0, 0, 0], unitAngle = 1 } = {
     vertex.z = randomInRange(-unitAngle, unitAngle)
   })
 }
+
+/* SIMPLE STARS */
+
+export function createStars({ num = 10000, r = 1e5 } = {}) {
+  const geometry = new THREE.Geometry()
+  for (let i = 0; i < num; i++) {
+    const lat = randomInRange(-Math.PI / 2, Math.PI / 2)
+    const lon = 2 * Math.PI * Math.random()
+    geometry.vertices.push({
+      x: r * Math.cos(lon) * Math.cos(lat),
+      y: r * Math.sin(lon) * Math.cos(lat),
+      z: r * Math.sin(lat)
+    })
+  }
+  const material = new THREE.PointsMaterial({
+    size: 300,
+  })
+  return new THREE.Points(geometry, material)
+}
