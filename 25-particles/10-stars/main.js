@@ -5,27 +5,40 @@ import { randomInRange } from '/utils/helpers.js'
 createOrbitControls()
 hemLight()
 
-const radiusMin = 500
-const radius = 2000
-const numberOfStars = 10000
+const stars = createParticles({ file: 'star.png', num: 10000, unitAngle: .2 })
+scene.add(stars)
 
-const geometry = new THREE.Geometry()
+moveParticles({ particles: stars, min: 100, max: 1000 })
 
-for (let i = 0; i < numberOfStars; i++) {
-  const direction = new THREE.Vector3(randomInRange(-1, 1), randomInRange(-1, 1), randomInRange(-1, 1))
-  const distance = randomInRange(radiusMin, radius)
-  const position = direction.multiplyScalar(distance)
-  geometry.vertices.push(position)
+/* FUNCTIONS */
+
+function createParticles({ num = 100, color = 0xdddddd, size = .5, unitAngle = 1, file } = {}) {
+  const geometry = new THREE.Geometry()
+  for (let i = 0; i < num; i++) {
+    const vertex = new THREE.Vector3()
+    vertex.x = randomInRange(-unitAngle, unitAngle)
+    vertex.y = randomInRange(-unitAngle, unitAngle)
+    vertex.z = randomInRange(-unitAngle, unitAngle)
+    geometry.vertices.push(vertex)
+  }
+  const material = new THREE.PointsMaterial({
+    size,
+    color,
+    transparent: true,
+    map: file ? new THREE.TextureLoader().load(`/assets/textures/${file}`) : null,
+  })
+  return new THREE.Points(geometry, material)
 }
 
-const material = new THREE.PointsMaterial({
-  color: 0xdddddd,
-  transparent: true,
-  map: new THREE.TextureLoader().load('star.png')
-})
+function moveParticles({ particles, distance, min = 0, max = 1000 } = {}) {
+  distance = distance ? distance : randomInRange(min, max) // eslint-disable-line no-param-reassign
+  particles.geometry.vertices.forEach(vertex => {
+    vertex.multiplyScalar(distance)
+  })
+  // particles.geometry.verticesNeedUpdate = true
+}
 
-const stars = new THREE.Points(geometry, material)
-scene.add(stars)
+/* LOOP */
 
 void function animate() {
   renderer.render(scene, camera)

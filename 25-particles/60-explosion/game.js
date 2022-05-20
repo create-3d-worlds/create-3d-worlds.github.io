@@ -1,5 +1,5 @@
 import { scene, camera, renderer } from '/utils/scene.js'
-import { createParticles, explode, updateExplosion } from '/utils/particles.js'
+import { createParticles, explode, moveParticles } from '/utils/particles.js'
 import { mouseToWorld } from '/utils/helpers.js'
 
 const particles = createParticles({ num: 30 })
@@ -16,6 +16,6 @@ document.addEventListener('click', e => {
 
 void function render() {
   renderer.render(scene, camera)
-  updateExplosion({ particles })
+  moveParticles({ particles })
   requestAnimationFrame(render)
 }()

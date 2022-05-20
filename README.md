@@ -35,6 +35,7 @@ live-server
 - [x] napraviti sneg
   - [ ] sneg da prati igraca
 - [x] probati eksplozije
+- [ ] odvojiti pomagala za čestice
 
 ### Tilemaps
 
