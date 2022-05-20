@@ -19,8 +19,10 @@ export function createParticles({ num = 100, color, size = .5, unitAngle = 1, fi
     size,
     transparent: true,
   })
-  if (file)
+  if (file) {
     material.map = new THREE.TextureLoader().load(`/assets/textures/${file}`)
+    material.blending = THREE.AdditiveBlending
+  }
 
   if (color)
     material.color = new THREE.Color(color)

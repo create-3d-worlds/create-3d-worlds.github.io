@@ -1,5 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 
+// TODO: merge with particles.js
 export function createStars({ radiusMin = 500, radius = 2000, numberOfStars = 10000 } = {}) {
   const geometry = new THREE.Geometry()
 
