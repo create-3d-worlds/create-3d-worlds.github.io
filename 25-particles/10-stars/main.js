@@ -3,7 +3,7 @@ import { createParticles } from '/utils/particles.js'
 
 createOrbitControls()
 
-const stars = createParticles() // compare with createStars()
+const stars = createParticles()
 scene.add(stars)
 
 /* LOOP */

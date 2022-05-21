@@ -7,7 +7,7 @@ const randomColor = () => spaceColors[Math.floor(Math.random() * spaceColors.len
 
 const textureLoader = new THREE.TextureLoader()
 
-/* UNIVERSE (IN CUBE) */
+/* STARS (IN CUBE) */
 
 export function createParticles({ num = 10000, color, size = .5, opacity = 1, unitAngle = 1, file = 'star.png', minRange = 100, maxRange = 1000 } = {}) {
 
@@ -55,7 +55,7 @@ export function resetParticles({ particles, pos = [0, 0, 0], unitAngle = 1 } = {
   })
 }
 
-/* SIMPLE STARS (IN SPHERE) */
+/* STARS (IN SPHERE) */
 
 export function createStars({ num = 10000, r = 1000, size = 3 } = {}) {
   const geometry = new THREE.Geometry()
@@ -74,4 +74,7 @@ export function createStars({ num = 10000, r = 1000, size = 3 } = {}) {
   return new THREE.Points(geometry, material)
 }
 
-/* RAIN */
+/* ALIASES */
+
+export const createRain = () =>
+  createParticles({ file: null, num: 10000, size: .3, opacity: 0.8, minRange: 50, maxRange: 500, color: 0x9999ff })
