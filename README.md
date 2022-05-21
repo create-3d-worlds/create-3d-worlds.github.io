@@ -19,6 +19,7 @@ live-server
 - [x] dovesti veličine u razmeru 1px : 1m
 - [ ] probati ai https://github.com/erosmarcon/three-steer
 - [ ] remove city-deprecated
+- [ ] ažurirati verziju
 
 ### Geometry
 
@@ -35,7 +36,7 @@ live-server
 - [x] napraviti sneg
   - [ ] sneg da prati igraca
 - [x] probati eksplozije
-- [ ] odvojiti pomagala za čestice
+- [x] odvojiti pomagala za čestice
 - [ ] implementirati BufferGeometry https://threejs.org/docs/#api/en/core/BufferGeometry
 - [x] zastariti Snow, ukloniti iz Savo
 
