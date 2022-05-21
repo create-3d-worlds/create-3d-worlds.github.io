@@ -74,6 +74,14 @@ export function createStars({ num = 10000, r = 1000, size = 3 } = {}) {
   return new THREE.Points(geometry, material)
 }
 
+/* HELPERS */
+
+export function addVelocity({ particles, min = .5, max = 3 } = {}) {
+  particles.geometry.vertices.forEach(vertex => {
+    vertex.velocity = randomInRange(min, max)
+  })
+}
+
 /* ALIASES */
 
 export const createRain = () =>
