@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, scene, renderer } from '/utils/scene.js'
 
 const loader = new THREE.TextureLoader()

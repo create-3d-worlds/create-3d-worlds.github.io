@@ -1,5 +1,5 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
-import { OrbitControls } from '/node_modules/three108/examples/jsm/controls/OrbitControls.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
+import { OrbitControls } from '/node_modules/three119/examples/jsm/controls/OrbitControls.js'
 import { createGradientSky } from './sky.js'
 import { createSunLight } from './sun.js'
 import { createGround } from './ground.js'
@@ -41,7 +41,7 @@ renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 // glb models light
 renderer.gammaFactor = 2.2
-renderer.gammaOutput = true
+renderer.outputEncoding = THREE.GammaEncoding
 // from version 112 replace with:
 // renderer.outputEncoding = THREE.sRGBEncoding
 

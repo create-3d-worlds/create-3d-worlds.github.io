@@ -1,5 +1,5 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
-import { OrbitControls } from '/node_modules/three108/examples/jsm/controls/OrbitControls.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
+import { OrbitControls } from '/node_modules/three119/examples/jsm/controls/OrbitControls.js'
 import Tree from './Tree.js'
 import { rndInt } from '../utils/helpers.js'
 import {generateTerrain} from '../utils/generateTerrain.js'

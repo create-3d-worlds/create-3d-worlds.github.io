@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
 import { randomInRange, randomNuance, getTexture } from '/utils/helpers.js'
 
 export function createGround({ size = 1000, color = 0x509f53, circle = true, file } = {}) {

@@ -7,7 +7,6 @@ camera.position.set(1.5, 2.5, -6.5)
 const controls = createOrbitControls()
 
 renderer.setClearColor(0x63adef, 1.0)
-renderer.gammaInput = renderer.gammaOutput = true
 
 const ground = createGround({ size: 50, color: 0x23ef13 })
 scene.add(ground)

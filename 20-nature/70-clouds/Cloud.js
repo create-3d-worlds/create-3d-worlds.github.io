@@ -3,7 +3,7 @@
  *
  * Ray tracing based cloud noise object.
  */
-import * as THREE from '/node_modules/three108/build/three.module.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
 import { CloudShader } from './CloudShader.js'
 
 export const Cloud = function(color) {

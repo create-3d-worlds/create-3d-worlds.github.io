@@ -1,10 +1,10 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
-import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
-import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
-import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
-import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
-import { MD2Loader } from '/node_modules/three108/examples/jsm/loaders/MD2Loader.js'
-import { FBXLoader } from '/node_modules/three108/examples/jsm/loaders/FBXLoader.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
+import { OBJLoader } from '/node_modules/three119/examples/jsm/loaders/OBJLoader.js'
+import { MTLLoader } from '/node_modules/three119/examples/jsm/loaders/MTLLoader.js'
+import { GLTFLoader } from '/node_modules/three119/examples/jsm/loaders/GLTFLoader.js'
+import { ColladaLoader } from '/node_modules/three119/examples/jsm/loaders/ColladaLoader.js'
+import { MD2Loader } from '/node_modules/three119/examples/jsm/loaders/MD2Loader.js'
+import { FBXLoader } from '/node_modules/three119/examples/jsm/loaders/FBXLoader.js'
 import { getHeight, centerObject, adjustHeight } from '/utils/helpers.js'
 
 const textureLoader = new THREE.TextureLoader()
@@ -24,7 +24,7 @@ const getScale = (mesh, newHeight) => {
 //   mesh.translateY(bottom)
 // }
 
-// need group to preserve model orientation
+// to preserve model orientation
 const createGroup = model => {
   const group = new THREE.Group()
   group.add(model)
@@ -32,7 +32,6 @@ const createGroup = model => {
 }
 
 const prepareMesh = ({ resolve, model, size, rot, animations, shouldCenter, shouldAdjustHeight, adjust }) => {
-
   const scale = size ? getScale(model, size) : 1
   model.scale.set(scale, scale, scale)
 

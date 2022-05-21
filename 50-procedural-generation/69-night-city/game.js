@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
 import { scene, camera, renderer, createOrbitControls, hemLight } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { generateCity } from '/utils/city-deprecated.js'

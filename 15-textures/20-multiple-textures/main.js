@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, scene, renderer } from '/utils/scene.js'
 
 camera.position.z = 100
@@ -13,7 +13,7 @@ for (let i = 1; i < 7; i++) materials.push(
 )
 const cube = new THREE.Mesh(
   new THREE.BoxGeometry(40, 40, 40),
-  new THREE.MeshFaceMaterial(materials)
+  materials
 )
 scene.add(cube)
 

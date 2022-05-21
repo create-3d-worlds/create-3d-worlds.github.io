@@ -1,6 +1,6 @@
 // https://threejs.org/examples/webgl_loader_md2.html
 // https://threejs.org/examples/webgl_loader_md2_control.html
-import * as THREE from '/node_modules/three108/build/three.module.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
 import { scene, renderer, camera, clock, createOrbitControls, hemLight } from '/utils/scene.js'
 import { loadModel } from '/utils/loaders.js'
 

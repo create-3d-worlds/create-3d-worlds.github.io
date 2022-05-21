@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
 import { scene, renderer, camera, createOrbitControls, hemLight } from '/utils/scene.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { createWater } from '/utils/ground.js'
@@ -10,8 +10,8 @@ hemLight({ intensity: 1.2 })
 
 const terrain = createHillyTerrain()
 scene.add(terrain)
-scene.add(createWater())
-scene.add(createTreesOnTerrain({ terrain, n: 50, mapSize: 1000, size: 25 }))
+scene.add(createWater({ size: 400 }))
+scene.add(createTreesOnTerrain({ terrain, n: 100, mapSize: 400, size: 5 }))
 
 createOrbitControls()
 camera.position.y = 100
@@ -20,7 +20,7 @@ const directLight = new THREE.DirectionalLight(0xffeedd)
 directLight.position.set(0, 0, 1)
 scene.add(directLight)
 
-const { mesh } = await loadModel({ file: 'magic-castle.obj', size: 150 })
+const { mesh } = await loadModel({ file: 'magic-castle.obj', size: 50 })
 mesh.translateY(getHeight(mesh) / 4)
 addTexture({ mesh, file: 'concrete.jpg' })
 scene.add(mesh)

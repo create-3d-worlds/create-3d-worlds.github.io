@@ -1,11 +1,12 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
-import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
+import { GLTFLoader } from '/node_modules/three119/examples/jsm/loaders/GLTFLoader.js'
 import { scene, camera, renderer, clock, initLights, createOrbitControls } from '/utils/scene.js'
 
 const mixers = []
 
 initLights()
 createOrbitControls()
+camera.position.z = 50
 
 scene.background = new THREE.Color(0x8FBCD4)
 

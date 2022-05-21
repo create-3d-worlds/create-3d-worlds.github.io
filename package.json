@@ -19,6 +19,6 @@
   "homepage": "https://github.com/mudroljub/create-rpg-game#readme",
   "dependencies": {
     "eslint": "^8.3.0",
-    "three108": "npm:three@^0.108.0"
+    "three119": "npm:three@^0.119.0"
   }
 }

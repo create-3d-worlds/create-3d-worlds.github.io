@@ -1,6 +1,6 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
 import { createBox } from '/utils/boxes.js'
-import { centerObject } from '/utils/helpers.js'
+import { centerObject, adjustHeight } from '/utils/helpers.js'
 
 const CIRCLE = Math.PI * 2
 
@@ -116,5 +116,6 @@ export function buildCastle({ rows = 10, brickInWall = 30, rowSize = 10, towerRa
   castleGeometry.rotateY(-Math.PI / 2)
   const castle = new THREE.Mesh(castleGeometry, new THREE.MeshNormalMaterial())
   centerObject(castle)
+  adjustHeight(castle)
   return castle
 }

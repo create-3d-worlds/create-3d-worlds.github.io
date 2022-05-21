@@ -1,6 +1,6 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
-import { GLTFLoader } from '/node_modules/three108/examples/jsm/loaders/GLTFLoader.js'
-import { ColladaLoader } from '/node_modules/three108/examples/jsm/loaders/ColladaLoader.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
+import { GLTFLoader } from '/node_modules/three119/examples/jsm/loaders/GLTFLoader.js'
+import { ColladaLoader } from '/node_modules/three119/examples/jsm/loaders/ColladaLoader.js'
 import { LegacyJSONLoader } from './libs/LegacyJSONLoader.js'
 
 import game from './classes/GameEngine.js'

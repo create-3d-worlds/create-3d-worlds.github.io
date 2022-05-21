@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
 import { scene, renderer, camera, createOrbitControls, createGradientSky, createSunLight } from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
 import { createFirTrees } from '/utils/trees.js'

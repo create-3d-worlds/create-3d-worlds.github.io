@@ -1,6 +1,6 @@
-import * as THREE from '/node_modules/three108/build/three.module.js'
-import { OBJLoader } from '/node_modules/three108/examples/jsm/loaders/OBJLoader.js'
-import { MTLLoader } from '/node_modules/three108/examples/jsm/loaders/MTLLoader.js'
+import * as THREE from '/node_modules/three119/build/three.module.js'
+import { OBJLoader } from '/node_modules/three119/examples/jsm/loaders/OBJLoader.js'
+import { MTLLoader } from '/node_modules/three119/examples/jsm/loaders/MTLLoader.js'
 import { scene, camera, renderer, initLights, createOrbitControls } from '/utils/scene.js'
 import { randomInRange } from '/utils/helpers.js'
 
