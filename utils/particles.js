@@ -91,6 +91,11 @@ export function updateRain({ particles, minY = -300, maxY = 300 } = {}) {
   particles.geometry.verticesNeedUpdate = true
 }
 
+export function updateSnow({ particles, minY = -300, maxY = 300, rotateY = .003 } = {}) {
+  updateRain({ particles, minY, maxY })
+  particles.rotateY(rotateY)
+}
+
 /* ALIASES */
 
 export const createRain = () =>
