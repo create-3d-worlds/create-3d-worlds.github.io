@@ -9,7 +9,7 @@ const textureLoader = new THREE.TextureLoader()
 
 /* STARS (IN CUBE) */
 
-export function createParticles({ num = 10000, color, size = .5, opacity = 1, unitAngle = 1, file = 'star.png', minRange = 100, maxRange = 1000 } = {}) {
+export function createParticles({ num = 10000, color, size = .5, opacity = 1, unitAngle = 1, file = 'star.png', minRange = 100, maxRange = 1000, depthTest = true } = {}) {
 
   const geometry = new THREE.Geometry()
   for (let i = 0; i < num; i++) {
@@ -26,8 +26,7 @@ export function createParticles({ num = 10000, color, size = .5, opacity = 1, un
     size,
     transparent: true,
     opacity,
-    // blending: THREE.AdditiveBlending,
-    // depthTest: false,
+    depthTest,
   })
   if (file) {
     material.map = textureLoader.load(`/assets/textures/${file}`)
@@ -97,4 +96,4 @@ export function updateRain({ particles, minY = -300, maxY = 300 } = {}) {
 export const createRain = () =>
   createParticles({ file: null, num: 10000, size: .3, opacity: 0.8, minRange: 50, maxRange: 500, color: 0x9999ff })
 
-export const createSnow = () => createParticles({ file: 'snowflake.png', size: 5, color: 0xffffff })
+export const createSnow = () => createParticles({ file: 'snowflake.png', size: 5, color: 0xffffff, depthTest: false })

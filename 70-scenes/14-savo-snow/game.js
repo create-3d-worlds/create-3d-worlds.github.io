@@ -5,8 +5,8 @@ import FirstPersonRenderer from '/classes/2d/FirstPersonRenderer.js'
 import Map2DRenderer from '/classes/2d/Map2DRenderer.js'
 import Player from '/classes/Player.js'
 import Tilemap from '/classes/Tilemap.js'
-import Snow from '/classes/nature/Snow.js'
 import { hemLight } from '/utils/light.js'
+import { createSnow, addVelocity, updateRain } from '/utils/particles.js'
 
 hemLight({ intensity: 1.2 })
 
@@ -30,8 +30,10 @@ player.add(camera)
 player.addSolids(walls)
 scene.add(player.mesh)
 
-const snow = new Snow({ size: 1000, flakesNum: 7500, layers: 3 })
-scene.add(...snow.layers)
+const snow = createSnow()
+scene.add(snow)
+
+addVelocity({ particles: snow, min: 0.5, max: 3 })
 
 /* LOOP */
 
@@ -40,7 +42,8 @@ void function animate() {
   const delta = clock.getDelta()
   const time = clock.getElapsedTime()
   player.update(delta)
-  snow.update()
+  updateRain({ particles: snow, minY: -1000, maxY: 300 })
+  snow.rotateY(.003)
   renderer.render(scene, camera)
   smallMapRenderer.render(player, map)
   fpsRenderer.render(time)
