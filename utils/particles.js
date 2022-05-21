@@ -82,6 +82,14 @@ export function addVelocity({ particles, min = .5, max = 3 } = {}) {
   })
 }
 
+export function updateRain({ particles, minY = -300, maxY = 300 } = {}) {
+  particles.geometry.vertices.forEach(vertex => {
+    vertex.y -= vertex.velocity
+    if (vertex.y < minY) vertex.y = maxY
+  })
+  particles.geometry.verticesNeedUpdate = true
+}
+
 /* ALIASES */
 
 export const createRain = () =>
