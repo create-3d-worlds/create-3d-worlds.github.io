@@ -14,7 +14,6 @@ let params
 let followers
 
 camera.position.set(0, 1000, 1000)
-camera.lookAt(new THREE.Vector3(0, 0, 0))
 
 const floor = createFloor({ size: 10000 })
 scene.add(floor)

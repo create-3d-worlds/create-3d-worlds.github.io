@@ -26,7 +26,7 @@ export function createWorldScene(groundParam, skyParam, lightParam, fogParam = {
 export const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000)
 camera.position.z = 4
 camera.position.y = 2
-// camera.lookAt(scene.position)
+camera.lookAt(scene.position)
 
 // RENDERER
 
