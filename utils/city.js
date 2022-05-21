@@ -91,6 +91,7 @@ export function createCity({
   colorParams = { min: 0, max: .1, colorful: .1 },
   addTexture = false,
   emptyCenter = 0,
+  night = false,
 } = {}) {
   const cityGeometry = new THREE.Geometry()
   for (let i = 0; i < numBuildings; i++) {
@@ -107,25 +108,35 @@ export function createCity({
     cityGeometry.merge(building.geometry, building.matrix)
   }
   const material = addTexture
-    ? new THREE.MeshLambertMaterial({ map: generateCityTexture(), vertexColors: THREE.FaceColors })
+    ? new THREE.MeshLambertMaterial({ map: generateCityTexture(night), vertexColors: THREE.FaceColors })
     : new THREE.MeshStandardMaterial({ vertexColors: THREE.FaceColors, side: THREE.DoubleSide })
   const city = new THREE.Mesh(cityGeometry, material)
   return city
 }
 
-function generateCityTexture() {
+const windowColor = night => {
+  const value = randomInRange(0, 84, true)
+  if (night) {
+    const chance = Math.random()
+    if (chance > .98) return `rgb(${value * 3}, ${value}, ${value})`
+    if (chance > .9) return `rgb(${value * 2}, ${value * 2}, ${value})`
+    if (chance > .85) return `rgb(${value * 2}, ${value * 2}, ${value * 2})`
+  }
+  return `rgb(${value}, ${value}, ${value})`
+}
+
+function generateCityTexture(night) {
   // beli kvadrat
   const canvas = document.createElement('canvas')
   canvas.width = 32
   canvas.height = 64
   const context = canvas.getContext('2d')
-  context.fillStyle = '#ffffff'
+  context.fillStyle = night ? '#000000' : '#ffffff'
   context.fillRect(0, 0, 32, 64)
   // crno-sive nijanse
   for (let y = 2; y < 64; y += 2)
     for (let x = 0; x < 32; x += 2) {
-      const value = Math.floor(Math.random() * 64)
-      context.fillStyle = `rgb(${value}, ${value}, ${value})`
+      context.fillStyle = windowColor(night)
       context.fillRect(x, y, 2, 1)
     }
   const canvas2 = document.createElement('canvas')
