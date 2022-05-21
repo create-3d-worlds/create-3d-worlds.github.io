@@ -29,7 +29,7 @@ export function createParticles({ num = 10000, color, size = .5, opacity = 1, un
     depthTest,
   })
   if (file) {
-    material.map = textureLoader.load(`/assets/textures/${file}`)
+    material.map = textureLoader.load(`/assets/particles/${file}`)
     material.blending = THREE.AdditiveBlending
   }
   if (color)

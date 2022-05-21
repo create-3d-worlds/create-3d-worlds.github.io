@@ -16,7 +16,7 @@ scene.add(particles)
 function createParticlesFromGeometry(geometry) {
   const material = new THREE.PointsMaterial({
     depthTest: false,
-    map: new THREE.TextureLoader().load('/assets/textures/ps_ball.png'),
+    map: new THREE.TextureLoader().load('/assets/particles/fireball.png'),
     blending: THREE.AdditiveBlending,
     opacity: 0.6,
   })
