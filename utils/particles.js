@@ -58,7 +58,7 @@ export function resetParticles({ particles, pos = [0, 0, 0], unitAngle = 1 } = {
 
 /* STARS (IN SPHERE) */
 
-export function createStars({ num = 10000, r = 1000, size = 3 } = {}) {
+export function createSimpleStars({ num = 10000, r = 1000, size = 3 } = {}) {
   const geometry = new THREE.Geometry()
   for (let i = 0; i < num; i++) {
     const lat = randomInRange(-Math.PI / 2, Math.PI / 2)
@@ -98,7 +98,10 @@ export function updateSnow({ particles, minY = -300, maxY = 300, rotateY = .003 
 
 /* ALIASES */
 
-export const createRain = () =>
-  createParticles({ file: null, num: 10000, size: .3, opacity: 0.8, minRange: 50, maxRange: 500, color: 0x9999ff })
+export const createRain = ({ file = 'raindrop.png' } = {}) =>
+  createParticles({ file, num: 10000, size: .7, opacity: 0.8, minRange: 50, maxRange: 500, color: 0x9999ff })
 
-export const createSnow = () => createParticles({ file: 'snowflake.png', size: 5, color: 0xffffff, depthTest: false })
+export const createSnow = ({ file = 'snowflake.png' } = {}) => createParticles({ file, size: 5, color: 0xffffff, depthTest: false })
+
+export const createStars = ({ file = 'star.png', color } = {}) =>
+  createParticles({ num: 10000, color, size: .5, file, minRange: 100, maxRange: 1000, depthTest: true })

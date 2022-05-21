@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three108/build/three.module.js'
 import { scene, renderer, addUIControls, createOrbitControls } from '/utils/scene.js'
-import { createStars } from '/utils/particles.js'
+import { createSimpleStars } from '/utils/particles.js'
 
 createOrbitControls()
 
@@ -28,7 +28,7 @@ const moon = createMoon()
 const moonGroup = createMoonGroup(moon, earthCameraMoon)
 earth.add(moonGroup)
 
-scene.add(createStars())
+scene.add(createSimpleStars())
 
 /* FUNCTIONS */
 
