@@ -37,6 +37,7 @@ live-server
 - [x] probati eksplozije
 - [ ] odvojiti pomagala za čestice
 - [ ] implementirati BufferGeometry https://threejs.org/docs/#api/en/core/BufferGeometry
+- [ ] zastariti Snow sa createSnow, ukloniti iz Savo
 
 ### Tilemaps
 

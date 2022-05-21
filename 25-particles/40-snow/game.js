@@ -1,15 +1,18 @@
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import Snow from '/classes/nature/Snow.js'
+import { scene, camera, renderer, hemLight } from '/utils/scene.js'
+import { createSnow, addVelocity, updateRain } from '/utils/particles.js'
 
-createOrbitControls()
+hemLight()
 
-const snow = new Snow({ size: 1000, flakesNum: 10000 })
-scene.add(...snow.layers)
+const snow = createSnow()
+scene.add(snow)
+
+addVelocity({ particles: snow, min: 0.5, max: 3 })
 
 /* LOOP */
 
 void function animate() {
-  requestAnimationFrame(animate)
-  snow.update()
+  updateRain({ particles: snow, minY: -300, maxY: 300 })
+  snow.rotateY(.003)
   renderer.render(scene, camera)
+  requestAnimationFrame(animate)
 }()
