@@ -18,7 +18,7 @@ export function createBox({ x = 0, y = 0, z = 0, size = 20, file, color = random
   return mesh
 }
 
-export const createCrate = (x, y, z, size, file = 'crate.gif') => createBox({ x, y, z, size, file })
+export const createCrate = ({ x, y, z, size, file = 'crate.gif' } = {}) => createBox({ x, y, z, size, file })
 
 export function createPlayerBox(x = 0, y = 0, z = 0, size = 2, transparent = false) {
   const box = createBox({ size })

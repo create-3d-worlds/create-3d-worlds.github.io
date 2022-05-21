@@ -1,6 +1,9 @@
 /* global THREE, SteeringEntity */
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
+import { randomInRange } from '/utils/helpers.js'
+import { createBall } from '/utils/spheres.js'
+import { createCrate } from '/utils/boxes.js'
 
 const controls = createOrbitControls()
 
@@ -12,24 +15,14 @@ camera.position.set(0, 1000, 1000)
 const floor = createFloor({ size: 10000 })
 scene.add(floor)
 
-// Ball
-const ballGeometry = new THREE.SphereGeometry(50, 32, 32)
-const ballMaterial = new THREE.MeshBasicMaterial({ color: 0xBCFF00 })
-const ball = new THREE.Mesh(ballGeometry, ballMaterial)
-ball.position.set(Math.random() * (5000 - (-5000)) + (-5000), 50, Math.random() * (5000 - (-5000)) + (-5000))
+const ball = createBall({ radius: 50 })
 scene.add(ball)
 
-// Entity Mesh
-const geometry = new THREE.BoxGeometry(100, 200, 50)
-const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true })
-const mesh = new THREE.Mesh(geometry, material)
-mesh.position.setY(100)
-
+const mesh = createCrate({ size: 100 })
 // Entity
 const entity = new SteeringEntity(mesh)
-entity.position.set(Math.random() * (5000 - (-5000)) + (-5000), 0, Math.random() * (5000 - (-5000)) + (-5000))
+entity.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
 entity.lookAtDirection = true
-
 scene.add(entity)
 
 // Plane boundaries (do not cross)
@@ -40,6 +33,7 @@ const boundaries = new THREE.Box3(new THREE.Vector3(-5000, 0, -5000), new THREE.
 void function update() {
   requestAnimationFrame(update)
   controls.update()
+
   if (entity.position.distanceTo(ball.position) > 100) {
     entity.seek(ball.position)
     if (entity.lookAtDirection)
@@ -49,7 +43,7 @@ void function update() {
   } else {
     entity.idle()
     if (entity.lookAtDirection)
-      entity.lookAt(new THREE.Vector3(ball.position.x, entity.position.y, ball.position.z))
+      entity.lookAt(ball.position)
     else
       entity.rotation.set(0, 0, 0)
   }

@@ -1,14 +1,12 @@
 /* global THREE, SteeringEntity */
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
+import { createBox } from '/utils/boxes.js'
 
 const controls = createOrbitControls()
 
 const light = new THREE.AmbientLight(0xffffff)
 scene.add(light)
-
-let entity1, entity2
-let boundaries
 
 camera.position.set(0, 1000, 1000)
 
@@ -16,48 +14,38 @@ const floor = createFloor({ size: 10000 })
 scene.add(floor)
 
 // Entity Mesh
-const geometry = new THREE.BoxGeometry(100, 200, 50)
-const material1 = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true })
-const mesh1 = new THREE.Mesh(geometry, material1)
-mesh1.position.setY(100)
+const mesh1 = createBox({ size: 100, color: 0xFFFFFF })
 
-const material2 = new THREE.MeshBasicMaterial({ color: 0xFF0000, wireframe: true })
-const mesh2 = new THREE.Mesh(geometry, material2)
-mesh2.position.setY(100)
+const mesh2 = createBox({ size: 100, color: 0xFF0000 })
 
 // Entities
-entity1 = new SteeringEntity(mesh1)
+const entity1 = new SteeringEntity(mesh1)
 entity1.maxSpeed = 15
 entity1.lookAtDirection = true
 entity1.position.set(Math.random() * (5000 - (-5000)) + (-5000), 0, Math.random() * (5000 - (-5000)) + (-5000))
 scene.add(entity1)
 
-entity2 = new SteeringEntity(mesh2)
+const entity2 = new SteeringEntity(mesh2)
 entity2.maxSpeed = 10
 entity2.lookAtDirection = true
 entity2.position.set(Math.random() * (5000 - (-5000)) + (-5000), 0, Math.random() * (5000 - (-5000)) + (-5000))
 scene.add(entity2)
 
 // Plane boundaries (do not cross)
-boundaries = new THREE.Box3(new THREE.Vector3(-5000, 0, -5000), new THREE.Vector3(5000, 0, 5000))
+const boundaries = new THREE.Box3(new THREE.Vector3(-5000, 0, -5000), new THREE.Vector3(5000, 0, 5000))
 
-animate()
-
-function animate() {
+void function animate() {
   requestAnimationFrame(animate)
   controls.update()
 
   const distance = entity1.position.distanceTo(entity2.position)
 
   if (distance > 50) {
-
     entity1.flee(entity2.position)
-
     if (entity1.lookAtDirection)
       entity1.lookWhereGoing(true)
     else
       entity1.rotation.set(0, 0, 0)
-
     entity2.seek(entity1.position)
 
     if (entity2.lookAtDirection)
@@ -65,7 +53,6 @@ function animate() {
     else
       entity2.rotation.set(0, 0, 0)
   } else {
-
     entity1.idle()
     if (entity1.lookAtDirection)
       entity1.lookAt(entity2.position)
@@ -81,12 +68,11 @@ function animate() {
 
   entity1.update()
   entity2.update()
-
   entity1.bounce(boundaries)
   entity2.bounce(boundaries)
 
   renderer.render(scene, camera)
-}
+}()
 
 document.addEventListener('mousedown', onClick, true)
 
