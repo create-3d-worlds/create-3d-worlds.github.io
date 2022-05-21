@@ -17,9 +17,10 @@ live-server
   - [x] hemLight to lights.js
 - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
 - [x] dovesti veličine u razmeru 1px : 1m
-- [ ] probati ai https://github.com/erosmarcon/three-steer
+- [x] probati ai https://github.com/erosmarcon/three-steer
 - [x] remove city-deprecated
 - [x] ažurirati verziju (na 119)
+- [ ] isprobati nove 3d modele (i sa starog kompa)
 
 ### Geometry
 

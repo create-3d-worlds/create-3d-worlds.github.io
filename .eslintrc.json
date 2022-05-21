@@ -9,6 +9,7 @@
     "arrow-parens": ["warn", "as-needed"],
     "arrow-spacing": "warn",
     "block-scoped-var": "error",
+    "brace-style": ["warn", "1tbs"],
     "comma-spacing": ["warn", { "before": false, "after": true }],
     "constructor-super": "error",
     "curly": ["warn", "multi"],
