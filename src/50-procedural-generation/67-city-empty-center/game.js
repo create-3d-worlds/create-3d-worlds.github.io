@@ -15,7 +15,7 @@ camera.position.set(0, size * .3, size * .4)
 createOrbitControls()
 renderer.setClearColor(0x070b34)
 
-const floor = createFloor({ size: size * 1.1, circle: false, color: 0x101018 })
+const floor = createFloor({ size: size * 1.1, color: 0x101018 })
 const lampposts = createLampposts({ size, numLampposts, circle: false })
 const streetLights = createCityLights({ size, numLights: numCityLights })
 

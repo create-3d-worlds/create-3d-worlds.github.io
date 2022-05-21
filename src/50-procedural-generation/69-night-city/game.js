@@ -12,7 +12,7 @@ const controls = createOrbitControls()
 camera.position.set(0, 100, 400)
 camera.lookAt(new THREE.Vector3(0, 100, 0))
 
-scene.add(createFloor({ size, circle: false, color: 0x333333 }))
+scene.add(createFloor({ size, color: 0x333333 }))
 scene.add(createCity({ numBuildings, size, circle: false, night: true, rotateEvery: 2, enlargeEvery: 10, addTexture: true, addWindows: false, colorParams: { colorful: .035, max: 1 } }))
 
 /* INIT */

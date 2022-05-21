@@ -1,5 +1,6 @@
 /* global THREE, SteeringEntity */
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
+import { createFloor } from '/utils/ground.js'
 
 const controls = createOrbitControls()
 
@@ -15,11 +16,7 @@ let params
 camera.position.set(0, 1000, 1000)
 camera.lookAt(new THREE.Vector3(0, 0, 0))
 
-// Floor
-const floorGeometry = new THREE.PlaneGeometry(10000, 10000, 32)
-const floorMaterial = new THREE.MeshBasicMaterial({ color: 0x666666, transparent: true, opacity: 0.5 })
-const floor = new THREE.Mesh(floorGeometry, floorMaterial)
-floor.rotation.x = -Math.PI * .5
+const floor = createFloor({ size: 10000 })
 scene.add(floor)
 
 params = { maxSpeed: 10, maxForce: 5, lookAtDirection: true, wanderDistance: 10, wanderRadius: 5, wanderRange: 1, numEntities: 20 }

@@ -53,5 +53,5 @@ export function createWater({ size = 1000, opacity = 0.75, file } = {}) {
 }
 
 export function createFloor(params) {
-  return createGround({ color: 0x808080, ...params })
+  return createGround({ color: 0x808080, circle: false, ...params })
 }

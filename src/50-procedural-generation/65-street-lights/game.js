@@ -14,7 +14,7 @@ createOrbitControls()
 const ambient = new THREE.AmbientLight(0xffffff, 0.1)
 scene.add(ambient)
 
-scene.add(createFloor({ size: size * 1.1 }))
+scene.add(createFloor({ size: size * 1.1, cirle: true }))
 scene.add(createLampposts({ size, numLampposts }))
 
 /* LOOP */
