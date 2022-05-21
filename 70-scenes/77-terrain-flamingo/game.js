@@ -1,6 +1,5 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
-
-import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
+import { camera, scene, renderer } from '/utils/scene.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { createGradientSky } from '/utils/sky.js'
@@ -10,12 +9,10 @@ import Zeppelin from '/classes/aircrafts/Zeppelin.js'
 import keyboard from '/classes/Keyboard.js'
 import { loadModel } from '/utils/loaders.js'
 
-const controls = createOrbitControls()
-
 scene.add(createGradientSky({ r: 5000 }))
 const light = createSunLight({ x: 500, y: 2000, z: 100, far: 5000 })
 scene.add(light)
-scene.remove(scene.getObjectByName('hemisphereLight'))
+
 scene.fog = new THREE.Fog(0xffffff, 1, 5000)
 
 const water = createGround({ color: 0x003133 })
@@ -26,21 +23,18 @@ scene.add(ground)
 
 const { mesh, animations } = await loadModel({ file: 'ptice/flamingo.glb', size: 1, rot: { axis: [0, 1, 0], angle: Math.PI } })
 
-const flamingo = new Zeppelin({ mesh, animations, speed: .05, minHeight: 1 })
+const flamingo = new Zeppelin({ mesh, animations, speed: .01, maxSpeed: .01, minHeight: 1 })
 scene.add(mesh)
 
 mesh.position.y = 30
 
-controls.target = mesh.position
-scene.getObjectByName('sunLight').target = mesh
 flamingo.addSolids(ground, water)
 
 /* LOOP */
 
 renderer.setAnimationLoop(() => {
-  controls.update()
   flamingo.update()
 
-  if (!keyboard.pressed.mouse) cameraFollowObject(camera, flamingo.mesh, { distance: 3, y: 2 })
+  if (!keyboard.pressed.mouse) cameraFollowObject(camera, flamingo.mesh, { distance: 0.2, y: 0 })
   renderer.render(scene, camera)
 })

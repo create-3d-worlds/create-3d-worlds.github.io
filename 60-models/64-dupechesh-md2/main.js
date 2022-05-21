@@ -9,11 +9,13 @@ import { dirLight } from '/utils/light.js'
 
 dirLight({ intensity: 1.5 })
 const controls = createOrbitControls()
-camera.position.set(0, 2, 6)
+camera.position.set(0, 2, 3)
 
-const { mesh, animations } = await loadModel({ file: 'ogro/ogro.md2', texture: 'ogro/skins/arboshak.png', size: 2, rot: { axis: [0, 1, 0], angle: Math.PI * .5 } })
+const { mesh, animations } = await loadModel({ file: 'ogro/ogro.md2', texture: 'ogro/skins/arboshak.png', size: 2, rot: { axis: [0, 1, 0], angle: Math.PI * .5 }, shouldCenter: true, shouldAdjustHeight: true })
+
 const player = new Player({ mesh, animations, animNames: dupecheshAnimations })
 scene.add(mesh)
+console.log(player.position)
 controls.target = mesh.position
 
 const ground = createGround({ size: 10 })

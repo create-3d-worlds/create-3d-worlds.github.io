@@ -23,7 +23,6 @@ class GameEngine {
     this.scene = new THREE.Scene()
     this.renderer = new THREE.WebGLRenderer({ antialias: true, maxLights: 100, alpha: true })
     this.renderer.setSize(innerWidth, innerHeight)
-    this.renderer.gammaInput = true
     this.renderer.physicallyBasedShading = true
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMapAutoUpdate = true

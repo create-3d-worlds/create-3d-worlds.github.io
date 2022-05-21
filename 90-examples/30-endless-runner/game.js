@@ -44,7 +44,7 @@ const earth = createWorldSphere({ radius: worldRadius })
 earth.position.set(0, -24, 2)
 scene.add(earth)
 
-const particles = createParticles({ num: 30 })
+const particles = createParticles({ num: 30, color: 0xffffff, size: .1 })
 scene.add(particles)
 
 for (let i = 0; i < treesInPool; i++) treesPool.push(createFir({ size: 1 }))
