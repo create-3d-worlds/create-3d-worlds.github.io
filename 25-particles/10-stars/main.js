@@ -1,9 +1,9 @@
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createStars } from '/utils/particles.js'
+import { createParticles } from '/utils/particles.js'
 
 createOrbitControls()
 
-const stars = createStars()
+const stars = createParticles() // compare with createStars()
 scene.add(stars)
 
 /* LOOP */

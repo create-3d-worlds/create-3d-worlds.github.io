@@ -5,34 +5,38 @@ import { randomInRange } from '/utils/helpers.js'
 createOrbitControls()
 hemLight()
 
-const dropsNum = 10000
-const geometry = new THREE.Geometry()
+function createRain({ num = 10000, size = 1, opacity = 0.8, minRange = -1000, maxRange = 1000, color = 0x9999ff } = {}) {
+  const geometry = new THREE.Geometry()
+  for (let i = 0; i < num; i++) {
+    const rainDrop = new THREE.Vector3()
+    rainDrop.x = randomInRange(minRange, maxRange)
+    rainDrop.y = randomInRange(minRange, maxRange)
+    rainDrop.z = randomInRange(minRange, maxRange)
+    rainDrop.velocity = randomInRange(5, 10)
+    geometry.vertices.push(rainDrop)
+  }
 
-for (let i = 0; i < dropsNum; i++) {
-  const rainDrop = new THREE.Vector3()
-  rainDrop.x = randomInRange(-1000, 1000)
-  rainDrop.y = randomInRange(-1000, 1000)
-  rainDrop.z = randomInRange(-1000, 1000)
-  rainDrop.velocity = randomInRange(5, 10)
-  geometry.vertices.push(rainDrop)
+  const material = new THREE.PointsMaterial({
+    color,
+    transparent: true,
+    opacity,
+    size
+  })
+  const rain = new THREE.Points(geometry, material)
+  return rain
 }
 
-const material = new THREE.PointsMaterial({
-  color: 0x9999ff,
-  transparent: true,
-  opacity: 0.8
-})
-const rain = new THREE.Points(geometry, material)
+const rain = createRain()
 scene.add(rain)
 
 /* LOOP */
 
 void function animate() {
-  geometry.vertices.forEach(p => {
+  rain.geometry.vertices.forEach(p => {
     p.y -= p.velocity
     if (p.y < -200) p.y = 200
   })
-  geometry.verticesNeedUpdate = true
+  rain.geometry.verticesNeedUpdate = true
   renderer.render(scene, camera)
   requestAnimationFrame(animate)
 }()
