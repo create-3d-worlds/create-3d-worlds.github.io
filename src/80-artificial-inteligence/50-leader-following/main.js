@@ -13,6 +13,8 @@ camera.position.set(0, 1000, 1000)
 const floor = createFloor({ size: 10000 })
 scene.add(floor)
 
+const numFollowers = 20
+
 const mesh1 = createBox({ size: 100, yModifier: 2 })
 
 const entity1 = new SteeringEntity(mesh1)
@@ -23,11 +25,11 @@ entity1.wanderRadius = 5
 entity1.wanderRange = 1
 scene.add(entity1)
 
-const params = { maxSpeed: 15, maxForce: 5, wanderDistance: 10, wanderRadius: 5, wanderRange: 1, numFollowers: 20, distance: 400, separationRadius: 300, maxSeparation: 500, leaderSightRadius: 1000, arrivalThreshold: 200 }
+const params = { maxSpeed: 15, maxForce: 5, distance: 400, separationRadius: 300, maxSeparation: 500, leaderSightRadius: 1000, arrivalThreshold: 200 }
 
 const followers = []
 
-for (let i = 0; i < params.numFollowers; i++) {
+for (let i = 0; i < numFollowers; i++) {
   const mesh = createBox({ size: 100, yModifier: 2, color: 0x000000 })
   mesh.position.setY(100)
   const entity = new SteeringEntity(mesh)
