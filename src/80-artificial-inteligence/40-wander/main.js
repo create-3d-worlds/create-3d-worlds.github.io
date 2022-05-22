@@ -1,45 +1,32 @@
 /* global THREE, SteeringEntity */
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
+import { ambLight } from '/utils/light.js'
+import { randomInRange } from '/utils/helpers.js'
+import { createBox } from '/utils/boxes.js'
+
+ambLight()
 
 const controls = createOrbitControls()
-
-const light = new THREE.AmbientLight(0xffffff)
-scene.add(light)
-
-let entity
-let ball
-let boundaries
-let entities
-let params
-
 camera.position.set(0, 1000, 1000)
 
 const floor = createFloor({ size: 10000 })
 scene.add(floor)
 
-params = { maxSpeed: 10, maxForce: 5, lookAtDirection: true, wanderDistance: 10, wanderRadius: 5, wanderRange: 1, numEntities: 20 }
+const params = { maxSpeed: 10, maxForce: 5, lookAtDirection: true, wanderDistance: 10, wanderRadius: 5, wanderRange: 1, numEntities: 20 }
 
-// Entity Mesh
-const geometry = new THREE.BoxGeometry(100, 200, 50)
-const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true })
-
-// Entities
-entities = []
+const entities = []
 for (let i = 0;i < params.numEntities;i++) {
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.setY(100)
+  const mesh = createBox({ size: 100, yModifier: 2 })
   const entity = new SteeringEntity(mesh)
-  entity.position.set(Math.random() * (5000 - (-5000)) + (-5000), 0, Math.random() * (5000 - (-5000)) + (-5000))
+  entity.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
   entities.push(entity)
   scene.add(entity)
 }
 
-// Plane boundaries (do not cross)
-boundaries = new THREE.Box3(new THREE.Vector3(-5000, 0, -5000), new THREE.Vector3(5000, 0, 5000))
+const boundaries = new THREE.Box3(new THREE.Vector3(-5000, 0, -5000), new THREE.Vector3(5000, 0, 5000))
 
-animate()
-function animate() {
+void function animate() {
   requestAnimationFrame(animate)
 
   for (let i = 0;i < entities.length;i++) {
@@ -59,4 +46,4 @@ function animate() {
   }
   controls.update()
   renderer.render(scene, camera)
-}
+}()
