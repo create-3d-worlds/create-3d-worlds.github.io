@@ -2,7 +2,7 @@
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
 import { createBox } from '/utils/boxes.js'
-import { randomInRange } from '/utils/helpers.js'
+import { randomInRange, getIntersects } from '/utils/helpers.js'
 import { ambLight } from '/utils/light.js'
 
 ambLight()
@@ -76,13 +76,8 @@ void function animate() {
 
 document.addEventListener('mousedown', onClick, true)
 
-function onClick(event) {
-  if (event) {
-    const mouse3D = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1, 0)
-    const raycaster = new THREE.Raycaster()
-    raycaster.setFromCamera(mouse3D, camera)
-    const intersects = raycaster.intersectObjects(scene.children)
-    if (intersects.length > 0)
-      entity1.position.set(intersects[0].point.x, intersects[0].point.y, intersects[0].point.z)
-  }
+function onClick(e) {
+  const intersects = getIntersects(e, camera, scene)
+  if (intersects.length > 0)
+    entity1.position.set(intersects[0].point.x, intersects[0].point.y, intersects[0].point.z)
 }

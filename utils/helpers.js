@@ -1,4 +1,5 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
+import { scene as defaultScene, camera as defaultCamera } from '/utils/scene.js'
 
 /* MATH */
 
@@ -37,7 +38,7 @@ export function randomInSquare(size, emptyCenter = 0) {
 
 export const degToRad = deg => deg * Math.PI / 180
 
-export const mouseToWorld = (e, camera) => {
+export const mouseToWorld = (e, camera = defaultCamera) => {
   const mouse3D = new THREE.Vector3(
     e.clientX / window.innerWidth * 2 - 1,
     -e.clientY / window.innerHeight * 2 + 1,
@@ -45,6 +46,18 @@ export const mouseToWorld = (e, camera) => {
   )
   mouse3D.unproject(camera)
   return mouse3D
+}
+
+export function getIntersects(e, camera = defaultCamera, scene = defaultScene) {
+  const mouse3D = new THREE.Vector3(
+    e.clientX / window.innerWidth * 2 - 1,
+    -e.clientY / window.innerHeight * 2 + 1,
+    0
+  )
+  const raycaster = new THREE.Raycaster()
+  raycaster.setFromCamera(mouse3D, camera)
+  const intersects = raycaster.intersectObjects(scene.children)
+  return intersects
 }
 
 /* OBJECTS */
