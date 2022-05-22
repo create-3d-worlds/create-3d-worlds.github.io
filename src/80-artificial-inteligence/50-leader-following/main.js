@@ -8,59 +8,51 @@ import { randomInRange, getIntersects } from '/utils/helpers.js'
 ambLight()
 
 const controls = createOrbitControls()
-camera.position.set(0, 1000, 1000)
+camera.position.set(0, 100, 100)
 
-const floor = createFloor({ size: 10000 })
+const floor = createFloor({ size: 1000 })
 scene.add(floor)
 
-const numFollowers = 20
-
-const mesh1 = createBox({ size: 100, yModifier: 2 })
-
-const entity1 = new SteeringEntity(mesh1)
-entity1.maxSpeed = 15
-entity1.position.set(randomInRange(-2500, 2500), 0, randomInRange(-2500, 2500))
-entity1.wanderDistance = 10
-entity1.wanderRadius = 5
-entity1.wanderRange = 1
-scene.add(entity1)
-
-const params = { maxSpeed: 15, maxForce: 5, distance: 400, separationRadius: 300, maxSeparation: 500, leaderSightRadius: 1000, arrivalThreshold: 200 }
+const whiteBox = createBox({ size: 10, yModifier: 2 })
+const leader = new SteeringEntity(whiteBox)
+leader.maxSpeed = 1.5
+leader.position.set(randomInRange(-250, 250), 0, randomInRange(-250, 250))
+leader.wanderDistance = 5
+leader.wanderRadius = 2.5
+leader.wanderRange = .5
+scene.add(leader)
 
 const followers = []
-
-for (let i = 0; i < numFollowers; i++) {
-  const mesh = createBox({ size: 100, yModifier: 2, color: 0x000000 })
-  mesh.position.setY(100)
+for (let i = 0; i < 20; i++) {
+  const mesh = createBox({ size: 10, yModifier: 2, color: 0x000000 })
   const entity = new SteeringEntity(mesh)
-  entity.position.set(randomInRange(-2500, 2500), 0, randomInRange(-2500, 2500))
-  entity.maxSpeed = params.maxSpeed
-  entity.maxForce = params.maxForce
+  entity.position.set(randomInRange(-250, 250), 0, randomInRange(-250, 250))
+  entity.maxSpeed = 1.5,
   followers.push(entity)
   scene.add(entity)
 }
 
-const boundaries = new THREE.Box3(new THREE.Vector3(-5000, 0, -5000), new THREE.Vector3(5000, 0, 5000))
+const boundaries = new THREE.Box3(new THREE.Vector3(-500, 0, -500), new THREE.Vector3(500, 0, 500))
 
 /* LOOP */
+
+const params = { distance: 40, separationRadius: 30, maxSeparation: 50, leaderSightRadius: 100, arrivalThreshold: 20 }
 
 void function animate() {
   requestAnimationFrame(animate)
   controls.update()
-  entity1.wander()
-  entity1.lookWhereGoing(true)
+
+  leader.wander()
+  leader.lookWhereGoing(true)
+  leader.update()
+  leader.bounce(boundaries)
 
   followers.forEach(follower => {
-    follower.maxSpeed = params.maxSpeed
-    follower.maxForce = params.maxForce
-    follower.followLeader(entity1, followers, params.distance, params.separationRadius, params.maxSeparation, params.leaderSightRadius, params.arrivalThreshold)
+    follower.followLeader(leader, followers, params.distance, params.separationRadius, params.maxSeparation, params.leaderSightRadius, params.arrivalThreshold)
     follower.lookWhereGoing(true)
     follower.update()
     follower.bounce(boundaries)
   })
-
-  entity1.update()
-  entity1.bounce(boundaries)
 
   renderer.render(scene, camera)
 }()
@@ -71,6 +63,8 @@ document.addEventListener('mousedown', onClick, true)
 
 function onClick(e) {
   const intersects = getIntersects(e, camera, scene)
-  if (intersects.length > 0)
-    entity1.position.set(intersects[0].point.x, intersects[0].point.y, intersects[0].point.z)
+  if (intersects.length > 0) {
+    const { x, y, z } = intersects[0].point
+    leader.position.set(x, y, z)
+  }
 }
