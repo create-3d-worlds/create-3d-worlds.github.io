@@ -1,70 +1,59 @@
 /* global THREE, SteeringEntity */
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
+import { ambLight } from '/utils/light.js'
+import { createBall } from '/utils/spheres.js'
+import { createBox } from '/utils/boxes.js'
+import { randomInRange } from '/utils/helpers.js'
+
+ambLight()
 
 const controls = createOrbitControls()
-
-const light = new THREE.AmbientLight(0xffffff)
-scene.add(light)
-
-let entity1, entity2, entity3
-let ball
-let boundaries
-
 camera.position.set(0, 1000, 1000)
 
 const floor = createFloor({ size: 10000 })
 scene.add(floor)
 
 // Ball
-const ballGeometry = new THREE.SphereGeometry(50, 32, 32)
-const ballMaterial = new THREE.MeshBasicMaterial({ color: 0xBCFF00 })
-ball = new THREE.Mesh(ballGeometry, ballMaterial)
-ball.position.set(Math.random() * (5000 - (-5000)) + (-5000), 50, Math.random() * (5000 - (-5000)) + (-5000))
+const ball = createBall({ radius: 50 })
+ball.position.set(randomInRange(-5000, 5000), 50, randomInRange(-5000, 5000))
 scene.add(ball)
 
 // Entity Mesh
-const geometry = new THREE.BoxGeometry(100, 200, 50)
-const material1 = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true })
-const mesh1 = new THREE.Mesh(geometry, material1)
+const mesh1 = createBox({ size: 100, color: 0xFFFFFF })
 mesh1.position.setY(100)
 
-const material2 = new THREE.MeshBasicMaterial({ color: 0xFF0000, wireframe: true })
-const mesh2 = new THREE.Mesh(geometry, material2)
+const mesh2 = createBox({ size: 100, color: 0xFF0000 })
 mesh2.position.setY(100)
 
-const material3 = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true })
-const mesh3 = new THREE.Mesh(geometry, material3)
+const mesh3 = createBox({ size: 100, color: 0x000000 })
 mesh3.position.setY(100)
-// Entities
 
-// #1
-entity1 = new SteeringEntity(mesh1)
+// Entities
+const entity1 = new SteeringEntity(mesh1)
 entity1.maxSpeed = 15
 entity1.lookAtDirection = true
-entity1.position.set(Math.random() * (5000 - (-5000)) + (-5000), 0, Math.random() * (5000 - (-5000)) + (-5000))
+entity1.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
 scene.add(entity1)
 
-// #2
-entity2 = new SteeringEntity(mesh2)
+const entity2 = new SteeringEntity(mesh2)
 entity2.maxSpeed = 10
 entity2.lookAtDirection = true
-entity2.position.set(Math.random() * (5000 - (-5000)) + (-5000), 0, Math.random() * (5000 - (-5000)) + (-5000))
+entity2.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
 scene.add(entity2)
 
-// #3
-entity3 = new SteeringEntity(mesh3)
+const entity3 = new SteeringEntity(mesh3)
 entity3.maxSpeed = 10
 entity3.lookAtDirection = true
-entity3.position.set(Math.random() * (5000 - (-5000)) + (-5000), 0, Math.random() * (5000 - (-5000)) + (-5000))
+entity3.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
 scene.add(entity3)
 
 // Plane boundaries (do not cross)
-boundaries = new THREE.Box3(new THREE.Vector3(-5000, 0, -5000), new THREE.Vector3(5000, 0, 5000))
+const boundaries = new THREE.Box3(new THREE.Vector3(-5000, 0, -5000), new THREE.Vector3(5000, 0, 5000))
 
-animate()
+/* LOOP */
 
-function animate() {
+void function animate() {
   requestAnimationFrame(animate)
   controls.update()
 
@@ -124,21 +113,23 @@ function animate() {
   entity3.update()
 
   renderer.render(scene, camera)
-}
+}()
+
+/* EVENTS */
 
 document.addEventListener('mousedown', onClick, true)
 document.addEventListener('mousemove', onMouseMove, true)
 
 function onClick(event) {
-  if (event.altKey) {
+  if (event) {
     const mouse3D = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1, 0)
     const raycaster = new THREE.Raycaster()
     raycaster.setFromCamera(mouse3D, camera)
     const intersects = raycaster.intersectObjects(scene.children)
     if (intersects.length > 0) {
-      entity1.position.set(Math.random() * (5000 - (-5000)) + (-5000), 0, Math.random() * (5000 - (-5000)) + (-5000))
-      entity2.position.set(Math.random() * (5000 - (-5000)) + (-5000), 0, Math.random() * (5000 - (-5000)) + (-5000))
-      entity3.position.set(Math.random() * (5000 - (-5000)) + (-5000), 0, Math.random() * (5000 - (-5000)) + (-5000))
+      entity1.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
+      entity2.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
+      entity3.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
     }
   }
 }

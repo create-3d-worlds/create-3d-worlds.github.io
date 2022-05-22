@@ -88,7 +88,7 @@ function animate() {
 document.addEventListener('mousedown', onClick, true)
 
 function onClick(event) {
-  if (event.altKey) {
+  if (event) {
     const mouse3D = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1, 0)
     const raycaster = new THREE.Raycaster()
     raycaster.setFromCamera(mouse3D, camera)

@@ -4,12 +4,11 @@ import { createFloor } from '/utils/ground.js'
 import { randomInRange } from '/utils/helpers.js'
 import { createBall } from '/utils/spheres.js'
 import { createCrate } from '/utils/boxes.js'
+import { ambLight } from '/utils/light.js'
+
+ambLight()
 
 const controls = createOrbitControls()
-
-const light = new THREE.AmbientLight(0xffffff)
-scene.add(light)
-
 camera.position.set(0, 100, 100)
 
 const floor = createFloor({ size: 1000 })
