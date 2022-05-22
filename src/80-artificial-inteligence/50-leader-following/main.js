@@ -53,17 +53,17 @@ void function animate() {
   else
     entity1.rotation.set(0, 0, 0)
 
-  for (let i = 0; i < followers.length; i++) {
-    followers[i].maxSpeed = params.maxSpeed
-    followers[i].maxForce = params.maxForce
-    followers[i].followLeader(entity1, followers, params.distance, params.separationRadius, params.maxSeparation, params.leaderSightRadius, params.arrivalThreshold)
+  followers.forEach(follower => {
+    follower.maxSpeed = params.maxSpeed
+    follower.maxForce = params.maxForce
+    follower.followLeader(entity1, followers, params.distance, params.separationRadius, params.maxSeparation, params.leaderSightRadius, params.arrivalThreshold)
     if (params.lookAtDirection)
-      followers[i].lookWhereGoing(true)
+      follower.lookWhereGoing(true)
     else
-      followers[i].rotation.set(0, 0, 0)
-    followers[i].update()
-    followers[i].bounce(boundaries)
-  }
+      follower.rotation.set(0, 0, 0)
+    follower.update()
+    follower.bounce(boundaries)
+  })
 
   entity1.update()
   entity1.bounce(boundaries)
