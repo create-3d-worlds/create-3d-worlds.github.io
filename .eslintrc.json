@@ -52,6 +52,7 @@
     "prefer-spread": "error",
     "quotes": ["warn", "single"],
     "semi": ["warn", "never"],
+    "semi-spacing": ["warn", {"before": false, "after": true}],
     "space-before-blocks": "warn",
     "space-before-function-paren": ["warn", "never"],
     "space-in-parens": ["warn", "never"],
