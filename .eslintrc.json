@@ -45,7 +45,7 @@
     "no-var": "error",
     "object-curly-spacing": ["warn", "always"],
     "object-shorthand": "warn",
-    "operator-assignment": ["error", "always"],
+    "operator-assignment": ["warn", "always"],
     "prefer-arrow-callback": "warn",
     "prefer-const": "warn",
     "prefer-destructuring": ["warn", {"object": true, "array": false}],
