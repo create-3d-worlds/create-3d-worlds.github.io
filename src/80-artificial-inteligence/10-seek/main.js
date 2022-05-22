@@ -10,23 +10,24 @@ const controls = createOrbitControls()
 const light = new THREE.AmbientLight(0xffffff)
 scene.add(light)
 
-camera.position.set(0, 1000, 1000)
+camera.position.set(0, 100, 100)
 
-const floor = createFloor({ size: 10000 })
+const floor = createFloor({ size: 1000 })
 scene.add(floor)
 
-const ball = createBall({ radius: 50 })
+const ball = createBall({ radius: 5 })
 scene.add(ball)
 
-const mesh = createCrate({ size: 100 })
+const mesh = createCrate({ size: 10 })
 // Entity
 const entity = new SteeringEntity(mesh)
-entity.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
+entity.position.set(randomInRange(-500, 500), 0, randomInRange(-500, 500))
 entity.lookAtDirection = true
+entity.maxSpeed = 1
 scene.add(entity)
 
 // Plane boundaries (do not cross)
-const boundaries = new THREE.Box3(new THREE.Vector3(-5000, 0, -5000), new THREE.Vector3(5000, 0, 5000))
+const boundaries = new THREE.Box3(new THREE.Vector3(-500, 0, -500), new THREE.Vector3(500, 0, 500))
 
 /* LOOP */
 
@@ -34,7 +35,7 @@ void function update() {
   requestAnimationFrame(update)
   controls.update()
 
-  if (entity.position.distanceTo(ball.position) > 100) {
+  if (entity.position.distanceTo(ball.position) > 10) {
     entity.seek(ball.position)
     if (entity.lookAtDirection)
       entity.lookWhereGoing(true)
@@ -57,11 +58,11 @@ void function update() {
 
 document.addEventListener('mousemove', onMouseMove, true)
 
-function onMouseMove(event) {
-  const mouse3D = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1, 0)
+function onMouseMove(e) {
+  const mouse3D = new THREE.Vector3((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1, 0)
   const raycaster = new THREE.Raycaster()
   raycaster.setFromCamera(mouse3D, camera)
   const intersects = raycaster.intersectObjects(scene.children)
   if (intersects.length > 0)
-    ball.position.set(intersects[0].point.x, 50, intersects[0].point.z)
+    ball.position.set(intersects[0].point.x, 5, intersects[0].point.z)
 }
