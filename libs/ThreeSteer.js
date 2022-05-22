@@ -151,7 +151,7 @@ Entity.prototype = Object.assign(Object.create(THREE.Group.prototype), {
   }
 })
 
-SteeringEntity = function(mesh) {
+const SteeringEntity = function(mesh) {
 
   Entity.call(this, mesh)
 
@@ -427,6 +427,4 @@ Object.defineProperty(THREE.Vector3.prototype, 'angle', {
     this.x = Math.cos(value) * this.length()
     this.z = Math.sin(value) * this.length()
   }
-
 })
-
