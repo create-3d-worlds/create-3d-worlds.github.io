@@ -31,16 +31,16 @@ const boundaries = new THREE.Box3(new THREE.Vector3(-500, 0, -500), new THREE.Ve
 void function animate() {
   requestAnimationFrame(animate)
 
-  for (let i = 0; i < entities.length; i++) {
-    entities[i].wander()
+  entities.forEach(entity => {
+    entity.wander()
     if (lookAtDirection)
-      entities[i].lookWhereGoing(true)
+      entity.lookWhereGoing(true)
     else
-      entities[i].rotation.set(0, 0, 0)
+      entity.rotation.set(0, 0, 0)
+    entity.update()
+    entity.bounce(boundaries)
+  })
 
-    entities[i].update()
-    entities[i].bounce(boundaries)
-  }
   controls.update()
   renderer.render(scene, camera)
 }()

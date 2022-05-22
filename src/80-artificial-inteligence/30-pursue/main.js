@@ -48,7 +48,6 @@ entity3.lookAtDirection = true
 entity3.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
 scene.add(entity3)
 
-// Plane boundaries (do not cross)
 const boundaries = new THREE.Box3(new THREE.Vector3(-5000, 0, -5000), new THREE.Vector3(5000, 0, 5000))
 
 /* LOOP */
