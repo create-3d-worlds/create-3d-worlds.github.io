@@ -32,19 +32,16 @@ mesh3.position.setY(100)
 // Entities
 const entity1 = new SteeringEntity(mesh1)
 entity1.maxSpeed = 15
-entity1.lookAtDirection = true
 entity1.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
 scene.add(entity1)
 
 const entity2 = new SteeringEntity(mesh2)
 entity2.maxSpeed = 10
-entity2.lookAtDirection = true
 entity2.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
 scene.add(entity2)
 
 const entity3 = new SteeringEntity(mesh3)
 entity3.maxSpeed = 10
-entity3.lookAtDirection = true
 entity3.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
 scene.add(entity3)
 
@@ -60,51 +57,30 @@ void function animate() {
   entity2.avoid([entity1, entity3])
   entity3.avoid([entity1, entity2])
 
-  // entity 1
   if (entity1.position.distanceTo(ball.position) > 100) {
     entity1.seek(ball.position)
-    if (entity1.lookAtDirection)
-      entity1.lookWhereGoing(true)
-    else
-      entity1.rotation.set(0, 0, 0)
+    entity1.lookWhereGoing(true)
   } else {
     entity1.idle()
-    if (entity1.lookAtDirection)
-      entity1.lookAt(new THREE.Vector3(ball.position.x, entity1.position.y, ball.position.z))
-    else
-      entity1.rotation.set(0, 0, 0)
+    entity1.lookAt(new THREE.Vector3(ball.position.x, entity1.position.y, ball.position.z))
   }
 
-  // entity 2
   if (entity2.position.distanceTo(entity1.position) > 200) {
     entity2.seek(entity1.position)
-    if (entity2.lookAtDirection)
-      entity2.lookWhereGoing(true)
-    else
-      entity2.rotation.set(0, 0, 0)
+    entity2.lookWhereGoing(true)
     entity2.bounce(boundaries)
   } else {
     entity2.idle()
-    if (entity2.lookAtDirection)
-      entity2.lookAt(entity1.position)
-    else
-      entity2.rotation.set(0, 0, 0)
+    entity2.lookAt(entity1.position)
   }
 
-  // entity 3
   if (entity3.position.distanceTo(entity1.position) > 200) {
     entity3.pursue(entity1)
-    if (entity3.lookAtDirection)
-      entity3.lookWhereGoing(true)
-    else
-      entity3.rotation.set(0, 0, 0)
+    entity3.lookWhereGoing(true)
     entity3.bounce(boundaries)
   } else {
     entity3.idle()
-    if (entity3.lookAtDirection)
-      entity3.lookAt(entity1.position)
-    else
-      entity3.rotation.set(0, 0, 0)
+    entity3.lookAt(entity1.position)
   }
 
   entity1.update()

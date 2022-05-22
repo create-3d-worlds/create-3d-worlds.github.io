@@ -21,7 +21,6 @@ const mesh = createCrate({ size: 10 })
 // Entity
 const entity = new SteeringEntity(mesh)
 entity.position.set(randomInRange(-500, 500), 0, randomInRange(-500, 500))
-entity.lookAtDirection = true
 entity.maxSpeed = 1
 scene.add(entity)
 
@@ -36,16 +35,10 @@ void function update() {
 
   if (entity.position.distanceTo(ball.position) > 10) {
     entity.seek(ball.position)
-    if (entity.lookAtDirection)
-      entity.lookWhereGoing(true)
-    else
-      entity.rotation.set(0, 0, 0)
+    entity.lookWhereGoing(true)
   } else {
     entity.idle()
-    if (entity.lookAtDirection)
-      entity.lookAt(ball.position)
-    else
-      entity.rotation.set(0, 0, 0)
+    entity.lookAt(ball.position)
   }
 
   entity.bounce(boundaries)

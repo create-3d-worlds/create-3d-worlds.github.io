@@ -20,17 +20,14 @@ const mesh2 = createBox({ size: 10, color: 0xFF0000 })
 // Entities
 const entity1 = new SteeringEntity(mesh1)
 entity1.maxSpeed = 1.5
-entity1.lookAtDirection = true
 entity1.position.set(randomInRange(-500, 500), 0, randomInRange(-500, 500))
 scene.add(entity1)
 
 const entity2 = new SteeringEntity(mesh2)
 entity2.maxSpeed = 1
-entity2.lookAtDirection = true
 entity2.position.set(randomInRange(-500, 500), 0, randomInRange(-500, 500))
 scene.add(entity2)
 
-// Plane boundaries (do not cross)
 const boundaries = new THREE.Box3(new THREE.Vector3(-500, 0, -500), new THREE.Vector3(500, 0, 500))
 
 /* LOOP */
@@ -40,31 +37,16 @@ void function animate() {
   controls.update()
 
   const distance = entity1.position.distanceTo(entity2.position)
-
   if (distance > 5) {
     entity1.flee(entity2.position)
-    if (entity1.lookAtDirection)
-      entity1.lookWhereGoing(true)
-    else
-      entity1.rotation.set(0, 0, 0)
+    entity1.lookWhereGoing(true)
     entity2.seek(entity1.position)
-
-    if (entity2.lookAtDirection)
-      entity2.lookWhereGoing(true)
-    else
-      entity2.rotation.set(0, 0, 0)
+    entity2.lookWhereGoing(true)
   } else {
     entity1.idle()
-    if (entity1.lookAtDirection)
-      entity1.lookAt(entity2.position)
-    else
-      entity1.rotation.set(0, 0, 0)
-
+    entity1.lookAt(entity2.position)
     entity2.idle()
-    if (entity2.lookAtDirection)
-      entity2.lookAt(entity1.position)
-    else
-      entity2.rotation.set(0, 0, 0)
+    entity2.lookAt(entity1.position)
   }
   entity1.update()
   entity2.update()
@@ -73,6 +55,8 @@ void function animate() {
 
   renderer.render(scene, camera)
 }()
+
+/* EVENT */
 
 document.addEventListener('mousedown', onClick, true)
 

@@ -17,14 +17,13 @@ const mesh1 = createBox({ size: 100, yModifier: 2 })
 
 const entity1 = new SteeringEntity(mesh1)
 entity1.maxSpeed = 15
-entity1.lookAtDirection = true
 entity1.position.set(randomInRange(-2500, 2500), 0, randomInRange(-2500, 2500))
 entity1.wanderDistance = 10
 entity1.wanderRadius = 5
 entity1.wanderRange = 1
 scene.add(entity1)
 
-const params = { maxSpeed: 15, maxForce: 5, lookAtDirection: true, wanderDistance: 10, wanderRadius: 5, wanderRange: 1, numFollowers: 20, distance: 400, separationRadius: 300, maxSeparation: 500, leaderSightRadius: 1000, arrivalThreshold: 200 }
+const params = { maxSpeed: 15, maxForce: 5, wanderDistance: 10, wanderRadius: 5, wanderRange: 1, numFollowers: 20, distance: 400, separationRadius: 300, maxSeparation: 500, leaderSightRadius: 1000, arrivalThreshold: 200 }
 
 const followers = []
 
@@ -47,20 +46,13 @@ void function animate() {
   requestAnimationFrame(animate)
   controls.update()
   entity1.wander()
-
-  if (entity1.lookAtDirection)
-    entity1.lookWhereGoing(true)
-  else
-    entity1.rotation.set(0, 0, 0)
+  entity1.lookWhereGoing(true)
 
   followers.forEach(follower => {
     follower.maxSpeed = params.maxSpeed
     follower.maxForce = params.maxForce
     follower.followLeader(entity1, followers, params.distance, params.separationRadius, params.maxSeparation, params.leaderSightRadius, params.arrivalThreshold)
-    if (params.lookAtDirection)
-      follower.lookWhereGoing(true)
-    else
-      follower.rotation.set(0, 0, 0)
+    follower.lookWhereGoing(true)
     follower.update()
     follower.bounce(boundaries)
   })

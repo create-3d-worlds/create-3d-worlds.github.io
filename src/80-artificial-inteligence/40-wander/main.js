@@ -14,7 +14,6 @@ const floor = createFloor({ size: 1000 })
 scene.add(floor)
 
 const numEntities = 20
-const lookAtDirection = true
 
 const entities = []
 for (let i = 0; i < numEntities; i++) {
@@ -33,10 +32,7 @@ void function animate() {
 
   entities.forEach(entity => {
     entity.wander()
-    if (lookAtDirection)
-      entity.lookWhereGoing(true)
-    else
-      entity.rotation.set(0, 0, 0)
+    entity.lookWhereGoing(true)
     entity.update()
     entity.bounce(boundaries)
   })
