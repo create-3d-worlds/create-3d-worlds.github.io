@@ -10,6 +10,7 @@ export function createParticles({ num = 10000, file = 'star.png', color, size = 
   const geometry = new THREE.BufferGeometry()
   const positions = []
   const colors = []
+  const velocities = new Float32Array(num)
 
   for (let i = 0; i < num; i++) {
     const vertex = new THREE.Vector3(randomInRange(-unitAngle, unitAngle), randomInRange(-unitAngle, unitAngle), randomInRange(-unitAngle, unitAngle))
@@ -18,14 +19,12 @@ export function createParticles({ num = 10000, file = 'star.png', color, size = 
     vertex.multiplyScalar(scalar)
     const { x, y, z } = vertex
     positions.push(x, y, z)
-
-    colors.push((x / scalar) + 0.5)
-    colors.push((y / scalar) + 0.5)
-    colors.push((z / scalar) + 0.5)
+    colors.push(x / scalar + 0.5, y / scalar + 0.5, z / scalar + 0.5)
   }
 
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
+  geometry.setAttribute('velocity', new THREE.Float32BufferAttribute(velocities, 1))
 
   const material = new THREE.PointsMaterial({
     size,
@@ -87,19 +86,21 @@ export function createSimpleStars({ num = 10000, r = 1000, size = 3 } = {}) {
 
 /* HELPERS */
 
-// TODO: update each particle with own velocity?
 export function addVelocity({ particles, min = .5, max = 3 } = {}) {
-  // particles.geometry.vertices.forEach(vertex => {
-  //   vertex.velocity = randomInRange(min, max)
-  // })
+  const velocities = particles.geometry.attributes.velocity.array
+  for (let i = 0, l = velocities.length; i < l; i++)
+    velocities[i] = randomInRange(min, max)
+  particles.geometry.attributes.velocity.needsUpdate = true
 }
 
-export function updateRain({ particles, minY = -300, maxY = 300, velocity = .3 } = {}) {
-  const { array } = particles.geometry.attributes.position
-  for (let i = 1, l = array.length; i < l; i += 3) {
-    array[i] -= velocity
-    if (array[i] < minY) array[i] = maxY
-  }
+export function updateRain({ particles, minY = -300, maxY = 300 } = {}) {
+  const positions = particles.geometry.attributes.position.array
+  const velocities = particles.geometry.attributes.velocity.array
+  velocities.forEach((velocity, i) => {
+    const posIndex = i * 3 + 1
+    positions[posIndex] -= velocity
+    if (positions[posIndex] < minY) positions[posIndex] = maxY
+  })
   particles.geometry.attributes.position.needsUpdate = true
 }
 
