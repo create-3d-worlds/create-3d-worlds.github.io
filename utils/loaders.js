@@ -170,7 +170,7 @@ export const loadModel = ({ file, size, mtl, texture, rot = { axis: [0, 0, 0], a
 /* ALIASES */
 
 export const loadZeppelin = async() => await loadModel({
-  file: 'santos-dumont-9/model.dae',
+  file: 'zeppelin-santos-dumont/model.dae',
   size: 6,
   rot: { axis: [0, 1, 0], angle: Math.PI / 2 },
   shouldCenter: false,

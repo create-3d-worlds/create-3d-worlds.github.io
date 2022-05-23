@@ -13,7 +13,7 @@ selectModel(document.querySelector('#select-model').value)
 /** FUNCTIONS **/
 
 async function selectModel(file) {
-  const { mesh } = await loadModel({ file })
+  const { mesh } = await loadModel({ file, shouldCenter: true, shouldAdjustHeight: true })
   scene.remove(scene.getObjectById(currentId))
   scene.add(mesh)
   controls.target = mesh.position

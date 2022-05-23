@@ -20,7 +20,9 @@ live-server
 - [x] probati ai https://github.com/erosmarcon/three-steer
 - [x] remove city-deprecated
 - [x] ažurirati verziju (na 119)
-- [ ] isprobati nove 3d modele
+- [x] isprobati nove 3d modele
+  - [ ] organizovati modele tematski
+  - [ ] izbaciti nightelf-priest
 
 ### Geometry
 
@@ -134,7 +136,7 @@ live-server
   - [ ] dodati tenk kako prolazi
   - [ ] dodati munje https://threejs.org/examples/?q=light#webgl_lightningstrike
   - [ ] dodati pucanje
-- [ ] Svemir (model ring arcology)
+- [ ] Svemir (model ring space-arcology)
   - [ ] napraviti svemir iz neba
   - [ ] bolja distribucija zvezda (perlin noise)
   - [ ] letenje kroz zvezde (70-cestice/10-zvezde/)
