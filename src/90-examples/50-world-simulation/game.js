@@ -1,6 +1,4 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
-import { GLTFLoader } from '/node_modules/three119/examples/jsm/loaders/GLTFLoader.js'
-import { ColladaLoader } from '/node_modules/three119/examples/jsm/loaders/ColladaLoader.js'
 import { LegacyJSONLoader } from './libs/LegacyJSONLoader.js'
 
 import game from './classes/GameEngine.js'
@@ -10,9 +8,8 @@ import Mob from './classes/Mob.js'
 import Cloud from './classes/Cloud.js'
 import Bird from './classes/creatures/Bird.js'
 import Rabbit from './classes/creatures/Rabbit.js'
+import { loadModel } from '/utils/loaders.js'
 
-const gltfLoader = new GLTFLoader()
-const daeLoader = new ColladaLoader()
 const jsonLoader = new LegacyJSONLoader()
 
 const MOBS = 1
@@ -25,22 +22,25 @@ game.init()
 game.start()
 game.plantTrees()
 
-gltfLoader.load('/assets/models/birds/flamingo.glb', model => {
-  for (let i = 0; i < BIRDS; i++) game.addEntity(new Bird(model))
-})
+{
+  const { mesh, animations } = await loadModel({ file: 'birds/flamingo.glb', size: 50, shouldCenter: true, shouldAdjustHeight: true })
+  for (let i = 0; i < BIRDS; i++) game.addEntity(new Bird({ mesh, animations }))
+}
 
-// BUG: bellow ground
-daeLoader.load('/assets/models/house-wizard-tower/model.dae', model => {
-  game.randomPlaceEntity(new Castle(model))
-})
+{
+  const { mesh } = await loadModel({ file: 'house-wizard-tower/model.dae', size: 5 })
+  game.randomPlaceEntity(new Castle(mesh))
+}
 
-daeLoader.load('/assets/models/nightelf-priest/model.dae', model => {
-  for (let i = 0; i < MOBS; i++) game.randomPlaceEntity(new Mob(game, model))
-})
+{
+  const { mesh } = await loadModel({ file: 'nightelf-priest/model.dae', size: 1, shouldCenter: true, shouldAdjustHeight: true })
+  for (let i = 0; i < MOBS; i++) game.randomPlaceEntity(new Mob(game, mesh))
+}
 
-gltfLoader.load('/assets/models/animal-horse/horse.glb', model => {
-  for (let i = 0; i < RABBITS; i++) game.randomPlaceEntity(new Rabbit(model))
-})
+{
+  const { mesh } = await loadModel({ file: 'animal-horse/horse.glb', size: 40, shouldCenter: true, shouldAdjustHeight: true })
+  for (let i = 0; i < RABBITS; i++) game.randomPlaceEntity(new Rabbit(mesh))
+}
 
 jsonLoader.load('assets/mine.json', (geometry, materials) => {
   const mesh = new THREE.Mesh(geometry, materials)

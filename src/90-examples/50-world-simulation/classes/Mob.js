@@ -99,20 +99,9 @@ export default class Mob extends Entity {
     this.carryEntity = undefined
     this.shootCooldown = 5
     this.vision = 50
-    this.createMesh(new THREE.Vector3(rndInt(1100), 100, rndInt(1100)))
-  }
-
-  createMesh(pos) {
-    const {scene} = this.model
-    scene.castShadow = true
-    scene.rotation.x = -Math.PI / 2
-    scene.scale.set(.1, .1, .1)
-    scene.position.y = 20
-    const group = new THREE.Group()
-    group.add(scene.clone())
-    this.mesh = group
+    this.mesh = model.clone()
     this.mesh.name = this.name
-    this.mesh.position.copy(pos)
+    this.mesh.position.copy(new THREE.Vector3(rndInt(1100), 100, rndInt(1100)))
   }
 
   update(delta) {

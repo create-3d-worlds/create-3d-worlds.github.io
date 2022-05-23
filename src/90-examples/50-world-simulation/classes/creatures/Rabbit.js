@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import Entity from '../Entity.js'
-import {rndInt, roll} from '../../utils/helpers.js'
+import { rndInt, roll } from '../../utils/helpers.js'
 
 const rabbitJson = {
   id: 'idle', strategy: 'prioritised',
@@ -33,22 +33,13 @@ export default class Rabbit extends Entity {
     this.health = 5
     this.speed = 50 + rndInt(40)
     this.state = this.machine.generate(rabbitJson, this, rabbitStates)
-    this.createMesh()
+    this.mesh = model.clone()
+    this.mesh.name = 'rabbit'
   }
 
   update(delta) {
     this.state = this.state.tick()
     super.update(delta)
-  }
-
-  createMesh() {
-    const {scene} = this.model
-    scene.castShadow = true
-    const group = new THREE.Group()
-    group.scale.set(.05, .05, .05)
-    group.add(scene.clone())
-    this.mesh = group
-    this.mesh.name = 'rabbit'
   }
 
   attacked() {
