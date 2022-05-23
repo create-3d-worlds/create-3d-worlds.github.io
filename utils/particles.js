@@ -1,27 +1,32 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { randomInRange } from '/utils/helpers.js'
 
-const spaceColors = [0xF0F8FF, 0xFAEBD7, 0xF0FFFF, 0xF5F5DC, 0xF8F8FF, 0xE0FFFF, 0xFFE4E1, 0xFFFFFF, 0xF5F5F5, 0x00FFFF, 0xDC143C, 0xB22222, 0xADD8E6, 0x4169E1, 0x32CD32]
-
-const randomColor = () => spaceColors[Math.floor(Math.random() * spaceColors.length)]
-
 const textureLoader = new THREE.TextureLoader()
 
 /* STARS (IN CUBE) */
 
-export function createParticles({ num = 10000, color, size = .5, opacity = 1, unitAngle = 1, file = 'star.png', minRange = 100, maxRange = 1000, depthTest = true } = {}) {
+export function createParticles({ num = 10000, file = 'star.png', color, size = .5, opacity = 1, unitAngle = 1, minRange = 100, maxRange = 1000, depthTest = true } = {}) {
 
-  const geometry = new THREE.Geometry()
+  const geometry = new THREE.BufferGeometry()
+  const positions = []
+  const colors = []
+
   for (let i = 0; i < num; i++) {
-    const vertex = new THREE.Vector3()
-    vertex.x = randomInRange(-unitAngle, unitAngle)
-    vertex.y = randomInRange(-unitAngle, unitAngle)
-    vertex.z = randomInRange(-unitAngle, unitAngle)
+    const vertex = new THREE.Vector3(randomInRange(-unitAngle, unitAngle), randomInRange(-unitAngle, unitAngle), randomInRange(-unitAngle, unitAngle))
+
     const scalar = randomInRange(minRange, maxRange)
     vertex.multiplyScalar(scalar)
-    geometry.vertices.push(vertex)
-    if (!color) geometry.colors.push(new THREE.Color(randomColor()))
+    const { x, y, z } = vertex
+    positions.push(x, y, z)
+
+    colors.push((x / scalar) + 0.5)
+    colors.push((y / scalar) + 0.5)
+    colors.push((z / scalar) + 0.5)
   }
+
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
+
   const material = new THREE.PointsMaterial({
     size,
     transparent: true,
@@ -41,19 +46,24 @@ export function createParticles({ num = 10000, color, size = .5, opacity = 1, un
 }
 
 export function expandParticles({ particles, scalar } = {}) {
-  particles.geometry.vertices.forEach(vertex => {
+  const { array } = particles.geometry.attributes.position
+  for (let i = 0, l = array.length; i < l; i += 3) {
+    const vertex = new THREE.Vector3(array[i], array[i + 1], array[i + 2])
     vertex.multiplyScalar(scalar)
-  })
-  particles.geometry.verticesNeedUpdate = true
+    array[i] = vertex.x
+    array[i + 1] = vertex.y
+    array[i + 2] = vertex.z
+  }
+  particles.geometry.attributes.position.needsUpdate = true
 }
 
 export function resetParticles({ particles, pos = [0, 0, 0], unitAngle = 1 } = {}) {
   particles.position.set(...pos)
-  particles.geometry.vertices.forEach(vertex => {
-    vertex.x = randomInRange(-unitAngle, unitAngle)
-    vertex.y = randomInRange(-unitAngle, unitAngle)
-    vertex.z = randomInRange(-unitAngle, unitAngle)
-  })
+  const { array } = particles.geometry.attributes.position
+  for (let i = 0, l = array.length; i < l; i++)
+    array[i] = randomInRange(-unitAngle, unitAngle)
+
+  particles.geometry.attributes.position.needsUpdate = true
 }
 
 /* STARS (IN SPHERE) */
@@ -77,22 +87,24 @@ export function createSimpleStars({ num = 10000, r = 1000, size = 3 } = {}) {
 
 /* HELPERS */
 
+// TODO: update each particle with own velocity?
 export function addVelocity({ particles, min = .5, max = 3 } = {}) {
-  particles.geometry.vertices.forEach(vertex => {
-    vertex.velocity = randomInRange(min, max)
-  })
+  // particles.geometry.vertices.forEach(vertex => {
+  //   vertex.velocity = randomInRange(min, max)
+  // })
 }
 
-export function updateRain({ particles, minY = -300, maxY = 300 } = {}) {
-  particles.geometry.vertices.forEach(vertex => {
-    vertex.y -= vertex.velocity
-    if (vertex.y < minY) vertex.y = maxY
-  })
-  particles.geometry.verticesNeedUpdate = true
+export function updateRain({ particles, minY = -300, maxY = 300, velocity = .3 } = {}) {
+  const { array } = particles.geometry.attributes.position
+  for (let i = 1, l = array.length; i < l; i += 3) {
+    array[i] -= velocity
+    if (array[i] < minY) array[i] = maxY
+  }
+  particles.geometry.attributes.position.needsUpdate = true
 }
 
-export function updateSnow({ particles, minY = -300, maxY = 300, rotateY = .003 } = {}) {
-  updateRain({ particles, minY, maxY })
+export function updateSnow({ particles, minY = -300, maxY = 300, rotateY = .003, velocity = .5 } = {}) {
+  updateRain({ particles, minY, maxY, velocity })
   particles.rotateY(rotateY)
 }
 

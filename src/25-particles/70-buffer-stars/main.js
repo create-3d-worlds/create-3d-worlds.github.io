@@ -32,8 +32,8 @@ function createParticles({ num = 10000, color, size = .5, opacity = 1, unitAngle
   })
   if (color)
     material.color = new THREE.Color(color)
-
   material.vertexColors = THREE.VertexColors
+
   return new THREE.Points(geometry, material)
 }
 

@@ -41,7 +41,8 @@ live-server
   - [ ] sneg da prati igraca
 - [x] probati eksplozije
 - [x] odvojiti pomagala za čestice
-- [ ] implementirati BufferGeometry https://threejs.org/docs/#api/en/core/BufferGeometry
+- [x] implementirati BufferGeometry https://threejs.org/docs/#api/en/core/BufferGeometry
+  - [ ] handle different vertex velocity
 - [x] zastariti Snow, ukloniti iz Savo
 
 ### Tilemaps
