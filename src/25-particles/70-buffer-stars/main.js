@@ -6,6 +6,7 @@ function createParticles({ num = 10000, color, size = .5, opacity = 1, unitAngle
 
   const geometry = new THREE.BufferGeometry()
   const positions = []
+  const colors = []
 
   for (let i = 0; i < num; i++) {
     const vertex = new THREE.Vector3()
@@ -14,12 +15,18 @@ function createParticles({ num = 10000, color, size = .5, opacity = 1, unitAngle
     vertex.z = randomInRange(-unitAngle, unitAngle)
     const scalar = randomInRange(minRange, maxRange)
     vertex.multiplyScalar(scalar)
+    const { x, y, z } = vertex
     positions.push(vertex.x)
     positions.push(vertex.y)
     positions.push(vertex.z)
+
+    colors.push((x / scalar) + 0.5)
+    colors.push((y / scalar) + 0.5)
+    colors.push((z / scalar) + 0.5)
   }
 
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
 
   const material = new THREE.PointsMaterial({
     size,
@@ -30,6 +37,7 @@ function createParticles({ num = 10000, color, size = .5, opacity = 1, unitAngle
   if (color)
     material.color = new THREE.Color(color)
 
+  material.vertexColors = THREE.VertexColors
   return new THREE.Points(geometry, material)
 }
 
