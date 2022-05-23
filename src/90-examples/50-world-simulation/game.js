@@ -12,11 +12,11 @@ import { loadModel } from '/utils/loaders.js'
 
 const jsonLoader = new LegacyJSONLoader()
 
-const MOBS = 1
+const CASTLES = 1
 const BIRDS = 10
-const RABBITS = 10
+const HORSES = 10
 const CLOUDS = 5
-const MINES = 2
+const HOUSES = 3
 
 game.init()
 game.start()
@@ -34,18 +34,18 @@ game.plantTrees()
 
 {
   const { mesh } = await loadModel({ file: 'nightelf-priest/model.dae', size: 1, shouldCenter: true, shouldAdjustHeight: true })
-  for (let i = 0; i < MOBS; i++) game.randomPlaceEntity(new Mob(game, mesh))
+  for (let i = 0; i < CASTLES; i++) game.randomPlaceEntity(new Mob(game, mesh))
 }
 
 {
   const { mesh } = await loadModel({ file: 'animal-horse/horse.glb', size: 40, shouldCenter: true, shouldAdjustHeight: true })
-  for (let i = 0; i < RABBITS; i++) game.randomPlaceEntity(new Rabbit(mesh))
+  for (let i = 0; i < HORSES; i++) game.randomPlaceEntity(new Rabbit(mesh))
 }
 
-jsonLoader.load('assets/mine.json', (geometry, materials) => {
-  const mesh = new THREE.Mesh(geometry, materials)
-  for (let i = 0; i < MINES; i++) game.randomPlaceEntity(new Mine(mesh))
-})
+{
+  const { mesh } = await loadModel({ file: 'houses/house2-01.obj', mtl: 'houses/house2-01.mtl', size: 60, shouldCenter: true, shouldAdjustHeight: true })
+  for (let i = 0; i < HOUSES; i++) game.randomPlaceEntity(new Mine(mesh))
+}
 
 jsonLoader.load('assets/cloud.json', (geometry, materials) => {
   const mesh = new THREE.Mesh(geometry, materials)
