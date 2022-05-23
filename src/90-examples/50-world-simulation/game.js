@@ -7,7 +7,7 @@ import Bird from './classes/creatures/Bird.js'
 import Rabbit from './classes/creatures/Rabbit.js'
 import { loadModel } from '/utils/loaders.js'
 
-const CHARACTERS = 1
+const HUNTERS = 2
 const BIRDS = 10
 const HORSES = 10
 const CLOUDS = 5
@@ -28,8 +28,8 @@ game.plantTrees()
 }
 
 {
-  const { mesh } = await loadModel({ file: 'nightelf-priest/model.dae', size: 1, shouldCenter: true, shouldAdjustHeight: true })
-  for (let i = 0; i < CHARACTERS; i++) game.randomPlaceEntity(new Mob(game, mesh))
+  const { mesh, animations } = await loadModel({ file: 'character-ogro/ogro.md2', texture: 'character-ogro/skins/arboshak.png', size: 50, rot: { axis: [0, 1, 0], angle: -Math.PI * .5 }, shouldCenter: true, shouldAdjustHeight: true })
+  for (let i = 0; i < HUNTERS; i++) game.randomPlaceEntity(new Mob(game, mesh))
 }
 
 {
