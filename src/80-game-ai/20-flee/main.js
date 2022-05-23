@@ -1,10 +1,9 @@
 /* global THREE, SteeringEntity */
 import { camera, scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
-import { createBox } from '/utils/boxes.js'
-import { randomInRange, getIntersects, getMixer } from '/utils/helpers.js'
 import { ambLight } from '/utils/light.js'
-import { loadModel } from '/utils/loaders.js'
+import { randomInRange, getIntersects } from '/utils/helpers.js'
+import { loadModel, getMixer } from '/utils/loaders.js'
 
 ambLight()
 
@@ -16,7 +15,6 @@ scene.add(floor)
 
 const { mesh, animations } = await loadModel({ file: 'girl.glb', size: .4 })
 const runnerMixer = getMixer(mesh, animations, animations.length - 1)
-const box = createBox({ size: 10, color: 0xFFFFFF })
 const runner = new SteeringEntity(mesh)
 runner.maxSpeed = 1.5
 runner.position.set(randomInRange(-500, 500), 0, randomInRange(-500, 500))

@@ -104,15 +104,6 @@ export const adjustHeight = mesh => {
   mesh.translateY(getHeight(mesh) / 2)
 }
 
-/* ANIMATION */
-
-export const getMixer = (mesh, animations, i = 0) => {
-  const mixer = new THREE.AnimationMixer(mesh)
-  const action = mixer.clipAction(animations[i])
-  action.play()
-  return mixer
-}
-
 /* TEXTURES */
 
 export const getTexture = ({ file, repeat = 16 } = {}) => {
