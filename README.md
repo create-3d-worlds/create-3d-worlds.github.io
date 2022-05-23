@@ -20,7 +20,7 @@ live-server
 - [x] probati ai https://github.com/erosmarcon/three-steer
 - [x] remove city-deprecated
 - [x] ažurirati verziju (na 119)
-- [ ] isprobati nove 3d modele (i sa starog kompa)
+- [ ] isprobati nove 3d modele
 
 ### Geometry
 
