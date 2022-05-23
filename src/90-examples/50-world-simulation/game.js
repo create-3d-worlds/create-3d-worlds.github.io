@@ -18,7 +18,7 @@ game.start()
 game.plantTrees()
 
 {
-  const { mesh, animations } = await loadModel({ file: 'birds/flamingo.glb', size: 50, shouldCenter: true, shouldAdjustHeight: true })
+  const { mesh, animations } = await loadModel({ file: 'birds/flamingo.glb', size: 60, shouldCenter: true, shouldAdjustHeight: true })
   for (let i = 0; i < BIRDS; i++) game.addEntity(new Bird({ mesh, animations }))
 }
 

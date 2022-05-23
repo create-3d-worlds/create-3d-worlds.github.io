@@ -45,6 +45,10 @@ renderer.outputEncoding = THREE.GammaEncoding
 // from version 112 replace with:
 // renderer.outputEncoding = THREE.sRGBEncoding
 
+// renderer = new THREE.WebGLRenderer({ antialias: true, maxLights: 100, alpha: true })
+// renderer.physicallyBasedShading = true
+// renderer.shadowMapAutoUpdate = true
+
 /* CONTROLS */
 
 export function createOrbitControls(cam = camera, el = renderer.domElement) {
