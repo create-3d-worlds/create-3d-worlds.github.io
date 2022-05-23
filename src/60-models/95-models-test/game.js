@@ -26,9 +26,8 @@ const randomPos = mesh => {
 }
 
 {
-  const { mesh } = await loadModel({ file: 'tower-wizard/scene.gltf', size: 25, shouldCenter: true, shouldAdjustHeight: true })
-  const tower = mesh.clone() // mesh.children[0].clone()
-  tower.position.y = 100
+  const { mesh } = await loadModel({ file: 'tower-wizard/scene.gltf', size: 25 })
+  const tower = mesh.clone()
   scene.add(randomPos(tower))
 }
 
@@ -41,7 +40,7 @@ const randomPos = mesh => {
 }
 
 {
-  const { mesh } = await loadModel({ file: 'animal-horse/horse.glb', size: 5, shouldCenter: true, shouldAdjustHeight: true })
+  const { mesh } = await loadModel({ file: 'animal-horse/horse.glb', size: 5 })
   for (let i = 0; i < HORSES; i++) {
     const horse = mesh.clone()
     scene.add(randomPos(horse))
@@ -49,7 +48,7 @@ const randomPos = mesh => {
 }
 
 {
-  const { mesh } = await loadModel({ file: 'houses/house2-01.obj', mtl: 'houses/house2-01.mtl', size: 5, shouldCenter: true, shouldAdjustHeight: true })
+  const { mesh } = await loadModel({ file: 'houses/house2-01.obj', mtl: 'houses/house2-01.mtl', size: 5 })
   for (let i = 0; i < HOUSES; i++) {
     const house = mesh.clone()
     scene.add(randomPos(house))
