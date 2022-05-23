@@ -26,13 +26,6 @@ export const getMixer = (mesh, animations, i = 0) => {
   return mixer
 }
 
-/* deprecated with adjustHeight */
-// const translateY = mesh => {
-//   const box = new THREE.Box3().setFromObject(mesh)
-//   const bottom = box.min.y < 0 ? Math.abs(box.min.y) : 0
-//   mesh.translateY(bottom)
-// }
-
 /* group preserves model orientation */
 const createGroup = model => {
   const group = new THREE.Group()

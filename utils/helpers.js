@@ -104,6 +104,13 @@ export const adjustHeight = mesh => {
   mesh.translateY(getHeight(mesh) / 2)
 }
 
+/* deprecated */
+// export const adjustHeight = mesh => {
+//   const box = new THREE.Box3().setFromObject(mesh)
+//   const bottom = box.min.y < 0 ? Math.abs(box.min.y) : 0
+//   mesh.translateY(bottom)
+// }
+
 /* TEXTURES */
 
 export const getTexture = ({ file, repeat = 16 } = {}) => {
