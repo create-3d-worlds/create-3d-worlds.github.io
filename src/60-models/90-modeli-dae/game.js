@@ -4,6 +4,8 @@ import { loadModel } from '/utils/loaders.js'
 let currentId
 
 initLights()
+
+camera.position.z = 200
 const controls = createOrbitControls()
 
 selectModel(document.querySelector('#select-model').value)
