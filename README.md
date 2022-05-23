@@ -24,7 +24,6 @@ live-server
   - [x] organizovati modele tematski
   - [x] izbaciti nightelf-priest
 - [x] veličina nekih modela ne radi (dae format zeza, izbegavati)
-- [ ] shouldCenter i shouldAdjustHeight da bude default, ažuritati loadModel
 
 ### Geometry
 
