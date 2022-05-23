@@ -8,7 +8,7 @@ import Entity from './Entity.js'
 export default class Resource extends Entity {
   constructor(name, position) {
     super()
-    switch(name) {
+    switch (name) {
       case 'tree':
         this.name = 'wood'
         this.color = 0x966f33

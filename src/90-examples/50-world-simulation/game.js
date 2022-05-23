@@ -1,6 +1,6 @@
 import game from './classes/GameEngine.js'
 import Mine from './classes/Mine.js'
-import Castle from './classes/Castle.js'
+import Entity from './classes/Entity.js'
 import Mob from './classes/Mob.js'
 import Cloud from './classes/Cloud.js'
 import Bird from './classes/creatures/Bird.js'
@@ -24,7 +24,7 @@ game.plantTrees()
 
 {
   const { mesh } = await loadModel({ file: 'house-wizard-tower/model.dae', size: 5 })
-  game.randomPlaceEntity(new Castle(mesh))
+  game.randomPlaceEntity(new Entity(mesh))
 }
 
 {

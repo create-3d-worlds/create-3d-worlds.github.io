@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { OrbitControls } from '/node_modules/three119/examples/jsm/controls/OrbitControls.js'
 import Tree from './Tree.js'
 import { rndInt } from '../utils/helpers.js'
-import {generateTerrain} from '../utils/generateTerrain.js'
+import { generateTerrain } from '../utils/generateTerrain.js'
 
 const TREES = 100
 const { innerWidth, innerHeight } = window
@@ -119,7 +119,7 @@ class GameEngine {
   }
 
   placeEntity(entity) {
-    const {x, y, z} = this.place(entity.mesh.position)
+    const { x, y, z } = this.place(entity.mesh.position)
     entity.mesh.position.set(x, y, z)
     this.addEntity(entity)
   }

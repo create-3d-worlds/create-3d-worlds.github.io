@@ -1,10 +1,11 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import Machine from '../libs/Machine.js'
-import {rndInt} from '../utils/helpers.js'
+import { rndInt } from '../utils/helpers.js'
 
 export default class Entity {
   constructor(model) {
     this.model = model
+    if (model) this.mesh = model.clone()
     this.destination = new THREE.Vector3(rndInt(1100), 0, rndInt(1100))
     this.vel = new THREE.Vector3(0, 0, 0)
     this.rotation = new THREE.Euler(0, 0, 0)

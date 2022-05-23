@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import Entity from './Entity.js'
-import {rndInt, roll} from '../utils/helpers.js'
+import { rndInt, roll } from '../utils/helpers.js'
 
 export default class Cloud extends Entity {
   constructor(model) {
@@ -13,8 +13,7 @@ export default class Cloud extends Entity {
   }
 
   createMesh(pos) {
-    this.model.scale.set(roll(50) + 10, 15, roll(10) + 10)
-    this.model.castShadow = true
+    this.model.scale.set(roll(30) + 10, 15, roll(20) + 10)
     this.mesh = this.model.clone()
     this.mesh.name = 'cloud'
     this.mesh.position.copy(pos)
