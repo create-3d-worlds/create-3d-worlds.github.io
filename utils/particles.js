@@ -104,8 +104,8 @@ export function updateRain({ particles, minY = -300, maxY = 300 } = {}) {
   particles.geometry.attributes.position.needsUpdate = true
 }
 
-export function updateSnow({ particles, minY = -300, maxY = 300, rotateY = .003, velocity = .5 } = {}) {
-  updateRain({ particles, minY, maxY, velocity })
+export function updateSnow({ particles, minY = -300, maxY = 300, rotateY = .003 } = {}) {
+  updateRain({ particles, minY, maxY })
   particles.rotateY(rotateY)
 }
 
