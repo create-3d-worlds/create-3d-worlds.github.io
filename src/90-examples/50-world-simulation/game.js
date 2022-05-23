@@ -12,7 +12,7 @@ import { loadModel } from '/utils/loaders.js'
 
 const jsonLoader = new LegacyJSONLoader()
 
-const CASTLES = 1
+const CHARACTERS = 1
 const BIRDS = 10
 const HORSES = 10
 const CLOUDS = 5
@@ -34,7 +34,7 @@ game.plantTrees()
 
 {
   const { mesh } = await loadModel({ file: 'nightelf-priest/model.dae', size: 1, shouldCenter: true, shouldAdjustHeight: true })
-  for (let i = 0; i < CASTLES; i++) game.randomPlaceEntity(new Mob(game, mesh))
+  for (let i = 0; i < CHARACTERS; i++) game.randomPlaceEntity(new Mob(game, mesh))
 }
 
 {
