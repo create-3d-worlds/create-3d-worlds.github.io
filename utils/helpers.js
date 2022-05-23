@@ -104,6 +104,15 @@ export const adjustHeight = mesh => {
   mesh.translateY(getHeight(mesh) / 2)
 }
 
+/* ANIMATION */
+
+export const getMixer = (mesh, animations, i = 0) => {
+  const mixer = new THREE.AnimationMixer(mesh)
+  const action = mixer.clipAction(animations[i])
+  action.play()
+  return mixer
+}
+
 /* TEXTURES */
 
 export const getTexture = ({ file, repeat = 16 } = {}) => {
@@ -142,7 +151,7 @@ export function randomGrayish({ min = .3, max = .7, colorful = .02 } = {}) {
   return color
 }
 
-// param color in hex, return THREE.Color()
+// @param color hex, return THREE.Color()
 export function similarColor(color) {
   const factor = randomInRange(-0.25, 0.25)
   const hsl = {}

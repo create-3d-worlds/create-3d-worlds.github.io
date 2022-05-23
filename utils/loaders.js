@@ -19,14 +19,21 @@ const getScale = (mesh, newHeight) => {
   return scale
 }
 
-// deprecated with adjustHeight
+export const getMixer = (mesh, animations, i = 0) => {
+  const mixer = new THREE.AnimationMixer(mesh)
+  const action = mixer.clipAction(animations[i])
+  action.play()
+  return mixer
+}
+
+/* deprecated with adjustHeight */
 // const translateY = mesh => {
 //   const box = new THREE.Box3().setFromObject(mesh)
 //   const bottom = box.min.y < 0 ? Math.abs(box.min.y) : 0
 //   mesh.translateY(bottom)
 // }
 
-// to preserve model orientation
+/* group preserves model orientation */
 const createGroup = model => {
   const group = new THREE.Group()
   group.add(model)
@@ -50,8 +57,9 @@ const prepareMesh = ({ resolve, model, size, rot, animations, shouldCenter, shou
   })
 
   if (rot.angle) model.rotateOnWorldAxis(new THREE.Vector3(...rot.axis), rot.angle)
+  const mixer = animations ? getMixer(model, animations) : null
 
-  resolve({ mesh: createGroup(model), animations })
+  resolve({ mesh: createGroup(model), animations, mixer })
 }
 
 /* OBJ */
