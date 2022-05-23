@@ -57,7 +57,7 @@ const prepareMesh = ({ resolve, model, size, rot, animations, shouldCenter, shou
   })
 
   if (rot.angle) model.rotateOnWorldAxis(new THREE.Vector3(...rot.axis), rot.angle)
-  const mixer = animations.length ? getMixer(model, animations) : null
+  const mixer = animations && animations.length ? getMixer(model, animations) : null
 
   resolve({ mesh: createGroup(model), animations, mixer })
 }

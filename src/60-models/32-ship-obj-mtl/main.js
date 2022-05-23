@@ -7,7 +7,7 @@ initLights()
 createOrbitControls()
 
 const { mesh } = await loadModel(
-  { file: 'ship/BlackPearl.obj', mtl: 'ship/BlackPearl.mtl', rot: { axis: [0, 1, 0], angle: Math.PI / 2 } })
+  { file: 'ship-pirate/BlackPearl.obj', mtl: 'ship-pirate/BlackPearl.mtl', rot: { axis: [0, 1, 0], angle: Math.PI / 2 } })
 scene.add(mesh)
 
 /** LOOP **/

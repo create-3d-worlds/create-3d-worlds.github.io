@@ -8,7 +8,7 @@ hemLight()
 const controls = createOrbitControls()
 camera.position.set(1, 2, 3)
 
-const { mesh, animations } = await loadModel({ file: 'girl-fighter/girl-walk.fbx', size: 2 })
+const { mesh, animations } = await loadModel({ file: 'character-girl-fighter/girl-walk.fbx', size: 2 })
 scene.add(mesh)
 
 const mixer = new THREE.AnimationMixer(mesh)
