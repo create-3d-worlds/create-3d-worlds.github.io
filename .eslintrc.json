@@ -5,12 +5,14 @@
     "es6": true
   },
   "rules": {
+    "array-bracket-spacing": ["warn", "never"],
     "arrow-body-style": ["warn", "as-needed"],
     "arrow-parens": ["warn", "as-needed"],
     "arrow-spacing": "warn",
     "block-scoped-var": "error",
     "brace-style": ["warn", "1tbs"],
     "comma-spacing": ["warn", { "before": false, "after": true }],
+    "computed-property-spacing": ["warn", "never"],
     "constructor-super": "error",
     "curly": ["warn", "multi"],
     "dot-notation": "warn",
