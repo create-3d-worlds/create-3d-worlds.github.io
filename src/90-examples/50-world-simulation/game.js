@@ -38,7 +38,7 @@ daeLoader.load('/assets/models/nightelf-priest/model.dae', model => {
   for (let i = 0; i < MOBS; i++) game.randomPlaceEntity(new Mob(game, model))
 })
 
-daeLoader.load('/assets/models/rabbit.dae', model => {
+gltfLoader.load('/assets/models/animal-horse/horse.glb', model => {
   for (let i = 0; i < RABBITS; i++) game.randomPlaceEntity(new Rabbit(model))
 })
 
