@@ -9,16 +9,12 @@ function createParticles({ num = 10000, color, size = .5, opacity = 1, unitAngle
   const colors = []
 
   for (let i = 0; i < num; i++) {
-    const vertex = new THREE.Vector3()
-    vertex.x = randomInRange(-unitAngle, unitAngle)
-    vertex.y = randomInRange(-unitAngle, unitAngle)
-    vertex.z = randomInRange(-unitAngle, unitAngle)
+    const vertex = new THREE.Vector3(randomInRange(-unitAngle, unitAngle), randomInRange(-unitAngle, unitAngle), randomInRange(-unitAngle, unitAngle))
+
     const scalar = randomInRange(minRange, maxRange)
     vertex.multiplyScalar(scalar)
     const { x, y, z } = vertex
-    positions.push(vertex.x)
-    positions.push(vertex.y)
-    positions.push(vertex.z)
+    positions.push(x, y, z)
 
     colors.push((x / scalar) + 0.5)
     colors.push((y / scalar) + 0.5)
