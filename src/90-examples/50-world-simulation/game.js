@@ -25,7 +25,7 @@ game.init()
 game.start()
 game.plantTrees()
 
-gltfLoader.load('/assets/models/ptice/flamingo.glb', model => {
+gltfLoader.load('/assets/models/birds/flamingo.glb', model => {
   for (let i = 0; i < BIRDS; i++) game.addEntity(new Bird(model))
 })
 

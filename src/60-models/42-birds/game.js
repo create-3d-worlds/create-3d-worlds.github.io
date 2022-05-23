@@ -23,11 +23,11 @@ const onLoad = (data, position) => {
   scene.add(model)
 }
 
-loader.load('/assets/models/ptice/parrot.glb', data => onLoad(data, [0, 1.5, 0]))
+loader.load('/assets/models/birds/parrot.glb', data => onLoad(data, [0, 1.5, 0]))
 
-loader.load('/assets/models/ptice/flamingo.glb', data => onLoad(data, [25, 0, -10]))
+loader.load('/assets/models/birds/flamingo.glb', data => onLoad(data, [25, 0, -10]))
 
-loader.load('/assets/models/ptice/stork.glb', data => onLoad(data, [-25, 0, -10]))
+loader.load('/assets/models/birds/stork.glb', data => onLoad(data, [-25, 0, -10]))
 
 /* LOOP */
 

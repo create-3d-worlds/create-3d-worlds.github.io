@@ -157,7 +157,7 @@ live-server
   - [x] automatski podizati ako je preblizu zemlje
   - [x] srediti sletanje
   - [x] prikazati komande
-  - [x] probati pticu (50-rad-sa-modelima/70-ptice)
+  - [x] probati pticu
   - [x] cepelin da prvo poleti pa ubrza (avion prvo ubrza pa poleti)
 - [ ] Grad
   - [x] srediti grad

@@ -15,7 +15,7 @@ scene.add(createGradientSky(), createSunLight(), terrain, trees)
 
 const controls = createOrbitControls()
 
-const { mesh } = await loadModel({ file: 's-e-5a/model.dae', size: .75, rot: { axis: [1, 0, 0], angle: -Math.PI / 20 }, shouldCenter: true, shouldAdjustHeight: true })
+const { mesh } = await loadModel({ file: 'aircraft-s-e-5a/model.dae', size: .75, rot: { axis: [1, 0, 0], angle: -Math.PI / 20 }, shouldCenter: true, shouldAdjustHeight: true })
 const avion = new Airplane({ mesh })
 scene.add(avion.mesh)
 avion.addSolids(terrain)
