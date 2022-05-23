@@ -17,7 +17,7 @@ scene.add(floor)
 const stairs = createSpiralStairs({ radius: 25, stairsInCirle: 50, floorHeight: 15, blockSize: 2, zModifier: 5, xModifier: 2 })
 scene.add(stairs)
 
-const { mesh, animations } = await loadModel({ file: 'girl.glb', size: .1, rot: { axis: [0, 1, 0], angle: Math.PI } })
+const { mesh, animations } = await loadModel({ file: 'character-girl/girl.glb', size: .1, rot: { axis: [0, 1, 0], angle: Math.PI } })
 
 const player = new Player({ mesh, animations, animNames: girlAnimations })
 mesh.add(camera)

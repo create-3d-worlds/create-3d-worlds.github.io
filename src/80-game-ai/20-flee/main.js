@@ -13,7 +13,7 @@ camera.position.set(0, 100, 100)
 const floor = createFloor({ size: 1000 })
 scene.add(floor)
 
-const { mesh, animations } = await loadModel({ file: 'girl.glb', size: .4 })
+const { mesh, animations } = await loadModel({ file: 'character-girl/girl.glb', size: .4 })
 const runnerMixer = getMixer(mesh, animations, animations.length - 1)
 const runner = new SteeringEntity(mesh)
 runner.maxSpeed = 1.5

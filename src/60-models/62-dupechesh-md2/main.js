@@ -10,7 +10,7 @@ hemLight()
 createOrbitControls()
 camera.position.set(10, 10, 50)
 
-const { mesh, animations } = await loadModel({ file: 'ogro/ogro.md2', texture: 'ogro/skins/arboshak.png' })
+const { mesh, animations } = await loadModel({ file: 'character-ogro/ogro.md2', texture: 'character-ogro/skins/arboshak.png' })
 scene.add(mesh)
 
 const mixer = new THREE.AnimationMixer(mesh.children[0])
