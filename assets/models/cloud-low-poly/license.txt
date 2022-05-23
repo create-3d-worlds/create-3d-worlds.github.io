@@ -1,0 +1,11 @@
+Model Information:
+* title:	Low Poly Cloud
+* source:	https://sketchfab.com/3d-models/low-poly-cloud-81910476b24d4fc5a73c908d6c2a38a2
+* author:	Hyungjung Kim (https://sketchfab.com/hyungjungkim)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Low Poly Cloud" (https://sketchfab.com/3d-models/low-poly-cloud-81910476b24d4fc5a73c908d6c2a38a2) by Hyungjung Kim (https://sketchfab.com/hyungjungkim) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

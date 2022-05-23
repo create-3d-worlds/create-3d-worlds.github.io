@@ -249,3 +249,5 @@ Examples are from theese great books and tutorials:
 * [Essential Three.js](https://github.com/josdirksen/essential-threejs) (Jos Dirksen)
 * [Three.js Cookbook](https://github.com/josdirksen/threejs-cookbook) (Jos Dirksen)
 * [How to Design 3D Games with Web Technology - Book 01: Three. Js - HTML5 and WebGL](https://thefiveplanets.org/b01/) (Jordi Josa)
+
+3D Models are free models from sketchfab.com and other respected sites.

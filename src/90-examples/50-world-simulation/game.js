@@ -1,6 +1,3 @@
-import * as THREE from '/node_modules/three119/build/three.module.js'
-import { LegacyJSONLoader } from './libs/LegacyJSONLoader.js'
-
 import game from './classes/GameEngine.js'
 import Mine from './classes/Mine.js'
 import Castle from './classes/Castle.js'
@@ -9,8 +6,6 @@ import Cloud from './classes/Cloud.js'
 import Bird from './classes/creatures/Bird.js'
 import Rabbit from './classes/creatures/Rabbit.js'
 import { loadModel } from '/utils/loaders.js'
-
-const jsonLoader = new LegacyJSONLoader()
 
 const CHARACTERS = 1
 const BIRDS = 10
@@ -47,10 +42,10 @@ game.plantTrees()
   for (let i = 0; i < HOUSES; i++) game.randomPlaceEntity(new Mine(mesh))
 }
 
-jsonLoader.load('assets/cloud.json', (geometry, materials) => {
-  const mesh = new THREE.Mesh(geometry, materials)
+{
+  const { mesh } = await loadModel({ file: 'cloud-low-poly/scene.gltf', size: 2 })
   for (let i = 0; i < CLOUDS; i++) game.addEntity(new Cloud(mesh))
-})
+}
 
 /* EVENTS */
 
