@@ -97,9 +97,9 @@ export function updateRain({ particles, minY = -300, maxY = 300 } = {}) {
   const positions = particles.geometry.attributes.position.array
   const velocities = particles.geometry.attributes.velocity.array
   velocities.forEach((velocity, i) => {
-    const posIndex = i * 3 + 1
-    positions[posIndex] -= velocity
-    if (positions[posIndex] < minY) positions[posIndex] = maxY
+    const yIndex = 3 * i + 1
+    positions[yIndex] -= velocity
+    if (positions[yIndex] < minY) positions[yIndex] = maxY
   })
   particles.geometry.attributes.position.needsUpdate = true
 }
