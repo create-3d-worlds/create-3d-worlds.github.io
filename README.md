@@ -23,7 +23,7 @@ live-server
 - [x] isprobati nove 3d modele
   - [x] organizovati modele tematski
   - [x] izbaciti nightelf-priest
-- [ ] veličina objekta ne radi, vidi world simulation
+- [ ] veličina modela ne radi, vidi world simulation
 
 ### Geometry
 

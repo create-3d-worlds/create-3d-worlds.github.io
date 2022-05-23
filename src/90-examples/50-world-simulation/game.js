@@ -24,7 +24,9 @@ game.plantTrees()
 
 {
   const { mesh } = await loadModel({ file: 'house-wizard-tower/model.dae', size: 5 })
-  game.randomPlaceEntity(new Entity(mesh))
+  const castle = new Entity(mesh)
+  castle.name = 'vilage'
+  game.randomPlaceEntity(castle)
 }
 
 {
