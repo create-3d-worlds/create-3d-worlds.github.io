@@ -3,6 +3,7 @@ import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import Tree from './Tree.js'
 import { rndInt } from '../utils/helpers.js'
 import { generateTerrain } from '../utils/generateTerrain.js'
+import { hemLight, dirLight } from '/utils/light.js'
 
 const TREES = 100
 const { innerWidth, innerHeight } = window
@@ -56,11 +57,8 @@ class GameEngine {
 
   initLights() {
     const d = 500
-    const dirLight = new THREE.DirectionalLight(0xffffcc, 0.5, 500)
-    const hemiLight = new THREE.HemisphereLight(0xffffcc, 0xffffcc, 0.6)
-    const pointLight = new THREE.PointLight(0xffffcc)
-
     // light for shadows
+    const dirLight = new THREE.DirectionalLight(0xffffcc, 0.5, 500)
     dirLight.color.setHSL(0.1, 1, 0.95)
     dirLight.position.set(-1, 1.75, 1)
     dirLight.position.multiplyScalar(100)
@@ -75,16 +73,8 @@ class GameEngine {
     dirLight.shadow.camera.far = 3500
     dirLight.shadow.bias = -0.0001
 
-    hemiLight.color.setHSL(0.6, 1, 0.6)
-    hemiLight.groundColor.setHSL(0.095, 1, 0.75)
-    hemiLight.position.set(0, 500, 0)
-
-    pointLight.intensity = 0.75
-    pointLight.position.copy(new THREE.Vector3(1000, 800, -1000))
-
+    hemLight({ color: 0xffffcc, intensity: .6 })
     this.scene.add(dirLight)
-    this.scene.add(hemiLight)
-    this.scene.add(pointLight)
   }
 
   pause() {
