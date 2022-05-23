@@ -29,7 +29,8 @@ gltfLoader.load('/assets/models/birds/flamingo.glb', model => {
   for (let i = 0; i < BIRDS; i++) game.addEntity(new Bird(model))
 })
 
-daeLoader.load('/assets/models/wildsgate-keep/model.dae', model => {
+// BUG: bellow ground
+daeLoader.load('/assets/models/house-wizard-tower/model.dae', model => {
   game.randomPlaceEntity(new Castle(model))
 })
 

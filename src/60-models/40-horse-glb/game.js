@@ -7,7 +7,7 @@ let theta = 0
 
 dirLight({ color: 0xefefff, intensity: 1.5 })
 
-const { mesh, animations } = await loadModel({ file: 'horse.glb', size: 2 })
+const { mesh, animations } = await loadModel({ file: 'animal-horse/horse.glb', size: 2 })
 scene.add(mesh)
 
 const mixer = new THREE.AnimationMixer(mesh)

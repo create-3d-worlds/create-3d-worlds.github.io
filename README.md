@@ -21,7 +21,7 @@ live-server
 - [x] remove city-deprecated
 - [x] ažurirati verziju (na 119)
 - [x] isprobati nove 3d modele
-  - [ ] organizovati modele tematski
+  - [x] organizovati modele tematski
   - [ ] izbaciti nightelf-priest
 
 ### Geometry
