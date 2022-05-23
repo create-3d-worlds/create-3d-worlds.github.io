@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    background: #f0f9ff;
+    background: linear-gradient(to top, #f0f9ff 0%, #cbebff 50%, #a1dbff 100%);
+    overflow: hidden;
+}
+
+#switch {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 3em;
+    cursor: pointer;
+}

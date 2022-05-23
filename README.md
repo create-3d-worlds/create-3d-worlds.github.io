@@ -23,7 +23,8 @@ live-server
 - [x] isprobati nove 3d modele
   - [x] organizovati modele tematski
   - [x] izbaciti nightelf-priest
-- [ ] veličina modela ne radi, vidi world simulation
+- [x] veličina nekih modela ne radi (dae format zeza, izbegavati)
+- [ ] shouldCenter i shouldAdjustHeight da bude default, ažuritati loadModel
 
 ### Geometry
 
