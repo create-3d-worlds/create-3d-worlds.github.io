@@ -193,7 +193,7 @@ live-server
   - [ ] probati konja ili dabra
 - [ ] 1943
   - [ ] integrisati u projekat
-  - [ ] srediti model aviona
+  - [ ] srediti model aviona (ima novi)
 
 ### Ostalo
 

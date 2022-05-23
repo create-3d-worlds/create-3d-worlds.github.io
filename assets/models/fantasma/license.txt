@@ -1,0 +1,11 @@
+Model Information:
+* title:	fantasma animado
+* source:	https://sketchfab.com/3d-models/fantasma-animado-2c57c7211add4ea9bcf557b7f80365b2
+* author:	vicente betoret ferrero (https://sketchfab.com/deathcow)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "fantasma animado" (https://sketchfab.com/3d-models/fantasma-animado-2c57c7211add4ea9bcf557b7f80365b2) by vicente betoret ferrero (https://sketchfab.com/deathcow) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
