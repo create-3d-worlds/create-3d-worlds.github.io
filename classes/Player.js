@@ -28,6 +28,7 @@ export default class Player {
 
   /* INPUT */
 
+  // TODO: return after each input key?
   handleInput(delta) {
     this.running = keyboard.capsLock
     const speed = this.running ? this.speed * 2 : this.speed
@@ -62,7 +63,7 @@ export default class Player {
   walk(dir = -1) {
     this.mesh.translateZ(this.step * dir)
     if (this.flying) return
-    if (this.running) return this.runAnim()
+    if (this.running && this.animNames.run) return this.runAnim()
     this.walkAnim()
   }
 
@@ -209,6 +210,8 @@ export default class Player {
   update(delta) {
     this.updateGround()
     this.handleInput(delta)
-    if (this.mixer) this.mixer.update(delta)
+    // if no run animation, speed up walk animation
+    const runDelta = (this.running && !this.animNames.run) ? delta * 2 : delta
+    if (this.mixer) this.mixer.update(runDelta)
   }
 }

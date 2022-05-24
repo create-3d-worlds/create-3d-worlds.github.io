@@ -103,6 +103,7 @@ live-server
   - [x] probati koliziju bacanjem zraka
   - [x] probati koliziju geometrijom
 - [x] postaviti lavirint sa kolizijom
+- [ ] srediti Player handleInput
 - [ ] da moze da gleda levo-desno i gore-dole i sl. (vidi stairway-to-heaven)
 
 ### 3D Models
@@ -122,9 +123,8 @@ live-server
 - [x] srediti da se ne ponavljaju jednokratne animacije (napad, specijal, itd) 
 - [x] ako je skok blokiran da pada
 - [x] da ne korača u skoku kad ide napred
-- [ ] srediti animacije modela (vidi stairway-girl)
-- [ ] usporiti animaciju po potrebi (u odnosu na brzinu, nazad sporije i sl.)
-  https://stackoverflow.com/questions/69591272/how-to-change-animation-speed-during-render-in-three-js
+- [x] srediti animacije modela (vidi stairway-girl)
+- [x] ubrzati animaciju po potrebi (u odnosu na brzinu, nazad sporije i sl.)
 - [ ] ograničiti visinu skoka?
 
 ### Scenes

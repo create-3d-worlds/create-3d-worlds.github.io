@@ -7,26 +7,28 @@ export default class Avatar extends Player {
     super({ speed })
     this.size = size
     this.mesh = createAvatar({ skin, size })
-    this.leftHand = this.mesh.getObjectByName('leftHand')
-    this.rightHand = this.mesh.getObjectByName('rightHand')
-    this.leftLeg = this.mesh.getObjectByName('leftLeg')
-    this.rightLeg = this.mesh.getObjectByName('rightLeg')
+    this.limbs = [this.mesh.getObjectByName('leftHand'), this.mesh.getObjectByName('rightHand'), this.mesh.getObjectByName('leftLeg'), this.mesh.getObjectByName('rightLeg')]
   }
 
   idle() {
-    this.leftHand.position.z = this.leftLeg.position.z =
-    this.rightHand.position.z = this.rightLeg.position.z = 0
+    this.limbs.forEach(limb => {
+      limb.position.z = 0
+    })
   }
 
   jumpAnim() {
-    this.leftHand.position.z = this.rightHand.position.z =
-    this.leftLeg.position.z = this.rightLeg.position.z = this.size * .3
+    this.limbs.forEach(limb => {
+      limb.position.z = this.size * .3 // eslint-disable-line
+    })
   }
 
   walkAnim() {
-    const elapsed = Math.sin(clock.getElapsedTime() * 5) * this.size * .666
-    this.leftHand.position.z = this.leftLeg.position.z = -elapsed
-    this.rightHand.position.z = this.rightLeg.position.z = elapsed
+    const r = this.size * .666
+    const speedFactor = this.running ? 8 : 5
+    const elapsed = Math.sin(clock.getElapsedTime() * speedFactor) * r
+    this.limbs.forEach((limb, i) => {
+      limb.position.z = i % 2 ? elapsed : -elapsed
+    })
   }
 
   sideWalkAnim() {
