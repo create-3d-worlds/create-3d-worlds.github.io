@@ -35,6 +35,6 @@ export default class Avatar extends Player {
 
   update(delta = clock.getDelta()) {
     super.update(delta)
-    uniforms.time.value += 0.8 * delta
+    uniforms.time.value += 0.8 * delta // lava only
   }
 }

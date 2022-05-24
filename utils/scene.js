@@ -17,7 +17,7 @@ export function createWorldScene(groundParam, skyParam, lightParam, fogParam = {
   scene.add(light)
   const { color = 0xffffff, near = 1, far = 5000 } = fogParam
   scene.fog = new THREE.Fog(color, near, far)
-  hemLight({ scene })
+  hemLight({ scene, intensity: 0.5 })
   return scene
 }
 

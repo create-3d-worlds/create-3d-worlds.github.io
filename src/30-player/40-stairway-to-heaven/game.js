@@ -4,9 +4,9 @@ import { createTerrain } from '/utils/ground.js'
 import Avatar from '/classes/Avatar.js'
 
 // createOrbitControls()
-const scene = createWorldScene()
-camera.position.z = 6
-camera.position.y = 3
+const scene = createWorldScene() // ne radi kolizija za pod
+camera.position.z = 7
+camera.position.y = 5
 
 const terrain = createTerrain()
 scene.add(terrain)

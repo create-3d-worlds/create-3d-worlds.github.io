@@ -39,11 +39,11 @@ live-server
   - [x] kiša da prati igraca
 - [x] napraviti sneg
   - [ ] sneg da prati igraca
+  - [x] zastariti Snow, ukloniti iz Savo
 - [x] probati eksplozije
 - [x] odvojiti pomagala za čestice
 - [x] implementirati BufferGeometry https://threejs.org/docs/#api/en/core/BufferGeometry
-  - [ ] handle different vertex velocity
-- [x] zastariti Snow, ukloniti iz Savo
+  - [x] handle different vertex velocity
 
 ### Tilemaps
 
@@ -58,17 +58,19 @@ live-server
 - [x] spojiti 3D i 2D Tilemap
 - [x] reuse randomWalls method
 
-### Player
+### Terrain (procedural generation, heightmap, textures)
 
-- [x] dodati igraca
-- [x] prikazati polozaj igraca na mapi
-- [x] omogućiti 2d kretanje kroz mapu
-- [x] omogućiti 3d kretanje kroz mapu
-- [x] dodati skakanje
-  - [x] srediti skok i padanje
-  - [x] srediti penjanje uz stepenice
-- [x] dodati kontrole i na strelice
-- [x] dodati dugme (m) za otvaranje/zatvaranje mape
+- [x] napraviti tlo
+- [x] dodati koliziju na tlo
+- [x] proceduralno kreirati okruženje
+  - [x] dodati drveće, zgrade
+  - [x] dodati sanduke sa teksturom
+- [x] prebaciti da tlo bude okruglo (moze samo kad je ravna podloga)
+- [x] heightmap
+- [x] heightmap with texture
+- [x] kreirati stepenice u krug od kocki
+- [x] kreirati funkciju similarColor
+- [x] proceduralni grad: promeniti boju krova
 
 ### 2D Renderer
 
@@ -85,28 +87,23 @@ live-server
 - [x] dodati kameru odozgo (orbit)
 - [x] menjati kamere na taster
 - [x] srediti redom kamere po scenama
-- [ ] kreirati finalne kamere i kontrole (da moze da gleda levo-desno i gore-dole i sl.)
 
-### Collision
+### Player
 
+- [x] dodati igraca
+- [x] prikazati polozaj igraca na mapi
+- [x] omogućiti 2d kretanje kroz mapu
+- [x] omogućiti 3d kretanje kroz mapu
+- [x] dodati skakanje
+  - [x] srediti skok i padanje
+  - [x] srediti penjanje uz stepenice
+- [x] dodati kontrole i na strelice
+- [x] dodati dugme (m) za otvaranje/zatvaranje mape
 - [x] dodati koliziju kako se ne bi prolazilo kroz predmete
   - [x] probati koliziju bacanjem zraka
   - [x] probati koliziju geometrijom
 - [x] postaviti lavirint sa kolizijom
-
-### Terrain (procedural generation, heightmap, textures)
-
-- [x] napraviti tlo
-- [x] dodati koliziju na tlo
-- [x] proceduralno kreirati okruženje
-  - [x] dodati drveće, zgrade
-  - [x] dodati sanduke sa teksturom
-- [x] prebaciti da tlo bude okruglo (moze samo kad je ravna podloga)
-- [x] heightmap
-- [x] heightmap with texture
-- [x] kreirati stepenice u krug od kocki
-- [x] kreirati funkciju similarColor
-- [x] proceduralni grad: promeniti boju krova
+- [ ] da moze da gleda levo-desno i gore-dole i sl. (vidi stairway-to-heaven)
 
 ### 3D Models
 
@@ -123,10 +120,12 @@ live-server
   - [x] obrisati naslednice
 - [x] srediti da se ne ponavlja animacija skakanja
 - [x] srediti da se ne ponavljaju jednokratne animacije (napad, specijal, itd) 
-- [ ] usporiti animaciju po potrebi (u odnosu na brzinu, nazad sporije i sl.)
-- [ ] ograničiti visinu skoka?
 - [x] ako je skok blokiran da pada
 - [x] da ne korača u skoku kad ide napred
+- [ ] srediti animacije modela (vidi stairway-girl)
+- [ ] usporiti animaciju po potrebi (u odnosu na brzinu, nazad sporije i sl.)
+  https://stackoverflow.com/questions/69591272/how-to-change-animation-speed-during-render-in-three-js
+- [ ] ograničiti visinu skoka?
 
 ### Scenes
 

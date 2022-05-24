@@ -52,6 +52,7 @@ export default class Player {
 
     if (keyboard.up) this.walk()
     if (keyboard.down) this.walk(1)
+    // TODO: handle run?
     if (pressed.KeyQ) this.sideWalk()
     if (pressed.KeyE) this.sideWalk(1)
   }
@@ -60,7 +61,9 @@ export default class Player {
 
   walk(dir = -1) {
     this.mesh.translateZ(this.step * dir)
-    if (!this.flying) this.walkAnim()
+    if (this.flying) return
+    if (this.running) return this.runAnim()
+    this.walkAnim()
   }
 
   sideWalk(dir = -1) {
@@ -97,8 +100,11 @@ export default class Player {
   }
 
   walkAnim() {
-    const animation = this.running ? this.animNames.run : this.animNames.walk
-    this.playAnimation(animation, LoopRepeat)
+    this.playAnimation(this.animNames.walk, LoopRepeat)
+  }
+
+  runAnim() {
+    this.playAnimation(this.animNames.run || this.animNames.walk, LoopRepeat)
   }
 
   sideWalkAnim() {
