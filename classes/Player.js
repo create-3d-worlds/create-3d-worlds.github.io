@@ -7,6 +7,15 @@ import { getHeight } from '/utils/helpers.js'
 const { pressed } = keyboard
 const { LoopOnce, LoopRepeat, Vector3, AnimationMixer } = THREE
 
+const dir = {
+  upForward: new Vector3(0, 1, -1),
+  forward: new Vector3(0, 0, -1),
+  backward: new Vector3(0, 0, 1),
+  left: new Vector3(-1, 0, 0),
+  right: new Vector3(1, 0, 0),
+  up: new Vector3(0, 1, 0),
+}
+
 /**
  * Player handles user input, move mesh and animate model.
  * (loadModel handles size and rotation)
@@ -36,23 +45,13 @@ export default class Player {
 
   /* INPUT */
 
-  chooseRaycastVector() {
-    if (pressed.Space && keyboard.up) return new Vector3(0, 1, -1)
-    if (keyboard.up) return new Vector3(0, 0, -1)
-    if (keyboard.down) return new Vector3(0, 0, 1)
-    if (pressed.KeyQ) return new Vector3(-1, 0, 0)
-    if (pressed.KeyE) return new Vector3(1, 0, 0)
-    if (pressed.Space) return new Vector3(0, 1, 0)
-    return null
-  }
-
   handleInput(delta) {
     this.running = keyboard.capsLock
     const speed = this.running ? this.speed * 2 : this.speed
     this.step = speed * delta // speed in pixels per second
     this.jumpStep = speed * delta * 1.5
     this.turnAngle = Math.PI / 2 * delta
-    const vector = this.chooseRaycastVector()
+    this.loopOncePressed = pressed.mouse || pressed.mouse2 // pressed.Space (ako je jump once)
 
     this.normalizeGround()
 
@@ -65,10 +64,13 @@ export default class Player {
     if (!keyboard.keyPressed || this.loopOncePressed)
       return this.idle()
 
-    if (!pressed.mouse && !pressed.mouse2) this.loopOncePressed = false //  && !pressed.Space (ako je jump once)
-
     if (pressed.Space) {
-      if (this.directionBlocked(vector)) return this.fall()
+      if (keyboard.up && this.directionBlocked(dir.upForward))
+        return this.fall()
+
+      if (this.directionBlocked(dir.up))
+        return this.fall()
+
       if (keyboard.up) this.walk()
       if (keyboard.left) this.turn(1)
       if (keyboard.right) this.turn()
@@ -82,16 +84,16 @@ export default class Player {
     if (pressed.mouse2) return this.special()
 
     if (keyboard.up)
-      if (!this.directionBlocked(vector)) return this.walk()
+      if (!this.directionBlocked(dir.forward)) return this.walk()
 
     if (keyboard.down)
-      if (!this.directionBlocked(vector)) return this.walk(1)
+      if (!this.directionBlocked(dir.backward)) return this.walk(1)
 
     if (pressed.KeyQ)
-      if (!this.directionBlocked(vector)) return this.sideWalk()
+      if (!this.directionBlocked(dir.left)) return this.sideWalk()
 
     if (pressed.KeyE)
-      if (!this.directionBlocked(vector)) return this.sideWalk(1)
+      if (!this.directionBlocked(dir.right)) return this.sideWalk(1)
   }
 
   /* MOVEMENTS */
@@ -184,9 +186,9 @@ export default class Player {
   /* RAYCAST */
 
   directionBlocked(vector) {
-    if (!this.mesh || !this.solids.length) return
-    if (!vector) return false
-    const direction = vector.applyQuaternion(this.mesh.quaternion)
+    if (!this.mesh || !this.solids.length || !vector) return false
+    const vec = vector.clone() // because applyQuaternion is mutable
+    const direction = vec.applyQuaternion(this.mesh.quaternion)
     const bodyCenter = this.position.clone()
     bodyCenter.y += this.size
     const raycaster = new THREE.Raycaster(bodyCenter, direction, 0, this.size)
