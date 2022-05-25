@@ -3,6 +3,7 @@ import { OBJLoader } from '/node_modules/three119/examples/jsm/loaders/OBJLoader
 import { MTLLoader } from '/node_modules/three119/examples/jsm/loaders/MTLLoader.js'
 import { scene, camera, renderer, initLights, createOrbitControls } from '/utils/scene.js'
 import { randomInRange } from '/utils/helpers.js'
+import { CIRCLE } from '/utils/constants.js'
 
 let selectedItem, draggedItem, CHEST
 
@@ -45,7 +46,7 @@ function placeModel(model, shouldRotate = false, itemsNum = 1) {
     object.position.set(randomInRange(-10, 10), 0, randomInRange(-5, 5))
     if (shouldRotate)
       object.rotation.z = Math.PI / 2
-    object.rotation.y = Math.random() * 2 * Math.PI
+    object.rotation.y = Math.random() * CIRCLE
     scene.add(object)
     items.push(object)
   }

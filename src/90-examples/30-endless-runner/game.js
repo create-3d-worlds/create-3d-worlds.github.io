@@ -3,10 +3,10 @@ import { camera, scene, renderer, clock, addScoreUI } from '/utils/scene.js'
 import { createBall, createWorldSphere } from '/utils/spheres.js'
 import { createSun } from './helpers/createSun.js'
 import { createFir } from '/utils/trees.js'
-import { createParticles } from '/utils/particles.js'
+import { createParticles, resetParticles, expandParticles } from '/utils/particles.js'
 import { hemLight } from '/utils/light.js'
-import { randomInRange } from '/utils/helpers.js'
 import keyboard from '/classes/Keyboard.js'
+import { CIRCLE } from '/utils/constants.js'
 
 const rollingSpeed = 0.008
 const worldRadius = 26
@@ -44,7 +44,7 @@ const earth = createWorldSphere({ radius: worldRadius })
 earth.position.set(0, -24, 2)
 scene.add(earth)
 
-const particles = createParticles({ num: 30, color: 0xffffff, size: .1 })
+const particles = createParticles({ num: 30, file: null, color: 0xfffafa, size: 0.04, unitAngle: 0.1 })
 scene.add(particles)
 
 for (let i = 0; i < treesInPool; i++) treesPool.push(createFir({ size: 1 }))
@@ -84,7 +84,7 @@ function addTree(tree, spherical) {
   const worldVector = earth.position.clone().normalize()
   const treeVector = tree.position.clone().normalize()
   tree.quaternion.setFromUnitVectors(treeVector, worldVector)
-  tree.rotation.x += Math.random() * (2 * Math.PI / 10) - Math.PI / 10
+  tree.rotation.x += Math.random() * (CIRCLE / 10) - Math.PI / 10
   earth.add(tree)
 }
 
@@ -100,7 +100,7 @@ function addTreeOrTwo() {
 }
 
 const hit = tree => {
-  explode()
+  resetParticles({ particles, pos: [player.position.x, 2, 4.8], unitAngle: 0.2 })
   updateScore()
   tree.visible = false
   setTimeout(() => {
@@ -124,27 +124,6 @@ function updateTrees() {
     treesPool.push(tree)
     tree.visible = false
   })
-}
-
-function updateExplosion() {
-  if (!particles.visible) return
-  particles.geometry.vertices.forEach(vertex => {
-    vertex.multiplyScalar(explosionPower)
-  })
-  if (explosionPower > 1.005) explosionPower -= 0.001
-  else particles.visible = false
-  particles.geometry.verticesNeedUpdate = true
-}
-
-function explode() {
-  particles.position.set(player.position.x, 2, 4.8)
-  particles.geometry.vertices.forEach(vertex => {
-    vertex.x = randomInRange(-0.2, 0.2)
-    vertex.y = randomInRange(-0.2, 0.2)
-    vertex.z = randomInRange(-0.2, 0.2)
-  })
-  explosionPower = 1.07
-  particles.visible = true
 }
 
 function updatePlayer() {
@@ -188,7 +167,7 @@ void function update() {
     addTreeOrTwo()
   }
   updateTrees()
-  updateExplosion()
+  expandParticles({ particles, scalar: 1.1 })
   renderer.render(scene, camera)
   requestAnimationFrame(update)
 }()

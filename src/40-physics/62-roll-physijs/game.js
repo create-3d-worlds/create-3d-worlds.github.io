@@ -3,6 +3,7 @@ Physijs.scripts.worker = '/libs/physijs_worker.js'
 Physijs.scripts.ammo = './ammo.js'
 import { renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
+import { CIRCLE } from '/utils/constants.js'
 
 createOrbitControls()
 camera.position.y = 50
@@ -48,7 +49,7 @@ function createGround() {
 
 function setRandPosition(obj) {
   obj.position.set(Math.random() * 20 - 45, 40, Math.random() * 20 - 5)
-  obj.rotation.set(Math.random() * 2 * Math.PI, Math.random() * 2 * Math.PI, Math.random() * 2 * Math.PI)
+  obj.rotation.set(Math.random() * CIRCLE, Math.random() * CIRCLE, Math.random() * CIRCLE)
 }
 
 /* LOOP */
