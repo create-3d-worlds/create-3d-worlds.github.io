@@ -87,6 +87,7 @@ live-server
 - [x] dodati kameru odozgo (orbit)
 - [x] menjati kamere na taster
 - [x] srediti redom kamere po scenama
+- [ ] da moze da gleda levo-desno i gore-dole i sl. (vidi stairway-to-heaven)
 
 ### Player
 
@@ -104,7 +105,6 @@ live-server
   - [x] probati koliziju geometrijom
 - [x] postaviti lavirint sa kolizijom
 - [x] srediti Player handleInput
-- [ ] da moze da gleda levo-desno i gore-dole i sl. (vidi stairway-to-heaven)
 
 ### 3D Models
 

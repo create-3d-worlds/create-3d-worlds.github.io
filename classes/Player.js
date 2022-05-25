@@ -36,12 +36,23 @@ export default class Player {
 
   /* INPUT */
 
+  chooseRaycastVector() {
+    if (pressed.Space && keyboard.up) return new Vector3(0, 1, -1)
+    if (keyboard.up) return new Vector3(0, 0, -1)
+    if (keyboard.down) return new Vector3(0, 0, 1)
+    if (pressed.KeyQ) return new Vector3(-1, 0, 0)
+    if (pressed.KeyE) return new Vector3(1, 0, 0)
+    if (pressed.Space) return new Vector3(0, 1, 0)
+    return null
+  }
+
   handleInput(delta) {
     this.running = keyboard.capsLock
     const speed = this.running ? this.speed * 2 : this.speed
     this.step = speed * delta // speed in pixels per second
     this.jumpStep = speed * delta * 1.5
     this.turnAngle = Math.PI / 2 * delta
+    const vector = this.chooseRaycastVector()
 
     this.normalizeGround()
 
@@ -57,7 +68,7 @@ export default class Player {
     if (!pressed.mouse && !pressed.mouse2) this.loopOncePressed = false //  && !pressed.Space (ako je jump once)
 
     if (pressed.Space) {
-      if (this.directionBlocked()) return this.fall()
+      if (this.directionBlocked(vector)) return this.fall()
       if (keyboard.up) this.walk()
       if (keyboard.left) this.turn(1)
       if (keyboard.right) this.turn()
@@ -70,13 +81,17 @@ export default class Player {
     if (pressed.mouse) return this.attack()
     if (pressed.mouse2) return this.special()
 
-    if (this.directionBlocked()) return this.fall()
-    if (keyboard.up) return this.walk()
-    if (keyboard.down) return this.walk(1)
+    if (keyboard.up)
+      if (!this.directionBlocked(vector)) return this.walk()
 
-    if (pressed.KeyQ) return this.sideWalk()
-    if (pressed.KeyE) return this.sideWalk(1)
+    if (keyboard.down)
+      if (!this.directionBlocked(vector)) return this.walk(1)
 
+    if (pressed.KeyQ)
+      if (!this.directionBlocked(vector)) return this.sideWalk()
+
+    if (pressed.KeyE)
+      if (!this.directionBlocked(vector)) return this.sideWalk(1)
   }
 
   /* MOVEMENTS */
@@ -168,19 +183,8 @@ export default class Player {
 
   /* RAYCAST */
 
-  chooseRaycastVector() {
-    if (pressed.Space && keyboard.up) return new Vector3(0, 1, -1)
-    if (keyboard.up) return new Vector3(0, 0, -1)
-    if (keyboard.down) return new Vector3(0, 0, 1)
-    if (pressed.KeyQ) return new Vector3(-1, 0, 0)
-    if (pressed.KeyE) return new Vector3(1, 0, 0)
-    if (pressed.Space) return new Vector3(0, 1, 0)
-    return null
-  }
-
-  directionBlocked() {
+  directionBlocked(vector) {
     if (!this.mesh || !this.solids.length) return
-    const vector = this.chooseRaycastVector()
     if (!vector) return false
     const direction = vector.applyQuaternion(this.mesh.quaternion)
     const bodyCenter = this.position.clone()
