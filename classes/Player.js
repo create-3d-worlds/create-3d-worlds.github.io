@@ -2,22 +2,14 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import keyboard from '/classes/Keyboard.js'
 import { createPlayerBox } from '/utils/boxes.js'
 import { addSolids, raycastGround } from '/classes/actions/index.js'
-import { getHeight } from '/utils/helpers.js'
+import { getHeight, directionBlocked } from '/utils/helpers.js'
+import { dir } from '/utils/constants.js'
 
 const { pressed } = keyboard
-const { LoopOnce, LoopRepeat, Vector3, AnimationMixer } = THREE
-
-const dir = {
-  upForward: new Vector3(0, 1, -1),
-  forward: new Vector3(0, 0, -1),
-  backward: new Vector3(0, 0, 1),
-  left: new Vector3(-1, 0, 0),
-  right: new Vector3(1, 0, 0),
-  up: new Vector3(0, 1, 0),
-}
+const { LoopOnce, LoopRepeat, AnimationMixer } = THREE
 
 /**
- * Player handles user input, move mesh and animate model.
+ * Handles user input, move mesh and animate model.
  * (loadModel handles size and rotation)
  */
 export default class Player {
@@ -186,14 +178,7 @@ export default class Player {
   /* RAYCAST */
 
   directionBlocked(vector) {
-    if (!this.mesh || !this.solids.length || !vector) return false
-    const vec = vector.clone() // because applyQuaternion is mutable
-    const direction = vec.applyQuaternion(this.mesh.quaternion)
-    const bodyCenter = this.position.clone()
-    bodyCenter.y += this.size
-    const raycaster = new THREE.Raycaster(bodyCenter, direction, 0, this.size)
-    const intersections = raycaster.intersectObjects(this.solids, true)
-    return intersections.length > 0
+    return directionBlocked(this.mesh, this.solids, vector)
   }
 
   /* GETTERS */

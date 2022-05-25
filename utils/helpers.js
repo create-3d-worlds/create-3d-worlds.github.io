@@ -48,18 +48,6 @@ export const mouseToWorld = (e, camera = defaultCamera) => {
   return mouse3D
 }
 
-export function getIntersects(e, camera = defaultCamera, scene = defaultScene) {
-  const mouse3D = new THREE.Vector3(
-    e.clientX / window.innerWidth * 2 - 1,
-    -e.clientY / window.innerHeight * 2 + 1,
-    0
-  )
-  const raycaster = new THREE.Raycaster()
-  raycaster.setFromCamera(mouse3D, camera)
-  const intersects = raycaster.intersectObjects(scene.children)
-  return intersects
-}
-
 /* OBJECTS */
 
 export const isCollide = (bounds1, bounds2) =>
@@ -104,12 +92,31 @@ export const adjustHeight = mesh => {
   mesh.translateY(getHeight(mesh) / 2)
 }
 
-/* deprecated */
-// export const adjustHeight = mesh => {
-//   const box = new THREE.Box3().setFromObject(mesh)
-//   const bottom = box.min.y < 0 ? Math.abs(box.min.y) : 0
-//   mesh.translateY(bottom)
-// }
+/* RAYCAST */
+
+export const directionBlocked = (mesh, solids, vector) => {
+  if (!mesh || !solids.length || !vector) return false
+  const vec = vector.clone() // because applyQuaternion is mutable
+  const direction = vec.applyQuaternion(mesh.quaternion)
+  const bodyCenter = mesh.position.clone()
+  const height = getHeight(mesh)
+  bodyCenter.y += height
+  const raycaster = new THREE.Raycaster(bodyCenter, direction, 0, height)
+  const intersections = raycaster.intersectObjects(solids, true)
+  return intersections.length > 0
+}
+
+export function getIntersects(e, camera = defaultCamera, scene = defaultScene) {
+  const mouse3D = new THREE.Vector3(
+    e.clientX / window.innerWidth * 2 - 1,
+    -e.clientY / window.innerHeight * 2 + 1,
+    0
+  )
+  const raycaster = new THREE.Raycaster()
+  raycaster.setFromCamera(mouse3D, camera)
+  const intersects = raycaster.intersectObjects(scene.children)
+  return intersects
+}
 
 /* TEXTURES */
 
