@@ -23,12 +23,19 @@ export default class Player {
     this.animNames = animNames
     this.animations = animations
     this.loopOncePressed = false
-    this.flying = false
+  }
+
+  inAir() {
+    return this.position.y - this.groundY > this.size * .2
+  }
+
+  normalizeGround() {
+    // za neravne terene
+    if (this.position.y < this.groundY) this.mesh.translateY(this.jumpStep)
   }
 
   /* INPUT */
 
-  // TODO: return after each input key?
   handleInput(delta) {
     this.running = keyboard.capsLock
     const speed = this.running ? this.speed * 2 : this.speed
@@ -36,33 +43,47 @@ export default class Player {
     this.jumpStep = speed * delta * 1.5
     this.turnAngle = Math.PI / 2 * delta
 
-    if (!keyboard.keyPressed || this.loopOncePressed) this.idle()
-    if (!pressed.Space) this.fall()
+    this.normalizeGround()
+
+    if (this.inAir() && !pressed.Space) {
+      if (keyboard.left) this.turn(1)
+      if (keyboard.right) this.turn()
+      return this.fall()
+    }
+
+    if (!keyboard.keyPressed || this.loopOncePressed)
+      return this.idle()
 
     if (!pressed.mouse && !pressed.mouse2) this.loopOncePressed = false //  && !pressed.Space (ako je jump once)
 
-    if (keyboard.left) this.turn(1)
-    if (keyboard.right) this.turn()
+    if (pressed.Space) {
+      if (this.directionBlocked()) return this.fall()
+      if (keyboard.up) this.walk()
+      if (keyboard.left) this.turn(1)
+      if (keyboard.right) this.turn()
+      return this.jump()
+    }
 
-    if (pressed.mouse) this.attack()
-    if (pressed.mouse2) this.special()
+    if (keyboard.left) return this.turn(1)
+    if (keyboard.right) return this.turn()
+
+    if (pressed.mouse) return this.attack()
+    if (pressed.mouse2) return this.special()
 
     if (this.directionBlocked()) return this.fall()
+    if (keyboard.up) return this.walk()
+    if (keyboard.down) return this.walk(1)
 
-    if (pressed.Space) this.jump()
+    if (pressed.KeyQ) return this.sideWalk()
+    if (pressed.KeyE) return this.sideWalk(1)
 
-    if (keyboard.up) this.walk()
-    if (keyboard.down) this.walk(1)
-    // TODO: handle run?
-    if (pressed.KeyQ) this.sideWalk()
-    if (pressed.KeyE) this.sideWalk(1)
   }
 
   /* MOVEMENTS */
 
   walk(dir = -1) {
     this.mesh.translateZ(this.step * dir)
-    if (this.flying) return
+    // if (this.inAir()) return
     if (this.running && this.animNames.run) return this.runAnim()
     this.walkAnim()
   }
@@ -77,19 +98,15 @@ export default class Player {
   }
 
   fall() {
-    if (Math.round(this.position.y) == Math.round(this.groundY)) {
-      this.flying = false
-      return
-    }
+    if (Math.round(this.position.y) == Math.round(this.groundY)) return
+
     if (this.position.y - this.jumpStep >= this.groundY) {
       this.mesh.translateY(-this.jumpStep)
       this.fallAnim()
     }
-    if (this.position.y < this.groundY) this.mesh.translateY(this.jumpStep) // za neravne terene
   }
 
   jump() {
-    this.flying = true
     this.mesh.translateY(this.jumpStep)
     this.jumpAnim()
   }

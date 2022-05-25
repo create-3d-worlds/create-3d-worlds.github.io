@@ -42,7 +42,7 @@ live-server
   - [x] zastariti Snow, ukloniti iz Savo
 - [x] probati eksplozije
 - [x] odvojiti pomagala za čestice
-- [x] implementirati BufferGeometry https://threejs.org/docs/#api/en/core/BufferGeometry
+- [x] implementirati BufferGeometry
   - [x] handle different vertex velocity
 
 ### Tilemaps
@@ -103,7 +103,7 @@ live-server
   - [x] probati koliziju bacanjem zraka
   - [x] probati koliziju geometrijom
 - [x] postaviti lavirint sa kolizijom
-- [ ] srediti Player handleInput
+- [x] srediti Player handleInput
 - [ ] da moze da gleda levo-desno i gore-dole i sl. (vidi stairway-to-heaven)
 
 ### 3D Models
