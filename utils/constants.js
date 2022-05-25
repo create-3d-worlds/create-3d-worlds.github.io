@@ -12,4 +12,5 @@ export const dir = {
   left: new Vector3(-1, 0, 0),
   right: new Vector3(1, 0, 0),
   up: new Vector3(0, 1, 0),
+  down: new Vector3(0, -1, 0),
 }

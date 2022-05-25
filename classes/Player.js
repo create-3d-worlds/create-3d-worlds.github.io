@@ -47,7 +47,7 @@ export default class Player {
 
     this.normalizeGround()
 
-    // BUG: kad je na vrhu drveta, ne može napred, samo levo-desno 
+    // BUG: kad je na vrhu drveta, ne može napred, samo levo-desno
     // http://127.0.0.1:8080/src/30-player/26-avatar-collision/
     if (this.inAir() && !pressed.Space) {
       if (keyboard.left) this.turn(1)
