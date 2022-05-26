@@ -6,24 +6,38 @@ const CIRCLE = Math.PI * 2
 
 // TOWER OF BABEL
 
-function createCircle(radius = 100, y = 0) {
+function createCircle({ r = 100, y = 0, size = 10 } = {}) {
   const blocks = []
-  const blocksInCirle = 20
+  const blocksInCirle = 15
   const step = CIRCLE / blocksInCirle
   for (let i = 0; i <= CIRCLE; i += step) {
-    const x = Math.cos(i) * radius
-    const z = Math.sin(i) * radius
-    const block = createBox({ x, y, z, zModifier: 2 })
+    const x = Math.cos(i) * r
+    const z = Math.sin(i) * r
+    const block = createBox({ size, x, y, z, zModifier: 2 })
     block.rotateY(-i)
     blocks.push(block)
   }
   return blocks
 }
 
-export function createBabelTower({ floors = 5 } = {}) {
+export function createBabelTower({ floors = 5, size = 10, r = 50 } = {}) {
   const group = new THREE.Group()
   for (let i = 0; i < floors; i++)
-    group.add(...createCircle(100 - i * 10, i * 20))
+    group.add(...createCircle({ r: r - i * 5, y: i * size, size }))
+  return group
+}
+
+export function spomenik({ floors = 6, size = 20, r = 5 } = {}) {
+  const group = new THREE.Group()
+  for (let i = 0; i < floors; i++)
+    group.add(...createCircle({ r: r - i * 5, y: i * size * .5, size }))
+  return group
+}
+
+export function spaceStructure({ floors = 6, size = 5, r = 5 } = {}) {
+  const group = new THREE.Group()
+  for (let i = 0; i < floors; i++)
+    group.add(...createCircle({ r: r - i * 5, y: i * size * 2, size }))
   return group
 }
 

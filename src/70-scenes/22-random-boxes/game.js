@@ -6,9 +6,6 @@ import { hemLight } from '/utils/light.js'
 
 hemLight()
 
-camera.position.z = 5
-camera.position.y = 2
-
 const floor = createGround({ file: 'ground.jpg' })
 scene.add(floor)
 const boxes = createRandomBoxes()
@@ -16,7 +13,6 @@ scene.add(boxes)
 
 const player = new Avatar({ size: 2 })
 player.mesh.rotateY(Math.PI)
-player.mesh.add(camera)
 scene.add(player.mesh)
 
 player.addSolids(floor, boxes)

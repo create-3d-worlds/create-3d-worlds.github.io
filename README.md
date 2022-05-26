@@ -107,6 +107,7 @@ live-server
 - [x] srediti Player handleInput
 - [x] spojiti animacije sa pokretom
 - [ ] ograničiti visinu skoka?
+- [ ] ukloniti argument transparent
 
 ### 3D Models
 

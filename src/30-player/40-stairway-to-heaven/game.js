@@ -1,11 +1,8 @@
-import { createWorldScene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
+import { createWorldScene, camera, renderer, clock } from '/utils/scene.js'
 import { createSpiralStairs } from '/utils/towers.js'
 import { createTerrain } from '/utils/ground.js'
 import Avatar from '/classes/Avatar.js'
-import keyboard from '/classes/Keyboard.js'
-import { cameraFollowObject } from '/utils/helpers.js'
 
-const controls = createOrbitControls()
 const scene = createWorldScene()
 
 const terrain = createTerrain()
@@ -26,16 +23,12 @@ avatar.addSolids(terrain, stairsRight, stairsLeft)
 avatar.mesh.rotateY(Math.PI)
 scene.add(avatar.mesh)
 
-controls.target = avatar.mesh.position
-
 /* LOOP */
 
 void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
   avatar.update(delta)
-  controls.update()
-  if (!keyboard.pressed.mouse)
-    cameraFollowObject(camera, avatar.mesh, { distance: 7, y: 3 })
+
   renderer.render(scene, camera)
 }()

@@ -12,10 +12,6 @@ const player = new Avatar()
 scene.add(player.mesh)
 player.addSolids(walls)
 
-camera.position.z = 5
-camera.position.y = 2.5
-player.add(camera)
-
 /* LOOP */
 
 void function animate() {

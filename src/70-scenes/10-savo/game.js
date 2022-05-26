@@ -22,7 +22,7 @@ const walls = map.create3DMap({ yModifier: 0.5 })
 scene.add(walls)
 
 const { x, z } = map.randomEmptyPos
-const player = new Player({ x, z, speed: 20, transparent: true })
+const player = new Player({ x, z, speed: 20, transparent: true, cameraFollow: false })
 player.add(camera)
 player.addSolids(walls)
 scene.add(player.mesh)

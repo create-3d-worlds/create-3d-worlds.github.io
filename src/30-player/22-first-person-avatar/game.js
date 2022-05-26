@@ -7,14 +7,10 @@ const avatar = new Avatar()
 
 scene.add(avatar.mesh, createTrees())
 
-avatar.mesh.add(camera)
-camera.position.y = 4
-camera.position.z = 8
-
 /* LOOP */
 
-void function animate() {
-  requestAnimationFrame(animate)
+void function gameLoop() {
+  requestAnimationFrame(gameLoop)
   const delta = clock.getDelta()
   avatar.update(delta)
   renderer.render(scene, camera)

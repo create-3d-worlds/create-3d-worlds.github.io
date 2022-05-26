@@ -6,10 +6,6 @@ const scene = createWorldScene()
 const avatar = new Avatar()
 scene.add(avatar.mesh)
 
-camera.position.z = 10
-camera.position.y = 5
-avatar.add(camera)
-
 const trees = createFirTrees()
 scene.add(trees)
 avatar.addSolids(trees)

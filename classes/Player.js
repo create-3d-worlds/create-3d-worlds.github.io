@@ -2,18 +2,21 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import keyboard from '/classes/Keyboard.js'
 import { createPlayerBox } from '/utils/boxes.js'
 import { addSolids, raycastGround } from '/classes/actions/index.js'
-import { getHeight, directionBlocked } from '/utils/helpers.js'
+import { getHeight, directionBlocked, cameraFollowObject } from '/utils/helpers.js'
 import { dir } from '/utils/constants.js'
+import { camera, createOrbitControls } from '/utils/scene.js'
 
 const { pressed } = keyboard
 const { LoopOnce, LoopRepeat, AnimationMixer } = THREE
+
 
 /**
  * Handles user input, move mesh and animate model.
  * (loadModel handles size and rotation)
  */
 export default class Player {
-  constructor({ transparent = false, mesh = createPlayerBox(2, transparent), speed, animations, animNames = {} } = {}) {
+  constructor({ transparent = false, mesh = createPlayerBox(2, transparent), cameraFollow = true, speed, animations, animNames = {} } = {}) {
+    console.log(cameraFollow)
     this.mesh = mesh
     this.size = getHeight(mesh)
     this.speed = speed || this.size * 2
@@ -24,6 +27,7 @@ export default class Player {
     this.animNames = animNames
     this.animations = animations
     this.loopOncePressed = false
+    if (cameraFollow) this.controls = createOrbitControls()
   }
 
   inAir(step = this.size * .2) {
@@ -204,7 +208,14 @@ export default class Player {
   update(delta) {
     this.updateGround()
     this.handleInput(delta)
-    // if no run animation, speed up walk animation
+
+    if (this.controls) {
+      this.controls.target = this.mesh.position
+      this.controls.update()
+      if (!keyboard.pressed.mouse)
+        cameraFollowObject(camera, this.mesh, { distance: this.size * 2, y: this.size })
+    }
+
     const runDelta = (this.running && !this.animNames.run) ? delta * 2 : delta
     if (this.mixer) this.mixer.update(runDelta)
   }

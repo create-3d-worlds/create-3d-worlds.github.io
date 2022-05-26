@@ -20,7 +20,6 @@ scene.add(stairs)
 const { mesh, animations } = await loadModel({ file: 'character-girl/girl.glb', size: .1, rot: { axis: [0, 1, 0], angle: Math.PI } })
 
 const player = new Player({ mesh, animations, animNames: girlAnimations })
-mesh.add(camera)
 scene.add(mesh)
 
 player.addSolids(floor, stairs)

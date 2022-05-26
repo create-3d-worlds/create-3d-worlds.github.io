@@ -6,8 +6,6 @@ import matrix from '/data/small-map.js'
 import { hemLight } from '/utils/light.js'
 
 hemLight()
-camera.position.z = 3
-camera.position.y = 1.5
 
 const avatar = new Avatar({ size: 1, skin: 'lava' })
 avatar.position.set(12, 0, 12)
@@ -17,7 +15,6 @@ const walls = create3DMap({ matrix, size: 4 })
 
 scene.add(avatar.mesh, floor, walls)
 
-avatar.mesh.add(camera)
 avatar.addSolids(walls)
 
 /* LOOP */
