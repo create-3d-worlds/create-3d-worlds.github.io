@@ -3,6 +3,7 @@ Physijs.scripts.worker = '/libs/physijs_worker.js'
 Physijs.scripts.ammo = './ammo.js'
 import { renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
+import { DEGREE } from '/utils/constants.js'
 
 const blocks = []
 const numDominos = 1000
@@ -26,8 +27,8 @@ function addBlocks() {
   let j = 0
   for (let i = 0; i < numDominos; i += 6 + circleOffset) {
     circleOffset = 4.5 * (i / 360)
-    const x = (r / 1440) * (1440 - i) * Math.cos(i * (Math.PI / 180))
-    const z = (r / 1440) * (1440 - i) * Math.sin(i * (Math.PI / 180))
+    const x = (r / 1440) * (1440 - i) * Math.cos(i * DEGREE)
+    const z = (r / 1440) * (1440 - i) * Math.sin(i * DEGREE)
     const y = 0
     const point = new THREE.Vector3(x, y, z)
     const blockGeom = new THREE.BoxGeometry(1, 6, 2)
