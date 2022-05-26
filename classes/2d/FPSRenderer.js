@@ -3,7 +3,7 @@ import keyboard from '../Keyboard.js'
 
 const targetSrc = '/assets/images/crosshair.png'
 
-export default class FirstPersonRenderer extends Canvas {
+export default class FPSRenderer extends Canvas {
   constructor(weaponSrc = '/assets/images/savo.png') {
     super()
     this.weaponSrc = weaponSrc
@@ -51,4 +51,4 @@ export default class FirstPersonRenderer extends Canvas {
   }
 }
 
-customElements.define('my-first-person', FirstPersonRenderer, { extends: 'canvas' })
+customElements.define('my-first-person', FPSRenderer, { extends: 'canvas' })

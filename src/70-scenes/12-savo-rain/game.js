@@ -1,7 +1,7 @@
 import { createGround } from '/utils/ground.js'
 import { randomMatrix } from '/utils/maps.js'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
-import FirstPersonRenderer from '/classes/2d/FirstPersonRenderer.js'
+import FPSRenderer from '/classes/2d/FPSRenderer.js'
 import Map2DRenderer from '/classes/2d/Map2DRenderer.js'
 import Player from '/classes/Player.js'
 import Tilemap from '/classes/Tilemap.js'
@@ -12,7 +12,7 @@ hemLight({ intensity: 1.2 })
 
 camera.position.y = 10
 camera.position.z = 5
-const fpsRenderer = new FirstPersonRenderer()
+const fpsRenderer = new FPSRenderer()
 
 const matrix = randomMatrix()
 const map = new Tilemap(matrix, 80)
