@@ -161,12 +161,6 @@ export default class Player {
     )
   }
 
-  /* RAYCAST */
-
-  directionBlocked(vector) {
-    return directionBlocked(this.mesh, this.solids, vector)
-  }
-
   /* GETTERS */
 
   get position() {
@@ -191,8 +185,14 @@ export default class Player {
     this.mesh.add(obj)
   }
 
+  /* ALIASES */
+
   addSolids(...newSolids) {
     addSolids(this.solids, ...newSolids)
+  }
+
+  directionBlocked(vector) {
+    return directionBlocked(this.mesh, this.solids, vector)
   }
 
   /* LOOP */

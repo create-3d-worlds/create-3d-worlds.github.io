@@ -106,6 +106,7 @@ live-server
 - [x] postaviti lavirint sa kolizijom
 - [x] srediti Player handleInput
 - [x] spojiti animacije sa pokretom
+- [ ] ograničiti visinu skoka?
 
 ### 3D Models
 
@@ -126,7 +127,7 @@ live-server
 - [x] da ne korača u skoku kad ide napred
 - [x] srediti animacije modela (vidi stairway-girl)
 - [x] ubrzati animaciju po potrebi (u odnosu na brzinu, nazad sporije i sl.)
-- [ ] ograničiti visinu skoka?
+- [ ] proveriti glb models light, vidi scene.js
 
 ### Scenes
 

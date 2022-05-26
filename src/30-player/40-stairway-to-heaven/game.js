@@ -2,11 +2,11 @@ import { createWorldScene, camera, renderer, clock, createOrbitControls } from '
 import { createSpiralStairs } from '/utils/towers.js'
 import { createTerrain } from '/utils/ground.js'
 import Avatar from '/classes/Avatar.js'
+import keyboard from '/classes/Keyboard.js'
+import { cameraFollowObject } from '/utils/helpers.js'
 
-// createOrbitControls()
-const scene = createWorldScene() // ne radi kolizija za pod
-camera.position.z = 7
-camera.position.y = 5
+const controls = createOrbitControls()
+const scene = createWorldScene()
 
 const terrain = createTerrain()
 scene.add(terrain)
@@ -24,8 +24,9 @@ stairsRight.rotateY(-Math.PI / 4)
 const avatar = new Avatar()
 avatar.addSolids(terrain, stairsRight, stairsLeft)
 avatar.mesh.rotateY(Math.PI)
-avatar.add(camera)
 scene.add(avatar.mesh)
+
+controls.target = avatar.mesh.position
 
 /* LOOP */
 
@@ -33,5 +34,8 @@ void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
   avatar.update(delta)
+  controls.update()
+  if (!keyboard.pressed.mouse)
+    cameraFollowObject(camera, avatar.mesh, { distance: 7, y: 3 })
   renderer.render(scene, camera)
 }()
