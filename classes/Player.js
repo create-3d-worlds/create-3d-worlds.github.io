@@ -26,13 +26,13 @@ export default class Player {
     this.loopOncePressed = false
   }
 
-  inAir() {
-    return this.position.y - this.groundY > this.size * .2
+  inAir(step = this.size * .2) {
+    return this.position.y - this.groundY > step
   }
 
-  normalizeGround() {
-    // za neravne terene
-    if (this.position.y < this.groundY) this.mesh.translateY(this.jumpStep)
+  normalizeGround(jumpStep) {
+    if (this.position.y < this.groundY) this.mesh.translateY(jumpStep)
+    if (this.position.y - this.groundY < jumpStep) this.position.y = this.groundY
   }
 
   /* INPUT */
@@ -43,13 +43,11 @@ export default class Player {
     this.step = speed * delta // speed in pixels per second
     this.jumpStep = speed * delta * 1.5
     this.turnAngle = Math.PI / 2 * delta
-    this.loopOncePressed = pressed.mouse || pressed.mouse2 // pressed.Space (ako je jump once)
+    this.loopOncePressed = pressed.mouse || pressed.mouse2 // || pressed.Space (ako je jump once)
 
-    this.normalizeGround()
+    this.normalizeGround(this.jumpStep)
 
-    // BUG: kad je na vrhu drveta, ne može napred, samo levo-desno
-    // http://127.0.0.1:8080/src/30-player/26-avatar-collision/
-    if (this.inAir() && !pressed.Space) {
+    if (this.inAir(this.jumpStep) && !pressed.Space) {
       if (keyboard.left) this.turn(1)
       if (keyboard.right) this.turn()
       return this.fall()
@@ -98,7 +96,6 @@ export default class Player {
 
   walk(dir = -1) {
     this.mesh.translateZ(this.step * dir)
-    // if (this.inAir()) return
     if (this.running && this.animNames.run) return this.runAnim()
     this.walkAnim()
   }
@@ -113,7 +110,7 @@ export default class Player {
   }
 
   fall() {
-    if (Math.round(this.position.y) == Math.round(this.groundY)) return
+    if (this.position.y == this.groundY) return
 
     if (this.position.y - this.jumpStep >= this.groundY) {
       this.mesh.translateY(-this.jumpStep)
