@@ -1,6 +1,7 @@
 /* global THREE, Physijs */
 import { renderer, camera } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
+import { RIGHT_ANGLE } from '/utils/constants.js'
 
 Physijs.scripts.worker = 'libs/physijs_worker.js'
 Physijs.scripts.ammo = 'ammo.js'
@@ -50,7 +51,7 @@ function addCar(scene) {
     wheelMaterial,
     500
   )
-  car.wheelFl.rotation.x = Math.PI / 2
+  car.wheelFl.rotation.x = RIGHT_ANGLE
   car.wheelFl.position.set(-3.5, 6.5, 5)
   car.wheelFl.receiveShadow = car.wheelFl.castShadow = true
   scene.add(car.wheelFl)
@@ -66,7 +67,7 @@ function addCar(scene) {
     wheelMaterial,
     500
   )
-  car.wheelFr.rotation.x = Math.PI / 2
+  car.wheelFr.rotation.x = RIGHT_ANGLE
   car.wheelFr.position.set(-3.5, 6.5, -5)
   car.wheelFr.receiveShadow = car.wheelFr.castShadow = true
   scene.add(car.wheelFr)
@@ -82,7 +83,7 @@ function addCar(scene) {
     wheelMaterial,
     500
   )
-  car.wheelBl.rotation.x = Math.PI / 2
+  car.wheelBl.rotation.x = RIGHT_ANGLE
   car.wheelBl.position.set(3.5, 6.5, 5)
   car.wheelBl.receiveShadow = car.wheelBl.castShadow = true
   scene.add(car.wheelBl)
@@ -98,7 +99,7 @@ function addCar(scene) {
     wheelMaterial,
     500
   )
-  car.wheelBr.rotation.x = Math.PI / 2
+  car.wheelBr.rotation.x = RIGHT_ANGLE
   car.wheelBr.position.set(3.5, 6.5, -5)
   car.wheelBr.receiveShadow = car.wheelBr.castShadow = true
   scene.add(car.wheelBr)
@@ -141,16 +142,16 @@ document.addEventListener('keydown', ev => {
   switch (ev.keyCode) {
     case 37:
     // Left
-      car.wheelFlConstraint.configureAngularMotor(1, -Math.PI / 2, Math.PI / 2, 1, 200)
-      car.wheelFrConstraint.configureAngularMotor(1, -Math.PI / 2, Math.PI / 2, 1, 200)
+      car.wheelFlConstraint.configureAngularMotor(1, -RIGHT_ANGLE, RIGHT_ANGLE, 1, 200)
+      car.wheelFrConstraint.configureAngularMotor(1, -RIGHT_ANGLE, RIGHT_ANGLE, 1, 200)
       car.wheelFlConstraint.enableAngularMotor(1)
       car.wheelFrConstraint.enableAngularMotor(1)
       break
 
     case 39:
     // Right
-      car.wheelFlConstraint.configureAngularMotor(1, -Math.PI / 2, Math.PI / 2, -1, 200)
-      car.wheelFrConstraint.configureAngularMotor(1, -Math.PI / 2, Math.PI / 2, -1, 200)
+      car.wheelFlConstraint.configureAngularMotor(1, -RIGHT_ANGLE, RIGHT_ANGLE, -1, 200)
+      car.wheelFrConstraint.configureAngularMotor(1, -RIGHT_ANGLE, RIGHT_ANGLE, -1, 200)
       car.wheelFlConstraint.enableAngularMotor(1)
       car.wheelFrConstraint.enableAngularMotor(1)
       break

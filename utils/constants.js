@@ -6,6 +6,8 @@ export const CIRCLE = 2 * Math.PI
 
 export const DEGREE = Math.PI / 180
 
+export const RIGHT_ANGLE = Math.PI * .5
+
 export const dir = {
   upForward: new Vector3(0, 1, -1),
   forward: new Vector3(0, 0, -1),

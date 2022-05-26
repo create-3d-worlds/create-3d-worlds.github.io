@@ -1,6 +1,7 @@
 /* global CANNON */
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
+import { RIGHT_ANGLE } from '/utils/constants.js'
 import { dirLight } from '/utils/light.js'
 
 const dt = 1 / 60
@@ -19,7 +20,7 @@ scene.add(new THREE.AmbientLight(0x343434))
 const geometry = new THREE.PlaneGeometry(100, 100, 1, 1)
 const material = new THREE.MeshLambertMaterial({ color: 0x777777 })
 const floor = new THREE.Mesh(geometry, material)
-geometry.rotateX(-Math.PI * 0.5)
+geometry.rotateX(-RIGHT_ANGLE)
 floor.receiveShadow = true
 scene.add(floor)
 
@@ -27,7 +28,7 @@ scene.add(floor)
 const groundShape = new CANNON.Plane()
 const groundBody = new CANNON.Body({ mass: 0 })
 groundBody.addShape(groundShape)
-groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI * 0.5) // rotateX(-Math.PI * 0.5)
+groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -RIGHT_ANGLE) // rotateX(-RIGHT_ANGLE)
 world.add(groundBody)
 
 // THREE box
