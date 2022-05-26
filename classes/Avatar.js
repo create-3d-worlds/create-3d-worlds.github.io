@@ -25,6 +25,11 @@ export default class Avatar extends Player {
     })
   }
 
+  fall() {
+    super.fall()
+    this.idle()
+  }
+
   walk(dir) {
     super.walk(dir)
     this.walkAnim()

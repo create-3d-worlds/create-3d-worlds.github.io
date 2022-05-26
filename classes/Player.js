@@ -213,7 +213,7 @@ export default class Player {
       this.controls.target = this.mesh.position
       this.controls.update()
       if (!keyboard.pressed.mouse)
-        cameraFollowObject(camera, this.mesh, { distance: this.size * 2, y: this.size })
+        cameraFollowObject(camera, this.mesh, { distance: this.size * 2, y: this.size * .75 })
     }
 
     const runDelta = (this.running && !this.animNames.run) ? delta * 2 : delta
