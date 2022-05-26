@@ -13,7 +13,7 @@ camera.position.y = 15
 const fpsCamera = camera.clone()
 let currentCamera = camera
 
-const avatar = new Avatar({ size: 2 })
+const avatar = new Avatar({ size: 2, autoCamera: false })
 scene.add(avatar.mesh, createGround({ file: 'ground.jpg' }), createFirTrees())
 
 const commands = {

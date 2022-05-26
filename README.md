@@ -24,6 +24,7 @@ live-server
   - [x] organizovati modele tematski
   - [x] izbaciti nightelf-priest
 - [x] veličina nekih modela ne radi (dae format zeza, izbegavati)
+- [ ] organizovati primere u scenu
 
 ### Geometry
 
@@ -106,8 +107,7 @@ live-server
 - [x] postaviti lavirint sa kolizijom
 - [x] srediti Player handleInput
 - [x] spojiti animacije sa pokretom
-- [ ] ograničiti visinu skoka?
-- [ ] ukloniti argument transparent
+- [ ] ukloniti argument transparent, srediti savo
 
 ### 3D Models
 
@@ -128,7 +128,6 @@ live-server
 - [x] da ne korača u skoku kad ide napred
 - [x] srediti animacije modela (vidi stairway-girl)
 - [x] ubrzati animaciju po potrebi (u odnosu na brzinu, nazad sporije i sl.)
-- [ ] proveriti glb models light, vidi scene.js
 
 ### Scenes
 
@@ -205,6 +204,7 @@ live-server
 
 - [x] isprobati lagani prelaz (lerp ili tween.js)
 - [ ] dodati panoramu (skybox), nebo/zvezde (vidi 50-svod)
+- [ ] dodati UI komande redom
 - [ ] popraviti HTML margine
 - [ ] optimizacija 
   - https://twitter.com/mrdoob/status/966609115140128768

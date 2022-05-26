@@ -30,7 +30,7 @@ camera.lookAt(scene.position)
 
 // RENDERER
 
-export const renderer = new THREE.WebGLRenderer()
+export const renderer = new THREE.WebGLRenderer() // { antialias: true, maxLights: 100, alpha: true }
 document.body.appendChild(renderer.domElement)
 document.body.style.margin = 0
 renderer.domElement.focus()
@@ -45,7 +45,6 @@ renderer.outputEncoding = THREE.GammaEncoding
 // from version 112 replace with:
 // renderer.outputEncoding = THREE.sRGBEncoding
 
-// renderer = new THREE.WebGLRenderer({ antialias: true, maxLights: 100, alpha: true })
 // renderer.physicallyBasedShading = true
 // renderer.shadowMapAutoUpdate = true
 

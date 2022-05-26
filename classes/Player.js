@@ -15,8 +15,7 @@ const { LoopOnce, LoopRepeat, AnimationMixer } = THREE
  * (loadModel handles size and rotation)
  */
 export default class Player {
-  constructor({ transparent = false, mesh = createPlayerBox(2, transparent), cameraFollow = true, speed, animations, animNames = {} } = {}) {
-    console.log(cameraFollow)
+  constructor({ transparent = false, mesh = createPlayerBox(2, transparent), autoCamera = true, speed, animations, animNames = {} } = {}) {
     this.mesh = mesh
     this.size = getHeight(mesh)
     this.speed = speed || this.size * 2
@@ -27,7 +26,7 @@ export default class Player {
     this.animNames = animNames
     this.animations = animations
     this.loopOncePressed = false
-    if (cameraFollow) this.controls = createOrbitControls()
+    if (autoCamera) this.controls = createOrbitControls()
   }
 
   inAir(step = this.size * .2) {
