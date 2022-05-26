@@ -96,15 +96,20 @@ export default class Player {
 
   /* MOVEMENTS */
 
+  idle() {
+    this.playAnimation(this.animNames.idle, LoopRepeat)
+  }
+
   walk(dir = -1) {
     this.mesh.translateZ(this.step * dir)
-    if (this.running && this.animNames.run) return this.runAnim()
-    this.walkAnim()
+    if (this.running && this.animNames.run)
+      return this.playAnimation(this.animNames.run || this.animNames.walk, LoopRepeat)
+    this.playAnimation(this.animNames.walk, LoopRepeat)
   }
 
   sideWalk(dir = -1) {
     this.mesh.translateX(this.step * dir)
-    this.sideWalkAnim()
+    this.playAnimation(this.animNames.walk, LoopRepeat)
   }
 
   turn(dir = -1) {
@@ -116,39 +121,13 @@ export default class Player {
 
     if (this.position.y - this.jumpStep >= this.groundY) {
       this.mesh.translateY(-this.jumpStep)
-      this.fallAnim()
+      this.playAnimation(this.animNames.fall || this.animNames.jump, LoopRepeat)
     }
   }
 
   jump() {
     this.mesh.translateY(this.jumpStep)
-    this.jumpAnim()
-  }
-
-  /* ANIMATIONS */
-
-  idle() {
-    this.playAnimation(this.animNames.idle, LoopRepeat)
-  }
-
-  walkAnim() {
-    this.playAnimation(this.animNames.walk, LoopRepeat)
-  }
-
-  runAnim() {
-    this.playAnimation(this.animNames.run || this.animNames.walk, LoopRepeat)
-  }
-
-  sideWalkAnim() {
-    this.playAnimation(this.animNames.walk, LoopRepeat)
-  }
-
-  jumpAnim() {
     this.playAnimation(this.animNames.jump, LoopRepeat)
-  }
-
-  fallAnim() {
-    this.playAnimation(this.animNames.fall || this.animNames.jump, LoopRepeat)
   }
 
   attack() {
@@ -158,6 +137,8 @@ export default class Player {
   special() {
     this.playAnimation(this.animNames.special, LoopOnce)
   }
+
+  /* ANIMATIONS */
 
   playAnimation(name, loop) {
     if (!this.animations || this.shouldNotPlay(name, loop)) return

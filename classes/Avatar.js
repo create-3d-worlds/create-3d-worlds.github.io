@@ -7,7 +7,10 @@ export default class Avatar extends Player {
     super({ speed })
     this.size = size
     this.mesh = createAvatar({ skin, size })
-    this.limbs = [this.mesh.getObjectByName('leftHand'), this.mesh.getObjectByName('rightHand'), this.mesh.getObjectByName('leftLeg'), this.mesh.getObjectByName('rightLeg')]
+    this.limbs = [
+      this.mesh.getObjectByName('leftHand'), this.mesh.getObjectByName('rightHand'),
+      this.mesh.getObjectByName('leftLeg'), this.mesh.getObjectByName('rightLeg')
+    ]
   }
 
   idle() {
@@ -16,10 +19,16 @@ export default class Avatar extends Player {
     })
   }
 
-  jumpAnim() {
+  jump() {
+    super.jump()
     this.limbs.forEach(limb => {
-      limb.position.z = this.size * .3 // eslint-disable-line
+      limb.position.z = this.size * .3
     })
+  }
+
+  walk(dir) {
+    super.walk(dir)
+    this.walkAnim()
   }
 
   walkAnim() {
@@ -31,12 +40,13 @@ export default class Avatar extends Player {
     })
   }
 
-  sideWalkAnim() {
+  sideWalk(dir) {
+    super.sideWalk(dir)
     this.walkAnim()
   }
 
   update(delta = clock.getDelta()) {
     super.update(delta)
-    uniforms.time.value += 0.8 * delta // lava only
+    uniforms.time.value += 0.8 * delta // for lava skin only
   }
 }
