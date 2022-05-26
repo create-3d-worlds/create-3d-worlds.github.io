@@ -31,8 +31,10 @@ export default class Player {
   }
 
   normalizeGround(jumpStep) {
-    if (this.position.y < this.groundY) this.mesh.translateY(jumpStep)
-    if (this.position.y - this.groundY < jumpStep) this.position.y = this.groundY
+    const difference = () => this.position.y - this.groundY // need current value, not variable
+    if (!difference()) return
+    if (difference() < 0) this.mesh.translateY(jumpStep)
+    if (difference() > 0 && difference() < jumpStep) this.position.y = this.groundY
   }
 
   /* INPUT */

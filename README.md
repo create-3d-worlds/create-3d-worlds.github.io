@@ -105,6 +105,7 @@ live-server
   - [x] probati koliziju geometrijom
 - [x] postaviti lavirint sa kolizijom
 - [x] srediti Player handleInput
+- [ ] spojiti animacije sa pokretom
 
 ### 3D Models
 
