@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { FirstPersonControls } from '/node_modules/three119/examples/jsm/controls/FirstPersonControls.js'
 import { nemesis as map } from '/data/maps.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { UNITSIZE, getMapSector, drawRadar, createHealth, createAi } from './utils.js'
+import { UNITSIZE, getMapSector, drawRadar, createHealth, createAi, checkWallCollision, createFloor } from './utils.js'
 import { randomInt } from '/utils/helpers.js'
 
 const mapW = map.length
@@ -45,16 +45,9 @@ function distance(x1, y1, x2, y2) {
   return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
 }
 
-// Check whether a Vector3 is inside a wall
-function checkWallCollision(v) {
-  const c = getMapSector(v)
-  return map[c.x][c.z] > 0
-}
-
 function addAI() {
   let x, z
   const c = getMapSector(camera.position)
-
   do {
     x = randomInt(0, mapW - 1)
     z = randomInt(0, mapH - 1)
@@ -197,11 +190,7 @@ function update(delta) {
 }
 
 function setupScene() {
-  const units = mapW
-  const floor = new THREE.Mesh(
-    new THREE.BoxGeometry(units * UNITSIZE, 10, units * UNITSIZE),
-    new THREE.MeshLambertMaterial({ color: 0xEDCBA0 })
-  )
+  const floor = createFloor()
   scene.add(floor)
 
   const cube = new THREE.BoxGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE)
@@ -214,9 +203,9 @@ function setupScene() {
     for (let j = 0, m = map[i].length; j < m; j++)
       if (map[i][j]) {
         const wall = new THREE.Mesh(cube, materials[map[i][j] - 1])
-        wall.position.x = (i - units / 2) * UNITSIZE
+        wall.position.x = (i - mapW / 2) * UNITSIZE
         wall.position.y = WALLHEIGHT / 2
-        wall.position.z = (j - units / 2) * UNITSIZE
+        wall.position.z = (j - mapW / 2) * UNITSIZE
         scene.add(wall)
       }
 

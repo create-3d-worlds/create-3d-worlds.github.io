@@ -66,3 +66,16 @@ export function createAi({ x, z }) {
   mesh.lastShot = Date.now() // Higher-fidelity timers aren'THREE a big deal here.
   return mesh
 }
+
+export function checkWallCollision(v) {
+  const c = getMapSector(v)
+  return map[c.x][c.z] > 0
+}
+
+export function createFloor() {
+  const floor = new THREE.Mesh(
+    new THREE.BoxGeometry(mapW * UNITSIZE, 10, mapW * UNITSIZE),
+    new THREE.MeshLambertMaterial({ color: 0xEDCBA0 })
+  )
+  return floor
+}
