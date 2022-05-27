@@ -193,6 +193,7 @@ live-server
 
 ### Examples
 
+- [ ] odvojiti pomagala iz primera
 - [ ] endless-runner
   - [x] prikazivati poene
   - [ ] probati konja ili dabra

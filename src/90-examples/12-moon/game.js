@@ -7,7 +7,7 @@ dirLight({ position: [.5, 0, 1], intensity: 2 })
 const controls = createOrbitControls()
 camera.position.z = 8
 
-const moon = createMoon()
+const moon = createMoon({ r: 2 })
 scene.add(moon)
 
 /* LOOP */

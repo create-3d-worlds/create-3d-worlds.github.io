@@ -9,8 +9,8 @@ const rotationSpeed = 0.001
 const controls = createOrbitControls()
 camera.position.set(40, 0, 0)
 
-const earth = createEarth()
-const clouds = createEarthClouds()
+const earth = createEarth({ r: 15 })
+const clouds = createEarthClouds({ r: 15.2 })
 scene.add(earth, clouds)
 
 /* LOOP */
