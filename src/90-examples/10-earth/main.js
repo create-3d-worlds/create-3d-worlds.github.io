@@ -1,5 +1,8 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
+import { dirLight } from '/utils/light.js'
+
+dirLight({ position: [100, 10, -50] })
 
 const rotationSpeed = 0.001
 const textureLoader = new THREE.TextureLoader()
@@ -18,24 +21,17 @@ const cloudMaterial = createCloudMaterial()
 const clouds = new THREE.Mesh(cloudGeometry, cloudMaterial)
 scene.add(clouds)
 
-const ambientLight = new THREE.AmbientLight(0x111111)
-scene.add(ambientLight)
-
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
-directionalLight.position.set(100, 10, -50)
-scene.add(directionalLight)
-
 function createEarthMaterial() {
   // 4096 is the maximum width for maps
-  const map = textureLoader.load('textures/earthmap4k.jpg')
-  const bumpMap = textureLoader.load('textures/earthbump4k.jpg')
-  const specularMap = textureLoader.load('textures/earthspec4k.jpg')
+  const map = textureLoader.load('/assets/textures/earth/earthmap4k.jpg')
+  const bumpMap = textureLoader.load('/assets/textures/earth/earthbump4k.jpg')
+  const specularMap = textureLoader.load('/assets/textures/earth/earthspec4k.jpg')
   const material = new THREE.MeshPhongMaterial({ map, specularMap, bumpMap })
   return material
 }
 
 function createCloudMaterial() {
-  const map = textureLoader.load('textures/fair_clouds_4k.png')
+  const map = textureLoader.load('/assets/textures/earth/fair_clouds_4k.png')
   const cloudMaterial = new THREE.MeshPhongMaterial({ map, transparent: true })
   return cloudMaterial
 }
