@@ -24,7 +24,7 @@ live-server
   - [x] organizovati modele tematski
   - [x] izbaciti nightelf-priest
 - [x] veličina nekih modela ne radi (dae format zeza, izbegavati)
-- [ ] organizovati primere u scenu
+- [x] pomeriti foldere sa igračem u scenu
 
 ### Geometry
 

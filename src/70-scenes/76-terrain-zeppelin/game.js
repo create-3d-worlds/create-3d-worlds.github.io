@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
-import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
+import { camera, scene, renderer, createOrbitControls, addUIControls } from '/utils/scene.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { createGradientSky } from '/utils/sky.js'
@@ -42,3 +42,15 @@ void function animate() {
   if (!keyboard.pressed.mouse) cameraFollowObject(camera, zeppelin.mesh)
   renderer.render(scene, camera)
 }()
+
+/* UI */
+
+const commands = {
+  '←': 'levo',
+  '→': 'desno',
+  '↑': 'gore',
+  '↓': 'dole',
+  'PgUp': 'ubrzavanje',
+  'PgDn': 'usporavanje',
+}
+addUIControls({ commands })
