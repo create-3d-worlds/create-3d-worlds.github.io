@@ -24,7 +24,7 @@ const walls = map.create3DMap({ yModifier: 0.5 })
 scene.add(walls)
 
 const { x, z } = map.randomEmptyPos
-const player = new Savo({ x, z, autoCamera: false })
+const player = new Savo({ x, z })
 player.add(camera)
 player.addSolids(walls)
 scene.add(player.mesh)
