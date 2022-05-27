@@ -24,3 +24,12 @@ export function createEarthClouds() {
   clouds.name = 'clouds'
   return clouds
 }
+
+export function createMoon() {
+  const map = textureLoader.load('textures/moon_1024.jpg')
+  const bumpMap = textureLoader.load('textures/cloud.png')
+  const material = new THREE.MeshPhongMaterial({ map, bumpMap })
+  const geometry = new THREE.SphereGeometry(2, 20, 20)
+  const mesh = new THREE.Mesh(geometry, material)
+  return mesh
+}
