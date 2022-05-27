@@ -1,4 +1,5 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
+import { camera } from '/utils/scene.js'
 import { nemesis as map } from '/data/maps.js'
 
 const textureLoader = new THREE.TextureLoader()
@@ -22,7 +23,7 @@ export function getMapSector(v) {
   return { x, z }
 }
 
-export function drawRadar(ai, camera) {
+export function drawRadar(ai) {
   const c = getMapSector(camera.position)
   const context = document.getElementById('radar').getContext('2d')
   for (let i = 0; i < mapW; i++)
@@ -99,4 +100,28 @@ export function createMap() {
         group.add(wall)
       }
   return group
+}
+
+export function createBullet(obj, mouse) {
+  if (!obj) obj = camera // eslint-disable-line
+
+  const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x333333 })
+  const sphereGeo = new THREE.SphereGeometry(2, 6, 6)
+
+  const sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
+  sphere.position.set(obj.position.x, obj.position.y * 0.8, obj.position.z)
+  let vector
+  if (obj instanceof THREE.Camera) {
+    vector = new THREE.Vector3(mouse.x, mouse.y, 1)
+    vector.unproject(obj)
+  } else
+    vector = camera.position.clone()
+
+  sphere.ray = new THREE.Ray(obj.position, vector.sub(obj.position).normalize())
+  sphere.owner = obj
+  return sphere
+}
+
+export function distance(x1, y1, x2, y2) {
+  return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
 }
