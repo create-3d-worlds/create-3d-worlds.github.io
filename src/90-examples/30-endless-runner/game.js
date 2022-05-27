@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, scene, renderer, clock, addScoreUI } from '/utils/scene.js'
-import { createBall, createWorldSphere } from '/utils/spheres.js'
+import { createBall, createWorldSphere } from '/utils/balls.js'
 import { createSun } from './helpers/createSun.js'
 import { createFir } from '/utils/trees.js'
 import { createParticles, resetParticles, expandParticles } from '/utils/particles.js'
