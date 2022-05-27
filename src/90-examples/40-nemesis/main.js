@@ -1,4 +1,5 @@
-/* global $, THREE */
+import * as THREE from '/node_modules/three119/build/three.module.js'
+import { FirstPersonControls } from '/node_modules/three119/examples/jsm/controls/FirstPersonControls.js'
 
 const map = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 0
@@ -32,6 +33,8 @@ let kills = 0
 let health = 100
 let lastHealthPickup = 0
 
+const $ = s => document.querySelector(s)
+
 const clock = new THREE.Clock()
 const scene = new THREE.Scene()
 const textureLoader = new THREE.TextureLoader()
@@ -40,7 +43,7 @@ const camera = new THREE.PerspectiveCamera(60, ASPECT, 1, 10000) // FOV, aspect,
 camera.position.y = UNITSIZE * .2
 scene.add(camera)
 
-const controls = new THREE.FirstPersonControls(camera)
+const controls = new FirstPersonControls(camera, document)
 controls.movementSpeed = MOVESPEED
 controls.lookSpeed = LOOKSPEED
 controls.lookVertical = false // Temporary solution; play on flat surfaces only
@@ -136,7 +139,7 @@ function render() {
   if (Date.now() > lastHealthPickup + 60000) {
     if (distance(camera.position.x, camera.position.z, healthcube.position.x, healthcube.position.z) < 15 && health != 100) {
       health = Math.min(health + 50, 100)
-      $('#health').html(health)
+      $('#health').innerHTML = health
       lastHealthPickup = Date.now()
     }
     healthcube.material.wireframe = false
@@ -177,14 +180,15 @@ function render() {
     }
     // Bullet hits player
     if (distance(p.x, p.z, camera.position.x, camera.position.z) < 25 && b.owner != camera) {
-      $('#hurt').fadeIn(75)
+      // TODO: handle hurt
+      // $('#hurt').fadeIn(75)
       health -= 10
       if (health < 0) health = 0
       const val = health < 25 ? '<span style="color: darkRed">' + health + '</span>' : health
-      $('#health').html(val)
+      $('#health').innerHTML = val
       bullets.splice(i, 1)
       scene.remove(b)
-      $('#hurt').fadeOut(350)
+      // $('#hurt').fadeOut(350)
     }
     if (!hit) {
       b.translateX(speed * d.x)
@@ -199,7 +203,7 @@ function render() {
       ai.splice(i, 1)
       scene.remove(a)
       kills++
-      $('#score').html(kills * 100)
+      $('#score').innerHTML = kills * 100
       addAI()
     }
     // Move AI
@@ -234,8 +238,7 @@ function render() {
   // Death
   if (health <= 0) {
     runAnim = false
-    $(renderer.domElement).fadeOut()
-    $('#radar, #hud').fadeOut()
+    // TODO: black screen
   }
 }
 
@@ -314,12 +317,6 @@ function setupAI() {
   for (let i = 0; i < NUMAI; i++) addAI()
 }
 
-function animate() {
-  if (runAnim)
-    requestAnimationFrame(animate)
-  render()
-}
-
 function init() {
   runAnim = true
   setupScene()
@@ -328,14 +325,19 @@ function init() {
   animate()
 }
 
+/* LOOP */
+
+function animate() {
+  if (runAnim)
+    requestAnimationFrame(animate)
+  render()
+}
+
 /* EVENTS */
 
 document.addEventListener('mousemove', handleMouseMove, false)
 
 document.addEventListener('click', e => {
+  if (!runAnim) init()
   if (e.button === 0) createBullet() // left click
-})
-
-document.addEventListener('keydown', e => {
-  if (e.code === 'Space' && !runAnim) init()
 })
