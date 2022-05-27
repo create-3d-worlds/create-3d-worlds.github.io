@@ -45,3 +45,20 @@ export function initLights({ scene = defaultScene, position = [-10, 30, 40] } = 
   ambientLight.name = 'ambientLight'
   scene.add(ambientLight)
 }
+
+export function createSunLight({ x = 150, y = 350, z = 350, d = 400, far = 3500, target } = {}) {
+  const light = new THREE.DirectionalLight(0xffffff, 1)
+  // light.intensity = 0.4
+  light.position.set(x, y, z)
+  light.castShadow = true
+  // area of the shadow https://threejs.org/docs/#api/en/lights/shadows/DirectionalLightShadow
+  light.shadow.camera.left = -d
+  light.shadow.camera.right = d
+  light.shadow.camera.top = d
+  light.shadow.camera.bottom = -d
+  light.shadow.camera.far = far
+  // svetlo prati objekat
+  if (target) light.target = target
+  light.name = 'sunLight'
+  return light
+}

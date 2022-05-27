@@ -3,7 +3,7 @@ import { camera, scene, renderer, createOrbitControls, addUIControls } from '/ut
 import { cameraFollowObject } from '/utils/helpers.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
 import { createGradientSky } from '/utils/sky.js'
-import { createSunLight } from '/utils/sun.js'
+import { createSunLight } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import keyboard from '/classes/Keyboard.js'
 import Zeppelin from '/classes/aircrafts/Zeppelin.js'
