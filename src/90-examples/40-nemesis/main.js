@@ -2,14 +2,18 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { FirstPersonControls } from '/node_modules/three119/examples/jsm/controls/FirstPersonControls.js'
 import { nemesis as map } from '/data/maps.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { UNITSIZE, getMapSector, drawRadar, createHealth, createAi, checkWallCollision, createFloor } from './utils.js'
+import {
+  UNITSIZE, getMapSector, drawRadar, createHealth, createAi, checkWallCollision, createFloor, createMap
+} from './utils.js'
 import { randomInt } from '/utils/helpers.js'
+
+// TODO: fix collision
 
 const mapW = map.length
 const mapH = map[0].length
 const WIDTH = window.innerWidth
 const HEIGHT = window.innerHeight
-const WALLHEIGHT = UNITSIZE / 3
+
 const MOVESPEED = 100
 const LOOKSPEED = 0.1
 const BULLETMOVESPEED = MOVESPEED * 5
@@ -24,8 +28,6 @@ let kills = 0
 let health = 100
 let lastHealthPickup = 0
 let intervalId
-
-const textureLoader = new THREE.TextureLoader()
 
 camera.position.y = UNITSIZE * .2
 
@@ -190,24 +192,8 @@ function update(delta) {
 }
 
 function setupScene() {
-  const floor = createFloor()
-  scene.add(floor)
-
-  const cube = new THREE.BoxGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE)
-  const materials = [
-    new THREE.MeshLambertMaterial({ map: textureLoader.load('images/wall-1.jpg') }),
-    new THREE.MeshLambertMaterial({ map: textureLoader.load('images/wall-2.jpg') }),
-    new THREE.MeshLambertMaterial({ color: 0xFBEBCD }),
-  ]
-  for (let i = 0; i < mapW; i++)
-    for (let j = 0, m = map[i].length; j < m; j++)
-      if (map[i][j]) {
-        const wall = new THREE.Mesh(cube, materials[map[i][j] - 1])
-        wall.position.x = (i - mapW / 2) * UNITSIZE
-        wall.position.y = WALLHEIGHT / 2
-        wall.position.z = (j - mapW / 2) * UNITSIZE
-        scene.add(wall)
-      }
+  scene.add(createFloor())
+  scene.add(createMap())
 
   const directionalLight1 = new THREE.DirectionalLight(0xF7EFBE, 0.7)
   directionalLight1.position.set(0.5, 1, 0.5)

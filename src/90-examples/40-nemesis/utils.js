@@ -5,6 +5,7 @@ const textureLoader = new THREE.TextureLoader()
 const mapW = map.length
 
 export const UNITSIZE = 250
+const WALLHEIGHT = UNITSIZE / 3
 
 export function createHealth() {
   const healthcube = new THREE.Mesh(
@@ -78,4 +79,24 @@ export function createFloor() {
     new THREE.MeshLambertMaterial({ color: 0xEDCBA0 })
   )
   return floor
+}
+
+export function createMap() {
+  const group = new THREE.Group()
+  const cube = new THREE.BoxGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE)
+  const materials = [
+    new THREE.MeshLambertMaterial({ map: textureLoader.load('images/wall-1.jpg') }),
+    new THREE.MeshLambertMaterial({ map: textureLoader.load('images/wall-2.jpg') }),
+    new THREE.MeshLambertMaterial({ color: 0xFBEBCD }),
+  ]
+  for (let i = 0; i < mapW; i++)
+    for (let j = 0, m = map[i].length; j < m; j++)
+      if (map[i][j]) {
+        const wall = new THREE.Mesh(cube, materials[map[i][j] - 1])
+        wall.position.x = (i - mapW / 2) * UNITSIZE
+        wall.position.y = WALLHEIGHT / 2
+        wall.position.z = (j - mapW / 2) * UNITSIZE
+        group.add(wall)
+      }
+  return group
 }
