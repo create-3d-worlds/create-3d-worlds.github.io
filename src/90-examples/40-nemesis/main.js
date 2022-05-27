@@ -1,45 +1,34 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { FirstPersonControls } from '/node_modules/three119/examples/jsm/controls/FirstPersonControls.js'
+import { nemesis as map } from '/data/maps.js'
+import { UNITSIZE, getMapSector, drawRadar } from './utils.js'
+// import { scene, camera, renderer, clock } from '/utils/scene.js'
 
-const map = [
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 0
-  [1, 1, 0, 0, 0, 0, 0, 1, 1, 1], // 1
-  [1, 1, 0, 0, 2, 0, 0, 0, 0, 1], // 2
-  [1, 0, 0, 0, 0, 2, 0, 0, 0, 1], // 3
-  [1, 0, 0, 2, 0, 0, 2, 0, 0, 1], // 4
-  [1, 0, 0, 0, 2, 0, 0, 0, 1, 1], // 5
-  [1, 1, 1, 0, 0, 0, 0, 1, 1, 1], // 6
-  [1, 1, 1, 0, 0, 1, 0, 0, 1, 1], // 7
-  [1, 1, 1, 1, 1, 1, 0, 0, 1, 1], // 8
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 9
-]
 const mapW = map.length
 const mapH = map[0].length
 const WIDTH = window.innerWidth
 const HEIGHT = window.innerHeight
-const ASPECT = WIDTH / HEIGHT
-const UNITSIZE = 250
 const WALLHEIGHT = UNITSIZE / 3
 const MOVESPEED = 100
-const LOOKSPEED = 0.075
+const LOOKSPEED = 0.1
 const BULLETMOVESPEED = MOVESPEED * 5
-const NUMAI = 5
+const NUM_AI = 5
 const PROJECTILEDAMAGE = 20
 
 const ai = []
 const mouse = { x: 0, y: 0 }
+
 let runAnim = false
 let kills = 0
 let health = 100
 let lastHealthPickup = 0
-
-const $ = s => document.querySelector(s)
+let intervalId
 
 const clock = new THREE.Clock()
 const scene = new THREE.Scene()
 const textureLoader = new THREE.TextureLoader()
 
-const camera = new THREE.PerspectiveCamera(60, ASPECT, 1, 10000) // FOV, aspect, near, far
+const camera = new THREE.PerspectiveCamera(60, WIDTH / HEIGHT, 1, 10000) // FOV, aspect, near, far
 camera.position.y = UNITSIZE * .2
 scene.add(camera)
 
@@ -69,12 +58,6 @@ const aiGeo = new THREE.BoxGeometry(40, 40, 40)
 
 function distance(x1, y1, x2, y2) {
   return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
-}
-
-function getMapSector(v) {
-  const x = Math.floor((v.x + UNITSIZE / 2) / UNITSIZE + mapW / 2)
-  const z = Math.floor((v.z + UNITSIZE / 2) / UNITSIZE + mapW / 2)
-  return { x, z }
 }
 
 // Check whether a Vector3 is inside a wall
@@ -128,8 +111,8 @@ function createBullet(obj) {
   return sphere
 }
 
-function render() {
-  const delta = clock.getDelta(), speed = delta * BULLETMOVESPEED
+function update(delta) {
+  const speed = delta * BULLETMOVESPEED
   const aispeed = delta * MOVESPEED
   controls.update(delta) // Move camera
 
@@ -139,7 +122,7 @@ function render() {
   if (Date.now() > lastHealthPickup + 60000) {
     if (distance(camera.position.x, camera.position.z, healthcube.position.x, healthcube.position.z) < 15 && health != 100) {
       health = Math.min(health + 50, 100)
-      $('#health').innerHTML = health
+      document.querySelector('#health').innerHTML = health
       lastHealthPickup = Date.now()
     }
     healthcube.material.wireframe = false
@@ -181,14 +164,12 @@ function render() {
     // Bullet hits player
     if (distance(p.x, p.z, camera.position.x, camera.position.z) < 25 && b.owner != camera) {
       // TODO: handle hurt
-      // $('#hurt').fadeIn(75)
       health -= 10
       if (health < 0) health = 0
       const val = health < 25 ? '<span style="color: darkRed">' + health + '</span>' : health
-      $('#health').innerHTML = val
+      document.querySelector('#health').innerHTML = val
       bullets.splice(i, 1)
       scene.remove(b)
-      // $('#hurt').fadeOut(350)
     }
     if (!hit) {
       b.translateX(speed * d.x)
@@ -203,7 +184,7 @@ function render() {
       ai.splice(i, 1)
       scene.remove(a)
       kills++
-      $('#score').innerHTML = kills * 100
+      document.querySelector('#score').innerHTML = kills * 100
       addAI()
     }
     // Move AI
@@ -233,17 +214,15 @@ function render() {
     }
   }
 
-  renderer.render(scene, camera)
-
-  // Death
   if (health <= 0) {
     runAnim = false
-    // TODO: black screen
+    clearInterval(intervalId)
+    // TODO: handle death
   }
 }
 
 function setupScene() {
-  const UNITSIZE = 250, units = mapW
+  const units = mapW
   const floor = new THREE.Mesh(
     new THREE.BoxGeometry(units * UNITSIZE, 10, units * UNITSIZE),
     new THREE.MeshLambertMaterial({ color: 0xEDCBA0 })
@@ -274,39 +253,6 @@ function setupScene() {
   scene.add(directionalLight2)
 }
 
-function drawRadar() {
-  const c = getMapSector(camera.position)
-  const context = document.getElementById('radar').getContext('2d')
-  for (let i = 0; i < mapW; i++)
-    for (let j = 0, m = map[i].length; j < m; j++) {
-      let d = 0
-      for (let k = 0, n = ai.length; k < n; k++) {
-        const e = getMapSector(ai[k].position)
-        if (i == e.x && j == e.z) d++
-      }
-      if (i == c.x && j == c.z && d == 0) {
-        context.fillStyle = '#0000FF'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-      } else if (i == c.x && j == c.z) {
-        context.fillStyle = '#AA33FF'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-        context.fillStyle = '#000000'
-        context.fillText('' + d, i * 20 + 8, j * 20 + 12)
-      } else if (d > 0 && d < 10) {
-        context.fillStyle = '#FF0000'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-        context.fillStyle = '#000000'
-        context.fillText('' + d, i * 20 + 8, j * 20 + 12)
-      } else if (map[i][j] > 0) {
-        context.fillStyle = '#666666'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-      } else {
-        context.fillStyle = '#CCCCCC'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-      }
-    }
-}
-
 function handleMouseMove(e) {
   e.preventDefault()
   mouse.x = (e.clientX / WIDTH) * 2 - 1
@@ -314,14 +260,16 @@ function handleMouseMove(e) {
 }
 
 function setupAI() {
-  for (let i = 0; i < NUMAI; i++) addAI()
+  for (let i = 0; i < NUM_AI; i++) addAI()
 }
 
 function init() {
   runAnim = true
   setupScene()
   setupAI()
-  setInterval(drawRadar, 1000)
+  intervalId = setInterval(() => {
+    drawRadar(ai, camera)
+  }, 1000)
   animate()
 }
 
@@ -330,7 +278,9 @@ function init() {
 function animate() {
   if (runAnim)
     requestAnimationFrame(animate)
-  render()
+  const delta = clock.getDelta()
+  update(delta)
+  renderer.render(scene, camera)
 }
 
 /* EVENTS */
