@@ -40,8 +40,13 @@ void function animate() {
   const delta = clock.getDelta()
   const time = clock.getElapsedTime()
   player.update(delta)
-  renderer.render(scene, camera)
+  rain.update(player.position)
+
+  const target = player.mesh.position.clone()
+  target.y = camera.position.y
+  camera.lookAt(target)
+
   smallMapRenderer.render(player, map)
   fpsRenderer.render(time)
-  rain.update(player.position)
+  renderer.render(scene, camera)
 }()

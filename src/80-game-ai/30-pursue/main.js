@@ -4,7 +4,7 @@ import { createFloor } from '/utils/ground.js'
 import { ambLight } from '/utils/light.js'
 import { createBall } from '/utils/spheres.js'
 import { createBox } from '/utils/boxes.js'
-import { randomInRange, getIntersects } from '/utils/helpers.js'
+import { randomInRange, getMouseIntersects } from '/utils/helpers.js'
 
 ambLight()
 
@@ -96,7 +96,7 @@ document.addEventListener('mousedown', onClick, true)
 document.addEventListener('mousemove', onMouseMove, true)
 
 function onClick(e) {
-  const intersects = getIntersects(e, camera, scene)
+  const intersects = getMouseIntersects(e, camera, scene)
   if (intersects.length > 0) {
     entity1.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
     entity2.position.set(randomInRange(-5000, 5000), 0, randomInRange(-5000, 5000))
@@ -105,7 +105,7 @@ function onClick(e) {
 }
 
 function onMouseMove(e) {
-  const intersects = getIntersects(e, camera, scene)
+  const intersects = getMouseIntersects(e, camera, scene)
   if (intersects.length > 0)
     ball.position.set(intersects[0].point.x, 50, intersects[0].point.z)
 }

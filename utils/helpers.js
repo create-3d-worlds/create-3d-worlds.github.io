@@ -106,7 +106,7 @@ export const directionBlocked = (mesh, solids, vector) => {
   return intersections.length > 0
 }
 
-export function getIntersects(e, camera = defaultCamera, scene = defaultScene) {
+export function getMouseIntersects(e, camera = defaultCamera, scene = defaultScene) {
   const mouse3D = new THREE.Vector3(
     e.clientX / window.innerWidth * 2 - 1,
     -e.clientY / window.innerHeight * 2 + 1,

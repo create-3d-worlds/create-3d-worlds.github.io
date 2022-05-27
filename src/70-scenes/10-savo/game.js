@@ -8,8 +8,8 @@ import Tilemap from '/classes/Tilemap.js'
 import { hemLight } from '/utils/light.js'
 
 hemLight()
-camera.position.y = 10
-camera.position.z = 5
+camera.position.y = 5
+camera.position.z = 2
 const fpsRenderer = new FPSRenderer()
 
 const matrix = randomMatrix()
@@ -34,7 +34,12 @@ void function animate() {
   const delta = clock.getDelta()
   const time = clock.getElapsedTime()
   player.update(delta)
-  renderer.render(scene, camera)
+
+  const target = player.mesh.position.clone()
+  target.y = camera.position.y
+  camera.lookAt(target)
+
   smallMapRenderer.render(player, map)
   fpsRenderer.render(time)
+  renderer.render(scene, camera)
 }()

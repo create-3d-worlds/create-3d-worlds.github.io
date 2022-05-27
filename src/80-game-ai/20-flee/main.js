@@ -2,7 +2,7 @@
 import { camera, scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
 import { ambLight } from '/utils/light.js'
-import { randomInRange, getIntersects } from '/utils/helpers.js'
+import { randomInRange, getMouseIntersects } from '/utils/helpers.js'
 import { loadModel, getMixer } from '/utils/loaders.js'
 
 ambLight()
@@ -62,7 +62,7 @@ void function animate() {
 document.addEventListener('mousedown', onClick, true)
 
 function onClick(e) {
-  const intersects = getIntersects(e, camera, scene)
+  const intersects = getMouseIntersects(e, camera, scene)
   if (intersects.length > 0)
     runner.position.set(intersects[0].point.x, intersects[0].point.y, intersects[0].point.z)
 }

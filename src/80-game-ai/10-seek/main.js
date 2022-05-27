@@ -1,7 +1,7 @@
 /* global THREE, SteeringEntity */
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
-import { randomInRange, getIntersects } from '/utils/helpers.js'
+import { randomInRange, getMouseIntersects } from '/utils/helpers.js'
 import { createBall } from '/utils/spheres.js'
 import { createCrate } from '/utils/boxes.js'
 import { ambLight } from '/utils/light.js'
@@ -51,7 +51,7 @@ void function update() {
 document.addEventListener('mousemove', onMouseMove, true)
 
 function onMouseMove(e) {
-  const intersects = getIntersects(e, camera, scene)
+  const intersects = getMouseIntersects(e, camera, scene)
   if (intersects.length > 0)
     ball.position.set(intersects[0].point.x, 5, intersects[0].point.z)
 }
