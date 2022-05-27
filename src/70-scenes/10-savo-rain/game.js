@@ -3,7 +3,7 @@ import { randomMatrix } from '/utils/maps.js'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import FPSRenderer from '/classes/2d/FPSRenderer.js'
 import Map2DRenderer from '/classes/2d/Map2DRenderer.js'
-import Player from '/classes/Player.js'
+import Savo from '/classes/Savo.js'
 import Tilemap from '/classes/Tilemap.js'
 import { hemLight } from '/utils/light.js'
 import { createRain, addVelocity, updateRain } from '/utils/particles.js'
@@ -24,7 +24,7 @@ const walls = map.create3DMap({ yModifier: 0.5 })
 scene.add(walls)
 
 const { x, z } = map.randomEmptyPos
-const player = new Player({ x, z, speed: 6, transparent: true, autoCamera: false })
+const player = new Savo({ x, z, autoCamera: false })
 player.add(camera)
 player.addSolids(walls)
 scene.add(player.mesh)

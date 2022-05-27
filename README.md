@@ -37,9 +37,8 @@ live-server
 ### Particles
 
 - [x] napraviti 3D kišu
-  - [x] kiša da prati igraca
+  - [ ] kiša da prati igraca
 - [x] napraviti sneg
-  - [ ] sneg da prati igraca
   - [x] zastariti Snow, ukloniti iz Savo
 - [x] probati eksplozije
 - [x] odvojiti pomagala za čestice
@@ -107,7 +106,7 @@ live-server
 - [x] postaviti lavirint sa kolizijom
 - [x] srediti Player handleInput
 - [x] spojiti animacije sa pokretom
-- [ ] ukloniti argument transparent, srediti savo
+- [x] ukloniti argument transparent, srediti Savo
 
 ### 3D Models
 

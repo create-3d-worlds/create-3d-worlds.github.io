@@ -9,13 +9,12 @@ import { camera, createOrbitControls } from '/utils/scene.js'
 const { pressed } = keyboard
 const { LoopOnce, LoopRepeat, AnimationMixer } = THREE
 
-
 /**
  * Handles user input, move mesh and animate model.
  * (loadModel handles size and rotation)
  */
 export default class Player {
-  constructor({ transparent = false, mesh = createPlayerBox(2, transparent), autoCamera = true, speed, animations, animNames = {} } = {}) {
+  constructor({ mesh = createPlayerBox({ size: 2 }), autoCamera = true, speed, animations, animNames = {} } = {}) {
     this.mesh = mesh
     this.size = getHeight(mesh)
     this.speed = speed || this.size * 2
