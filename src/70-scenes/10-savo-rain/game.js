@@ -10,15 +10,14 @@ import { hemLight } from '/utils/light.js'
 
 hemLight({ intensity: 1.2 })
 
-camera.position.y = 10
-camera.position.z = 5
+camera.position.y = 2
+camera.position.z = 1
 const fpsRenderer = new FPSRenderer()
 
 const matrix = randomMatrix()
-const map = new Tilemap(matrix, 80)
+const map = new Tilemap(matrix, 20)
 const smallMap = new Tilemap(matrix, 20)
 const smallMapRenderer = new Map2DRenderer(smallMap)
-smallMapRenderer.hide()
 
 scene.add(createGround({ file: 'ground.jpg' }))
 const walls = map.create3DMap({ yModifier: 0.5 })
@@ -30,6 +29,7 @@ player.add(camera)
 player.addSolids(walls)
 scene.add(player.mesh)
 
+// TODO: replace rain with a particle system
 const rain = new Rain({ center: player.position, size: 200, dropsNum: 200, ground: -100 })
 scene.add(...rain.drops)
 
@@ -43,7 +43,7 @@ void function animate() {
   rain.update(player.position)
 
   const target = player.mesh.position.clone()
-  target.y = camera.position.y
+  target.y = player.position.y + player.size
   camera.lookAt(target)
 
   smallMapRenderer.render(player, map)
