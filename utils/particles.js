@@ -3,7 +3,7 @@ import { randomInRange } from '/utils/helpers.js'
 
 const textureLoader = new THREE.TextureLoader()
 
-/* STARS (IN CUBE) */
+/* PARTICLES (IN BOX) */
 
 export function createParticles({ num = 10000, file = 'star.png', color, size = .5, opacity = 1, unitAngle = 1, minRange = 100, maxRange = 1000, depthTest = true, blending = THREE.AdditiveBlending } = {}) {
 
@@ -65,25 +65,6 @@ export function resetParticles({ particles, pos = [0, 0, 0], unitAngle = 1 } = {
   particles.geometry.attributes.position.needsUpdate = true
 }
 
-/* STARS (IN SPHERE) */
-
-export function createSimpleStars({ num = 10000, r = 1000, size = 3 } = {}) {
-  const geometry = new THREE.Geometry()
-  for (let i = 0; i < num; i++) {
-    const lat = randomInRange(-Math.PI / 2, Math.PI / 2)
-    const lon = 2 * Math.PI * Math.random()
-    geometry.vertices.push({
-      x: r * Math.cos(lon) * Math.cos(lat),
-      y: r * Math.sin(lon) * Math.cos(lat),
-      z: r * Math.sin(lat)
-    })
-  }
-  const material = new THREE.PointsMaterial({
-    size,
-  })
-  return new THREE.Points(geometry, material)
-}
-
 /* HELPERS */
 
 export function addVelocity({ particles, min = .5, max = 3 } = {}) {
@@ -118,3 +99,22 @@ export const createSnow = ({ file = 'snowflake.png' } = {}) => createParticles({
 
 export const createStars = ({ file = 'star.png', color } = {}) =>
   createParticles({ num: 10000, color, size: .5, file, minRange: 100, maxRange: 1000, depthTest: true })
+
+/* STARS (IN SPHERE) */
+
+export function createSimpleStars({ num = 10000, r = 1000, size = 3 } = {}) {
+  const geometry = new THREE.Geometry()
+  for (let i = 0; i < num; i++) {
+    const lat = randomInRange(-Math.PI / 2, Math.PI / 2)
+    const lon = 2 * Math.PI * Math.random()
+    geometry.vertices.push({
+      x: r * Math.cos(lon) * Math.cos(lat),
+      y: r * Math.sin(lon) * Math.cos(lat),
+      z: r * Math.sin(lat)
+    })
+  }
+  const material = new THREE.PointsMaterial({
+    size,
+  })
+  return new THREE.Points(geometry, material)
+}
