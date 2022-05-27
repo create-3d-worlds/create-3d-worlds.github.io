@@ -5,7 +5,7 @@ const textureLoader = new THREE.TextureLoader()
 
 /* STARS (IN CUBE) */
 
-export function createParticles({ num = 10000, file = 'star.png', color, size = .5, opacity = 1, unitAngle = 1, minRange = 100, maxRange = 1000, depthTest = true } = {}) {
+export function createParticles({ num = 10000, file = 'star.png', color, size = .5, opacity = 1, unitAngle = 1, minRange = 100, maxRange = 1000, depthTest = true, blending = THREE.AdditiveBlending } = {}) {
 
   const geometry = new THREE.BufferGeometry()
   const positions = []
@@ -34,7 +34,7 @@ export function createParticles({ num = 10000, file = 'star.png', color, size = 
   })
   if (file) {
     material.map = textureLoader.load(`/assets/particles/${file}`)
-    material.blending = THREE.AdditiveBlending
+    material.blending = blending
   }
   if (color)
     material.color = new THREE.Color(color)
@@ -112,7 +112,7 @@ export function updateSnow({ particles, minY = -300, maxY = 300, rotateY = .003 
 /* ALIASES */
 
 export const createRain = ({ file = 'raindrop.png' } = {}) =>
-  createParticles({ file, num: 10000, size: .7, opacity: 0.8, minRange: 50, maxRange: 500, color: 0x9999ff })
+  createParticles({ file, num: 10000, size: .7, opacity: 0.8, minRange: 50, maxRange: 500, color: 0x9999ff, blending: THREE.NormalBlending })
 
 export const createSnow = ({ file = 'snowflake.png' } = {}) => createParticles({ file, size: 5, color: 0xffffff, depthTest: false })
 

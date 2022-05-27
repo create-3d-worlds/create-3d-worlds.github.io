@@ -133,6 +133,7 @@ live-server
 
 - [x] Savo (ww2 fps)
   - [x] dodati kišu
+  - [x] srediti boju kiše
   - [ ] dodati NPC karaktere (vidi 80-primeri/80-nemesis)
     - https://www.script-tutorials.com/demos/474/index3.html
   - [ ] dodati neke modele vozila i kuca
