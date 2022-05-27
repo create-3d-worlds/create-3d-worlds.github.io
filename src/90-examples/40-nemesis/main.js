@@ -1,32 +1,33 @@
 /* global $, THREE */
 
 const map = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ], // 0
-    [1, 1, 0, 0, 0, 0, 0, 1, 1, 1, ], // 1
-    [1, 1, 0, 0, 2, 0, 0, 0, 0, 1, ], // 2
-    [1, 0, 0, 0, 0, 2, 0, 0, 0, 1, ], // 3
-    [1, 0, 0, 2, 0, 0, 2, 0, 0, 1, ], // 4
-    [1, 0, 0, 0, 2, 0, 0, 0, 1, 1, ], // 5
-    [1, 1, 1, 0, 0, 0, 0, 1, 1, 1, ], // 6
-    [1, 1, 1, 0, 0, 1, 0, 0, 1, 1, ], // 7
-    [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, ], // 8
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ], // 9
-  ], mapW = map.length, mapH = map[0].length
-
-const WIDTH = window.innerWidth,
-  HEIGHT = window.innerHeight,
-  ASPECT = WIDTH / HEIGHT,
-  UNITSIZE = 250,
-  WALLHEIGHT = UNITSIZE / 3,
-  MOVESPEED = 100,
-  LOOKSPEED = 0.075,
-  BULLETMOVESPEED = MOVESPEED * 5,
-  NUMAI = 5,
-  PROJECTILEDAMAGE = 20
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 0
+  [1, 1, 0, 0, 0, 0, 0, 1, 1, 1], // 1
+  [1, 1, 0, 0, 2, 0, 0, 0, 0, 1], // 2
+  [1, 0, 0, 0, 0, 2, 0, 0, 0, 1], // 3
+  [1, 0, 0, 2, 0, 0, 2, 0, 0, 1], // 4
+  [1, 0, 0, 0, 2, 0, 0, 0, 1, 1], // 5
+  [1, 1, 1, 0, 0, 0, 0, 1, 1, 1], // 6
+  [1, 1, 1, 0, 0, 1, 0, 0, 1, 1], // 7
+  [1, 1, 1, 1, 1, 1, 0, 0, 1, 1], // 8
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 9
+]
+const mapW = map.length
+const mapH = map[0].length
+const WIDTH = window.innerWidth
+const HEIGHT = window.innerHeight
+const ASPECT = WIDTH / HEIGHT
+const UNITSIZE = 250
+const WALLHEIGHT = UNITSIZE / 3
+const MOVESPEED = 100
+const LOOKSPEED = 0.075
+const BULLETMOVESPEED = MOVESPEED * 5
+const NUMAI = 5
+const PROJECTILEDAMAGE = 20
 
 const ai = []
 const mouse = { x: 0, y: 0 }
-let runAnim = true
+let runAnim = false
 let kills = 0
 let health = 100
 let lastHealthPickup = 0
@@ -53,13 +54,13 @@ document.body.appendChild(renderer.domElement)
 
 const healthcube = new THREE.Mesh(
   new THREE.BoxGeometry(30, 30, 30),
-  new THREE.MeshBasicMaterial({map: textureLoader.load('images/health.png')})
+  new THREE.MeshBasicMaterial({ map: textureLoader.load('images/health.png') })
 )
 healthcube.position.set(-UNITSIZE - 15, 35, -UNITSIZE - 15)
 scene.add(healthcube)
 
 const bullets = []
-const sphereMaterial = new THREE.MeshBasicMaterial({color: 0x333333})
+const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x333333 })
 const sphereGeo = new THREE.SphereGeometry(2, 6, 6)
 const aiGeo = new THREE.BoxGeometry(40, 40, 40)
 
@@ -70,7 +71,7 @@ function distance(x1, y1, x2, y2) {
 function getMapSector(v) {
   const x = Math.floor((v.x + UNITSIZE / 2) / UNITSIZE + mapW / 2)
   const z = Math.floor((v.z + UNITSIZE / 2) / UNITSIZE + mapW / 2)
-  return {x, z}
+  return { x, z }
 }
 
 // Check whether a Vector3 is inside a wall
@@ -86,7 +87,7 @@ function getRandBetween(lo, hi) {
 function addAI() {
   let x, z
   const c = getMapSector(camera.position)
-  const aiMaterial = new THREE.MeshBasicMaterial({/* color: 0xEE3333,*/map: textureLoader.load('images/face.png')})
+  const aiMaterial = new THREE.MeshBasicMaterial({ /* color: 0xEE3333,*/map: textureLoader.load('images/face.png') })
   const o = new THREE.Mesh(aiGeo, aiMaterial)
   do {
     x = getRandBetween(0, mapW - 1)
@@ -105,7 +106,7 @@ function addAI() {
 }
 
 function createBullet(obj) {
-  if (obj === undefined) 
+  if (obj === undefined)
     obj = camera // eslint-disable-line
 
   const sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
@@ -114,9 +115,9 @@ function createBullet(obj) {
   if (obj instanceof THREE.Camera) {
     vector = new THREE.Vector3(mouse.x, mouse.y, 1)
     vector.unproject(obj)
-  } else 
+  } else
     vector = camera.position.clone()
-  
+
   sphere.ray = new THREE.Ray(obj.position, vector.sub(obj.position).normalize())
   sphere.owner = obj
   bullets.push(sphere)
@@ -139,8 +140,7 @@ function render() {
       lastHealthPickup = Date.now()
     }
     healthcube.material.wireframe = false
-  }
-  else 
+  } else
     healthcube.material.wireframe = true
 
   // Update bullets. Walk backwards through the list so we can remove items.
@@ -165,7 +165,7 @@ function render() {
         bullets.splice(i, 1)
         scene.remove(b)
         a.health -= PROJECTILEDAMAGE
-        const {color} = a.material, percent = a.health / 100
+        const { color } = a.material, percent = a.health / 100
         a.material.color.setRGB(
           percent * color.r,
           percent * color.g,
@@ -235,12 +235,7 @@ function render() {
   if (health <= 0) {
     runAnim = false
     $(renderer.domElement).fadeOut()
-    $('#radar, #hud, #credits').fadeOut()
-    $('#intro').fadeIn()
-    $('#intro').html('Ouch! Click to restart...')
-    $('#intro').one('click', () => {
-      location = location
-    })
+    $('#radar, #hud').fadeOut()
   }
 }
 
@@ -248,18 +243,18 @@ function setupScene() {
   const UNITSIZE = 250, units = mapW
   const floor = new THREE.Mesh(
     new THREE.BoxGeometry(units * UNITSIZE, 10, units * UNITSIZE),
-    new THREE.MeshLambertMaterial({color: 0xEDCBA0})
+    new THREE.MeshLambertMaterial({ color: 0xEDCBA0 })
   )
   scene.add(floor)
 
   const cube = new THREE.BoxGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE)
   const materials = [
-    new THREE.MeshLambertMaterial({ map: textureLoader.load('images/wall-1.jpg')}),
-    new THREE.MeshLambertMaterial({ map: textureLoader.load('images/wall-2.jpg')}),
-    new THREE.MeshLambertMaterial({color: 0xFBEBCD}),
+    new THREE.MeshLambertMaterial({ map: textureLoader.load('images/wall-1.jpg') }),
+    new THREE.MeshLambertMaterial({ map: textureLoader.load('images/wall-2.jpg') }),
+    new THREE.MeshLambertMaterial({ color: 0xFBEBCD }),
   ]
-  for (let i = 0; i < mapW; i++) 
-    for (let j = 0, m = map[i].length; j < m; j++) 
+  for (let i = 0; i < mapW; i++)
+    for (let j = 0, m = map[i].length; j < m; j++)
       if (map[i][j]) {
         const wall = new THREE.Mesh(cube, materials[map[i][j] - 1])
         wall.position.x = (i - units / 2) * UNITSIZE
@@ -279,7 +274,7 @@ function setupScene() {
 function drawRadar() {
   const c = getMapSector(camera.position)
   const context = document.getElementById('radar').getContext('2d')
-  for (let i = 0; i < mapW; i++) 
+  for (let i = 0; i < mapW; i++)
     for (let j = 0, m = map[i].length; j < m; j++) {
       let d = 0
       for (let k = 0, n = ai.length; k < n; k++) {
@@ -289,24 +284,20 @@ function drawRadar() {
       if (i == c.x && j == c.z && d == 0) {
         context.fillStyle = '#0000FF'
         context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-      }
-      else if (i == c.x && j == c.z) {
+      } else if (i == c.x && j == c.z) {
         context.fillStyle = '#AA33FF'
         context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
         context.fillStyle = '#000000'
         context.fillText('' + d, i * 20 + 8, j * 20 + 12)
-      }
-      else if (d > 0 && d < 10) {
+      } else if (d > 0 && d < 10) {
         context.fillStyle = '#FF0000'
         context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
         context.fillStyle = '#000000'
         context.fillText('' + d, i * 20 + 8, j * 20 + 12)
-      }
-      else if (map[i][j] > 0) {
+      } else if (map[i][j] > 0) {
         context.fillStyle = '#666666'
         context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-      }
-      else {
+      } else {
         context.fillStyle = '#CCCCCC'
         context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
       }
@@ -325,24 +316,26 @@ function setupAI() {
 
 function animate() {
   if (runAnim)
-    requestAnimationFrame(animate)	
+    requestAnimationFrame(animate)
   render()
 }
 
-/* INIT */
-
-$('#intro').on('click', () => {
-  $('#intro').hide()
+function init() {
+  runAnim = true
   setupScene()
   setupAI()
   setInterval(drawRadar, 1000)
   animate()
-})
+}
 
 /* EVENTS */
 
 document.addEventListener('mousemove', handleMouseMove, false)
 
 document.addEventListener('click', e => {
-  if (e.which === 1) createBullet() // Left click only
+  if (e.button === 0) createBullet() // left click
+})
+
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space' && !runAnim) init()
 })

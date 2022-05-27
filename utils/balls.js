@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 
-export function createBall({ radius } = {}) {
-  const geometry = new THREE.DodecahedronGeometry(radius, 1)
+export function createBall({ r = 1 } = {}) {
+  const geometry = new THREE.DodecahedronGeometry(r, 1)
   const material = new THREE.MeshStandardMaterial({
     color: 0xe5f2f2,
     flatShading: true
@@ -44,8 +44,8 @@ function distort({ geometry, heightSegments, widthSegments } = {}) {
   }
 }
 
-export function createWorldSphere({ radius = 26, widthSegments = 40, heightSegments = 40 } = {}) {
-  const geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments)
+export function createWorldSphere({ r = 26, widthSegments = 40, heightSegments = 40 } = {}) {
+  const geometry = new THREE.SphereGeometry(r, widthSegments, heightSegments)
   distort({ geometry, heightSegments, widthSegments })
   const material = new THREE.MeshStandardMaterial({
     color: 0xfffafa,

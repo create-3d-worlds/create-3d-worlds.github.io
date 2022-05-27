@@ -14,12 +14,12 @@ const heroRadius = 0.2
 const heroBaseY = 1.8
 const treeReleaseInterval = 0.5
 const treesInPool = 10
+
 const treesPool = []
 const laneTrees = []
 const lanes = [-1, 0, 1]
 const heroRollingSpeed = (rollingSpeed * worldRadius / heroRadius) / 5
 
-let explosionPower
 let laneIndex = 1
 let jumping = false
 let bounceValue = 0.1
@@ -31,20 +31,20 @@ hemLight({ skyColor: 0xfffafa, groundColor: 0x000000, intensity: .9 })
 
 scene.fog = new THREE.FogExp2(0xf0fff0, 0.14)
 
-camera.position.set(0, 3, 6.5)
+camera.position.set(0, 3, 6)
 clock.start()
 
 /* INIT */
 
-const player = createBall({ radius: heroRadius })
+const player = createBall({ r: heroRadius })
 player.position.set(lanes[laneIndex], heroBaseY, 4.8)
 scene.add(player)
 
-const earth = createWorldSphere({ radius: worldRadius })
+const earth = createWorldSphere({ r: worldRadius })
 earth.position.set(0, -24, 2)
 scene.add(earth)
 
-const particles = createParticles({ num: 30, file: null, color: 0xfffafa, size: 0.04, unitAngle: 0.1 })
+const particles = createParticles({ num: 30, file: null, color: 0xfffafa, size: 0.09, unitAngle: 0.1 })
 scene.add(particles)
 
 for (let i = 0; i < treesInPool; i++) treesPool.push(createFir({ size: 1 }))
@@ -153,7 +153,7 @@ function handleInput() {
     laneIndex++
     jump(0.06)
   }
-  if (keyboard.up) jump(0.1)
+  if (keyboard.up || keyboard.pressed.Space) jump(0.1)
 }
 
 /* LOOP */

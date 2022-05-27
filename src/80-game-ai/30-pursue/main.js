@@ -15,7 +15,7 @@ const floor = createFloor({ size: 10000 })
 scene.add(floor)
 
 // Ball
-const ball = createBall({ radius: 50 })
+const ball = createBall({ r: 50 })
 ball.position.set(randomInRange(-5000, 5000), 50, randomInRange(-5000, 5000))
 scene.add(ball)
 

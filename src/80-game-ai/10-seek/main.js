@@ -14,7 +14,7 @@ camera.position.set(0, 100, 100)
 const floor = createFloor({ size: 1000 })
 scene.add(floor)
 
-const ball = createBall({ radius: 5 })
+const ball = createBall({ r: 5 })
 scene.add(ball)
 
 const mesh = createCrate({ size: 10 })
