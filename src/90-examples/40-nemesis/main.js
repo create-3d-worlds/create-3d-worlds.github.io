@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { FirstPersonControls } from '/node_modules/three119/examples/jsm/controls/FirstPersonControls.js'
 import { nemesis as map } from '/data/maps.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { UNITSIZE, getMapSector, drawRadar, createHealth } from './utils.js'
+import { UNITSIZE, getMapSector, drawRadar, createHealth, createAi } from './utils.js'
 import { randomInt } from '/utils/helpers.js'
 
 const mapW = map.length
@@ -40,7 +40,6 @@ scene.add(healthcube)
 const bullets = []
 const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x333333 })
 const sphereGeo = new THREE.SphereGeometry(2, 6, 6)
-const aiGeo = new THREE.BoxGeometry(40, 40, 40)
 
 function distance(x1, y1, x2, y2) {
   return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
@@ -55,8 +54,6 @@ function checkWallCollision(v) {
 function addAI() {
   let x, z
   const c = getMapSector(camera.position)
-  const aiMaterial = new THREE.MeshBasicMaterial({ /* color: 0xEE3333,*/map: textureLoader.load('images/face.png') })
-  const mesh = new THREE.Mesh(aiGeo, aiMaterial)
 
   do {
     x = randomInt(0, mapW - 1)
@@ -65,12 +62,7 @@ function addAI() {
 
   x = Math.floor(x - mapW / 2) * UNITSIZE
   z = Math.floor(z - mapW / 2) * UNITSIZE
-  mesh.position.set(x, UNITSIZE * 0.15, z)
-  mesh.health = 100
-  mesh.pathPos = 1
-  mesh.lastRandomX = Math.random()
-  mesh.lastRandomZ = Math.random()
-  mesh.lastShot = Date.now() // Higher-fidelity timers aren'THREE a big deal here.
+  const mesh = createAi({ x, z })
   ai.push(mesh)
   scene.add(mesh)
 }

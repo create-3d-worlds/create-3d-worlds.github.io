@@ -12,7 +12,7 @@ export function randomInRange(min, max, int = false) {
 export const randomInt = (min, max) => randomInRange(min, max, true)
 
 /* Get random integer between two values, inclusive */
-export const roll = (min = 0, max) => Math.floor(Math.random() * (max - min + 1) + min)
+export const roll = (max, min = 0) => Math.floor(Math.random() * (max - min + 1) + min)
 
 export function randomInCircle(radius, emptyCenter = 0) {
   const random = emptyCenter ? randomInRange(emptyCenter, 1) : Math.random()

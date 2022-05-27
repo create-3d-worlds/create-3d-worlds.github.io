@@ -53,3 +53,16 @@ export function drawRadar(ai, camera) {
       }
     }
 }
+
+export function createAi({ x, z }) {
+  const geometry = new THREE.BoxGeometry(40, 40, 40)
+  const material = new THREE.MeshBasicMaterial({ map: textureLoader.load('images/face.png') })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.set(x, UNITSIZE * 0.15, z)
+  mesh.health = 100
+  mesh.pathPos = 1
+  mesh.lastRandomX = Math.random()
+  mesh.lastRandomZ = Math.random()
+  mesh.lastShot = Date.now() // Higher-fidelity timers aren'THREE a big deal here.
+  return mesh
+}
