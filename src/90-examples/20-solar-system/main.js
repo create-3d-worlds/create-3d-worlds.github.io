@@ -5,27 +5,29 @@ import { createSimpleEarth, createSimpleMoon, createSimpleSun } from '/utils/pla
 
 createOrbitControls()
 
-let time = 0,
-  speed = 1,
-  pause = false
+let time = 0
+let speed = 1
+let pause = false
 
 const ratio = window.innerWidth / window.innerHeight
-const mainCamera = new THREE.PerspectiveCamera(75, ratio, 1, 1e6)
+const universalCamera = new THREE.PerspectiveCamera(75, ratio, 1, 1e6)
 const earthToSunCamera = new THREE.PerspectiveCamera(75, ratio, 1, 1e6)
 const earthToMoonCamera = new THREE.PerspectiveCamera(75, ratio, 1, 1e6)
-let defaultCamera = mainCamera
+let defaultCamera = universalCamera
 
-mainCamera.position.z = 1000
-scene.add(mainCamera)
+universalCamera.position.z = 1000
+scene.add(universalCamera)
 
 const sun = createSimpleSun({ r: 50 })
 scene.add(sun)
 
 const earth = createSimpleEarth({ r: 20 })
+earth.position.set(250, 0, 0)
 const earthGroup = createEarthGroup(earth, earthToSunCamera)
 sun.add(earthGroup)
 
 const moon = createSimpleMoon({ r: 15 })
+moon.position.set(0, 100, 0)
 const moonGroup = createMoonGroup(moon, earthToMoonCamera)
 earth.add(moonGroup)
 
@@ -36,7 +38,6 @@ scene.add(createSimpleStars())
 function createEarthGroup(earth, earthToSunCamera) {
   const group = new THREE.Group()
   group.add(earth)
-  earth.position.set(250, 0, 0)
   group.add(earthToSunCamera)
   return group
 }
@@ -44,13 +45,12 @@ function createEarthGroup(earth, earthToSunCamera) {
 function createMoonGroup(moon, earthToMoonCamera) {
   const group = new THREE.Group()
   group.add(moon)
-  moon.position.set(0, 100, 0)
   group.add(earthToMoonCamera)
   earthToMoonCamera.rotation.set(Math.PI / 2, 0, 0)
   return group
 }
 
-function orbit() {
+function updatePlanets() {
   time += speed
   const earthSpeed = time * 0.001
   earth.position.set(250 * Math.cos(earthSpeed), 250 * Math.sin(earthSpeed), 0)
@@ -70,34 +70,28 @@ void function update() {
   requestAnimationFrame(update)
   renderer.render(scene, defaultCamera)
   if (pause) return
-  orbit()
+  updatePlanets()
   updateCamera()
 }()
 
 /* EVENTS */
 
 document.addEventListener('keydown', event => {
-  const code = event.keyCode
-  if (code == 81)  // Q
-    defaultCamera = earthToSunCamera
-  if (code == 87)  // W
-    defaultCamera = earthToMoonCamera
-  if (code == 69)  // E
-    defaultCamera = mainCamera
-  if (code == 80)
-    pause = !pause // P
-  if (code == 49)
-    speed = 1 // 1
-  if (code == 50)
-    speed = 2 // 2
-  if (code == 51)
-    speed = 10 // 3
+  switch (event.code) {
+    case 'KeyQ': defaultCamera = earthToSunCamera; break
+    case 'KeyW': defaultCamera = earthToMoonCamera; break
+    case 'KeyE': defaultCamera = universalCamera; break
+    case 'KeyP': pause = !pause; break
+    case 'Digit1': speed = 1; break
+    case 'Digit2': speed = 2; break
+    case 'Digit3': speed = 10; break
+  }
 })
 
 const commands = {
-  Q: 'earthToSunCamera',
-  W: 'earthToMoonCamera',
-  E: 'mainCamera',
+  Q: 'Earth to Sun camera',
+  W: 'Earth to Moon camera',
+  E: 'Universal camera',
   P: 'pause',
   1: 'speed 1',
   2: 'speed 2',

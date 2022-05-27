@@ -1,5 +1,5 @@
 /*
-* Singleton object for User Input (including Keyboard, Touchscreen and Mouse)
+* Singleton object for user input (including keyboard, touchscreen and mouse)
 * see keycode.info
 */
 class Keyboard {
