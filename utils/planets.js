@@ -37,3 +37,27 @@ export function createMoon({ r = 2, segments = 20 } = {}) {
   const mesh = new THREE.Mesh(geometry, material)
   return mesh
 }
+
+/* SIMPLE */
+
+export function createSimpleEarth({ r = 20, segments = 60 } = {}) {
+  const material = new THREE.MeshBasicMaterial({ color: 0x0000cd })
+  const geometry = new THREE.SphereGeometry(r, segments, segments)
+  return new THREE.Mesh(geometry, material)
+}
+
+export function createSimpleMoon({ r = 15, segments = 30 } = {}) {
+  const material = new THREE.MeshBasicMaterial({ color: 0xffffff })
+  const geometry = new THREE.SphereGeometry(r, segments, segments)
+  const moon = new THREE.Mesh(geometry, material)
+  return moon
+}
+
+export function createSimpleSun({ r = 50, segments = 30 } = {}) {
+  const material = new THREE.MeshBasicMaterial({ color: 0xFFD700 })
+  const geometry = new THREE.SphereGeometry(r, segments, segments)
+  const sun = new THREE.Mesh(geometry, material)
+  const sunLight = new THREE.PointLight(0xffffff, 5, 1000)
+  sun.add(sunLight)
+  return sun
+}
