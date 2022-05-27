@@ -44,12 +44,15 @@ export function randomInSquare(size, emptyCenter = 0) {
 
 export const degToRad = deg => deg * Math.PI / 180
 
+export function translateMouse(e) {
+  const x = (e.clientX / window.innerWidth) * 2 - 1
+  const y = -(e.clientY / window.innerHeight) * 2 + 1
+  return { x, y }
+}
+
 export const mouseToWorld = (e, camera = defaultCamera) => {
-  const mouse3D = new THREE.Vector3(
-    e.clientX / window.innerWidth * 2 - 1,
-    -e.clientY / window.innerHeight * 2 + 1,
-    .9 // initially .5
-  )
+  const { x, y } = translateMouse(e)
+  const mouse3D = new THREE.Vector3(x, y, .9) // initially .5
   mouse3D.unproject(camera)
   return mouse3D
 }

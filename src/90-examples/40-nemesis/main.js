@@ -4,15 +4,13 @@ import { scene, camera, renderer, clock } from '/utils/scene.js'
 import {
   UNITSIZE, getMapSector, drawRadar, createHealth, createAi, checkWallCollision, createFloor, createMap, createBullet, distance
 } from './utils.js'
-import { randomInt } from '/utils/helpers.js'
+import { randomInt, translateMouse } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
 
 // TODO: fix collision
 
 const mapW = map.length
 const mapH = map[0].length
-const WIDTH = window.innerWidth
-const HEIGHT = window.innerHeight
 
 const MOVESPEED = 100
 const LOOKSPEED = 0.1
@@ -180,8 +178,9 @@ function update(delta) {
 
 function handleMouseMove(e) {
   e.preventDefault()
-  mouse.x = (e.clientX / WIDTH) * 2 - 1
-  mouse.y = - (e.clientY / HEIGHT) * 2 + 1
+  const {x, y} = translateMouse(e)
+  mouse.x = x
+  mouse.y = y
 }
 
 function setupAI() {
@@ -189,6 +188,8 @@ function setupAI() {
 }
 
 function init() {
+  ai.length = 0
+  // TODO: reset health, score
   runAnim = true
   setupAI()
   intervalId = setInterval(() => {
