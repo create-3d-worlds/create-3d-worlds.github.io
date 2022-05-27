@@ -20,11 +20,11 @@ const PROJECTILEDAMAGE = 20
 
 const ai = []
 const bullets = []
-const mouse = { x: 0, y: 0 }
+let mouse = { x: 0, y: 0 }
 
 let runAnim = false
 let kills = 0
-let health = 100
+let health = 200
 let lastHealthPickup = 0
 let intervalId
 
@@ -69,10 +69,7 @@ function addAI() {
   scene.add(mesh)
 }
 
-function update(delta) {
-  const speed = delta * BULLETMOVESPEED
-  const aispeed = delta * MOVESPEED
-
+function updateHealthcube() {
   healthcube.rotation.x += 0.004
   healthcube.rotation.y += 0.008
   // health once per minute
@@ -85,8 +82,10 @@ function update(delta) {
     healthcube.material.wireframe = false
   } else
     healthcube.material.wireframe = true
+}
 
-  // Update bullets. Walk backwards through the list so we can remove items.
+function updateBullets(delta) {
+  const speed = delta * BULLETMOVESPEED
   for (let i = bullets.length - 1; i >= 0; i--) {
     const b = bullets[i], p = b.position, d = b.ray.direction
     if (checkWallCollision(p)) {
@@ -132,8 +131,10 @@ function update(delta) {
       b.translateZ(speed * d.z)
     }
   }
+}
 
-  // Update AI.
+function updateAI(delta) {
+  const aispeed = delta * MOVESPEED
   for (let i = ai.length - 1; i >= 0; i--) {
     const a = ai[i]
     if (a.health <= 0) {
@@ -168,19 +169,10 @@ function update(delta) {
       a.lastShot = Date.now()
     }
   }
-
-  if (health <= 0) {
-    runAnim = false
-    clearInterval(intervalId)
-    // TODO: handle death
-  }
 }
 
-function handleMouseMove(e) {
-  e.preventDefault()
-  const {x, y} = translateMouse(e)
-  mouse.x = x
-  mouse.y = y
+function updateMouse(e) {
+  mouse = translateMouse(e)
 }
 
 function setupAI() {
@@ -205,13 +197,20 @@ function animate() {
     requestAnimationFrame(animate)
   const delta = clock.getDelta()
   controls.update(delta) // Move camera
-  update(delta)
+  updateHealthcube()
+  updateBullets(delta)
+  updateAI(delta)
+  if (health <= 0) {
+    runAnim = false
+    clearInterval(intervalId)
+    // TODO: handle death
+  }
   renderer.render(scene, camera)
 }
 
 /* EVENTS */
 
-document.addEventListener('mousemove', handleMouseMove, false)
+document.addEventListener('mousemove', updateMouse, false)
 
 document.addEventListener('click', e => {
   if (!runAnim) init()
