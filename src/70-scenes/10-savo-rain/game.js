@@ -30,9 +30,8 @@ player.addSolids(walls)
 scene.add(player.mesh)
 
 const rain = createRain()
-scene.add(rain)
-
 addVelocity({ particles: rain, min: 0.5, max: 3 })
+scene.add(rain)
 
 /* LOOP */
 
@@ -40,13 +39,9 @@ void function animate() {
   requestAnimationFrame(animate)
   const delta = clock.getDelta()
   const time = clock.getElapsedTime()
-  player.update(delta)
-  // rain.update(player.position)
-  updateRain({ particles: rain, minY: 0, maxY: 200 })
 
-  const target = player.mesh.position.clone()
-  target.y = player.position.y + player.size
-  camera.lookAt(target)
+  player.update(delta)
+  updateRain({ particles: rain, minY: 0, maxY: 200 })
 
   smallMapRenderer.render(player, map)
   fpsRenderer.render(time)
