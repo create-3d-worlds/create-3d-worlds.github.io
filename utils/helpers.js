@@ -3,10 +3,16 @@ import { scene as defaultScene, camera as defaultCamera } from '/utils/scene.js'
 
 /* MATH */
 
-export function randomInRange(min, max, round = false) {
+/* Get random integer between two values, include min, not include max */
+export function randomInRange(min, max, int = false) {
   const random = Math.random() * (max - min) + min
-  return round ? Math.floor(random) : random // include min, not include max
+  return int ? Math.floor(random) : random
 }
+
+export const randomInt = (min, max) => randomInRange(min, max, true)
+
+/* Get random integer between two values, inclusive */
+export const roll = (min = 0, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
 export function randomInCircle(radius, emptyCenter = 0) {
   const random = emptyCenter ? randomInRange(emptyCenter, 1) : Math.random()

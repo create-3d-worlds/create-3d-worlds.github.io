@@ -1,8 +1,19 @@
+import * as THREE from '/node_modules/three119/build/three.module.js'
 import { nemesis as map } from '/data/maps.js'
 
+const textureLoader = new THREE.TextureLoader()
 const mapW = map.length
 
 export const UNITSIZE = 250
+
+export function createHealth() {
+  const healthcube = new THREE.Mesh(
+    new THREE.BoxGeometry(30, 30, 30),
+    new THREE.MeshBasicMaterial({ map: textureLoader.load('images/health.png') })
+  )
+  healthcube.position.set(-UNITSIZE - 15, 35, -UNITSIZE - 15)
+  return healthcube
+}
 
 export function getMapSector(v) {
   const x = Math.floor((v.x + UNITSIZE / 2) / UNITSIZE + mapW / 2)

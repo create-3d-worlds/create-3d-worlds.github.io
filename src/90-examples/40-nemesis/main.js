@@ -1,8 +1,9 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { FirstPersonControls } from '/node_modules/three119/examples/jsm/controls/FirstPersonControls.js'
 import { nemesis as map } from '/data/maps.js'
-import { UNITSIZE, getMapSector, drawRadar } from './utils.js'
-// import { scene, camera, renderer, clock } from '/utils/scene.js'
+import { scene, camera, renderer, clock } from '/utils/scene.js'
+import { UNITSIZE, getMapSector, drawRadar, createHealth } from './utils.js'
+import { randomInt } from '/utils/helpers.js'
 
 const mapW = map.length
 const mapH = map[0].length
@@ -24,31 +25,16 @@ let health = 100
 let lastHealthPickup = 0
 let intervalId
 
-const clock = new THREE.Clock()
-const scene = new THREE.Scene()
 const textureLoader = new THREE.TextureLoader()
 
-const camera = new THREE.PerspectiveCamera(60, WIDTH / HEIGHT, 1, 10000) // FOV, aspect, near, far
 camera.position.y = UNITSIZE * .2
-scene.add(camera)
 
 const controls = new FirstPersonControls(camera, document)
 controls.movementSpeed = MOVESPEED
 controls.lookSpeed = LOOKSPEED
-controls.lookVertical = false // Temporary solution; play on flat surfaces only
-controls.noFly = true
+controls.lookVertical = false
 
-const renderer = new THREE.WebGLRenderer()
-renderer.setSize(WIDTH, HEIGHT)
-
-renderer.domElement.style.backgroundColor = '#D6F1FF' // easier to see
-document.body.appendChild(renderer.domElement)
-
-const healthcube = new THREE.Mesh(
-  new THREE.BoxGeometry(30, 30, 30),
-  new THREE.MeshBasicMaterial({ map: textureLoader.load('images/health.png') })
-)
-healthcube.position.set(-UNITSIZE - 15, 35, -UNITSIZE - 15)
+const healthcube = createHealth()
 scene.add(healthcube)
 
 const bullets = []
@@ -66,29 +52,27 @@ function checkWallCollision(v) {
   return map[c.x][c.z] > 0
 }
 
-function getRandBetween(lo, hi) {
-  return parseInt(Math.floor(Math.random() * (hi - lo + 1)) + lo, 10)
-}
-
 function addAI() {
   let x, z
   const c = getMapSector(camera.position)
   const aiMaterial = new THREE.MeshBasicMaterial({ /* color: 0xEE3333,*/map: textureLoader.load('images/face.png') })
-  const o = new THREE.Mesh(aiGeo, aiMaterial)
+  const mesh = new THREE.Mesh(aiGeo, aiMaterial)
+
   do {
-    x = getRandBetween(0, mapW - 1)
-    z = getRandBetween(0, mapH - 1)
+    x = randomInt(0, mapW - 1)
+    z = randomInt(0, mapH - 1)
   } while (map[x][z] > 0 || (x == c.x && z == c.z))
+
   x = Math.floor(x - mapW / 2) * UNITSIZE
   z = Math.floor(z - mapW / 2) * UNITSIZE
-  o.position.set(x, UNITSIZE * 0.15, z)
-  o.health = 100
-  o.pathPos = 1
-  o.lastRandomX = Math.random()
-  o.lastRandomZ = Math.random()
-  o.lastShot = Date.now() // Higher-fidelity timers aren'THREE a big deal here.
-  ai.push(o)
-  scene.add(o)
+  mesh.position.set(x, UNITSIZE * 0.15, z)
+  mesh.health = 100
+  mesh.pathPos = 1
+  mesh.lastRandomX = Math.random()
+  mesh.lastRandomZ = Math.random()
+  mesh.lastShot = Date.now() // Higher-fidelity timers aren'THREE a big deal here.
+  ai.push(mesh)
+  scene.add(mesh)
 }
 
 function createBullet(obj) {
@@ -114,7 +98,6 @@ function createBullet(obj) {
 function update(delta) {
   const speed = delta * BULLETMOVESPEED
   const aispeed = delta * MOVESPEED
-  controls.update(delta) // Move camera
 
   healthcube.rotation.x += 0.004
   healthcube.rotation.y += 0.008
@@ -279,6 +262,7 @@ function animate() {
   if (runAnim)
     requestAnimationFrame(animate)
   const delta = clock.getDelta()
+  controls.update(delta) // Move camera
   update(delta)
   renderer.render(scene, camera)
 }
