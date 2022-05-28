@@ -113,10 +113,11 @@ function updateEnemies(delta) {
   })
 }
 
-function init() {
+function reset() {
+  enemies.forEach(x => scene.remove(x))
+  bullets.forEach(x => scene.remove(x))
+  enemies.length = bullets.length = kills = lastHealthPickup = 0
   health = INITIAL_HEALTH
-  enemies.forEach(enemy => scene.remove(enemy))
-  enemies.length = kills = lastHealthPickup = 0
   for (let i = 0; i < NUM_AI; i++) addEnemy()
   runGame = true
   gameLoop()
@@ -125,8 +126,9 @@ function init() {
 /* LOOP */
 
 function gameLoop() {
-  if (runGame)
-    requestAnimationFrame(gameLoop)
+  if (!runGame) return
+
+  requestAnimationFrame(gameLoop)
   const delta = clock.getDelta()
   controls.update(delta) // Move camera
   updateHealthBox()
@@ -144,6 +146,6 @@ document.addEventListener('mousemove', e => {
 })
 
 document.addEventListener('click', e => {
-  if (!runGame) init()
+  if (!runGame) reset()
   if (e.button === 0) addBullet(camera, mouse)
 })
