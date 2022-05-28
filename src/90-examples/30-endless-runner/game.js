@@ -9,7 +9,7 @@ import { randomInRange, roll } from '/utils/helpers.js'
 
 const { random } = Math
 
-const heroSpeed = 5
+const heroSpeed = 4
 const worldSpeed = 0.007
 const worldRadius = 26
 const heroRadius = 0.2
@@ -44,7 +44,7 @@ const earth = createWorldSphere({ r: worldRadius })
 earth.position.set(0, -24, 2)
 scene.add(earth)
 
-const particles = createParticles({ num: 30, file: null, color: 0xfffafa, size: 0.09, unitAngle: 0.1 })
+const particles = createParticles({ num: 30, size: 0.09, unitAngle: 0.1 })
 scene.add(particles)
 
 for (let i = 0; i < treesInPool; i++)
@@ -89,11 +89,11 @@ function addTree(tree, spherical) {
 
 function addTreeOrTwo() {
   const available = [0, 1, 2]
-  const lane = roll(3)
+  const lane = roll(2)
   addLaneTree(lane)
   available.splice(lane, 1)
   if (random() > 0.5) {
-    const anotherLane = roll(2)
+    const anotherLane = roll(1)
     addLaneTree(available[anotherLane])
   }
 }
