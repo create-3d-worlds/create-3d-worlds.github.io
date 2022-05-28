@@ -2,7 +2,7 @@ import { FirstPersonControls } from '/node_modules/three119/examples/jsm/control
 import { nemesis as map } from '/data/maps.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import {
-  getMapSector, createHealth, createEnemy, checkWallCollision, createFloor, createWalls, createBullet, distance, distanceTo, isHit, randomXZ, updateBullet, remove, hitEnemy
+  getMapSector, createHealth, createEnemy, isWall, createFloor, createWalls, createBullet, distance, distanceTo, isHit, randomXZ, updateBullet, remove, hitEnemy
 } from './utils.js'
 import { UNITSIZE, MOVESPEED, LOOKSPEED, NUM_AI, INITIAL_HEALTH } from './constants.js'
 import { translateMouse } from '/utils/helpers.js'
@@ -71,60 +71,57 @@ function updateHealthBox() {
 }
 
 function checkBulletHitEnemy(bullet, i) {
-  let hit = false
-  for (const ai of enemies)
-    if (isHit(bullet, ai)) {
+  for (const enemy of enemies)
+    if (isHit(bullet, enemy)) {
       removeBullet(bullet, i)
-      hitEnemy(ai)
-      hit = true
-      break
+      hitEnemy(enemy)
+      return true
     }
-  return hit
+  return false
 }
 
 function checkBulletHitPlayer(b, i) {
   if (distanceTo(b, camera) > 25 || b.owner == camera) return
-  health -= 10
-  if (health < 0) health = 0
+  health = (health - 10 < 0) ? 0 : health - 10
   document.querySelector('#health').innerHTML = health
   removeBullet(b, i)
 }
 
 function updateBullets(delta) {
   bullets.forEach((b, i) => {
-    if (checkWallCollision(b.position)) {
-      removeBullet(b, i)
-      return
-    }
+    if (isWall(b.position)) return removeBullet(b, i)
     const hit = checkBulletHitEnemy(b, i)
     checkBulletHitPlayer(b, i)
     if (!hit) updateBullet(b, delta)
   })
 }
 
-function updateAI(delta) {
-  const aispeed = delta * MOVESPEED
+const killEnemy = (ai, i) => {
+  removeEnemy(ai, i)
+  kills++
+  document.querySelector('#score').innerHTML = kills * 100
+}
+
+function updateEnemies(delta) {
+  const speed = delta * MOVESPEED
   enemies.forEach((ai, i) => {
-    // kill enemies
-    if (ai.health <= 0) {
-      removeEnemy(ai, i)
-      kills++
-      document.querySelector('#score').innerHTML = kills * 100
-    }
+    if (ai.health <= 0) killEnemy(ai, i)
+
     // Move AI
     if (Math.random() > 0.995) {
       ai.lastRandomX = Math.random() * 2 - 1
       ai.lastRandomZ = Math.random() * 2 - 1
     }
-    ai.translateX(aispeed * ai.lastRandomX)
-    ai.translateZ(aispeed * ai.lastRandomZ)
+    ai.translateX(speed * ai.lastRandomX)
+    ai.translateZ(speed * ai.lastRandomZ)
     const c = getMapSector(ai.position)
-    if (c.x < 0 || c.x >= mapW || c.y < 0 || c.y >= mapH || checkWallCollision(ai.position)) {
-      ai.translateX(-2 * aispeed * ai.lastRandomX)
-      ai.translateZ(-2 * aispeed * ai.lastRandomZ)
+    if (c.x < 0 || c.x >= mapW || c.y < 0 || c.y >= mapH || isWall(ai.position)) {
+      ai.translateX(-2 * speed * ai.lastRandomX)
+      ai.translateZ(-2 * speed * ai.lastRandomZ)
       ai.lastRandomX = Math.random() * 2 - 1
       ai.lastRandomZ = Math.random() * 2 - 1
     }
+
     if (c.x < -1 || c.x > mapW || c.z < -1 || c.z > mapH) {
       removeEnemy(ai, i)
       addEnemy()
@@ -137,7 +134,7 @@ function updateAI(delta) {
   })
 }
 
-function setupAI() {
+function setupEnemies() {
   for (let i = 0; i < NUM_AI; i++) addEnemy()
 }
 
@@ -145,7 +142,7 @@ function init() {
   health = INITIAL_HEALTH
   enemies.forEach(ai => scene.remove(ai))
   enemies.length = kills = lastHealthPickup = 0
-  setupAI()
+  setupEnemies()
   runGame = true
   gameLoop()
 }
@@ -159,7 +156,7 @@ function gameLoop() {
   controls.update(delta) // Move camera
   updateHealthBox()
   updateBullets(delta)
-  updateAI(delta)
+  updateEnemies(delta)
   if (health <= 0)
     runGame = false
   renderer.render(scene, camera)

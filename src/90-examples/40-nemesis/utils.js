@@ -38,7 +38,7 @@ export function createEnemy({ x, z }) {
   return mesh
 }
 
-export function checkWallCollision(v) {
+export function isWall(v) {
   const c = getMapSector(v)
   return nemesis[c.x][c.z] > 0
 }
