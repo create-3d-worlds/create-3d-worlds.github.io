@@ -2,9 +2,10 @@ import { FirstPersonControls } from '/node_modules/three119/examples/jsm/control
 import { nemesis as map } from '/data/maps.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import {
-  UNITSIZE, getMapSector, createHealth, createAi, checkWallCollision, createFloor, createWalls, createBullet, distance, distanceTo
+  getMapSector, createHealth, createAi, checkWallCollision, createFloor, createWalls, createBullet, distance, distanceTo, isHit, randomXZ, updateBullet
 } from './utils.js'
-import { randomInt, translateMouse } from '/utils/helpers.js'
+import { UNITSIZE, MOVESPEED, LOOKSPEED } from './constants.js'
+import { translateMouse } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
 
 // TODO: fix collision
@@ -12,9 +13,6 @@ import { dirLight } from '/utils/light.js'
 const mapW = map.length
 const mapH = map[0].length
 
-const MOVESPEED = 100
-const LOOKSPEED = 0.1
-const BULLETMOVESPEED = MOVESPEED * 5
 const NUM_AI = 5
 const PROJECTILEDAMAGE = 20
 const INITIAL_HEALTH = 100
@@ -48,6 +46,15 @@ scene.add(healthBox)
 
 /* FUNCTIONS */
 
+const remove = (arr, el, i) => {
+  const index = i ? i : arr.findIndex(x => el.uuid == x.uuid)
+  arr.splice(index, 1)
+  scene.remove(el)
+}
+
+const removeAi = (a, i) => remove(ai, a, i)
+const removeBullet = (b, i) => remove(bullets, b, i)
+
 const shoot = (camera, mouse) => {
   const sphere = createBullet(camera, mouse)
   bullets.push(sphere)
@@ -55,16 +62,7 @@ const shoot = (camera, mouse) => {
 }
 
 function addAI() {
-  let x, z
-  const c = getMapSector(camera.position)
-  do {
-    x = randomInt(0, mapW - 1)
-    z = randomInt(0, mapH - 1)
-  } while (map[x][z] > 0 || (x == c.x && z == c.z))
-
-  x = Math.floor(x - mapW / 2) * UNITSIZE
-  z = Math.floor(z - mapW / 2) * UNITSIZE
-  const mesh = createAi({ x, z })
+  const mesh = createAi(randomXZ())
   ai.push(mesh)
   scene.add(mesh)
 }
@@ -72,61 +70,48 @@ function addAI() {
 function updateHealthBox() {
   healthBox.rotation.x += 0.004
   healthBox.rotation.y += 0.008
-  const refillAvailable = Date.now() - lastHealthPickup > 60000 // 1 minute
-  healthBox.material.wireframe = !refillAvailable
-  if (refillAvailable && distanceTo(camera, healthBox) < 20 && health < INITIAL_HEALTH) {
+  const refillTime = Date.now() - lastHealthPickup > 60000 // 1 minute
+  healthBox.material.wireframe = !refillTime
+  if (refillTime && distanceTo(camera, healthBox) < 20 && health < INITIAL_HEALTH) {
     health = INITIAL_HEALTH
     document.querySelector('#health').innerHTML = health
     lastHealthPickup = Date.now()
   }
 }
 
+function checkBulletHitAI(bullet, i) {
+  let hit = false
+  for (const a of ai)
+    if (isHit(bullet, a) && bullet.owner != a) {
+      removeBullet(bullet, i)
+      a.health -= PROJECTILEDAMAGE
+      const { color } = a.material
+      const percent = a.health / 100
+      color.setRGB(percent * color.r, percent * color.g, percent * color.b)
+      hit = true
+      break
+    }
+  return hit
+}
+
+function checkBulletHitPlayer(b, i) {
+  if (distanceTo(b, camera) > 25 || b.owner == camera) return
+  health -= 10
+  if (health < 0) health = 0
+  document.querySelector('#health').innerHTML = health
+  removeBullet(b, i)
+}
+
 function updateBullets(delta) {
-  const speed = delta * BULLETMOVESPEED
-  for (let i = bullets.length - 1; i >= 0; i--) {
-    const b = bullets[i], p = b.position, d = b.ray.direction
-    if (checkWallCollision(p)) {
-      bullets.splice(i, 1)
-      scene.remove(b)
-      continue
+  bullets.forEach((b, i) => {
+    if (checkWallCollision(b.position)) {
+      removeBullet(b, i)
+      return
     }
-    // Collide with AI
-    let hit = false
-    for (let j = ai.length - 1; j >= 0; j--) {
-      const a = ai[j]
-      const v = a.geometry.vertices[0]
-      const c = a.position
-      const x = Math.abs(v.x), z = Math.abs(v.z)
-      if (p.x < c.x + x && p.x > c.x - x &&
-					p.z < c.z + z && p.z > c.z - z &&
-					b.owner != a) {
-        bullets.splice(i, 1)
-        scene.remove(b)
-        a.health -= PROJECTILEDAMAGE
-        const { color } = a.material, percent = a.health / 100
-        a.material.color.setRGB(
-          percent * color.r,
-          percent * color.g,
-          percent * color.b
-        )
-        hit = true
-        break
-      }
-    }
-    // Bullet hits player
-    if (distanceTo(b, camera) < 25 && b.owner != camera) {
-      health -= 10
-      if (health < 0) health = 0
-      const val = health < 25 ? '<span style="color: darkRed">' + health + '</span>' : health
-      document.querySelector('#health').innerHTML = val
-      bullets.splice(i, 1)
-      scene.remove(b)
-    }
-    if (!hit) {
-      b.translateX(speed * d.x)
-      b.translateZ(speed * d.z)
-    }
-  }
+    const hit = checkBulletHitAI(b, i)
+    checkBulletHitPlayer(b, i)
+    if (!hit) updateBullet(b, delta)
+  })
 }
 
 function updateAI(delta) {
@@ -134,8 +119,7 @@ function updateAI(delta) {
   ai.forEach((a, i) => {
     // kill ai
     if (a.health <= 0) {
-      ai.splice(i, 1)
-      scene.remove(a)
+      removeAi(a, i)
       kills++
       document.querySelector('#score').innerHTML = kills * 100
     }
@@ -154,8 +138,7 @@ function updateAI(delta) {
       a.lastRandomZ = Math.random() * 2 - 1
     }
     if (c.x < -1 || c.x > mapW || c.z < -1 || c.z > mapH) {
-      ai.splice(i, 1)
-      scene.remove(a)
+      removeAi(a, i)
       addAI()
     }
     const cc = getMapSector(camera.position)

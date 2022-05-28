@@ -1,11 +1,13 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera } from '/utils/scene.js'
+import { randomInt } from '/utils/helpers.js'
 import { nemesis } from '/data/maps.js'
+import { UNITSIZE, BULLETMOVESPEED } from './constants.js'
 
 const textureLoader = new THREE.TextureLoader()
 const mapW = nemesis.length
+const mapH = nemesis[0].length
 
-export const UNITSIZE = 250
 const WALLHEIGHT = UNITSIZE / 3
 
 export function createHealth() {
@@ -94,3 +96,32 @@ export function distance(x1, y1, x2, y2) {
 }
 
 export const distanceTo = (a, b) => a.position.distanceTo(b.position)
+
+export const isHit = (b, target) => {
+  const bulletPos = b.position
+  const targetPos = target.position
+  const vec = target.geometry.vertices[0]
+  const x = Math.abs(vec.x)
+  const z = Math.abs(vec.z)
+  return bulletPos.x < targetPos.x + x && bulletPos.x > targetPos.x - x
+      && bulletPos.z < targetPos.z + z && bulletPos.z > targetPos.z - z
+}
+
+export const randomXZ = () => {
+  let x, z
+  const c = getMapSector(camera.position)
+  do {
+    x = randomInt(0, mapW - 1)
+    z = randomInt(0, mapH - 1)
+  } while (nemesis[x][z] > 0 || (x == c.x && z == c.z))
+
+  x = Math.floor(x - mapW / 2) * UNITSIZE
+  z = Math.floor(z - mapW / 2) * UNITSIZE
+  return { x, z }
+}
+
+export const updateBullet = (b, delta) => {
+  const speed = delta * BULLETMOVESPEED
+  b.translateX(speed * b.ray.direction.x)
+  b.translateZ(speed * b.ray.direction.z)
+}
