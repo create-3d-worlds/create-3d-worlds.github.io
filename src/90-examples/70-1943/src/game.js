@@ -6,15 +6,9 @@ import controls from './scene/controls.js'
 import ground from './actors/ground.js'
 import Avion from './actors/Avion.js'
 
-const mousePos = { x: 0, y: 0 }
 let avion
 
 /* FUNCTIONS */
-
-const updateMousePos = e => {
-  mousePos.x = -1 + (e.clientX / window.innerWidth) * 2
-  mousePos.y = 1 - (e.clientY / window.innerHeight) * 2
-}
 
 const update = () => {
   requestAnimationFrame(update)
@@ -32,5 +26,3 @@ new THREE.ColladaLoader().load('assets/me-109/model.dae', collada => {
   scene.add(avion, ground)
   update()
 })
-
-document.addEventListener('mousemove', updateMousePos)
