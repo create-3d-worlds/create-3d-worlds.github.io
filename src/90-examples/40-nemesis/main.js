@@ -7,8 +7,6 @@ import { UNITSIZE, LOOKSPEED, MOVESPEED, NUM_AI, INITIAL_HEALTH } from './consta
 import { translateMouse } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
 
-// TODO: fix collision
-
 const enemies = []
 const bullets = []
 let mouse = { x: 0, y: 0 }
@@ -127,7 +125,6 @@ function reset() {
 
 function gameLoop() {
   if (!runGame) return
-
   requestAnimationFrame(gameLoop)
   const delta = clock.getDelta()
   controls.update(delta) // Move camera
