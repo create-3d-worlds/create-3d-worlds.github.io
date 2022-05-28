@@ -1,13 +1,11 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, scene } from '/utils/scene.js'
-import { UNITSIZE, BULLETMOVESPEED, PROJECTILEDAMAGE, MOVESPEED } from './constants.js'
+import { UNITSIZE, BULLETMOVESPEED, PROJECTILEDAMAGE, MOVESPEED, mapWidth, mapHeight } from './constants.js'
 import { randomInt } from '/utils/helpers.js'
 import { nemesis } from '/data/maps.js'
 import { create3DMap } from '/utils/maps.js'
 
 const textureLoader = new THREE.TextureLoader()
-const mapW = nemesis.length
-const mapH = nemesis[0].length
 
 export function createHealth() {
   const healthcube = new THREE.Mesh(
@@ -19,8 +17,8 @@ export function createHealth() {
 }
 
 export function getMapCell(vec) {
-  const x = Math.floor((vec.x + UNITSIZE / 2) / UNITSIZE + mapW / 2)
-  const z = Math.floor((vec.z + UNITSIZE / 2) / UNITSIZE + mapW / 2)
+  const x = Math.floor((vec.x + UNITSIZE / 2) / UNITSIZE + mapWidth / 2)
+  const z = Math.floor((vec.z + UNITSIZE / 2) / UNITSIZE + mapWidth / 2)
   return { x, z }
 }
 
@@ -42,16 +40,8 @@ export function isWall(v) {
   return nemesis[c.x][c.z] > 0
 }
 
-export function createFloor() {
-  const floor = new THREE.Mesh(
-    new THREE.BoxGeometry(mapW * UNITSIZE, 10, mapW * UNITSIZE),
-    new THREE.MeshLambertMaterial({ color: 0xEDCBA0 })
-  )
-  return floor
-}
-
 export function createWalls(matrix = nemesis, size = UNITSIZE) {
-  const mapW = matrix.length
+  const mapWidth = matrix.length
   const group = new THREE.Group()
   const geometry = new THREE.BoxGeometry(size, size, size)
   const params = [
@@ -61,9 +51,9 @@ export function createWalls(matrix = nemesis, size = UNITSIZE) {
   ]
   matrix.forEach((row, rowIndex) => row.forEach((val, columnIndex) => {
     if (!val) return
-    const x = (rowIndex - mapW / 2) * size
+    const x = (rowIndex - mapWidth / 2) * size
     const y = size / 2
-    const z = (columnIndex - mapW / 2) * size
+    const z = (columnIndex - mapWidth / 2) * size
     const box = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial(params[val - 1]))
     box.position.set(x, y, z)
     group.add(box)
@@ -107,12 +97,12 @@ export const randomXZ = () => {
   let x, z
   const c = getMapCell(camera.position)
   do {
-    x = randomInt(0, mapW - 1)
-    z = randomInt(0, mapH - 1)
+    x = randomInt(0, mapWidth - 1)
+    z = randomInt(0, mapHeight - 1)
   } while (nemesis[x][z] > 0 || (x == c.x && z == c.z))
 
-  x = Math.floor(x - mapW / 2) * UNITSIZE
-  z = Math.floor(z - mapW / 2) * UNITSIZE
+  x = Math.floor(x - mapWidth / 2) * UNITSIZE
+  z = Math.floor(z - mapWidth / 2) * UNITSIZE
   return { x, z }
 }
 
