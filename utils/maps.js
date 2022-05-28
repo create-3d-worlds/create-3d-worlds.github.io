@@ -28,7 +28,12 @@ export function create3DMap({ matrix = randomMatrix(), size = 1, yModifier } = {
 }
 
 // TODO: merge or deprecate
-export function create3DMapOrigin({ matrix = randomMatrix(), size = 1, yModifier, origin = { x: 0, z: 0 } } = {}) {
+export function create3DMapOrigin({ matrix = randomMatrix(), size = 1, yModifier, origin } = {}) {
+  const defaultOrigin = {
+    x: -matrix[0].length * size / 2,
+    z: -matrix.length * size / 2
+  }
+  origin = origin || defaultOrigin // eslint-disable-line no-param-reassign
   const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
   const group = new THREE.Group()
   matrix.forEach((row, rowIndex) => row.forEach((val, columnIndex) => {
