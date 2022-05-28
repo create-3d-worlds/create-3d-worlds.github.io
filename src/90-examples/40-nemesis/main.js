@@ -1,9 +1,9 @@
 import { FirstPersonControls } from '/node_modules/three119/examples/jsm/controls/FirstPersonControls.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import {
-  getMapCell, createHealth, createEnemy, isWall, createFloor, createWalls, createBullet, distance, distanceTo, isHit, randomXZ, updateBullet, remove, hitEnemy
+  getMapCell, createHealth, createEnemy, isWall, createFloor, createWalls, createBullet, distance, isHit, randomXZ, moveBullet, remove, hitEnemy, moveEnemy
 } from './utils.js'
-import { UNITSIZE, MOVESPEED, LOOKSPEED, NUM_AI, INITIAL_HEALTH } from './constants.js'
+import { UNITSIZE, LOOKSPEED, MOVESPEED, NUM_AI, INITIAL_HEALTH } from './constants.js'
 import { translateMouse } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
 
@@ -42,8 +42,8 @@ const removeEnemy = (el, i) => remove(enemies, el, i)
 
 const removeBullet = (el, i) => remove(bullets, el, i)
 
-const shoot = (player, mouse) => {
-  const mesh = createBullet(player, mouse)
+const addBullet = (acter, target) => {
+  const mesh = createBullet(acter, target)
   bullets.push(mesh)
   scene.add(mesh)
 }
@@ -59,14 +59,14 @@ function updateHealthBox() {
   healthBox.rotation.y += 0.008
   const refillTime = Date.now() - lastHealthPickup > 60000 // 1 minute
   healthBox.material.wireframe = !refillTime
-  if (refillTime && distanceTo(camera, healthBox) < 20 && health < INITIAL_HEALTH) {
+  if (refillTime && distance(camera.position, healthBox.position) < 25 && health < INITIAL_HEALTH) {
     health = INITIAL_HEALTH
     document.querySelector('#health').innerHTML = health
     lastHealthPickup = Date.now()
   }
 }
 
-function checkBulletHitEnemy(bullet, i) {
+function bulletHitEnemy(bullet, i) {
   for (const enemy of enemies)
     if (isHit(bullet, enemy)) {
       removeBullet(bullet, i)
@@ -76,19 +76,18 @@ function checkBulletHitEnemy(bullet, i) {
   return false
 }
 
-function checkBulletHitPlayer(b, i) {
-  if (distanceTo(b, camera) > 25 || b.owner == camera) return
+function checkBulletHitPlayer(bullet, i) {
+  if (distance(bullet.position, camera.position) > 25 || bullet.owner == camera) return
   health = (health - 10 < 0) ? 0 : health - 10
   document.querySelector('#health').innerHTML = health
-  removeBullet(b, i)
+  removeBullet(bullet, i)
 }
 
 function updateBullets(delta) {
-  bullets.forEach((b, i) => {
-    if (isWall(b.position)) return removeBullet(b, i)
-    const hit = checkBulletHitEnemy(b, i)
-    checkBulletHitPlayer(b, i)
-    if (!hit) updateBullet(b, delta)
+  bullets.forEach((bullet, i) => {
+    if (isWall(bullet.position)) return removeBullet(bullet, i)
+    checkBulletHitPlayer(bullet, i)
+    if (!bulletHitEnemy(bullet, i)) moveBullet(bullet, delta)
   })
 }
 
@@ -98,29 +97,12 @@ const killEnemy = (enemy, i) => {
   document.querySelector('#score').innerHTML = kills * 100
 }
 
-const moveEnemy = (enemy, delta) => {
-  const speed = delta * MOVESPEED
-  if (Math.random() > 0.995) {
-    enemy.lastRandomX = Math.random() * 2 - 1
-    enemy.lastRandomZ = Math.random() * 2 - 1
-  }
-  enemy.translateX(speed * enemy.lastRandomX)
-  enemy.translateZ(speed * enemy.lastRandomZ)
-  if (isWall(enemy.position)) {
-    enemy.translateX(-2 * speed * enemy.lastRandomX)
-    enemy.translateZ(-2 * speed * enemy.lastRandomZ)
-    enemy.lastRandomX = Math.random() * 2 - 1
-    enemy.lastRandomZ = Math.random() * 2 - 1
-  }
-}
-
 const checkEnemyFire = enemy => {
   const enemyCell = getMapCell(enemy.position)
   const playerCell = getMapCell(camera.position)
-  if (Date.now() - enemy.lastShot > 750 && distance(enemyCell, playerCell) < 2) {
-    shoot(enemy, mouse)
-    enemy.lastShot = Date.now()
-  }
+  if (Date.now() - enemy.lastShot < 750 || distance(enemyCell, playerCell) > 1) return
+  addBullet(enemy)
+  enemy.lastShot = Date.now()
 }
 
 function updateEnemies(delta) {
@@ -131,15 +113,11 @@ function updateEnemies(delta) {
   })
 }
 
-function setupEnemies() {
-  for (let i = 0; i < NUM_AI; i++) addEnemy()
-}
-
 function init() {
   health = INITIAL_HEALTH
   enemies.forEach(enemy => scene.remove(enemy))
   enemies.length = kills = lastHealthPickup = 0
-  setupEnemies()
+  for (let i = 0; i < NUM_AI; i++) addEnemy()
   runGame = true
   gameLoop()
 }
@@ -167,5 +145,5 @@ document.addEventListener('mousemove', e => {
 
 document.addEventListener('click', e => {
   if (!runGame) init()
-  if (e.button === 0) shoot(camera, mouse) // left click
+  if (e.button === 0) addBullet(camera, mouse)
 })

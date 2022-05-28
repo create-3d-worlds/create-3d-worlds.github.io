@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, scene } from '/utils/scene.js'
 import { randomInt } from '/utils/helpers.js'
 import { nemesis } from '/data/maps.js'
-import { UNITSIZE, BULLETMOVESPEED, PROJECTILEDAMAGE } from './constants.js'
+import { UNITSIZE, BULLETMOVESPEED, PROJECTILEDAMAGE, MOVESPEED } from './constants.js'
 
 const textureLoader = new THREE.TextureLoader()
 const mapW = nemesis.length
@@ -71,29 +71,24 @@ export function createWalls() {
   return group
 }
 
-export function createBullet(obj, mouse) {
-  if (!obj) obj = camera // eslint-disable-line
-
-  const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x333333 })
-  const sphereGeo = new THREE.SphereGeometry(2, 6, 6)
-
-  const sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
-  sphere.position.set(obj.position.x, obj.position.y * 0.8, obj.position.z)
+export function createBullet(obj, target) {
+  const material = new THREE.MeshBasicMaterial({ color: 0x333333 })
+  const geometry = new THREE.SphereGeometry(2, 6, 6)
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.set(obj.position.x, obj.position.y * 0.8, obj.position.z)
   let vector
-  if (obj instanceof THREE.Camera) {
-    vector = new THREE.Vector3(mouse.x, mouse.y, 1)
+  if (target) { // player is shooting
+    vector = new THREE.Vector3(target.x, target.y, 1)
     vector.unproject(obj)
   } else
     vector = camera.position.clone()
 
-  sphere.ray = new THREE.Ray(obj.position, vector.sub(obj.position).normalize())
-  sphere.owner = obj
-  return sphere
+  mesh.ray = new THREE.Ray(obj.position, vector.sub(obj.position).normalize())
+  mesh.owner = obj
+  return mesh
 }
 
 export const distance = (a, b) => Math.sqrt((b.x - a.x) * (b.x - a.x) + (b.z - a.z) * (b.z - a.z))
-
-export const distanceTo = (a, b) => a.position.distanceTo(b.position)
 
 export const isHit = (bullet, target) => {
   const bulletPos = bullet.position
@@ -119,7 +114,7 @@ export const randomXZ = () => {
   return { x, z }
 }
 
-export const updateBullet = (b, delta) => {
+export const moveBullet = (b, delta) => {
   const speed = delta * BULLETMOVESPEED
   b.translateX(speed * b.ray.direction.x)
   b.translateZ(speed * b.ray.direction.z)
@@ -136,4 +131,20 @@ export const hitEnemy = enemy => {
   const { color } = enemy.material
   const percent = enemy.health / 100
   color.setRGB(percent * color.r, percent * color.g, percent * color.b)
+}
+
+export const moveEnemy = (enemy, delta) => {
+  const speed = delta * MOVESPEED
+  if (Math.random() > 0.995) {
+    enemy.lastRandomX = Math.random() * 2 - 1
+    enemy.lastRandomZ = Math.random() * 2 - 1
+  }
+  enemy.translateX(speed * enemy.lastRandomX)
+  enemy.translateZ(speed * enemy.lastRandomZ)
+  if (isWall(enemy.position)) {
+    enemy.translateX(-2 * speed * enemy.lastRandomX)
+    enemy.translateZ(-2 * speed * enemy.lastRandomZ)
+    enemy.lastRandomX = Math.random() * 2 - 1
+    enemy.lastRandomZ = Math.random() * 2 - 1
+  }
 }
