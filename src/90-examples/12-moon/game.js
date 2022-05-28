@@ -3,6 +3,7 @@ import { createMoon } from '/utils/planets.js'
 import { dirLight } from '/utils/light.js'
 
 dirLight({ position: [.5, 0, 1], intensity: 2 })
+renderer.setClearColor(0x000000)
 
 const controls = createOrbitControls()
 camera.position.z = 8

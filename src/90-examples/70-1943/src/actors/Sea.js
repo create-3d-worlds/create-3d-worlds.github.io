@@ -11,6 +11,8 @@ const COLOR_SEA_LEVEL = [
   0x0d2120,  // hsl(178deg 43% 09%)
 ]
 
+/* from Aviator 2 */
+
 class Sea {
   constructor() {
     const geometry = new THREE.CylinderGeometry(radius, radius, 4000, 200, 50)

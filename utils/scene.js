@@ -25,11 +25,13 @@ export function createWorldScene(groundParam, skyParam, lightParam, fogParam = {
 export const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000)
 camera.position.z = 4
 camera.position.y = 2
-// camera.lookAt(scene.position) // not as a default
 
 // RENDERER
 
-export const renderer = new THREE.WebGLRenderer() // { antialias: true, maxLights: 100, alpha: true }
+export const renderer = new THREE.WebGLRenderer({
+  alpha: true,
+  antialias: true
+})
 document.body.appendChild(renderer.domElement)
 document.body.style.margin = 0
 renderer.domElement.focus()
@@ -41,11 +43,12 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap
 // glb models light
 renderer.gammaFactor = 2.2
 renderer.outputEncoding = THREE.GammaEncoding
-// from version 112 replace with:
-// renderer.outputEncoding = THREE.sRGBEncoding
 
-// renderer.physicallyBasedShading = true
-// renderer.shadowMapAutoUpdate = true
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+})
 
 /* CONTROLS */
 

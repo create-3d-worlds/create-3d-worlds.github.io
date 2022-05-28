@@ -3,6 +3,7 @@ import { createEarth, createEarthClouds } from '/utils/planets.js'
 import { dirLight } from '/utils/light.js'
 
 dirLight({ position: [100, 10, -50] })
+renderer.setClearColor(0x000000)
 
 const rotationSpeed = 0.001
 

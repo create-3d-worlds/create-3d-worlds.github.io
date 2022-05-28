@@ -4,6 +4,7 @@ import { createSimpleStars } from '/utils/particles.js'
 import { createSimpleEarth, createSimpleMoon, createSimpleSun } from '/utils/planets.js'
 
 createOrbitControls()
+renderer.setClearColor(0x000000)
 
 let time = 0
 let speed = 1
