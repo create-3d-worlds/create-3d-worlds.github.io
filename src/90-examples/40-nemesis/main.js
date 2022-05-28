@@ -8,7 +8,7 @@ import { translateMouse } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
 import { createFloor } from '/utils/ground.js'
 import { nemesis } from '/data/maps.js'
-import { create3DMapOrigin } from '/utils/maps.js'
+import { create3DMap } from '/utils/maps.js'
 
 const enemies = []
 const bullets = []
@@ -25,7 +25,7 @@ dirLight({ color: 0xF7EFBE, intensity: 0.7, position: [0.5, 1, 0.5] })
 dirLight({ color: 0xF7EFBE, intensity: 0.5, position: [-0.5, -1, -0.5] })
 
 const floor = createFloor({ size: mapWidth * UNITSIZE, file: 'ground.jpg' })
-const walls = create3DMapOrigin({ matrix: nemesis, size: UNITSIZE })
+const walls = create3DMap({ matrix: nemesis, size: UNITSIZE })
 scene.add(floor, walls)
 
 camera.position.y = UNITSIZE * .2

@@ -11,24 +11,7 @@ export function randomMatrix(size = 10, wallPercent = .3) {
   return matrix
 }
 
-export function create3DMap({ matrix = randomMatrix(), size = 1, yModifier } = {}) {
-  const mapWidth = matrix.length
-  const group = new THREE.Group()
-  const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
-  matrix.forEach((row, rowIndex) => row.forEach((val, columnIndex) => {
-    if (!val) return
-    const x = (columnIndex - mapWidth / 2) * size
-    const y = size / 2
-    const z = (rowIndex - mapWidth / 2) * size
-    const box = createBox({ size, file: textures[val - 1], yModifier })
-    box.position.set(x, y, z)
-    group.add(box)
-  }))
-  return group
-}
-
-// TODO: merge or deprecate
-export function create3DMapOrigin({ matrix = randomMatrix(), size = 1, yModifier, origin } = {}) {
+export function create3DMap({ matrix = randomMatrix(), size = 1, yModifier, origin } = {}) {
   const defaultOrigin = {
     x: -matrix[0].length * size / 2,
     z: -matrix.length * size / 2

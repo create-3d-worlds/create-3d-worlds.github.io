@@ -1,4 +1,4 @@
-import { randomMatrix, randomField, create3DMapOrigin } from '/utils/maps.js'
+import { randomMatrix, randomField, create3DMap } from '/utils/maps.js'
 
 export default class Tilemap {
   constructor(matrix = randomMatrix(), cellSize = 250, origin) {
@@ -41,6 +41,6 @@ export default class Tilemap {
   }
 
   create3DMap({ yModifier } = {}) {
-    return create3DMapOrigin({ matrix: this.matrix, size: this.cellSize, yModifier, origin: this.origin })
+    return create3DMap({ matrix: this.matrix, size: this.cellSize, yModifier, origin: this.origin })
   }
 }
