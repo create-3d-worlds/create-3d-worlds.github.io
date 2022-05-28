@@ -1,14 +1,13 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, scene } from '/utils/scene.js'
+import { UNITSIZE, BULLETMOVESPEED, PROJECTILEDAMAGE, MOVESPEED } from './constants.js'
 import { randomInt } from '/utils/helpers.js'
 import { nemesis } from '/data/maps.js'
-import { UNITSIZE, BULLETMOVESPEED, PROJECTILEDAMAGE, MOVESPEED } from './constants.js'
+import { create3DMap } from '/utils/maps.js'
 
 const textureLoader = new THREE.TextureLoader()
 const mapW = nemesis.length
 const mapH = nemesis[0].length
-
-const WALLHEIGHT = UNITSIZE / 3
 
 export function createHealth() {
   const healthcube = new THREE.Mesh(
@@ -51,25 +50,28 @@ export function createFloor() {
   return floor
 }
 
-export function createWalls() {
+export function createWalls(matrix = nemesis, size = UNITSIZE) {
   const group = new THREE.Group()
-  const cube = new THREE.BoxGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE)
+  const WALLHEIGHT = size / 3
+  const cube = new THREE.BoxGeometry(size, WALLHEIGHT, size)
   const materials = [
     new THREE.MeshLambertMaterial({ map: textureLoader.load('images/wall-1.jpg') }),
     new THREE.MeshLambertMaterial({ map: textureLoader.load('images/wall-2.jpg') }),
     new THREE.MeshLambertMaterial({ color: 0xFBEBCD }),
   ]
-  for (let i = 0; i < mapW; i++)
-    for (let j = 0, m = nemesis[i].length; j < m; j++)
-      if (nemesis[i][j]) {
-        const wall = new THREE.Mesh(cube, materials[nemesis[i][j] - 1])
-        wall.position.x = (i - mapW / 2) * UNITSIZE
-        wall.position.y = WALLHEIGHT / 2
-        wall.position.z = (j - mapW / 2) * UNITSIZE
-        group.add(wall)
-      }
+  matrix.forEach((row, rowIndex) => row.forEach((val, columnIndex) => {
+    if (!val) return
+    const x = (rowIndex - mapW / 2) * size
+    const y = WALLHEIGHT / 2
+    const z = (columnIndex - mapW / 2) * size
+    const wall = new THREE.Mesh(cube, materials[val - 1])
+    wall.position.set(x, y, z)
+    group.add(wall)
+  }))
   return group
 }
+
+export const createMap = () => create3DMap({ matrix: nemesis, size: UNITSIZE })
 
 export function createBullet(obj, target) {
   const material = new THREE.MeshBasicMaterial({ color: 0x333333 })

@@ -29,9 +29,9 @@ let bounceValue = 0.1
 scene.add(createSun())
 hemLight({ skyColor: 0xfffafa, groundColor: 0x000000, intensity: .9 })
 
-scene.fog = new THREE.FogExp2(0xf0fff0, 0.14)
+scene.fog = new THREE.FogExp2(0xf0fff0, 0.1)
 
-camera.position.set(0, 3, 6)
+camera.position.set(0, 3, 6.5)
 clock.start()
 
 /* INIT */
@@ -147,11 +147,11 @@ function handleInput() {
   if (jumping) return
   if (keyboard.left && laneIndex > 0) {
     laneIndex--
-    jump(0.06)
+    jump(0.05)
   }
   if (keyboard.right && laneIndex < 2) {
     laneIndex++
-    jump(0.06)
+    jump(0.05)
   }
   if (keyboard.up || keyboard.pressed.Space) jump(0.1)
 }
