@@ -3,7 +3,7 @@ import { scene, camera, renderer, clock } from '/utils/scene.js'
 import {
   getMapCell, createHealth, createEnemy, isWall, createBullet, distance, isHit, randomXZ, moveBullet, remove, hitEnemy, moveEnemy
 } from './utils.js'
-import { UNITSIZE, LOOKSPEED, MOVESPEED, NUM_AI, INITIAL_HEALTH, mapWidth } from './constants.js'
+import { UNITSIZE, LOOKSPEED, MOVESPEED, NUM_AI, INITIAL_HEALTH, HEALTH_REFILL_TIME, mapWidth } from './constants.js'
 import { translateMouse } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
 import { createFloor } from '/utils/ground.js'
@@ -59,9 +59,9 @@ function addEnemy() {
 function updateHealthBox() {
   healthBox.rotation.x += 0.004
   healthBox.rotation.y += 0.008
-  const refillTime = Date.now() - lastHealthPickup > 60000 // 1 minute
-  healthBox.material.wireframe = !refillTime
-  if (refillTime && distance(camera.position, healthBox.position) < 25 && health < INITIAL_HEALTH) {
+  const refillReady = Date.now() - lastHealthPickup > HEALTH_REFILL_TIME
+  healthBox.material.wireframe = !refillReady
+  if (refillReady && distance(camera.position, healthBox.position) < 25 && health < INITIAL_HEALTH) {
     health = INITIAL_HEALTH
     document.querySelector('#health').innerHTML = health
     lastHealthPickup = Date.now()
