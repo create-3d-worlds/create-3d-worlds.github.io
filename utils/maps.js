@@ -33,3 +33,12 @@ export function randomField(matrix) {
   const x = Math.floor(Math.random() * matrix[0].length)
   return [x, y]
 }
+
+export const getMapPosition = ({ obj, map, cellSize }) => {
+  const mapWidth = map.length
+  const mapHeight = map[0].length
+  return {
+    x: Math.floor((obj.x + cellSize / 2) / cellSize + mapHeight / 2),
+    z: Math.floor((obj.z + cellSize / 2) / cellSize + mapWidth / 2)
+  }
+}

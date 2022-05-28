@@ -3,6 +3,7 @@ import { camera, scene } from '/utils/scene.js'
 import { UNITSIZE, BULLETMOVESPEED, PROJECTILEDAMAGE, MOVESPEED, mapWidth, mapHeight } from './constants.js'
 import { randomInt } from '/utils/helpers.js'
 import { nemesis } from '/data/maps.js'
+import { getMapPosition } from '/utils/maps.js'
 
 const textureLoader = new THREE.TextureLoader()
 
@@ -15,11 +16,7 @@ export function createHealth() {
   return healthcube
 }
 
-export function getMapCell(vec) {
-  const x = Math.floor((vec.x + UNITSIZE / 2) / UNITSIZE + mapWidth / 2)
-  const z = Math.floor((vec.z + UNITSIZE / 2) / UNITSIZE + mapWidth / 2)
-  return { x, z }
-}
+export const getMapCell = obj => getMapPosition({ obj, cellSize: UNITSIZE, map: nemesis })
 
 export function createEnemy({ x, z }) {
   const geometry = new THREE.BoxGeometry(40, 40, 40)
