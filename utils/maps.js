@@ -17,9 +17,9 @@ export function create3DMap({ matrix = randomMatrix(), size = 1, yModifier } = {
   const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
   matrix.forEach((row, rowIndex) => row.forEach((val, columnIndex) => {
     if (!val) return
-    const x = (rowIndex - mapWidth / 2) * size
+    const x = (columnIndex - mapWidth / 2) * size
     const y = size / 2
-    const z = (columnIndex - mapWidth / 2) * size
+    const z = (rowIndex - mapWidth / 2) * size
     const box = createBox({ size, file: textures[val - 1], yModifier })
     box.position.set(x, y, z)
     group.add(box)
