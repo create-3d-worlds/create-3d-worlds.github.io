@@ -36,7 +36,7 @@ export function createEnemy({ x, z }) {
 
 export function isWall(v) {
   const c = getMapCell(v)
-  return nemesis[c.x][c.z] > 0
+  return nemesis[c.z][c.x] > 0
 }
 
 export function createBullet(obj, target) {
@@ -75,7 +75,7 @@ export const randomXZ = () => {
   do {
     x = randomInt(0, mapWidth - 1)
     z = randomInt(0, mapHeight - 1)
-  } while (nemesis[x][z] > 0 || (x == c.x && z == c.z))
+  } while (nemesis[z][x] > 0 || (x == c.x && z == c.z))
 
   x = Math.floor(x - mapWidth / 2) * UNITSIZE
   z = Math.floor(z - mapWidth / 2) * UNITSIZE
