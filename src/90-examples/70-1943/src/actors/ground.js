@@ -3,12 +3,9 @@
 const waves = []
 const radius = 3000
 
-const geometry = new THREE.CylinderGeometry(
-  radius, radius, 4000, 200, 50)
+const geometry = new THREE.CylinderGeometry(radius, radius, 4000, 200, 50)
 geometry.applyMatrix(
-  new THREE.Matrix4()
-  .makeRotationX(Math.PI / 2)
-  .makeRotationZ(Math.PI * 0.5)
+  new THREE.Matrix4().makeRotationX(Math.PI / 2).makeRotationZ(Math.PI * 0.5)
 )
 geometry.mergeVertices()
 

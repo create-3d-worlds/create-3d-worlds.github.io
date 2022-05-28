@@ -1,5 +1,4 @@
 /* global THREE */
-// THREE.WebGLRenderer 88
 import scene from './scene/scene.js'
 import camera from './scene/camera.js'
 import renderer from './scene/renderer.js'
@@ -7,7 +6,7 @@ import controls from './scene/controls.js'
 import ground from './actors/ground.js'
 import Avion from './actors/Avion.js'
 
-const mousePos = {x: 0, y: 0}
+const mousePos = { x: 0, y: 0 }
 let avion
 
 /* FUNCTIONS */
