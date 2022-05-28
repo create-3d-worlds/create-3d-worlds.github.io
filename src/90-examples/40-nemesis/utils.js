@@ -19,7 +19,7 @@ export function createHealth() {
   return healthcube
 }
 
-export function getMapSector(vec) {
+export function getMapCell(vec) {
   const x = Math.floor((vec.x + UNITSIZE / 2) / UNITSIZE + mapW / 2)
   const z = Math.floor((vec.z + UNITSIZE / 2) / UNITSIZE + mapW / 2)
   return { x, z }
@@ -39,7 +39,7 @@ export function createEnemy({ x, z }) {
 }
 
 export function isWall(v) {
-  const c = getMapSector(v)
+  const c = getMapCell(v)
   return nemesis[c.x][c.z] > 0
 }
 
@@ -91,9 +91,7 @@ export function createBullet(obj, mouse) {
   return sphere
 }
 
-export function distance(x1, y1, x2, y2) {
-  return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
-}
+export const distance = (a, b) => Math.sqrt((b.x - a.x) * (b.x - a.x) + (b.z - a.z) * (b.z - a.z))
 
 export const distanceTo = (a, b) => a.position.distanceTo(b.position)
 
@@ -110,7 +108,7 @@ export const isHit = (bullet, target) => {
 
 export const randomXZ = () => {
   let x, z
-  const c = getMapSector(camera.position)
+  const c = getMapCell(camera.position)
   do {
     x = randomInt(0, mapW - 1)
     z = randomInt(0, mapH - 1)
@@ -133,9 +131,9 @@ export const remove = (arr, el, i) => {
   scene.remove(el)
 }
 
-export const hitEnemy = ai => {
-  ai.health -= PROJECTILEDAMAGE
-  const { color } = ai.material
-  const percent = ai.health / 100
+export const hitEnemy = enemy => {
+  enemy.health -= PROJECTILEDAMAGE
+  const { color } = enemy.material
+  const percent = enemy.health / 100
   color.setRGB(percent * color.r, percent * color.g, percent * color.b)
 }

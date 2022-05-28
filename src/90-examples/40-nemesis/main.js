@@ -1,17 +1,13 @@
 import { FirstPersonControls } from '/node_modules/three119/examples/jsm/controls/FirstPersonControls.js'
-import { nemesis as map } from '/data/maps.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import {
-  getMapSector, createHealth, createEnemy, isWall, createFloor, createWalls, createBullet, distance, distanceTo, isHit, randomXZ, updateBullet, remove, hitEnemy
+  getMapCell, createHealth, createEnemy, isWall, createFloor, createWalls, createBullet, distance, distanceTo, isHit, randomXZ, updateBullet, remove, hitEnemy
 } from './utils.js'
 import { UNITSIZE, MOVESPEED, LOOKSPEED, NUM_AI, INITIAL_HEALTH } from './constants.js'
 import { translateMouse } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
 
 // TODO: fix collision
-
-const mapW = map.length
-const mapH = map[0].length
 
 const enemies = []
 const bullets = []
@@ -96,38 +92,42 @@ function updateBullets(delta) {
   })
 }
 
-const killEnemy = (ai, i) => {
-  removeEnemy(ai, i)
+const killEnemy = (enemy, i) => {
+  removeEnemy(enemy, i)
   kills++
   document.querySelector('#score').innerHTML = kills * 100
 }
 
-const moveEnemy = (ai, delta) => {
+const moveEnemy = (enemy, delta) => {
   const speed = delta * MOVESPEED
   if (Math.random() > 0.995) {
-    ai.lastRandomX = Math.random() * 2 - 1
-    ai.lastRandomZ = Math.random() * 2 - 1
+    enemy.lastRandomX = Math.random() * 2 - 1
+    enemy.lastRandomZ = Math.random() * 2 - 1
   }
-  ai.translateX(speed * ai.lastRandomX)
-  ai.translateZ(speed * ai.lastRandomZ)
-  if (isWall(ai.position)) {
-    ai.translateX(-2 * speed * ai.lastRandomX)
-    ai.translateZ(-2 * speed * ai.lastRandomZ)
-    ai.lastRandomX = Math.random() * 2 - 1
-    ai.lastRandomZ = Math.random() * 2 - 1
+  enemy.translateX(speed * enemy.lastRandomX)
+  enemy.translateZ(speed * enemy.lastRandomZ)
+  if (isWall(enemy.position)) {
+    enemy.translateX(-2 * speed * enemy.lastRandomX)
+    enemy.translateZ(-2 * speed * enemy.lastRandomZ)
+    enemy.lastRandomX = Math.random() * 2 - 1
+    enemy.lastRandomZ = Math.random() * 2 - 1
+  }
+}
+
+const checkEnemyFire = enemy => {
+  const enemyCell = getMapCell(enemy.position)
+  const playerCell = getMapCell(camera.position)
+  if (Date.now() - enemy.lastShot > 750 && distance(enemyCell, playerCell) < 2) {
+    shoot(enemy, mouse)
+    enemy.lastShot = Date.now()
   }
 }
 
 function updateEnemies(delta) {
-  enemies.forEach((ai, i) => {
-    if (ai.health <= 0) killEnemy(ai, i)
-    moveEnemy(ai, delta)
-    const c = getMapSector(ai.position)
-    const cc = getMapSector(camera.position)
-    if (Date.now() > ai.lastShot + 750 && distance(c.x, c.z, cc.x, cc.z) < 2) {
-      shoot(ai, mouse)
-      ai.lastShot = Date.now()
-    }
+  enemies.forEach((enemy, i) => {
+    if (enemy.health <= 0) killEnemy(enemy, i)
+    moveEnemy(enemy, delta)
+    checkEnemyFire(enemy)
   })
 }
 
@@ -137,7 +137,7 @@ function setupEnemies() {
 
 function init() {
   health = INITIAL_HEALTH
-  enemies.forEach(ai => scene.remove(ai))
+  enemies.forEach(enemy => scene.remove(enemy))
   enemies.length = kills = lastHealthPickup = 0
   setupEnemies()
   runGame = true
