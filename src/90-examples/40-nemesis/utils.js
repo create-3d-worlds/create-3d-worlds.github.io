@@ -3,7 +3,6 @@ import { camera, scene } from '/utils/scene.js'
 import { UNITSIZE, BULLETMOVESPEED, PROJECTILEDAMAGE, MOVESPEED, mapWidth, mapHeight } from './constants.js'
 import { randomInt } from '/utils/helpers.js'
 import { nemesis } from '/data/maps.js'
-import { create3DMap } from '/utils/maps.js'
 
 const textureLoader = new THREE.TextureLoader()
 
@@ -31,7 +30,7 @@ export function createEnemy({ x, z }) {
   mesh.pathPos = 1
   mesh.lastRandomX = Math.random()
   mesh.lastRandomZ = Math.random()
-  mesh.lastShot = Date.now() // Higher-fidelity timers aren'THREE a big deal here.
+  mesh.lastShot = Date.now()
   return mesh
 }
 
@@ -39,29 +38,6 @@ export function isWall(v) {
   const c = getMapCell(v)
   return nemesis[c.x][c.z] > 0
 }
-
-export function createWalls(matrix = nemesis, size = UNITSIZE) {
-  const mapWidth = matrix.length
-  const group = new THREE.Group()
-  const geometry = new THREE.BoxGeometry(size, size, size)
-  const params = [
-    { map: textureLoader.load('images/wall-1.jpg') },
-    { map: textureLoader.load('images/wall-2.jpg') },
-    { color: 0xFBEBCD },
-  ]
-  matrix.forEach((row, rowIndex) => row.forEach((val, columnIndex) => {
-    if (!val) return
-    const x = (rowIndex - mapWidth / 2) * size
-    const y = size / 2
-    const z = (columnIndex - mapWidth / 2) * size
-    const box = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial(params[val - 1]))
-    box.position.set(x, y, z)
-    group.add(box)
-  }))
-  return group
-}
-
-export const createMap = () => create3DMap({ matrix: nemesis, size: UNITSIZE })
 
 export function createBullet(obj, target) {
   const material = new THREE.MeshBasicMaterial({ color: 0x333333 })
