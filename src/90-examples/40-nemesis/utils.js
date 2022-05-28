@@ -1,8 +1,8 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
-import { camera } from '/utils/scene.js'
+import { camera, scene } from '/utils/scene.js'
 import { randomInt } from '/utils/helpers.js'
 import { nemesis } from '/data/maps.js'
-import { UNITSIZE, BULLETMOVESPEED } from './constants.js'
+import { UNITSIZE, BULLETMOVESPEED, PROJECTILEDAMAGE } from './constants.js'
 
 const textureLoader = new THREE.TextureLoader()
 const mapW = nemesis.length
@@ -25,7 +25,7 @@ export function getMapSector(v) {
   return { x, z }
 }
 
-export function createAi({ x, z }) {
+export function createEnemy({ x, z }) {
   const geometry = new THREE.BoxGeometry(40, 40, 40)
   const material = new THREE.MeshBasicMaterial({ map: textureLoader.load('images/face.png') })
   const mesh = new THREE.Mesh(geometry, material)
@@ -97,14 +97,15 @@ export function distance(x1, y1, x2, y2) {
 
 export const distanceTo = (a, b) => a.position.distanceTo(b.position)
 
-export const isHit = (b, target) => {
-  const bulletPos = b.position
+export const isHit = (bullet, target) => {
+  const bulletPos = bullet.position
   const targetPos = target.position
   const vec = target.geometry.vertices[0]
   const x = Math.abs(vec.x)
   const z = Math.abs(vec.z)
   return bulletPos.x < targetPos.x + x && bulletPos.x > targetPos.x - x
       && bulletPos.z < targetPos.z + z && bulletPos.z > targetPos.z - z
+      && bullet.owner != target
 }
 
 export const randomXZ = () => {
@@ -124,4 +125,17 @@ export const updateBullet = (b, delta) => {
   const speed = delta * BULLETMOVESPEED
   b.translateX(speed * b.ray.direction.x)
   b.translateZ(speed * b.ray.direction.z)
+}
+
+export const remove = (arr, el, i) => {
+  const index = i ? i : arr.findIndex(x => el.uuid == x.uuid)
+  arr.splice(index, 1)
+  scene.remove(el)
+}
+
+export const hitEnemy = ai => {
+  ai.health -= PROJECTILEDAMAGE
+  const { color } = ai.material
+  const percent = ai.health / 100
+  color.setRGB(percent * color.r, percent * color.g, percent * color.b)
 }

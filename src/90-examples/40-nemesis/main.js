@@ -2,9 +2,9 @@ import { FirstPersonControls } from '/node_modules/three119/examples/jsm/control
 import { nemesis as map } from '/data/maps.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import {
-  getMapSector, createHealth, createAi, checkWallCollision, createFloor, createWalls, createBullet, distance, distanceTo, isHit, randomXZ, updateBullet
+  getMapSector, createHealth, createEnemy, checkWallCollision, createFloor, createWalls, createBullet, distance, distanceTo, isHit, randomXZ, updateBullet, remove, hitEnemy
 } from './utils.js'
-import { UNITSIZE, MOVESPEED, LOOKSPEED } from './constants.js'
+import { UNITSIZE, MOVESPEED, LOOKSPEED, NUM_AI, INITIAL_HEALTH } from './constants.js'
 import { translateMouse } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
 
@@ -13,11 +13,7 @@ import { dirLight } from '/utils/light.js'
 const mapW = map.length
 const mapH = map[0].length
 
-const NUM_AI = 5
-const PROJECTILEDAMAGE = 20
-const INITIAL_HEALTH = 100
-
-const ai = []
+const enemies = []
 const bullets = []
 let mouse = { x: 0, y: 0 }
 
@@ -46,24 +42,19 @@ scene.add(healthBox)
 
 /* FUNCTIONS */
 
-const remove = (arr, el, i) => {
-  const index = i ? i : arr.findIndex(x => el.uuid == x.uuid)
-  arr.splice(index, 1)
-  scene.remove(el)
+const removeEnemy = (el, i) => remove(enemies, el, i)
+
+const removeBullet = (el, i) => remove(bullets, el, i)
+
+const shoot = (player, mouse) => {
+  const mesh = createBullet(player, mouse)
+  bullets.push(mesh)
+  scene.add(mesh)
 }
 
-const removeAi = (a, i) => remove(ai, a, i)
-const removeBullet = (b, i) => remove(bullets, b, i)
-
-const shoot = (camera, mouse) => {
-  const sphere = createBullet(camera, mouse)
-  bullets.push(sphere)
-  scene.add(sphere)
-}
-
-function addAI() {
-  const mesh = createAi(randomXZ())
-  ai.push(mesh)
+function addEnemy() {
+  const mesh = createEnemy(randomXZ())
+  enemies.push(mesh)
   scene.add(mesh)
 }
 
@@ -79,15 +70,12 @@ function updateHealthBox() {
   }
 }
 
-function checkBulletHitAI(bullet, i) {
+function checkBulletHitEnemy(bullet, i) {
   let hit = false
-  for (const a of ai)
-    if (isHit(bullet, a) && bullet.owner != a) {
+  for (const ai of enemies)
+    if (isHit(bullet, ai)) {
       removeBullet(bullet, i)
-      a.health -= PROJECTILEDAMAGE
-      const { color } = a.material
-      const percent = a.health / 100
-      color.setRGB(percent * color.r, percent * color.g, percent * color.b)
+      hitEnemy(ai)
       hit = true
       break
     }
@@ -108,7 +96,7 @@ function updateBullets(delta) {
       removeBullet(b, i)
       return
     }
-    const hit = checkBulletHitAI(b, i)
+    const hit = checkBulletHitEnemy(b, i)
     checkBulletHitPlayer(b, i)
     if (!hit) updateBullet(b, delta)
   })
@@ -116,47 +104,47 @@ function updateBullets(delta) {
 
 function updateAI(delta) {
   const aispeed = delta * MOVESPEED
-  ai.forEach((a, i) => {
-    // kill ai
-    if (a.health <= 0) {
-      removeAi(a, i)
+  enemies.forEach((ai, i) => {
+    // kill enemies
+    if (ai.health <= 0) {
+      removeEnemy(ai, i)
       kills++
       document.querySelector('#score').innerHTML = kills * 100
     }
     // Move AI
     if (Math.random() > 0.995) {
-      a.lastRandomX = Math.random() * 2 - 1
-      a.lastRandomZ = Math.random() * 2 - 1
+      ai.lastRandomX = Math.random() * 2 - 1
+      ai.lastRandomZ = Math.random() * 2 - 1
     }
-    a.translateX(aispeed * a.lastRandomX)
-    a.translateZ(aispeed * a.lastRandomZ)
-    const c = getMapSector(a.position)
-    if (c.x < 0 || c.x >= mapW || c.y < 0 || c.y >= mapH || checkWallCollision(a.position)) {
-      a.translateX(-2 * aispeed * a.lastRandomX)
-      a.translateZ(-2 * aispeed * a.lastRandomZ)
-      a.lastRandomX = Math.random() * 2 - 1
-      a.lastRandomZ = Math.random() * 2 - 1
+    ai.translateX(aispeed * ai.lastRandomX)
+    ai.translateZ(aispeed * ai.lastRandomZ)
+    const c = getMapSector(ai.position)
+    if (c.x < 0 || c.x >= mapW || c.y < 0 || c.y >= mapH || checkWallCollision(ai.position)) {
+      ai.translateX(-2 * aispeed * ai.lastRandomX)
+      ai.translateZ(-2 * aispeed * ai.lastRandomZ)
+      ai.lastRandomX = Math.random() * 2 - 1
+      ai.lastRandomZ = Math.random() * 2 - 1
     }
     if (c.x < -1 || c.x > mapW || c.z < -1 || c.z > mapH) {
-      removeAi(a, i)
-      addAI()
+      removeEnemy(ai, i)
+      addEnemy()
     }
     const cc = getMapSector(camera.position)
-    if (Date.now() > a.lastShot + 750 && distance(c.x, c.z, cc.x, cc.z) < 2) {
-      shoot(a, mouse)
-      a.lastShot = Date.now()
+    if (Date.now() > ai.lastShot + 750 && distance(c.x, c.z, cc.x, cc.z) < 2) {
+      shoot(ai, mouse)
+      ai.lastShot = Date.now()
     }
   })
 }
 
 function setupAI() {
-  for (let i = 0; i < NUM_AI; i++) addAI()
+  for (let i = 0; i < NUM_AI; i++) addEnemy()
 }
 
 function init() {
   health = INITIAL_HEALTH
-  ai.forEach(a => scene.remove(a))
-  ai.length = kills = lastHealthPickup = 0
+  enemies.forEach(ai => scene.remove(ai))
+  enemies.length = kills = lastHealthPickup = 0
   setupAI()
   runGame = true
   gameLoop()
