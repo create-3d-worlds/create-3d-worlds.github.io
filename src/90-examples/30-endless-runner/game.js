@@ -1,14 +1,16 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, scene, renderer, clock, addScoreUI } from '/utils/scene.js'
 import { createBall, createWorldSphere } from '/utils/balls.js'
-import { createSun } from './helpers/createSun.js'
 import { createFir } from '/utils/trees.js'
 import { createParticles, resetParticles, expandParticles } from '/utils/particles.js'
 import { hemLight } from '/utils/light.js'
 import keyboard from '/classes/Keyboard.js'
-import { CIRCLE } from '/utils/constants.js'
+import { randomInRange, roll } from '/utils/helpers.js'
 
-const rollingSpeed = 0.008
+const { random } = Math
+
+const heroSpeed = 5
+const worldSpeed = 0.007
 const worldRadius = 26
 const heroRadius = 0.2
 const heroBaseY = 1.8
@@ -18,7 +20,6 @@ const treesInPool = 10
 const treesPool = []
 const laneTrees = []
 const lanes = [-1, 0, 1]
-const heroRollingSpeed = (rollingSpeed * worldRadius / heroRadius) / 5
 
 let laneIndex = 1
 let jumping = false
@@ -26,7 +27,6 @@ let bounceValue = 0.1
 
 /* LIGHT & CAMERA */
 
-scene.add(createSun())
 hemLight({ skyColor: 0xfffafa, groundColor: 0x000000, intensity: .9 })
 
 scene.fog = new THREE.FogExp2(0xf0fff0, 0.1)
@@ -47,14 +47,13 @@ scene.add(earth)
 const particles = createParticles({ num: 30, file: null, color: 0xfffafa, size: 0.09, unitAngle: 0.1 })
 scene.add(particles)
 
-for (let i = 0; i < treesInPool; i++) treesPool.push(createFir({ size: 1 }))
+for (let i = 0; i < treesInPool; i++)
+  treesPool.push(createFir({ size: 1 }))
 
-const numTrees = 36
+const numTrees = 64
 const gap = 6.28 / numTrees
-for (let i = 0; i < numTrees; i++) {
-  addSideTree(i * gap, true)
-  addSideTree(i * gap, false)
-}
+for (let i = 0; i < numTrees; i++)
+  addSideTree(i * gap, i % 2)
 
 const updateScore = addScoreUI({ title: 'Pogotaka' })
 
@@ -74,7 +73,7 @@ function addLaneTree(lane) {
 function addSideTree(theta, isLeft) {
   const spherical = new THREE.Spherical()
   const tree = createFir({ size: 5 })
-  const forestAreaAngle = isLeft ? 1.68 + Math.random() * 0.1 : 1.46 - Math.random() * 0.1
+  const forestAreaAngle = isLeft ? (1.68 + random() * .1) : (1.46 - random() * .1)
   spherical.set(worldRadius - 0.3, forestAreaAngle, theta)
   addTree(tree, spherical)
 }
@@ -84,18 +83,18 @@ function addTree(tree, spherical) {
   const worldVector = earth.position.clone().normalize()
   const treeVector = tree.position.clone().normalize()
   tree.quaternion.setFromUnitVectors(treeVector, worldVector)
-  tree.rotation.x += Math.random() * (CIRCLE / 10) - Math.PI / 10
+  tree.rotation.x += randomInRange(-Math.PI / 10, Math.PI / 10)
   earth.add(tree)
 }
 
 function addTreeOrTwo() {
-  const lanes = [0, 1, 2]
-  const lane = Math.floor(Math.random() * 3)
+  const available = [0, 1, 2]
+  const lane = roll(3)
   addLaneTree(lane)
-  lanes.splice(lane, 1)
-  if (Math.random() > 0.5) {
-    const anotherLane = Math.floor(Math.random() * 2)
-    addLaneTree(lanes[anotherLane])
+  available.splice(lane, 1)
+  if (random() > 0.5) {
+    const anotherLane = roll(2)
+    addLaneTree(available[anotherLane])
   }
 }
 
@@ -127,14 +126,15 @@ function updateTrees() {
 }
 
 function updatePlayer() {
-  const gravity = 0.005
-  player.rotation.x -= heroRollingSpeed
+  const gravity = 0.007
+  const heroRotation = (worldSpeed * worldRadius / heroRadius) / 5
+  player.rotation.x -= heroRotation
   if (player.position.y <= heroBaseY) {
     jumping = false
-    bounceValue = (Math.random() * 0.04) + 0.005
+    bounceValue = (random() * 0.04) + 0.005
   }
   player.position.y += bounceValue
-  player.position.x = THREE.Math.lerp(player.position.x, lanes[laneIndex], 2 * clock.getDelta())
+  player.position.x = THREE.Math.lerp(player.position.x, lanes[laneIndex], heroSpeed * clock.getDelta())
   bounceValue -= gravity
 }
 
@@ -159,7 +159,7 @@ function handleInput() {
 /* LOOP */
 
 void function update() {
-  earth.rotation.x += rollingSpeed
+  earth.rotation.x += worldSpeed
   handleInput()
   updatePlayer()
   if (clock.getElapsedTime() > treeReleaseInterval) {
