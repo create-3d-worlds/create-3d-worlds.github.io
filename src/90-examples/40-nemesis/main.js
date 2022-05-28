@@ -102,30 +102,27 @@ const killEnemy = (ai, i) => {
   document.querySelector('#score').innerHTML = kills * 100
 }
 
-function updateEnemies(delta) {
+const moveEnemy = (ai, delta) => {
   const speed = delta * MOVESPEED
+  if (Math.random() > 0.995) {
+    ai.lastRandomX = Math.random() * 2 - 1
+    ai.lastRandomZ = Math.random() * 2 - 1
+  }
+  ai.translateX(speed * ai.lastRandomX)
+  ai.translateZ(speed * ai.lastRandomZ)
+  if (isWall(ai.position)) {
+    ai.translateX(-2 * speed * ai.lastRandomX)
+    ai.translateZ(-2 * speed * ai.lastRandomZ)
+    ai.lastRandomX = Math.random() * 2 - 1
+    ai.lastRandomZ = Math.random() * 2 - 1
+  }
+}
+
+function updateEnemies(delta) {
   enemies.forEach((ai, i) => {
     if (ai.health <= 0) killEnemy(ai, i)
-
-    // Move AI
-    if (Math.random() > 0.995) {
-      ai.lastRandomX = Math.random() * 2 - 1
-      ai.lastRandomZ = Math.random() * 2 - 1
-    }
-    ai.translateX(speed * ai.lastRandomX)
-    ai.translateZ(speed * ai.lastRandomZ)
+    moveEnemy(ai, delta)
     const c = getMapSector(ai.position)
-    if (c.x < 0 || c.x >= mapW || c.y < 0 || c.y >= mapH || isWall(ai.position)) {
-      ai.translateX(-2 * speed * ai.lastRandomX)
-      ai.translateZ(-2 * speed * ai.lastRandomZ)
-      ai.lastRandomX = Math.random() * 2 - 1
-      ai.lastRandomZ = Math.random() * 2 - 1
-    }
-
-    if (c.x < -1 || c.x > mapW || c.z < -1 || c.z > mapH) {
-      removeEnemy(ai, i)
-      addEnemy()
-    }
     const cc = getMapSector(camera.position)
     if (Date.now() > ai.lastShot + 750 && distance(c.x, c.z, cc.x, cc.z) < 2) {
       shoot(ai, mouse)
@@ -170,5 +167,5 @@ document.addEventListener('mousemove', e => {
 
 document.addEventListener('click', e => {
   if (!runGame) init()
-  if (e.button === 0) shoot(null, mouse) // left click
+  if (e.button === 0) shoot(camera, mouse) // left click
 })

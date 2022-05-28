@@ -19,9 +19,9 @@ export function createHealth() {
   return healthcube
 }
 
-export function getMapSector(v) {
-  const x = Math.floor((v.x + UNITSIZE / 2) / UNITSIZE + mapW / 2)
-  const z = Math.floor((v.z + UNITSIZE / 2) / UNITSIZE + mapW / 2)
+export function getMapSector(vec) {
+  const x = Math.floor((vec.x + UNITSIZE / 2) / UNITSIZE + mapW / 2)
+  const z = Math.floor((vec.z + UNITSIZE / 2) / UNITSIZE + mapW / 2)
   return { x, z }
 }
 
