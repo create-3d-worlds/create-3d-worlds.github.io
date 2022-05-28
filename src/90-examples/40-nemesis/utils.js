@@ -1,9 +1,9 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera } from '/utils/scene.js'
-import { nemesis as map } from '/data/maps.js'
+import { nemesis } from '/data/maps.js'
 
 const textureLoader = new THREE.TextureLoader()
-const mapW = map.length
+const mapW = nemesis.length
 
 export const UNITSIZE = 250
 const WALLHEIGHT = UNITSIZE / 3
@@ -23,39 +23,6 @@ export function getMapSector(v) {
   return { x, z }
 }
 
-export function drawRadar(ai) {
-  const c = getMapSector(camera.position)
-  const context = document.getElementById('radar').getContext('2d')
-  for (let i = 0; i < mapW; i++)
-    for (let j = 0, m = map[i].length; j < m; j++) {
-      let d = 0
-      for (let k = 0, n = ai.length; k < n; k++) {
-        const e = getMapSector(ai[k].position)
-        if (i == e.x && j == e.z) d++
-      }
-      if (i == c.x && j == c.z && d == 0) {
-        context.fillStyle = '#0000FF'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-      } else if (i == c.x && j == c.z) {
-        context.fillStyle = '#AA33FF'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-        context.fillStyle = '#000000'
-        context.fillText('' + d, i * 20 + 8, j * 20 + 12)
-      } else if (d > 0 && d < 10) {
-        context.fillStyle = '#FF0000'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-        context.fillStyle = '#000000'
-        context.fillText('' + d, i * 20 + 8, j * 20 + 12)
-      } else if (map[i][j] > 0) {
-        context.fillStyle = '#666666'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-      } else {
-        context.fillStyle = '#CCCCCC'
-        context.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20)
-      }
-    }
-}
-
 export function createAi({ x, z }) {
   const geometry = new THREE.BoxGeometry(40, 40, 40)
   const material = new THREE.MeshBasicMaterial({ map: textureLoader.load('images/face.png') })
@@ -71,7 +38,7 @@ export function createAi({ x, z }) {
 
 export function checkWallCollision(v) {
   const c = getMapSector(v)
-  return map[c.x][c.z] > 0
+  return nemesis[c.x][c.z] > 0
 }
 
 export function createFloor() {
@@ -82,7 +49,7 @@ export function createFloor() {
   return floor
 }
 
-export function createMap() {
+export function createWalls() {
   const group = new THREE.Group()
   const cube = new THREE.BoxGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE)
   const materials = [
@@ -91,9 +58,9 @@ export function createMap() {
     new THREE.MeshLambertMaterial({ color: 0xFBEBCD }),
   ]
   for (let i = 0; i < mapW; i++)
-    for (let j = 0, m = map[i].length; j < m; j++)
-      if (map[i][j]) {
-        const wall = new THREE.Mesh(cube, materials[map[i][j] - 1])
+    for (let j = 0, m = nemesis[i].length; j < m; j++)
+      if (nemesis[i][j]) {
+        const wall = new THREE.Mesh(cube, materials[nemesis[i][j] - 1])
         wall.position.x = (i - mapW / 2) * UNITSIZE
         wall.position.y = WALLHEIGHT / 2
         wall.position.z = (j - mapW / 2) * UNITSIZE
