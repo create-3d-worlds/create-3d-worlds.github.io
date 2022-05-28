@@ -2,7 +2,7 @@ import { FirstPersonControls } from '/node_modules/three119/examples/jsm/control
 import { nemesis as map } from '/data/maps.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import {
-  UNITSIZE, getMapSector, createHealth, createAi, checkWallCollision, createFloor, createWalls, createBullet, distance
+  UNITSIZE, getMapSector, createHealth, createAi, checkWallCollision, createFloor, createWalls, createBullet, distance, distanceTo
 } from './utils.js'
 import { randomInt, translateMouse } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
@@ -23,7 +23,7 @@ const ai = []
 const bullets = []
 let mouse = { x: 0, y: 0 }
 
-let runAnim = false
+let runGame = false
 let kills = 0
 let health = INITIAL_HEALTH
 let lastHealthPickup = 0
@@ -43,8 +43,8 @@ controls.movementSpeed = MOVESPEED
 controls.lookSpeed = LOOKSPEED
 controls.lookVertical = false
 
-const healthcube = createHealth()
-scene.add(healthcube)
+const healthBox = createHealth()
+scene.add(healthBox)
 
 /* FUNCTIONS */
 
@@ -69,19 +69,16 @@ function addAI() {
   scene.add(mesh)
 }
 
-function updateHealthcube() {
-  healthcube.rotation.x += 0.004
-  healthcube.rotation.y += 0.008
-  // health once per minute
-  if (Date.now() > lastHealthPickup + 60000) {
-    if (camera.position.distanceTo(healthcube.position) < 15 && health < INITIAL_HEALTH) {
-      health = INITIAL_HEALTH
-      document.querySelector('#health').innerHTML = health
-      lastHealthPickup = Date.now()
-    }
-    healthcube.material.wireframe = false
-  } else
-    healthcube.material.wireframe = true
+function updateHealthBox() {
+  healthBox.rotation.x += 0.004
+  healthBox.rotation.y += 0.008
+  const refillAvailable = Date.now() - lastHealthPickup > 60000 // 1 minute
+  healthBox.material.wireframe = !refillAvailable
+  if (refillAvailable && distanceTo(camera, healthBox) < 20 && health < INITIAL_HEALTH) {
+    health = INITIAL_HEALTH
+    document.querySelector('#health').innerHTML = health
+    lastHealthPickup = Date.now()
+  }
 }
 
 function updateBullets(delta) {
@@ -117,7 +114,7 @@ function updateBullets(delta) {
       }
     }
     // Bullet hits player
-    if (p.distanceTo(camera.position) < 25 && b.owner != camera) {
+    if (distanceTo(b, camera) < 25 && b.owner != camera) {
       health -= 10
       if (health < 0) health = 0
       const val = health < 25 ? '<span style="color: darkRed">' + health + '</span>' : health
@@ -134,14 +131,13 @@ function updateBullets(delta) {
 
 function updateAI(delta) {
   const aispeed = delta * MOVESPEED
-  for (let i = ai.length - 1; i >= 0; i--) {
-    const a = ai[i]
+  ai.forEach((a, i) => {
+    // kill ai
     if (a.health <= 0) {
       ai.splice(i, 1)
       scene.remove(a)
       kills++
       document.querySelector('#score').innerHTML = kills * 100
-      addAI()
     }
     // Move AI
     if (Math.random() > 0.995) {
@@ -167,7 +163,7 @@ function updateAI(delta) {
       shoot(a, mouse)
       a.lastShot = Date.now()
     }
-  }
+  })
 }
 
 function setupAI() {
@@ -178,23 +174,23 @@ function init() {
   health = INITIAL_HEALTH
   ai.forEach(a => scene.remove(a))
   ai.length = kills = lastHealthPickup = 0
-  runAnim = true
   setupAI()
-  animate()
+  runGame = true
+  gameLoop()
 }
 
 /* LOOP */
 
-function animate() {
-  if (runAnim)
-    requestAnimationFrame(animate)
+function gameLoop() {
+  if (runGame)
+    requestAnimationFrame(gameLoop)
   const delta = clock.getDelta()
   controls.update(delta) // Move camera
-  updateHealthcube()
+  updateHealthBox()
   updateBullets(delta)
   updateAI(delta)
   if (health <= 0)
-    runAnim = false
+    runGame = false
   renderer.render(scene, camera)
 }
 
@@ -205,6 +201,6 @@ document.addEventListener('mousemove', e => {
 })
 
 document.addEventListener('click', e => {
-  if (!runAnim) init()
+  if (!runGame) init()
   if (e.button === 0) shoot(null, mouse) // left click
 })
