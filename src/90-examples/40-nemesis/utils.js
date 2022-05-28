@@ -51,9 +51,9 @@ export function createFloor() {
 }
 
 export function createWalls(matrix = nemesis, size = UNITSIZE) {
+  const mapW = matrix.length
   const group = new THREE.Group()
-  const WALLHEIGHT = size / 3
-  const cube = new THREE.BoxGeometry(size, WALLHEIGHT, size)
+  const cube = new THREE.BoxGeometry(size, size, size)
   const materials = [
     new THREE.MeshLambertMaterial({ map: textureLoader.load('images/wall-1.jpg') }),
     new THREE.MeshLambertMaterial({ map: textureLoader.load('images/wall-2.jpg') }),
@@ -62,11 +62,11 @@ export function createWalls(matrix = nemesis, size = UNITSIZE) {
   matrix.forEach((row, rowIndex) => row.forEach((val, columnIndex) => {
     if (!val) return
     const x = (rowIndex - mapW / 2) * size
-    const y = WALLHEIGHT / 2
+    const y = size / 2
     const z = (columnIndex - mapW / 2) * size
-    const wall = new THREE.Mesh(cube, materials[val - 1])
-    wall.position.set(x, y, z)
-    group.add(wall)
+    const box = new THREE.Mesh(cube, materials[val - 1])
+    box.position.set(x, y, z)
+    group.add(box)
   }))
   return group
 }

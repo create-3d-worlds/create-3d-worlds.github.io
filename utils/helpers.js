@@ -101,6 +101,11 @@ export const adjustHeight = mesh => {
   mesh.translateY(getHeight(mesh) / 2)
 }
 
+export const adjustObject = mesh => {
+  centerObject(mesh)
+  adjustHeight(mesh)
+}
+
 /* RAYCAST */
 
 export const directionBlocked = (mesh, solids, vector) => {
