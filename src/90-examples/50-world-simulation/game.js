@@ -11,7 +11,7 @@ const HUNTERS = 2
 const BIRDS = 10
 const HORSES = 10
 const CLOUDS = 5
-const HOUSES = 3
+const MINES = 3
 
 game.init()
 game.start()
@@ -40,8 +40,8 @@ game.plantTrees()
 }
 
 {
-  const { mesh } = await loadModel({ file: 'houses/house2-01.obj', mtl: 'houses/house2-01.mtl', size: 60, shouldCenter: true, shouldAdjustHeight: true })
-  for (let i = 0; i < HOUSES; i++) game.randomPlaceEntity(new Mine(mesh))
+  const { mesh } = await loadModel({ file: 'mine/scene.gltf', size: 60 })
+  for (let i = 0; i < MINES; i++) game.randomPlaceEntity(new Mine(mesh))
 }
 
 {
