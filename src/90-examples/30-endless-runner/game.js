@@ -44,7 +44,7 @@ const earth = createWorldSphere({ r: worldRadius })
 earth.position.set(0, -24, 2)
 scene.add(earth)
 
-const particles = createParticles({ num: 30, size: 0.09, unitAngle: 0.1 })
+const particles = createParticles({ num: 50, size: 0.07, unitAngle: 0.1 })
 scene.add(particles)
 
 for (let i = 0; i < treesInPool; i++)
@@ -131,7 +131,7 @@ function updatePlayer() {
   player.rotation.x -= heroRotation
   if (player.position.y <= heroBaseY) {
     jumping = false
-    bounceValue = (random() * 0.04) + 0.005
+    bounceValue = random() * 0.04 + 0.005
   }
   player.position.y += bounceValue
   player.position.x = THREE.Math.lerp(player.position.x, lanes[laneIndex], heroSpeed * clock.getDelta())

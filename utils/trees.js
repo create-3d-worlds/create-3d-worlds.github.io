@@ -6,7 +6,6 @@ const browns = [0x3d2817, 0x664422, 0xA0522D, 0x886633]
 const greens = [0x228b22, 0x2d4c1e, 0x3EA055, 0x44aa44, 0x33ff33]
 
 const randomBrown = () => browns[Math.floor(Math.random() * browns.length)]
-const randomGreen = () => greens[Math.floor(Math.random() * greens.length)]
 
 /* SIMPLE TREE */
 
@@ -144,7 +143,7 @@ function createFirTop({ radius = .5, height = 1, radialSegments = 8, heightSegme
   const rand = randomInRange(0.05, 0.2)
   const geometry = new THREE.ConeGeometry(radius, height, radialSegments, heightSegments)
   const material = new THREE.MeshStandardMaterial({
-    color: randomGreen(),
+    color: similarColor(greens[3]),
     flatShading: true
   })
 
