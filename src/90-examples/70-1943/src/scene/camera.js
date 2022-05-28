@@ -1,4 +1,4 @@
-/* global THREE */
+import * as THREE from '/node_modules/three119/build/three.module.js'
 
 const camera = new THREE.PerspectiveCamera(
   60, window.innerWidth / window.innerHeight, 1, 1000

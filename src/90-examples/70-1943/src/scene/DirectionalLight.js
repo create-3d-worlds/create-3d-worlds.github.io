@@ -1,4 +1,4 @@
-/* global THREE */
+import * as THREE from '/node_modules/three119/build/three.module.js'
 
 export default class DirectionalLight extends THREE.DirectionalLight {
   constructor(color, percent) {

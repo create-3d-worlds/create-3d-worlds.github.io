@@ -1,4 +1,5 @@
-/* global THREE */
+import { ColladaLoader } from '/node_modules/three119/examples/jsm/loaders/ColladaLoader.js'
+
 import scene from './scene/scene.js'
 import camera from './scene/camera.js'
 import renderer from './scene/renderer.js'
@@ -21,7 +22,7 @@ const update = () => {
 
 /* EVENTS */
 
-new THREE.ColladaLoader().load('assets/me-109/model.dae', collada => {
+new ColladaLoader().load('assets/me-109/model.dae', collada => {
   avion = new Avion(collada.scene)
   scene.add(avion, ground)
   update()

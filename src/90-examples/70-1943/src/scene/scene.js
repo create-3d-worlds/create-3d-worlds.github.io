@@ -1,4 +1,4 @@
-/* global THREE */
+import * as THREE from '/node_modules/three119/build/three.module.js'
 
 import DirectionalLight from './DirectionalLight.js'
 
