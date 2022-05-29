@@ -18,11 +18,9 @@ camera.position.set(-68, 143, -90)
 
 const controls = new OrbitControls(camera, renderer.domElement)
 
-// const { mesh, mixer } = await loadModel({ file: '/aircraft_junkers_ju_87_stuka/scene.gltf' })
-// mesh.scale.set(15, 15, 15)
+// const { mesh, mixer } = await loadModel({ file: '/aircraft_junkers_ju_87_stuka/scene.gltf', size: 30 })
 
-const { mesh, mixer } = await loadModel({ file: '/aircraft_messerschmitt_109/scene.gltf' })
-mesh.scale.set(.25, .25, .25)
+const { mesh, mixer } = await loadModel({ file: '/aircraft_messerschmitt_109/scene.gltf', size: 20 })
 
 mesh.position.y = 100
 
@@ -36,7 +34,7 @@ void function update() {
   requestAnimationFrame(update)
   controls.update()
   ground.rotate()
-  // mesh.normalizePlane()
+  mesh.normalizePlane()
   if (mixer) mixer.update(0.016)
   camera.lookAt(mesh.position)
   renderer.render(scene, camera)

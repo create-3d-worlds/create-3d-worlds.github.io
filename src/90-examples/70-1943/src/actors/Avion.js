@@ -9,12 +9,9 @@ export default function Avion(model) {
 
   model.normalizePlane = () => {
     if (keyPressed) return
-    const pitch = Math.abs(model.rotation.z)
-    const roll = Math.abs(model.rotation.y)
-    if (model.rotation.z > 0) model.rotation.z -= pitch * 0.25
-    if (model.rotation.z < 0) model.rotation.z += pitch * 0.25
-    if (model.rotation.y > 0) model.rotation.y -= roll * 0.25
-    if (model.rotation.y < 0) model.rotation.y += roll * 0.25
+    const roll = Math.abs(model.rotation.z)
+    if (model.rotation.z > 0) model.rotation.z -= roll * 0.25
+    if (model.rotation.z < 0) model.rotation.z += roll * 0.25
   }
 
   document.onkeydown = e => {
@@ -22,13 +19,13 @@ export default function Avion(model) {
     switch (e.code) {
       case 'KeyA':
         model.position.x += displacement
-        if (model.rotation.y < maxRoll)
-          model.rotation.y += rotationAngle
+        if (model.rotation.z < maxRoll)
+          model.rotation.z += rotationAngle
         break
       case 'KeyD':
         model.position.x -= displacement
-        if (model.rotation.y > -maxRoll)
-          model.rotation.y -= rotationAngle
+        if (model.rotation.z > -maxRoll)
+          model.rotation.z -= rotationAngle
         break
       case 'KeyW':
         if (model.position.y > minHeight) model.position.y -= displacement * 0.5
