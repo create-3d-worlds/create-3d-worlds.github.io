@@ -46,6 +46,9 @@ class Keyboard {
     if (touch.pageX >= window.innerWidth / 2) this.pressed.ArrowRight = true
   }
 
+  /* GETTERS */
+  // not a functions, call it wihout parentheses
+
   get up() {
     return this.pressed.ArrowUp || this.pressed.KeyW
   }

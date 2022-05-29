@@ -1,9 +1,9 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { OrbitControls } from '/node_modules/three119/examples/jsm/controls/OrbitControls.js'
 
-import { scene, renderer, camera } from '/utils/scene.js'
+import { scene, renderer, camera, clock } from '/utils/scene.js'
 import ground from './actors/ground.js'
-import Avion from './actors/Avion.js'
+import { updatePlane, normalizePlane } from './actors/airplane.js'
 import { createSunLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 
@@ -24,17 +24,17 @@ const { mesh, mixer } = await loadModel({ file: '/aircraft_messerschmitt_109/sce
 
 mesh.position.y = 100
 
-Avion(mesh) // extends mesh
-
 scene.add(mesh, ground)
 
 /* FUNCTIONS */
 
 void function update() {
   requestAnimationFrame(update)
+  const delta = clock.getDelta()
   controls.update()
   ground.rotate()
-  mesh.normalizePlane()
+  updatePlane(mesh, delta)
+  normalizePlane(mesh, delta)
   if (mixer) mixer.update(0.016)
   camera.lookAt(mesh.position)
   renderer.render(scene, camera)
