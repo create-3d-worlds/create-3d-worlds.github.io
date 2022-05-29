@@ -19,7 +19,8 @@ camera.position.set(-68, 143, -90)
 const controls = new OrbitControls(camera, renderer.domElement)
 
 const { mesh, animations, mixer } = await loadModel({ file: '/aircraft-messerschmitt-109/scene.gltf', rot: { angle: -Math.PI * .5, axis: [0, 1, 0] } })
-console.log(animations)
+mesh.rotateX(Math.PI * .1)
+
 // const { mesh, animations, mixer } = await loadModel({ file: '/me-109/model.dae' })
 const avion = new Avion(mesh)
 
@@ -31,7 +32,7 @@ void function update() {
   requestAnimationFrame(update)
   controls.update()
   ground.rotate()
-  avion.normalizePlane()
+  // avion.normalizePlane()
   const delta = clock.getDelta()
   if (mixer) mixer.update(1)
   camera.lookAt(avion.position)
