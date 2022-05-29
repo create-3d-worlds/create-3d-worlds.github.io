@@ -217,7 +217,7 @@ live-server
   - [ ] probati konja ili dabra
 
 - [ ] Solar system
-  - [ ] koristiti planete sa teksturom
+  - [ ] ubaciti planete sa teksturom
   - [ ] napraviti sunce sa teksturom
 
 - [ ] Nemesis
