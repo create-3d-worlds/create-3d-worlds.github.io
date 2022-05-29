@@ -17,9 +17,8 @@ live-server
   - [x] hemLight to lights.js
 - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
 - [x] dovesti veličine u razmeru 1px : 1m
-- [x] probati ai https://github.com/erosmarcon/three-steer
-- [x] remove city-deprecated
 - [x] ažurirati verziju (na 119)
+  - [ ] ažurirati verziju na poslednju
 - [x] isprobati nove 3d modele
   - [x] organizovati modele tematski
   - [x] izbaciti nightelf-priest
@@ -128,6 +127,22 @@ live-server
 - [x] srediti animacije modela (vidi stairway-girl)
 - [x] ubrzati animaciju po potrebi (u odnosu na brzinu, nazad sporije i sl.)
 
+### Physics
+
+- [ ] domine: da manja obara veću
+- [ ] srediti fliper
+- [ ] razaranje zamka topom
+  - [ ] dodati proceduralni zamak (vidi 75-zamak-fizika, 60-fizika/20-gradjevina-physijs)
+  - [ ] dodati top (ima model)
+  - [ ] top puca i rusi zidine (vidi ball-trowing)
+- [ ] tenk (steam tenk) koji gazi prepreke ili lokomotiva (60-fizika/70-vozilo-physijs)
+  - http://127.0.0.1:8080/15-fizika/70-vozilo/
+  - http://127.0.0.1:8080/15-fizika/75-vozilo-razbija/
+
+### AI
+- [x] probati ai https://github.com/erosmarcon/three-steer
+- [ ] napraviti ai scenu
+
 ### Scenes
 
 - [x] Savo (ww2 fps)
@@ -191,30 +206,20 @@ live-server
   - [ ] dodati izbor aviona
   - [ ] dodati drveće
   - [ ] dodati objekte
-
-### Physics
-
-- [ ] domine: da manja obara veću
-- [ ] srediti fliper
-- [ ] razaranje zamka topom
-  - [ ] dodati proceduralni zamak (vidi 75-zamak-fizika, 60-fizika/20-gradjevina-physijs)
-  - [ ] dodati top (ima model)
-  - [ ] top puca i rusi zidine (vidi ball-trowing)
-- [ ] tenk (steam tenk) koji gazi prepreke ili lokomotiva (60-fizika/70-vozilo-physijs)
-  - http://127.0.0.1:8080/15-fizika/70-vozilo/
-  - http://127.0.0.1:8080/15-fizika/75-vozilo-razbija/
+  - [ ] pomeriti u scene
 
 ### Examples
 
-- [x] odvojiti pomagala iz primera
 - [ ] endless-runner
   - [x] prikazivati poene
   - [ ] probati konja ili dabra
 - [ ] solar system
+  - [ ] koristiti planete sa teksturom
   - [ ] napraviti sunce sa teksturom
-    https://www.webdev20.pl/skins/default/js/demos/solar_system/index.html
-    https://observablehq.com/@mourner/3d-planets-with-three-js
-- [ ] probati razne planete? http://jeromeetienne.github.io/threex.planets/examples/select.html (https://github.com/jeromeetienne/threex.planets)
+- [ ] nemesis
+  - [ ] dodati igrača
+  - [ ] srediti wall koliziju 
+  - [ ] dodati neprijatelje
 
 ### Ostalo
 
