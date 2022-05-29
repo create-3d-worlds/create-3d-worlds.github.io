@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { OrbitControls } from '/node_modules/three119/examples/jsm/controls/OrbitControls.js'
 
 import { scene, renderer, camera, clock } from '/utils/scene.js'
-import ground from './actors/ground.js'
+import { createGround, rotateGround } from './actors/ground.js'
 import { updatePlane, normalizePlane } from './actors/airplane.js'
 import { createSunLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
@@ -18,6 +18,8 @@ camera.position.set(-68, 143, -90)
 
 const controls = new OrbitControls(camera, renderer.domElement)
 
+const ground = createGround()
+
 // const { mesh, mixer } = await loadModel({ file: '/aircraft_junkers_ju_87_stuka/scene.gltf', size: 30 })
 
 const { mesh, mixer } = await loadModel({ file: '/aircraft_messerschmitt_109/scene.gltf', size: 20 })
@@ -32,7 +34,7 @@ void function update() {
   requestAnimationFrame(update)
   const delta = clock.getDelta()
   controls.update()
-  ground.rotate()
+  rotateGround(ground)
   updatePlane(mesh, delta)
   normalizePlane(mesh, delta)
   if (mixer) mixer.update(0.016)
