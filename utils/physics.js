@@ -4,7 +4,7 @@ import Physijs from '/libs/physi-ecma.js'
 Physijs.scripts.worker = '/libs/physijs_worker.js'
 Physijs.scripts.ammo = 'ammo.js' // relativ to the worker
 
-export function createRigidBox(x = 0, y = 50, z = 0, size = 10) {
+export function createRigidBox({ size = 1 } = {}) {
   const boxFriction = 0.5
   const boxBounciness = 0.6
   const boxMaterial = Physijs.createMaterial(
@@ -14,17 +14,14 @@ export function createRigidBox(x = 0, y = 50, z = 0, size = 10) {
     new THREE.BoxGeometry(size, size, size),
     boxMaterial
   )
-  box.position.set(x, y, z)
-  box.rotation.z = Math.random() * Math.PI
-  box.rotation.y = Math.random() * Math.PI
   return box
 }
 
-export function createRigidGround(size = 150) {
+export function createRigidGround({ size = 150, color = 0x666666 } = {}) {
   const groundFriction = 0.8
   const groundBounciness = 0.4
   const groundMaterial = Physijs.createMaterial(
-    new THREE.MeshBasicMaterial(), groundFriction, groundBounciness
+    new THREE.MeshBasicMaterial({ color }), groundFriction, groundBounciness
   )
   const ground = new Physijs.BoxMesh(
     new THREE.PlaneGeometry(size, size), groundMaterial, 0

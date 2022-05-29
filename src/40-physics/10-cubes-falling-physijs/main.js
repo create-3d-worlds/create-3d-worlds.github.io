@@ -8,10 +8,6 @@ createOrbitControls()
 const scene = new Physijs.Scene()
 scene.setGravity(new THREE.Vector3(0, -50, 0))
 
-camera.position.set(60, 50, 60)
-camera.lookAt(scene.position)
-
-scene.add(createRigidBox())
 scene.add(createRigidGround())
 
 /* LOOP */
@@ -22,7 +18,11 @@ void function update() {
   window.requestAnimationFrame(update)
   scene.simulate()
   if (timeStep++ > 100) {
-    scene.add(createRigidBox())
+    const box = createRigidBox()
+    box.position.y = 5
+    box.rotation.z = Math.random() * Math.PI
+    box.rotation.y = Math.random() * Math.PI
+    scene.add(box)
     timeStep = 0
   }
   renderer.render(scene, camera)
