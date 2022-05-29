@@ -129,21 +129,25 @@ live-server
 
 ### Physics
 
-- [ ] domine: da manja obara veću
+- [ ] odvojiti fizička pomagala
 - [ ] srediti fliper
-- [ ] razaranje zamka topom
-  - [ ] dodati proceduralni zamak (vidi 75-zamak-fizika, 60-fizika/20-gradjevina-physijs)
+- [ ] domine: da manja obara veću
+- [ ] Razaranje zamka topom
+  - [ ] dodati proceduralni zamak (vidi zamak-fizika, gradjevina-physijs)
   - [ ] dodati top (ima model)
   - [ ] top puca i rusi zidine (vidi ball-trowing)
-- [ ] tenk (steam tenk) koji gazi prepreke ili lokomotiva (60-fizika/70-vozilo-physijs)
-  - http://127.0.0.1:8080/15-fizika/70-vozilo/
-  - http://127.0.0.1:8080/15-fizika/75-vozilo-razbija/
+- [ ] Steampunk vozilo
+  - [ ] dodati fiziku na steam tenk ili lokomotivu (vidi vozilo-physijs)
+  - [ ] da gazi i gura prepreke
+    http://127.0.0.1:8080/15-fizika/70-vozilo/
+    http://127.0.0.1:8080/15-fizika/75-vozilo-razbija/
 
 ### AI
 - [x] probati ai https://github.com/erosmarcon/three-steer
-- [ ] napraviti ai scenu
+- [ ] odvojiti ai pomagala
+- [ ] postaviti ai scenu sa modelima
 
-### Scenes
+### Scenes and examples
 
 - [x] Savo (ww2 fps)
   - [x] dodati kišu
@@ -208,18 +212,18 @@ live-server
   - [ ] dodati objekte
   - [ ] pomeriti u scene
 
-### Examples
-
-- [ ] endless-runner
+- [ ] Endless runner
   - [x] prikazivati poene
   - [ ] probati konja ili dabra
-- [ ] solar system
+
+- [ ] Solar system
   - [ ] koristiti planete sa teksturom
   - [ ] napraviti sunce sa teksturom
-- [ ] nemesis
+
+- [ ] Nemesis
   - [ ] dodati igrača
-  - [ ] srediti wall koliziju 
-  - [ ] dodati neprijatelje
+  - [ ] srediti koliziju sa zidom 
+  - [ ] dodati ai modele
 
 ### Ostalo
 
