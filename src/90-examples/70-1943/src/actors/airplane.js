@@ -26,6 +26,6 @@ export function updatePlane(model, delta) {
 export function normalizePlane(model, delta) {
   if (keyboard.keyPressed) return
   const roll = Math.abs(model.rotation.z)
-  if (model.rotation.z > 0) model.rotation.z -= roll * delta
-  if (model.rotation.z < 0) model.rotation.z += roll * delta
+  if (model.rotation.z > 0) model.rotation.z -= roll * delta * 2
+  if (model.rotation.z < 0) model.rotation.z += roll * delta * 2
 }

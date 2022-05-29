@@ -109,4 +109,4 @@ export function addScoreUI({ score = 0, title = 'Score' } = {}) {
 
 /* SHORTCUTS */
 
-export { createGradientSky, createGround, createSunLight, initLights, hemLight }
+export { createGround, initLights, hemLight }

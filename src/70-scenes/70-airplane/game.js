@@ -1,5 +1,6 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
-import { scene, renderer, camera, createOrbitControls, createGradientSky } from '/utils/scene.js'
+import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
+import { createGradientSky } from '/utils/sky.js'
 import { createTerrain } from '/utils/ground.js'
 import { createFirTrees } from '/utils/trees.js'
 import { cameraFollowObject } from '/utils/helpers.js'
