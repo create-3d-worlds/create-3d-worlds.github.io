@@ -9,78 +9,49 @@ camera.position.set(30, 5, 35)
 const controls = createOrbitControls()
 controls.target.set(30, 0, 0)
 
-/*
- * TEXTURES
- */
-const sunTexture = loader.load('assets/sun.jpg')
-const mercuryTexture = loader.load('assets/mercury.jpg')
-const venusTexture = loader.load('assets/venus.jpg')
-const earthTexture = loader.load('assets/earth.jpg')
-const marsTexture = loader.load('assets/mars.jpg')
-const jupiterTexture = loader.load('assets/jupiter.jpg')
-const saturnTexture = loader.load('assets/saturn.jpg')
-const uranusTexture = loader.load('assets/uranus.jpg')
-const neptuneTexture = loader.load('assets/neptune.jpg')
-const plutoTexture = loader.load('assets/pluto.jpeg')
-
-/*
- * MATERIALS
- */
-const sunMaterial = new THREE.MeshStandardMaterial({ map: sunTexture })
-const mercuryMaterial = new THREE.MeshStandardMaterial({ map: mercuryTexture })
-const venusMaterial = new THREE.MeshStandardMaterial({ map: venusTexture })
-const earthMaterial = new THREE.MeshStandardMaterial({ map: earthTexture })
-const marsMaterial = new THREE.MeshStandardMaterial({ map: marsTexture })
-const jupiterMaterial = new THREE.MeshStandardMaterial({ map: jupiterTexture })
-const saturnMaterial = new THREE.MeshStandardMaterial({ map: saturnTexture })
-const uranusMaterial = new THREE.MeshStandardMaterial({ map: uranusTexture })
-const neptuneMaterial = new THREE.MeshStandardMaterial({ map: neptuneTexture })
-const plutoMaterial = new THREE.MeshStandardMaterial({ map: plutoTexture })
-
-/*
- * MESH
- */
+/* MESH */
 const geometry = new THREE.SphereGeometry(1, 32, 16)
+const createMaterial = file => new THREE.MeshStandardMaterial({ map: loader.load(`assets/${file}`) })
 
-const sunMesh = new THREE.Mesh(geometry, sunMaterial)
+const sunMesh = new THREE.Mesh(geometry, createMaterial('sun.jpg'))
 sunMesh.position.set(0, 0, 0)
 sunMesh.scale.setScalar(10)
 scene.add(sunMesh)
 
 const mercuryGroup = new THREE.Group()
-const mercuryMesh = new THREE.Mesh(geometry, mercuryMaterial)
+const mercuryMesh = new THREE.Mesh(geometry, createMaterial('mercury.jpg'))
 createPlanet(scene, mercuryMesh, mercuryGroup, 25, 0.8)
 
 const venusGroup = new THREE.Group()
-const venusMesh = new THREE.Mesh(geometry, venusMaterial)
+const venusMesh = new THREE.Mesh(geometry, createMaterial('venus.jpg'))
 createPlanet(scene, venusMesh, venusGroup, 28, 0.9)
 
 const earthGroup = new THREE.Group()
-const earthMesh = new THREE.Mesh(geometry, earthMaterial)
+const earthMesh = new THREE.Mesh(geometry, createMaterial('earth.jpg'))
 createPlanet(scene, earthMesh, earthGroup, 31, 1)
 
 const marsGroup = new THREE.Group()
-const marsMesh = new THREE.Mesh(geometry, marsMaterial)
+const marsMesh = new THREE.Mesh(geometry, createMaterial('mars.jpg'))
 createPlanet(scene, marsMesh, marsGroup, 34, 0.8)
 
 const jupiterGroup = new THREE.Group()
-const jupiterMesh = new THREE.Mesh(geometry, jupiterMaterial)
+const jupiterMesh = new THREE.Mesh(geometry, createMaterial('jupiter.jpg'))
 createPlanet(scene, jupiterMesh, jupiterGroup, 42, 3.5)
 
 const saturnGroup = new THREE.Group()
-const saturnMesh = new THREE.Mesh(geometry, saturnMaterial)
+const saturnMesh = new THREE.Mesh(geometry, createMaterial('saturn.jpg'))
 createPlanet(scene, saturnMesh, saturnGroup, 50, 2.9)
 
 const uranusGroup = new THREE.Group()
-const uranusMesh = new THREE.Mesh(geometry, uranusMaterial)
+const uranusMesh = new THREE.Mesh(geometry, createMaterial('uranus.jpg'))
 createPlanet(scene, uranusMesh, uranusGroup, 56, 1.7)
 
 const neptuneGroup = new THREE.Group()
-const neptuneMesh = new THREE.Mesh(geometry, neptuneMaterial)
+const neptuneMesh = new THREE.Mesh(geometry, createMaterial('neptune.jpg'))
 createPlanet(scene, neptuneMesh, neptuneGroup, 60, 1.65)
 
 const plutoGroup = new THREE.Group()
-const plutoMesh = new THREE.Mesh(geometry, plutoMaterial)
+const plutoMesh = new THREE.Mesh(geometry, createMaterial('pluto.jpeg'))
 createPlanet(scene, plutoMesh, plutoGroup, 64, 0.5)
 
 /*
