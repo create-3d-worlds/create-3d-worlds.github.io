@@ -2,10 +2,10 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { OrbitControls } from '/node_modules/three119/examples/jsm/controls/OrbitControls.js'
 
 import { scene, renderer, camera, clock } from '/utils/scene.js'
-import { createGround, rotateGround } from './actors/ground.js'
-import { updatePlane, normalizePlane } from './actors/airplane.js'
 import { createSunLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
+import { createGround, rotateGround } from './utils/ground.js'
+import { updatePlane, normalizePlane } from './utils/airplane.js'
 
 scene.fog = new THREE.Fog(0xE5C5AB, 200, 950)
 
