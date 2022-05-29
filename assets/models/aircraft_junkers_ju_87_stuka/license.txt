@@ -1,0 +1,11 @@
+Model Information:
+* title:	Junkers Ju 87 Stuka
+* source:	https://sketchfab.com/3d-models/junkers-ju-87-stuka-80fe9909938a44159d1906a81092c006
+* author:	scorpion81 (https://sketchfab.com/scorpion81)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Junkers Ju 87 Stuka" (https://sketchfab.com/3d-models/junkers-ju-87-stuka-80fe9909938a44159d1906a81092c006) by scorpion81 (https://sketchfab.com/scorpion81) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
