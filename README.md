@@ -139,13 +139,16 @@ live-server
   - [ ] dodati tenk kako prolazi
   - [ ] dodati munje https://threejs.org/examples/?q=light#webgl_lightningstrike
   - [ ] dodati pucanje
-- [ ] Svemir (model ring space-arcology)
-  - [ ] napraviti svemir iz neba
+
+- [ ] Svemir 
+  - [ ] dodati model ring space-arcology
+  - [ ] dodati zvezdani svod
   - [ ] bolja distribucija zvezda (perlin noise)
-  - [ ] letenje kroz zvezde (70-cestice/10-zvezde/)
+  - [ ] probati letenje kroz zvezde
   - [ ] sletanje na platformu (naći 2d primer)
-  - [ ] sletanje na mesec (80-primeri/12-mesec)
+    - [ ] sletanje na mesec (textured moon)
   - [ ] dodati proceduralnu planetu http://colordodge.com/ProceduralPlanet/?seed=Ridi%20Genow
+
 - [x] Avion leti
   - [x] dodati suncevu svetlost (https://threejs.org/examples/webgl_lights_hemisphere.html)
   - [x] dodati senku i maglu (vidi 3d-warplane)
@@ -153,6 +156,7 @@ live-server
   - [x] srediti komande: skretanje, spuštanje, dizanje, brzinu
   - [-] dodati oblake (teško)
   - [x] dodati drveće
+
 - [x] Zepelin leti
   - [x] dodati raycast
   - [x] dodati teren-dinamicki
@@ -162,6 +166,7 @@ live-server
   - [x] prikazati komande
   - [x] probati pticu
   - [x] cepelin da prvo poleti pa ubrza (avion prvo ubrza pa poleti)
+
 - [ ] Grad
   - [x] srediti grad
   - [x] srediti grad-prozori
@@ -172,12 +177,20 @@ live-server
   - [ ] dodati park ili trg u centru
   - [ ] dodati drveće, za zeleni grad
   - [ ] ubaciti prvo lice u scenu
-- [ ] fantasy scena (dodati modele 50-rad-sa-modelima/90-modeli-dae/)
+
+- [ ] Fantasy scena
+  - [ ] dodati modele (vidi rad-sa-modelima)
   - [ ] cepelin u vazduhu (vinci aerial screw, santos dumont airship)
   - [ ] karakter dolazi do kuće i ulazi (vidi 50-rad-sa-modelima/35-kuca-unutrasnost)
   - [ ] uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)
   - [ ] oblaci, životinje, zamak (vidi 80-primeri/90-simulacija-sveta)
-- [ ] dodati zvezdani svod
+
+- [ ] 1943
+  - [x] integrisati u projekat
+  - [x] srediti model aviona
+  - [ ] dodati izbor aviona
+  - [ ] dodati drveće
+  - [ ] dodati objekte
 
 ### Physics
 
@@ -193,13 +206,15 @@ live-server
 
 ### Examples
 
-- [ ] odvojiti pomagala iz primera
+- [x] odvojiti pomagala iz primera
 - [ ] endless-runner
   - [x] prikazivati poene
   - [ ] probati konja ili dabra
-- [ ] 1943
-  - [ ] integrisati u projekat
-  - [ ] srediti model aviona (ima novi)
+- [ ] solar system
+  - [ ] napraviti sunce sa teksturom
+    https://www.webdev20.pl/skins/default/js/demos/solar_system/index.html
+    https://observablehq.com/@mourner/3d-planets-with-three-js
+- [ ] probati razne planete? http://jeromeetienne.github.io/threex.planets/examples/select.html (https://github.com/jeromeetienne/threex.planets)
 
 ### Ostalo
 
