@@ -1,33 +1,18 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import * as CANNON from '/node_modules/cannon-es/dist/cannon-es.js'
 
-const scene = new THREE.Scene()
-const light = new THREE.DirectionalLight()
-light.position.set(25, 50, 25)
-light.castShadow = true
-light.shadow.mapSize.width = 8192
-light.shadow.mapSize.height = 8192
-light.shadow.camera.near = 0.5
-light.shadow.camera.far = 100
-light.shadow.camera.top = 100
-light.shadow.camera.bottom = -100
-light.shadow.camera.left = -100
-light.shadow.camera.right = 100
-scene.add(light)
-const helper = new THREE.CameraHelper(light.shadow.camera)
-scene.add(helper)
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+import { camera, scene, renderer, clock } from '/utils/scene.js'
+import { dirLight } from '/utils/light.js'
+
+dirLight({ position: [25, 50, 25] })
+
 const chaseCam = new THREE.Object3D()
 chaseCam.position.set(0, 0, 0)
 const chaseCamPivot = new THREE.Object3D()
 chaseCamPivot.position.set(0, 2, 4)
 chaseCam.add(chaseCamPivot)
 scene.add(chaseCam)
-const renderer = new THREE.WebGLRenderer()
-renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.shadowMap.enabled = true
-renderer.shadowMap.type = THREE.PCFSoftShadowMap
-document.body.appendChild(renderer.domElement)
+
 const phongMaterial = new THREE.MeshPhongMaterial()
 const world = new CANNON.World()
 world.gravity.set(0, -9.82, 0)
@@ -178,24 +163,17 @@ const onDocumentKey = e => {
 }
 let forwardVelocity = 0
 let rightVelocity = 0
+
 document.addEventListener('keydown', onDocumentKey, false)
 document.addEventListener('keyup', onDocumentKey, false)
-window.addEventListener('resize', onWindowResize, false)
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight
-  camera.updateProjectionMatrix()
-  renderer.setSize(window.innerWidth, window.innerHeight)
-  render()
-}
 
-const clock = new THREE.Clock()
 let delta
 
 const v = new THREE.Vector3()
 let thrusting = false
-var animate = function() {
+
+const animate = function() {
   requestAnimationFrame(animate)
-  helper.update()
   delta = Math.min(clock.getDelta(), 0.1)
   world.step(delta)
   // Copy coordinates from Cannon.js to Three.js
@@ -298,4 +276,3 @@ function render() {
   renderer.render(scene, camera)
 }
 animate()
-window.focus()
