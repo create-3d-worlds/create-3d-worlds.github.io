@@ -5,6 +5,17 @@ Physijs.scripts.ammo = './ammo.js'
 
 import { renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 
+const scene = new Physijs.Scene
+scene.setGravity(new THREE.Vector3(0, -10, 0))
+
+const ambientLight = new THREE.AmbientLight(0x707070)
+scene.add(ambientLight)
+
+const light = new THREE.DirectionalLight(0xffffff, 1)
+light.position.set(-10, 18, 5)
+light.castShadow = true
+scene.add(light)
+
 const mouseCoords = new THREE.Vector2()
 const raycaster = new THREE.Raycaster()
 
@@ -16,17 +27,9 @@ camera.position.y = 5
 
 const controls = createOrbitControls()
 
-const scene = new Physijs.Scene
-scene.setGravity(new THREE.Vector3(0, -10, 0))
-
 const mat = new THREE.MeshPhongMaterial({ color: 0xffffff })
 
-const manager = new THREE.LoadingManager()
-manager.onProgress = function(item, loaded, total) {
-  console.log(item, loaded, total)
-}
-
-const loader = new THREE.ImageLoader(manager)
+const loader = new THREE.ImageLoader()
 const crateTexture = new THREE.Texture()
 
 loader.load('/assets/textures/crate.gif', image => {
@@ -57,26 +60,6 @@ floor.receiveShadow = true
 floor.position.set(0, 0, 0)
 scene.add(floor)
 
-const ambientLight = new THREE.AmbientLight(0x707070)
-scene.add(ambientLight)
-
-const light = new THREE.DirectionalLight(0xffffff, 1)
-light.position.set(-10, 18, 5)
-light.castShadow = true
-const d = 14
-light.shadow.camera.left = -d
-light.shadow.camera.right = d
-light.shadow.camera.top = d
-light.shadow.camera.bottom = -d
-
-light.shadow.camera.near = 2
-light.shadow.camera.far = 50
-
-light.shadow.mapSize.x = 1024
-light.shadow.mapSize.y = 1024
-
-scene.add(light)
-
 function onMouseDown(event) {
   mouseCoords.set(
     (event.clientX / window.innerWidth) * 2 - 1,
@@ -84,7 +67,6 @@ function onMouseDown(event) {
   )
   raycaster.setFromCamera(mouseCoords, camera)
 
-  // Creates a ball and throws it
   const ballMass = 35
   const ballRadius = 0.4
   const ball = new Physijs.SphereMesh(
