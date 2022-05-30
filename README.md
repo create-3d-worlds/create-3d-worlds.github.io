@@ -130,8 +130,6 @@ live-server
 ### Physics
 
 - [ ] videti nove primere
-  - [ ] uvesti https://pmndrs.github.io/cannon-es/examples/threejs_fps
-  - [ ] uvesti https://pmndrs.github.io/cannon-es/examples/raycast_vehicle
   - [ ] uvesti https://pmndrs.github.io/cannon-es/examples/rigid_vehicle
 - [ ] odvojiti fizička pomagala
 - [ ] srediti fliper
