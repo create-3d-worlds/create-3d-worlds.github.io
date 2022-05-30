@@ -6,20 +6,26 @@ Physijs.scripts.ammo = 'ammo.js' // relativ to the worker
 
 /* BOX */
 
-export function createBox({ size = 1, friction = 0.5, bounciness = 0.6 } = {}) {
+export function createBox({ width = 1, height = 1, depth = 1, friction = .5, bounciness = .6 } = {}) {
+  const geometry = new THREE.BoxGeometry(width, height, depth)
   const material = Physijs.createMaterial(
     new THREE.MeshNormalMaterial(), friction, bounciness
   )
-  const mesh = new Physijs.BoxMesh(
-    new THREE.BoxGeometry(size, size, size),
-    material
-  )
+  const mesh = new Physijs.BoxMesh(geometry, material)
   return mesh
+}
+
+export function createBlock({ width = 6, height = 1, depth = 1.5, friction = .4, bounciness = .4, color = 0xff0000 } = {}) {
+  const geometry = new THREE.BoxGeometry(width, height, depth)
+  const material = Physijs.createMaterial(
+    new THREE.MeshLambertMaterial({ color }), friction, bounciness
+  )
+  const block = new Physijs.BoxMesh(geometry, material)
+  return block
 }
 
 /* FLOOR */
 
-/* hight friction = .9, low bounciness = .2 */
 export function createGround({ size = 150, color = 0x666666, friction = .8, bounciness = .4 } = {}) {
   const material = Physijs.createMaterial(
     new THREE.MeshBasicMaterial({ color }), friction, bounciness

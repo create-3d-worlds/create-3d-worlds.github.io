@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import Physijs from '/libs/physi-ecma.js'
 import { camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
-import { createGround } from '/utils/physics.js'
+import { createGround, createBlock } from '/utils/physics.js'
 
 const blocks = []
 
@@ -15,27 +15,18 @@ scene.setGravity(new THREE.Vector3(0, -30, 0))
 
 dirLight({ scene, position: [20, 30, -5], intensity: 1.75 })
 
-const blockMaterial = Physijs.createMaterial(
-  new THREE.MeshLambertMaterial({ color: 0xff0000 }),
-  .4, // medium friction
-  .4 // medium restitution
-)
-
 const table = createGround({ size: 50 })
 scene.add(table)
-
-// tower
 
 createTower()
 
 function createTower() {
   const block_height = 1, block_offset = 2
-  const block_geometry = new THREE.BoxGeometry(6, block_height, 1.5)
 
   const rows = 16
   for (let i = 0; i < rows; i++)
     for (let j = 0; j < 3; j++) {
-      const block = new Physijs.BoxMesh(block_geometry, blockMaterial)
+      const block = createBlock({ height: block_height })
       block.position.y = (block_height / 2) + block_height * i
       if (i % 2 === 0) {
         block.rotation.y = Math.PI / 2.01 // there's a bug when this is to close to 2
