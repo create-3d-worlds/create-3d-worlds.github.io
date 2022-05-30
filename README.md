@@ -129,6 +129,10 @@ live-server
 
 ### Physics
 
+- [ ] videti nove primere
+  - [ ] uvesti https://pmndrs.github.io/cannon-es/examples/threejs_fps
+  - [ ] uvesti https://pmndrs.github.io/cannon-es/examples/raycast_vehicle
+  - [ ] uvesti https://pmndrs.github.io/cannon-es/examples/rigid_vehicle
 - [ ] odvojiti fizička pomagala
 - [ ] srediti fliper
 - [ ] domine: da manja obara veću
@@ -142,7 +146,6 @@ live-server
   - [ ] da gazi i gura prepreke
     http://127.0.0.1:8080/15-fizika/70-vozilo/
     http://127.0.0.1:8080/15-fizika/75-vozilo-razbija/
-- [ ] videti nove primere https://pmndrs.github.io/cannon-es/
 
 ### AI
 - [x] probati ai https://github.com/erosmarcon/three-steer
