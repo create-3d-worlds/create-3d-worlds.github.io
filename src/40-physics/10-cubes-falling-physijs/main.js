@@ -17,13 +17,10 @@ let timeStep = 0
 void function update() {
   window.requestAnimationFrame(update)
   scene.simulate()
-  if (++timeStep > 100) {
+  if (++timeStep % 100 == 0) {
     const box = createRigidBox()
     box.position.y = 5
-    box.rotation.z = Math.random() * Math.PI
-    box.rotation.y = Math.random() * Math.PI
     scene.add(box)
-    timeStep = 0
   }
   renderer.render(scene, camera)
 }()
