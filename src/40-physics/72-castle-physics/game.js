@@ -1,4 +1,5 @@
-/* global THREE, Physijs */
+import * as THREE from '/node_modules/three119/build/three.module.js'
+import Physijs from '/libs/physi-ecma.js'
 import { camera, renderer, createOrbitControls } from '/utils/scene.js'
 
 Physijs.scripts.worker = '/libs/physijs_worker.js'

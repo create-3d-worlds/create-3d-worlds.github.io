@@ -1,4 +1,5 @@
-/* global THREE, Physijs */
+import * as THREE from '/node_modules/three119/build/three.module.js'
+import Physijs from '/libs/physi-ecma.js'
 import { renderer, camera } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
 

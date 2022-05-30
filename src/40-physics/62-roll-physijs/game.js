@@ -1,11 +1,14 @@
-/* global Perlin */
 import * as THREE from '/node_modules/three119/build/three.module.js'
+import { ImprovedNoise } from '/node_modules/three119/examples/jsm/math/ImprovedNoise.js'
 import Physijs from '/libs/physi-ecma.js'
 Physijs.scripts.worker = '/libs/physijs_worker.js'
 Physijs.scripts.ammo = './ammo.js'
+
 import { renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
 import { CIRCLE } from '/utils/constants.js'
+
+const perlin = new ImprovedNoise()
 
 createOrbitControls()
 camera.position.y = 50
@@ -34,11 +37,10 @@ function getMaterial() {
 }
 
 function createGround() {
-  const pn = new Perlin(new Date().getTime())
   const material = Physijs.createMaterial(new THREE.MeshStandardMaterial({ color: 0x009900 }), 0.3, 0.8)
   const geometry = new THREE.PlaneGeometry(200, 200, 100, 100)
   geometry.vertices.forEach(vertex => {
-    const value = pn.noise(vertex.x / 12, vertex.y / 12, 0)
+    const value = perlin.noise(vertex.x / 12, vertex.y / 12, 0)
     vertex.z = value * 13
   })
   geometry.computeFaceNormals()
