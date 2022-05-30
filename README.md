@@ -131,6 +131,7 @@ live-server
 
 - [x] videti nove primere
   - [x] uvesti https://pmndrs.github.io/cannon-es/examples/rigid_vehicle
+  - [ ] https://github.com/matthewmain/bus_derby
   - [ ] https://threejs.org/examples/?q=physics#physics_ammo_break
 - [ ] odvojiti fizička pomagala
 - [ ] srediti fliper
