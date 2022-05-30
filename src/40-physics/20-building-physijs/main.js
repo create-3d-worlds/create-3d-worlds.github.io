@@ -4,13 +4,13 @@ import { camera, renderer } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
 import { createGround, createBlockTower } from '/utils/physics.js'
 
-camera.position.set(5, 10, -15)
+camera.position.set(-5, 10, 15)
 camera.lookAt(new THREE.Vector3(0, 10, 0))
 
 const scene = new Physijs.Scene()
 scene.setGravity(new THREE.Vector3(0, -30, 0))
 
-dirLight({ scene, position: [20, 30, -5], intensity: 1.75 })
+dirLight({ scene, intensity: 1.75 })
 
 const floor = createGround({ size: 50, friction: .9 })
 scene.add(floor)
@@ -29,5 +29,5 @@ void function render() {
 /* EVENTS */
 
 document.addEventListener('click', () => {
-  scene.setGravity(new THREE.Vector3(0, -30, 10))
+  scene.setGravity(new THREE.Vector3(0, -30, -10))
 })
