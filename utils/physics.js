@@ -33,7 +33,8 @@ export function createGround({ size = 150, color = 0x666666, friction = .8, boun
 
 /* STRUCTURES */
 
-export function createBlockTower(scene) {
+export function createBlockTower() {
+  const blocks = []
   const block_height = 1
   const block_offset = 2
   const rows = 16
@@ -46,6 +47,7 @@ export function createBlockTower(scene) {
         block.position.x = block_offset * j - (block_offset * 3 / 2 - block_offset / 2)
       } else
         block.position.z = block_offset * j - (block_offset * 3 / 2 - block_offset / 2)
-      scene.add(block)
+      blocks.push(block)
     }
+  return blocks
 }

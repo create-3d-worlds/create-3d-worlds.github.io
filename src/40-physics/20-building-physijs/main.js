@@ -16,7 +16,8 @@ dirLight({ scene, position: [20, 30, -5], intensity: 1.75 })
 const floor = createGround({ size: 50, friction: .9 })
 scene.add(floor)
 
-createBlockTower(scene)
+const blocks = createBlockTower()
+blocks.forEach(block => scene.add(block))
 
 /* LOOPS */
 
