@@ -1,4 +1,7 @@
-/* global CANNON, THREE, PointerLockControls */
+import * as THREE from '/node_modules/three119/build/three.module.js'
+import { PointerLockControls } from '/node_modules/three119/examples/jsm/controls/PointerLockControls.js'
+
+import * as CANNON from '/node_modules/cannon-es/dist/cannon-es.js'
 import { camera, scene, renderer } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
 
@@ -21,7 +24,7 @@ player.addShape(playerShape)
 player.position.set(0, 3, 0)
 world.addBody(player)
 
-const controls = new PointerLockControls(camera, player)
+const controls = new PointerLockControls(camera, document.body)
 controls.enabled = true
 scene.add(controls.getObject())
 
@@ -106,7 +109,6 @@ void function update() {
     boxMeshes[i].position.copy(b.position)
     boxMeshes[i].quaternion.copy(b.quaternion)
   })
-  controls.update()
   renderer.render(scene, camera)
 }()
 

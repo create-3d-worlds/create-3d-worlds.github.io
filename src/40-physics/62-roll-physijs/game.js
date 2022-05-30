@@ -1,4 +1,6 @@
-/* global THREE, Physijs, Perlin */
+/* global Perlin */
+import * as THREE from '/node_modules/three119/build/three.module.js'
+import Physijs from '/libs/physi-ecma.js'
 Physijs.scripts.worker = '/libs/physijs_worker.js'
 Physijs.scripts.ammo = './ammo.js'
 import { renderer, camera, createOrbitControls } from '/utils/scene.js'

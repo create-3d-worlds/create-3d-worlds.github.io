@@ -1,5 +1,5 @@
-/* global CANNON */
 import * as THREE from '/node_modules/three119/build/three.module.js'
+import * as CANNON from '/node_modules/cannon-es/dist/cannon-es.js'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { RIGHT_ANGLE } from '/utils/constants.js'
 import { dirLight } from '/utils/light.js'
@@ -29,7 +29,7 @@ const groundShape = new CANNON.Plane()
 const groundBody = new CANNON.Body({ mass: 0 })
 groundBody.addShape(groundShape)
 groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -RIGHT_ANGLE) // rotateX(-RIGHT_ANGLE)
-world.add(groundBody)
+world.addBody(groundBody)
 
 // THREE box
 const cubeGeo = new THREE.BoxGeometry(1, 1, 1, 10, 10)
@@ -44,7 +44,7 @@ const boxShape = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5))
 const boxBody = new CANNON.Body({ mass: 5 })
 boxBody.addShape(boxShape)
 boxBody.position.set(0, 5, 0)
-world.add(boxBody)
+world.addBody(boxBody)
 bodies.push(boxBody)
 
 /* LOOP */
