@@ -6,12 +6,8 @@ import { dirLight } from '/utils/light.js'
 
 dirLight({ position: [25, 50, 25] })
 
-const chaseCam = new THREE.Object3D()
-chaseCam.position.set(0, 0, 0)
 const chaseCamPivot = new THREE.Object3D()
 chaseCamPivot.position.set(0, 2, 4)
-chaseCam.add(chaseCamPivot)
-scene.add(chaseCam)
 
 const phongMaterial = new THREE.MeshPhongMaterial()
 const world = new CANNON.World()
@@ -22,6 +18,7 @@ groundMaterial.restitution = 0.25
 const wheelMaterial = new CANNON.Material('wheelMaterial')
 wheelMaterial.friction = 0.25
 wheelMaterial.restitution = 0.25
+
 // ground
 const groundGeometry = new THREE.PlaneGeometry(100, 100)
 const groundMesh = new THREE.Mesh(groundGeometry, phongMaterial)
@@ -33,6 +30,7 @@ const groundBody = new CANNON.Body({ mass: 0, material: groundMaterial })
 groundBody.addShape(groundShape)
 groundBody.position.set(0, -1, 0)
 world.addBody(groundBody)
+
 // jumps
 for (let i = 0; i < 100; i++) {
   const jump = new THREE.Mesh(new THREE.CylinderGeometry(0, 1, 0.5, 5), phongMaterial)
@@ -48,12 +46,13 @@ for (let i = 0; i < 100; i++) {
   cylinderBody.position.z = jump.position.z
   world.addBody(cylinderBody)
 }
+
 const carBodyGeometry = new THREE.BoxGeometry(1, 1, 2)
 const carBodyMesh = new THREE.Mesh(carBodyGeometry, phongMaterial)
 carBodyMesh.position.y = 3
 carBodyMesh.castShadow = true
 scene.add(carBodyMesh)
-carBodyMesh.add(chaseCam)
+carBodyMesh.add(camera)
 const carBodyShape = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 1))
 const carBody = new CANNON.Body({ mass: 1 })
 carBody.addShape(carBodyShape)
@@ -61,6 +60,7 @@ carBody.position.x = carBodyMesh.position.x
 carBody.position.y = carBodyMesh.position.y
 carBody.position.z = carBodyMesh.position.z
 world.addBody(carBody)
+
 // front left wheel
 const wheelLFGeometry = new THREE.CylinderGeometry(0.33, 0.33, 0.2)
 wheelLFGeometry.rotateZ(Math.PI / 2)
@@ -77,6 +77,7 @@ wheelLFBody.position.x = wheelLFMesh.position.x
 wheelLFBody.position.y = wheelLFMesh.position.y
 wheelLFBody.position.z = wheelLFMesh.position.z
 world.addBody(wheelLFBody)
+
 // front right wheel
 const wheelRFGeometry = new THREE.CylinderGeometry(0.33, 0.33, 0.2)
 wheelRFGeometry.rotateZ(Math.PI / 2)
@@ -93,6 +94,7 @@ wheelRFBody.position.x = wheelRFMesh.position.x
 wheelRFBody.position.y = wheelRFMesh.position.y
 wheelRFBody.position.z = wheelRFMesh.position.z
 world.addBody(wheelRFBody)
+
 // back left wheel
 const wheelLBGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.33)
 wheelLBGeometry.rotateZ(Math.PI / 2)
@@ -109,6 +111,7 @@ wheelLBBody.position.x = wheelLBMesh.position.x
 wheelLBBody.position.y = wheelLBMesh.position.y
 wheelLBBody.position.z = wheelLBMesh.position.z
 world.addBody(wheelLBBody)
+
 // back right wheel
 const wheelRBGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.33)
 wheelRBGeometry.rotateZ(Math.PI / 2)

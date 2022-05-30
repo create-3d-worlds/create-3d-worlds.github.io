@@ -129,8 +129,8 @@ live-server
 
 ### Physics
 
-- [ ] videti nove primere
-  - [ ] uvesti https://pmndrs.github.io/cannon-es/examples/rigid_vehicle
+- [x] videti nove primere
+  - [x] uvesti https://pmndrs.github.io/cannon-es/examples/rigid_vehicle
 - [ ] odvojiti fizička pomagala
 - [ ] srediti fliper
 - [ ] domine: da manja obara veću
