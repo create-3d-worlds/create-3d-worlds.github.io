@@ -13,12 +13,12 @@ live-server
 
 ### General
 
+- [x] ažurirati verziju (na 119)
+  - [ ] ažurirati verziju na poslednju
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
 - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
 - [x] dovesti veličine u razmeru 1px : 1m
-- [x] ažurirati verziju (na 119)
-  - [ ] ažurirati verziju na poslednju
 - [x] isprobati nove 3d modele
   - [x] organizovati modele tematski
   - [x] izbaciti nightelf-priest
@@ -131,7 +131,7 @@ live-server
 
 - [x] videti nove primere
   - [x] uvesti https://pmndrs.github.io/cannon-es/examples/rigid_vehicle
-    https://rawcdn.githack.com/kripken/ammo.js/99d0ec0b1e26d7ccc13e013caba8e8a5c98d953b/examples/webgl_demo_vehicle/index.html
+  - [ ] https://threejs.org/examples/?q=physics#physics_ammo_break
 - [ ] odvojiti fizička pomagala
 - [ ] srediti fliper
 - [ ] domine: da manja obara veću
