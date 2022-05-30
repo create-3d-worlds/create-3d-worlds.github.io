@@ -33,17 +33,14 @@ export function createGround({ size = 150, color = 0x666666, friction = .8, boun
 
 /* STRUCTURES */
 
-export function createBlockTower() {
+export function createBlockTower({ block_height = 1, block_offset = 2, rows = 16 } = {}) {
   const blocks = []
-  const block_height = 1
-  const block_offset = 2
-  const rows = 16
   for (let i = 0; i < rows; i++)
     for (let j = 0; j < 3; j++) {
       const block = createBlock({ height: block_height })
-      block.position.y = (block_height / 2) + block_height * i
+      block.position.y = block_height / 2 + block_height * i
       if (i % 2 === 0) {
-        block.rotation.y = Math.PI / 2.01 // there's a bug when it's to close to 2
+        block.rotation.y = Math.PI * .5
         block.position.x = block_offset * j - (block_offset * 3 / 2 - block_offset / 2)
       } else
         block.position.z = block_offset * j - (block_offset * 3 / 2 - block_offset / 2)
