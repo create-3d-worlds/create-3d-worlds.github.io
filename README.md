@@ -136,6 +136,7 @@ live-server
   - [ ] dodati proceduralni zamak (vidi zamak-fizika, gradjevina-physijs)
   - [ ] dodati top (ima model)
   - [ ] top puca i rusi zidine (vidi ball-trowing)
+    https://rawgit.com/mmmovania/Physijs_Tutorials/master/Shooting.html
 - [ ] Steampunk vozilo
   - [ ] dodati fiziku na steam tenk ili lokomotivu (vidi vozilo-physijs)
   - [ ] da gazi i gura prepreke
