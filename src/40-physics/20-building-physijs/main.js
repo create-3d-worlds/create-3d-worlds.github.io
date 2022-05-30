@@ -2,9 +2,7 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import Physijs from '/libs/physi-ecma.js'
 import { camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
-
-Physijs.scripts.worker = '/libs/physijs_worker.js'
-Physijs.scripts.ammo = 'ammo.js'
+import { createFloor } from '/utils/physics.js'
 
 const blocks = []
 
@@ -17,26 +15,13 @@ scene.setGravity(new THREE.Vector3(0, -30, 0))
 
 dirLight({ scene, position: [20, 30, -5], intensity: 1.75 })
 
-// table
-
-const tableMaterial = Physijs.createMaterial(
-  new THREE.MeshLambertMaterial({ color: 0xFFFFFF }),
-  .9, // high friction
-  .2 // low restitution
-)
-
 const blockMaterial = Physijs.createMaterial(
   new THREE.MeshLambertMaterial({ color: 0xff0000 }),
   .4, // medium friction
   .4 // medium restitution
 )
 
-const table = new Physijs.BoxMesh(
-  new THREE.BoxGeometry(50, 1, 50),
-  tableMaterial,
-  0, // mass
-  { restitution: .2, friction: .8 }
-)
+const table = createFloor()
 scene.add(table)
 
 // tower

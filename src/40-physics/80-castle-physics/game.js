@@ -16,7 +16,7 @@ scene.setGravity(new THREE.Vector3(0, -30, 0))
 camera.position.set(55, 50, 250)
 createOrbitControls()
 
-scene.add(createRigidGround(500))
+scene.add(createGround(500))
 
 void function createBuilding(y) {
   if (y > spacing * floors) return
@@ -27,7 +27,7 @@ void function createBuilding(y) {
 
 /** FUNCTIONS **/
 
-function createRigidGround(size = 150) {
+function createGround(size = 150) {
   const groundFriction = 1
   const groundBounciness = 0
   const groundMaterial = Physijs.createMaterial(
@@ -41,7 +41,7 @@ function createRigidGround(size = 150) {
   return ground
 }
 
-function createRigidBox(x = 0, y = 0, z = 0, size = 10) {
+function createBox(x = 0, y = 0, z = 0, size = 10) {
   const boxFriction = 1
   const boxBounciness = 0
   const boxMaterial = Physijs.createMaterial(
@@ -57,7 +57,7 @@ function createRigidBox(x = 0, y = 0, z = 0, size = 10) {
 
 function createFloor(y, i) {
   if (i > d + 1) return
-  ;[[i, y, 0], [i, y, d], [0, y, i], [d, y, i]].map(coord => scene.add(createRigidBox(...coord)))
+  ;[[i, y, 0], [i, y, d], [0, y, i], [d, y, i]].map(coord => scene.add(createBox(...coord)))
   createFloor(y, i + spacing)
 }
 

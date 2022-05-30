@@ -6,26 +6,38 @@ Physijs.scripts.ammo = 'ammo.js' // relativ to the worker
 
 /* BOX */
 
-export function createRigidBox({ size = 1, friction = 0.5, bounciness = 0.6 } = {}) {
-  const boxMaterial = Physijs.createMaterial(
+export function createBox({ size = 1, friction = 0.5, bounciness = 0.6 } = {}) {
+  const material = Physijs.createMaterial(
     new THREE.MeshNormalMaterial(), friction, bounciness
   )
-  const box = new Physijs.BoxMesh(
+  const mesh = new Physijs.BoxMesh(
     new THREE.BoxGeometry(size, size, size),
-    boxMaterial
+    material
   )
-  return box
+  return mesh
 }
 
 /* FLOOR */
 
-export function createRigidGround({ size = 150, color = 0x666666, friction = 0.8, bounciness = 0.4 } = {}) {
-  const groundMaterial = Physijs.createMaterial(
+export function createGround({ size = 150, color = 0x666666, friction = .8, bounciness = .4 } = {}) {
+  const material = Physijs.createMaterial(
     new THREE.MeshBasicMaterial({ color }), friction, bounciness
   )
-  const ground = new Physijs.BoxMesh(
-    new THREE.PlaneGeometry(size, size), groundMaterial, 0
+  const mesh = new Physijs.BoxMesh(
+    new THREE.PlaneGeometry(size, size), material, 0, // mass
   )
-  ground.rotateX(- Math.PI / 2)
-  return ground
+  mesh.rotateX(- Math.PI / 2)
+  return mesh
+}
+
+/* hight friction = .9, low bounciness = .2 */
+export function createFloor({ width = 50, height = 1, depth = 50, color = 0x666666, friction = .9, bounciness = .2 } = {}) {
+  const material = Physijs.createMaterial(
+    new THREE.MeshLambertMaterial({ color }), friction, bounciness
+  )
+  const mesh = new Physijs.BoxMesh(
+    new THREE.BoxGeometry(width, height, depth), material, 0, // mass
+    { restitution: .2, friction: .8 }
+  )
+  return mesh
 }

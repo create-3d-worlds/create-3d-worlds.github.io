@@ -24,9 +24,7 @@ const keysActions = {
 }
 
 camera.position.x = -4.84
-camera.position.y = 4.39
 camera.position.z = -35.11
-camera.lookAt(new THREE.Vector3(0.33, -0.40, 0.85))
 const controls = createOrbitControls()
 
 const ambientLight = new THREE.AmbientLight(0x404040)
@@ -52,20 +50,13 @@ const physicsWorld = new AMMO.btDiscreteDynamicsWorld(dispatcher, broadphase, so
 physicsWorld.setGravity(new AMMO.btVector3(0, -9.82, 0))
 
 function keyup(e) {
-  if (keysActions[e.code]) {
+  if (keysActions[e.code])
     actions[keysActions[e.code]] = false
-    e.preventDefault()
-    e.stopPropagation()
-    return false
-  }
 }
+
 function keydown(e) {
-  if (keysActions[e.code]) {
+  if (keysActions[e.code])
     actions[keysActions[e.code]] = true
-    e.preventDefault()
-    e.stopPropagation()
-    return false
-  }
 }
 
 function createBox(pos, quat, w, l, h, mass, friction) {
