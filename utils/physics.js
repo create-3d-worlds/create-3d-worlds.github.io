@@ -19,6 +19,7 @@ export function createBox({ size = 1, friction = 0.5, bounciness = 0.6 } = {}) {
 
 /* FLOOR */
 
+/* hight friction = .9, low bounciness = .2 */
 export function createGround({ size = 150, color = 0x666666, friction = .8, bounciness = .4 } = {}) {
   const material = Physijs.createMaterial(
     new THREE.MeshBasicMaterial({ color }), friction, bounciness
@@ -27,17 +28,5 @@ export function createGround({ size = 150, color = 0x666666, friction = .8, boun
     new THREE.PlaneGeometry(size, size), material, 0, // mass
   )
   mesh.rotateX(- Math.PI / 2)
-  return mesh
-}
-
-/* hight friction = .9, low bounciness = .2 */
-export function createFloor({ width = 50, height = 1, depth = 50, color = 0x666666, friction = .9, bounciness = .2 } = {}) {
-  const material = Physijs.createMaterial(
-    new THREE.MeshLambertMaterial({ color }), friction, bounciness
-  )
-  const mesh = new Physijs.BoxMesh(
-    new THREE.BoxGeometry(width, height, depth), material, 0, // mass
-    { restitution: .2, friction: .8 }
-  )
   return mesh
 }

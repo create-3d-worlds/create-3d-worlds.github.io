@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import Physijs from '/libs/physi-ecma.js'
 import { camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
-import { createFloor } from '/utils/physics.js'
+import { createGround } from '/utils/physics.js'
 
 const blocks = []
 
@@ -21,7 +21,7 @@ const blockMaterial = Physijs.createMaterial(
   .4 // medium restitution
 )
 
-const table = createFloor()
+const table = createGround({ size: 50 })
 scene.add(table)
 
 // tower
