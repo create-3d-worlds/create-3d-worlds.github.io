@@ -48,7 +48,7 @@ scene.add(physiPlatform)
 const platformMaterialsArray = []
 const platformMaterialColor = new THREE.MeshLambertMaterial({ color: 0x606060 })
 platformMaterialsArray.push(platformMaterialColor)  // (materialindex = 0)
-const platformImage = './images/asphalt_texture.jpg'
+const platformImage = './textures/asphalt_texture.jpg'
 const platformTextureLoader = new THREE.TextureLoader()
 const ptr = 4.5  // platform texture repeat
 platformTextureLoader.load(platformImage, texture => {
@@ -109,7 +109,7 @@ function Bus(platformSide) {  // platformSide: "platformLeft" or "platformRight"
   // /body
   const color = (bus.platformSide == 'platformLeft' ? 'green' : 'red')
   const loader = new GLTFLoader()
-  loader.load(`./gltf/bus_body_${color}.glb`,
+  loader.load(`./models/bus_body_${color}.glb`,
     gltf => {
       const scale = 5.6
       bus.body = gltf.scene.children[0]
@@ -135,7 +135,7 @@ function Bus(platformSide) {  // platformSide: "platformLeft" or "platformRight"
   const wi = 1  // wheel width
   const segments = 50  // wheel cylinder segments (pie slices)
   const busWheelMaterialsArray = []
-  const busWheelImage = './images/bus_wheel_front_uv_fill.png'
+  const busWheelImage = './textures/bus_wheel_front_uv_fill.png'
   const busWheelGeometry = new THREE.CylinderGeometry(fr, br, wi, segments)
 
   // wheel side & back material (color only, no image)
@@ -213,14 +213,14 @@ function configureWheelConstraints(constraint) {
   return constraint
 }
 
-function handleKeyDown(keyEvent) {
+function handleKeyDown(e) {
   // .configureAngularMotor params are:
   //   1) which_motor (numbers matched to axes: 0 = x, 1 = y, 2 = z)
-  //   2) low_limit (lower limit of the motor)
-  //   3) high_limit (upper limit of the motor)
-  //   4) velocity (target velocity)
-  //   5) max_force (maximum force the motor can apply)
-  switch (keyEvent.keyCode) {
+  //   2) low_limit
+  //   3) high_limit
+  //   4) velocity
+  //   5) max_force
+  switch (e.keyCode) {
     // BUS 1
     // pivots wheels for steering
     case 65: case 37:  // "a" key or left arrow key (turn left)
@@ -278,8 +278,8 @@ function handleKeyDown(keyEvent) {
   }
 }
 
-function handleKeyUp(keyEvent) {
-  switch (keyEvent.keyCode) {
+function handleKeyUp(e) {
+  switch (e.keyCode) {
     // BUS 1
     // sets front wheels straight again
     case 65: case 68: case 37: case 39:
