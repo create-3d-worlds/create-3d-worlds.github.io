@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
-import { camera as defaultCamera } from '/utils/scene.js'
+import { DEGREE } from '/utils/constants.js'
 import Physijs from '/libs/physi-ecma.js'
 Physijs.scripts.worker = '/libs/physijs_worker.js'
 Physijs.scripts.ammo = 'ammo.js' // relative to the worker
@@ -78,4 +78,22 @@ export function createCrateWall({ crateSize = 1, rows = 7, columns = 10 } = {}) 
       crates.push(box)
     }
   return crates
+}
+
+export function createDominos({ r = 27, numDominos = 100 } = {}) {
+  const blocks = []
+  let circleOffset = 0
+  for (let i = 0, j = 0; j < numDominos; i += 6 + circleOffset, j++) {
+    circleOffset = 4.5 * (i / 360)
+    const height = 6
+    const block = createBlock({ width: 1, height, depth: 2, color: j % 2 ? 0x000000 : 0xffffff })
+    const x = (r / 1440) * (1440 - i) * Math.cos(i * DEGREE)
+    const z = (r / 1440) * (1440 - i) * Math.sin(i * DEGREE)
+    // the order matters here
+    block.position.set(x, 0, z)
+    block.lookAt(new THREE.Vector3(0, 0, 0)) // orientate towards the center
+    block.position.y = height * .5
+    blocks.push(block)
+  }
+  return blocks
 }
