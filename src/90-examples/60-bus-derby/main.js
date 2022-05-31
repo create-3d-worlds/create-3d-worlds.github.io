@@ -1,12 +1,8 @@
-import Physijs from '/libs/physi-ecma.js'
-import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, renderer } from '/utils/scene.js'
-import { scene } from '/utils/physics.js'
+import { scene, createGround } from '/utils/physics.js'
 import { ambLight } from '/utils/light.js'
 import { createBus } from './bus.js'
 
-const pf = 4.2  // platform friction
-const pr = 0  // platform restitution
 const backgroundColor = 0xCDD3D6
 
 renderer.setClearColor (backgroundColor, 1)
@@ -14,63 +10,11 @@ camera.position.set(0, 50, 100)
 
 ambLight({ scene, intensity: 0.85 })
 
-// /platform
-const platformDiameter = 170
-const platformRadiusTop = platformDiameter * 0.5
-const platformRadiusBottom = platformDiameter * 0.5 + 0.2
-const platformHeight = 1
-const platformSegments = 85
-
-const platformGeometry = new THREE.CylinderGeometry(
-  platformRadiusTop,
-  platformRadiusBottom,
-  platformHeight,
-  platformSegments
-)
-
-// physi.js platform (invisible; provides structure) (separating three.js & physi.js improves peformance)
-const physiPlatformMaterial = Physijs.createMaterial(
-  new THREE.MeshLambertMaterial(), pf, pr
-)
-const physiPlatform = new Physijs.CylinderMesh(platformGeometry, physiPlatformMaterial, 0)
-physiPlatform.name = 'physicalPlatform'
-physiPlatform.position.set(0, -0.5, 0)
-physiPlatform.visible = false
-scene.add(physiPlatform)
-
-// three.js platform (visible; provides image) (separating three.js & physi.js improves peformance)
-const platformMaterialsArray = []
-const platformMaterialColor = new THREE.MeshLambertMaterial({ color: 0x606060 })
-platformMaterialsArray.push(platformMaterialColor)  // (materialindex = 0)
-const platformImage = './textures/asphalt_texture.jpg'
-const platformTextureLoader = new THREE.TextureLoader()
-const ptr = 4.5  // platform texture repeat
-platformTextureLoader.load(platformImage, texture => {
-  // shrinks & repeats the image for the designate number of times
-  texture.wrapS = texture.wrapT = THREE.RepeatWrapping
-  texture.repeat.set(ptr, ptr)
-  // sets textue
-  const platformMaterialImage = new THREE.MeshLambertMaterial({ map: texture })
-  platformMaterialsArray.push(platformMaterialImage)  // (materials index = 1)
-})
-const faceCount = platformGeometry.faces.length
-for (let i = 0; i < faceCount; i++)
-  if (i < platformSegments * 2)   // (cylinder side)
-    platformGeometry.faces[i].materialIndex = 0
-  else if (i < platformSegments * 3)   // (cylinder top)
-    platformGeometry.faces[i].materialIndex = 1
-  else   // (cylinder bottom)
-    platformGeometry.faces[i].materialIndex = 0
-
-const visiblePlatform = new THREE.Mesh(platformGeometry, platformMaterialsArray)
-visiblePlatform.name = 'visiblePlatform'
-visiblePlatform.position.set(0, -0.5, 0)
-visiblePlatform.rotation.y = 0.4
-visiblePlatform.receiveShadow = true
-scene.add(visiblePlatform)
+// TODO: okruglo tlo, ponavljanje texture
+const ground = createGround({ friction: 4.2, bounciness: 0, file: 'asphalt.jpg' })
+scene.add(ground)
 
 const greenBus = createBus('green')
-
 const redBus = createBus('red')
 
 /* EVENTS */
