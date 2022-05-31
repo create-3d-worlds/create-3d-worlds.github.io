@@ -4,7 +4,7 @@ import {
   getMapCell, createHealth, createEnemy, isWall, createBullet, distance, isHit, randomXZ, moveBullet, remove, hitEnemy, moveEnemy
 } from './utils.js'
 import { UNITSIZE, LOOKSPEED, MOVESPEED, NUM_AI, INITIAL_HEALTH, HEALTH_REFILL_TIME, mapWidth } from './constants.js'
-import { translateMouse } from '/utils/helpers.js'
+import { normalizeMouse } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
 import { createFloor } from '/utils/ground.js'
 import { nemesis } from '/data/maps.js'
@@ -143,7 +143,7 @@ function gameLoop() {
 /* EVENTS */
 
 document.addEventListener('mousemove', e => {
-  mouse = translateMouse(e)
+  mouse = normalizeMouse(e)
 })
 
 document.addEventListener('click', e => {

@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import Physijs from '/libs/physi-ecma.js'
 import { renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
-import { translateMouse } from '/utils/helpers.js'
+import { normalizeMouse } from '/utils/helpers.js'
 import { ambLight, dirLight } from '/utils/light.js'
 import { createGround, createBall } from '/utils/physics.js'
 
@@ -10,8 +10,6 @@ scene.setGravity({ x: 0, y: -10, z: 0 })
 
 ambLight({ scene, color: 0x707070 })
 dirLight({ scene })
-
-const raycaster = new THREE.Raycaster()
 
 camera.position.z = 20
 camera.position.y = 5
@@ -39,18 +37,17 @@ for (let j = 1; j <= 7; ++j)
 const floor = createGround({ size: 20 })
 scene.add(floor)
 
-const throwBall = ({ target, scalar = 60 } = {}) => {
-  raycaster.setFromCamera(target, camera)
-
+const throwBall = ({ coords, scalar = 60 } = {}) => {
   const ball = createBall()
-  ball.position.copy(raycaster.ray.direction)
-  ball.position.add(raycaster.ray.origin)
+  const raycaster = new THREE.Raycaster()
+  raycaster.setFromCamera(coords, camera)
+  ball.position.copy(raycaster.ray.direction).add(raycaster.ray.origin)
+
   scene.add(ball)
 
-  const pos = new THREE.Vector3()
-  pos.copy(raycaster.ray.direction)
-  pos.multiplyScalar(scalar)
-  ball.setLinearVelocity(new THREE.Vector3(pos.x, pos.y, pos.z))
+  const velocity = new THREE.Vector3()
+  velocity.copy(raycaster.ray.direction).multiplyScalar(scalar)
+  ball.setLinearVelocity(velocity)
 }
 
 /* LOOP */
@@ -65,6 +62,6 @@ void function animate() {
 }()
 
 window.addEventListener('mousedown', e => {
-  const target = translateMouse(e)
-  throwBall({ target })
+  const coords = normalizeMouse(e)
+  throwBall({ coords })
 })
