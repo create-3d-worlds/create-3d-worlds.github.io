@@ -1,4 +1,5 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
+import { ImprovedNoise } from '/node_modules/three119/examples/jsm/math/ImprovedNoise.js'
 import { DEGREE } from '/utils/constants.js'
 import Physijs from '/libs/physi-ecma.js'
 Physijs.scripts.worker = '/libs/physijs_worker.js'
@@ -42,9 +43,9 @@ export const createCrate = (
 
 /* BALL */
 
-export function createBall({ r = .4, mass = 35 } = {}) {
-  const material = new THREE.MeshLambertMaterial({ color: 0x202020 })
-  const geometry = new THREE.SphereGeometry(r, 10, 10)
+export function createBall({ r = .4, mass = 35, color = 0xffffff, widthSegments = 10, heightSegments = 10 } = {}) {
+  const material = new THREE.MeshLambertMaterial({ color })
+  const geometry = new THREE.SphereGeometry(r, widthSegments, heightSegments)
   const mesh = new Physijs.SphereMesh(geometry, material, mass)
   mesh.castShadow = true
   return mesh
@@ -96,4 +97,24 @@ export function createDominos({ r = 27, numDominos = 100 } = {}) {
     blocks.push(block)
   }
   return blocks
+}
+
+/* TERRAIN */
+
+export function createTerrain(
+  { size = 200, friction = .3, bounciness = .8, color = 0x009900, rotationY = 0 } = {}
+) {
+  const perlin = new ImprovedNoise()
+  const physiMaterial = Physijs.createMaterial(new THREE.MeshStandardMaterial({ color }), friction, bounciness)
+  const geometry = new THREE.PlaneGeometry(size, size, 100, 100)
+  geometry.vertices.forEach(vertex => {
+    const value = perlin.noise(vertex.x / 12, vertex.y / 12, 0)
+    vertex.z = value * 13
+  })
+  geometry.computeFaceNormals()
+  geometry.computeVertexNormals()
+  const ground = new Physijs.HeightfieldMesh(geometry, physiMaterial, 0, 100, 100)
+  ground.rotation.x = -Math.PI * .5
+  ground.rotation.y = rotationY
+  return ground
 }

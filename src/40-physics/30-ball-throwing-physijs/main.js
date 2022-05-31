@@ -20,7 +20,7 @@ const crates = createCrateWall()
 crates.forEach(crate => scene.add(crate))
 
 const throwBall = ({ coords, scalar = 60 } = {}) => {
-  const ball = createBall()
+  const ball = createBall({ color: 0x202020 })
   const raycaster = new THREE.Raycaster()
   raycaster.setFromCamera(coords, camera)
   ball.position
