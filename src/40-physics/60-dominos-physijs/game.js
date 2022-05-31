@@ -5,8 +5,8 @@ Physijs.scripts.ammo = './ammo.js'
 import { renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
 import { DEGREE } from '/utils/constants.js'
+import { createBlock, createGround } from '/utils/physics.js'
 
-const blocks = []
 const numDominos = 1000
 
 const scene = new Physijs.Scene
@@ -16,43 +16,30 @@ createOrbitControls()
 camera.position.set(10, 10, 50)
 initLights({ scene })
 
-createGround()
-addBlocks()
+const ground = createGround({ size: 100, file: 'wood_1024.png' })
+scene.add(ground)
+const blocks = createDominos()
+blocks.forEach(block => scene.add(block))
 
 /* FUNCTIONS */
 
-function addBlocks() {
-  const colors = [0x000000, 0xffffff]
+function createDominos() {
+  const blocks = []
   const r = 27
   let circleOffset = 0
   let j = 0
   for (let i = 0; i < numDominos; i += 6 + circleOffset) {
     circleOffset = 4.5 * (i / 360)
+    const block = createBlock({ width: 1, height: 6, depth: 2, color: ++j % 2 ? 0x000000 : 0xffffff })
     const x = (r / 1440) * (1440 - i) * Math.cos(i * DEGREE)
     const z = (r / 1440) * (1440 - i) * Math.sin(i * DEGREE)
-    const y = 0
-    const color = colors[++j % colors.length]
-    const blockGeom = new THREE.BoxGeometry(1, 6, 2)
-    const block = new Physijs.BoxMesh(blockGeom, Physijs.createMaterial(new THREE.MeshStandardMaterial({
-      color
-    })))
-    block.position.set(x, y, z)
-    block.lookAt(scene.position)
+    // redosled naredna tri koraka je bitan
+    block.position.set(x, 0, z)
+    block.lookAt(new THREE.Vector3(0, 0, 0)) // orientate towards the center
     block.position.y = 3.5
     blocks.push(block)
-    scene.add(block)
   }
-}
-
-function createGround() {
-  const loader = new THREE.TextureLoader()
-  const ground_material = Physijs.createMaterial(
-    new THREE.MeshStandardMaterial({
-      map: loader.load('/assets/textures/wood_1024x1024.png')
-    }),
-    .9, .3)
-  const ground = new Physijs.BoxMesh(new THREE.BoxGeometry(60, 1, 60), ground_material, 0)
-  scene.add(ground)
+  return blocks
 }
 
 /* LOOP */

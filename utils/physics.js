@@ -8,12 +8,12 @@ const textureLoader = new THREE.TextureLoader()
 
 /* FLOOR */
 
-export function createGround({ size = 150, color = 0x666666, friction = .8, bounciness = .4 } = {}) {
-  const material = Physijs.createMaterial(
-    new THREE.MeshPhongMaterial({ color }), friction, bounciness
-  )
+export function createGround({ size = 150, color = 0x666666, friction = .8, bounciness = .4, file } = {}) {
+  const material = new THREE.MeshPhongMaterial({ color })
+  if (file) material.map = textureLoader.load(`/assets/textures/${file}`)
+  const physiMaterial = Physijs.createMaterial(material, friction, bounciness)
   const mesh = new Physijs.BoxMesh(
-    new THREE.PlaneGeometry(size, size), material, 0, // mass
+    new THREE.PlaneGeometry(size, size), physiMaterial, 0, // mass
   )
   mesh.receiveShadow = true
   mesh.rotateX(- Math.PI / 2)
@@ -52,11 +52,11 @@ export function createBall({ r = .4, mass = 35 } = {}) {
 
 /* STRUCTURES */
 
-export function createBlockTower({ block_height = 1, block_offset = 2, rows = 16 } = {}) {
+export function createBlockTower({ block_height = 1, block_offset = 2, rows = 16, color } = {}) {
   const blocks = []
   for (let i = 0; i < rows; i++)
     for (let j = 0; j < 3; j++) {
-      const block = createBlock({ height: block_height })
+      const block = createBlock({ height: block_height, color })
       block.position.y = block_height / 2 + block_height * i
       if (i % 2 === 0) {
         block.rotation.y = Math.PI * .5

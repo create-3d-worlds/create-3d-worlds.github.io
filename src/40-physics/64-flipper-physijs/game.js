@@ -48,7 +48,7 @@ function flipDown() {
 }
 
 function createGroundAndWalls() {
-  const ground_material = Physijs.createMaterial(new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('/assets/textures/wood_1024x1024.png') }), 0.9, 0.7)
+  const ground_material = Physijs.createMaterial(new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('/assets/textures/wood_1024.png') }), 0.9, 0.7)
   const ground = new Physijs.BoxMesh(new THREE.BoxGeometry(50, 1, 80), ground_material, 0)
   scene.add(ground)
   const wall_material = Physijs.createMaterial(new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.1 }), 0.9, 0.7)
