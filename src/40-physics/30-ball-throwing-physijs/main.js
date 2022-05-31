@@ -1,25 +1,18 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import Physijs from '/libs/physi-ecma.js'
-Physijs.scripts.worker = '/libs/physijs_worker.js'
-Physijs.scripts.ammo = './ammo.js'
-
 import { renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
-import {translateMouse} from '/utils/helpers.js'
+import { translateMouse } from '/utils/helpers.js'
+import { ambLight, dirLight } from '/utils/light.js'
+import { createGround, createBall } from '/utils/physics.js'
 
 const scene = new Physijs.Scene
-scene.setGravity(new THREE.Vector3(0, -10, 0))
+scene.setGravity({ x: 0, y: -10, z: 0 })
 
-const ambientLight = new THREE.AmbientLight(0x707070)
-scene.add(ambientLight)
-
-const light = new THREE.DirectionalLight(0xffffff, 1)
-light.position.set(-10, 18, 5)
-light.castShadow = true
-scene.add(light)
+ambLight({ scene, color: 0x707070 })
+dirLight({ scene })
 
 const raycaster = new THREE.Raycaster()
 
-const ballMaterial = new THREE.MeshPhongMaterial({ color: 0x202020 })
 const pos = new THREE.Vector3()
 
 camera.position.z = 20
@@ -29,47 +22,32 @@ const controls = createOrbitControls()
 
 const textureLoader = new THREE.TextureLoader()
 
-const mat = new THREE.MeshPhongMaterial({ color: 0xffffff })
-mat.map = textureLoader.load('/assets/textures/crate.gif')
-const geom = new THREE.CubeGeometry(1, 1, 1)
-let y = 1
-for (let j = 1; j <= 7; ++j) {
-  for (let i = -5; i <= 5; ++i) {
-    const box = new Physijs.BoxMesh(geom, mat)
-    box.castShadow = true
-    box.position.x = i
-    box.position.y = y + 0.5
-    scene.add(box)
-  }
-  y++
+function createCrate() {
+  const mat = new THREE.MeshPhongMaterial({ color: 0xffffff })
+  mat.map = textureLoader.load('/assets/textures/crate.gif')
+  const geom = new THREE.CubeGeometry(1, 1, 1)
+  const box = new Physijs.BoxMesh(geom, mat)
+  box.castShadow = true
+  return box
 }
 
-const floor = new Physijs.BoxMesh(
-  new THREE.CubeGeometry(20, 0.1, 20),
-  new THREE.MeshPhongMaterial({ color: 0x666666 }),
-  0 // mass
-)
-floor.receiveShadow = true
-floor.position.set(0, 0, 0)
+for (let j = 1; j <= 7; ++j)
+  for (let i = -5; i <= 5; ++i) {
+    const box = createCrate()
+    box.position.set(i, j, 0)
+    scene.add(box)
+  }
+
+const floor = createGround({ size: 20 })
 scene.add(floor)
 
-function onMouseDown(event) {
-  const mouseCoords = translateMouse(event)
-  raycaster.setFromCamera(mouseCoords, camera)
+function onMouseDown(e) {
+  const mouse = translateMouse(e)
+  raycaster.setFromCamera(mouse, camera)
 
-  const ballMass = 35
-  const ballRadius = 0.4
-  const ball = new Physijs.SphereMesh(
-    new THREE.SphereGeometry(ballRadius, 10, 10),
-    ballMaterial,
-    ballMass
-  )
-
-  ball.castShadow = true
-
+  const ball = createBall()
   ball.position.copy(raycaster.ray.direction)
   ball.position.add(raycaster.ray.origin)
-
   scene.add(ball)
 
   pos.copy(raycaster.ray.direction)
