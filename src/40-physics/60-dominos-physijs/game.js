@@ -31,12 +31,12 @@ function addBlocks() {
     const x = (r / 1440) * (1440 - i) * Math.cos(i * DEGREE)
     const z = (r / 1440) * (1440 - i) * Math.sin(i * DEGREE)
     const y = 0
-    const point = new THREE.Vector3(x, y, z)
+    const color = colors[++j % colors.length]
     const blockGeom = new THREE.BoxGeometry(1, 6, 2)
     const block = new Physijs.BoxMesh(blockGeom, Physijs.createMaterial(new THREE.MeshStandardMaterial({
-      color: colors[++j % colors.length]
+      color
     })))
-    block.position.copy(point)
+    block.position.set(x, y, z)
     block.lookAt(scene.position)
     block.position.y = 3.5
     blocks.push(block)

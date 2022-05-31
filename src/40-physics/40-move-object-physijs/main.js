@@ -48,27 +48,26 @@ scene.add(light)
 
 document.addEventListener('keydown', event => {
   const key = event.keyCode
-  const movement = new THREE.Vector3 (0.0)
+  const movement = new THREE.Vector3(0, 0, 0)
   switch (key) {
     case 87: { // w key pressed
       movement.z = -1 * forceAmount
-    } break
-
+      break
+    }
     case 83: { // s key pressed
       movement.z = 1 * forceAmount
-    } break
-
+      break
+    }
     case 65: { // a key pressed
       movement.x = -1 * forceAmount
-    } break
-
+      break
+    }
     case 68: { // d key pressed
       movement.x = 1 * forceAmount
-    } break
+      break
+    }
   }
-
-  ball.applyForce (movement, new THREE.Vector3(0, 1, 0))
-
+  ball.applyForce(movement, new THREE.Vector3(0, 1, 0))
 })
 
 function addBall(pos) {

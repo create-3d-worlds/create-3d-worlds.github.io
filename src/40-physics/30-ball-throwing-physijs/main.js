@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import Physijs from '/libs/physi-ecma.js'
-import { renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
+import { renderer, camera } from '/utils/scene.js'
 import { normalizeMouse } from '/utils/helpers.js'
 import { ambLight, dirLight } from '/utils/light.js'
 import { createGround, createBall, createCrateWall } from '/utils/physics.js'
@@ -11,10 +11,7 @@ scene.setGravity({ x: 0, y: -10, z: 0 })
 ambLight({ scene, color: 0x707070 })
 dirLight({ scene })
 
-camera.position.z = 20
-camera.position.y = 5
-
-const controls = createOrbitControls()
+camera.position.z = 15
 
 const floor = createGround({ size: 50 })
 scene.add(floor)
@@ -26,12 +23,16 @@ const throwBall = ({ coords, scalar = 60 } = {}) => {
   const ball = createBall()
   const raycaster = new THREE.Raycaster()
   raycaster.setFromCamera(coords, camera)
-  ball.position.copy(raycaster.ray.direction).add(raycaster.ray.origin)
+  ball.position
+    .copy(raycaster.ray.direction)
+    .add(raycaster.ray.origin)
 
   scene.add(ball)
 
   const velocity = new THREE.Vector3()
-  velocity.copy(raycaster.ray.direction).multiplyScalar(scalar)
+  velocity
+    .copy(raycaster.ray.direction)
+    .multiplyScalar(scalar)
   ball.setLinearVelocity(velocity)
 }
 
@@ -39,8 +40,6 @@ const throwBall = ({ coords, scalar = 60 } = {}) => {
 
 void function animate() {
   requestAnimationFrame(animate)
-  const deltaTime = clock.getDelta()
-  controls.update(deltaTime)
   scene.simulate()
   camera.lookAt(scene.position)
   renderer.render(scene, camera)
