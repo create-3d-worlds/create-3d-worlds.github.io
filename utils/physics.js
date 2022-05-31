@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
+import { camera as defaultCamera } from '/utils/scene.js'
 import Physijs from '/libs/physi-ecma.js'
-
 Physijs.scripts.worker = '/libs/physijs_worker.js'
 Physijs.scripts.ammo = 'ammo.js' // relative to the worker
 
@@ -61,3 +61,5 @@ export function createBlockTower({ block_height = 1, block_offset = 2, rows = 16
     }
   return blocks
 }
+
+/* ACTIONS */

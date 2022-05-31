@@ -13,8 +13,6 @@ dirLight({ scene })
 
 const raycaster = new THREE.Raycaster()
 
-const pos = new THREE.Vector3()
-
 camera.position.z = 20
 camera.position.y = 5
 
@@ -41,17 +39,17 @@ for (let j = 1; j <= 7; ++j)
 const floor = createGround({ size: 20 })
 scene.add(floor)
 
-function onMouseDown(e) {
-  const mouse = translateMouse(e)
-  raycaster.setFromCamera(mouse, camera)
+const throwBall = ({ target, scalar = 60 } = {}) => {
+  raycaster.setFromCamera(target, camera)
 
   const ball = createBall()
   ball.position.copy(raycaster.ray.direction)
   ball.position.add(raycaster.ray.origin)
   scene.add(ball)
 
+  const pos = new THREE.Vector3()
   pos.copy(raycaster.ray.direction)
-  pos.multiplyScalar(80)
+  pos.multiplyScalar(scalar)
   ball.setLinearVelocity(new THREE.Vector3(pos.x, pos.y, pos.z))
 }
 
@@ -66,4 +64,7 @@ void function animate() {
   renderer.render(scene, camera)
 }()
 
-window.addEventListener('mousedown', onMouseDown)
+window.addEventListener('mousedown', e => {
+  const target = translateMouse(e)
+  throwBall({ target })
+})
