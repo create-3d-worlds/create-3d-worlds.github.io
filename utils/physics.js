@@ -9,6 +9,10 @@ const textureLoader = new THREE.TextureLoader()
 
 /* SCENE */
 
+export const scene = new Physijs.Scene()
+scene.setGravity(new THREE.Vector3(0, -10, 0))
+
+// TODO: delete
 export function createScene({ gravity = -10 } = {}) {
   const scene = new Physijs.Scene()
   scene.setGravity(new THREE.Vector3(0, gravity, 0))
