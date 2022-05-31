@@ -1,12 +1,8 @@
-import * as THREE from '/node_modules/three119/build/three.module.js'
-import Physijs from '/libs/physi-ecma.js'
-
 import { renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
-import { createDominos, createGround } from '/utils/physics.js'
+import { createScene, createDominos, createGround } from '/utils/physics.js'
 
-const scene = new Physijs.Scene
-scene.setGravity(new THREE.Vector3(0, -50, 0))
+const scene = createScene()
 
 createOrbitControls()
 camera.position.set(10, 10, 50)

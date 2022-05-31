@@ -1,17 +1,14 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import Physijs from '/libs/physi-ecma.js'
 import { camera, renderer, createOrbitControls } from '/utils/scene.js'
-
-Physijs.scripts.worker = '/libs/physijs_worker.js'
-Physijs.scripts.ammo = 'ammo.js'
+import { createScene } from '/utils/physics.js'
 
 const bricks = 10
 const floors = 7
 const spacing = 10
 const d = spacing * bricks
 
-const scene = new Physijs.Scene()
-scene.setGravity(new THREE.Vector3(0, -30, 0))
+const scene = createScene()
 
 camera.position.set(55, 50, 250)
 createOrbitControls()

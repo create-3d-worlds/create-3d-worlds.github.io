@@ -1,14 +1,12 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
-import Physijs from '/libs/physi-ecma.js'
 import { camera, renderer } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
-import { createGround, createBlockTower } from '/utils/physics.js'
+import { createScene, createGround, createBlockTower } from '/utils/physics.js'
 
 camera.position.set(-5, 10, 15)
 camera.lookAt(new THREE.Vector3(0, 10, 0))
 
-const scene = new Physijs.Scene()
-scene.setGravity(new THREE.Vector3(0, -30, 0))
+const scene = createScene()
 
 dirLight({ scene, intensity: 1.75 })
 

@@ -1,12 +1,10 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
-import Physijs from '/libs/physi-ecma.js'
 import { renderer, camera } from '/utils/scene.js'
 import { normalizeMouse } from '/utils/helpers.js'
 import { ambLight, dirLight } from '/utils/light.js'
-import { createGround, createBall, createCrateWall } from '/utils/physics.js'
+import { createScene, createGround, createBall, createCrateWall } from '/utils/physics.js'
 
-const scene = new Physijs.Scene
-scene.setGravity({ x: 0, y: -10, z: 0 })
+const scene = createScene()
 
 ambLight({ scene, color: 0x707070 })
 dirLight({ scene })

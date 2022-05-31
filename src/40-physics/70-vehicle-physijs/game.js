@@ -3,12 +3,10 @@ import Physijs from '/libs/physi-ecma.js'
 import { renderer, camera } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
 import { RIGHT_ANGLE } from '/utils/constants.js'
+import { createScene } from '/utils/physics.js'
 
-Physijs.scripts.worker = 'libs/physijs_worker.js'
-Physijs.scripts.ammo = 'ammo.js'
+const scene = createScene()
 
-const scene = new Physijs.Scene()
-scene.setGravity(new THREE.Vector3(0, -30, 0))
 scene.addEventListener('update', () => scene.simulate(undefined, 2))
 
 camera.position.set(30, 25, 30)

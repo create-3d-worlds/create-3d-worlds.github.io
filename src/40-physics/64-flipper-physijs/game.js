@@ -2,18 +2,16 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import Physijs from '/libs/physi-ecma.js'
 import { renderer, camera } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
-
-Physijs.scripts.worker = '/libs/physijs_worker.js'
-Physijs.scripts.ammo = './ammo.js'
+import { createScene } from '/utils/physics.js'
 
 camera.position.set(0, 30, 80)
-const scene = new Physijs.Scene({ reportSize: 10, fixedTimeStep: 1 / 60 })
+const scene = createScene()
 scene.setGravity(new THREE.Vector3(0, -100, 20))
 
 initLights({ scene })
 
-const flip_material = Physijs.createMaterial(new THREE.MeshStandardMaterial({ color: 0x44ff44 }), 0,  0)
-const slider_material = Physijs.createMaterial(new THREE.MeshStandardMaterial({ color: 0x4444ff }), 0,  0)
+const flip_material = Physijs.createMaterial(new THREE.MeshStandardMaterial({ color: 0x44ff44 }), 0, 0)
+const slider_material = Physijs.createMaterial(new THREE.MeshStandardMaterial({ color: 0x4444ff }), 0, 0)
 
 const flipperLeftConstraint = createLeftFlipper(flip_material)
 const flipperRightConstraint = createRightFlipper(flip_material)
@@ -52,15 +50,15 @@ function createGroundAndWalls() {
   const ground = new Physijs.BoxMesh(new THREE.BoxGeometry(50, 1, 80), ground_material, 0)
   scene.add(ground)
   const wall_material = Physijs.createMaterial(new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.1 }), 0.9, 0.7)
-  const wall1 = new  Physijs.BoxMesh(new THREE.BoxGeometry(1, 10, 80), wall_material, 0)
+  const wall1 = new Physijs.BoxMesh(new THREE.BoxGeometry(1, 10, 80), wall_material, 0)
   wall1.position.x = -25
   wall1.position.y = 5
   scene.add(wall1)
-  const wall2 = new  Physijs.BoxMesh(new THREE.BoxGeometry(1, 10, 80), wall_material, 0)
+  const wall2 = new Physijs.BoxMesh(new THREE.BoxGeometry(1, 10, 80), wall_material, 0)
   wall2.position.x = 25
   wall2.position.y = 5
   scene.add(wall2)
-  const wall3 = new  Physijs.BoxMesh(new THREE.BoxGeometry(50, 10, 1), wall_material, 0)
+  const wall3 = new Physijs.BoxMesh(new THREE.BoxGeometry(50, 10, 1), wall_material, 0)
   wall3.position.y = 5
   wall3.position.z = -40
   scene.add(wall3)
