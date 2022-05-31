@@ -3,6 +3,7 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { GLTFLoader } from '/node_modules/three119/examples/jsm/loaders/GLTFLoader.js'
 import { camera, renderer } from '/utils/scene.js'
 import { createScene } from '/utils/physics.js'
+import { ambLight } from '/utils/light.js'
 
 const bwf = 3.5  // bus wheel friction
 const bwr = 0  // bus wheel restitution
@@ -17,19 +18,7 @@ const scene = createScene()
 renderer.setClearColor (backgroundColor, 1)
 camera.position.set(0, 50, 100)
 
-const lightA1 = new THREE.AmbientLight(0xFFFFFF, 0.85)
-scene.add(lightA1)
-const lightD1 = new THREE.DirectionalLight(0xFFFFFF, 0.3)
-lightD1.position.set(-20, 100, 20)
-lightD1.castShadow = true
-scene.add(lightD1)
-
-// /fog
-scene.fog = new THREE.Fog(
-  backgroundColor,
-  camera.position.z + 5,
-  camera.position.z + 200
-)
+ambLight({ scene, intensity: 0.85 })
 
 // /platform
 const platformDiameter = 170
@@ -90,8 +79,7 @@ busArray = []
 busArray.push(new Bus('platformLeft'))
 busArray.push(new Bus('platformRight'))
 
-// /---Buses---///
-function Bus(platformSide) {  // platformSide should be "platformLeft" or "platformRight"
+function Bus(platformSide) {  // platformSide: "platformLeft" or "platformRight"
   const bus = this
   bus.platformSide = platformSide
   bus.score = 0
@@ -121,8 +109,7 @@ function Bus(platformSide) {  // platformSide should be "platformLeft" or "platf
   // /body
   const color = (bus.platformSide == 'platformLeft' ? 'green' : 'red')
   const loader = new GLTFLoader()
-  loader.load(
-    `./gltf/bus_body_${color}.glb`,
+  loader.load(`./gltf/bus_body_${color}.glb`,
     gltf => {
       const scale = 5.6
       bus.body = gltf.scene.children[0]
@@ -227,8 +214,8 @@ function configureWheelConstraints(constraint) {
 }
 
 function handleKeyDown(keyEvent) {
-  // sets wheel motors; .configureAngularMotor params are:
-  //   1) which_motor (as numbers matched to axes: 0 = x, 1 = y, 2 = z)
+  // .configureAngularMotor params are:
+  //   1) which_motor (numbers matched to axes: 0 = x, 1 = y, 2 = z)
   //   2) low_limit (lower limit of the motor)
   //   3) high_limit (upper limit of the motor)
   //   4) velocity (target velocity)
