@@ -23,13 +23,12 @@ function configureWheelConstraints(constraint) {
   return constraint
 }
 
-export default function Bus(platformSide) {  // platformSide: "platformLeft" or "platformRight"
-  const bus = this
-  bus.platformSide = platformSide
+export function createBus(color) {  // "green" or "red"
+  const bus = {}
   bus.score = 0
 
   // /frame
-  const bfp = (bus.platformSide == 'platformLeft' ? { x: -40, y: 3, z: 0 } : { x: 40, y: 3, z: 0 })  // bus frame position
+  const bfp = (color == 'green' ? { x: -40, y: 3, z: 0 } : { x: 40, y: 3, z: 0 })  // bus frame position
   const busFrameGeometry = new THREE.BoxGeometry(33, 4, 5)
   const busFrameMesh = new THREE.MeshStandardMaterial({ color: 0x333333 })
   const busFrameMaterial = Physijs.createMaterial(busFrameMesh, 0.9, 0.9)
@@ -51,7 +50,6 @@ export default function Bus(platformSide) {  // platformSide: "platformLeft" or 
   bus.frame.add(bus.interior)
 
   // /body
-  const color = (bus.platformSide == 'platformLeft' ? 'green' : 'red')
   const loader = new GLTFLoader()
   loader.load(`./models/bus_body_${color}.glb`,
     gltf => {
@@ -67,8 +65,8 @@ export default function Bus(platformSide) {  // platformSide: "platformLeft" or 
     },
   )
 
-  // rotates platformLeft bus 180 degress so facing right bus
-  if (bus.platformSide === 'platformLeft') bus.frame.rotation.y = Math.PI
+  // rotates green bus 180 degress so facing right bus
+  if (color === 'green') bus.frame.rotation.y = Math.PI
 
   // adds all static bus parts to the scene as a single physical object
   scene.add(bus.frame)
@@ -116,7 +114,7 @@ export default function Bus(platformSide) {  // platformSide: "platformLeft" or 
   bus.wheel_br = new Physijs.CylinderMesh(busWheelGeometry, busWheelMaterialsArray, 300)
 
   let frontX, backX
-  if (bus.platformSide === 'platformRight') {
+  if (color === 'red') {
     frontX = bfp.x - 9.5; backX = bfp.x + 9.5
   } else {
     frontX = bfp.x + 9.5; backX = bfp.x - 9.5
@@ -136,4 +134,5 @@ export default function Bus(platformSide) {  // platformSide: "platformLeft" or 
   bus.wheel_fr_constraint = configureWheelConstraints(wheel_fr_constraint)
   bus.wheel_bl_constraint = configureWheelConstraints(wheel_bl_constraint)
   bus.wheel_br_constraint = configureWheelConstraints(wheel_br_constraint)
+  return bus
 }

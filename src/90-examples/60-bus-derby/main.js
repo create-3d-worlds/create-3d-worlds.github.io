@@ -3,7 +3,7 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, renderer } from '/utils/scene.js'
 import { scene } from '/utils/physics.js'
 import { ambLight } from '/utils/light.js'
-import Bus from './Bus.js'
+import { createBus } from './bus.js'
 
 const pf = 4.2  // platform friction
 const pr = 0  // platform restitution
@@ -69,8 +69,11 @@ visiblePlatform.rotation.y = 0.4
 visiblePlatform.receiveShadow = true
 scene.add(visiblePlatform)
 
-const greenBus = new Bus('platformLeft')
-const redBus = new Bus('platformRight')
+const greenBus = createBus('green')
+
+const redBus = createBus('red')
+
+/* EVENTS */
 
 function handleKeyDown(e) {
   // .configureAngularMotor params are:
