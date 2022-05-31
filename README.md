@@ -130,7 +130,6 @@ live-server
 ### Physics
 
 - [x] videti nove primere
-  - [x] uvesti https://pmndrs.github.io/cannon-es/examples/rigid_vehicle
   - [ ] https://github.com/matthewmain/bus_derby
   vozi model http://chandlerprall.github.io/Physijs/examples/vehicle.html
   dodaje silu na predmet https://boytchev.github.io/Physijs/examples/body.html

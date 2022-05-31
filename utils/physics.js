@@ -31,8 +31,8 @@ export function createGround({ size = 150, color = 0x666666, friction = .8, boun
 
 /* BOXES */
 
-export function createBox({ width = 1, height = 1, depth = 1, friction = .5, bounciness = .6, color = 0xdddddd, file } = {}) {
-  const geometry = new THREE.BoxGeometry(width, height, depth)
+export function createBox({ size, width = 1, height = 1, depth = 1, friction = .5, bounciness = .6, color = 0xdddddd, file } = {}) {
+  const geometry = new THREE.BoxGeometry(size || width, size || height, size || depth)
   const material = new THREE.MeshLambertMaterial({ color })
   if (file) material.map = textureLoader.load(`/assets/textures/${file}`)
   const physiMaterial = Physijs.createMaterial(material, friction, bounciness)

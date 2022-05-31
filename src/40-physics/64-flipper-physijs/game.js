@@ -49,7 +49,7 @@ function createGroundAndWalls() {
   const ground_material = Physijs.createMaterial(new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('/assets/textures/wood_1024.png') }), 0.9, 0.7)
   const ground = new Physijs.BoxMesh(new THREE.BoxGeometry(50, 1, 80), ground_material, 0)
   scene.add(ground)
-  const wall_material = Physijs.createMaterial(new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.1 }), 0.9, 0.7)
+  const wall_material = Physijs.createMaterial(new THREE.MeshBasicMaterial({ color: 0x000000 }), 0.9, 0.7)
   const wall1 = new Physijs.BoxMesh(new THREE.BoxGeometry(1, 10, 80), wall_material, 0)
   wall1.position.x = -25
   wall1.position.y = 5
@@ -70,9 +70,7 @@ function createSliderBottom(mat) {
   sliderMesh.position.x = 0
   sliderMesh.position.y = 2
   sliderMesh.position.z = 5
-  // sliderMesh.rotateY(Math.PI / 6)
   scene.add(sliderMesh)
-
   const constraint = new Physijs.SliderConstraint(sliderMesh, new THREE.Vector3(0, 1, 5), new THREE.Vector3(0, 1, 0))
   scene.addConstraint(constraint)
   constraint.setLimits(-18, 18, 0, 0)

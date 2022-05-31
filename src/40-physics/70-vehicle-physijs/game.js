@@ -3,7 +3,7 @@ import Physijs from '/libs/physi-ecma.js'
 import { renderer, camera } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
 import { RIGHT_ANGLE } from '/utils/constants.js'
-import { createScene } from '/utils/physics.js'
+import { createScene, createGround } from '/utils/physics.js'
 
 const scene = createScene()
 
@@ -14,7 +14,7 @@ camera.lookAt(scene.position)
 
 dirLight({ scene, position: [20, 40, -15] })
 
-const ground = createGround()
+const ground = createGround({ friction: 1.5, bounciness: .4, file: 'rocks.jpg' })
 scene.add(ground)
 
 const car = addCar(scene)
@@ -111,23 +111,6 @@ function addCar(scene) {
   return car
 }
 
-function createGround() {
-  const material = Physijs.createMaterial(
-    new THREE.MeshLambertMaterial({ map: new THREE.TextureLoader().load('/assets/textures/rocks.jpg') }),
-    .8, // high friction
-    .4 // low restitution
-  )
-  material.map.wrapS = material.map.wrapT = THREE.RepeatWrapping
-  material.map.repeat.set(3, 3)
-
-  const ground = new Physijs.BoxMesh(
-    new THREE.BoxGeometry(100, 1, 100),
-    material,
-    0 // mass
-  )
-  return ground
-}
-
 /* LOOP */
 
 void function update() {
@@ -137,64 +120,56 @@ void function update() {
 
 /* EVENTS */
 
-document.addEventListener('keydown', ev => {
-  switch (ev.keyCode) {
-    case 37:
-    // Left
+document.addEventListener('keydown', e => {
+  switch (e.code) {
+    case 'ArrowLeft':
       car.wheelFlConstraint.configureAngularMotor(1, -RIGHT_ANGLE, RIGHT_ANGLE, 1, 200)
       car.wheelFrConstraint.configureAngularMotor(1, -RIGHT_ANGLE, RIGHT_ANGLE, 1, 200)
       car.wheelFlConstraint.enableAngularMotor(1)
       car.wheelFrConstraint.enableAngularMotor(1)
       break
 
-    case 39:
-    // Right
+    case 'ArrowRight':
       car.wheelFlConstraint.configureAngularMotor(1, -RIGHT_ANGLE, RIGHT_ANGLE, -1, 200)
       car.wheelFrConstraint.configureAngularMotor(1, -RIGHT_ANGLE, RIGHT_ANGLE, -1, 200)
       car.wheelFlConstraint.enableAngularMotor(1)
       car.wheelFrConstraint.enableAngularMotor(1)
       break
 
-    case 38:
-    // Up
+    case 'ArrowUp':
       car.wheelBlConstraint.configureAngularMotor(2, 1, 0, 5, 2000)
       car.wheelBrConstraint.configureAngularMotor(2, 1, 0, 5, 2000)
       car.wheelBlConstraint.enableAngularMotor(2)
       car.wheelBrConstraint.enableAngularMotor(2)
       break
 
-    case 40:
-    // Down
+    case 'ArrowDown':
       car.wheelBlConstraint.configureAngularMotor(2, 1, 0, -5, 2000)
       car.wheelBrConstraint.configureAngularMotor(2, 1, 0, -5, 2000)
       car.wheelBlConstraint.enableAngularMotor(2)
-      // car.wheelBrConstraint.enableAngularMotor( 2 );
+      car.wheelBrConstraint.enableAngularMotor(2)
       break
   }
 })
 
-document.addEventListener('keyup', ev => {
-  switch (ev.keyCode) {
-    case 37:
-    // Left
+document.addEventListener('keyup', e => {
+  switch (e.code) {
+    case 'ArrowLeft':
       car.wheelFlConstraint.disableAngularMotor(1)
       car.wheelFrConstraint.disableAngularMotor(1)
       break
 
-    case 39:
-    // Right
+    case 'ArrowRight':
       car.wheelFlConstraint.disableAngularMotor(1)
       car.wheelFrConstraint.disableAngularMotor(1)
       break
 
-    case 38:
-    // Up
+    case 'ArrowUp':
       car.wheelBlConstraint.disableAngularMotor(2)
       car.wheelBrConstraint.disableAngularMotor(2)
       break
 
-    case 40:
-    // Down
+    case 'ArrowDown':
       car.wheelBlConstraint.disableAngularMotor(2)
       car.wheelBrConstraint.disableAngularMotor(2)
       break
