@@ -20,15 +20,9 @@ const redBus = createBus('red')
 /* EVENTS */
 
 function handleKeyDown(e) {
-  // .configureAngularMotor params are:
-  //   1) which_motor (numbers matched to axes: 0 = x, 1 = y, 2 = z)
-  //   2) low_limit
-  //   3) high_limit
-  //   4) velocity
-  //   5) max_force
+  // configureAngularMotor(which_motor, low_limit, high_limit, target_velocity, max_force)
+  // (motor numbers matched to axes: 0 = x, 1 = y, 2 = z)
   switch (e.keyCode) {
-    // BUS 1
-    // pivots wheels for steering
     case 65: case 37:  // "a" key or left arrow key (turn left)
       greenBus.wheel_fr_constraint.configureAngularMotor(1, -Math.PI / 4, Math.PI / 4, 10, 200)
       greenBus.wheel_fr_constraint.enableAngularMotor(1)
@@ -41,7 +35,6 @@ function handleKeyDown(e) {
       greenBus.wheel_fl_constraint.configureAngularMotor(1, -Math.PI / 4, Math.PI / 4, -10, 200)
       greenBus.wheel_fl_constraint.enableAngularMotor(1)
       break
-    // rotates wheels for propulsion
     case 87: case 38: // "w" key or up arrow key (forward)
       greenBus.wheel_bl_constraint.configureAngularMotor(2, 1, 0, -30, 50000)
       greenBus.wheel_bl_constraint.enableAngularMotor(2)
@@ -54,8 +47,7 @@ function handleKeyDown(e) {
       greenBus.wheel_br_constraint.configureAngularMotor(2, 1, 0, 20, 3500)
       greenBus.wheel_br_constraint.enableAngularMotor(2)
       break
-    // BUS 2
-    // pivots wheels for steering
+
     case 76:  // "l" key (turn left)
       redBus.wheel_fr_constraint.configureAngularMotor(1, -Math.PI / 4, Math.PI / 4, 10, 200)
       redBus.wheel_fr_constraint.enableAngularMotor(1)
@@ -68,7 +60,6 @@ function handleKeyDown(e) {
       redBus.wheel_fl_constraint.configureAngularMotor(1, -Math.PI / 4, Math.PI / 4, -10, 200)
       redBus.wheel_fl_constraint.enableAngularMotor(1)
       break
-    // rotates wheels for propulsion
     case 80:  // "p" key (forward)
       redBus.wheel_bl_constraint.configureAngularMotor(2, 1, 0, 30, 50000)
       redBus.wheel_bl_constraint.enableAngularMotor(2)
@@ -86,30 +77,25 @@ function handleKeyDown(e) {
 
 function handleKeyUp(e) {
   switch (e.keyCode) {
-    // BUS 1
-    // sets front wheels straight again
     case 65: case 68: case 37: case 39:
       greenBus.wheel_fr_constraint.configureAngularMotor(1, 0, 0, 10, 200)
       greenBus.wheel_fr_constraint.enableAngularMotor(1)
       greenBus.wheel_fl_constraint.configureAngularMotor(1, 0, 0, 10, 200)
       greenBus.wheel_fl_constraint.enableAngularMotor(1)
       break
-    // stops back wheel rotation
     case 87: case 83: case 38: case 40:
       greenBus.wheel_bl_constraint.configureAngularMotor(2, 0, 0, 0, 2000)
       greenBus.wheel_bl_constraint.enableAngularMotor(2)
       greenBus.wheel_br_constraint.configureAngularMotor(2, 0, 0, 0, 2000)
       greenBus.wheel_br_constraint.enableAngularMotor(2)
       break
-    // BUS 2
-    // sets front wheels straight again
+
     case 76: case 222:
       redBus.wheel_fr_constraint.configureAngularMotor(1, 0, 0, 10, 200)
       redBus.wheel_fr_constraint.enableAngularMotor(1)
       redBus.wheel_fl_constraint.configureAngularMotor(1, 0, 0, 10, 200)
       redBus.wheel_fl_constraint.enableAngularMotor(1)
       break
-    // stops back wheel rotation
     case 80: case 186:
       redBus.wheel_bl_constraint.configureAngularMotor(2, 0, 0, 0, 2000)
       redBus.wheel_bl_constraint.enableAngularMotor(2)
