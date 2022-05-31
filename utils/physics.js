@@ -4,6 +4,8 @@ import Physijs from '/libs/physi-ecma.js'
 Physijs.scripts.worker = '/libs/physijs_worker.js'
 Physijs.scripts.ammo = 'ammo.js' // relative to the worker
 
+const textureLoader = new THREE.TextureLoader()
+
 /* FLOOR */
 
 export function createGround({ size = 150, color = 0x666666, friction = .8, bounciness = .4 } = {}) {
@@ -18,26 +20,30 @@ export function createGround({ size = 150, color = 0x666666, friction = .8, boun
   return mesh
 }
 
-/* BOX */
+/* BOXES */
 
-export function createBox({ width = 1, height = 1, depth = 1, friction = .5, bounciness = .6, color = 0xdddddd } = {}) {
+export function createBox({ width = 1, height = 1, depth = 1, friction = .5, bounciness = .6, color = 0xdddddd, file } = {}) {
   const geometry = new THREE.BoxGeometry(width, height, depth)
-  const material = Physijs.createMaterial(
-    new THREE.MeshLambertMaterial({ color }), friction, bounciness
-  )
-  const mesh = new Physijs.BoxMesh(geometry, material)
-  // mesh.receiveShadow = true
+  const material = new THREE.MeshLambertMaterial({ color })
+  if (file) material.map = textureLoader.load(`/assets/textures/${file}`)
+  const physiMaterial = Physijs.createMaterial(material, friction, bounciness)
+  const mesh = new Physijs.BoxMesh(geometry, physiMaterial)
   mesh.castShadow = true
   return mesh
 }
 
-export const createBlock = () =>
-  createBox({ width: 6, height: 1, depth: 1.5, friction: .4, bounciness: .4, color: 0xff0000 })
+export const createBlock = (
+  { width = 6, height = 1, depth = 1.5, friction = .4, bounciness = .4, color = 0xff0000 } = {}
+) => createBox({ width, height, depth, friction, bounciness, color })
+
+export const createCrate = (
+  { size = 1, file = 'crate.gif', friction = .6, bounciness = .4 } = {}
+) => createBox({ width: size, height: size, depth: size, file, friction, bounciness })
 
 /* BALL */
 
 export function createBall({ r = .4, mass = 35 } = {}) {
-  const material = new THREE.MeshPhongMaterial({ color: 0x202020 })
+  const material = new THREE.MeshLambertMaterial({ color: 0x202020 })
   const geometry = new THREE.SphereGeometry(r, 10, 10)
   const mesh = new Physijs.SphereMesh(geometry, material, mass)
   mesh.castShadow = true
@@ -62,4 +68,14 @@ export function createBlockTower({ block_height = 1, block_offset = 2, rows = 16
   return blocks
 }
 
-/* ACTIONS */
+export function createCrateWall({ crateSize = 1, rows = 7, columns = 10 } = {}) {
+  const crates = []
+  const halfColumns = Math.floor(columns / 2)
+  for (let row = 1; row <= rows; ++row)
+    for (let column = -halfColumns; column <= halfColumns; ++column) {
+      const box = createCrate({ size: crateSize })
+      box.position.set(column * crateSize, row * crateSize, 0)
+      crates.push(box)
+    }
+  return crates
+}

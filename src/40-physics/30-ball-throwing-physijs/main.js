@@ -3,7 +3,7 @@ import Physijs from '/libs/physi-ecma.js'
 import { renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { normalizeMouse } from '/utils/helpers.js'
 import { ambLight, dirLight } from '/utils/light.js'
-import { createGround, createBall } from '/utils/physics.js'
+import { createGround, createBall, createCrateWall } from '/utils/physics.js'
 
 const scene = new Physijs.Scene
 scene.setGravity({ x: 0, y: -10, z: 0 })
@@ -16,26 +16,11 @@ camera.position.y = 5
 
 const controls = createOrbitControls()
 
-const textureLoader = new THREE.TextureLoader()
-
-function createCrate() {
-  const mat = new THREE.MeshPhongMaterial({ color: 0xffffff })
-  mat.map = textureLoader.load('/assets/textures/crate.gif')
-  const geom = new THREE.CubeGeometry(1, 1, 1)
-  const box = new Physijs.BoxMesh(geom, mat)
-  box.castShadow = true
-  return box
-}
-
-for (let j = 1; j <= 7; ++j)
-  for (let i = -5; i <= 5; ++i) {
-    const box = createCrate()
-    box.position.set(i, j, 0)
-    scene.add(box)
-  }
-
-const floor = createGround({ size: 20 })
+const floor = createGround({ size: 50 })
 scene.add(floor)
+
+const crates = createCrateWall()
+crates.forEach(crate => scene.add(crate))
 
 const throwBall = ({ coords, scalar = 60 } = {}) => {
   const ball = createBall()
