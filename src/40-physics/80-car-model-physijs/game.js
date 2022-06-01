@@ -8,7 +8,7 @@ import { randomInRange, randomInCircle } from '/utils/helpers.js'
 
 const loader = new LegacyJSONLoader()
 
-const mapRadius = 150
+const mapRadius = 250
 
 const input = {
   power: 0,
@@ -23,12 +23,11 @@ scene.add(light)
 const ground = createGround({ size: mapRadius, file: 'rocks.jpg' })
 scene.add(ground)
 
-// TODO: move to utils
 for (let i = 0; i < 250; i++) {
   const size = randomInRange(.5, 5)
   const box = createCrate({ size, friction: .4, bounciness: .6 })
   const { x, z } = randomInCircle(mapRadius)
-  box.position.set(x, 5, z)
+  box.position.set(x, size * .5, z)
   console.log(box.position)
   scene.add(box)
 }
@@ -75,17 +74,17 @@ void function render() {
 
 scene.addEventListener('update', () => {
   if (!vehicle) return
+  const steeringLimit = .9
 
   if (input.direction) {
     input.steering += input.direction / 50
-    if (input.steering < -.6) input.steering = -.6
-    if (input.steering > .6) input.steering = .6
+    if (input.steering < -steeringLimit) input.steering = -steeringLimit
+    if (input.steering > steeringLimit) input.steering = steeringLimit
   }
   vehicle.setSteering(input.steering, 0)
-  // vehicle.setSteering(input.steering, 1)
 
   if (input.power === 1)
-    vehicle.applyEngineForce(300)
+    vehicle.applyEngineForce(200)
   else if (input.power === -1) {
     vehicle.setBrake(20, 2)
     vehicle.setBrake(20, 3)
