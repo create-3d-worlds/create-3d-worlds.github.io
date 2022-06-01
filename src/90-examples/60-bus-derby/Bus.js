@@ -4,7 +4,7 @@ import { GLTFLoader } from '/node_modules/three119/examples/jsm/loaders/GLTFLoad
 import { scene } from '/utils/physics.js'
 
 const bwf = 3.5  // bus wheel friction
-const bwr = 0  // bus wheel restitution
+const bwr = .1  // bus wheel restitution
 
 function configureWheel(wheel, position, BusSide) {
   BusSide === 'port' ? wheel.rotation.x = Math.PI / 2 : wheel.rotation.x = -Math.PI / 2
@@ -25,27 +25,24 @@ export function createBus(color) {  // "green" or "red"
   const bus = {}
   bus.score = 0
 
-  // /mesh
   const pos = (color == 'green' ? { x: -40, y: 3, z: 0 } : { x: 40, y: 3, z: 0 })  // bus mesh position
   const busFrameGeometry = new THREE.BoxGeometry(33, 4, 5)
   const busFrameMesh = new THREE.MeshStandardMaterial({ color: 0x333333 })
-  const busFrameMaterial = Physijs.createMaterial(busFrameMesh, 0.9, 0.9)
+  const busFrameMaterial = Physijs.createMaterial(busFrameMesh, 0.1, 0.9)
   bus.mesh = new Physijs.BoxMesh(busFrameGeometry, busFrameMaterial, 2000) // mass
   bus.mesh.position.set(pos.x, pos.y, pos.z)
   bus.mesh.castShadow = true
 
   const loader = new GLTFLoader()
-  loader.load(`./models/bus_body_${color}.glb`,
-    gltf => {
-      const scale = 5.6
-      const model = gltf.scene.children[0]
-      model.rotation.set (0, -1.5708, 0)
-      model.scale.set (scale, scale, scale)
-      model.position.set (0, 3.6, 0)
-      model.castShadow = true
-      bus.mesh.add(model)
-    },
-  )
+  loader.load(`./models/bus_body_${color}.glb`, gltf => {
+    const scale = 5.6
+    const model = gltf.scene.children[0]
+    model.rotation.set (0, -1.5708, 0)
+    model.scale.set (scale, scale, scale)
+    model.position.set (0, 3.6, 0)
+    model.castShadow = true
+    bus.mesh.add(model)
+  })
 
   if (color === 'green') bus.mesh.rotation.y = Math.PI
 
