@@ -39,20 +39,19 @@ loader.load('models/mustang.js', (carModel, carMaterials) => {
     mesh.castShadow = mesh.receiveShadow = true
 
     vehicle = new Physijs.Vehicle(mesh, new Physijs.VehicleTuning(
-      10.88, 1.83, 0.28, 500, 10.5, 6000
+      // VehicleTuning(suspension_stiffness, suspension_compression, suspension_damping, max_suspension_travel, friction_slip, max_suspension_force)
+      15.88, 1.83, 15.28, 50, 10.5, 6000
     ))
     scene.add(vehicle)
 
-    camera.position.copy(vehicle.mesh.position).add(new THREE.Vector3(0, 5, -10))
-    camera.lookAt(vehicle.mesh.position)
-    vehicle.mesh.add(camera)
-
-    for (let i = 0; i < 4; i++) vehicle.addWheel(
-      wheelModel, wheelMaterials, new THREE.Vector3(
-        i % 2 === 0 ? -1.6 : 1.6, -1, i < 2 ? 3.3 : -3.2
-      ),
-      new THREE.Vector3(0, -1, 0), new THREE.Vector3(-1, 0, 0), 0.5, 0.7, i < 2 ? false : true
-    )
+    for (let i = 0; i < 4; i++) {
+      const x = i % 2 === 0 ? -1.6 : 1.6
+      const z = i < 2 ? 3.3 : -3.2
+      vehicle.addWheel(
+        wheelModel, wheelMaterials, new THREE.Vector3(x, -1, z),
+        new THREE.Vector3(0, -1, 0), new THREE.Vector3(-1, 0, 0), 0.5, 0.7, i < 2 ? false : true
+      )
+    }
   })
 })
 
@@ -68,20 +67,23 @@ function handleInput() {
 void function render() {
   requestAnimationFrame(render)
   if (!vehicle) return
+  camera.position.copy(vehicle.mesh.position).add(new THREE.Vector3(0, 5, -10))
+  camera.lookAt(vehicle.mesh.position)
   handleInput()
   renderer.render(scene, camera)
 }()
 
 scene.addEventListener('update', () => {
   if (!vehicle) return
-  const steeringLimit = .9
+  const steeringLimit = .3
 
   if (input.direction) {
     input.steering += input.direction / 50
     if (input.steering < -steeringLimit) input.steering = -steeringLimit
     if (input.steering > steeringLimit) input.steering = steeringLimit
   }
-  vehicle.setSteering(input.steering, 0)
+  vehicle.setSteering(input.steering, 0) // right wheell
+  vehicle.setSteering(input.steering, 1) // left wheell
 
   if (input.power === 1)
     vehicle.applyEngineForce(200)
