@@ -2,14 +2,14 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { LegacyJSONLoader } from '/libs/LegacyJSONLoader.js'
 import Physijs from '/libs/physi-ecma.js'
 import { renderer, camera } from '/utils/scene.js'
-import { scene, createGround } from '/utils/physics.js'
+import { scene, createGround, createCrate } from '/utils/physics.js'
 import keyboard from '/classes/Keyboard.js'
 
-const textureLoader = new THREE.TextureLoader()
+const loader = new LegacyJSONLoader()
 
 const input = {
-  power: null,
-  direction: null,
+  power: 0,
+  direction: 0,
   steering: 0
 }
 let vehicle
@@ -20,30 +20,16 @@ scene.add(light)
 const ground = createGround({ size: 300, file: 'rocks.jpg' })
 scene.add(ground)
 
-const box_material = Physijs.createMaterial(
-  new THREE.MeshLambertMaterial({ map: textureLoader.load('/assets/textures/wood_1024.png') }),
-  .4, // low friction
-  .6 // high restitution
-)
-box_material.map.wrapS = THREE.RepeatWrapping
-box_material.map.repeat.set(.25, .25)
-
 for (let i = 0; i < 50; i++) {
   const size = Math.random() * 2 + .5
-  const box = new Physijs.BoxMesh(
-    new THREE.CubeGeometry(size, size, size),
-    box_material
-  )
-  box.castShadow = box.receiveShadow = true
+  const box = createCrate({ size, friction: .4, bounciness: .6 })
   box.position.set(Math.random() * 25 - 50, 5, Math.random() * 25 - 50)
   scene.add(box)
 }
 
-const loader = new LegacyJSONLoader()
-
-loader.load('models/mustang.js', (car, car_materials) => {
-  loader.load('models/mustang_wheel.js', (wheel, wheel_materials) => {
-    const mesh = new Physijs.BoxMesh(car, car_materials)
+loader.load('models/mustang.js', (carModel, carMaterials) => {
+  loader.load('models/mustang_wheel.js', (wheelModel, wheelMaterials) => {
+    const mesh = new Physijs.BoxMesh(carModel, carMaterials)
     mesh.position.y = 2
     mesh.castShadow = mesh.receiveShadow = true
 
@@ -52,13 +38,12 @@ loader.load('models/mustang.js', (car, car_materials) => {
     ))
     scene.add(vehicle)
 
-    const wheel_material = new THREE.MeshFaceMaterial(wheel_materials)
-
     for (let i = 0; i < 4; i++) vehicle.addWheel(
-      wheel, wheel_material, new THREE.Vector3(
+      wheelModel, wheelMaterials, new THREE.Vector3(
         i % 2 === 0 ? -1.6 : 1.6, -1, i < 2 ? 3.3 : -3.2
       ),
-      new THREE.Vector3(0, -1, 0), new THREE.Vector3(-1, 0, 0), 0.5, 0.7, i < 2 ? false : true)
+      new THREE.Vector3(0, -1, 0), new THREE.Vector3(-1, 0, 0), 0.5, 0.7, i < 2 ? false : true
+    )
   })
 })
 
@@ -66,7 +51,7 @@ scene.simulate()
 
 function handleInput() {
   input.direction = keyboard.left ? 1 : keyboard.right ? -1 : 0
-  input.power = keyboard.up ? true : keyboard.down ? true : null
+  input.power = keyboard.up ? 1 : keyboard.down ? -1 : 0
 }
 
 /* LOOP */
@@ -84,17 +69,18 @@ void function render() {
 
 scene.addEventListener('update', () => {
   if (!vehicle) return
-  if (input.direction !== null) {
+
+  if (input.direction) {
     input.steering += input.direction / 50
     if (input.steering < -.6) input.steering = -.6
     if (input.steering > .6) input.steering = .6
   }
   vehicle.setSteering(input.steering, 0)
-  vehicle.setSteering(input.steering, 1)
+  // vehicle.setSteering(input.steering, 1) // skretanje točkova
 
-  if (input.power === true)
+  if (input.power === 1)
     vehicle.applyEngineForce(300)
-  else if (input.power === false) {
+  else if (input.power === -1) {
     vehicle.setBrake(20, 2)
     vehicle.setBrake(20, 3)
   } else
