@@ -1,7 +1,6 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { ImprovedNoise } from '/node_modules/three119/examples/jsm/math/ImprovedNoise.js'
 import { DEGREE } from '/utils/constants.js'
-import { getTexture } from '/utils/helpers.js'
 import { createGroundMaterial, crateGroundGeometry } from '/utils/ground.js'
 
 import Physijs from '/libs/physi-ecma.js'
@@ -51,8 +50,8 @@ export const createBlock = (
 ) => createBox({ width, height, depth, friction, bounciness, color })
 
 export const createCrate = (
-  { size = 1, file = 'crate.gif', friction = .6, bounciness = .4 } = {}
-) => createBox({ width: size, height: size, depth: size, file, friction, bounciness, mass: size })
+  { size = 1, file = 'crate.gif', friction = .6, bounciness = .4, mass = size } = {}
+) => createBox({ width: size, height: size, depth: size, file, friction, bounciness, mass })
 
 /* BALL */
 

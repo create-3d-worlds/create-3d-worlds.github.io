@@ -130,7 +130,6 @@ live-server
 ### Physics
 
 - [x] videti nove primere
-  vozi model http://chandlerprall.github.io/Physijs/examples/vehicle.html
   dodaje silu na predmet https://boytchev.github.io/Physijs/examples/body.html
   drvena kula izvlači kocke https://chandlerprall.github.io/Physijs/examples/jenga.html
   - [ ] https://threejs.org/examples/?q=physics#physics_ammo_break
