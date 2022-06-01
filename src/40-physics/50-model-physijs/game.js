@@ -3,47 +3,30 @@ import { LegacyJSONLoader } from '/libs/LegacyJSONLoader.js'
 import Physijs from '/libs/physi-ecma.js'
 import { renderer, camera } from '/utils/scene.js'
 import { scene, createGround } from '/utils/physics.js'
+import keyboard from '/classes/Keyboard.js'
+
+const textureLoader = new THREE.TextureLoader()
 
 const input = {
   power: null,
   direction: null,
   steering: 0
 }
-
 let vehicle
-
-const textureLoader = new THREE.TextureLoader()
 
 const light = new THREE.DirectionalLight(0xFFFFFF)
 scene.add(light)
 
-const ground_material = Physijs.createMaterial(
-  new THREE.MeshLambertMaterial({ map: textureLoader.load('/assets/textures/rocks.jpg') }),
-  .8, // high friction
-  .4 // low restitution
-)
-ground_material.map.wrapS = ground_material.map.wrapT = THREE.RepeatWrapping
-ground_material.map.repeat.set(3, 3)
+const ground = createGround({ size: 300, file: 'rocks.jpg' })
+scene.add(ground)
 
 const box_material = Physijs.createMaterial(
   new THREE.MeshLambertMaterial({ map: textureLoader.load('/assets/textures/wood_1024.png') }),
   .4, // low friction
   .6 // high restitution
 )
-box_material.map.wrapS = ground_material.map.wrapT = THREE.RepeatWrapping
+box_material.map.wrapS = THREE.RepeatWrapping
 box_material.map.repeat.set(.25, .25)
-
-// Ground
-
-const ground_geometry = new THREE.PlaneGeometry(300, 300, 100, 100)
-const ground = new Physijs.HeightfieldMesh(
-  ground_geometry,
-  ground_material,
-  0 // mass
-)
-ground.rotation.x = -Math.PI / 2
-ground.receiveShadow = true
-scene.add(ground)
 
 for (let i = 0; i < 50; i++) {
   const size = Math.random() * 2 + .5
@@ -81,72 +64,41 @@ loader.load('models/mustang.js', (car, car_materials) => {
 
 scene.simulate()
 
+function handleInput() {
+  input.direction = keyboard.left ? 1 : keyboard.right ? -1 : 0
+  input.power = keyboard.up ? true : keyboard.down ? true : null
+}
+
 /* LOOP */
 
 void function render() {
   requestAnimationFrame(render)
-  if (vehicle) {
-    camera.position.copy(vehicle.mesh.position).add(new THREE.Vector3(40, 25, 40))
-    camera.lookAt(vehicle.mesh.position)
-    light.target.position.copy(vehicle.mesh.position)
-    light.position.addVectors(light.target.position, new THREE.Vector3(20, 20, -15))
-  }
+  if (!vehicle) return
+  handleInput()
+  camera.position.copy(vehicle.mesh.position).add(new THREE.Vector3(40, 25, 40))
+  camera.lookAt(vehicle.mesh.position)
+  light.target.position.copy(vehicle.mesh.position)
+  light.position.addVectors(light.target.position, new THREE.Vector3(20, 20, -15))
   renderer.render(scene, camera)
 }()
 
 scene.addEventListener('update', () => {
-  if (vehicle) {
-    if (input.direction !== null) {
-      input.steering += input.direction / 50
-      if (input.steering < -.6) input.steering = -.6
-      if (input.steering > .6) input.steering = .6
-    }
-    vehicle.setSteering(input.steering, 0)
-    vehicle.setSteering(input.steering, 1)
-
-    if (input.power === true)
-      vehicle.applyEngineForce(300)
-					 else if (input.power === false) {
-      vehicle.setBrake(20, 2)
-      vehicle.setBrake(20, 3)
-    } else
-      vehicle.applyEngineForce(0)
+  if (!vehicle) return
+  if (input.direction !== null) {
+    input.steering += input.direction / 50
+    if (input.steering < -.6) input.steering = -.6
+    if (input.steering > .6) input.steering = .6
   }
+  vehicle.setSteering(input.steering, 0)
+  vehicle.setSteering(input.steering, 1)
+
+  if (input.power === true)
+    vehicle.applyEngineForce(300)
+  else if (input.power === false) {
+    vehicle.setBrake(20, 2)
+    vehicle.setBrake(20, 3)
+  } else
+    vehicle.applyEngineForce(0)
+
   scene.simulate(undefined, 2)
-})
-
-/* EVENTS */
-
-document.addEventListener('keydown', ev => {
-  switch (ev.keyCode) {
-    case 37: // left
-      input.direction = 1
-      break
-    case 38: // forward
-      input.power = true
-      break
-    case 39: // right
-      input.direction = -1
-      break
-    case 40: // back
-      input.power = false
-      break
-  }
-})
-
-document.addEventListener('keyup', ev => {
-  switch (ev.keyCode) {
-    case 37: // left
-      input.direction = null
-      break
-    case 38: // forward
-      input.power = null
-      break
-    case 39: // right
-      input.direction = null
-      break
-    case 40: // back
-      input.power = null
-      break
-  }
 })
