@@ -31,30 +31,30 @@ const move = ({ bus, lowLimit, velocity, maxForce }) => {
 
 function handleKeyDown(e) {
   switch (e.code) {
-    case 'KeyA': case 'ArrowLeft':
-      turn({ bus: greenBus, limit: Math.PI / 4, velocity: 10, maxForce: 200 })
-      break
-    case 'KeyD': case 'ArrowRight':
-      turn({ bus: greenBus, limit: Math.PI / 4, velocity: -10, maxForce: 200 })
-      break
     case 'KeyW': case 'ArrowUp':
-      move({ bus: greenBus, lowLimit: 1, velocity: -30, maxForce: 50000 })
+      move({ bus: greenBus, lowLimit: 1, velocity: -15, maxForce: 500 })
       break
     case 'KeyS': case 'ArrowDown':
-      move({ bus: greenBus, lowLimit: 1, velocity: 20, maxForce: 3500 })
+      move({ bus: greenBus, lowLimit: 1, velocity: 10, maxForce: 350 })
+      break
+    case 'KeyA': case 'ArrowLeft':
+      turn({ bus: greenBus, limit: Math.PI / 4, velocity: 5, maxForce: 50 })
+      break
+    case 'KeyD': case 'ArrowRight':
+      turn({ bus: greenBus, limit: Math.PI / 4, velocity: -5, maxForce: 50 })
       break
 
-    case 'KeyL':
-      turn({ bus: redBus, limit: Math.PI / 4, velocity: 10, maxForce: 200 })
-      break
-    case 'Quote':
-      turn({ bus: redBus, limit: Math.PI / 4, velocity: -10, maxForce: 200 })
-      break
     case 'KeyP':
-      move({ bus: redBus, lowLimit: 1, velocity: 30, maxForce: 50000 })
+      move({ bus: redBus, lowLimit: 1, velocity: 15, maxForce: 500 })
       break
     case 'Semicolon':
-      move({ bus: redBus, lowLimit: 1, velocity: -20, maxForce: 3500 })
+      move({ bus: redBus, lowLimit: 1, velocity: -10, maxForce: 350 })
+      break
+    case 'KeyL':
+      turn({ bus: redBus, limit: Math.PI / 4, velocity: 5, maxForce: 50 })
+      break
+    case 'Quote':
+      turn({ bus: redBus, limit: Math.PI / 4, velocity: -5, maxForce: 50 })
       break
   }
 }
@@ -62,17 +62,17 @@ function handleKeyDown(e) {
 function handleKeyUp(e) {
   switch (e.code) {
     case 'KeyA': case 'KeyD': case 'ArrowLeft': case 'ArrowRight':
-      turn({ bus: greenBus, limit: 0, velocity: 10, maxForce: 200 })
+      turn({ bus: greenBus, limit: 0, velocity: 5, maxForce: 50 })
       break
     case 'KeyW': case 'KeyS': case 'ArrowUp': case 'ArrowDown':
-      move({ bus: greenBus, lowLimit: 0, velocity: 0, maxForce: 2000 })
+      move({ bus: greenBus, lowLimit: 0, velocity: 0, maxForce: 50 })
       break
 
     case 'KeyL': case 'Quote':
-      turn({ bus: redBus, limit: 0, velocity: 10, maxForce: 200 })
+      turn({ bus: redBus, limit: 0, velocity: 5, maxForce: 50 })
       break
     case 'KeyP': case 'Semicolon':
-      move({ bus: redBus, lowLimit: 0, velocity: 0, maxForce: 2000 })
+      move({ bus: redBus, lowLimit: 0, velocity: 0, maxForce: 50 })
       break
   }
 }
