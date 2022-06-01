@@ -86,10 +86,10 @@ export function createBus(color) {  // "green" or "red"
       wheelGeometry.faces[i].materialIndex = 0 // assigns color material index
 
   // wheel creation & configuration as four physi.js objects
-  bus.wheel_fl = new Physijs.CylinderMesh(wheelGeometry, wheelMaterials, 300)
-  bus.wheel_fr = new Physijs.CylinderMesh(wheelGeometry, wheelMaterials, 300)
-  bus.wheel_bl = new Physijs.CylinderMesh(wheelGeometry, wheelMaterials, 300)
-  bus.wheel_br = new Physijs.CylinderMesh(wheelGeometry, wheelMaterials, 300)
+  bus.wheel_fl_mesh = new Physijs.CylinderMesh(wheelGeometry, wheelMaterials, 300)
+  bus.wheel_fr_mesh = new Physijs.CylinderMesh(wheelGeometry, wheelMaterials, 300)
+  bus.wheel_bl_mesh = new Physijs.CylinderMesh(wheelGeometry, wheelMaterials, 300)
+  bus.wheel_br_mesh = new Physijs.CylinderMesh(wheelGeometry, wheelMaterials, 300)
 
   let frontX, backX
   if (color === 'red') {
@@ -99,21 +99,21 @@ export function createBus(color) {  // "green" or "red"
     frontX = pos.x + 9.5
     backX = pos.x - 9.5
   }
-  configureWheel(bus.wheel_fl, { x: frontX, y: 2, z: pos.z + 5 }, 'port')
-  configureWheel(bus.wheel_fr, { x: frontX, y: 2, z: pos.z - 5 }, 'starboard')
-  configureWheel(bus.wheel_bl, { x: backX, y: 2, z: pos.z + 5 }, 'port')
-  configureWheel(bus.wheel_br, { x: backX, y: 2, z: pos.z - 5 }, 'starboard')
+  configureWheel(bus.wheel_fl_mesh, { x: frontX, y: 2, z: pos.z + 5 }, 'port')
+  configureWheel(bus.wheel_fr_mesh, { x: frontX, y: 2, z: pos.z - 5 }, 'starboard')
+  configureWheel(bus.wheel_bl_mesh, { x: backX, y: 2, z: pos.z + 5 }, 'port')
+  configureWheel(bus.wheel_br_mesh, { x: backX, y: 2, z: pos.z - 5 }, 'starboard')
 
   // wheel constraints
-  const wheel_fl_constraint = new Physijs.DOFConstraint(bus.wheel_fl, bus.mesh, bus.wheel_fl.position)
-  const wheel_fr_constraint = new Physijs.DOFConstraint(bus.wheel_fr, bus.mesh, bus.wheel_fr.position)
-  const wheel_bl_constraint = new Physijs.DOFConstraint(bus.wheel_bl, bus.mesh, bus.wheel_bl.position)
-  const wheel_br_constraint = new Physijs.DOFConstraint(bus.wheel_br, bus.mesh, bus.wheel_br.position)
+  const frontLeftWheel = new Physijs.DOFConstraint(bus.wheel_fl_mesh, bus.mesh, bus.wheel_fl_mesh.position)
+  const frontRightWheel = new Physijs.DOFConstraint(bus.wheel_fr_mesh, bus.mesh, bus.wheel_fr_mesh.position)
+  const backLeftWheel = new Physijs.DOFConstraint(bus.wheel_bl_mesh, bus.mesh, bus.wheel_bl_mesh.position)
+  const backRightWheel = new Physijs.DOFConstraint(bus.wheel_br_mesh, bus.mesh, bus.wheel_br_mesh.position)
 
-  bus.wheel_fl_constraint = configureWheelConstraints(wheel_fl_constraint)
-  bus.wheel_fr_constraint = configureWheelConstraints(wheel_fr_constraint)
-  bus.wheel_bl_constraint = configureWheelConstraints(wheel_bl_constraint)
-  bus.wheel_br_constraint = configureWheelConstraints(wheel_br_constraint)
+  bus.frontLeftWheel = configureWheelConstraints(frontLeftWheel)
+  bus.frontRightWheel = configureWheelConstraints(frontRightWheel)
+  bus.backLeftWheel = configureWheelConstraints(backLeftWheel)
+  bus.backRightWheel = configureWheelConstraints(backRightWheel)
 
   return bus
 }
