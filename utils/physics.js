@@ -35,13 +35,16 @@ export function createGround({ size = 150, color = 0x666666, friction = .8, boun
 
 /* BOXES */
 
-export function createBox({ size, width = 1, height = 1, depth = 1, friction = .5, bounciness = .6, color = 0xdddddd, file, mass = 1 } = {}) {
-  const geometry = new THREE.BoxGeometry(size || width, size || height, size || depth)
+export function createBox(
+  { size = 1, width = size, height = size, depth = size, friction = .5, bounciness = .6, color = 0xdddddd, file, mass = size } = {}
+) {
+  const geometry = new THREE.BoxGeometry(width || size, height || size, depth || size)
   const material = new THREE.MeshLambertMaterial({ color })
   if (file) material.map = textureLoader.load(`/assets/textures/${file}`)
   const physiMaterial = Physijs.createMaterial(material, friction, bounciness)
   const mesh = new Physijs.BoxMesh(geometry, physiMaterial, mass)
   mesh.castShadow = true
+  mesh.translateY(height / 2)
   return mesh
 }
 
@@ -50,8 +53,8 @@ export const createBlock = (
 ) => createBox({ width, height, depth, friction, bounciness, color })
 
 export const createCrate = (
-  { size = 1, file = 'crate.gif', friction = .6, bounciness = .4, mass = size } = {}
-) => createBox({ width: size, height: size, depth: size, file, friction, bounciness, mass })
+  { size = 1, file = 'crate.gif', friction = .6, bounciness = .4, ...rest } = {}
+) => createBox({ width: size, height: size, depth: size, file, friction, bounciness, ...rest })
 
 /* BALL */
 
