@@ -2,7 +2,6 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, renderer } from '/utils/scene.js'
 import { scene, createGround, createCrate } from '/utils/physics.js'
 import { randomInRange, mouseToWorld } from '/utils/helpers.js'
-import { CIRCLE } from '/utils/constants.js'
 
 let box
 let mousePos

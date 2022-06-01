@@ -130,9 +130,8 @@ live-server
 ### Physics
 
 - [x] videti nove primere
-  dodaje silu na predmet https://boytchev.github.io/Physijs/examples/body.html
-  drvena kula izvlači kocke https://chandlerprall.github.io/Physijs/examples/jenga.html
-  - [ ] https://threejs.org/examples/?q=physics#physics_ammo_break
+  - [ ] drvena kula izvlači kocke https://chandlerprall.github.io/Physijs/examples/jenga.html
+  - [ ] lomi materijale https://threejs.org/examples/?q=physics#physics_ammo_break
 - [ ] odvojiti fizička pomagala
 - [ ] srediti fliper
 - [ ] domine: da manja obara veću

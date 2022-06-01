@@ -28,7 +28,6 @@ for (let i = 0; i < 250; i++) {
   const box = createCrate({ size, friction: .4, bounciness: .6 })
   const { x, z } = randomInCircle(mapRadius)
   box.position.set(x, size * .5, z)
-  console.log(box.position)
   scene.add(box)
 }
 
@@ -37,9 +36,7 @@ loader.load('models/mustang.js', (carModel, carMaterials) => {
     const mesh = new Physijs.BoxMesh(carModel, carMaterials)
     mesh.position.y = 2
     mesh.castShadow = mesh.receiveShadow = true
-
     vehicle = new Physijs.Vehicle(mesh, new Physijs.VehicleTuning(
-      // VehicleTuning(suspension_stiffness, suspension_compression, suspension_damping, max_suspension_travel, friction_slip, max_suspension_force)
       15.88, 1.83, 15.28, 50, 10.5, 6000
     ))
     scene.add(vehicle)

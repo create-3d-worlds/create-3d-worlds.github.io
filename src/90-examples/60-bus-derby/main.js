@@ -3,14 +3,10 @@ import { scene, createGround } from '/utils/physics.js'
 import { ambLight } from '/utils/light.js'
 import { createBus } from './bus.js'
 
-const backgroundColor = 0xCDD3D6
-
-renderer.setClearColor (backgroundColor, 1)
 camera.position.set(0, 50, 100)
 
 ambLight({ scene, intensity: 0.85 })
 
-// TODO: okruglo tlo, ponavljanje texture
 const ground = createGround({ friction: 4.2, bounciness: 0, file: 'asphalt.jpg' })
 scene.add(ground)
 
@@ -19,21 +15,32 @@ const redBus = createBus('red')
 
 /* EVENTS */
 
+const turnLeft = ({ bus, limit, velocity, max_force }) => {
+  bus.wheel_fr_constraint.configureAngularMotor(1, -limit, limit, velocity, max_force)
+  bus.wheel_fr_constraint.enableAngularMotor(1)
+  bus.wheel_fl_constraint.configureAngularMotor(1, -limit, limit, velocity, max_force)
+  bus.wheel_fl_constraint.enableAngularMotor(1)
+}
+
+const turnRight = ({ bus, limit, velocity, max_force }) => {
+  bus.wheel_fr_constraint.configureAngularMotor(1, -limit, limit, -velocity, max_force)
+  bus.wheel_fr_constraint.enableAngularMotor(1)
+  bus.wheel_fl_constraint.configureAngularMotor(1, -limit, limit, -velocity, max_force)
+  bus.wheel_fl_constraint.enableAngularMotor(1)
+}
+
 function handleKeyDown(e) {
+  const limit = Math.PI / 4
+  const velocity = 10
+  const max_force = 200
   // configureAngularMotor(which_motor, low_limit, high_limit, target_velocity, max_force)
-  // (motor numbers matched to axes: 0 = x, 1 = y, 2 = z)
+  // which_motor matched to axes: 0 = x, 1 = y, 2 = z
   switch (e.keyCode) {
-    case 65: case 37:  // "a" key or left arrow key (turn left)
-      greenBus.wheel_fr_constraint.configureAngularMotor(1, -Math.PI / 4, Math.PI / 4, 10, 200)
-      greenBus.wheel_fr_constraint.enableAngularMotor(1)
-      greenBus.wheel_fl_constraint.configureAngularMotor(1, -Math.PI / 4, Math.PI / 4, 10, 200)
-      greenBus.wheel_fl_constraint.enableAngularMotor(1)
+    case 65: case 37:  // "a" key or left arrow
+      turnLeft({ bus: greenBus, limit, velocity, max_force })
       break
-    case 68: case 39:  // "d" key  or right arrow key (turn right)
-      greenBus.wheel_fr_constraint.configureAngularMotor(1, -Math.PI / 4, Math.PI / 4, -10, 200)
-      greenBus.wheel_fr_constraint.enableAngularMotor(1)
-      greenBus.wheel_fl_constraint.configureAngularMotor(1, -Math.PI / 4, Math.PI / 4, -10, 200)
-      greenBus.wheel_fl_constraint.enableAngularMotor(1)
+    case 68: case 39:  // "d" key  or right arrow
+      turnRight({ bus: greenBus, limit, velocity, max_force })
       break
     case 87: case 38: // "w" key or up arrow key (forward)
       greenBus.wheel_bl_constraint.configureAngularMotor(2, 1, 0, -30, 50000)
@@ -48,17 +55,11 @@ function handleKeyDown(e) {
       greenBus.wheel_br_constraint.enableAngularMotor(2)
       break
 
-    case 76:  // "l" key (turn left)
-      redBus.wheel_fr_constraint.configureAngularMotor(1, -Math.PI / 4, Math.PI / 4, 10, 200)
-      redBus.wheel_fr_constraint.enableAngularMotor(1)
-      redBus.wheel_fl_constraint.configureAngularMotor(1, -Math.PI / 4, Math.PI / 4, 10, 200)
-      redBus.wheel_fl_constraint.enableAngularMotor(1)
+    case 76:  // "l" key
+      turnLeft({ bus: redBus, limit, velocity, max_force })
       break
-    case 222:  // "'" key (turn right)
-      redBus.wheel_fr_constraint.configureAngularMotor(1, -Math.PI / 4, Math.PI / 4, -10, 200)
-      redBus.wheel_fr_constraint.enableAngularMotor(1)
-      redBus.wheel_fl_constraint.configureAngularMotor(1, -Math.PI / 4, Math.PI / 4, -10, 200)
-      redBus.wheel_fl_constraint.enableAngularMotor(1)
+    case 222:  // "'" key
+      turnRight({ bus: redBus, limit, velocity, max_force })
       break
     case 80:  // "p" key (forward)
       redBus.wheel_bl_constraint.configureAngularMotor(2, 1, 0, 30, 50000)
