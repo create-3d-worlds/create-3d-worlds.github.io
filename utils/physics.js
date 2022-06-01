@@ -16,7 +16,9 @@ scene.setGravity(new THREE.Vector3(0, -10, 0))
 
 /* FLOOR */
 
-export function createGround({ size = 150, color = 0x666666, friction = .8, bounciness = .4, file, circle } = {}) {
+export function createGround(
+  { size = 150, color = 0x666666, friction = .8, bounciness = .4, file, circle } = {}
+) {
   const material = createGroundMaterial({ size, color, file })
   const geometry = crateGroundGeometry({ size, circle })
 
@@ -51,10 +53,11 @@ export const createCrate = (
 
 /* BALL */
 
-export function createBall({ r = .4, mass = 35, color = 0xffffff, widthSegments = 10, heightSegments = 10 } = {}) {
+export function createBall({ r = 1, mass = 5, color = 0xffffff, widthSegments = 16, heightSegments = 16, friction = .5, bounciness = .5 } = {}) {
   const material = new THREE.MeshLambertMaterial({ color })
   const geometry = new THREE.SphereGeometry(r, widthSegments, heightSegments)
-  const mesh = new Physijs.SphereMesh(geometry, material, mass)
+  const physiMaterial = Physijs.createMaterial(material, friction, bounciness)
+  const mesh = new Physijs.SphereMesh(geometry, physiMaterial, mass)
   mesh.castShadow = true
   return mesh
 }

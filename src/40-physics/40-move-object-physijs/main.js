@@ -1,11 +1,9 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
-import Physijs from '/libs/physi-ecma.js'
 import { camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
-import { scene, createGround } from '/utils/physics.js'
+import { scene, createGround, createBall } from '/utils/physics.js'
 import { dirLight, ambLight } from '/utils/light.js'
 import keyboard from '/classes/Keyboard.js'
 
-let ball
 const forceAmount = 10
 
 ambLight({ scene, color: 0x707070 })
@@ -17,25 +15,9 @@ const controls = createOrbitControls()
 const floor = createGround({ size: 50, friction: 1, bounciness: .3 })
 scene.add(floor)
 
-addBall(new THREE.Vector3(0, 5, 0))
-
-function addBall(pos) {
-  const geometry = new THREE.SphereGeometry(1, 32, 32)
-
-  const friction = 0.8 // high friction
-  const restitution = 0.8 // low restitution
-
-  const material = Physijs.createMaterial(
-    new THREE.MeshPhongMaterial({ color: 0xff0000 }),
-    friction,
-    restitution
-  )
-
-  ball = new Physijs.SphereMesh(geometry, material, 5)
-  ball.position.copy(pos)
-  ball.castShadow = true
-  scene.add(ball)
-}
+const ball = createBall({ size: 1, color: 0xff0000, mass: 5 })
+ball.position.set(0, 2, 0)
+scene.add(ball)
 
 /* LOOP */
 
@@ -61,7 +43,5 @@ function handleInput() {
 
   if (keyboard.right) force.x = forceAmount
 
-  ball.applyCentralForce(force)
+  ball.applyCentralForce(force) // ball.applyImpulse(force, new THREE.Vector3(0, 1, 0))
 }
-
-// ball.applyImpulse(movement, new THREE.Vector3(0, 1, 0)) zgodno za ispaljivanje

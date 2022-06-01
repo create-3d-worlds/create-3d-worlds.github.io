@@ -36,7 +36,7 @@ class Keyboard {
   }
 
   preventShake(e) {
-    if (e.code == 'Space' || e.code == 'ArrowUp' || e.code == 'ArrowDown') e.preventDefault()
+    if (e.code == 'Space' || e.code.startsWith('Arrow')) e.preventDefault()
   }
 
   chooseDirection(touch) {
