@@ -38,6 +38,10 @@ loader.load('models/mustang.js', (carModel, carMaterials) => {
     ))
     scene.add(vehicle)
 
+    camera.position.copy(vehicle.mesh.position).add(new THREE.Vector3(0, 5, -20))
+    camera.lookAt(vehicle.mesh.position)
+    vehicle.mesh.add(camera)
+
     for (let i = 0; i < 4; i++) vehicle.addWheel(
       wheelModel, wheelMaterials, new THREE.Vector3(
         i % 2 === 0 ? -1.6 : 1.6, -1, i < 2 ? 3.3 : -3.2
@@ -60,10 +64,6 @@ void function render() {
   requestAnimationFrame(render)
   if (!vehicle) return
   handleInput()
-  camera.position.copy(vehicle.mesh.position).add(new THREE.Vector3(40, 25, 40))
-  camera.lookAt(vehicle.mesh.position)
-  light.target.position.copy(vehicle.mesh.position)
-  light.position.addVectors(light.target.position, new THREE.Vector3(20, 20, -15))
   renderer.render(scene, camera)
 }()
 
