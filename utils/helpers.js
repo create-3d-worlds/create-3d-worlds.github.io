@@ -14,6 +14,7 @@ export const randomInt = (min, max) => randomInRange(min, max, true)
 /* Get random integer between two values, inclusive */
 export const roll = (max, min = 0) => Math.floor(Math.random() * (max - min + 1) + min)
 
+/* return 2D vector { x, z } */
 export function randomInCircle(radius, emptyCenter = 0) {
   const random = emptyCenter ? randomInRange(emptyCenter, 1) : Math.random()
   const r = Math.sqrt(random) * radius

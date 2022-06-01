@@ -1,6 +1,9 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { ImprovedNoise } from '/node_modules/three119/examples/jsm/math/ImprovedNoise.js'
 import { DEGREE } from '/utils/constants.js'
+import { getTexture } from '/utils/helpers.js'
+import { createGroundMaterial, crateGroundGeometry } from '/utils/ground.js'
+
 import Physijs from '/libs/physi-ecma.js'
 Physijs.scripts.worker = '/libs/physijs_worker.js'
 Physijs.scripts.ammo = 'ammo.js' // relative to the worker
@@ -21,26 +24,24 @@ export function createScene({ gravity = -10 } = {}) {
 
 /* FLOOR */
 
-export function createGround({ size = 150, color = 0x666666, friction = .8, bounciness = .4, file } = {}) {
-  const material = new THREE.MeshPhongMaterial({ color })
-  if (file) material.map = textureLoader.load(`/assets/textures/${file}`)
+export function createGround({ size = 150, color = 0x666666, friction = .8, bounciness = .4, file, circle } = {}) {
+  const material = createGroundMaterial({ size, color, file })
+  const geometry = crateGroundGeometry({ size, circle })
+
   const physiMaterial = Physijs.createMaterial(material, friction, bounciness)
-  const mesh = new Physijs.BoxMesh(
-    new THREE.PlaneGeometry(size, size), physiMaterial, 0, // mass
-  )
+  const mesh = new Physijs.BoxMesh(geometry, physiMaterial, 0) // mass
   mesh.receiveShadow = true
-  mesh.rotateX(- Math.PI / 2)
   return mesh
 }
 
 /* BOXES */
 
-export function createBox({ size, width = 1, height = 1, depth = 1, friction = .5, bounciness = .6, color = 0xdddddd, file } = {}) {
+export function createBox({ size, width = 1, height = 1, depth = 1, friction = .5, bounciness = .6, color = 0xdddddd, file, mass = 1 } = {}) {
   const geometry = new THREE.BoxGeometry(size || width, size || height, size || depth)
   const material = new THREE.MeshLambertMaterial({ color })
   if (file) material.map = textureLoader.load(`/assets/textures/${file}`)
   const physiMaterial = Physijs.createMaterial(material, friction, bounciness)
-  const mesh = new Physijs.BoxMesh(geometry, physiMaterial)
+  const mesh = new Physijs.BoxMesh(geometry, physiMaterial, mass)
   mesh.castShadow = true
   return mesh
 }
@@ -51,7 +52,7 @@ export const createBlock = (
 
 export const createCrate = (
   { size = 1, file = 'crate.gif', friction = .6, bounciness = .4 } = {}
-) => createBox({ width: size, height: size, depth: size, file, friction, bounciness })
+) => createBox({ width: size, height: size, depth: size, file, friction, bounciness, mass: size })
 
 /* BALL */
 

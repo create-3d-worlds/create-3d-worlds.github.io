@@ -1,21 +1,35 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { randomInRange, randomNuance, getTexture } from '/utils/helpers.js'
 
-export function createGround({ size = 1000, color = 0x509f53, circle = true, file } = {}) {
+/* GROUND */
+
+export function createGroundMaterial({ size, color = 0x509f53, file } = {}) {
   const params = { side: THREE.DoubleSide }
   const material = file
     ? new THREE.MeshBasicMaterial({ ...params, map: getTexture({ file, repeat: size / 10 }) })
     : new THREE.MeshPhongMaterial({ ...params, color }) // MeshLambertMaterial ne radi rasveta
+  return material
+}
 
+export function crateGroundGeometry({ size, circle = true }) {
   const geometry = circle
     ? new THREE.CircleGeometry(size, 32)
     : new THREE.PlaneGeometry(size, size)
 
   geometry.rotateX(-Math.PI * 0.5)
+  return geometry
+}
+
+export function createGround({ size = 1000, color, circle, file } = {}) {
+  const material = createGroundMaterial({ size, file, color })
+  const geometry = crateGroundGeometry({ size, circle })
+
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
   return mesh
 }
+
+/* TERRAIN */
 
 export function createTerrain({ size = 400, segments = 50, colorParam, factor = 2 } = {}) {
   const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
@@ -35,6 +49,8 @@ export function createTerrain({ size = 400, segments = 50, colorParam, factor = 
   return mesh
 }
 
+/* WATER */
+
 export function createWater({ size = 1000, opacity = 0.75, file } = {}) {
   const geometry = new THREE.PlaneGeometry(size, size, 1, 1)
   geometry.rotateX(-Math.PI / 2)
@@ -51,6 +67,8 @@ export function createWater({ size = 1000, opacity = 0.75, file } = {}) {
   mesh.receiveShadow = true
   return mesh
 }
+
+/* ALIASES */
 
 export function createFloor(params) {
   return createGround({ color: 0x808080, circle: false, ...params })

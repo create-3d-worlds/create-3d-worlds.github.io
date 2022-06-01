@@ -4,8 +4,11 @@ import Physijs from '/libs/physi-ecma.js'
 import { renderer, camera } from '/utils/scene.js'
 import { scene, createGround, createCrate } from '/utils/physics.js'
 import keyboard from '/classes/Keyboard.js'
+import { randomInRange, randomInCircle } from '/utils/helpers.js'
 
 const loader = new LegacyJSONLoader()
+
+const mapRadius = 150
 
 const input = {
   power: 0,
@@ -17,13 +20,16 @@ let vehicle
 const light = new THREE.DirectionalLight(0xFFFFFF)
 scene.add(light)
 
-const ground = createGround({ size: 300, file: 'rocks.jpg' })
+const ground = createGround({ size: mapRadius, file: 'rocks.jpg' })
 scene.add(ground)
 
-for (let i = 0; i < 50; i++) {
-  const size = Math.random() * 2 + .5
+// TODO: move to utils
+for (let i = 0; i < 250; i++) {
+  const size = randomInRange(.5, 5)
   const box = createCrate({ size, friction: .4, bounciness: .6 })
-  box.position.set(Math.random() * 25 - 50, 5, Math.random() * 25 - 50)
+  const { x, z } = randomInCircle(mapRadius)
+  box.position.set(x, 5, z)
+  console.log(box.position)
   scene.add(box)
 }
 
@@ -38,7 +44,7 @@ loader.load('models/mustang.js', (carModel, carMaterials) => {
     ))
     scene.add(vehicle)
 
-    camera.position.copy(vehicle.mesh.position).add(new THREE.Vector3(0, 5, -20))
+    camera.position.copy(vehicle.mesh.position).add(new THREE.Vector3(0, 5, -10))
     camera.lookAt(vehicle.mesh.position)
     vehicle.mesh.add(camera)
 
@@ -76,7 +82,7 @@ scene.addEventListener('update', () => {
     if (input.steering > .6) input.steering = .6
   }
   vehicle.setSteering(input.steering, 0)
-  // vehicle.setSteering(input.steering, 1) // skretanje točkova
+  // vehicle.setSteering(input.steering, 1)
 
   if (input.power === 1)
     vehicle.applyEngineForce(300)
