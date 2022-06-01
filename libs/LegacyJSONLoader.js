@@ -5,7 +5,7 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
  * @author alteredq / http://alteredqualia.com/
  */
 
-export function LegacyJSONLoader(manager) {
+export function LegacyJSONLoader (manager) {
 
   if (typeof manager === 'boolean') {
 
