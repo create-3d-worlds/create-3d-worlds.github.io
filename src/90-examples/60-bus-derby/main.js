@@ -15,63 +15,61 @@ const redBus = createBus('red')
 
 /* EVENTS */
 
-const turnLeft = ({ bus, limit, velocity, max_force }) => {
-  bus.wheel_fr_constraint.configureAngularMotor(1, -limit, limit, velocity, max_force)
+const turnLeft = ({ bus, limit, velocity, maxForce }) => {
+  bus.wheel_fr_constraint.configureAngularMotor(1, -limit, limit, velocity, maxForce)
   bus.wheel_fr_constraint.enableAngularMotor(1)
-  bus.wheel_fl_constraint.configureAngularMotor(1, -limit, limit, velocity, max_force)
+  bus.wheel_fl_constraint.configureAngularMotor(1, -limit, limit, velocity, maxForce)
   bus.wheel_fl_constraint.enableAngularMotor(1)
 }
 
-const turnRight = ({ bus, limit, velocity, max_force }) => {
-  bus.wheel_fr_constraint.configureAngularMotor(1, -limit, limit, -velocity, max_force)
+const turnRight = ({ bus, limit, velocity, maxForce }) => {
+  bus.wheel_fr_constraint.configureAngularMotor(1, -limit, limit, -velocity, maxForce)
   bus.wheel_fr_constraint.enableAngularMotor(1)
-  bus.wheel_fl_constraint.configureAngularMotor(1, -limit, limit, -velocity, max_force)
+  bus.wheel_fl_constraint.configureAngularMotor(1, -limit, limit, -velocity, maxForce)
   bus.wheel_fl_constraint.enableAngularMotor(1)
+}
+
+const moveForward = ({ bus, lowLimit, velocity, maxForce }) => {
+  bus.wheel_bl_constraint.configureAngularMotor(2, lowLimit, 0, velocity, maxForce)
+  bus.wheel_bl_constraint.enableAngularMotor(2)
+  bus.wheel_br_constraint.configureAngularMotor(2, lowLimit, 0, velocity, maxForce)
+  bus.wheel_br_constraint.enableAngularMotor(2)
+}
+
+const moveBackward = ({ bus, lowLimit, velocity, maxForce }) => {
+  bus.wheel_bl_constraint.configureAngularMotor(2, lowLimit, 0, velocity, maxForce)
+  bus.wheel_bl_constraint.enableAngularMotor(2)
+  bus.wheel_br_constraint.configureAngularMotor(2, lowLimit, 0, velocity, maxForce)
+  bus.wheel_br_constraint.enableAngularMotor(2)
 }
 
 function handleKeyDown(e) {
-  const limit = Math.PI / 4
-  const velocity = 10
-  const max_force = 200
-  // configureAngularMotor(which_motor, low_limit, high_limit, target_velocity, max_force)
-  // which_motor matched to axes: 0 = x, 1 = y, 2 = z
+  // configureAngularMotor(which_motor, low_limit, high_limit, velocity, maxForce)
   switch (e.keyCode) {
     case 65: case 37:  // "a" key or left arrow
-      turnLeft({ bus: greenBus, limit, velocity, max_force })
+      turnLeft({ bus: greenBus, limit: Math.PI / 4, velocity: 10, maxForce: 200 })
       break
     case 68: case 39:  // "d" key  or right arrow
-      turnRight({ bus: greenBus, limit, velocity, max_force })
+      turnRight({ bus: greenBus, limit: Math.PI / 4, velocity: 10, maxForce: 200 })
       break
-    case 87: case 38: // "w" key or up arrow key (forward)
-      greenBus.wheel_bl_constraint.configureAngularMotor(2, 1, 0, -30, 50000)
-      greenBus.wheel_bl_constraint.enableAngularMotor(2)
-      greenBus.wheel_br_constraint.configureAngularMotor(2, 1, 0, -30, 50000)
-      greenBus.wheel_br_constraint.enableAngularMotor(2)
+    case 87: case 38: // "w" key or up arrow
+      moveForward({ bus: greenBus, lowLimit: 1, velocity: -30, maxForce: 50000 })
       break
-    case 83: case 40:  // "s" key or down arrow key (backward)
-      greenBus.wheel_bl_constraint.configureAngularMotor(2, 1, 0, 20, 3500)
-      greenBus.wheel_bl_constraint.enableAngularMotor(2)
-      greenBus.wheel_br_constraint.configureAngularMotor(2, 1, 0, 20, 3500)
-      greenBus.wheel_br_constraint.enableAngularMotor(2)
+    case 83: case 40:  // "s" key or down arrow
+      moveBackward({ bus: greenBus, lowLimit: 1, velocity: 20, maxForce: 3500 })
       break
 
     case 76:  // "l" key
-      turnLeft({ bus: redBus, limit, velocity, max_force })
+      turnLeft({ bus: redBus, limit: Math.PI / 4, velocity: 10, maxForce: 200 })
       break
     case 222:  // "'" key
-      turnRight({ bus: redBus, limit, velocity, max_force })
+      turnRight({ bus: redBus, limit: Math.PI / 4, velocity: 10, maxForce: 200 })
       break
-    case 80:  // "p" key (forward)
-      redBus.wheel_bl_constraint.configureAngularMotor(2, 1, 0, 30, 50000)
-      redBus.wheel_bl_constraint.enableAngularMotor(2)
-      redBus.wheel_br_constraint.configureAngularMotor(2, 1, 0, 30, 50000)
-      redBus.wheel_br_constraint.enableAngularMotor(2)
+    case 80:  // "p" key
+      moveForward({ bus: redBus, lowLimit: 1, velocity: 30, maxForce: 50000 })
       break
-    case 186:  // ";" key (backward)
-      redBus.wheel_bl_constraint.configureAngularMotor(2, 1, 0, -20, 3500)
-      redBus.wheel_bl_constraint.enableAngularMotor(2)
-      redBus.wheel_br_constraint.configureAngularMotor(2, 1, 0, -20, 3500)
-      redBus.wheel_br_constraint.enableAngularMotor(2)
+    case 186:  // ";" key
+      moveBackward({ bus: redBus, lowLimit: 1, velocity: -20, maxForce: 3500 })
       break
   }
 }
