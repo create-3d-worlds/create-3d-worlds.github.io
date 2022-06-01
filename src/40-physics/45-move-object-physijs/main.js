@@ -5,7 +5,7 @@ import { randomInRange } from '/utils/helpers.js'
 import { CIRCLE } from '/utils/constants.js'
 
 let box
-let mouse_position
+let mousePos
 const boxes = []
 
 camera.position.set(30, 25, 30)
@@ -30,33 +30,34 @@ for (let i = 0; i < 10; i++) {
   boxes.push(box)
 }
 
-scene.simulate()
-
-const setMousePosition = function(evt) {
-  // Find where mouse cursor intersects the ground plane
+const setMousePosition = function(e) {
   const vector = new THREE.Vector3(
-    (evt.clientX / renderer.domElement.clientWidth) * 2 - 1,
-    -((evt.clientY / renderer.domElement.clientHeight) * 2 - 1),
+    (e.clientX / renderer.domElement.clientWidth) * 2 - 1,
+    -((e.clientY / renderer.domElement.clientHeight) * 2 - 1),
     .5
   )
   vector.unproject(camera)
   vector.sub(camera.position).normalize()
 
   const coefficient = (box.position.y - camera.position.y) / vector.y
-  mouse_position = camera.position.clone().add(vector.multiplyScalar(coefficient))
+  mousePos = camera.position.clone().add(vector.multiplyScalar(coefficient))
 }
 
 const applyForce = function() {
-  if (!mouse_position) return
+  if (!mousePos) return
   const strength = 35
   for (let i = 0; i < boxes.length; i++) {
     const box = boxes[i]
-    const distance = mouse_position.distanceTo(box.position)
-    const effect = mouse_position.clone().sub(box.position).normalize().multiplyScalar(strength / distance).negate()
-    const offset = mouse_position.clone().sub(box.position)
+    const distance = mousePos.distanceTo(box.position)
+    const effect = mousePos.clone().sub(box.position).normalize().multiplyScalar(strength / distance).negate()
+    const offset = mousePos.clone().sub(box.position)
     box.applyImpulse(effect, offset)
   }
 }
+
+/* LOOP */
+
+scene.simulate()
 
 void function render() {
   requestAnimationFrame(render)
@@ -68,4 +69,6 @@ scene.addEventListener('update', () => {
   scene.simulate(undefined, 1)
 })
 
-renderer.domElement.addEventListener('mousemove', setMousePosition)
+/* EVENT */
+
+document.addEventListener('mousemove', setMousePosition)
