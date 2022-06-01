@@ -17,7 +17,7 @@ scene.add(ground)
 const box = createCrate({ size: 4, mass: 64 })
 scene.add(box)
 
-const setMousePosition = function(e) {
+const updateMousePosition = function(e) {
   const mouse3D = mouseToWorld(e)
   mouse3D.sub(camera.position).normalize()
 
@@ -50,4 +50,4 @@ scene.addEventListener('update', () => {
 
 /* EVENT */
 
-document.addEventListener('click', setMousePosition)
+document.addEventListener('click', updateMousePosition)
