@@ -71,12 +71,11 @@ loader.load('models/mustang.js', (car, car_materials) => {
 
     const wheel_material = new THREE.MeshFaceMaterial(wheel_materials)
 
-    for (let i = 0; i < 4; i++)
-      vehicle.addWheel(wheel, wheel_material, new THREE.Vector3(
+    for (let i = 0; i < 4; i++) vehicle.addWheel(
+      wheel, wheel_material, new THREE.Vector3(
         i % 2 === 0 ? -1.6 : 1.6, -1, i < 2 ? 3.3 : -3.2
       ),
       new THREE.Vector3(0, -1, 0), new THREE.Vector3(-1, 0, 0), 0.5, 0.7, i < 2 ? false : true)
-
   })
 })
 
@@ -95,29 +94,26 @@ void function render() {
   renderer.render(scene, camera)
 }()
 
-scene.addEventListener(
-  'update',
-  () => {
-    if (vehicle) {
-      if (input.direction !== null) {
-        input.steering += input.direction / 50
-        if (input.steering < -.6) input.steering = -.6
-        if (input.steering > .6) input.steering = .6
-      }
-      vehicle.setSteering(input.steering, 0)
-      vehicle.setSteering(input.steering, 1)
-
-      if (input.power === true)
-        vehicle.applyEngineForce(300)
-					 else if (input.power === false) {
-        vehicle.setBrake(20, 2)
-        vehicle.setBrake(20, 3)
-      } else
-        vehicle.applyEngineForce(0)
+scene.addEventListener('update', () => {
+  if (vehicle) {
+    if (input.direction !== null) {
+      input.steering += input.direction / 50
+      if (input.steering < -.6) input.steering = -.6
+      if (input.steering > .6) input.steering = .6
     }
-    scene.simulate(undefined, 2)
+    vehicle.setSteering(input.steering, 0)
+    vehicle.setSteering(input.steering, 1)
+
+    if (input.power === true)
+      vehicle.applyEngineForce(300)
+					 else if (input.power === false) {
+      vehicle.setBrake(20, 2)
+      vehicle.setBrake(20, 3)
+    } else
+      vehicle.applyEngineForce(0)
   }
-)
+  scene.simulate(undefined, 2)
+})
 
 /* EVENTS */
 
