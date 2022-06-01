@@ -52,9 +52,10 @@ export function normalizeMouse(e) {
   return { x, y }
 }
 
-export const mouseToWorld = (e, camera = defaultCamera) => {
+/* returns mouse 3D vector in world coordinates */
+export const mouseToWorld = (e, camera = defaultCamera, z = .9) => {
   const { x, y } = normalizeMouse(e)
-  const mouse3D = new THREE.Vector3(x, y, .9) // initially .5
+  const mouse3D = new THREE.Vector3(x, y, z) // initially .5
   mouse3D.unproject(camera)
   return mouse3D
 }

@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import { camera, renderer } from '/utils/scene.js'
 import { scene, createGround, createCrate } from '/utils/physics.js'
-import { randomInRange } from '/utils/helpers.js'
+import { randomInRange, mouseToWorld } from '/utils/helpers.js'
 import { CIRCLE } from '/utils/constants.js'
 
 let box
@@ -23,24 +23,17 @@ scene.add(ground)
 
 for (let i = 0; i < 10; i++) {
   box = createCrate({ size: 4, mass: 64 })
-  box.position.set(randomInRange(-25, 25), randomInRange(10, 15), randomInRange(-25, 25))
-  box.rotation.set(Math.random() * CIRCLE, Math.random() * CIRCLE, Math.random() * CIRCLE)
-  box.scale.set(randomInRange(.5, 1.5), randomInRange(.5, 1.5), randomInRange(.5, 1.5))
+  box.position.set(randomInRange(-25, 25), 2, randomInRange(-25, 25))
   scene.add(box)
   boxes.push(box)
 }
 
 const setMousePosition = function(e) {
-  const vector = new THREE.Vector3(
-    (e.clientX / renderer.domElement.clientWidth) * 2 - 1,
-    -((e.clientY / renderer.domElement.clientHeight) * 2 - 1),
-    .5
-  )
-  vector.unproject(camera)
-  vector.sub(camera.position).normalize()
+  const mouse3D = mouseToWorld(e)
+  mouse3D.sub(camera.position).normalize()
 
-  const coefficient = (box.position.y - camera.position.y) / vector.y
-  mousePos = camera.position.clone().add(vector.multiplyScalar(coefficient))
+  const coefficient = (box.position.y - camera.position.y) / mouse3D.y
+  mousePos = camera.position.clone().add(mouse3D.multiplyScalar(coefficient))
 }
 
 const applyForce = function() {
