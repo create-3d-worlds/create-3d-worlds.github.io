@@ -2,12 +2,10 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { renderer, camera } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
 import { CIRCLE } from '/utils/constants.js'
-import { createScene, createTerrain, createBall, createCrate } from '/utils/physics.js'
+import { scene, createTerrain, createBall, createCrate } from '/utils/physics.js'
 
 camera.position.set(80, 40, 80)
 camera.lookAt(new THREE.Vector3(0, 0, 0))
-
-const scene = createScene()
 
 initLights({ scene, position: [0, 50, 120] })
 

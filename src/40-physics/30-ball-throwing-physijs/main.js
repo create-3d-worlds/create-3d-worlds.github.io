@@ -2,9 +2,7 @@ import * as THREE from '/node_modules/three119/build/three.module.js'
 import { renderer, camera } from '/utils/scene.js'
 import { normalizeMouse } from '/utils/helpers.js'
 import { ambLight, dirLight } from '/utils/light.js'
-import { createScene, createGround, createBall, createCrateWall } from '/utils/physics.js'
-
-const scene = createScene()
+import { scene, createGround, createBall, createCrateWall } from '/utils/physics.js'
 
 ambLight({ scene, color: 0x707070 })
 dirLight({ scene })

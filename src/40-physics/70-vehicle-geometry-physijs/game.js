@@ -3,9 +3,7 @@ import Physijs from '/libs/physi-ecma.js'
 import { renderer, camera } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
 import { RIGHT_ANGLE } from '/utils/constants.js'
-import { createScene, createGround } from '/utils/physics.js'
-
-const scene = createScene()
+import { scene, createGround } from '/utils/physics.js'
 
 scene.addEventListener('update', () => scene.simulate(undefined, 2))
 

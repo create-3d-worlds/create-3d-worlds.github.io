@@ -1,10 +1,8 @@
 import { camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createScene, createBox, createGround } from '/utils/physics.js'
+import { scene, createBox, createGround } from '/utils/physics.js'
 import { dirLight } from '/utils/light.js'
 
 createOrbitControls()
-
-const scene = createScene()
 
 scene.add(createGround())
 

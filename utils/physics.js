@@ -14,13 +14,6 @@ const textureLoader = new THREE.TextureLoader()
 export const scene = new Physijs.Scene()
 scene.setGravity(new THREE.Vector3(0, -10, 0))
 
-// TODO: delete
-export function createScene({ gravity = -10 } = {}) {
-  const scene = new Physijs.Scene()
-  scene.setGravity(new THREE.Vector3(0, gravity, 0))
-  return scene
-}
-
 /* FLOOR */
 
 export function createGround({ size = 150, color = 0x666666, friction = .8, bounciness = .4, file, circle } = {}) {

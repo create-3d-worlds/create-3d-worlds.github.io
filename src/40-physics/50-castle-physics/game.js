@@ -1,5 +1,5 @@
 import { camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createScene, createGround, createBox } from '/utils/physics.js'
+import { scene, createGround, createBox } from '/utils/physics.js'
 import { hemLight, dirLight } from '/utils/light.js'
 
 const bricks = 10
@@ -8,7 +8,6 @@ const spacing = 10
 const boxSize = 10
 const d = spacing * bricks
 
-const scene = createScene()
 hemLight({ scene })
 dirLight({ scene })
 

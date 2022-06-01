@@ -1,8 +1,6 @@
 import { renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
-import { createScene, createDominos, createGround } from '/utils/physics.js'
-
-const scene = createScene()
+import { scene, createDominos, createGround } from '/utils/physics.js'
 
 createOrbitControls()
 camera.position.set(10, 10, 50)

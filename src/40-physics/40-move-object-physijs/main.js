@@ -2,7 +2,7 @@
 import * as THREE from '/node_modules/three119/build/three.module.js'
 import Physijs from '/libs/physi-ecma.js'
 import { camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
-import { createScene } from '/utils/physics.js'
+import { scene } from '/utils/physics.js'
 
 let ball
 
@@ -12,8 +12,6 @@ camera.position.z = 10
 camera.position.y = 5
 
 const controls = createOrbitControls()
-
-const scene = createScene()
 
 // floor
 const friction = 1 // high friction
