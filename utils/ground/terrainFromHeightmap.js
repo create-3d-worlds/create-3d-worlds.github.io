@@ -21,7 +21,8 @@ const terrainFromHeightmap = ({ src, textureFile, heightOffset = 2, scale = 3, c
     const ctx = canvas.getContext('2d')
 
     ctx.drawImage(img, 0, 0)
-    const geometry = new THREE.Geometry()
+    const geometry = new THREE.BufferGeometry()
+    const positions = []
     const pixel = ctx.getImageData(0, 0, width, depth)
 
     const step = 4 // indeces are r,g,b,a
@@ -30,37 +31,38 @@ const terrainFromHeightmap = ({ src, textureFile, heightOffset = 2, scale = 3, c
         const i = z * step + (depth * x * step)
         const yValue = pixel.data[i] / heightOffset
         const vertex = new THREE.Vector3(x * scale, yValue, z * scale)
-        geometry.vertices.push(vertex)
+        positions.push(vertex.x, vertex.y, vertex.z)
       }
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
 
     // create a rectangle (two triangles) between four vertices
-    for (let z = 0; z < depth - 1; z++)
-      for (let x = 0; x < width - 1; x++) {
-        // a - - b
-        // |  /  |
-        // c - - d
-        const a = x + z * width
-        const b = (x + 1) + (z * width)
-        const c = x + ((z + 1) * width)
-        const d = (x + 1) + ((z + 1) * width)
+    // for (let z = 0; z < depth - 1; z++)
+    //   for (let x = 0; x < width - 1; x++) {
+    //     // a - - b
+    //     // |  /  |
+    //     // c - - d
+    //     const a = x + z * width
+    //     const b = (x + 1) + (z * width)
+    //     const c = x + ((z + 1) * width)
+    //     const d = (x + 1) + ((z + 1) * width)
 
-        const face1 = new THREE.Face3(a, b, d)
-        const face2 = new THREE.Face3(d, c, a)
-        geometry.faces.push(face1)
-        geometry.faces.push(face2)
+    //     const face1 = new THREE.Face3(a, b, d)
+    //     const face2 = new THREE.Face3(d, c, a)
+    //     geometry.faces.push(face1)
+    //     geometry.faces.push(face2)
 
-        if (textureFile) { // UV mapping
-          const uva = new THREE.Vector2(x / (width - 1), 1 - z / (depth - 1))
-          const uvb = new THREE.Vector2((x + 1) / (width - 1), 1 - z / (depth - 1))
-          const uvc = new THREE.Vector2(x / (width - 1), 1 - (z + 1) / (depth - 1))
-          const uvd = new THREE.Vector2((x + 1) / (width - 1), 1 - (z + 1) / (depth - 1))
-          geometry.faceVertexUvs[0].push([uvb, uva, uvc])
-          geometry.faceVertexUvs[0].push([uvc, uvd, uvb])
-        } else {
-          face1.color = new THREE.Color(paint(getHighPoint(geometry, face1)).hex())
-          face2.color = new THREE.Color(paint(getHighPoint(geometry, face2)).hex())
-        }
-      }
+    //     if (textureFile) { // UV mapping
+    //       const uva = new THREE.Vector2(x / (width - 1), 1 - z / (depth - 1))
+    //       const uvb = new THREE.Vector2((x + 1) / (width - 1), 1 - z / (depth - 1))
+    //       const uvc = new THREE.Vector2(x / (width - 1), 1 - (z + 1) / (depth - 1))
+    //       const uvd = new THREE.Vector2((x + 1) / (width - 1), 1 - (z + 1) / (depth - 1))
+    //       geometry.faceVertexUvs[0].push([uvb, uva, uvc])
+    //       geometry.faceVertexUvs[0].push([uvc, uvd, uvb])
+    //     } else {
+    //       face1.color = new THREE.Color(paint(getHighPoint(geometry, face1)).hex())
+    //       face2.color = new THREE.Color(paint(getHighPoint(geometry, face2)).hex())
+    //     }
+    //   }
 
     geometry.computeVertexNormals(true)
     // geometry.computeFaceNormals()
