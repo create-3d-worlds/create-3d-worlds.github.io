@@ -2,6 +2,8 @@ import * as THREE from '/node_modules/three125/build/three.module.js'
 import { randomInRange, randomGrayish, randomInCircle, randomInSquare } from '/utils/helpers.js'
 import { BufferGeometryUtils } from '/node_modules/three125/examples/jsm/utils/BufferGeometryUtils.js'
 
+const basicMaterial = new THREE.MeshStandardMaterial({ vertexColors: THREE.FaceColors, side: THREE.DoubleSide })
+
 function createWindow(windowWidth, windowHeight) {
   const lightColors = [0xffff00, 0xF5F5DC, 0xFFEA00, 0xFDDA0D, 0xFFFF8F, 0xFFFDD0]
   const lightColor = lightColors[Math.floor(Math.random() * lightColors.length)]
@@ -74,16 +76,14 @@ export function createBuilding({
     colors.push(color.r, color.g, color.b)
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
 
-  const material = new THREE.MeshStandardMaterial({ vertexColors: THREE.FaceColors, side: THREE.DoubleSide })
-
-  const merged = addWindows
+  const mergedGeometry = addWindows
     ? BufferGeometryUtils.mergeBufferGeometries([geometry, ...createWindows(bWidth, bHeight)])
     : geometry
 
-  merged.translate(x, y, z) // needed for merge
-  // if (rotY) merged.rotateY(rotY)
+  mergedGeometry.translate(x, y, z) // needed for merge
+  if (rotY) mergedGeometry.rotateY(rotY)
 
-  const building = new THREE.Mesh(merged, material)
+  const building = new THREE.Mesh(mergedGeometry, basicMaterial)
   return building
 }
 
@@ -115,7 +115,7 @@ export function createCity({
   const merged = BufferGeometryUtils.mergeBufferGeometries(buildings)
   const material = addTexture
     ? new THREE.MeshLambertMaterial({ map: generateCityTexture(night), vertexColors: THREE.FaceColors })
-    : new THREE.MeshStandardMaterial({ vertexColors: THREE.FaceColors, side: THREE.DoubleSide })
+    : basicMaterial
 
   const city = new THREE.Mesh(merged, material)
   return city
