@@ -100,59 +100,14 @@ export function createFirTree({ x = 0, y = 0, z = 0, size = 5 } = {}) {
   return mesh
 }
 
-/* ADVANCED FIR TREE */
-
-function distortFir(vertices, radialSegments, currSegment, factor) {
-  let vertexIndex
-  let vertexVector = new THREE.Vector3()
-  const midPointVector = vertices[0].clone()
-  let offset
-  for (let i = 0; i < radialSegments; i++) {
-    vertexIndex = currSegment * radialSegments + 1
-    vertexVector = vertices[i + vertexIndex].clone()
-    midPointVector.y = vertexVector.y
-    offset = vertexVector.sub(midPointVector)
-    if (i % 2 === 0) {
-      offset.normalize().multiplyScalar(factor / 6)
-      vertices[i + vertexIndex].add(offset)
-    } else {
-      offset.normalize().multiplyScalar(factor)
-      vertices[i + vertexIndex].add(offset)
-      vertices[i + vertexIndex].y = vertices[i + vertexIndex + radialSegments].y + 0.05
-    }
-  }
-}
-
-function tightenFir(vertices, radialSegments, currSegment) {
-  let vertexIndex
-  let vertexVector = new THREE.Vector3()
-  const midPointVector = vertices[0].clone()
-  let offset
-  for (let i = 0; i < radialSegments; i++) {
-    vertexIndex = currSegment * radialSegments + 1
-    vertexVector = vertices[i + vertexIndex].clone()
-    midPointVector.y = vertexVector.y
-    offset = vertexVector.sub(midPointVector)
-
-    offset.normalize().multiplyScalar(0.01)
-    vertices[i + vertexIndex].sub(offset)
-  }
-}
+/* SIMPLE FIR TREE */
 
 function createFirTop({ radius = .5, height = 1, radialSegments = 8, heightSegments = 6 } = {}) {
-  const rand = randomInRange(0.05, 0.2)
   const geometry = new THREE.ConeGeometry(radius, height, radialSegments, heightSegments)
   const material = new THREE.MeshStandardMaterial({
     color: similarColor(greens[3]),
     flatShading: true
   })
-
-  distortFir(geometry.vertices, radialSegments, 0, rand)
-  tightenFir(geometry.vertices, radialSegments, 1)
-  distortFir(geometry.vertices, radialSegments, 2, rand * 1.1)
-  tightenFir(geometry.vertices, radialSegments, 3)
-  distortFir(geometry.vertices, radialSegments, 4, rand * 1.2)
-  tightenFir(geometry.vertices, radialSegments, 5)
 
   const mesh = new THREE.Mesh(geometry, material)
   mesh.castShadow = mesh.receiveShadow = false

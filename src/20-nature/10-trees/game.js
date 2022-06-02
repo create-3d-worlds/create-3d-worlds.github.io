@@ -10,7 +10,7 @@ camera.position.y = 10
 scene.add(
   createTree({ x: -15 }),
   createSketchTree(),
-  createFirTree({ x: 15 }),
+  // createFirTree({ x: 15 }),
   createFir({ x: 30 }),
 )
 
