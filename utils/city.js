@@ -24,35 +24,40 @@ function createWindows(bWidth, bHeight) {
   const windowWidth = bWidth / 8
   const windowHeight = randomInRange(4, 8)
   const floors = Math.floor(bHeight / (windowHeight * 2))
+  const halfBWidth = bWidth * .5
+
+  const getWindowY = floor => {
+    const currY = floor * windowHeight * 2
+    const groundLevel = -bHeight * .5 + windowHeight * .5
+    const buildingMargins = bHeight - (windowHeight * 2 * floors)
+    const y = groundLevel + currY + (buildingMargins / 2) + (windowHeight / 2)
+    return y
+  }
 
   const createSideWindows = callback => {
     for (let i = 0; i < bWidth / windowWidth / 2; i++) {
       for (let floor = 0; floor < floors; floor++) {
-        const windowGeometry = createWindow(windowWidth, windowHeight)
-        const currX = windowWidth + i * windowWidth * 2 - bWidth * .5
-        callback(windowGeometry, currX, floor)
-        const currY = floor * windowHeight * 2
-        const groundLevel = -bHeight * .5 + windowHeight * .5
-        const margins = bHeight - (windowHeight * 2 * floors)
-        const y = groundLevel + currY + (margins / 2) + (windowHeight / 2)
-        windowGeometry.translate(0, y, 0)
-        windows.push(windowGeometry)
+        const geometry = createWindow(windowWidth, windowHeight)
+        const currX = windowWidth + i * windowWidth * 2 - halfBWidth
+        callback(geometry, currX, floor)
+        geometry.translate(0, getWindowY(floor), 0)
+        windows.push(geometry)
       }
     }
   }
   createSideWindows((geometry, currX) => {
-    geometry.translate(currX, 0, bWidth * .5)
+    geometry.translate(currX, 0, halfBWidth)
   })
   createSideWindows((geometry, currX) => {
-    geometry.translate(currX, 0, -bWidth * .5)
-  })
-  createSideWindows((geometry, currX) => {
-    geometry.rotateY(Math.PI * .5)
-    geometry.translate(bWidth * .5, 0, currX)
+    geometry.translate(currX, 0, -halfBWidth)
   })
   createSideWindows((geometry, currX) => {
     geometry.rotateY(Math.PI * .5)
-    geometry.translate(-bWidth * .5, 0, currX)
+    geometry.translate(halfBWidth, 0, currX)
+  })
+  createSideWindows((geometry, currX) => {
+    geometry.rotateY(Math.PI * .5)
+    geometry.translate(-halfBWidth, 0, currX)
   })
   return windows
 }
