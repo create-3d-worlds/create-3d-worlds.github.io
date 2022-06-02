@@ -94,7 +94,7 @@ const shouldEnlarge = (enlargeEvery, i) => enlargeEvery && i % enlargeEvery == 0
 export function createCity({
   numBuildings = 200, size = 200, circle = true, rotateEvery = 0, enlargeEvery = 0,
   addWindows = true, colorParams = { min: 0, max: .1, colorful: .1 }, addTexture = false,
-  emptyCenter = 0, night = false,
+  emptyCenter = 0,
 } = {}) {
   const buildings = []
   for (let i = 0; i < numBuildings; i++) {
@@ -111,42 +111,36 @@ export function createCity({
       ? randomInRange(bWidth * 4, bWidth * 6, true)
       : randomInRange(bWidth, bWidth * 4, true)
 
-    const building = createBuilding({ color, x, z, rotY, addWindows, bWidth, bHeight, addTexture, night })
+    const building = createBuilding({ color, x, z, rotY, addWindows, bWidth, bHeight, addTexture })
     buildings.push(building.geometry)
   }
 
   const merged = BufferGeometryUtils.mergeBufferGeometries(buildings)
   const material = addTexture
-    ? new THREE.MeshLambertMaterial({ map: generateCityTexture(night), vertexColors: THREE.FaceColors })
+    ? new THREE.MeshLambertMaterial({ map: generateCityTexture(), vertexColors: THREE.FaceColors })
     : basicMaterial
 
   const city = new THREE.Mesh(merged, material)
   return city
 }
 
-const windowColor = night => {
+const windowColor = () => {
   const value = randomInRange(0, 84, true)
-  if (night) {
-    const chance = Math.random()
-    if (chance > .98) return `rgb(${value * 3}, ${value}, ${value})`
-    if (chance > .9) return `rgb(${value * 2}, ${value * 2}, ${value})`
-    if (chance > .85) return `rgb(${value * 2}, ${value * 2}, ${value * 2})`
-  }
   return `rgb(${value}, ${value}, ${value})`
 }
 
-function generateCityTexture(night) {
+function generateCityTexture() {
   // beli kvadrat
   const canvas = document.createElement('canvas')
   canvas.width = 32
   canvas.height = 64
   const context = canvas.getContext('2d')
-  context.fillStyle = night ? '#000000' : '#ffffff'
+  context.fillStyle = '#ffffff'
   context.fillRect(0, 0, 32, 64)
   // crno-sive nijanse
   for (let y = 2; y < 64; y += 2) {
     for (let x = 0; x < 32; x += 2) {
-      context.fillStyle = windowColor(night)
+      context.fillStyle = windowColor()
       context.fillRect(x, y, 2, 1)
     }
   }
