@@ -25,8 +25,14 @@ export default class Resource extends Entity {
     const geometry = new THREE.BoxGeometry(4, 4, 4)
     const material = new THREE.MeshLambertMaterial({ color: this.color })
     this.mesh = new THREE.Mesh(geometry, material)
-    for (let i = 0; i < this.mesh.geometry.vertices.length; i++)
-      this.mesh.geometry.vertices[i].y += 5
+    const { position } = geometry.attributes
+    const vertex = new THREE.Vector3()
+    // TODO: see what this works
+    for (let i = 0, l = position.count; i < l; i ++) {
+      vertex.fromBufferAttribute(position, i)
+      vertex.y += 5
+      position.setXYZ(i, vertex.x, vertex.y, vertex.z)
+    }
     this.mesh.castShadow = true
     this.mesh.position.copy(pos)
   }

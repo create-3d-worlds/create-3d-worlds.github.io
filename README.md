@@ -17,7 +17,9 @@ live-server
 - [ ] ažurirati verziju (na 125)
   - [ ] fix distort in createWorldSphere
   - [ ] fix geometry-explosion
+  - [ ] fix terrainFromHeightmap
 - [ ] ažurirati verziju na poslednju
+- [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
 - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
