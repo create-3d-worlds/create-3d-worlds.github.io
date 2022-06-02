@@ -15,6 +15,7 @@ live-server
 
 - [x] ažurirati verziju (na 119)
 - [ ] ažurirati verziju (na 125)
+- [ ] fix distort in createWorldSphere
 - [ ] ažurirati verziju na poslednju
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
@@ -132,6 +133,7 @@ live-server
 ### Physics
 
 - [x] odvojiti fizička pomagala
+- [ ] ujednačiti createTerrain i druga pomagala sa standardnim
 - [x] videti nove primere
   - [ ] lomi materijale https://threejs.org/examples/?q=physics#physics_ammo_break
 - [ ] domine: da manja obara veću

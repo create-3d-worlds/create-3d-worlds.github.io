@@ -382,7 +382,7 @@ Physijs.Scene = function(params) {
   const self = this
 
   Eventable.call(this)
-  THREE.Scene.call(this)
+  new THREE.Scene(this)
 
   this._worker = new Worker(Physijs.scripts.worker || 'physijs_worker.js')
   this._worker.transferableMessage = this._worker.webkitPostMessage || this._worker.postMessage
@@ -1079,18 +1079,18 @@ Physijs.HeightfieldMesh = function(geometry, material, mass, xdiv, ydiv) {
   // note - this assumes our plane geometry is square, unless we pass in specific xdiv and ydiv
   this._physijs.absMaxHeight = Math.max(geometry.boundingBox.max.z, Math.abs(geometry.boundingBox.min.z))
 
+  const { position } = geometry.attributes
   const points = []
 
   let a, b
-  for (let i = 0; i < geometry.vertices.length; i++) {
-
+  const vertex = new THREE.Vector3()
+  for (let i = 0, l = position.count; i < l; i ++) {
     a = i % this._physijs.xpts
     b = Math.round((i / this._physijs.xpts) - ((i % this._physijs.xpts) / this._physijs.xpts))
-    points[i] = geometry.vertices[a + ((this._physijs.ypts - b - 1) * this._physijs.ypts)].z
-
-    // points[i] = geometry.vertices[i];
+    const index = a + ((this._physijs.ypts - b - 1) * this._physijs.ypts)
+    vertex.fromBufferAttribute(position, index)
+    points[i] = vertex.z
   }
-
   this._physijs.points = points
 }
 Physijs.HeightfieldMesh.prototype = new Physijs.Mesh

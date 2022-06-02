@@ -46,7 +46,7 @@ function distort({ geometry, heightSegments, widthSegments } = {}) {
 
 export function createWorldSphere({ r = 26, widthSegments = 40, heightSegments = 40 } = {}) {
   const geometry = new THREE.SphereGeometry(r, widthSegments, heightSegments)
-  distort({ geometry, heightSegments, widthSegments })
+  // distort({ geometry, heightSegments, widthSegments })
   const material = new THREE.MeshStandardMaterial({
     color: 0xfffafa,
     flatShading: true

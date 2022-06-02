@@ -118,10 +118,22 @@ export function createTerrain(
   const perlin = new ImprovedNoise()
   const physiMaterial = Physijs.createMaterial(new THREE.MeshStandardMaterial({ color }), friction, bounciness)
   const geometry = new THREE.PlaneGeometry(size, size, 100, 100)
-  geometry.vertices.forEach(vertex => {
+
+  const { position } = geometry.attributes
+  const vertex = new THREE.Vector3()
+
+  for (let i = 0, l = position.count; i < l; i ++) {
+    vertex.fromBufferAttribute(position, i)
     const value = perlin.noise(vertex.x / 12, vertex.y / 12, 0)
     vertex.z = value * 13
-  })
+    position.setXYZ(i, vertex.x, vertex.y, vertex.z)
+  }
+
+  // geometry.vertices.forEach(vertex => {
+  //   const value = perlin.noise(vertex.x / 12, vertex.y / 12, 0)
+  //   vertex.z = value * 13
+  // })
+
   geometry.computeFaceNormals()
   geometry.computeVertexNormals()
   const ground = new Physijs.HeightfieldMesh(geometry, physiMaterial, 0, 100, 100)
