@@ -18,7 +18,8 @@ live-server
   - [ ] fix distort in createWorldSphere
   - [ ] fix geometry-explosion
   - [ ] fix terrainFromHeightmap
-  - [ ] optimize city (merge geometries)
+  - [ ] fix towers
+  - [x] fix and optimize city (merge geometries)
 - [ ] ažurirati verziju na poslednju
 - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
