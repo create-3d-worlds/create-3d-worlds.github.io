@@ -41,7 +41,6 @@ export function createTerrain({ size = 400, segments = 50, colorParam, factor = 
   for (let i = 0, l = position.count; i < l; i ++) {
     vertex.fromBufferAttribute(position, i)
     vertex.y += randomInRange(-factor * 5, factor * 7.5) * Math.random() * Math.random()
-    // vertex.y += randomInRange(-factor * .5, factor * 1.5)
     vertex.z += randomInRange(-factor, factor)
     position.setXYZ(i, vertex.x, vertex.y, vertex.z)
   }

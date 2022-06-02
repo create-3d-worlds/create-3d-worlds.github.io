@@ -96,8 +96,8 @@ export function loadGlb(params) {
 export function loadDae(params) {
   const colladaLoader = new ColladaLoader()
   return new Promise(resolve => {
-    colladaLoader.load(`/assets/models/${params.file}`, ({ scene: model, animations }) => {
-      prepareMesh({ resolve, model, animations, ...params })
+    colladaLoader.load(`/assets/models/${params.file}`, ({ scene }) => {
+      prepareMesh({ resolve, model: scene, animations: scene.animations, ...params })
     })
   })
 }
