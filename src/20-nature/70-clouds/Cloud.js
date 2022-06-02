@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three119/build/three.module.js'
+import * as THREE from '/node_modules/three125/build/three.module.js'
 
 export const Cloud = function() {
   THREE.Mesh.call(this, new THREE.BoxGeometry(1, 1, 1))

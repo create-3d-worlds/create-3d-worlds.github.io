@@ -1,5 +1,5 @@
-import * as THREE from '/node_modules/three119/build/three.module.js'
-import {camera, scene, renderer} from '/utils/scene.js'
+import * as THREE from '/node_modules/three125/build/three.module.js'
+import { camera, scene, renderer } from '/utils/scene.js'
 
 camera.position.z = 50
 

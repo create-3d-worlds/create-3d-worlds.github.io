@@ -1,6 +1,6 @@
 import Physijs from '/libs/physi-ecma.js'
-import * as THREE from '/node_modules/three119/build/three.module.js'
-import { GLTFLoader } from '/node_modules/three119/examples/jsm/loaders/GLTFLoader.js'
+import * as THREE from '/node_modules/three125/build/three.module.js'
+import { GLTFLoader } from '/node_modules/three125/examples/jsm/loaders/GLTFLoader.js'
 import { scene } from '/utils/physics.js'
 
 const bwf = 3.5  // bus wheel friction
