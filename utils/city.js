@@ -72,13 +72,18 @@ export function createBuilding({
     colors.push(color.r, color.g, color.b)
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
 
-  const building = new THREE.Mesh(geometry)
+  const material = new THREE.MeshStandardMaterial({ vertexColors: THREE.FaceColors, side: THREE.DoubleSide })
+  const building = new THREE.Mesh(geometry, material)
   // if (addWindows)
   //   building.add(createWindows(building, bWidth, bHeight))
-  geometry.translate(x, y, z)
+
+  geometry.translate(x, y, z) // needed for merge
   building.position.set(x, y, z)
-  if (rotY) building.rotateY(rotY)
-  building.updateMatrix() // needed for merge
+  if (rotY) {
+    geometry.rotateY(rotY) // needed for merge
+    building.rotateY(rotY)
+  }
+
   return building
 }
 
