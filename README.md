@@ -14,9 +14,8 @@ live-server
 ### General
 
 - [x] ažurirati verziju (na 119)
-- [ ] ažurirati verziju (na 125)
+- [x] ažurirati verziju (na 125)
   - [ ] fix distort in createWorldSphere
-  - [ ] fix geometry-explosion
   - [ ] fix terrainFromHeightmap
   - [x] fix towers
   - [x] fix and optimize city (merge geometries)
