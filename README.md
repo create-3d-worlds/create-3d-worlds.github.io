@@ -24,6 +24,7 @@ live-server
   - [x] izbaciti nightelf-priest
 - [x] veličina nekih modela ne radi (dae format zeza, izbegavati)
 - [x] pomeriti foldere sa igračem u scenu
+- [ ] move 1943 ground to helpers
 
 ### Geometry
 

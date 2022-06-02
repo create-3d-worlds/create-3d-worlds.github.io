@@ -7,7 +7,6 @@ export function createGround({ radius = 3000 } = {}) {
   geometry.applyMatrix4(
     new THREE.Matrix4().makeRotationX(Math.PI * .5).makeRotationZ(Math.PI * .5)
   )
-  geometry.mergeVertices()
 
   const material = new THREE.MeshPhongMaterial({
     color: 0x91A566,
@@ -20,7 +19,11 @@ export function createGround({ radius = 3000 } = {}) {
   ground.receiveShadow = true
   ground.position.y = -radius
 
-  geometry.vertices.map(vertex => {
+  const { position } = geometry.attributes
+  const vertex = new THREE.Vector3()
+
+  for (let i = 0, l = position.count; i < l; i ++) {
+    vertex.fromBufferAttribute(position, i)
     waves.push({
       y: vertex.y,
       x: vertex.x,
@@ -29,17 +32,20 @@ export function createGround({ radius = 3000 } = {}) {
       amp: 5 + Math.random() * 15,
       speed: 0.016 + Math.random() * 0.032
     })
-  })
+  }
   return ground
 }
 
 export function rotateGround(ground) {
-  ground.geometry.vertices.map((vertex, i) => {
+  const { position } = ground.geometry.attributes
+  const vertex = new THREE.Vector3()
+  for (let i = 0, l = position.count; i < l; i ++) {
+    vertex.fromBufferAttribute(position, i)
     const wave = waves[i]
     vertex.z = wave.z + Math.cos(wave.ang) * wave.amp
     vertex.y = wave.y + Math.sin(wave.ang) * wave.amp
     wave.ang += wave.speed
-  })
-  ground.geometry.verticesNeedUpdate = true
+    position.setXYZ(i, vertex.x, vertex.y, vertex.z)
+  }
   ground.rotation.x -= .005
 }
