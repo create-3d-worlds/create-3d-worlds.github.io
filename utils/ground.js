@@ -34,15 +34,25 @@ export function createGround({ size = 1000, color, circle, file } = {}) {
 export function createTerrain({ size = 400, segments = 50, colorParam, factor = 2 } = {}) {
   const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
   geometry.rotateX(- Math.PI / 2)
-  geometry.vertices.forEach(vertex => {
-    vertex.x += randomInRange(-factor, factor)
+
+  const { position } = geometry.attributes
+  const vertex = new THREE.Vector3()
+
+  for (let i = 0, l = position.count; i < l; i ++) {
+    vertex.fromBufferAttribute(position, i)
+    vertex.y += randomInRange(-factor * 5, factor * 7.5) * Math.random() * Math.random()
     // vertex.y += randomInRange(-factor * .5, factor * 1.5)
-    vertex.y += randomInRange(-factor * 5, factor * 7.5) * Math.random() * Math.random() // 
     vertex.z += randomInRange(-factor, factor)
-  })
-  geometry.faces.forEach(face => {
-    face.vertexColors.push(randomNuance(colorParam), randomNuance(colorParam), randomNuance(colorParam))
-  })
+    position.setXYZ(i, vertex.x, vertex.y, vertex.z)
+  }
+
+  const colors = []
+  for (let i = 0, l = position.count; i < l; i ++) {
+    const color = randomNuance(colorParam)
+    colors.push(color.r, color.g, color.b)
+  }
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
+
   const material = new THREE.MeshLambertMaterial({ vertexColors: THREE.VertexColors })
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
