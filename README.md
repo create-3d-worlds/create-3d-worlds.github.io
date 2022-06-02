@@ -15,7 +15,8 @@ live-server
 
 - [x] ažurirati verziju (na 119)
 - [ ] ažurirati verziju (na 125)
-- [ ] fix distort in createWorldSphere
+  - [ ] fix distort in createWorldSphere
+  - [ ] fix geometry-explosion
 - [ ] ažurirati verziju na poslednju
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
