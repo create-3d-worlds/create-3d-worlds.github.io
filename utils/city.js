@@ -63,7 +63,6 @@ function createWindows(building, bWidth, bHeight) {
 export function createBuilding({
   x = 0, z = 0, color = new THREE.Color(0x000000), bWidth = randomInRange(10, 20, true),
   bHeight = randomInRange(bWidth, bWidth * 4, true), y = bHeight * .5, addWindows = true, rotY = 0,
-  addTexture, night
 } = {}) {
 
   const geometry = new THREE.BoxBufferGeometry(bWidth, bHeight, bWidth)
@@ -73,14 +72,10 @@ export function createBuilding({
     colors.push(color.r, color.g, color.b)
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
 
-  const material = addTexture
-    ? new THREE.MeshLambertMaterial({ map: generateCityTexture(night), vertexColors: THREE.FaceColors })
-    : new THREE.MeshStandardMaterial({ vertexColors: THREE.FaceColors, side: THREE.DoubleSide })
-
-  const building = new THREE.Mesh(geometry, material)
-  if (addWindows)
-    building.add(createWindows(building, bWidth, bHeight))
-
+  const building = new THREE.Mesh(geometry)
+  // if (addWindows)
+  //   building.add(createWindows(building, bWidth, bHeight))
+  geometry.translate(x, y, z)
   building.position.set(x, y, z)
   if (rotY) building.rotateY(rotY)
   building.updateMatrix() // needed for merge
@@ -96,7 +91,7 @@ export function createCity({
   addWindows = true, colorParams = { min: 0, max: .1, colorful: .1 }, addTexture = false,
   emptyCenter = 0, night = false,
 } = {}) {
-  const group = new THREE.Group()
+  const buildings = []
   for (let i = 0; i < numBuildings; i++) {
     const color = colorParams ? randomGrayish(colorParams) : new THREE.Color(0x000000)
     const { x, z } = circle ? randomInCircle(size * .9, emptyCenter) : randomInSquare(size, emptyCenter)
@@ -109,9 +104,16 @@ export function createCity({
       : randomInRange(bWidth, bWidth * 4, true)
 
     const building = createBuilding({ color, x, z, rotY, addWindows, bWidth, bHeight, addTexture, night })
-    group.add(building)
+    buildings.push(building.geometry)
   }
-  return group
+
+  const merged = BufferGeometryUtils.mergeBufferGeometries(buildings)
+  const material = addTexture
+    ? new THREE.MeshLambertMaterial({ map: generateCityTexture(night), vertexColors: THREE.FaceColors })
+    : new THREE.MeshStandardMaterial({ vertexColors: THREE.FaceColors, side: THREE.DoubleSide })
+
+  const city = new THREE.Mesh(merged, material)
+  return city
 }
 
 const windowColor = night => {
