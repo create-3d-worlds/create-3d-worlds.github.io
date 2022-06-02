@@ -4,6 +4,7 @@ import { createLampposts, createCityLights } from '/utils/streetlights.js'
 import { createCity } from '/utils/city.js'
 
 hemLight({ intensity: 1.25 })
+renderer.setClearColor(0x000000)
 
 const numLampposts = 12 // max num of spotlights is 16
 const numCityLights = 16 - numLampposts

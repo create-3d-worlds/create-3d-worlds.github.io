@@ -79,6 +79,6 @@ export function createWater({ size = 1000, opacity = 0.75, file } = {}) {
 
 /* ALIASES */
 
-export function createFloor(params) {
-  return createGround({ color: 0x808080, circle: false, ...params })
+export function createFloor({ color = 0x808080, circle = false, ...rest } = {}) {
+  return createGround({ color, circle, ...rest })
 }
