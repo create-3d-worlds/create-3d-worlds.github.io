@@ -2,12 +2,12 @@ import * as THREE from '/node_modules/three125/build/three.module.js'
 import { randomInRange, randomGrayish, randomInCircle, randomInSquare } from '/utils/helpers.js'
 import { BufferGeometryUtils } from '/node_modules/three125/examples/jsm/utils/BufferGeometryUtils.js'
 
-function createWindow(wWidth, wHeight) {
+function createWindow(windowWidth, windowHeight) {
   const lightColors = [0xffff00, 0xF5F5DC, 0xFFEA00, 0xFDDA0D, 0xFFFF8F, 0xFFFDD0]
   const lightColor = lightColors[Math.floor(Math.random() * lightColors.length)]
   const randColor = Math.random() > 0.5 ? 0x000000 : new THREE.Color(lightColor)
 
-  const geometry = new THREE.PlaneBufferGeometry(wWidth, wHeight)
+  const geometry = new THREE.PlaneBufferGeometry(windowWidth, windowHeight)
 
   const colors = []
   for (let i = 0, l = geometry.attributes.position.count; i < l; i ++) {
@@ -16,46 +16,43 @@ function createWindow(wWidth, wHeight) {
   }
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
 
-  const material = new THREE.MeshStandardMaterial({ vertexColors: THREE.FaceColors, side: THREE.DoubleSide })
-  const window = new THREE.Mesh(geometry, material)
-  return window
+  return geometry
 }
 
-function createWindows(building, bWidth, bHeight) {
-  const windows = new THREE.Group()
-  const wWidth = bWidth / 8
-  const wHeight = randomInRange(4, 8)
-  const floors = Math.floor(bHeight / wHeight)
-  const halfFloors = Math.floor(floors / 2)
+function createWindows(bWidth, bHeight) {
+  const windows = []
+  const windowWidth = bWidth / 8
+  const windowHeight = randomInRange(4, 8)
+  const floors = Math.floor(bHeight / (windowHeight * 2))
 
   const createSideWindows = callback => {
-    for (let i = 0; i < bWidth / wWidth / 2; i++)
-      for (let j = 0; j < halfFloors; j++) {
-        const win = createWindow(wWidth, wHeight)
-        const currPos = building.position.x - bWidth / 2 + wWidth + i * wWidth * 2
-        callback(win, currPos)
-        win.position.y = j * wHeight * 2 - bHeight * (halfFloors - 1) / floors
-        win.updateMatrix()
-        windows.add(win)
+    for (let i = 0; i < bWidth / windowWidth / 2; i++) {
+      for (let floor = 0; floor < floors; floor++) {
+        const windowGeometry = createWindow(windowWidth, windowHeight)
+        const currX = windowWidth + i * windowWidth * 2 - bWidth * .5
+        callback(windowGeometry, currX, floor)
+        const currY = floor * windowHeight * 2
+        const groundLevel = -bHeight * .5 + windowHeight * .5
+        const margins = bHeight - (windowHeight * 2 * floors)
+        const y = groundLevel + currY + (margins / 2) + (windowHeight / 2)
+        windowGeometry.translate(0, y, 0)
+        windows.push(windowGeometry)
       }
+    }
   }
-  createSideWindows((win, currPos) => {
-    win.position.x = currPos
-    win.position.z = building.position.z + bWidth / 2
+  createSideWindows((geometry, currX) => {
+    geometry.translate(currX, 0, bWidth * .5)
   })
-  createSideWindows((win, currPos) => {
-    win.position.x = currPos
-    win.position.z = building.position.z - bWidth / 2
+  createSideWindows((geometry, currX) => {
+    geometry.translate(currX, 0, -bWidth * .5)
   })
-  createSideWindows((win, currPos) => {
-    win.rotation.y = Math.PI / 2
-    win.position.x = building.position.z + bWidth / 2
-    win.position.z = currPos
+  createSideWindows((geometry, currX) => {
+    geometry.rotateY(Math.PI * .5)
+    geometry.translate(bWidth * .5, 0, currX)
   })
-  createSideWindows((win, currPos) => {
-    win.rotation.y = Math.PI / 2
-    win.position.x = building.position.z - bWidth / 2
-    win.position.z = currPos
+  createSideWindows((geometry, currX) => {
+    geometry.rotateY(Math.PI * .5)
+    geometry.translate(-bWidth * .5, 0, currX)
   })
   return windows
 }
@@ -73,17 +70,15 @@ export function createBuilding({
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
 
   const material = new THREE.MeshStandardMaterial({ vertexColors: THREE.FaceColors, side: THREE.DoubleSide })
-  const building = new THREE.Mesh(geometry, material)
-  // if (addWindows)
-  //   building.add(createWindows(building, bWidth, bHeight))
 
-  geometry.translate(x, y, z) // needed for merge
-  building.position.set(x, y, z)
-  if (rotY) {
-    geometry.rotateY(rotY) // needed for merge
-    building.rotateY(rotY)
-  }
+  const merged = addWindows
+    ? BufferGeometryUtils.mergeBufferGeometries([geometry, ...createWindows(bWidth, bHeight)])
+    : geometry
 
+  merged.translate(x, y, z) // needed for merge
+  // if (rotY) merged.rotateY(rotY)
+
+  const building = new THREE.Mesh(merged, material)
   return building
 }
 
@@ -141,11 +136,12 @@ function generateCityTexture(night) {
   context.fillStyle = night ? '#000000' : '#ffffff'
   context.fillRect(0, 0, 32, 64)
   // crno-sive nijanse
-  for (let y = 2; y < 64; y += 2)
+  for (let y = 2; y < 64; y += 2) {
     for (let x = 0; x < 32; x += 2) {
       context.fillStyle = windowColor(night)
       context.fillRect(x, y, 2, 1)
     }
+  }
   const canvas2 = document.createElement('canvas')
   canvas2.width = 512
   canvas2.height = 1024
