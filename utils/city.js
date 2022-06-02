@@ -7,7 +7,7 @@ function createWindow(wWidth, wHeight) {
   const lightColor = lightColors[Math.floor(Math.random() * lightColors.length)]
   const randColor = Math.random() > 0.5 ? 0x000000 : new THREE.Color(lightColor)
 
-  const geometry = new THREE.PlaneGeometry(wWidth, wHeight)
+  const geometry = new THREE.PlaneBufferGeometry(wWidth, wHeight)
 
   const colors = []
   for (let i = 0, l = geometry.attributes.position.count; i < l; i ++) {
@@ -66,7 +66,7 @@ export function createBuilding({
   addTexture, night
 } = {}) {
 
-  const geometry = new THREE.BoxGeometry(bWidth, bHeight, bWidth)
+  const geometry = new THREE.BoxBufferGeometry(bWidth, bHeight, bWidth)
 
   const colors = []
   for (let i = 0, l = geometry.attributes.position.count; i < l; i ++)
