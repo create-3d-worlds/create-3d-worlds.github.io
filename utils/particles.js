@@ -103,16 +103,17 @@ export const createStars = ({ file = 'star.png', color } = {}) =>
 /* STARS (IN SPHERE) */
 
 export function createSimpleStars({ num = 10000, r = 1000, size = 3 } = {}) {
-  const geometry = new THREE.Geometry()
+  const geometry = new THREE.BufferGeometry()
+  const positions = []
   for (let i = 0; i < num; i++) {
     const lat = randomInRange(-Math.PI / 2, Math.PI / 2)
     const lon = 2 * Math.PI * Math.random()
-    geometry.vertices.push({
-      x: r * Math.cos(lon) * Math.cos(lat),
-      y: r * Math.sin(lon) * Math.cos(lat),
-      z: r * Math.sin(lat)
-    })
+    const x = r * Math.cos(lon) * Math.cos(lat)
+    const y = r * Math.sin(lon) * Math.cos(lat)
+    const z = r * Math.sin(lat)
+    positions.push(x, y, z)
   }
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
   const material = new THREE.PointsMaterial({
     size,
   })
