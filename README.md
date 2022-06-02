@@ -129,11 +129,9 @@ live-server
 
 ### Physics
 
+- [x] odvojiti fizička pomagala
 - [x] videti nove primere
-  - [ ] drvena kula izvlači kocke https://chandlerprall.github.io/Physijs/examples/jenga.html
   - [ ] lomi materijale https://threejs.org/examples/?q=physics#physics_ammo_break
-- [ ] odvojiti fizička pomagala
-- [ ] srediti fliper
 - [ ] domine: da manja obara veću
 - [ ] Razaranje zamka topom
   - [ ] dodati proceduralni zamak (vidi zamak-fizika, gradjevina-physijs)
