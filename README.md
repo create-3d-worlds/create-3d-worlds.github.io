@@ -14,7 +14,8 @@ live-server
 ### General
 
 - [x] ažurirati verziju (na 119)
-  - [ ] ažurirati verziju na poslednju
+- [ ] ažurirati verziju (na 125)
+- [ ] ažurirati verziju na poslednju
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
 - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
