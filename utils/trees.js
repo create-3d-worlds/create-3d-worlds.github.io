@@ -1,5 +1,6 @@
 import * as THREE from '/node_modules/three125/build/three.module.js'
 import { randomInRange, similarColor, randomNuance, randomInSquare } from './helpers.js'
+import { BufferGeometryUtils } from '/node_modules/three125/examples/jsm/utils/BufferGeometryUtils.js'
 
 const sketchSize = 0.04
 const browns = [0x3d2817, 0x664422, 0xA0522D, 0x886633]
@@ -66,38 +67,29 @@ export const createSketchTree = ({ x, y, z, size, sketch = true } = {}) => creat
 /* FIR TREE */
 
 export function createFirTree({ x = 0, y = 0, z = 0, size = 5 } = {}) {
-  const material = [
-    new THREE.MeshLambertMaterial({ color: similarColor(browns[1]) }),
-    new THREE.MeshLambertMaterial({ color: randomNuance() }),
-  ]
-  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 12, 6, 1, true))
+  const trunk = new THREE.Mesh(
+    new THREE.CylinderGeometry(2, 2, 12, 6, 1, true),
+    new THREE.MeshLambertMaterial({ color: similarColor(browns[1]) })
+  )
+  const greenMaterial = new THREE.MeshLambertMaterial({ color: randomNuance() })
   trunk.position.y = 6
-  const c1 = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 14, 8))
+  const c1 = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 14, 8), greenMaterial)
   c1.position.y = 18
-  const c2 = new THREE.Mesh(new THREE.CylinderGeometry(0, 9, 13, 8))
+  const c2 = new THREE.Mesh(new THREE.CylinderGeometry(0, 9, 13, 8), greenMaterial)
   c2.position.y = 25
-  const c3 = new THREE.Mesh(new THREE.CylinderGeometry(0, 8, 12, 8))
+  const c3 = new THREE.Mesh(new THREE.CylinderGeometry(0, 8, 12, 8), greenMaterial)
   c3.position.y = 32
 
-  const geometry = new THREE.Geometry()
-  trunk.updateMatrix()
-  c1.updateMatrix()
-  c2.updateMatrix()
-  c3.updateMatrix()
-  geometry.merge(trunk.geometry, trunk.matrix)
-  geometry.merge(c1.geometry, c1.matrix)
-  geometry.merge(c2.geometry, c2.matrix)
-  geometry.merge(c3.geometry, c3.matrix)
+  const group = new THREE.Group()
+  group.add(trunk)
+  group.add(c1)
+  group.add(c2)
+  group.add(c3)
 
-  const b = trunk.geometry.faces.length
-  for (let i = 0; i < geometry.faces.length; i++)
-    geometry.faces[i].materialIndex = i < b ? 0 : 1
-
-  const mesh = new THREE.Mesh(geometry, material)
-  const scale = size / 10 // scale whole tree acording to size
-  mesh.scale.set(scale, randomInRange(scale / 2, scale), scale)
-  mesh.position.set(x, y, z)
-  return mesh
+  const scale = size / 10
+  group.scale.set(scale, randomInRange(scale / 2, scale), scale)
+  group.position.set(x, y, z)
+  return group
 }
 
 /* SIMPLE FIR TREE */
