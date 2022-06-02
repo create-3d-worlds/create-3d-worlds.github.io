@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three125/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import { RIGHT_ANGLE } from '/utils/constants.js'
 
 export function drawAxes(scene) {

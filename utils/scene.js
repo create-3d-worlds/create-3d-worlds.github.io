@@ -1,5 +1,5 @@
-import * as THREE from '/node_modules/three125/build/three.module.js'
-import { OrbitControls } from '/node_modules/three125/examples/jsm/controls/OrbitControls.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
+import { OrbitControls } from '/node_modules/three127/examples/jsm/controls/OrbitControls.js'
 import { createGradientSky } from './sky.js'
 import { createGround } from './ground.js'
 import { initLights, hemLight, createSunLight } from './light.js'

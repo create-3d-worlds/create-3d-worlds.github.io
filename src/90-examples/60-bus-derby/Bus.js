@@ -1,6 +1,6 @@
 import Physijs from '/libs/physi-ecma.js'
-import * as THREE from '/node_modules/three125/build/three.module.js'
-import { GLTFLoader } from '/node_modules/three125/examples/jsm/loaders/GLTFLoader.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
+import { GLTFLoader } from '/node_modules/three127/examples/jsm/loaders/GLTFLoader.js'
 import { scene } from '/utils/physics.js'
 
 const bwf = 3.5  // bus wheel friction
@@ -68,19 +68,6 @@ export function createBus(color) {  // "green" or "red"
     )
     wheelMaterials.push(wheelImageMaterial)  // (.materialindex = 1)
   })
-
-  // assigns each of the wheel's faces to a .materialindex
-  const wheelFaceCount = wheelGeometry.faces.length
-  for (let i = 0; i < wheelFaceCount; i++)
-    // first set of faces makes up the wheel's tread
-    if (i < segments * 2)
-      wheelGeometry.faces[i].materialIndex = 0 // assigns color material index
-    // second set of faces makes up the wheel's outside
-    else if (i < segments * 3)
-      wheelGeometry.faces[i].materialIndex = 1 // assigns image material index
-    // third set of faces makes up the wheel's inside
-    else
-      wheelGeometry.faces[i].materialIndex = 0 // assigns color material index
 
   // wheel creation & configuration as four physi.js objects
   bus.wheel_fl_mesh = new Physijs.CylinderMesh(wheelGeometry, wheelMaterials, 300)

@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three125/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import Entity from './Entity.js'
 import { rndInt, roll } from '../utils/helpers.js'
 

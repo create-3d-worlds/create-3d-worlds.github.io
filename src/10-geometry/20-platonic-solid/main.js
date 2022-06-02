@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three125/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import {camera, scene, renderer, createOrbitControls} from '/utils/scene.js'
 
 const distance = 11

@@ -1,7 +1,7 @@
-import * as THREE from '/node_modules/three125/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import { createBox } from '/utils/boxes.js'
 import { centerObject, adjustHeight } from '/utils/helpers.js'
-import { BufferGeometryUtils } from '/node_modules/three125/examples/jsm/utils/BufferGeometryUtils.js'
+import { BufferGeometryUtils } from '/node_modules/three127/examples/jsm/utils/BufferGeometryUtils.js'
 
 const CIRCLE = Math.PI * 2
 

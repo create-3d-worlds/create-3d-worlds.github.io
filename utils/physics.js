@@ -1,5 +1,5 @@
-import * as THREE from '/node_modules/three125/build/three.module.js'
-import { ImprovedNoise } from '/node_modules/three125/examples/jsm/math/ImprovedNoise.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
+import { ImprovedNoise } from '/node_modules/three127/examples/jsm/math/ImprovedNoise.js'
 import { DEGREE } from '/utils/constants.js'
 import { createGroundMaterial, crateGroundGeometry } from '/utils/ground.js'
 

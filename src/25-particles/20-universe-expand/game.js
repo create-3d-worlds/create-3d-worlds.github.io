@@ -1,5 +1,5 @@
-import * as THREE from '/node_modules/three125/build/three.module.js'
-import { TWEEN } from '/node_modules/three125/examples/jsm/libs/tween.module.min.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
+import { TWEEN } from '/node_modules/three127/examples/jsm/libs/tween.module.min.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { randomInRange } from '/utils/helpers.js'
 

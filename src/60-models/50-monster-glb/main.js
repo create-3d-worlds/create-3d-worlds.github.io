@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three125/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { dirLight, hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'

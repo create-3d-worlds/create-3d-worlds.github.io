@@ -1,5 +1,5 @@
-import * as THREE from '/node_modules/three125/build/three.module.js'
-import { OrbitControls } from '/node_modules/three125/examples/jsm/controls/OrbitControls.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
+import { OrbitControls } from '/node_modules/three127/examples/jsm/controls/OrbitControls.js'
 
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createSunLight } from '/utils/light.js'

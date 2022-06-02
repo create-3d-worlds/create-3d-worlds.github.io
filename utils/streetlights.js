@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three125/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import { randomInRange, randomInCircle, randomInSquare } from '/utils/helpers.js'
 
 export function createLamppost({ x = 0, z = 0, height = 40 } = {}) {
