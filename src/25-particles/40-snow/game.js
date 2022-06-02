@@ -2,6 +2,7 @@ import { scene, camera, renderer, hemLight } from '/utils/scene.js'
 import { createSnow, addVelocity, updateSnow } from '/utils/particles.js'
 
 hemLight()
+renderer.setClearColor(0x000000)
 
 const snow = createSnow()
 scene.add(snow)

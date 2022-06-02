@@ -1,8 +1,12 @@
+import * as THREE from '/node_modules/three125/build/three.module.js'
+
 import { scene, camera, renderer } from '/utils/scene.js'
 import { createParticles, resetParticles, expandParticles } from '/utils/particles.js'
 import { mouseToWorld } from '/utils/helpers.js'
 
-const particles = createParticles({ num: 30, file: null, color: 0xfffafa, size: 0.04, unitAngle: 0.1 })
+renderer.setClearColor(0x000000)
+
+const particles = createParticles({ num: 30, file: 'fireball.png', color: 0xfffafa, size: 0.4, unitAngle: 0.1 })
 scene.add(particles)
 
 /* LOOP */
