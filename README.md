@@ -22,6 +22,7 @@ live-server
 - [ ] probati 
     https://threejs.org/examples/#webgl_points_nodes
     https://threejs.org/examples/#webgl_lines_sphere
+    https://techbrood.com/threejs/examples/webgl_fire.html
 - [ ] ažurirati verziju na poslednju (nakon 127 su ukinuli relativne importe pa puca, use importmap)
 
 - [ ] reuse generateTerrain from world-simulation
