@@ -2,14 +2,8 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import { GLTFLoader } from '/node_modules/three127/examples/jsm/loaders/GLTFLoader.js'
 import { Octree } from '/node_modules/three127/examples/jsm/math/Octree.js'
 import { Capsule } from '/node_modules/three127/examples/jsm/math/Capsule.js'
+import {scene, clock,camera} from '/utils/scene.js'
 
-const clock = new THREE.Clock()
-
-const scene = new THREE.Scene()
-scene.background = new THREE.Color(0x88ccee)
-scene.fog = new THREE.Fog(0x88ccee, 0, 50)
-
-const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000)
 camera.rotation.order = 'YXZ'
 
 const fillLight1 = new THREE.HemisphereLight(0x4488bb, 0x002244, 0.5)
