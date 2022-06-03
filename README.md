@@ -14,12 +14,17 @@ live-server
 ### General
 
 - [x] ažurirati verziju (na 119)
-- [x] ažurirati verziju (na 125)
+- [x] ažurirati verziju (na 127)
   - [ ] fix distort in createWorldSphere
   - [ ] fix terrainFromHeightmap
   - [x] fix towers
   - [x] fix and optimize city (merge geometries)
-- [ ] ažurirati verziju na poslednju
+  - [ ] probati https://threejs.org/examples/#physics_ammo_break
+    https://threejs.org/examples/#games_fps
+    https://threejs.org/examples/#webgl_points_nodes
+    https://threejs.org/examples/#webgl_lines_sphere
+- [ ] ažurirati verziju na poslednju (nakon 127 su ukinuli relativne importe pa puca, use importmap)
+
 - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
