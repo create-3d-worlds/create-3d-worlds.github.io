@@ -1,3 +1,4 @@
+/* global Ammo */
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { OrbitControls } from '/node_modules/three127/examples/jsm/controls/OrbitControls.js'
 
@@ -48,16 +49,10 @@ let numObjectsToRemove = 0
 const impactPoint = new THREE.Vector3()
 const impactNormal = new THREE.Vector3()
 
-// - Main code -
+const AMMO = await Ammo()
 
-Ammo().then(AmmoLib => {
-
-  Ammo = AmmoLib
-
-  init()
-  animate()
-
-})
+init()
+animate()
 
 // - Functions -
 
@@ -131,15 +126,15 @@ function initPhysics() {
 
   // Physics configuration
 
-  collisionConfiguration = new Ammo.btDefaultCollisionConfiguration()
-  dispatcher = new Ammo.btCollisionDispatcher(collisionConfiguration)
-  broadphase = new Ammo.btDbvtBroadphase()
-  solver = new Ammo.btSequentialImpulseConstraintSolver()
-  physicsWorld = new Ammo.btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration)
-  physicsWorld.setGravity(new Ammo.btVector3(0, - gravityConstant, 0))
+  collisionConfiguration = new AMMO.btDefaultCollisionConfiguration()
+  dispatcher = new AMMO.btCollisionDispatcher(collisionConfiguration)
+  broadphase = new AMMO.btDbvtBroadphase()
+  solver = new AMMO.btSequentialImpulseConstraintSolver()
+  physicsWorld = new AMMO.btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration)
+  physicsWorld.setGravity(new AMMO.btVector3(0, - gravityConstant, 0))
 
-  transformAux1 = new Ammo.btTransform()
-  tempBtVec3_1 = new Ammo.btVector3(0, 0, 0)
+  transformAux1 = new AMMO.btTransform()
+  tempBtVec3_1 = new AMMO.btVector3(0, 0, 0)
 
 }
 
@@ -215,7 +210,7 @@ function createObjects() {
 function createParalellepipedWithPhysics(sx, sy, sz, mass, pos, quat, material) {
 
   const object = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz, 1, 1, 1), material)
-  const shape = new Ammo.btBoxShape(new Ammo.btVector3(sx * 0.5, sy * 0.5, sz * 0.5))
+  const shape = new AMMO.btBoxShape(new AMMO.btVector3(sx * 0.5, sy * 0.5, sz * 0.5))
   shape.setMargin(margin)
 
   createRigidBody(object, shape, mass, pos, quat)
@@ -235,7 +230,7 @@ function createDebrisFromBreakableObject(object) {
   const body = createRigidBody(object, shape, object.userData.mass, null, null, object.userData.velocity, object.userData.angularVelocity)
 
   // Set pointer back to the three object only in the debris objects
-  const btVecUserData = new Ammo.btVector3(0, 0, 0)
+  const btVecUserData = new AMMO.btVector3(0, 0, 0)
   btVecUserData.threeObject = object
   body.setUserPointer(btVecUserData)
 
@@ -251,7 +246,7 @@ function removeDebris(object) {
 
 function createConvexHullPhysicsShape(coords) {
 
-  const shape = new Ammo.btConvexHullShape()
+  const shape = new AMMO.btConvexHullShape()
 
   for (let i = 0, il = coords.length; i < il; i += 3) {
 
@@ -283,27 +278,27 @@ function createRigidBody(object, physicsShape, mass, pos, quat, vel, angVel) {
 
     quat = object.quaternion
 
-  const transform = new Ammo.btTransform()
+  const transform = new AMMO.btTransform()
   transform.setIdentity()
-  transform.setOrigin(new Ammo.btVector3(pos.x, pos.y, pos.z))
-  transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w))
-  const motionState = new Ammo.btDefaultMotionState(transform)
+  transform.setOrigin(new AMMO.btVector3(pos.x, pos.y, pos.z))
+  transform.setRotation(new AMMO.btQuaternion(quat.x, quat.y, quat.z, quat.w))
+  const motionState = new AMMO.btDefaultMotionState(transform)
 
-  const localInertia = new Ammo.btVector3(0, 0, 0)
+  const localInertia = new AMMO.btVector3(0, 0, 0)
   physicsShape.calculateLocalInertia(mass, localInertia)
 
-  const rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, physicsShape, localInertia)
-  const body = new Ammo.btRigidBody(rbInfo)
+  const rbInfo = new AMMO.btRigidBodyConstructionInfo(mass, motionState, physicsShape, localInertia)
+  const body = new AMMO.btRigidBody(rbInfo)
 
   body.setFriction(0.5)
 
   if (vel)
 
-    body.setLinearVelocity(new Ammo.btVector3(vel.x, vel.y, vel.z))
+    body.setLinearVelocity(new AMMO.btVector3(vel.x, vel.y, vel.z))
 
   if (angVel)
 
-    body.setAngularVelocity(new Ammo.btVector3(angVel.x, angVel.y, angVel.z))
+    body.setAngularVelocity(new AMMO.btVector3(angVel.x, angVel.y, angVel.z))
 
   object.userData.physicsBody = body
   object.userData.collided = false
@@ -356,7 +351,7 @@ function initInput() {
     const ball = new THREE.Mesh(new THREE.SphereGeometry(ballRadius, 14, 10), ballMaterial)
     ball.castShadow = true
     ball.receiveShadow = true
-    const ballShape = new Ammo.btSphereShape(ballRadius)
+    const ballShape = new AMMO.btSphereShape(ballRadius)
     ballShape.setMargin(margin)
     pos.copy(raycaster.ray.direction)
     pos.add(raycaster.ray.origin)
@@ -365,7 +360,7 @@ function initInput() {
 
     pos.copy(raycaster.ray.direction)
     pos.multiplyScalar(24)
-    ballBody.setLinearVelocity(new Ammo.btVector3(pos.x, pos.y, pos.z))
+    ballBody.setLinearVelocity(new AMMO.btVector3(pos.x, pos.y, pos.z))
 
   })
 
@@ -428,11 +423,11 @@ function updatePhysics(deltaTime) {
   for (let i = 0, il = dispatcher.getNumManifolds(); i < il; i++) {
 
     const contactManifold = dispatcher.getManifoldByIndexInternal(i)
-    const rb0 = Ammo.castObject(contactManifold.getBody0(), Ammo.btRigidBody)
-    const rb1 = Ammo.castObject(contactManifold.getBody1(), Ammo.btRigidBody)
+    const rb0 = AMMO.castObject(contactManifold.getBody0(), AMMO.btRigidBody)
+    const rb1 = AMMO.castObject(contactManifold.getBody1(), AMMO.btRigidBody)
 
-    const threeObject0 = Ammo.castObject(rb0.getUserPointer(), Ammo.btVector3).threeObject
-    const threeObject1 = Ammo.castObject(rb1.getUserPointer(), Ammo.btVector3).threeObject
+    const threeObject0 = AMMO.castObject(rb0.getUserPointer(), AMMO.btVector3).threeObject
+    const threeObject1 = AMMO.castObject(rb1.getUserPointer(), AMMO.btVector3).threeObject
 
     if (!threeObject0 && !threeObject1)
 
