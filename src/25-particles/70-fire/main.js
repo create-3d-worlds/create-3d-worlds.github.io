@@ -210,7 +210,6 @@ function init() {
   }
 
   params.Candle = function() {
-
     params.color1 = 0xffffff
     params.color2 = 0xffa000
     params.color3 = 0x000000
@@ -231,7 +230,6 @@ function init() {
   }
 
   params.Torch = function() {
-
     params.color1 = 0xffdcaa
     params.color2 = 0xffa000
     params.color3 = 0x000000
@@ -253,7 +251,6 @@ function init() {
   }
 
   params.Campfire = function() {
-
     params.color1 = 0xffffff
     params.color2 = 0xffa000
     params.color3 = 0x000000
@@ -296,28 +293,6 @@ function init() {
 
   }
 
-  params.Iceball = function() {
-
-    params.color1 = 0x00bdf7
-    params.color2 = 0x1b3fb6
-    params.color3 = 0x001869
-    params.windX = 0.0
-    params.windY = - 0.25
-    params.colorBias = 0.25
-    params.burnRate = 2.6
-    params.diffuse = 5.0
-    params.viscosity = 0.5
-    params.expansion = 0.75
-    params.swirl = 30.0
-    params.drag = 0.0
-    params.airSpeed = 40.0
-    params.speed = 500.0
-    params.massConservation = false
-
-    updateAll()
-
-  }
-
   params.Smoke = function() {
 
     params.color1 = 0xd2d2d2
@@ -337,29 +312,6 @@ function init() {
     params.massConservation = false
 
     updateAll()
-
-  }
-
-  params.Cigar = function() {
-
-    params.color1 = 0xc5c5c5
-    params.color2 = 0x787878
-    params.color3 = 0x000000
-    params.windX = 0.0
-    params.windY = 0.3
-    params.colorBias = 0.55
-    params.burnRate = 0.0
-    params.diffuse = 1.3
-    params.viscosity = 0.05
-    params.expansion = - 0.05
-    params.swirl = 3.7
-    params.drag = 0.6
-    params.airSpeed = 6.0
-    params.speed = 500.0
-    params.massConservation = false
-
-    updateAll()
-
   }
 
   params.Campfire()
