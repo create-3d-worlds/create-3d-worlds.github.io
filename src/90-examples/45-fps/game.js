@@ -1,9 +1,10 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
-import { GLTFLoader } from '/node_modules/three127/examples/jsm/loaders/GLTFLoader.js'
 import { Octree } from '/node_modules/three127/examples/jsm/math/Octree.js'
 import { Capsule } from '/node_modules/three127/examples/jsm/math/Capsule.js'
 import { scene, clock, camera, renderer } from '/utils/scene.js'
 import { hemLight } from '/utils/light.js'
+import keyboard from '/classes/Keyboard.js'
+import { loadModel } from '/utils/loaders.js'
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -27,7 +28,6 @@ for (let i = 0; i < NUM_SPHERES; i ++) {
   const mesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
   mesh.castShadow = true
   mesh.receiveShadow = true
-
   scene.add(mesh)
 
   spheres.push({
@@ -40,45 +40,22 @@ for (let i = 0; i < NUM_SPHERES; i ++) {
 const worldOctree = new Octree()
 
 const playerCollider = new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35)
-
 const playerVelocity = new THREE.Vector3()
 const playerDirection = new THREE.Vector3()
 
 let playerOnFloor = false
 let mouseTime = 0
 
-const keyStates = {}
-
 const vector1 = new THREE.Vector3()
 const vector2 = new THREE.Vector3()
 const vector3 = new THREE.Vector3()
 
-document.addEventListener('keydown', event => {
-  keyStates[event.code] = true
-})
+const { mesh } = await loadModel({ file: 'collision-world.glb' })
+scene.add(mesh)
 
-document.addEventListener('keyup', event => {
+worldOctree.fromGraphNode(mesh)
 
-  keyStates[event.code] = false
-
-})
-
-document.addEventListener('mousedown', () => {
-  document.body.requestPointerLock()
-  mouseTime = performance.now()
-})
-
-document.addEventListener('mouseup', () => {
-  if (document.pointerLockElement !== null) throwBall()
-})
-
-document.body.addEventListener('mousemove', event => {
-  if (document.pointerLockElement === document.body) {
-    camera.rotation.y -= event.movementX / 500
-    camera.rotation.x -= event.movementY / 500
-  }
-})
-
+/* FUNCTIONS */
 
 function throwBall() {
   const sphere = spheres[sphereIdx]
@@ -86,7 +63,6 @@ function throwBall() {
   sphere.collider.center.copy(playerCollider.end).addScaledVector(playerDirection, playerCollider.radius * 1.5)
 
   // throw the ball with more force if we hold the button longer, and if we move forward
-
   const impulse = 15 + 30 * (1 - Math.exp((mouseTime - performance.now()) * 0.001))
 
   sphere.velocity.copy(playerDirection).multiplyScalar(impulse)
@@ -108,10 +84,9 @@ function playerCollisions() {
 
 function updatePlayer(deltaTime) {
   let damping = Math.exp(- 4 * deltaTime) - 1
-  if (! playerOnFloor) {
+  if (!playerOnFloor) {
     playerVelocity.y -= GRAVITY * deltaTime
-    // small air resistance
-    damping *= 0.1
+    damping *= 0.1 // small air resistance
   }
 
   playerVelocity.addScaledVector(playerVelocity, damping)
@@ -212,45 +187,6 @@ function getSideVector() {
   return playerDirection
 }
 
-function controls(deltaTime) {
-  // gives a bit of air control
-  const speedDelta = deltaTime * (playerOnFloor ? 25 : 8)
-
-  if (keyStates.KeyW)
-    playerVelocity.add(getForwardVector().multiplyScalar(speedDelta))
-
-  if (keyStates.KeyS)
-    playerVelocity.add(getForwardVector().multiplyScalar(- speedDelta))
-
-  if (keyStates.KeyA)
-    playerVelocity.add(getSideVector().multiplyScalar(- speedDelta))
-
-  if (keyStates.KeyD)
-    playerVelocity.add(getSideVector().multiplyScalar(speedDelta))
-
-  if (playerOnFloor)
-    if (keyStates.Space)
-      playerVelocity.y = 15
-}
-
-const loader = new GLTFLoader()
-
-loader.load('collision-world.glb', gltf => {
-  scene.add(gltf.scene)
-  worldOctree.fromGraphNode(gltf.scene)
-
-  gltf.scene.traverse(child => {
-    if (child.isMesh) {
-      child.castShadow = true
-      child.receiveShadow = true
-
-      if (child.material.map)
-        child.material.map.anisotropy = 4
-    }
-  })
-  animate()
-})
-
 function teleportPlayerIfOob() {
   if (camera.position.y <= - 25) {
     playerCollider.start.set(0, 0.35, 0)
@@ -261,13 +197,35 @@ function teleportPlayerIfOob() {
   }
 }
 
-function animate() {
+function handleInput(deltaTime) {
+  // gives a bit of air control
+  const speedDelta = deltaTime * (playerOnFloor ? 25 : 8)
+
+  if (keyboard.up)
+    playerVelocity.add(getForwardVector().multiplyScalar(speedDelta))
+
+  if (keyboard.down)
+    playerVelocity.add(getForwardVector().multiplyScalar(- speedDelta))
+
+  if (keyboard.left)
+    playerVelocity.add(getSideVector().multiplyScalar(- speedDelta))
+
+  if (keyboard.right)
+    playerVelocity.add(getSideVector().multiplyScalar(speedDelta))
+
+  if (playerOnFloor && keyboard.pressed.Space)
+    playerVelocity.y = 15
+}
+
+/* LOOP */
+
+void function animate() {
   const deltaTime = Math.min(0.05, clock.getDelta()) / STEPS_PER_FRAME
 
   // we look for collisions in substeps to mitigate the risk of
   // an object traversing another too quickly for detection.
   for (let i = 0; i < STEPS_PER_FRAME; i ++) {
-    controls(deltaTime)
+    handleInput(deltaTime)
     updatePlayer(deltaTime)
     updateSpheres(deltaTime)
     teleportPlayerIfOob()
@@ -275,4 +233,22 @@ function animate() {
 
   renderer.render(scene, camera)
   requestAnimationFrame(animate)
-}
+}()
+
+/* EVENTS */
+
+document.addEventListener('mousedown', () => {
+  document.body.requestPointerLock()
+  mouseTime = performance.now()
+})
+
+document.addEventListener('mouseup', () => {
+  if (document.pointerLockElement !== null) throwBall()
+})
+
+document.body.addEventListener('mousemove', event => {
+  if (document.pointerLockElement === document.body) {
+    camera.rotation.y -= event.movementX / 500
+    camera.rotation.x -= event.movementY / 500
+  }
+})

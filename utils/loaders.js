@@ -45,8 +45,7 @@ const prepareMesh = ({ resolve, model, size, rot, animations, shouldCenter, shou
 
   model.traverse(child => {
     if (!child.isMesh) return
-    child.castShadow = true
-    // child.receiveShadow = true
+    child.castShadow = child.receiveShadow = true
   })
 
   if (rot.angle) model.rotateOnWorldAxis(new THREE.Vector3(...rot.axis), rot.angle)
