@@ -7,8 +7,17 @@ export function createBall({ r = 1 } = {}) {
     flatShading: true
   })
   const mesh = new THREE.Mesh(geometry, material)
-  mesh.receiveShadow = true
-  mesh.castShadow = true
+  mesh.receiveShadow = mesh.castShadow = true
+  return mesh
+}
+
+export function createSphere({ r = 1, widthSegments = 32, heightSegments = 16 } = {}) {
+  const geometry = new THREE.SphereGeometry(r, widthSegments, heightSegments)
+  const material = new THREE.MeshStandardMaterial({
+    color: 'red',
+  })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.receiveShadow = mesh.castShadow = true
   return mesh
 }
 

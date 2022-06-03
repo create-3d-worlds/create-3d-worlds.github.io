@@ -8,23 +8,21 @@ const rotation = 0
 const numTorus = 80
 const toruses = []
 
-class Torus {
-  constructor(f) {
-    this.mesh = new THREE.Mesh(new THREE.TorusGeometry(160, 75, 2, 13), new THREE.MeshNormalMaterial())
-    this.mesh.position.set(57 * Math.cos(f), 57 * Math.sin(f), f * 1.25)
-    // this.mesh.rotation.z = f * 0.03
-  }
+const createTorus = f => {
+  const mesh = new THREE.Mesh(new THREE.TorusGeometry(160, 75, 2, 13), new THREE.MeshNormalMaterial())
+  mesh.position.set(57 * Math.cos(f), 57 * Math.sin(f), f * 1.25)
+  return mesh
 }
 
-for(let i = 0; i < numTorus; i++) {
-  toruses.push(new Torus(-i * 13))
-  scene.add(toruses[i].mesh)
+for (let i = 0; i < numTorus; i++) {
+  toruses.push(createTorus(-i * 13))
+  scene.add(toruses[i])
 }
 
 /* LOOP */
 
 function moveTunnel() {
-  toruses.forEach(({ mesh }, i) => {
+  toruses.forEach((mesh, i) => {
     mesh.position.z += speed
     mesh.rotation.z += i * rotation / 10000
     if (mesh.position.z > 0) mesh.position.z = -1000
