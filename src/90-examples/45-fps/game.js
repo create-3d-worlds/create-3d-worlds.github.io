@@ -2,39 +2,13 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import { GLTFLoader } from '/node_modules/three127/examples/jsm/loaders/GLTFLoader.js'
 import { Octree } from '/node_modules/three127/examples/jsm/math/Octree.js'
 import { Capsule } from '/node_modules/three127/examples/jsm/math/Capsule.js'
-import {scene, clock,camera} from '/utils/scene.js'
+import { scene, clock, camera, renderer } from '/utils/scene.js'
+import { hemLight } from '/utils/light.js'
 
 camera.rotation.order = 'YXZ'
-
-const fillLight1 = new THREE.HemisphereLight(0x4488bb, 0x002244, 0.5)
-fillLight1.position.set(2, 1, 1)
-scene.add(fillLight1)
-
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8)
-directionalLight.position.set(- 5, 25, - 1)
-directionalLight.castShadow = true
-directionalLight.shadow.camera.near = 0.01
-directionalLight.shadow.camera.far = 500
-directionalLight.shadow.camera.right = 30
-directionalLight.shadow.camera.left = - 30
-directionalLight.shadow.camera.top	= 30
-directionalLight.shadow.camera.bottom = - 30
-directionalLight.shadow.mapSize.width = 1024
-directionalLight.shadow.mapSize.height = 1024
-directionalLight.shadow.radius = 4
-directionalLight.shadow.bias = - 0.00006
-scene.add(directionalLight)
-
-const container = document.getElementById('container')
-
-const renderer = new THREE.WebGLRenderer({ antialias: true })
-renderer.setPixelRatio(window.devicePixelRatio)
-renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.shadowMap.enabled = true
-renderer.shadowMap.type = THREE.VSMShadowMap
-renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-container.appendChild(renderer.domElement)
+
+hemLight({ intensity: 0.5, groundColor: 0x002244 })
 
 const GRAVITY = 30
 
@@ -50,19 +24,17 @@ const spheres = []
 let sphereIdx = 0
 
 for (let i = 0; i < NUM_SPHERES; i ++) {
+  const mesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
+  mesh.castShadow = true
+  mesh.receiveShadow = true
 
-  const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
-  sphere.castShadow = true
-  sphere.receiveShadow = true
-
-  scene.add(sphere)
+  scene.add(mesh)
 
   spheres.push({
-    mesh: sphere,
+    mesh,
     collider: new THREE.Sphere(new THREE.Vector3(0, - 100, 0), SPHERE_RADIUS),
     velocity: new THREE.Vector3()
   })
-
 }
 
 const worldOctree = new Octree()
@@ -91,48 +63,26 @@ document.addEventListener('keyup', event => {
 
 })
 
-container.addEventListener('mousedown', () => {
-
+document.addEventListener('mousedown', () => {
   document.body.requestPointerLock()
-
   mouseTime = performance.now()
-
 })
 
 document.addEventListener('mouseup', () => {
-
   if (document.pointerLockElement !== null) throwBall()
-
 })
 
 document.body.addEventListener('mousemove', event => {
-
   if (document.pointerLockElement === document.body) {
-
     camera.rotation.y -= event.movementX / 500
     camera.rotation.x -= event.movementY / 500
-
   }
-
 })
 
-window.addEventListener('resize', onWindowResize)
-
-function onWindowResize() {
-
-  camera.aspect = window.innerWidth / window.innerHeight
-  camera.updateProjectionMatrix()
-
-  renderer.setSize(window.innerWidth, window.innerHeight)
-
-}
 
 function throwBall() {
-
   const sphere = spheres[sphereIdx]
-
   camera.getWorldDirection(playerDirection)
-
   sphere.collider.center.copy(playerCollider.end).addScaledVector(playerDirection, playerCollider.radius * 1.5)
 
   // throw the ball with more force if we hold the button longer, and if we move forward
@@ -143,55 +93,35 @@ function throwBall() {
   sphere.velocity.addScaledVector(playerVelocity, 2)
 
   sphereIdx = (sphereIdx + 1) % spheres.length
-
 }
 
 function playerCollisions() {
-
   const result = worldOctree.capsuleIntersect(playerCollider)
-
   playerOnFloor = false
-
   if (result) {
-
     playerOnFloor = result.normal.y > 0
-
     if (! playerOnFloor)
-
       playerVelocity.addScaledVector(result.normal, - result.normal.dot(playerVelocity))
-
     playerCollider.translate(result.normal.multiplyScalar(result.depth))
-
   }
-
 }
 
 function updatePlayer(deltaTime) {
-
   let damping = Math.exp(- 4 * deltaTime) - 1
-
   if (! playerOnFloor) {
-
     playerVelocity.y -= GRAVITY * deltaTime
-
     // small air resistance
     damping *= 0.1
-
   }
 
   playerVelocity.addScaledVector(playerVelocity, damping)
-
   const deltaPosition = playerVelocity.clone().multiplyScalar(deltaTime)
   playerCollider.translate(deltaPosition)
-
   playerCollisions()
-
   camera.position.copy(playerCollider.end)
-
 }
 
 function playerSphereCollision(sphere) {
-
   const center = vector1.addVectors(playerCollider.start, playerCollider.end).multiplyScalar(0.5)
   const sphere_center = sphere.collider.center
 
