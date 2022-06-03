@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three119/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import { camera, scene } from '/utils/scene.js'
 import { UNITSIZE, BULLETMOVESPEED, PROJECTILEDAMAGE, MOVESPEED, mapWidth, mapHeight } from './constants.js'
 import { randomInt } from '/utils/helpers.js'
@@ -58,7 +58,10 @@ export const distance = (a, b) => Math.sqrt((b.x - a.x) * (b.x - a.x) + (b.z - a
 export const isHit = (bullet, target) => {
   const bulletPos = bullet.position
   const targetPos = target.position
-  const vec = target.geometry.vertices[0]
+
+  const { position } = target.geometry.attributes
+  const vec = new THREE.Vector3()
+  vec.fromBufferAttribute(position, 0)
   const x = Math.abs(vec.x)
   const z = Math.abs(vec.z)
   return bulletPos.x < targetPos.x + x && bulletPos.x > targetPos.x - x

@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three119/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import keyboard from '/classes/Keyboard.js'
 
@@ -12,7 +12,7 @@ floor.rotation.x = -Math.PI / 2
 scene.add(floor)
 
 const cubeMat = new THREE.MeshNormalMaterial()
-const cubeGeom = new THREE.CubeGeometry(5, 5, 5, 1, 1, 1)
+const cubeGeom = new THREE.BoxGeometry(5, 5, 5, 1, 1, 1)
 const player = new THREE.Mesh(cubeGeom, cubeMat)
 player.position.set(0, 2.5, 0)
 scene.add(player)

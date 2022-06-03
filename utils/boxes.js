@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three119/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import { randomInRange, randomNuance } from './helpers.js'
 
 const loader = new THREE.TextureLoader()
@@ -7,7 +7,7 @@ export function createBox({ x = 0, y = 0, z = 0, size = 20, file, color = random
   const xSize = size * xModifier
   const ySize = size * yModifier
   const zSize = size * zModifier
-  const geometry = new THREE.BoxGeometry(xSize, ySize, zSize)
+  const geometry = new THREE.BoxBufferGeometry(xSize, ySize, zSize)
   const options = {}
   if (file) options.map = loader.load(`/assets/textures/${file}`)
   else options.color = color

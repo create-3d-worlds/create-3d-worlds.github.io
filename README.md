@@ -14,7 +14,16 @@ live-server
 ### General
 
 - [x] ažurirati verziju (na 119)
-  - [ ] ažurirati verziju na poslednju
+- [x] ažurirati verziju (na 127)
+  - [x] fix towers
+  - [x] fix and optimize city (merge geometries)
+  - [ ] fix distort in createWorldSphere (ili napraviti alternativu)
+    https://dustinpfister.github.io/2021/06/10/threejs-examples-sphere-mutate/
+  - [x] fix terrainFromHeightmap
+- [ ] ažurirati verziju na poslednju (ukinuli su relativne importe pa puca, koristiti importmap)
+  - [ ] probati https://threejs.org/examples/#webgl_points_nodes
+
+- [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
 - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
@@ -24,6 +33,8 @@ live-server
   - [x] izbaciti nightelf-priest
 - [x] veličina nekih modela ne radi (dae format zeza, izbegavati)
 - [x] pomeriti foldere sa igračem u scenu
+- [ ] move 1943 ground to helpers
+- [ ] preraditi drveće na terenu da ne koristi zrakobačac, rasprava: https://discourse.threejs.org/t/what-is-the-best-way-to-add-objects-to-a-3d-terrain/31757/7
 
 ### Geometry
 
@@ -130,10 +141,11 @@ live-server
 ### Physics
 
 - [x] odvojiti fizička pomagala
+- [ ] ujednačiti createTerrain i druga fizička pomagala sa standardnim
 - [x] videti nove primere
-  - [ ] lomi materijale https://threejs.org/examples/?q=physics#physics_ammo_break
+  - [x] lomi materijale https://threejs.org/examples/?q=physics#physics_ammo_break
 - [ ] domine: da manja obara veću
-- [ ] Razaranje zamka topom
+- [ ] Razaranje zamka topom (možda može i model)
   - [ ] dodati proceduralni zamak (vidi zamak-fizika, gradjevina-physijs)
   - [ ] dodati top (ima model)
   - [ ] top puca i rusi zidine (vidi ball-trowing)

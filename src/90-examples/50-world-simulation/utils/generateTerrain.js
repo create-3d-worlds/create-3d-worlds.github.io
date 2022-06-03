@@ -1,10 +1,11 @@
-import * as THREE from '/node_modules/three119/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
+import { randomNuance } from '/utils/helpers.js'
 import SimplexNoise from '../libs/SimplexNoise.js'
 
-export function generateTerrain() {
+export function generateTerrain({ groundColor = 0x33aa33, waterColor = 0x6699ff } = {}) {
   const resolution = 20
   const material = new THREE.MeshLambertMaterial({
-    color: 0x33aa33,
+    color: groundColor,
     vertexColors: THREE.FaceColors
   })
   const geometry = new THREE.PlaneGeometry(1200, 1200, resolution, resolution)
@@ -18,17 +19,23 @@ export function generateTerrain() {
   const factorY = 25
   const factorZ = 60
 
-  for (let i = 0; i < geometry.vertices.length; i++) {
-    n = noise.noise(geometry.vertices[i].x / resolution / factorX, geometry.vertices[i].y / resolution / factorY)
+  const { position } = geometry.attributes
+  const vertex = new THREE.Vector3()
+
+  for (let i = 0, l = position.count; i < l; i ++) {
+    vertex.fromBufferAttribute(position, i)
+    n = noise.noise(vertex.x / resolution / factorX, vertex.y / resolution / factorY)
     n -= 0.25
-    geometry.vertices[i].z = n * factorZ
+    vertex.z = n * factorZ
+    position.setXYZ(i, vertex.x, vertex.y, vertex.z)
   }
 
-  for (let f = 0; f < geometry.faces.length; f++) {
-    const { color } = geometry.faces[f]
-    const rand = Math.random() / 5
-    geometry.faces[f].color.setRGB(color.r + rand, color.g + rand, color.b + rand)
+  const groundColors = []
+  for (let i = 0, l = position.count; i < l; i ++) {
+    const color = randomNuance(groundColor)
+    groundColors.push(color.r, color.g, color.b)
   }
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(groundColors, 3))
 
   const land = new THREE.Mesh(geometry, material)
   land.receiveShadow = true
@@ -36,15 +43,17 @@ export function generateTerrain() {
   land.rotateX(-Math.PI / 2)
   land.position.set(0, 30, 0)
 
-  const water_material = new THREE.MeshLambertMaterial({ color: 0x6699ff, transparent: true, opacity: 0.75, vertexColors: THREE.FaceColors })
+  const water_material = new THREE.MeshLambertMaterial({ color: waterColor, opacity: 0.75, vertexColors: THREE.FaceColors })
   const water_geometry = new THREE.PlaneGeometry(1200, 1200, resolution, resolution)
   water_geometry.dynamic = true
   water_geometry.verticesNeedUpdate = true
-  for (let i = 0; i < water_geometry.faces.length; i++) {
-    const { color } = water_geometry.faces[i]
-    const rand = Math.random()
-    water_geometry.faces[i].color.setRGB(color.r + rand, color.g + rand, color.b + rand)
+
+  const waterColors = []
+  for (let i = 0, l = water_geometry.attributes.position.count; i < l; i ++) {
+    const color = randomNuance(waterColor)
+    waterColors.push(color.r, color.g, color.b)
   }
+  water_geometry.setAttribute('color', new THREE.Float32BufferAttribute(waterColors, 3))
 
   const water = new THREE.Mesh(water_geometry, water_material)
   water.receiveShadow = true

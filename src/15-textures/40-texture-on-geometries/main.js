@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three119/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 
 camera.position.set(0, 150, 400)
@@ -45,7 +45,7 @@ moon3.position.set(100, 50, 0)
 scene.add(moon3)
 
 const crate = new THREE.Mesh(
-  new THREE.CubeGeometry(85, 85, 85),
+  new THREE.BoxGeometry(85, 85, 85),
   new THREE.MeshBasicMaterial({ map: loader.load('/assets/textures/crate.gif') })
 )
 crate.position.set(-60, 50, -100)

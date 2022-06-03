@@ -1,6 +1,7 @@
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { createParticles } from '/utils/particles.js'
 
+renderer.setClearColor(0x000000)
 createOrbitControls()
 
 const stars = createParticles()

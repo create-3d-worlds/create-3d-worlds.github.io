@@ -1,4 +1,4 @@
-import { FirstPersonControls } from '/node_modules/three119/examples/jsm/controls/FirstPersonControls.js'
+import { FirstPersonControls } from '/node_modules/three127/examples/jsm/controls/FirstPersonControls.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import {
   getMapCell, createHealth, createEnemy, isWall, createBullet, distance, isHit, randomXZ, moveBullet, remove, hitEnemy, moveEnemy

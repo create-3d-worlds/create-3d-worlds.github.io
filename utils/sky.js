@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three119/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 
 export function createGradientSky({ r = 4000, topColor = 0x0077ff, bottomColor = 0xffffff } = {}) {
   const vertexShader = `

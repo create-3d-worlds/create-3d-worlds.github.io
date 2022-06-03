@@ -1,4 +1,6 @@
-import { scene, camera, renderer, createOrbitControls, hemLight } from '/utils/scene.js'
+import {
+  scene, camera, renderer, createOrbitControls, hemLight
+} from '/utils/scene.js'
 import terrainFromHeightmap from '/utils/ground/terrainFromHeightmap.js'
 import { dirLight } from '/utils/light.js'
 
@@ -8,7 +10,7 @@ dirLight()
 const controls = createOrbitControls()
 camera.position.y = 200
 
-const terrain = await terrainFromHeightmap({ src: '/assets/heightmaps/wiki.png' })
+const terrain = await terrainFromHeightmap({ textureFile: 'mountain.jpg' })
 scene.add(terrain)
 
 /* LOOP */

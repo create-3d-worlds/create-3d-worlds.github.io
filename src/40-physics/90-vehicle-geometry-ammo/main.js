@@ -1,10 +1,9 @@
 /* global Ammo */
 /* eslint-disable new-cap */
-import * as THREE from '/node_modules/three119/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 
-const resolve = await Ammo
-const AMMO = resolve()
+const AMMO = await Ammo()
 
 const DISABLE_DEACTIVATION = 4
 const TRANSFORM_AUX = new AMMO.btTransform()

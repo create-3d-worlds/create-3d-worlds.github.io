@@ -1,6 +1,7 @@
-import * as THREE from '/node_modules/three119/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import { createBox } from '/utils/boxes.js'
 import { centerObject, adjustHeight } from '/utils/helpers.js'
+import { BufferGeometryUtils } from '/node_modules/three127/examples/jsm/utils/BufferGeometryUtils.js'
 
 const CIRCLE = Math.PI * 2
 
@@ -60,18 +61,14 @@ export function createSpiralStairs({ floors = 5, radius = 30, stairsInCirle = 30
 // CASTLE
 
 function buildTower({ x = 0, z = 0, radius = 15, height = 200 } = {}) {
-  const towerGeometry = new THREE.Geometry()
-  const material = new THREE.MeshNormalMaterial()
-  const tower = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, height * .75, 15), material)
-  tower.position.set(x, 70, z)
-  tower.updateMatrix()
-  towerGeometry.merge(tower.geometry, tower.matrix)
+  const towerGeometry = new THREE.CylinderBufferGeometry(radius, radius, height * .75, 15)
+  towerGeometry.translate(x, 70, z)
 
-  const cone = new THREE.Mesh(new THREE.CylinderGeometry(0, radius * 1.2, height * .25, 15), material)
-  cone.position.set(x, 170, z)
-  cone.updateMatrix()
-  towerGeometry.merge(cone.geometry, cone.matrix)
-  return new THREE.Mesh(towerGeometry, material)
+  const coneGeometry = new THREE.CylinderBufferGeometry(0, radius * 1.2, height * .25, 15)
+  coneGeometry.translate(x, 170, z)
+
+  const merged = BufferGeometryUtils.mergeBufferGeometries([towerGeometry, coneGeometry])
+  return merged
 }
 
 export function buildCastle({ rows = 10, brickInWall = 30, rowSize = 10, towerRadius = 20 } = {}) {
@@ -84,7 +81,7 @@ export function buildCastle({ rows = 10, brickInWall = 30, rowSize = 10, towerRa
     [wallWidth, 0],
     [wallWidth, wallWidth]
   ]
-  const castleGeometry = new THREE.Geometry()
+  const geometries = []
 
   const notPlaceForGate = (x, y) =>
     (x < wallWidth * 3 / 8 || x > wallWidth * 5 / 8) || y > rows * brickSize / 2  // not in center and not to hight
@@ -92,10 +89,9 @@ export function buildCastle({ rows = 10, brickInWall = 30, rowSize = 10, towerRa
   const isEven = y => Math.floor(y / brickSize) % 2 == 0
 
   function addBlock(x, y, z) {
-    const block = new THREE.Mesh(new THREE.BoxGeometry(rowSize, rowSize, rowSize), new THREE.MeshNormalMaterial())
-    block.position.set(x, y, z)
-    block.updateMatrix()
-    castleGeometry.merge(block.geometry, block.matrix)
+    const geometry = new THREE.BoxBufferGeometry(rowSize, rowSize, rowSize)
+    geometry.translate(x, y, z)
+    geometries.push(geometry)
   }
 
   function addFourBlocks(x, y) {
@@ -123,12 +119,13 @@ export function buildCastle({ rows = 10, brickInWall = 30, rowSize = 10, towerRa
   buildWalls(0)
 
   towerCoords.forEach(([x, z]) => {
-    const tower = buildTower({ x, z, radius: towerRadius })
-    tower.updateMatrix()
-    castleGeometry.merge(tower.geometry, tower.matrix)
+    const geometry = buildTower({ x, z, radius: towerRadius })
+    geometries.push(geometry)
   })
-  castleGeometry.rotateY(-Math.PI / 2)
-  const castle = new THREE.Mesh(castleGeometry, new THREE.MeshNormalMaterial())
+
+  const merged = BufferGeometryUtils.mergeBufferGeometries(geometries)
+  merged.rotateY(-Math.PI / 2)
+  const castle = new THREE.Mesh(merged, new THREE.MeshNormalMaterial())
   centerObject(castle)
   adjustHeight(castle)
   return castle

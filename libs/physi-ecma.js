@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three119/build/three.module.js'
+import * as THREE from '/node_modules/three127/build/three.module.js'
 
 var SUPPORT_TRANSFERABLE,
   _is_simulating = false,
@@ -55,9 +55,10 @@ Eventable.prototype.dispatchEvent = function(event_name) {
   let i,
     parameters = Array.prototype.splice.call(arguments, 1)
 
-  if (this._eventListeners.hasOwnProperty(event_name))
+  if (this._eventListeners.hasOwnProperty(event_name)) {
     for (i = 0; i < this._eventListeners[event_name].length; i++)
       this._eventListeners[event_name][i].apply(this, parameters)
+  }
 
 }
 Eventable.make = function(obj) {
@@ -108,7 +109,7 @@ convertWorldPositionToObject = function(position, object) {
   _temp_matrix4_1.identity().makeRotationFromQuaternion(object.quaternion)
 
   // Invert rotation matrix in order to "unrotate" a point back to object space
-  _temp_matrix4_1.getInverse(_temp_matrix4_1)
+  _temp_matrix4_1.copy(_temp_matrix4_1).invert()
 
   // Yay! Temp vars!
   _temp_vector3_1.copy(position)
@@ -382,7 +383,7 @@ Physijs.Scene = function(params) {
   const self = this
 
   Eventable.call(this)
-  THREE.Scene.call(this)
+  new THREE.Scene(this)
 
   this._worker = new Worker(Physijs.scripts.worker || 'physijs_worker.js')
   this._worker.transferableMessage = this._worker.webkitPostMessage || this._worker.postMessage
@@ -404,7 +405,8 @@ Physijs.Scene = function(params) {
 
     if (data instanceof Float32Array)
 
-      // transferable object
+    // transferable object
+    {
       switch (data[0]) {
         case MESSAGE_TYPES.WORLDREPORT:
           self._updateScene(data)
@@ -422,12 +424,12 @@ Physijs.Scene = function(params) {
           self._updateConstraints(data)
           break
       }
-
-			 else
+    } else
 
     if (data.cmd)
 
-      // non-transferable object
+    // non-transferable object
+    {
       switch (data.cmd) {
         case 'objectReady':
           _temp = data.params
@@ -445,14 +447,12 @@ Physijs.Scene = function(params) {
           break
 
         default:
-          // Do nothing, just show the message
+        // Do nothing, just show the message
           console.debug('Received: ' + data.cmd)
           console.dir(data.params)
           break
       }
-
-				 else
-
+    } else {
       switch (data[0]) {
         case MESSAGE_TYPES.WORLDREPORT:
           self._updateScene(data)
@@ -470,6 +470,7 @@ Physijs.Scene = function(params) {
           self._updateConstraints(data)
           break
       }
+    }
 
   }
 
@@ -495,20 +496,22 @@ Physijs.Scene.prototype._updateScene = function(data) {
     if (object === undefined)
       continue
 
-    if (object.__dirtyPosition === false)
+    if (object.__dirtyPosition === false) {
       object.position.set(
         data[offset + 1],
         data[offset + 2],
         data[offset + 3]
       )
+    }
 
-    if (object.__dirtyRotation === false)
+    if (object.__dirtyRotation === false) {
       object.quaternion.set(
         data[offset + 4],
         data[offset + 5],
         data[offset + 6],
         data[offset + 7]
       )
+    }
 
     object._physijs.linearVelocity.set(
       data[offset + 8],
@@ -633,9 +636,10 @@ Physijs.Scene.prototype._updateCollisions = function(data) {
     if (collisions[id1]) {
 
       // Clean up touches array
-      for (j = 0; j < object._physijs.touches.length; j++)
+      for (j = 0; j < object._physijs.touches.length; j++) {
         if (collisions[id1].indexOf(object._physijs.touches[j]) === -1)
           object._physijs.touches.splice(j--, 1)
+      }
 
       // Handle each colliding object
       for (j = 0; j < collisions[id1].length; j++) {
@@ -643,7 +647,8 @@ Physijs.Scene.prototype._updateCollisions = function(data) {
         object2 = this._objects[id2]
 
         if (object2)
-          // If object was not already touching object2, notify object
+        // If object was not already touching object2, notify object
+        {
           if (object._physijs.touches.indexOf(id2) === -1) {
             object._physijs.touches.push(id2)
 
@@ -654,13 +659,13 @@ Physijs.Scene.prototype._updateCollisions = function(data) {
             _temp2 = _temp_vector3_1.clone()
 
             let normal_offset = normal_offsets[object._physijs.id + '-' + object2._physijs.id]
-            if (normal_offset > 0)
+            if (normal_offset > 0) {
               _temp_vector3_1.set(
                 -data[normal_offset],
                 -data[normal_offset + 1],
                 -data[normal_offset + 2]
               )
-							 else {
+            } else {
               normal_offset *= -1
               _temp_vector3_1.set(
                 data[normal_offset],
@@ -671,6 +676,7 @@ Physijs.Scene.prototype._updateCollisions = function(data) {
 
             object.dispatchEvent('collision', object2, _temp1, _temp2, _temp_vector3_1)
           }
+        }
 
       }
 
@@ -824,13 +830,14 @@ Physijs.Scene.prototype.add = function(object) {
         addObjectChildren(object, object)
       }
 
-      if (object.material._physijs)
+      if (object.material._physijs) {
         if (!this._materials_ref_counts.hasOwnProperty(object.material._physijs.id)) {
           this.execute('registerMaterial', object.material._physijs)
           object._physijs.materialId = object.material._physijs.id
           this._materials_ref_counts[object.material._physijs.id] = 1
         } else
           this._materials_ref_counts[object.material._physijs.id]++
+      }
 
       // Object starting position + rotation
       object._physijs.position = { x: object.position.x, y: object.position.y, z: object.position.z }
@@ -1079,18 +1086,18 @@ Physijs.HeightfieldMesh = function(geometry, material, mass, xdiv, ydiv) {
   // note - this assumes our plane geometry is square, unless we pass in specific xdiv and ydiv
   this._physijs.absMaxHeight = Math.max(geometry.boundingBox.max.z, Math.abs(geometry.boundingBox.min.z))
 
+  const { position } = geometry.attributes
   const points = []
 
   let a, b
-  for (let i = 0; i < geometry.vertices.length; i++) {
-
+  const vertex = new THREE.Vector3()
+  for (let i = 0, l = position.count; i < l; i ++) {
     a = i % this._physijs.xpts
     b = Math.round((i / this._physijs.xpts) - ((i % this._physijs.xpts) / this._physijs.xpts))
-    points[i] = geometry.vertices[a + ((this._physijs.ypts - b - 1) * this._physijs.ypts)].z
-
-    // points[i] = geometry.vertices[i];
+    const index = a + ((this._physijs.ypts - b - 1) * this._physijs.ypts)
+    vertex.fromBufferAttribute(position, index)
+    points[i] = vertex.z
   }
-
   this._physijs.points = points
 }
 Physijs.HeightfieldMesh.prototype = new Physijs.Mesh
@@ -1210,15 +1217,13 @@ Physijs.ConcaveMesh = function(geometry, material, mass) {
 
   for (i = 0; i < geometry.faces.length; i++) {
     face = geometry.faces[i]
-    if (face instanceof THREE.Face3)
-
+    if (face instanceof THREE.Face3) {
       triangles.push([
         { x: vertices[face.a].x, y: vertices[face.a].y, z: vertices[face.a].z },
         { x: vertices[face.b].x, y: vertices[face.b].y, z: vertices[face.b].z },
         { x: vertices[face.c].x, y: vertices[face.c].y, z: vertices[face.c].z }
       ])
-
-			 else if (face instanceof THREE.Face4) {
+    } else if (face instanceof THREE.Face4) {
 
       triangles.push([
         { x: vertices[face.a].x, y: vertices[face.a].y, z: vertices[face.a].z },
@@ -1256,12 +1261,13 @@ Physijs.ConvexMesh = function(geometry, material, mass) {
   if (!geometry.boundingBox)
     geometry.computeBoundingBox()
 
-  for (i = 0; i < geometry.vertices.length; i++)
+  for (i = 0; i < geometry.vertices.length; i++) {
     points.push({
       x: geometry.vertices[i].x,
       y: geometry.vertices[i].y,
       z: geometry.vertices[i].z
     })
+  }
 
   width = geometry.boundingBox.max.x - geometry.boundingBox.min.x
   height = geometry.boundingBox.max.y - geometry.boundingBox.min.y
@@ -1311,25 +1317,28 @@ Physijs.Vehicle.prototype.addWheel = function(wheel_geometry, wheel_material, co
 Physijs.Vehicle.prototype.setSteering = function(amount, wheel) {
   if (wheel !== undefined && this.wheels[wheel] !== undefined)
     this.world.execute('setSteering', { id: this._physijs.id, wheel, steering: amount })
-		 else if (this.wheels.length > 0)
+		 else if (this.wheels.length > 0) {
     for (let i = 0; i < this.wheels.length; i++)
       this.world.execute('setSteering', { id: this._physijs.id, wheel: i, steering: amount })
+  }
 
 }
 Physijs.Vehicle.prototype.setBrake = function(amount, wheel) {
   if (wheel !== undefined && this.wheels[wheel] !== undefined)
     this.world.execute('setBrake', { id: this._physijs.id, wheel, brake: amount })
-		 else if (this.wheels.length > 0)
+		 else if (this.wheels.length > 0) {
     for (let i = 0; i < this.wheels.length; i++)
       this.world.execute('setBrake', { id: this._physijs.id, wheel: i, brake: amount })
+  }
 
 }
 Physijs.Vehicle.prototype.applyEngineForce = function(amount, wheel) {
   if (wheel !== undefined && this.wheels[wheel] !== undefined)
     this.world.execute('applyEngineForce', { id: this._physijs.id, wheel, force: amount })
-		 else if (this.wheels.length > 0)
+		 else if (this.wheels.length > 0) {
     for (let i = 0; i < this.wheels.length; i++)
       this.world.execute('applyEngineForce', { id: this._physijs.id, wheel: i, force: amount })
+  }
 
 }
 

@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/mudroljub/create-rpg-game#readme",
   "dependencies": {
-    "three119": "npm:three@^0.119.0"
+    "three127": "npm:three@^0.127.0"
   }
 }
