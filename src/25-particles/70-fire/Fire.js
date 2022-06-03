@@ -5,44 +5,24 @@
  * http://www.dgp.toronto.edu/people/stam/reality/Research/pdf/GDC03.pdf
  *
  */
-
 import {
-  Clock,
-  Color,
-  DataTexture,
-  LinearFilter,
-  Math as _Math,
-  Mesh,
-  NearestFilter,
-  NoToneMapping,
-  OrthographicCamera,
-  PlaneBufferGeometry,
-  RGBAFormat,
-  Scene,
-  ShaderMaterial,
-  Vector2,
-  WebGLRenderTarget
+  Clock, Color, DataTexture, LinearFilter, Math as _Math, Mesh, NearestFilter, NoToneMapping,
+  OrthographicCamera, PlaneBufferGeometry, RGBAFormat, Scene, ShaderMaterial, Vector2, WebGLRenderTarget
 } from '/node_modules/three127/build/three.module.js'
 
-var Fire = function(geometry, options) {
+const Fire = function(geometry, options = {}) {
 
   Mesh.call(this, geometry)
-
-  this.type = 'Fire'
-
   this.clock = new Clock()
-
-  options = options || {}
 
   const textureWidth = options.textureWidth || 512
   const textureHeight = options.textureHeight || 512
   const oneOverWidth = 1.0 / textureWidth
   const oneOverHeight = 1.0 / textureHeight
 
-  const debug = (options.debug === undefined) ? false : options.debug
-  this.color1 = options.color1 || new Color(0xffffff)
-  this.color2 = options.color2 || new Color(0xffa000)
-  this.color3 = options.color3 || new Color(0x000000)
+  this.color1 = new Color(options.color1 || 0xffffff)
+  this.color2 = new Color(options.color2 || 0xffa000)
+  this.color3 = new Color(options.color3 || 0x000000)
   this.colorBias = (options.colorBias === undefined) ? 0.8 : options.colorBias
   this.diffuse = (options.diffuse === undefined) ? 1.33 : options.diffuse
   this.viscosity = (options.viscosity === undefined) ? 0.25 : options.viscosity
@@ -51,7 +31,7 @@ var Fire = function(geometry, options) {
   this.burnRate = (options.burnRate === undefined) ? 0.3 : options.burnRate
   this.drag = (options.drag === undefined) ? 0.35 : options.drag
   this.airSpeed = (options.airSpeed === undefined) ? 6.0 : options.airSpeed
-  this.windVector = options.windVector || new Vector2(0.0, 0.75)
+  this.windVector = new Vector2(options.windX || 0.0, options.windY || 0.75)
   this.speed = (options.speed === undefined) ? 500.0 : options.speed
   this.massConservation = (options.massConservation === undefined) ? false : options.massConservation
 
@@ -59,9 +39,7 @@ var Fire = function(geometry, options) {
   this.sourceData = new Uint8Array(4 * size)
 
   this.clearSources = function() {
-
     for (let y = 0; y < textureHeight; y ++)
-
       for (let x = 0; x < textureWidth; x ++) {
 
         const i = y * textureWidth + x
@@ -71,71 +49,51 @@ var Fire = function(geometry, options) {
         this.sourceData[stride + 1] = 0
         this.sourceData[stride + 2] = 0
         this.sourceData[stride + 3] = 0
-
       }
-
     this.sourceMaterial.uniforms.sourceMap.value = this.internalSource
     this.sourceMaterial.needsUpdate = true
-
     return this.sourceData
-
   }
 
   this.addSource = function(u, v, radius, density = null, windX = null, windY = null) {
-
     const startX = Math.max(Math.floor((u - radius) * textureWidth), 0)
     const startY = Math.max(Math.floor((v - radius) * textureHeight), 0)
     const endX = Math.min(Math.floor((u + radius) * textureWidth), textureWidth)
     const endY = Math.min(Math.floor((v + radius) * textureHeight), textureHeight)
 
     for (let y = startY; y < endY; y ++)
-
       for (let x = startX; x < endX; x ++) {
-
         const diffX = x * oneOverWidth - u
         const diffY = y * oneOverHeight - v
 
         if (diffX * diffX + diffY * diffY < radius * radius) {
-
           const i = y * textureWidth + x
           const stride = i * 4
-
           if (density != null)
-
             this.sourceData[stride] = Math.min(Math.max(density, 0.0), 1.0) * 255
 
           if (windX != null) {
-
-            var wind = Math.min(Math.max(windX, - 1.0), 1.0)
+            let wind = Math.min(Math.max(windX, - 1.0), 1.0)
             wind = (wind < 0.0) ? Math.floor(wind * 127) + 255 : Math.floor(wind * 127)
             this.sourceData[stride + 1] = wind
-
           }
           if (windY != null) {
-
-            var wind = Math.min(Math.max(windY, - 1.0), 1.0)
+            let wind = Math.min(Math.max(windY, - 1.0), 1.0)
             wind = (wind < 0.0) ? Math.floor(wind * 127) + 255 : Math.floor(wind * 127)
             this.sourceData[stride + 2] = wind
-
           }
-
         }
-
       }
 
     this.internalSource.needsUpdate = true
-
     return this.sourceData
-
   }
 
   // When setting source map, red channel is density. Green and blue channels
   // encode x and y velocity respectively as signed chars:
   // (0 -> 127 = 0.0 -> 1.0, 128 -> 255 = -1.0 -> 0.0 )
   this.setSourceMap = function(texture) {
-
     this.sourceMaterial.uniforms.sourceMap.value = texture
-
   }
 
   const parameters = {
@@ -159,11 +117,9 @@ var Fire = function(geometry, options) {
 
   if (! _Math.isPowerOfTwo(textureWidth) ||
 		 ! _Math.isPowerOfTwo(textureHeight)) {
-
     this.field0.texture.generateMipmaps = false
     this.field1.texture.generateMipmaps = false
     this.fieldProj.texture.generateMipmaps = false
-
   }
 
   this.fieldScene = new Scene()
@@ -178,7 +134,7 @@ var Fire = function(geometry, options) {
 
   // Source Shader
 
-  var shader = Fire.SourceShader
+  let shader = Fire.SourceShader
   this.sourceMaterial = new ShaderMaterial({
     uniforms: shader.uniforms,
     vertexShader: shader.vertexShader,
@@ -193,7 +149,7 @@ var Fire = function(geometry, options) {
 
   // Diffuse Shader
 
-  var shader = Fire.DiffuseShader
+  shader = Fire.DiffuseShader
   this.diffuseMaterial = new ShaderMaterial({
     uniforms: shader.uniforms,
     vertexShader: shader.vertexShader,
@@ -273,13 +229,7 @@ var Fire = function(geometry, options) {
 
   // Color Shader
 
-  if (debug)
-
-    shader = Fire.DebugShader
-
-	 else
-
-    shader = Fire.ColorShader
+  shader = Fire.ColorShader
 
   this.material = new ShaderMaterial({
     uniforms: shader.uniforms,
@@ -327,7 +277,7 @@ var Fire = function(geometry, options) {
   this.saveRenderState = function(renderer) {
 
     this.savedRenderTarget = renderer.getRenderTarget()
-    this.savedVrEnabled = renderer.vr.enabled
+    this.savedVrEnabled = renderer.xr.enabled
     this.savedShadowAutoUpdate = renderer.shadowMap.autoUpdate
     this.savedAntialias = renderer.antialias
     this.savedToneMapping = renderer.toneMapping
@@ -336,7 +286,7 @@ var Fire = function(geometry, options) {
 
   this.restoreRenderState = function(renderer) {
 
-    renderer.vr.enabled = this.savedVrEnabled
+    renderer.xr.enabled = this.savedVrEnabled
     renderer.shadowMap.autoUpdate = this.savedShadowAutoUpdate
     renderer.setRenderTarget(this.savedRenderTarget)
     renderer.antialias = this.savedAntialias
@@ -452,7 +402,7 @@ var Fire = function(geometry, options) {
 
     this.saveRenderState(renderer)
 
-    renderer.vr.enabled = false // Avoid camera modification and recursion
+    renderer.xr.enabled = false // Avoid camera modification and recursion
     renderer.shadowMap.autoUpdate = false // Avoid re-computing shadows
     renderer.antialias = false
     renderer.toneMapping = NoToneMapping
@@ -973,65 +923,6 @@ Fire.ColorShader = {
     '    vec3 blend2 = mix(color2, color1, (temperature - bias) / (1.0 - bias) ) * step(bias, temperature);',
 
     '    gl_FragColor = vec4(blend1 + blend2, density);',
-    '}'
-
-  ].join('\n')
-}
-
-Fire.DebugShader = {
-
-  uniforms: {
-    'color1': {
-      value: null
-    },
-    'color2': {
-      value: null
-    },
-    'color3': {
-      value: null
-    },
-    'colorBias': {
-      value: null
-    },
-    'densityMap': {
-      value: null
-    }
-  },
-
-  vertexShader: [
-    'varying vec2 vUv;',
-
-    'void main() {',
-
-    ' 	  vUv = uv;',
-
-    '     vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );',
-    '     gl_Position = projectionMatrix * mvPosition;',
-
-    '}'
-
-  ].join('\n'),
-
-  fragmentShader: [
-    'uniform sampler2D densityMap;',
-
-    'varying vec2 vUv;',
-
-    'void main() {',
-    '    float density;',
-    '    density = texture2D( densityMap, vUv ).a;',
-
-    '    vec2 vel = texture2D( densityMap, vUv ).gb;',
-
-    '    vel = (vel - step(0.5, vel)) * 2.0;',
-
-    '    float r = density;',
-    '    float g = max(abs(vel.x), density * 0.5);',
-    '    float b = max(abs(vel.y), density * 0.5);',
-    '    float a = max(density * 0.5, max(abs(vel.x), abs(vel.y)));',
-
-    '    gl_FragColor = vec4(r, g, b, a);',
-
     '}'
 
   ].join('\n')
