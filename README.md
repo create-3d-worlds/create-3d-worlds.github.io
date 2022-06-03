@@ -18,6 +18,7 @@ live-server
   - [x] fix towers
   - [x] fix and optimize city (merge geometries)
   - [ ] fix distort in createWorldSphere (ili napraviti alternativu)
+    https://dustinpfister.github.io/2021/06/10/threejs-examples-sphere-mutate/
   - [ ] fix terrainFromHeightmap
 - [ ] ažurirati verziju na poslednju (nakon 127 su ukinuli relativne importe pa puca, use importmap)
   - [ ] probati https://threejs.org/examples/#webgl_points_nodes
