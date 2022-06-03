@@ -17,13 +17,10 @@ live-server
 - [x] ažurirati verziju (na 127)
   - [x] fix towers
   - [x] fix and optimize city (merge geometries)
-  - [ ] fix distort in createWorldSphere
+  - [ ] fix distort in createWorldSphere (ili napraviti alternativu)
   - [ ] fix terrainFromHeightmap
-- [ ] probati 
-    https://threejs.org/examples/#webgl_points_nodes
-    https://threejs.org/examples/#webgl_lines_sphere
-    https://techbrood.com/threejs/examples/webgl_fire.html
 - [ ] ažurirati verziju na poslednju (nakon 127 su ukinuli relativne importe pa puca, use importmap)
+  - [ ] probati https://threejs.org/examples/#webgl_points_nodes
 
 - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
@@ -36,6 +33,7 @@ live-server
 - [x] veličina nekih modela ne radi (dae format zeza, izbegavati)
 - [x] pomeriti foldere sa igračem u scenu
 - [ ] move 1943 ground to helpers
+- [ ] preraditi drveće na terenu da ne koristi zrakobačac, rasprava: https://discourse.threejs.org/t/what-is-the-best-way-to-add-objects-to-a-3d-terrain/31757/7
 
 ### Geometry
 
