@@ -20,7 +20,6 @@ live-server
   - [ ] fix distort in createWorldSphere
   - [ ] fix terrainFromHeightmap
 - [ ] probati 
-    https://threejs.org/examples/#games_fps
     https://threejs.org/examples/#webgl_points_nodes
     https://threejs.org/examples/#webgl_lines_sphere
 - [ ] ažurirati verziju na poslednju (nakon 127 su ukinuli relativne importe pa puca, use importmap)
