@@ -15,11 +15,11 @@ live-server
 
 - [x] ažurirati verziju (na 119)
 - [x] ažurirati verziju (na 127)
-  - [ ] fix distort in createWorldSphere
-  - [ ] fix terrainFromHeightmap
   - [x] fix towers
   - [x] fix and optimize city (merge geometries)
-  - [ ] probati https://threejs.org/examples/#physics_ammo_break
+  - [ ] fix distort in createWorldSphere
+  - [ ] fix terrainFromHeightmap
+- [ ] probati 
     https://threejs.org/examples/#games_fps
     https://threejs.org/examples/#webgl_points_nodes
     https://threejs.org/examples/#webgl_lines_sphere
@@ -142,11 +142,11 @@ live-server
 ### Physics
 
 - [x] odvojiti fizička pomagala
-- [ ] ujednačiti createTerrain i druga pomagala sa standardnim
+- [ ] ujednačiti createTerrain i druga fizička pomagala sa standardnim
 - [x] videti nove primere
-  - [ ] lomi materijale https://threejs.org/examples/?q=physics#physics_ammo_break
+  - [x] lomi materijale https://threejs.org/examples/?q=physics#physics_ammo_break
 - [ ] domine: da manja obara veću
-- [ ] Razaranje zamka topom
+- [ ] Razaranje zamka topom (možda može i model)
   - [ ] dodati proceduralni zamak (vidi zamak-fizika, gradjevina-physijs)
   - [ ] dodati top (ima model)
   - [ ] top puca i rusi zidine (vidi ball-trowing)

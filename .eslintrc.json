@@ -14,7 +14,7 @@
     "comma-spacing": ["warn", { "before": false, "after": true }],
     "computed-property-spacing": ["warn", "never"],
     "constructor-super": "error",
-    "curly": ["warn", "multi-or-nest"],
+    "curly": ["warn", "multi"],
     "dot-notation": "warn",
     "indent": ["warn", 2, { "SwitchCase": 1 }],
     "key-spacing": ["warn", { "afterColon": true }],
