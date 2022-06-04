@@ -22,7 +22,8 @@ live-server
   - [x] fix terrainFromHeightmap
 - [ ] ažurirati verziju na poslednju (ukinuli su relativne importe pa puca, koristiti importmap)
   - [ ] probati https://threejs.org/examples/#webgl_points_nodes
-
+    https://jhugheswebdev.github.io/sound-equalizer-threejs/
+- [ ] izvući modele iz unity igre
 - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js

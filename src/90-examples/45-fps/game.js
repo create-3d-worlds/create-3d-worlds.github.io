@@ -4,7 +4,7 @@ import { scene, clock, camera, renderer } from '/utils/scene.js'
 import { hemLight } from '/utils/light.js'
 
 import { loadModel } from '/utils/loaders.js'
-import { player, createBullet, handleInput } from './utils.js'
+import { player, createBullet, handleInput, addBulletVelocity } from './utils.js'
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -23,38 +23,28 @@ const bullets = Array(NUM_SPHERES).fill().map(() => {
   return bullet
 })
 
-const worldOctree = new Octree()
+const world = new Octree()
 
-let mouseTime = 0
+let holdTime = 0
 
 const vector1 = new THREE.Vector3()
 const vector2 = new THREE.Vector3()
 const vector3 = new THREE.Vector3()
 
 const { mesh } = await loadModel({ file: 'collision-world.glb' })
+world.fromGraphNode(mesh)
 scene.add(mesh)
-
-worldOctree.fromGraphNode(mesh)
 
 /* FUNCTIONS */
 
-function throwBall() {
-  const bullet = bullets[bulletIdx]
-  camera.getWorldDirection(player.direction)
-  bullet.collider.center.copy(player.collider.end).addScaledVector(player.direction, player.collider.radius * 1.5)
-
-  // throw the ball with more force if we hold the button longer, and if we move forward
-  const impulse = 15 + 30 * (1 - Math.exp((mouseTime - performance.now()) * 0.001))
-
-  bullet.velocity.copy(player.direction).multiplyScalar(impulse)
-  bullet.velocity.addScaledVector(player.velocity, 2)
-
+function fireBullet() {
+  addBulletVelocity(bullets[bulletIdx], holdTime)
   bulletIdx = (bulletIdx + 1) % bullets.length
 }
 
 function playerCollisions() {
   player.onFloor = false
-  const result = worldOctree.capsuleIntersect(player.collider)
+  const result = world.capsuleIntersect(player.collider)
   if (!result) return
   player.onFloor = result.normal.y > 0
   if (!player.onFloor)
@@ -133,7 +123,7 @@ function spheresCollisions() {
 function updateSpheres(deltaTime) {
   bullets.forEach(bullet => {
     bullet.collider.center.addScaledVector(bullet.velocity, deltaTime)
-    const result = worldOctree.sphereIntersect(bullet.collider)
+    const result = world.sphereIntersect(bullet.collider)
 
     if (result) {
       bullet.velocity.addScaledVector(result.normal, - result.normal.dot(bullet.velocity) * 1.5)
@@ -185,11 +175,11 @@ void function gameLoop() {
 
 document.addEventListener('mousedown', () => {
   document.body.requestPointerLock()
-  mouseTime = performance.now()
+  holdTime = performance.now()
 })
 
 document.addEventListener('mouseup', () => {
-  if (document.pointerLockElement !== null) throwBall()
+  if (document.pointerLockElement !== null) fireBullet()
 })
 
 document.body.addEventListener('mousemove', event => {
