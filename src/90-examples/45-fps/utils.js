@@ -45,6 +45,32 @@ export function handleInput(deltaTime) {
     player.velocity.y = 15
 }
 
+export function playerCollides(bullet) {
+  const vector1 = new THREE.Vector3()
+  const center = vector1.addVectors(player.collider.start, player.collider.end).multiplyScalar(0.5)
+  const bulletCenter = bullet.collider.center
+
+  const r = player.collider.radius + bullet.collider.radius
+  const r2 = r * r
+
+  // approximation: player = 3 bullets
+  for (const point of [player.collider.start, player.collider.end, center]) {
+    const d2 = point.distanceToSquared(bulletCenter)
+
+    if (d2 < r2) {
+      const normal = vector1.subVectors(point, bulletCenter).normalize()
+      const v1 = new THREE.Vector3().copy(normal).multiplyScalar(normal.dot(player.velocity))
+      const v2 = new THREE.Vector3().copy(normal).multiplyScalar(normal.dot(bullet.velocity))
+
+      player.velocity.add(v2).sub(v1)
+      bullet.velocity.add(v1).sub(v2)
+
+      const d = (r - Math.sqrt(d2)) / 2
+      bulletCenter.addScaledVector(normal, - d)
+    }
+  }
+}
+
 /* BULLET */
 
 export function createBullet() {
@@ -65,4 +91,32 @@ export function addBulletVelocity(bullet, holdTime) {
 
   bullet.velocity.copy(player.direction).multiplyScalar(impulse)
   bullet.velocity.addScaledVector(player.velocity, 2)
+}
+
+export function checkBulletsCollisions(bullets) {
+  for (let i = 0, { length } = bullets; i < length; i ++) {
+    const s1 = bullets[i]
+
+    for (let j = i + 1; j < length; j ++) {
+      const s2 = bullets[j]
+
+      const d2 = s1.collider.center.distanceToSquared(s2.collider.center)
+      const r = s1.collider.radius + s2.collider.radius
+      const r2 = r * r
+
+      if (d2 < r2) {
+        const normal = new THREE.Vector3().subVectors(s1.collider.center, s2.collider.center).normalize()
+        const v1 = new THREE.Vector3().copy(normal).multiplyScalar(normal.dot(s1.velocity))
+        const v2 = new THREE.Vector3().copy(normal).multiplyScalar(normal.dot(s2.velocity))
+
+        s1.velocity.add(v2).sub(v1)
+        s2.velocity.add(v1).sub(v2)
+
+        const d = (r - Math.sqrt(d2)) / 2
+
+        s1.collider.center.addScaledVector(normal, d)
+        s2.collider.center.addScaledVector(normal, - d)
+      }
+    }
+  }
 }
