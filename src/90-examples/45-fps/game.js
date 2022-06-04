@@ -5,6 +5,7 @@ import { scene, clock, camera, renderer } from '/utils/scene.js'
 import { hemLight } from '/utils/light.js'
 import keyboard from '/classes/Keyboard.js'
 import { loadModel } from '/utils/loaders.js'
+import { createSphere } from '/utils/balls.js'
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -18,16 +19,11 @@ const SPHERE_RADIUS = 0.2
 
 const STEPS_PER_FRAME = 5
 
-const sphereGeometry = new THREE.IcosahedronGeometry(SPHERE_RADIUS, 5)
-const sphereMaterial = new THREE.MeshLambertMaterial({ color: 0xbbbb44 })
-
 const spheres = []
 let sphereIdx = 0
 
 for (let i = 0; i < NUM_SPHERES; i ++) {
-  const mesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
-  mesh.castShadow = true
-  mesh.receiveShadow = true
+  const mesh = createSphere({ r: SPHERE_RADIUS, widthSegments: 10, color: 0xbbbb44 })
   scene.add(mesh)
 
   spheres.push({
