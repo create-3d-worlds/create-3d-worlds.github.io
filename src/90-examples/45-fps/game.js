@@ -2,7 +2,6 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import { Octree } from '/node_modules/three127/examples/jsm/math/Octree.js'
 import { scene, clock, camera, renderer } from '/utils/scene.js'
 import { hemLight } from '/utils/light.js'
-
 import { loadModel } from '/utils/loaders.js'
 import { player, createBullet, handleInput, addBulletVelocity, playerCollides, checkBulletsCollisions } from './utils.js'
 
@@ -13,7 +12,6 @@ hemLight({ intensity: 0.5, groundColor: 0x002244 })
 
 const GRAVITY = 30
 const NUM_SPHERES = 100
-const STEPS_PER_FRAME = 5
 
 let bulletIdx = 0
 
@@ -86,13 +84,10 @@ function updateBullets(deltaTime) {
 /* LOOP */
 
 void function gameLoop() {
-  const deltaTime = Math.min(0.05, clock.getDelta()) / STEPS_PER_FRAME
-  // check collisions in substeps to mitigate the risk of objects collide too quickly for detection
-  for (let i = 0; i < STEPS_PER_FRAME; i ++) {
-    handleInput(deltaTime)
-    updatePlayer(deltaTime)
-    updateBullets(deltaTime)
-  }
+  const deltaTime = clock.getDelta()
+  handleInput(deltaTime)
+  updatePlayer(deltaTime)
+  updateBullets(deltaTime)
   renderer.render(scene, camera)
   requestAnimationFrame(gameLoop)
 }()
@@ -100,17 +95,12 @@ void function gameLoop() {
 /* EVENTS */
 
 document.addEventListener('mousedown', () => {
-  document.body.requestPointerLock()
   holdTime = performance.now()
 })
 
-document.addEventListener('mouseup', () => {
-  if (document.pointerLockElement !== null) fireBullet()
-})
+document.addEventListener('mouseup', fireBullet)
 
-document.body.addEventListener('mousemove', event => {
-  if (document.pointerLockElement === document.body) {
-    camera.rotation.y -= event.movementX / 500
-    camera.rotation.x -= event.movementY / 500
-  }
+document.body.addEventListener('mousemove', e => {
+  camera.rotation.y -= e.movementX / 500
+  camera.rotation.x -= e.movementY / 500
 })
