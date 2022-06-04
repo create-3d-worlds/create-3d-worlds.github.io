@@ -17,6 +17,13 @@ const NUM_SPHERES = 100
 const SPHERE_RADIUS = 0.2
 const STEPS_PER_FRAME = 5
 
+const player = {
+  collider: new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35),
+  velocity: new THREE.Vector3(),
+  direction: new THREE.Vector3(),
+  onFloor: false,
+}
+
 const spheres = []
 let sphereIdx = 0
 
@@ -31,13 +38,6 @@ for (let i = 0; i < NUM_SPHERES; i ++) {
 }
 
 const worldOctree = new Octree()
-
-const player = {
-  collider: new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35),
-  velocity: new THREE.Vector3(),
-  direction: new THREE.Vector3(),
-  onFloor: false,
-}
 
 let mouseTime = 0
 
@@ -88,7 +88,7 @@ function updatePlayer(deltaTime) {
   const deltaPosition = player.velocity.clone().multiplyScalar(deltaTime)
   player.collider.translate(deltaPosition)
   playerCollisions()
-  camera.position.copy(player.collider.end)
+  camera.position.copy(player.collider.end) // camera follows player
 }
 
 function playerSphereCollision(sphere) {
@@ -169,41 +169,35 @@ function getForwardVector() {
   camera.getWorldDirection(player.direction)
   player.direction.y = 0
   player.direction.normalize()
-
   return player.direction
 }
 
 function getSideVector() {
-  camera.getWorldDirection(player.direction)
-  player.direction.y = 0
-  player.direction.normalize()
-  player.direction.cross(camera.up)
-
-  return player.direction
+  return getForwardVector().cross(camera.up)
 }
 
-function teleportPlayerIfOob() {
-  if (camera.position.y <= - 25) {
-    player.collider.start.set(0, 0.35, 0)
-    player.collider.end.set(0, 1, 0)
-    player.collider.radius = 0.35
-    camera.position.copy(player.collider.end)
-    camera.rotation.set(0, 0, 0)
-  }
-}
+// function teleportPlayerIfOob() {
+//   if (camera.position.y <= - 25) {
+//     console.log('teleport')
+//     player.collider.start.set(0, 0.35, 0)
+//     player.collider.end.set(0, 1, 0)
+//     player.collider.radius = 0.35
+//     camera.position.copy(player.collider.end)
+//     camera.rotation.set(0, 0, 0)
+//   }
+// }
 
 function handleInput(deltaTime) {
-  // gives a bit of air control
   const speedDelta = deltaTime * (player.onFloor ? 25 : 8)
 
   if (keyboard.up)
     player.velocity.add(getForwardVector().multiplyScalar(speedDelta))
 
   if (keyboard.down)
-    player.velocity.add(getForwardVector().multiplyScalar(- speedDelta))
+    player.velocity.add(getForwardVector().multiplyScalar(-speedDelta))
 
   if (keyboard.left)
-    player.velocity.add(getSideVector().multiplyScalar(- speedDelta))
+    player.velocity.add(getSideVector().multiplyScalar(-speedDelta))
 
   if (keyboard.right)
     player.velocity.add(getSideVector().multiplyScalar(speedDelta))
@@ -214,20 +208,19 @@ function handleInput(deltaTime) {
 
 /* LOOP */
 
-void function animate() {
+void function gameLoop() {
   const deltaTime = Math.min(0.05, clock.getDelta()) / STEPS_PER_FRAME
 
-  // we look for collisions in substeps to mitigate the risk of
-  // an object traversing another too quickly for detection.
+  // check collisions in substeps to mitigate the risk of objects collide too quickly for detection
   for (let i = 0; i < STEPS_PER_FRAME; i ++) {
     handleInput(deltaTime)
     updatePlayer(deltaTime)
     updateSpheres(deltaTime)
-    teleportPlayerIfOob()
+    // teleportPlayerIfOob()
   }
 
   renderer.render(scene, camera)
-  requestAnimationFrame(animate)
+  requestAnimationFrame(gameLoop)
 }()
 
 /* EVENTS */
