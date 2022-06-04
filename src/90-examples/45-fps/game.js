@@ -13,10 +13,8 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping
 hemLight({ intensity: 0.5, groundColor: 0x002244 })
 
 const GRAVITY = 30
-
 const NUM_SPHERES = 100
 const SPHERE_RADIUS = 0.2
-
 const STEPS_PER_FRAME = 5
 
 const spheres = []
@@ -38,9 +36,9 @@ const player = {
   collider: new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35),
   velocity: new THREE.Vector3(),
   direction: new THREE.Vector3(),
+  onFloor: false,
 }
 
-let playerOnFloor = false
 let mouseTime = 0
 
 const vector1 = new THREE.Vector3()
@@ -70,10 +68,10 @@ function throwBall() {
 
 function playerCollisions() {
   const result = worldOctree.capsuleIntersect(player.collider)
-  playerOnFloor = false
+  player.onFloor = false
   if (result) {
-    playerOnFloor = result.normal.y > 0
-    if (! playerOnFloor)
+    player.onFloor = result.normal.y > 0
+    if (! player.onFloor)
       player.velocity.addScaledVector(result.normal, - result.normal.dot(player.velocity))
     player.collider.translate(result.normal.multiplyScalar(result.depth))
   }
@@ -81,7 +79,7 @@ function playerCollisions() {
 
 function updatePlayer(deltaTime) {
   let damping = Math.exp(- 4 * deltaTime) - 1
-  if (!playerOnFloor) {
+  if (!player.onFloor) {
     player.velocity.y -= GRAVITY * deltaTime
     damping *= 0.1 // small air resistance
   }
@@ -196,7 +194,7 @@ function teleportPlayerIfOob() {
 
 function handleInput(deltaTime) {
   // gives a bit of air control
-  const speedDelta = deltaTime * (playerOnFloor ? 25 : 8)
+  const speedDelta = deltaTime * (player.onFloor ? 25 : 8)
 
   if (keyboard.up)
     player.velocity.add(getForwardVector().multiplyScalar(speedDelta))
@@ -210,7 +208,7 @@ function handleInput(deltaTime) {
   if (keyboard.right)
     player.velocity.add(getSideVector().multiplyScalar(speedDelta))
 
-  if (playerOnFloor && keyboard.pressed.Space)
+  if (player.onFloor && keyboard.pressed.Space)
     player.velocity.y = 15
 }
 
