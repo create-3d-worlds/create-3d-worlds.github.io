@@ -25,7 +25,6 @@ let sphereIdx = 0
 for (let i = 0; i < NUM_SPHERES; i ++) {
   const mesh = createSphere({ r: SPHERE_RADIUS, widthSegments: 10, color: 0xbbbb44 })
   scene.add(mesh)
-
   spheres.push({
     mesh,
     collider: new THREE.Sphere(new THREE.Vector3(0, - 100, 0), SPHERE_RADIUS),
@@ -35,9 +34,11 @@ for (let i = 0; i < NUM_SPHERES; i ++) {
 
 const worldOctree = new Octree()
 
-const playerCollider = new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35)
-const playerVelocity = new THREE.Vector3()
-const playerDirection = new THREE.Vector3()
+const player = {
+  collider: new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35),
+  velocity: new THREE.Vector3(),
+  direction: new THREE.Vector3(),
+}
 
 let playerOnFloor = false
 let mouseTime = 0
@@ -55,60 +56,60 @@ worldOctree.fromGraphNode(mesh)
 
 function throwBall() {
   const sphere = spheres[sphereIdx]
-  camera.getWorldDirection(playerDirection)
-  sphere.collider.center.copy(playerCollider.end).addScaledVector(playerDirection, playerCollider.radius * 1.5)
+  camera.getWorldDirection(player.direction)
+  sphere.collider.center.copy(player.collider.end).addScaledVector(player.direction, player.collider.radius * 1.5)
 
   // throw the ball with more force if we hold the button longer, and if we move forward
   const impulse = 15 + 30 * (1 - Math.exp((mouseTime - performance.now()) * 0.001))
 
-  sphere.velocity.copy(playerDirection).multiplyScalar(impulse)
-  sphere.velocity.addScaledVector(playerVelocity, 2)
+  sphere.velocity.copy(player.direction).multiplyScalar(impulse)
+  sphere.velocity.addScaledVector(player.velocity, 2)
 
   sphereIdx = (sphereIdx + 1) % spheres.length
 }
 
 function playerCollisions() {
-  const result = worldOctree.capsuleIntersect(playerCollider)
+  const result = worldOctree.capsuleIntersect(player.collider)
   playerOnFloor = false
   if (result) {
     playerOnFloor = result.normal.y > 0
     if (! playerOnFloor)
-      playerVelocity.addScaledVector(result.normal, - result.normal.dot(playerVelocity))
-    playerCollider.translate(result.normal.multiplyScalar(result.depth))
+      player.velocity.addScaledVector(result.normal, - result.normal.dot(player.velocity))
+    player.collider.translate(result.normal.multiplyScalar(result.depth))
   }
 }
 
 function updatePlayer(deltaTime) {
   let damping = Math.exp(- 4 * deltaTime) - 1
   if (!playerOnFloor) {
-    playerVelocity.y -= GRAVITY * deltaTime
+    player.velocity.y -= GRAVITY * deltaTime
     damping *= 0.1 // small air resistance
   }
 
-  playerVelocity.addScaledVector(playerVelocity, damping)
-  const deltaPosition = playerVelocity.clone().multiplyScalar(deltaTime)
-  playerCollider.translate(deltaPosition)
+  player.velocity.addScaledVector(player.velocity, damping)
+  const deltaPosition = player.velocity.clone().multiplyScalar(deltaTime)
+  player.collider.translate(deltaPosition)
   playerCollisions()
-  camera.position.copy(playerCollider.end)
+  camera.position.copy(player.collider.end)
 }
 
 function playerSphereCollision(sphere) {
-  const center = vector1.addVectors(playerCollider.start, playerCollider.end).multiplyScalar(0.5)
+  const center = vector1.addVectors(player.collider.start, player.collider.end).multiplyScalar(0.5)
   const sphere_center = sphere.collider.center
 
-  const r = playerCollider.radius + sphere.collider.radius
+  const r = player.collider.radius + sphere.collider.radius
   const r2 = r * r
 
   // approximation: player = 3 spheres
-  for (const point of [playerCollider.start, playerCollider.end, center]) {
+  for (const point of [player.collider.start, player.collider.end, center]) {
     const d2 = point.distanceToSquared(sphere_center)
 
     if (d2 < r2) {
       const normal = vector1.subVectors(point, sphere_center).normalize()
-      const v1 = vector2.copy(normal).multiplyScalar(normal.dot(playerVelocity))
+      const v1 = vector2.copy(normal).multiplyScalar(normal.dot(player.velocity))
       const v2 = vector3.copy(normal).multiplyScalar(normal.dot(sphere.velocity))
 
-      playerVelocity.add(v2).sub(v1)
+      player.velocity.add(v2).sub(v1)
       sphere.velocity.add(v1).sub(v2)
 
       const d = (r - Math.sqrt(d2)) / 2
@@ -167,28 +168,28 @@ function updateSpheres(deltaTime) {
 }
 
 function getForwardVector() {
-  camera.getWorldDirection(playerDirection)
-  playerDirection.y = 0
-  playerDirection.normalize()
+  camera.getWorldDirection(player.direction)
+  player.direction.y = 0
+  player.direction.normalize()
 
-  return playerDirection
+  return player.direction
 }
 
 function getSideVector() {
-  camera.getWorldDirection(playerDirection)
-  playerDirection.y = 0
-  playerDirection.normalize()
-  playerDirection.cross(camera.up)
+  camera.getWorldDirection(player.direction)
+  player.direction.y = 0
+  player.direction.normalize()
+  player.direction.cross(camera.up)
 
-  return playerDirection
+  return player.direction
 }
 
 function teleportPlayerIfOob() {
   if (camera.position.y <= - 25) {
-    playerCollider.start.set(0, 0.35, 0)
-    playerCollider.end.set(0, 1, 0)
-    playerCollider.radius = 0.35
-    camera.position.copy(playerCollider.end)
+    player.collider.start.set(0, 0.35, 0)
+    player.collider.end.set(0, 1, 0)
+    player.collider.radius = 0.35
+    camera.position.copy(player.collider.end)
     camera.rotation.set(0, 0, 0)
   }
 }
@@ -198,19 +199,19 @@ function handleInput(deltaTime) {
   const speedDelta = deltaTime * (playerOnFloor ? 25 : 8)
 
   if (keyboard.up)
-    playerVelocity.add(getForwardVector().multiplyScalar(speedDelta))
+    player.velocity.add(getForwardVector().multiplyScalar(speedDelta))
 
   if (keyboard.down)
-    playerVelocity.add(getForwardVector().multiplyScalar(- speedDelta))
+    player.velocity.add(getForwardVector().multiplyScalar(- speedDelta))
 
   if (keyboard.left)
-    playerVelocity.add(getSideVector().multiplyScalar(- speedDelta))
+    player.velocity.add(getSideVector().multiplyScalar(- speedDelta))
 
   if (keyboard.right)
-    playerVelocity.add(getSideVector().multiplyScalar(speedDelta))
+    player.velocity.add(getSideVector().multiplyScalar(speedDelta))
 
   if (playerOnFloor && keyboard.pressed.Space)
-    playerVelocity.y = 15
+    player.velocity.y = 15
 }
 
 /* LOOP */
