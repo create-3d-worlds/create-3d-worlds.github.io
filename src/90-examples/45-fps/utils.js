@@ -1,0 +1,53 @@
+import * as THREE from '/node_modules/three127/build/three.module.js'
+import { Capsule } from '/node_modules/three127/examples/jsm/math/Capsule.js'
+import { camera } from '/utils/scene.js'
+import { createSphere } from '/utils/balls.js'
+import keyboard from '/classes/Keyboard.js'
+
+const SPHERE_RADIUS = 0.2
+
+export function createBullet() {
+  const mesh = createSphere({ r: SPHERE_RADIUS, widthSegments: 10, color: 0xbbbb44 })
+  return {
+    mesh,
+    collider: new THREE.Sphere(new THREE.Vector3(0, - 100, 0), SPHERE_RADIUS),
+    velocity: new THREE.Vector3()
+  }
+}
+
+export const player = {
+  collider: new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35),
+  velocity: new THREE.Vector3(),
+  direction: new THREE.Vector3(),
+  onFloor: false,
+}
+
+function getForwardVector() {
+  camera.getWorldDirection(player.direction)
+  player.direction.y = 0
+  player.direction.normalize()
+  return player.direction
+}
+
+function getSideVector() {
+  return getForwardVector().cross(camera.up)
+}
+
+export function handleInput(deltaTime) {
+  const speedDelta = deltaTime * (player.onFloor ? 25 : 8)
+
+  if (keyboard.up)
+    player.velocity.add(getForwardVector().multiplyScalar(speedDelta))
+
+  if (keyboard.down)
+    player.velocity.add(getForwardVector().multiplyScalar(-speedDelta))
+
+  if (keyboard.left)
+    player.velocity.add(getSideVector().multiplyScalar(-speedDelta))
+
+  if (keyboard.right)
+    player.velocity.add(getSideVector().multiplyScalar(speedDelta))
+
+  if (player.onFloor && keyboard.pressed.Space)
+    player.velocity.y = 15
+}

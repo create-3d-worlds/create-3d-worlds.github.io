@@ -1,11 +1,10 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { Octree } from '/node_modules/three127/examples/jsm/math/Octree.js'
-import { Capsule } from '/node_modules/three127/examples/jsm/math/Capsule.js'
 import { scene, clock, camera, renderer } from '/utils/scene.js'
 import { hemLight } from '/utils/light.js'
-import keyboard from '/classes/Keyboard.js'
+
 import { loadModel } from '/utils/loaders.js'
-import { createSphere } from '/utils/balls.js'
+import { player, createBullet, handleInput } from './utils.js'
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -14,28 +13,15 @@ hemLight({ intensity: 0.5, groundColor: 0x002244 })
 
 const GRAVITY = 30
 const NUM_SPHERES = 100
-const SPHERE_RADIUS = 0.2
 const STEPS_PER_FRAME = 5
 
-const player = {
-  collider: new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35),
-  velocity: new THREE.Vector3(),
-  direction: new THREE.Vector3(),
-  onFloor: false,
-}
+let bulletIdx = 0
 
-const spheres = []
-let sphereIdx = 0
-
-for (let i = 0; i < NUM_SPHERES; i ++) {
-  const mesh = createSphere({ r: SPHERE_RADIUS, widthSegments: 10, color: 0xbbbb44 })
-  scene.add(mesh)
-  spheres.push({
-    mesh,
-    collider: new THREE.Sphere(new THREE.Vector3(0, - 100, 0), SPHERE_RADIUS),
-    velocity: new THREE.Vector3()
-  })
-}
+const bullets = Array(NUM_SPHERES).fill().map(() => {
+  const bullet = createBullet()
+  scene.add(bullet.mesh)
+  return bullet
+})
 
 const worldOctree = new Octree()
 
@@ -53,28 +39,28 @@ worldOctree.fromGraphNode(mesh)
 /* FUNCTIONS */
 
 function throwBall() {
-  const sphere = spheres[sphereIdx]
+  const bullet = bullets[bulletIdx]
   camera.getWorldDirection(player.direction)
-  sphere.collider.center.copy(player.collider.end).addScaledVector(player.direction, player.collider.radius * 1.5)
+  bullet.collider.center.copy(player.collider.end).addScaledVector(player.direction, player.collider.radius * 1.5)
 
   // throw the ball with more force if we hold the button longer, and if we move forward
   const impulse = 15 + 30 * (1 - Math.exp((mouseTime - performance.now()) * 0.001))
 
-  sphere.velocity.copy(player.direction).multiplyScalar(impulse)
-  sphere.velocity.addScaledVector(player.velocity, 2)
+  bullet.velocity.copy(player.direction).multiplyScalar(impulse)
+  bullet.velocity.addScaledVector(player.velocity, 2)
 
-  sphereIdx = (sphereIdx + 1) % spheres.length
+  bulletIdx = (bulletIdx + 1) % bullets.length
 }
 
 function playerCollisions() {
-  const result = worldOctree.capsuleIntersect(player.collider)
   player.onFloor = false
-  if (result) {
-    player.onFloor = result.normal.y > 0
-    if (! player.onFloor)
-      player.velocity.addScaledVector(result.normal, - result.normal.dot(player.velocity))
-    player.collider.translate(result.normal.multiplyScalar(result.depth))
-  }
+  const result = worldOctree.capsuleIntersect(player.collider)
+  if (!result) return
+  player.onFloor = result.normal.y > 0
+  if (!player.onFloor)
+    player.velocity.addScaledVector(result.normal, - result.normal.dot(player.velocity))
+  player.collider.translate(result.normal.multiplyScalar(result.depth))
+
 }
 
 function updatePlayer(deltaTime) {
@@ -91,24 +77,24 @@ function updatePlayer(deltaTime) {
   camera.position.copy(player.collider.end) // camera follows player
 }
 
-function playerSphereCollision(sphere) {
+function playerSphereCollision(bullet) {
   const center = vector1.addVectors(player.collider.start, player.collider.end).multiplyScalar(0.5)
-  const sphere_center = sphere.collider.center
+  const sphere_center = bullet.collider.center
 
-  const r = player.collider.radius + sphere.collider.radius
+  const r = player.collider.radius + bullet.collider.radius
   const r2 = r * r
 
-  // approximation: player = 3 spheres
+  // approximation: player = 3 bullets
   for (const point of [player.collider.start, player.collider.end, center]) {
     const d2 = point.distanceToSquared(sphere_center)
 
     if (d2 < r2) {
       const normal = vector1.subVectors(point, sphere_center).normalize()
       const v1 = vector2.copy(normal).multiplyScalar(normal.dot(player.velocity))
-      const v2 = vector3.copy(normal).multiplyScalar(normal.dot(sphere.velocity))
+      const v2 = vector3.copy(normal).multiplyScalar(normal.dot(bullet.velocity))
 
       player.velocity.add(v2).sub(v1)
-      sphere.velocity.add(v1).sub(v2)
+      bullet.velocity.add(v1).sub(v2)
 
       const d = (r - Math.sqrt(d2)) / 2
       sphere_center.addScaledVector(normal, - d)
@@ -117,11 +103,11 @@ function playerSphereCollision(sphere) {
 }
 
 function spheresCollisions() {
-  for (let i = 0, { length } = spheres; i < length; i ++) {
-    const s1 = spheres[i]
+  for (let i = 0, { length } = bullets; i < length; i ++) {
+    const s1 = bullets[i]
 
     for (let j = i + 1; j < length; j ++) {
-      const s2 = spheres[j]
+      const s2 = bullets[j]
 
       const d2 = s1.collider.center.distanceToSquared(s2.collider.center)
       const r = s1.collider.radius + s2.collider.radius
@@ -145,36 +131,26 @@ function spheresCollisions() {
 }
 
 function updateSpheres(deltaTime) {
-  spheres.forEach(sphere => {
-    sphere.collider.center.addScaledVector(sphere.velocity, deltaTime)
-    const result = worldOctree.sphereIntersect(sphere.collider)
+  bullets.forEach(bullet => {
+    bullet.collider.center.addScaledVector(bullet.velocity, deltaTime)
+    const result = worldOctree.sphereIntersect(bullet.collider)
 
     if (result) {
-      sphere.velocity.addScaledVector(result.normal, - result.normal.dot(sphere.velocity) * 1.5)
-      sphere.collider.center.add(result.normal.multiplyScalar(result.depth))
+      bullet.velocity.addScaledVector(result.normal, - result.normal.dot(bullet.velocity) * 1.5)
+      bullet.collider.center.add(result.normal.multiplyScalar(result.depth))
     } else
-      sphere.velocity.y -= GRAVITY * deltaTime
+      bullet.velocity.y -= GRAVITY * deltaTime
 
     const damping = Math.exp(- 1.5 * deltaTime) - 1
-    sphere.velocity.addScaledVector(sphere.velocity, damping)
-    playerSphereCollision(sphere)
+    bullet.velocity.addScaledVector(bullet.velocity, damping)
+    playerSphereCollision(bullet)
   })
 
   spheresCollisions()
-  for (const sphere of spheres)
-    sphere.mesh.position.copy(sphere.collider.center)
+  for (const bullet of bullets)
+    bullet.mesh.position.copy(bullet.collider.center)
 }
 
-function getForwardVector() {
-  camera.getWorldDirection(player.direction)
-  player.direction.y = 0
-  player.direction.normalize()
-  return player.direction
-}
-
-function getSideVector() {
-  return getForwardVector().cross(camera.up)
-}
 
 // function teleportPlayerIfOob() {
 //   if (camera.position.y <= - 25) {
@@ -187,24 +163,6 @@ function getSideVector() {
 //   }
 // }
 
-function handleInput(deltaTime) {
-  const speedDelta = deltaTime * (player.onFloor ? 25 : 8)
-
-  if (keyboard.up)
-    player.velocity.add(getForwardVector().multiplyScalar(speedDelta))
-
-  if (keyboard.down)
-    player.velocity.add(getForwardVector().multiplyScalar(-speedDelta))
-
-  if (keyboard.left)
-    player.velocity.add(getSideVector().multiplyScalar(-speedDelta))
-
-  if (keyboard.right)
-    player.velocity.add(getSideVector().multiplyScalar(speedDelta))
-
-  if (player.onFloor && keyboard.pressed.Space)
-    player.velocity.y = 15
-}
 
 /* LOOP */
 
