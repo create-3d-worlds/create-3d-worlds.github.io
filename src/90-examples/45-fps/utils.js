@@ -29,10 +29,10 @@ function getSideVector() {
 export function handleInput(deltaTime) {
   const speedDelta = deltaTime * (player.onFloor ? 25 : 8)
 
-  if (keyboard.up)
+  if (keyboard.up || keyboard.SwipeUp)
     player.velocity.add(getForwardVector().multiplyScalar(speedDelta))
 
-  if (keyboard.down)
+  if (keyboard.down || keyboard.SwipeDown)
     player.velocity.add(getForwardVector().multiplyScalar(-speedDelta))
 
   if (keyboard.left || keyboard.SwipeLeft)

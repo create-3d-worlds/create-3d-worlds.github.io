@@ -2,14 +2,18 @@
 * Singleton object for user input (including keyboard, touchscreen and mouse)
 * see keycode.info
 */
+let startX = null
+let startY = null
+
 class Keyboard {
 
   constructor() {
     this.pressed = {}
-    this.startX = null
     this.capsLock = false
     this.SwipeLeft = false
     this.SwipeRight = false
+    this.SwipeUp = false
+    this.SwipeDown = false
 
     document.addEventListener('keydown', e => {
       this.preventShake(e)
@@ -23,11 +27,14 @@ class Keyboard {
     document.addEventListener('mousedown', e => {
       this.pressed.mouse = e.button === 0
       this.pressed.mouse2 = e.button === 2
-      this.startX = e.pageX
+      startX = e.pageX
+      startY = e.pageY
     })
     document.addEventListener('mouseup', e => {
-      if (e.button === 0)
-        this.pressed.mouse = this.SwipeLeft = this.SwipeRight = false
+      if (e.button === 0) {
+        this.pressed.mouse = false
+        this.resetSwipe()
+      }
       if (e.button === 2)
         this.pressed.mouse2 = false
     })
@@ -39,8 +46,14 @@ class Keyboard {
 
   chooseDirection(e) {
     if (!this.pressed.mouse) return
-    this.SwipeLeft = e.pageX < this.startX
-    this.SwipeRight = e.pageX > this.startX
+    this.SwipeLeft = e.pageX < startX
+    this.SwipeRight = e.pageX > startX
+    this.SwipeUp = e.pageY < startY
+    this.SwipeDown = e.pageY > startY
+  }
+
+  resetSwipe() {
+    this.SwipeLeft = this.SwipeRight = this.SwipeUp = this.SwipeDown = false
   }
 
   reset() {
@@ -52,7 +65,6 @@ class Keyboard {
   }
 
   /* GETTERS */
-  // not a functions, call it wihout parentheses
 
   get up() {
     return this.pressed.ArrowUp || this.pressed.KeyW
