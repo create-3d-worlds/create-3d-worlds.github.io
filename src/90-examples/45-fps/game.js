@@ -109,5 +109,5 @@ document.addEventListener('mouseup', fireBullet)
 document.body.addEventListener('mousemove', e => {
   if (!keyboard.pressed.mouse) return
   // TODO: ne mrdati levo/desno kada ide gore/dole
-  camera.rotation.x -= e.movementY / 500
+  // camera.rotation.x -= e.movementY / 500
 })

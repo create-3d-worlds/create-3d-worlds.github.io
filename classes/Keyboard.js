@@ -6,8 +6,10 @@ class Keyboard {
 
   constructor() {
     this.pressed = {}
-    this.capsLock = false
     this.startX = null
+    this.capsLock = false
+    this.SwipeLeft = false
+    this.SwipeRight = false
 
     document.addEventListener('keydown', e => {
       this.preventShake(e)
@@ -25,7 +27,7 @@ class Keyboard {
     })
     document.addEventListener('mouseup', e => {
       if (e.button === 0)
-        this.pressed.mouse = this.pressed.ArrowLeft = this.pressed.ArrowRight = false
+        this.pressed.mouse = this.SwipeLeft = this.SwipeRight = false
       if (e.button === 2)
         this.pressed.mouse2 = false
     })
@@ -37,8 +39,8 @@ class Keyboard {
 
   chooseDirection(e) {
     if (!this.pressed.mouse) return
-    this.pressed.ArrowLeft = e.pageX < this.startX
-    this.pressed.ArrowRight = e.pageX > this.startX
+    this.SwipeLeft = e.pageX < this.startX
+    this.SwipeRight = e.pageX > this.startX
   }
 
   reset() {
