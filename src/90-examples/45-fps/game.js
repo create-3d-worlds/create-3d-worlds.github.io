@@ -5,11 +5,9 @@ import { hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { player, createBullet, handleInput, addBulletVelocity, playerCollides, checkBulletsCollisions } from './utils.js'
 import FPSRenderer from '/classes/2d/FPSRenderer.js'
-import keyboard from '/classes/Keyboard.js'
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-// renderer.domElement.style.cursor = 'none'
 
 hemLight({ intensity: 0.5, groundColor: 0x002244 })
 
@@ -35,15 +33,6 @@ world.fromGraphNode(mesh)
 scene.add(mesh)
 
 /* FUNCTIONS */
-
-const aim = e => {
-  if (keyboard.pressed.mouse) {
-    camera.rotation.y -= e.movementX / 500
-    camera.rotation.x -= e.movementY / 500
-    // camera.rotation.y -= keyboard.SwipeX * .0001
-    // camera.rotation.x -= keyboard.SwipeY * .0001
-  }
-}
 
 function fireBullet() {
   addBulletVelocity(bullets[bulletIdx], holdTime)
@@ -112,6 +101,5 @@ void function gameLoop() {
 document.addEventListener('mousedown', () => {
   holdTime = performance.now()
 })
-// document.body.addEventListener('mousemove', aim)
 
 document.addEventListener('mouseup', fireBullet)
