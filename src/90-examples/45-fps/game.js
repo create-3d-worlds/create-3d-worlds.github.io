@@ -36,6 +36,13 @@ scene.add(mesh)
 
 /* FUNCTIONS */
 
+const aim = e => {
+  if (keyboard.pressed.mouse) {
+    camera.rotation.y -= e.movementX / 500
+    camera.rotation.x -= e.movementY / 500
+  }
+}
+
 function fireBullet() {
   addBulletVelocity(bullets[bulletIdx], holdTime)
   bulletIdx = (bulletIdx + 1) % bullets.length
@@ -103,11 +110,6 @@ void function gameLoop() {
 document.addEventListener('mousedown', () => {
   holdTime = performance.now()
 })
+document.body.addEventListener('mousemove', aim)
 
 document.addEventListener('mouseup', fireBullet)
-
-document.body.addEventListener('mousemove', e => {
-  // if (!keyboard.pressed.mouse) return
-  // camera.rotation.y -= e.movementX / 500
-  // camera.rotation.x -= e.movementY / 500
-})
