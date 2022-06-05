@@ -5,6 +5,7 @@ import { hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { player, createBullet, handleInput, addBulletVelocity, playerCollides, checkBulletsCollisions } from './utils.js'
 import FPSRenderer from '/classes/2d/FPSRenderer.js'
+import keyboard from '/classes/Keyboard.js'
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -106,6 +107,7 @@ document.addEventListener('mousedown', () => {
 document.addEventListener('mouseup', fireBullet)
 
 document.body.addEventListener('mousemove', e => {
-  camera.rotation.y -= e.movementX / 500
+  if (!keyboard.pressed.mouse) return
+  // TODO: ne mrdati levo/desno kada ide gore/dole
   camera.rotation.x -= e.movementY / 500
 })
