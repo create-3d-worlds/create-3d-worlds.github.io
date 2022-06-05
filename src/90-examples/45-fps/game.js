@@ -4,6 +4,7 @@ import { scene, clock, camera, renderer } from '/utils/scene.js'
 import { hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { player, createBullet, handleInput, addBulletVelocity, playerCollides, checkBulletsCollisions } from './utils.js'
+import FPSRenderer from '/classes/2d/FPSRenderer.js'
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -15,6 +16,8 @@ const GRAVITY = 30
 const NUM_SPHERES = 100
 
 let bulletIdx = 0
+
+const fpsRenderer = new FPSRenderer()
 
 const bullets = Array(NUM_SPHERES).fill().map(() => {
   const bullet = createBullet()
@@ -90,6 +93,7 @@ void function gameLoop() {
   updatePlayer(deltaTime)
   updateBullets(deltaTime)
   renderer.render(scene, camera)
+  fpsRenderer.render(clock.getElapsedTime())
   requestAnimationFrame(gameLoop)
 }()
 

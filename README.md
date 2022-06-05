@@ -21,8 +21,13 @@ live-server
     https://dustinpfister.github.io/2021/06/10/threejs-examples-sphere-mutate/
   - [x] fix terrainFromHeightmap
 - [ ] ažurirati verziju na poslednju (ukinuli su relativne importe pa puca, koristiti importmap)
-  - [ ] probati https://threejs.org/examples/#webgl_points_nodes
+
+- [ ] probati:
+    https://threejs.org/examples/#webgl_points_nodes
     https://jhugheswebdev.github.io/sound-equalizer-threejs/
+
+- [ ] dodati nišan iz savo na fps primer
+- [ ] reuse player FPS controls iz player/move controls
 - [ ] izvući modele iz unity igre
 - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
