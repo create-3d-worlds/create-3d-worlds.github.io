@@ -29,11 +29,18 @@ function getSideVector() {
 export function handleInput(deltaTime) {
   const speedDelta = deltaTime * (player.onFloor ? 25 : 8)
 
-  if (keyboard.up || keyboard.SwipeUp)
+  if (keyboard.up)
     player.velocity.add(getForwardVector().multiplyScalar(speedDelta))
 
-  if (keyboard.down || keyboard.SwipeDown)
+  if (keyboard.down)
     player.velocity.add(getForwardVector().multiplyScalar(-speedDelta))
+
+  // TODO: set rotation limit
+  if (keyboard.SwipeUp)
+    camera.rotation.x += speedDelta * .1
+
+  if (keyboard.SwipeDown)
+    camera.rotation.x -= speedDelta * .1
 
   if (keyboard.left || keyboard.SwipeLeft)
     camera.rotateOnWorldAxis(camera.up, speedDelta * .1)

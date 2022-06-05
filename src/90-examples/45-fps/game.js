@@ -9,7 +9,7 @@ import keyboard from '/classes/Keyboard.js'
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-// renderer.domElement.style.cursor = 'none'
+renderer.domElement.style.cursor = 'none'
 
 hemLight({ intensity: 0.5, groundColor: 0x002244 })
 

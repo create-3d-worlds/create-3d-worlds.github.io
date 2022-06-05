@@ -4,6 +4,7 @@
 */
 let startX = null
 let startY = null
+const swipeThreshold = 25
 
 class Keyboard {
 
@@ -38,18 +39,18 @@ class Keyboard {
       if (e.button === 2)
         this.pressed.mouse2 = false
     })
-    document.addEventListener('mousemove', e => this.chooseDirection(e))
+    document.addEventListener('mousemove', e => this.checkDirection(e))
 
     document.addEventListener('visibilitychange', () => this.reset())
     window.addEventListener('blur', () => this.reset())
   }
 
-  chooseDirection(e) {
+  checkDirection(e) {
     if (!this.pressed.mouse) return
-    this.SwipeLeft = e.pageX < startX
-    this.SwipeRight = e.pageX > startX
-    this.SwipeUp = e.pageY < startY
-    this.SwipeDown = e.pageY > startY
+    this.SwipeLeft = e.pageX < startX - swipeThreshold
+    this.SwipeRight = e.pageX > startX + swipeThreshold
+    this.SwipeUp = e.pageY < startY - swipeThreshold
+    this.SwipeDown = e.pageY > startY + swipeThreshold
   }
 
   resetSwipe() {
