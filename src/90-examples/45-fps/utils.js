@@ -44,10 +44,10 @@ export function handleInput(deltaTime) {
     player.velocity.add(getSideVector().multiplyScalar(speedLogic))
 
   if (keyboard.left)
-    camera.rotateOnWorldAxis(camera.up, speedDelta * .07)
+    camera.rotation.y += speedDelta * .07
 
   if (keyboard.right)
-    camera.rotateOnWorldAxis(camera.up, -speedDelta * .07)
+    camera.rotation.y -= speedDelta * .07
 
   if (keyboard.SwipeX)
     camera.rotation.y -= keyboard.SwipeX * speedDelta * .0003
