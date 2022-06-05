@@ -7,6 +7,7 @@ import { player, createBullet, handleInput, addBulletVelocity, playerCollides, c
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
+renderer.domElement.style.cursor = 'none'
 
 hemLight({ intensity: 0.5, groundColor: 0x002244 })
 

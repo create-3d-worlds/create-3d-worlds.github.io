@@ -36,9 +36,15 @@ export function handleInput(deltaTime) {
     player.velocity.add(getForwardVector().multiplyScalar(-speedDelta))
 
   if (keyboard.left)
-    player.velocity.add(getSideVector().multiplyScalar(-speedDelta))
+    camera.rotateOnWorldAxis(camera.up, speedDelta * .1)
 
   if (keyboard.right)
+    camera.rotateOnWorldAxis(camera.up, -speedDelta * .1)
+
+  if (keyboard.pressed.KeyQ)
+    player.velocity.add(getSideVector().multiplyScalar(-speedDelta))
+
+  if (keyboard.pressed.KeyE)
     player.velocity.add(getSideVector().multiplyScalar(speedDelta))
 
   if (player.onFloor && keyboard.pressed.Space)
