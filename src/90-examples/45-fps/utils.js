@@ -27,13 +27,21 @@ function getSideVector() {
 }
 
 export function handleInput(deltaTime) {
-  const speedDelta = deltaTime * (player.onFloor ? 25 : 8)
+  const speed = 25
+  const speedDelta = deltaTime * speed
+  const speedLogic = deltaTime * (player.onFloor ? speed : speed * .33)
 
   if (keyboard.up)
-    player.velocity.add(getForwardVector().multiplyScalar(speedDelta))
+    player.velocity.add(getForwardVector().multiplyScalar(speedLogic))
 
   if (keyboard.down)
-    player.velocity.add(getForwardVector().multiplyScalar(-speedDelta))
+    player.velocity.add(getForwardVector().multiplyScalar(-speedLogic))
+
+  if (keyboard.pressed.KeyQ)
+    player.velocity.add(getSideVector().multiplyScalar(-speedLogic))
+
+  if (keyboard.pressed.KeyE)
+    player.velocity.add(getSideVector().multiplyScalar(speedLogic))
 
   if (keyboard.left)
     camera.rotateOnWorldAxis(camera.up, speedDelta * .07)
@@ -41,11 +49,11 @@ export function handleInput(deltaTime) {
   if (keyboard.right)
     camera.rotateOnWorldAxis(camera.up, -speedDelta * .07)
 
-  if (keyboard.pressed.KeyQ)
-    player.velocity.add(getSideVector().multiplyScalar(-speedDelta))
+  if (keyboard.SwipeX)
+    camera.rotation.y -= keyboard.SwipeX * speedDelta * .0003
 
-  if (keyboard.pressed.KeyE)
-    player.velocity.add(getSideVector().multiplyScalar(speedDelta))
+  if (keyboard.SwipeY)
+    camera.rotation.x -= keyboard.SwipeY * speedDelta * .0003
 
   if (player.onFloor && keyboard.pressed.Space)
     player.velocity.y = 15

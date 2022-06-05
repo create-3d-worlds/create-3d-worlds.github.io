@@ -11,10 +11,9 @@ class Keyboard {
   constructor() {
     this.pressed = {}
     this.capsLock = false
-    this.SwipeLeft = false
-    this.SwipeRight = false
-    this.SwipeUp = false
-    this.SwipeDown = false
+
+    this.SwipeX = 0
+    this.SwipeY = 0
 
     document.addEventListener('keydown', e => {
       this.preventShake(e)
@@ -47,14 +46,12 @@ class Keyboard {
 
   checkDirection(e) {
     if (!this.pressed.mouse) return
-    this.SwipeLeft = e.pageX < startX - swipeThreshold
-    this.SwipeRight = e.pageX > startX + swipeThreshold
-    this.SwipeUp = e.pageY < startY - swipeThreshold
-    this.SwipeDown = e.pageY > startY + swipeThreshold
+    this.SwipeX = e.pageX - startX
+    this.SwipeY = e.pageY - startY
   }
 
   resetSwipe() {
-    this.SwipeLeft = this.SwipeRight = this.SwipeUp = this.SwipeDown = false
+    this.SwipeX = this.SwipeY = 0
   }
 
   reset() {
@@ -98,6 +95,23 @@ class Keyboard {
   get keyPressed() {
     return this.totalPressed > 0
   }
+
+  get swipeLeft() {
+    return this.SwipeX < -swipeThreshold
+  }
+
+  get swipeRight() {
+    return this.SwipeX > swipeThreshold
+  }
+
+  get swipeUp() {
+    return this.SwipeY < -swipeThreshold
+  }
+
+  get swipeDown() {
+    return this.SwipeY > swipeThreshold
+  }
+
 }
 
 export default new Keyboard

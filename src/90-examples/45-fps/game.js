@@ -40,6 +40,8 @@ const aim = e => {
   if (keyboard.pressed.mouse) {
     camera.rotation.y -= e.movementX / 500
     camera.rotation.x -= e.movementY / 500
+    // camera.rotation.y -= keyboard.SwipeX * .0001
+    // camera.rotation.x -= keyboard.SwipeY * .0001
   }
 }
 
@@ -110,6 +112,6 @@ void function gameLoop() {
 document.addEventListener('mousedown', () => {
   holdTime = performance.now()
 })
-document.body.addEventListener('mousemove', aim)
+// document.body.addEventListener('mousemove', aim)
 
 document.addEventListener('mouseup', fireBullet)
