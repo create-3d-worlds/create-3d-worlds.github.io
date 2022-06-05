@@ -9,7 +9,7 @@ import keyboard from '/classes/Keyboard.js'
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.domElement.style.cursor = 'none'
+// renderer.domElement.style.cursor = 'none'
 
 hemLight({ intensity: 0.5, groundColor: 0x002244 })
 
@@ -107,7 +107,7 @@ document.addEventListener('mousedown', () => {
 document.addEventListener('mouseup', fireBullet)
 
 document.body.addEventListener('mousemove', e => {
-  if (!keyboard.pressed.mouse) return
-  // TODO: ne mrdati levo/desno kada ide gore/dole
+  // if (!keyboard.pressed.mouse) return
+  // camera.rotation.y -= e.movementX / 500
   // camera.rotation.x -= e.movementY / 500
 })

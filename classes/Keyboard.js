@@ -4,7 +4,7 @@
 */
 let startX = null
 let startY = null
-const swipeThreshold = 25
+const swipeThreshold = 5
 
 class Keyboard {
 
