@@ -133,7 +133,7 @@ export default class Sheep {
     this.leftEar.rotation.z = -earRotation
   }
   updateJump() {
-    if (keyboard.pressed.mouse)
+    if (keyboard.pressed.Space)
       this.jump(0.05)
     else {
       if (this.group.position.y <= 0.4) return
