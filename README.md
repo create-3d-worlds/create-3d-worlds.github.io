@@ -13,16 +13,6 @@ live-server
 
 ### General
 
-- [x] ažurirati verziju (na 119)
-- [x] ažurirati verziju (na 127)
-  - [x] fix towers
-  - [x] fix and optimize city (merge geometries)
-  - [x] fix distort in createWorldSphere (ili napraviti alternativu)
-  - [x] fix terrainFromHeightmap
-- [ ] ažurirati verziju na poslednju (ukinuli su relativne importe pa puca, koristiti importmap)
-  - [ ] probati nakon ažuriranja: https://threejs.org/examples/#webgl_points_nodes
-
-- [ ] izvući modele iz unity igre
 - [ ] reuse player FPS controls i player/move controls
 - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
@@ -35,6 +25,15 @@ live-server
 - [x] veličina nekih modela ne radi (dae format zeza, izbegavati)
 - [x] pomeriti foldere sa igračem u scenu
 - [ ] preraditi drveće na terenu da ne koristi zrakobačac, vidi: https://discourse.threejs.org/t/what-is-the-best-way-to-add-objects-to-a-3d-terrain/31757/7
+
+- [x] ažurirati verziju (na 119)
+- [x] ažurirati verziju (na 127)
+  - [x] fix towers
+  - [x] fix and optimize city (merge geometries)
+  - [x] fix distort in createWorldSphere (ili napraviti alternativu)
+  - [x] fix terrainFromHeightmap
+- [ ] ažurirati verziju na poslednju (ukinuli su relativne importe pa puca, koristiti importmap)
+  - [ ] probati nakon ažuriranja: https://threejs.org/examples/#webgl_points_nodes
 
 ### Geometry
 
