@@ -1,8 +1,7 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
+import keyboard from '/classes/Keyboard.js'
 
-function rad(degrees) {
-  return degrees * (Math.PI / 180)
-}
+const rad = degrees => degrees * (Math.PI / 180)
 
 export default class Sheep {
   constructor() {
@@ -133,8 +132,8 @@ export default class Sheep {
     this.rightEar.rotation.z = earRotation
     this.leftEar.rotation.z = -earRotation
   }
-  jumpOnMouseDown(mouseDown) {
-    if (mouseDown)
+  updateJump() {
+    if (keyboard.pressed.mouse)
       this.jump(0.05)
     else {
       if (this.group.position.y <= 0.4) return
