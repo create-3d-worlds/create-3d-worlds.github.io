@@ -1,4 +1,5 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
+import { randomInRange } from '/utils/helpers.js'
 
 export function createSphere({
   r = 1, widthSegments = 32, heightSegments = widthSegments, color = 0xff0000,
@@ -28,39 +29,18 @@ export function createBall({ r = 1 } = {}) {
 
 /* WORLD SPHERE */
 
-function distort({ geometry, heightSegments, widthSegments } = {}) {
-  let vertexIndex
-  let vertexVector = new THREE.Vector3()
-  let nextVertexVector = new THREE.Vector3()
-  let firstVertexVector = new THREE.Vector3()
-  let offset = new THREE.Vector3()
-  let currentTier = 1
-  let lerpValue = 0.5
-  let heightValue
-  const maxHeight = 0.07
-
-  for (let j = 1; j < heightSegments - 2; j++) {
-    currentTier = j
-    for (let i = 0; i < widthSegments; i++) {
-      vertexIndex = (currentTier * widthSegments) + 1
-      vertexVector = geometry.vertices[i + vertexIndex].clone()
-      if (j % 2 !== 0) {
-        if (i == 0) firstVertexVector = vertexVector.clone()
-        nextVertexVector = geometry.vertices[i + vertexIndex + 1].clone()
-        if (i == widthSegments - 1) nextVertexVector = firstVertexVector
-        lerpValue = (Math.random() * (0.75 - 0.25)) + 0.25
-        vertexVector.lerp(nextVertexVector, lerpValue)
-      }
-      heightValue = (Math.random() * maxHeight) - (maxHeight / 2)
-      offset = vertexVector.clone().normalize().multiplyScalar(heightValue)
-      geometry.vertices[i + vertexIndex] = (vertexVector.add(offset))
-    }
-  }
-}
-
-export function createWorldSphere({ r = 26, widthSegments = 40, heightSegments = 40 } = {}) {
+export function createWorldSphere({ r = 26, widthSegments = 40, heightSegments = 40, distort = .5 } = {}) {
   const geometry = new THREE.SphereBufferGeometry(r, widthSegments, heightSegments)
-  // distort({ geometry, heightSegments, widthSegments })
+
+  const { position } = geometry.attributes
+  const vertex = new THREE.Vector3()
+  for (let i = 0, l = position.count; i < l; i ++) {
+    vertex.fromBufferAttribute(position, i)
+    vertex.x += randomInRange(-distort, distort)
+    vertex.z += randomInRange(-distort, distort)
+    position.setXYZ(i, vertex.x, vertex.y, vertex.z)
+  }
+
   const material = new THREE.MeshStandardMaterial({
     color: 0xfffafa,
     flatShading: true

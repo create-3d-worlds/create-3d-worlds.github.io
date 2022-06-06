@@ -17,16 +17,13 @@ live-server
 - [x] ažurirati verziju (na 127)
   - [x] fix towers
   - [x] fix and optimize city (merge geometries)
-  - [ ] fix distort in createWorldSphere (ili napraviti alternativu)
+  - [x] fix distort in createWorldSphere (ili napraviti alternativu)
   - [x] fix terrainFromHeightmap
 - [ ] ažurirati verziju na poslednju (ukinuli su relativne importe pa puca, koristiti importmap)
   - [ ] probati nakon ažuriranja: https://threejs.org/examples/#webgl_points_nodes
 
-  https://jhugheswebdev.github.io/sound-equalizer-threejs/
-
-- [x] dodati nišan iz savo na fps primer
-- [ ] reuse player FPS controls i player/move controls
 - [ ] izvući modele iz unity igre
+- [ ] reuse player FPS controls i player/move controls
 - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
@@ -37,8 +34,7 @@ live-server
   - [x] izbaciti nightelf-priest
 - [x] veličina nekih modela ne radi (dae format zeza, izbegavati)
 - [x] pomeriti foldere sa igračem u scenu
-- [ ] move 1943 ground to helpers
-- [ ] preraditi drveće na terenu da ne koristi zrakobačac, rasprava: https://discourse.threejs.org/t/what-is-the-best-way-to-add-objects-to-a-3d-terrain/31757/7
+- [ ] preraditi drveće na terenu da ne koristi zrakobačac, vidi: https://discourse.threejs.org/t/what-is-the-best-way-to-add-objects-to-a-3d-terrain/31757/7
 
 ### Geometry
 
@@ -165,7 +161,7 @@ live-server
 - [ ] odvojiti ai pomagala
 - [ ] postaviti ai scenu sa modelima
 
-### Scenes and examples
+### Scenes & examples
 
 - [x] Savo (ww2 fps)
   - [x] dodati kišu
@@ -228,7 +224,8 @@ live-server
   - [ ] dodati izbor aviona
   - [ ] dodati drveće
   - [ ] dodati objekte
-  - [ ] pomeriti u scene
+  - [x] pomeriti u scene
+  - [x] move 1943 ground to helpers
 
 - [ ] Endless runner
   - [x] prikazivati poene
@@ -242,6 +239,9 @@ live-server
   - [ ] dodati igrača
   - [ ] srediti koliziju sa zidom 
   - [ ] dodati ai modele
+
+- [ ] FPS
+  - [x] dodati nišan iz savo na fps primer
 
 ### Ostalo
 

@@ -1,7 +1,6 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
-import { randomInRange } from '../helpers.js'
 import { SimplexNoise } from '/libs/SimplexNoise.js'
-import { getTexture, randomNuance } from '/utils/helpers.js'
+import { randomInRange, getTexture, randomNuance } from '/utils/helpers.js'
 
 const noise = new SimplexNoise()
 
