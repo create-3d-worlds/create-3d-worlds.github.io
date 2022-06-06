@@ -8,9 +8,10 @@ export function createBox({ x = 0, y = 0, z = 0, size = 20, file, color = random
   const ySize = size * yModifier
   const zSize = size * zModifier
   const geometry = new THREE.BoxBufferGeometry(xSize, ySize, zSize)
-  const options = {}
-  if (file) options.map = loader.load(`/assets/textures/${file}`)
-  else options.color = color
+  const options = {
+    map: file ? loader.load(`/assets/textures/${file}`) : null,
+    color: !file ? color : null,
+  }
   const material = new THREE.MeshPhongMaterial(options)
   const mesh = new THREE.Mesh(geometry, material)
   mesh.position.set(x, y, z)
