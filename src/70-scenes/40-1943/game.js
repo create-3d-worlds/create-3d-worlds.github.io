@@ -4,7 +4,7 @@ import { OrbitControls } from '/node_modules/three127/examples/jsm/controls/Orbi
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createSunLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
-import { createGround, rotateGround } from './utils/ground.js'
+import { createGround, rotateGround } from '/utils/ground/cylinder-ground.js'
 import { updatePlane, normalizePlane } from './utils/airplane.js'
 
 scene.fog = new THREE.Fog(0xE5C5AB, 200, 950)
@@ -18,7 +18,7 @@ camera.position.set(-68, 143, -90)
 
 const controls = new OrbitControls(camera, renderer.domElement)
 
-const ground = createGround()
+const ground = createGround({ r: 3000, color: 0x91A566 })
 
 // const { mesh, mixer } = await loadModel({ file: '/aircraft_junkers_ju_87_stuka/scene.gltf', size: 30 })
 

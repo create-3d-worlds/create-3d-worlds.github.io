@@ -2,14 +2,14 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 
 const waves = []
 
-export function createGround({ radius = 3000 } = {}) {
-  const geometry = new THREE.CylinderGeometry(radius, radius, 4000, 200, 50)
+export function createGround({ r = 3000, color = 0x91A566, height = 4000 } = {}) {
+  const geometry = new THREE.CylinderGeometry(r, r, height, 200, 50)
   geometry.applyMatrix4(
     new THREE.Matrix4().makeRotationX(Math.PI * .5).makeRotationZ(Math.PI * .5)
   )
 
   const material = new THREE.MeshPhongMaterial({
-    color: 0x91A566,
+    color,
     transparent: true,
     opacity: .8,
     flatShading: true,
@@ -17,7 +17,7 @@ export function createGround({ radius = 3000 } = {}) {
 
   const ground = new THREE.Mesh(geometry, material)
   ground.receiveShadow = true
-  ground.position.y = -radius
+  ground.position.y = -r
 
   const { position } = geometry.attributes
   const vertex = new THREE.Vector3()
