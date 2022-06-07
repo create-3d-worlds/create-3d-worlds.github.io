@@ -10,14 +10,11 @@ export const player = {
   collider: new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35),
   velocity: new THREE.Vector3(),
   direction: new THREE.Vector3(),
-  onFloor: false,
+  onGround: false,
 }
 
 function getForwardVector() {
-  camera.getWorldDirection(player.direction)
-  player.direction.y = 0
-  player.direction.normalize()
-  return player.direction
+  return camera.getWorldDirection(player.direction)
 }
 
 function getSideVector() {
@@ -27,7 +24,7 @@ function getSideVector() {
 export function handleInput(deltaTime) {
   const speed = 25
   const speedDelta = deltaTime * speed
-  const speedLogic = deltaTime * (player.onFloor ? speed : speed * .33)
+  const speedLogic = deltaTime * (player.onGround ? speed : speed * .33)
 
   if (keyboard.up)
     player.velocity.add(getForwardVector().multiplyScalar(speedLogic))
@@ -53,23 +50,23 @@ export function handleInput(deltaTime) {
   if (keyboard.SwipeY)
     camera.rotation.x -= keyboard.SwipeY * speedDelta * .0003
 
-  if (player.onFloor && keyboard.pressed.Space)
+  if (player.onGround && keyboard.pressed.Space)
     player.velocity.y = 15
 }
 
 function playerCollidesWorld(world) {
-  player.onFloor = false
+  player.onGround = false
   const result = world.capsuleIntersect(player.collider)
   if (!result) return
-  player.onFloor = result.normal.y > 0
-  if (!player.onFloor)
+  player.onGround = result.normal.y > 0
+  if (!player.onGround)
     player.velocity.addScaledVector(result.normal, - result.normal.dot(player.velocity))
   player.collider.translate(result.normal.multiplyScalar(result.depth))
 }
 
 export function updatePlayer(deltaTime, world) {
   let damping = Math.exp(- 4 * deltaTime) - 1
-  if (!player.onFloor) {
+  if (!player.onGround) {
     player.velocity.y -= GRAVITY * deltaTime
     damping *= 0.1 // small air resistance
   }

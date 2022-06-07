@@ -3,9 +3,11 @@ import { camera } from '/utils/scene.js'
 import { createSphere } from '/utils/balls.js'
 import { player } from './player.js'
 
+export const GRAVITY = 30
+
 const SPHERE_RADIUS = 0.2
 const NUM_SPHERES = 100
-export const GRAVITY = 30
+const IMPULSE = 50
 
 let bulletIdx = 0
 let holdTime = 0
@@ -13,7 +15,7 @@ let holdTime = 0
 export const bullets = Array(NUM_SPHERES).fill().map(() => createBullet())
 
 function createBullet() {
-  const mesh = createSphere({ r: SPHERE_RADIUS, widthSegments: 10, color: 0xbbbb44 })
+  const mesh = createSphere({ r: SPHERE_RADIUS, widthSegments: 10, color: 0x333333 })
   return {
     mesh,
     collider: new THREE.Sphere(new THREE.Vector3(0, - 100, 0), SPHERE_RADIUS),
@@ -26,7 +28,7 @@ function addBulletVelocity(bullet, holdTime) {
   bullet.collider.center.copy(player.collider.end).addScaledVector(player.direction, player.collider.radius * 1.5)
 
   // throw the ball with more force if we hold the button longer, and if we move forward
-  const impulse = 15 + 30 * (1 - Math.exp((holdTime - performance.now()) * 0.001))
+  const impulse = IMPULSE * .5 + IMPULSE * (1 - Math.exp((holdTime - performance.now()) * 0.001))
 
   bullet.velocity.copy(player.direction).multiplyScalar(impulse)
   bullet.velocity.addScaledVector(player.velocity, 2)
