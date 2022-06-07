@@ -8,7 +8,7 @@ let velocityY = 0
 let jumpImpulse = 0
 let onGround = false
 
-function startJump(maxJumpImpulse = 20) {
+function startJump(maxJumpImpulse) {
   if (!onGround) return
   if (jumpImpulse < maxJumpImpulse) jumpImpulse += maxJumpImpulse * .1
   onGround = false
@@ -33,13 +33,13 @@ const updateJump = (mesh, delta) => {
   checkGround(mesh)
 }
 
-export function handleInput(mesh, delta, speed = 4) {
+export function handleInput(mesh, delta, speed = 4, maxJumpImpulse = speed * 5) {
   const speedDelta = speed * delta // pixels per second
   const rotateDelta = RIGHT_ANGLE * delta // 90 degrees per second
 
   updateJump(mesh, delta)
 
-  if (keyboard.pressed.Space) startJump(speed * 5)
+  if (keyboard.pressed.Space) startJump(maxJumpImpulse)
 
   if (keyboard.up)
     mesh.translateZ(-speedDelta)
