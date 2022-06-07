@@ -1,58 +1,33 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
-import { createGround} from '/utils/ground.js'
+import { createGround } from '/utils/ground.js'
+import { createBarrel } from '/utils/barrels.js'
+import { createCrate } from '/utils/boxes.js'
+import { createMoon } from '/utils/planets.js'
 
-camera.position.set(0, 150, 400)
 createOrbitControls()
 
 const light = new THREE.PointLight(0xffffff)
-light.position.set(0, 150, 100)
+light.position.set(0, 15, 10)
 scene.add(light)
 const light2 = new THREE.AmbientLight(0x444444)
 scene.add(light2)
-
-const loader = new THREE.TextureLoader()
-const moonTexture = loader.load('/assets/textures/moon.jpg')
 
 /* GEOMETRIES */
 
 const floor = createGround()
 scene.add(floor)
 
-const sphereGeom = new THREE.SphereGeometry(40, 32, 32)
-const moon = new THREE.Mesh(
-  sphereGeom,
-  new THREE.MeshBasicMaterial({ map: moonTexture })
-)
-moon.position.set(-100, 50, 0)
+const moon = createMoon({ r: .5 })
+moon.position.set(-2, .5, 0)
 scene.add(moon)
 
-const moon2 = new THREE.Mesh(
-  sphereGeom,
-  new THREE.MeshLambertMaterial({ map: moonTexture })
-)
-moon2.position.set(0, 50, 0)
-scene.add(moon2)
-
-const moonMaterial3 = new THREE.MeshLambertMaterial({
-  map: moonTexture,
-  color: 0xff8800
-})
-const moon3 = new THREE.Mesh(sphereGeom, moonMaterial3)
-moon3.position.set(100, 50, 0)
-scene.add(moon3)
-
-const crate = new THREE.Mesh(
-  new THREE.BoxGeometry(85, 85, 85),
-  new THREE.MeshBasicMaterial({ map: loader.load('/assets/textures/crate.gif') })
-)
-crate.position.set(-60, 50, -100)
+const crate = createCrate({ size: 1 })
+crate.position.set(0, 0, 0)
 scene.add(crate)
 
-const geometry = new THREE.CylinderGeometry(40, 40, 90, 32)
-const material = new THREE.MeshBasicMaterial({ map: loader.load('/assets/textures/rust.jpg') })
-const cylinder = new THREE.Mesh(geometry, material)
-cylinder.position.set(60, 50, -100)
+const cylinder = createBarrel({ r: .4, height: 1 })
+cylinder.position.set(2, .5, 0)
 scene.add(cylinder)
 
 /* UPDATE */
