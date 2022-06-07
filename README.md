@@ -13,8 +13,9 @@ live-server
 
 ### General
 
-- [ ] napraviti bolji skok
+- [x] napraviti bolji skok
 - [ ] reuse player FPS controls i player/move controls
+- [ ] dodati primere fizike iz 2D primera
 - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js

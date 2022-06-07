@@ -1,59 +1,47 @@
-const canvas = document.getElementById('canvas')
-const ctx = canvas.getContext('2d')
+import { scene, camera, renderer } from '/utils/scene.js'
+import { createCrate } from '/utils/boxes.js'
+import { initLights } from '/utils/light.js'
 
-let positionX = 100.0
-let positionY = 175.0
-let velocityX = 4.0
+initLights()
+camera.position.z = 7
+
+const player = createCrate()
+scene.add(player)
+
 let velocityY = 0.0
-const gravity = 0.5
+const gravity = -0.3
 let onGround = false
-
-window.addEventListener('mousedown', startJump, false)
-window.addEventListener('mouseup', endJump, false)
 
 function startJump() {
   if (!onGround) return
-  velocityY = -12.0
+  velocityY = 2.0
   onGround = false
 }
 
 function endJump() {
-  if (velocityY < -3.0)
-    velocityY = -3.0
+  if (velocityY > .5)
+    velocityY = .5
 }
 
-function update() {
-  velocityY += gravity
-  positionY += velocityY
-  positionX += velocityX
-
-  if (positionY > 175.0) {
-    positionY = 175.0
+const checkGround = () => {
+  if (player.position.y < 0.0) {
+    player.position.y = 0.0
     velocityY = 0.0
     onGround = true
   }
-
-  if (positionX < 10 || positionX > 190)
-    velocityX *= -1
 }
 
-function render() {
-  ctx.clearRect(0, 0, 200, 200)
-  ctx.beginPath()
-  ctx.moveTo(0, 175)
-  ctx.lineTo(200, 175)
-  ctx.stroke()
-  ctx.beginPath()
-  ctx.moveTo(positionX - 10, positionY - 20)
-  ctx.lineTo(positionX + 10, positionY - 20)
-  ctx.lineTo(positionX + 10, positionY)
-  ctx.lineTo(positionX - 10, positionY)
-  ctx.closePath()
-  ctx.stroke()
-}
+/* LOOP */
 
-void function loop() {
-  update()
-  render()
-  window.setTimeout(loop, 33)
+void function mainLoop() {
+  requestAnimationFrame(mainLoop)
+  velocityY += gravity
+  player.position.y += velocityY
+  checkGround()
+  renderer.render(scene, camera)
 }()
+
+/* EVENTS */
+
+window.addEventListener('mousedown', startJump, false)
+window.addEventListener('mouseup', endJump, false)

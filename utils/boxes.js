@@ -3,7 +3,7 @@ import { randomInRange, randomNuance } from './helpers.js'
 
 const loader = new THREE.TextureLoader()
 
-export function createBox({ x = 0, y = 0, z = 0, size = 20, file, color = randomNuance({ h: 0.1, s: 0.01, l: .75 }), zModifier = 1, yModifier = 1, xModifier = 1 } = {}) {
+export function createBox({ x = 0, y = 0, z = 0, size = 1, file, color = randomNuance({ h: 0.1, s: 0.01, l: .75 }), zModifier = 1, yModifier = 1, xModifier = 1 } = {}) {
   const xSize = size * xModifier
   const ySize = size * yModifier
   const zSize = size * zModifier
