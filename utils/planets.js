@@ -1,14 +1,15 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 
 const textureLoader = new THREE.TextureLoader()
+textureLoader.setPath('/assets/textures/planets/')
 
 /* EARTH */
 
 export function createEarth({ r = 15, segments = 64 } = {}) {
   // 4096 is the maximum width for maps
-  const map = textureLoader.load('/assets/textures/earth/earthmap4k.jpg')
-  const bumpMap = textureLoader.load('/assets/textures/earth/earthbump4k.jpg')
-  const specularMap = textureLoader.load('/assets/textures/earth/earthspec4k.jpg')
+  const map = textureLoader.load('earthmap4k.jpg')
+  const bumpMap = textureLoader.load('earthbump4k.jpg')
+  const specularMap = textureLoader.load('earthspec4k.jpg')
   const material = new THREE.MeshPhongMaterial({ map, specularMap, bumpMap })
 
   const geometry = new THREE.SphereGeometry(r, segments, segments)
@@ -19,7 +20,7 @@ export function createEarth({ r = 15, segments = 64 } = {}) {
 }
 
 export function createEarthClouds({ r = 15.2, segments = 64 } = {}) {
-  const map = textureLoader.load('/assets/textures/earth/fair_clouds_4k.png')
+  const map = textureLoader.load('fair_clouds_4k.png')
   const material = new THREE.MeshPhongMaterial({ map, transparent: true })
 
   const geometry = new THREE.SphereGeometry(r, segments, segments)
@@ -31,11 +32,19 @@ export function createEarthClouds({ r = 15.2, segments = 64 } = {}) {
 /* MOON */
 
 export function createMoon({ r = 2, segments = 32 } = {}) {
-  const map = textureLoader.load('/assets/textures/moon/moon_1024.jpg')
-  const bumpMap = textureLoader.load('/assets/textures/moon/cloud.png')
+  const map = textureLoader.load('moon_1024.jpg')
+  const bumpMap = textureLoader.load('moon_cloud.png')
   const material = new THREE.MeshPhongMaterial({ map, bumpMap })
   const geometry = new THREE.SphereGeometry(r, segments, segments)
   geometry.rotateZ(Math.PI / 2)
+  const mesh = new THREE.Mesh(geometry, material)
+  return mesh
+}
+
+export function createSun({ r = 10, segments = 32 } = {}) {
+  const geometry = new THREE.SphereGeometry(r, segments, segments)
+  const material = new THREE.MeshStandardMaterial({ map: textureLoader.load('sun.jpg') })
+
   const mesh = new THREE.Mesh(geometry, material)
   return mesh
 }
