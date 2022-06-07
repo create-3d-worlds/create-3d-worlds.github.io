@@ -36,6 +36,8 @@ live-server
 
 ### Geometry
 
+- [ ] dodati grudvu
+- [ ] dodati ovcu
 - [x] create a box
 - [x] create a lot of boxes
 - [x] create other basic shapes

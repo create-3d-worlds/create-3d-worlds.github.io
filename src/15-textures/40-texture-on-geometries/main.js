@@ -1,5 +1,6 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
+import { createGround} from '/utils/ground.js'
 
 camera.position.set(0, 150, 400)
 createOrbitControls()
@@ -15,10 +16,7 @@ const moonTexture = loader.load('/assets/textures/moon.jpg')
 
 /* GEOMETRIES */
 
-const floorMaterial = new THREE.MeshBasicMaterial({ map: moonTexture })
-const floorGeometry = new THREE.CircleGeometry(500, 32)
-const floor = new THREE.Mesh(floorGeometry, floorMaterial)
-floor.rotation.x = -Math.PI / 2
+const floor = createGround()
 scene.add(floor)
 
 const sphereGeom = new THREE.SphereGeometry(40, 32, 32)
