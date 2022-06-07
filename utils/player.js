@@ -2,9 +2,9 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import keyboard from '/classes/Keyboard.js'
 import { RIGHT_ANGLE } from '/utils/constants.js'
 
-const gravity = -.9
+const GRAVITY = .9
+const velocity = new THREE.Vector3()
 
-let velocityY = 0
 let jumpImpulse = 0
 let onGround = false
 
@@ -15,21 +15,21 @@ function startJump(maxJumpImpulse) {
 }
 
 function endJump() {
-  velocityY = jumpImpulse
+  velocity.y = jumpImpulse
   jumpImpulse = 0
 }
 
 const checkGround = mesh => {
   if (mesh.position.y < 0) {
     mesh.position.y = 0
-    velocityY = 0
+    velocity.y = 0
     onGround = true
   }
 }
 
 const updateJump = (mesh, delta) => {
-  velocityY += gravity
-  mesh.position.y += velocityY * delta
+  velocity.y -= GRAVITY
+  mesh.position.y += velocity.y * delta
   checkGround(mesh)
 }
 
