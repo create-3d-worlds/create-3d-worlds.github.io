@@ -39,27 +39,27 @@ export function fireBullet() {
 
 function checkBulletsCollisions(bullets) {
   for (let i = 0, { length } = bullets; i < length; i++) {
-    const s1 = bullets[i]
+    const bullet = bullets[i]
 
     for (let j = i + 1; j < length; j++) {
-      const s2 = bullets[j]
+      const bullet2 = bullets[j]
 
-      const d2 = s1.collider.center.distanceToSquared(s2.collider.center)
-      const r = s1.collider.radius + s2.collider.radius
+      const d2 = bullet.collider.center.distanceToSquared(bullet2.collider.center)
+      const r = bullet.collider.radius + bullet2.collider.radius
       const r2 = r * r
 
       if (d2 < r2) {
-        const normal = new THREE.Vector3().subVectors(s1.collider.center, s2.collider.center).normalize()
-        const v1 = new THREE.Vector3().copy(normal).multiplyScalar(normal.dot(s1.velocity))
-        const v2 = new THREE.Vector3().copy(normal).multiplyScalar(normal.dot(s2.velocity))
+        const normal = new THREE.Vector3().subVectors(bullet.collider.center, bullet2.collider.center).normalize()
+        const v1 = new THREE.Vector3().copy(normal).multiplyScalar(normal.dot(bullet.velocity))
+        const v2 = new THREE.Vector3().copy(normal).multiplyScalar(normal.dot(bullet2.velocity))
 
-        s1.velocity.add(v2).sub(v1)
-        s2.velocity.add(v1).sub(v2)
+        bullet.velocity.add(v2).sub(v1)
+        bullet2.velocity.add(v1).sub(v2)
 
         const d = (r - Math.sqrt(d2)) / 2
 
-        s1.collider.center.addScaledVector(normal, d)
-        s2.collider.center.addScaledVector(normal, - d)
+        bullet.collider.center.addScaledVector(normal, d)
+        bullet2.collider.center.addScaledVector(normal, - d)
       }
     }
   }
@@ -78,12 +78,10 @@ export function updateBullets(deltaTime, world) {
 
     const damping = Math.exp(- 1.5 * deltaTime) - 1
     bullet.velocity.addScaledVector(bullet.velocity, damping)
+    bullet.mesh.position.copy(bullet.collider.center)
   })
 
   checkBulletsCollisions(bullets)
-
-  for (const bullet of bullets)
-    bullet.mesh.position.copy(bullet.collider.center)
 }
 
 /* EVENTS */
