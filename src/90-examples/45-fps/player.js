@@ -22,21 +22,20 @@ function getSideVector() {
 }
 
 export function handleInput(deltaTime) {
-  const speed = 25
+  const speed = 20
   const speedDelta = deltaTime * speed
-  const speedLogic = deltaTime * (player.onGround ? speed : speed * .33)
 
   if (keyboard.up)
-    player.velocity.add(getForwardVector().multiplyScalar(speedLogic))
+    player.velocity.add(getForwardVector().multiplyScalar(speedDelta))
 
   if (keyboard.down)
-    player.velocity.add(getForwardVector().multiplyScalar(-speedLogic))
+    player.velocity.add(getForwardVector().multiplyScalar(-speedDelta))
 
   if (keyboard.pressed.KeyQ)
-    player.velocity.add(getSideVector().multiplyScalar(-speedLogic))
+    player.velocity.add(getSideVector().multiplyScalar(-speedDelta))
 
   if (keyboard.pressed.KeyE)
-    player.velocity.add(getSideVector().multiplyScalar(speedLogic))
+    player.velocity.add(getSideVector().multiplyScalar(speedDelta))
 
   if (keyboard.left)
     camera.rotation.y += speedDelta * .07
@@ -65,11 +64,9 @@ function playerCollidesWorld(world) {
 }
 
 export function updatePlayer(deltaTime, world) {
-  let damping = Math.exp(- 4 * deltaTime) - 1
-  if (!player.onGround) {
+  const damping = Math.exp(- 4 * deltaTime) - 1
+  if (!player.onGround)
     player.velocity.y -= GRAVITY * deltaTime
-    damping *= 0.1 // small air resistance
-  }
 
   player.velocity.addScaledVector(player.velocity, damping)
   const deltaPosition = player.velocity.clone().multiplyScalar(deltaTime)
