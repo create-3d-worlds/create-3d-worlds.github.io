@@ -13,6 +13,7 @@ live-server
 
 ### General
 
+- [ ] srediti render-3d-map/ i savo
 - [ ] reuse player controls: FPS, player/move controls, Player.js, nemesis...
 - [ ] sažvakati world-simulation
   - [ ] reuse generateTerrain from world-simulation
@@ -43,7 +44,7 @@ live-server
 - [x] create other basic shapes
 - [x] add texture
 - [x] dodati primere drveća u geometriju
-- [ ] izdvojiti box-bump-texture u pomagala
+- [ ] izdvojiti box-bump u boxes
 - [ ] spojiti nature u geometry?
 - [ ] organize geometry utils (barrels, boxes, createAirplane, sheep...)
 
