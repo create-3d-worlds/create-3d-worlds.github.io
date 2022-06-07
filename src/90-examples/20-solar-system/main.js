@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene, renderer, addUIControls, createOrbitControls } from '/utils/scene.js'
 import { createSimpleStars } from '/utils/particles.js'
-import { createSimpleEarth, createSimpleMoon, createSimpleSun } from '/utils/planets.js'
+import { createEarth, createMoon, createSimpleSun } from '/utils/planets.js'
 
 createOrbitControls()
 renderer.setClearColor(0x000000)
@@ -22,12 +22,12 @@ scene.add(universalCamera)
 const sun = createSimpleSun({ r: 50 })
 scene.add(sun)
 
-const earth = createSimpleEarth({ r: 20 })
+const earth = createEarth({ r: 20 })
 earth.position.set(250, 0, 0)
 const earthGroup = createEarthGroup(earth, earthToSunCamera)
 sun.add(earthGroup)
 
-const moon = createSimpleMoon({ r: 15 })
+const moon = createMoon({ r: 15 })
 moon.position.set(0, 100, 0)
 const moonGroup = createMoonGroup(moon, earthToMoonCamera)
 earth.add(moonGroup)
