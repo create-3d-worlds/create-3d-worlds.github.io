@@ -15,7 +15,10 @@ export function createBox({ x = 0, y = 0, z = 0, size = 1, file, color = randomN
   const material = new THREE.MeshPhongMaterial(options)
   const mesh = new THREE.Mesh(geometry, material)
   mesh.position.set(x, y, z)
+  // set position.y on bottom
   mesh.translateY(ySize / 2)
+  mesh.updateMatrix()
+  mesh.geometry.applyMatrix4(mesh.matrix)
   return mesh
 }
 

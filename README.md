@@ -17,6 +17,8 @@ live-server
 - [ ] reuse player FPS controls i player/move controls
 - [ ] dodati primere fizike iz 2D primera
 - [ ] reuse generateTerrain from world-simulation
+- [ ] srediti kod svih predmeta početnu position.y (vidi createBox applyMatrix4) 
+- [ ] primeniti istu logiku kod transformacije modela, bez grupe
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
 - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba

@@ -5,12 +5,11 @@ import { createCrate } from '/utils/boxes.js'
 import { initLights } from '/utils/light.js'
 
 initLights()
-camera.position.set(0, 15, 40)
 
-const floor = createFloor({ size: 100 })
+const floor = createFloor({ size: 25 })
 scene.add(floor)
 
-const player = createCrate({ size: 5 })
+const player = createCrate({ size: 1 })
 scene.add(player)
 
 void function animate() {

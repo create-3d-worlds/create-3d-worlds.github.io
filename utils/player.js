@@ -1,27 +1,43 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import keyboard from '/classes/Keyboard.js'
 import { RIGHT_ANGLE } from '/utils/constants.js'
-import { getHeight } from '/utils/helpers.js'
 
-let jumpCount = 0
+let velocityY = 0.0
+const gravity = -0.9
+let onGround = false
+const jumpImpulse = 20
+const minJumpImpulse = 2
 
-const jump = (mesh, delta, playerHeight) => {
-  const maxJump = playerHeight
-  const jumpSpeed = playerHeight * delta
-
-  jumpCount += jumpSpeed
-  mesh.position.y = maxJump * Math.sin(jumpCount) + maxJump + playerHeight * .5 // sin could be -1 to 1
+function startJump() {
+  if (!onGround) return
+  velocityY = jumpImpulse
+  onGround = false
 }
 
-export function handleInput(mesh, delta) {
-  const playerHeight = getHeight(mesh)
-  const speedDelta = playerHeight * 4 * delta // pixels per second
+function endJump() {
+  if (velocityY > minJumpImpulse)
+    velocityY = minJumpImpulse
+}
+
+const checkGround = mesh => {
+  if (mesh.position.y < 0.0) {
+    mesh.position.y = 0.0
+    velocityY = 0.0
+    onGround = true
+  }
+}
+
+const updateJump = (mesh, delta) => {
+  velocityY += gravity
+  mesh.position.y += velocityY * delta
+  checkGround(mesh)
+}
+
+export function handleInput(mesh, delta, speed = 4) {
+  const speedDelta = speed * delta // pixels per second
   const rotateDelta = RIGHT_ANGLE * delta // 90 degrees per second
 
-  if (keyboard.pressed.Space)
-    jump(mesh, delta, playerHeight)
-
-  if (!keyboard.pressed.Space && mesh.position.y > playerHeight * .5 + .01) jump(mesh, delta, playerHeight)
+  updateJump(mesh, delta)
 
   if (keyboard.up)
     mesh.translateZ(-speedDelta)
@@ -36,10 +52,13 @@ export function handleInput(mesh, delta) {
     mesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), rotateDelta)
   if (keyboard.right)
     mesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), -rotateDelta)
-
-  // for airplane
-  // if (keyboard.pressed.KeyR)
-  //   mesh.rotateOnAxis(new THREE.Vector3(1, 0, 0), rotateDelta)
-  // if (keyboard.pressed.KeyF)
-  //   mesh.rotateOnAxis(new THREE.Vector3(1, 0, 0), -rotateDelta)
 }
+
+/* EVENTS */
+
+window.addEventListener('keydown', e => {
+  if (e.code == 'Space') startJump()
+})
+window.addEventListener('keyup', e => {
+  if (e.code == 'Space') endJump()
+})

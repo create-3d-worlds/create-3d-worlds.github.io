@@ -1,6 +1,7 @@
 import { scene, camera, renderer } from '/utils/scene.js'
 import { createCrate } from '/utils/boxes.js'
 import { initLights } from '/utils/light.js'
+import { createFloor } from '/utils/ground.js'
 
 initLights()
 camera.position.z = 7
@@ -8,13 +9,16 @@ camera.position.z = 7
 const player = createCrate()
 scene.add(player)
 
+const floor = createFloor({ size: 100 })
+scene.add(floor)
+
 let velocityY = 0.0
-const gravity = -0.3
+const gravity = -0.2
 let onGround = false
 
 function startJump() {
   if (!onGround) return
-  velocityY = 2.0
+  velocityY = 1.5
   onGround = false
 }
 
@@ -43,5 +47,9 @@ void function mainLoop() {
 
 /* EVENTS */
 
-window.addEventListener('mousedown', startJump, false)
-window.addEventListener('mouseup', endJump, false)
+window.addEventListener('keydown', e => {
+  if (e.code == 'Space') startJump()
+})
+window.addEventListener('keyup', e => {
+  if (e.code == 'Space') endJump()
+})
