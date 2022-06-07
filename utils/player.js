@@ -2,27 +2,27 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import keyboard from '/classes/Keyboard.js'
 import { RIGHT_ANGLE } from '/utils/constants.js'
 
-let velocityY = 0.0
-const gravity = -0.9
-let onGround = false
-const jumpImpulse = 20
-const minJumpImpulse = 2
+const gravity = -.9
 
-function startJump() {
+let velocityY = 0
+let jumpImpulse = 0
+let onGround = false
+
+function startJump(maxJumpImpulse = 20) {
   if (!onGround) return
-  velocityY = jumpImpulse
+  if (jumpImpulse < maxJumpImpulse) jumpImpulse += maxJumpImpulse * .1
   onGround = false
 }
 
 function endJump() {
-  if (velocityY > minJumpImpulse)
-    velocityY = minJumpImpulse
+  velocityY = jumpImpulse
+  jumpImpulse = 0
 }
 
 const checkGround = mesh => {
-  if (mesh.position.y < 0.0) {
-    mesh.position.y = 0.0
-    velocityY = 0.0
+  if (mesh.position.y < 0) {
+    mesh.position.y = 0
+    velocityY = 0
     onGround = true
   }
 }
@@ -38,6 +38,8 @@ export function handleInput(mesh, delta, speed = 4) {
   const rotateDelta = RIGHT_ANGLE * delta // 90 degrees per second
 
   updateJump(mesh, delta)
+
+  if (keyboard.pressed.Space) startJump(speed * 5)
 
   if (keyboard.up)
     mesh.translateZ(-speedDelta)
@@ -56,9 +58,6 @@ export function handleInput(mesh, delta, speed = 4) {
 
 /* EVENTS */
 
-window.addEventListener('keydown', e => {
-  if (e.code == 'Space') startJump()
-})
 window.addEventListener('keyup', e => {
   if (e.code == 'Space') endJump()
 })
