@@ -5,10 +5,14 @@ import { player } from './player.js'
 
 const SPHERE_RADIUS = 0.2
 const NUM_SPHERES = 100
+export const GRAVITY = 30
+
+let bulletIdx = 0
+let holdTime = 0
 
 export const bullets = Array(NUM_SPHERES).fill().map(() => createBullet())
 
-export function createBullet() {
+function createBullet() {
   const mesh = createSphere({ r: SPHERE_RADIUS, widthSegments: 10, color: 0xbbbb44 })
   return {
     mesh,
@@ -17,7 +21,7 @@ export function createBullet() {
   }
 }
 
-export function addBulletVelocity(bullet, holdTime) {
+function addBulletVelocity(bullet, holdTime) {
   camera.getWorldDirection(player.direction)
   bullet.collider.center.copy(player.collider.end).addScaledVector(player.direction, player.collider.radius * 1.5)
 
@@ -28,7 +32,12 @@ export function addBulletVelocity(bullet, holdTime) {
   bullet.velocity.addScaledVector(player.velocity, 2)
 }
 
-export function checkBulletsCollisions(bullets) {
+export function fireBullet() {
+  addBulletVelocity(bullets[bulletIdx], holdTime)
+  bulletIdx = (bulletIdx + 1) % bullets.length
+}
+
+function checkBulletsCollisions(bullets) {
   for (let i = 0, { length } = bullets; i < length; i++) {
     const s1 = bullets[i]
 
@@ -55,3 +64,32 @@ export function checkBulletsCollisions(bullets) {
     }
   }
 }
+
+export function updateBullets(deltaTime, world) {
+  bullets.forEach(bullet => {
+    bullet.collider.center.addScaledVector(bullet.velocity, deltaTime)
+    const result = world.sphereIntersect(bullet.collider)
+
+    if (result) {
+      bullet.velocity.addScaledVector(result.normal, - result.normal.dot(bullet.velocity) * 1.5)
+      bullet.collider.center.add(result.normal.multiplyScalar(result.depth))
+    } else
+      bullet.velocity.y -= GRAVITY * deltaTime
+
+    const damping = Math.exp(- 1.5 * deltaTime) - 1
+    bullet.velocity.addScaledVector(bullet.velocity, damping)
+  })
+
+  checkBulletsCollisions(bullets)
+
+  for (const bullet of bullets)
+    bullet.mesh.position.copy(bullet.collider.center)
+}
+
+/* EVENTS */
+
+document.addEventListener('mousedown', () => {
+  holdTime = performance.now()
+})
+
+document.addEventListener('mouseup', fireBullet)

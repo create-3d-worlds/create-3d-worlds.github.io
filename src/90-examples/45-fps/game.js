@@ -4,36 +4,25 @@ import { scene, clock, camera, renderer } from '/utils/scene.js'
 import { hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import FPSRenderer from '/classes/2d/FPSRenderer.js'
-import { player, handleInput, playerCollides } from './player.js'
-import { bullets, addBulletVelocity, checkBulletsCollisions } from './bullets.js'
+import { player, handleInput } from './player.js'
+import { bullets, GRAVITY, updateBullets } from './bullets.js'
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
 
 hemLight({ intensity: 0.5, groundColor: 0x002244 })
 
-const GRAVITY = 30
-
 bullets.forEach(bullet => scene.add(bullet.mesh))
-
-let bulletIdx = 0
 
 const fpsRenderer = new FPSRenderer()
 
 const world = new Octree()
-
-let holdTime = 0
 
 const { mesh } = await loadModel({ file: 'collision-world.glb' })
 world.fromGraphNode(mesh)
 scene.add(mesh)
 
 /* FUNCTIONS */
-
-function fireBullet() {
-  addBulletVelocity(bullets[bulletIdx], holdTime)
-  bulletIdx = (bulletIdx + 1) % bullets.length
-}
 
 function playerCollidesWorld() {
   player.onFloor = false
@@ -59,43 +48,14 @@ function updatePlayer(deltaTime) {
   camera.position.copy(player.collider.end) // camera follows player
 }
 
-function updateBullets(deltaTime) {
-  bullets.forEach(bullet => {
-    bullet.collider.center.addScaledVector(bullet.velocity, deltaTime)
-    const result = world.sphereIntersect(bullet.collider)
-
-    if (result) {
-      bullet.velocity.addScaledVector(result.normal, - result.normal.dot(bullet.velocity) * 1.5)
-      bullet.collider.center.add(result.normal.multiplyScalar(result.depth))
-    } else
-      bullet.velocity.y -= GRAVITY * deltaTime
-
-    const damping = Math.exp(- 1.5 * deltaTime) - 1
-    bullet.velocity.addScaledVector(bullet.velocity, damping)
-    playerCollides(bullet)
-  })
-
-  checkBulletsCollisions(bullets)
-  for (const bullet of bullets)
-    bullet.mesh.position.copy(bullet.collider.center)
-}
-
 /* LOOP */
 
 void function gameLoop() {
   const deltaTime = clock.getDelta()
   handleInput(deltaTime)
   updatePlayer(deltaTime)
-  updateBullets(deltaTime)
+  updateBullets(deltaTime, world)
   renderer.render(scene, camera)
   fpsRenderer.render(clock.getElapsedTime())
   requestAnimationFrame(gameLoop)
 }()
-
-/* EVENTS */
-
-document.addEventListener('mousedown', () => {
-  holdTime = performance.now()
-})
-
-document.addEventListener('mouseup', fireBullet)

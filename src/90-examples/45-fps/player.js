@@ -55,29 +55,3 @@ export function handleInput(deltaTime) {
   if (player.onFloor && keyboard.pressed.Space)
     player.velocity.y = 15
 }
-
-export function playerCollides(bullet) {
-  const vector1 = new THREE.Vector3()
-  const center = vector1.addVectors(player.collider.start, player.collider.end).multiplyScalar(0.5)
-  const bulletCenter = bullet.collider.center
-
-  const r = player.collider.radius + bullet.collider.radius
-  const r2 = r * r
-
-  // approximation: player = 3 bullets
-  for (const point of [player.collider.start, player.collider.end, center]) {
-    const d2 = point.distanceToSquared(bulletCenter)
-
-    if (d2 < r2) {
-      const normal = vector1.subVectors(point, bulletCenter).normalize()
-      const v1 = new THREE.Vector3().copy(normal).multiplyScalar(normal.dot(player.velocity))
-      const v2 = new THREE.Vector3().copy(normal).multiplyScalar(normal.dot(bullet.velocity))
-
-      player.velocity.add(v2).sub(v1)
-      bullet.velocity.add(v1).sub(v2)
-
-      const d = (r - Math.sqrt(d2)) / 2
-      bulletCenter.addScaledVector(normal, - d)
-    }
-  }
-}
