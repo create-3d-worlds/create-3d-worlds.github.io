@@ -57,6 +57,7 @@ function playerCollidesWorld(world) {
   player.onGround = false
   const result = world.capsuleIntersect(player.collider)
   if (!result) return
+
   player.onGround = result.normal.y > 0
   if (!player.onGround)
     player.velocity.addScaledVector(result.normal, - result.normal.dot(player.velocity))
