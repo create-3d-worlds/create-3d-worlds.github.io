@@ -1,5 +1,7 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 
+let time = 0
+
 export default class Cloud {
   constructor() {
     this.group = new THREE.Group()
@@ -12,8 +14,6 @@ export default class Cloud {
       flatShading: true
     })
 
-    this.vAngle = 0
-
     this.drawParts()
 
     this.group.traverse(part => {
@@ -21,6 +21,7 @@ export default class Cloud {
       part.receiveShadow = true
     })
   }
+
   drawParts() {
     const partGeometry = new THREE.IcosahedronGeometry(1, 0)
     this.upperPart = new THREE.Mesh(partGeometry, this.material)
@@ -44,13 +45,14 @@ export default class Cloud {
     this.backPart.position.z = -this.frontPart.position.z
     this.group.add(this.backPart)
   }
-  bend() {
-    this.vAngle += 0.08
 
-    this.upperPart.position.y = -Math.cos(this.vAngle) * 0.12
-    this.leftPart.position.y = -Math.cos(this.vAngle) * 0.1 - 0.3
-    this.rightPart.position.y = -Math.cos(this.vAngle) * 0.1 - 0.3
-    this.frontPart.position.y = -Math.cos(this.vAngle) * 0.08 - 0.3
-    this.backPart.position.y = -Math.cos(this.vAngle) * 0.08 - 0.3
+  update() {
+    time += 0.08
+
+    this.upperPart.position.y = -Math.cos(time) * 0.12
+    this.leftPart.position.y = -Math.cos(time) * 0.1 - 0.3
+    this.rightPart.position.y = -Math.cos(time) * 0.1 - 0.3
+    this.frontPart.position.y = -Math.cos(time) * 0.08 - 0.3
+    this.backPart.position.y = -Math.cos(time) * 0.08 - 0.3
   }
 }

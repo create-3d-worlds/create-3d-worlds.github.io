@@ -3,6 +3,8 @@ import keyboard from '/classes/Keyboard.js'
 
 const rad = degrees => degrees * (Math.PI / 180)
 
+let time = 0
+
 export default class Sheep {
   constructor() {
     this.group = new THREE.Group()
@@ -24,12 +26,11 @@ export default class Sheep {
       flatShading: true
     })
 
-    this.vAngle = 0
-
     this.drawBody()
     this.drawHead()
     this.drawLegs()
   }
+
   drawBody() {
     const bodyGeometry = new THREE.IcosahedronGeometry(1.7, 0)
     const body = new THREE.Mesh(bodyGeometry, this.woolMaterial)
@@ -37,6 +38,7 @@ export default class Sheep {
     body.receiveShadow = true
     this.group.add(body)
   }
+
   drawHead() {
     const head = new THREE.Group()
     head.position.set(0, 0.65, 1.6)
@@ -84,13 +86,16 @@ export default class Sheep {
     this.rightEar.receiveShadow = true
     this.rightEar.position.set(0.35, -0.12, -0.07)
     this.rightEar.rotation.set(rad(20), 0, rad(50))
+    this.rightEar.name = 'rightEar'
     head.add(this.rightEar)
 
     this.leftEar = this.rightEar.clone()
     this.leftEar.position.x = -this.rightEar.position.x
     this.leftEar.rotation.z = -this.rightEar.rotation.z
+    this.leftEar.name = 'leftEar'
     head.add(this.leftEar)
   }
+
   drawLegs() {
     const legGeometry = new THREE.CylinderGeometry(0.3, 0.15, 1, 4)
     legGeometry.translate(0, -0.5, 0)
@@ -99,39 +104,45 @@ export default class Sheep {
     this.frontRightLeg.receiveShadow = true
     this.frontRightLeg.position.set(0.7, -0.8, 0.5)
     this.frontRightLeg.rotation.x = rad(-12)
+    this.frontRightLeg.name = 'frontRightLeg'
     this.group.add(this.frontRightLeg)
 
     this.frontLeftLeg = this.frontRightLeg.clone()
     this.frontLeftLeg.position.x = -this.frontRightLeg.position.x
     this.frontLeftLeg.rotation.z = -this.frontRightLeg.rotation.z
+    this.frontLeftLeg.name = 'frontLeftLeg'
     this.group.add(this.frontLeftLeg)
 
     this.backRightLeg = this.frontRightLeg.clone()
     this.backRightLeg.position.z = -this.frontRightLeg.position.z
     this.backRightLeg.rotation.x = -this.frontRightLeg.rotation.x
+    this.backRightLeg.name = 'backRightLeg'
     this.group.add(this.backRightLeg)
 
     this.backLeftLeg = this.frontLeftLeg.clone()
     this.backLeftLeg.position.z = -this.frontLeftLeg.position.z
     this.backLeftLeg.rotation.x = -this.frontLeftLeg.rotation.x
+    this.backLeftLeg.name = 'backLeftLeg'
     this.group.add(this.backLeftLeg)
   }
+
   jump(speed) {
-    this.vAngle += speed
-    this.group.position.y = Math.sin(this.vAngle) + 1.38
+    time += speed
+    this.group.position.y = Math.sin(time) + 1.38
 
-    const legRotation = Math.sin(this.vAngle) * Math.PI / 6 + 0.4
+    const legRotation = Math.sin(time) * Math.PI / 6 + 0.4
 
-    this.frontRightLeg.rotation.z = legRotation
-    this.backRightLeg.rotation.z = legRotation
-    this.frontLeftLeg.rotation.z = -legRotation
-    this.backLeftLeg.rotation.z = -legRotation
+    this.group.getObjectByName('frontRightLeg').rotation.z = legRotation
+    this.group.getObjectByName('backRightLeg').rotation.z = legRotation
+    this.group.getObjectByName('frontLeftLeg').rotation.z = -legRotation
+    this.group.getObjectByName('backLeftLeg').rotation.z = -legRotation
 
-    const earRotation = Math.sin(this.vAngle) * Math.PI / 3 + 1.5
+    const earRotation = Math.sin(time) * Math.PI / 3 + 1.5
 
-    this.rightEar.rotation.z = earRotation
-    this.leftEar.rotation.z = -earRotation
+    this.group.getObjectByName('rightEar').rotation.z = earRotation
+    this.group.getObjectByName('leftEar').rotation.z = -earRotation
   }
+
   updateJump() {
     if (keyboard.pressed.Space)
       this.jump(0.05)

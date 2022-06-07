@@ -1,10 +1,10 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
-import { scene, camera, renderer } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
 import Sheep from './Sheep.js'
 import Cloud from './Cloud.js'
 import Sky from './Sky.js'
-
+createOrbitControls()
 camera.lookAt(scene.position)
 camera.position.set(0, 1.5, 8)
 
@@ -26,7 +26,7 @@ scene.add(sky.group)
 void function animate() {
   requestAnimationFrame(animate)
   sheep.updateJump()
-  if (sheep.group.position.y > 0.4) cloud.bend()
+  cloud.update()
   sky.moveSky()
   renderer.render(scene, camera)
 }()
