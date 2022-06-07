@@ -3,8 +3,9 @@ import { Octree } from '/node_modules/three127/examples/jsm/math/Octree.js'
 import { scene, clock, camera, renderer } from '/utils/scene.js'
 import { hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
-import { player, createBullet, handleInput, addBulletVelocity, playerCollides, checkBulletsCollisions } from './utils.js'
 import FPSRenderer from '/classes/2d/FPSRenderer.js'
+import { player, handleInput, playerCollides } from './player.js'
+import { createBullet, addBulletVelocity, checkBulletsCollisions } from './bullets.js'
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
