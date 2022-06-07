@@ -11,7 +11,7 @@ controls.target.set(30, 0, 0)
 
 /* MESH */
 const geometry = new THREE.SphereGeometry(1, 32, 16)
-const material = file => new THREE.MeshStandardMaterial({ map: loader.load(`assets/${file}`) })
+const material = file => new THREE.MeshStandardMaterial({ map: loader.load(`textures/${file}`) })
 
 const sunMesh = new THREE.Mesh(geometry, material('sun.jpg'))
 sunMesh.position.set(0, 0, 0)
