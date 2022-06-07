@@ -14,7 +14,6 @@ export function createEarth({ r = 15, segments = 64 } = {}) {
 
   const geometry = new THREE.SphereGeometry(r, segments, segments)
   const earth = new THREE.Mesh(geometry, material)
-  geometry.rotateX(Math.PI / 2)
   earth.name = 'earth'
   return earth
 }
@@ -43,6 +42,17 @@ export function createMoon({ r = 2, segments = 32 } = {}) {
 
 /* SUN */
 
+export function createSun({ r = 50, segments = 32 } = {}) {
+  const material = new THREE.MeshStandardMaterial({ map: textureLoader.load('sun.jpg'), color: 0xFFD700 })
+  const geometry = new THREE.SphereGeometry(r, segments, segments)
+  geometry.rotateX(Math.PI / 2)
+  const mesh = new THREE.Mesh(geometry, material)
+  const sunLight = new THREE.PointLight(0xffffff, 5, 1000)
+  mesh.add(sunLight)
+  addGlow(mesh, r * 3)
+  return mesh
+}
+
 function addGlow(sun, distance = 50) {
   const intensity = 5
   const angle = Math.PI / 7
@@ -56,24 +66,4 @@ function addGlow(sun, distance = 50) {
     spotlight.position.set(x, y, z)
     sun.add(spotlight)
   }
-}
-
-export function createSun({ r = 50, segments = 32 } = {}) {
-  const geometry = new THREE.SphereGeometry(r, segments, segments)
-  const material = new THREE.MeshStandardMaterial({ map: textureLoader.load('sun.jpg') })
-
-  const mesh = new THREE.Mesh(geometry, material)
-  addGlow(mesh, r * 3)
-  return mesh
-}
-
-/* SIMPLE */
-
-export function createSimpleSun({ r = 50, segments = 32 } = {}) {
-  const material = new THREE.MeshBasicMaterial({ color: 0xFFD700 })
-  const geometry = new THREE.SphereGeometry(r, segments, segments)
-  const sun = new THREE.Mesh(geometry, material)
-  const sunLight = new THREE.PointLight(0xffffff, 5, 1000)
-  sun.add(sunLight)
-  return sun
 }

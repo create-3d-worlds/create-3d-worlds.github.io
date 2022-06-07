@@ -235,9 +235,9 @@ live-server
   - [x] prikazivati poene
   - [ ] probati konja ili dabra
 
-- [ ] Solar system
-  - [ ] ubaciti planete sa teksturom
-  - [ ] napraviti sunce sa teksturom
+- [x] Solar system
+  - [x] ubaciti planete sa teksturom
+  - [x] napraviti sunce sa teksturom
 
 - [ ] Nemesis
   - [ ] dodati igrača
