@@ -13,6 +13,7 @@ live-server
 
 ### General
 
+- [ ] napraviti bolji skok
 - [ ] reuse player FPS controls i player/move controls
 - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
@@ -25,6 +26,7 @@ live-server
 - [x] veličina nekih modela ne radi (dae format zeza, izbegavati)
 - [x] pomeriti foldere sa igračem u scenu
 - [ ] preraditi drveće na terenu da ne koristi zrakobačac, vidi: https://discourse.threejs.org/t/what-is-the-best-way-to-add-objects-to-a-3d-terrain/31757/7
+- probati konačni automat https://youtu.be/EkPfhzIbp2g
 
 - [x] ažurirati verziju (na 119)
 - [x] ažurirati verziju (na 127)
