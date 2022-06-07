@@ -2,6 +2,7 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import { Capsule } from '/node_modules/three127/examples/jsm/math/Capsule.js'
 import { camera } from '/utils/scene.js'
 import keyboard from '/classes/Keyboard.js'
+import { GRAVITY } from './bullets.js'
 
 /* PLAYER */
 
@@ -54,4 +55,28 @@ export function handleInput(deltaTime) {
 
   if (player.onFloor && keyboard.pressed.Space)
     player.velocity.y = 15
+}
+
+function playerCollidesWorld(world) {
+  player.onFloor = false
+  const result = world.capsuleIntersect(player.collider)
+  if (!result) return
+  player.onFloor = result.normal.y > 0
+  if (!player.onFloor)
+    player.velocity.addScaledVector(result.normal, - result.normal.dot(player.velocity))
+  player.collider.translate(result.normal.multiplyScalar(result.depth))
+}
+
+export function updatePlayer(deltaTime, world) {
+  let damping = Math.exp(- 4 * deltaTime) - 1
+  if (!player.onFloor) {
+    player.velocity.y -= GRAVITY * deltaTime
+    damping *= 0.1 // small air resistance
+  }
+
+  player.velocity.addScaledVector(player.velocity, damping)
+  const deltaPosition = player.velocity.clone().multiplyScalar(deltaTime)
+  player.collider.translate(deltaPosition)
+  playerCollidesWorld(world)
+  camera.position.copy(player.collider.end) // camera follows player
 }
