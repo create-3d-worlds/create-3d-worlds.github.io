@@ -13,20 +13,14 @@ live-server
 
 ### General
 
-- [x] napraviti bolji skok
-- [ ] reuse player FPS controls i player/move controls
-- [ ] dodati primere fizike iz 2D primera
-- [ ] reuse generateTerrain from world-simulation
-- [ ] srediti kod svih predmeta početnu position.y (vidi createBox applyMatrix4) 
-- [ ] primeniti istu logiku kod transformacije modela, bez grupe
+- [ ] reuse player controls: FPS, player/move controls, Player.js, nemesis...
+- [ ] sažvakati world-simulation
+  - [ ] reuse generateTerrain from world-simulation
+- [ ] srediti kod svih predmeta i modela position.y (vidi createBox applyMatrix4) 
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
-- [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
+  - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
 - [x] dovesti veličine u razmeru 1px : 1m
-- [x] isprobati nove 3d modele
-  - [x] organizovati modele tematski
-  - [x] izbaciti nightelf-priest
-- [x] veličina nekih modela ne radi (dae format zeza, izbegavati)
 - [x] pomeriti foldere sa igračem u scenu
 - [ ] preraditi drveće na terenu da ne koristi zrakobačac, vidi: https://discourse.threejs.org/t/what-is-the-best-way-to-add-objects-to-a-3d-terrain/31757/7
 - probati konačni automat https://youtu.be/EkPfhzIbp2g
@@ -121,6 +115,7 @@ live-server
 - [x] srediti Player handleInput
 - [x] spojiti animacije sa pokretom
 - [x] ukloniti argument transparent, srediti Savo
+- [x] napraviti bolji skok
 
 ### 3D Models
 
@@ -141,14 +136,19 @@ live-server
 - [x] da ne korača u skoku kad ide napred
 - [x] srediti animacije modela (vidi stairway-girl)
 - [x] ubrzati animaciju po potrebi (u odnosu na brzinu, nazad sporije i sl.)
+- [x] isprobati nove 3d modele
+  - [x] organizovati modele tematski
+  - [x] izbaciti nightelf-priest
 
 ### Physics
 
+- [ ] dodati primere fizike iz 2D primera
+- [ ] sažvakati bus-derby
 - [x] odvojiti fizička pomagala
 - [ ] ujednačiti createTerrain i druga fizička pomagala sa standardnim
 - [x] videti nove primere
   - [x] lomi materijale https://threejs.org/examples/?q=physics#physics_ammo_break
-- [ ] domine: da manja obara veću
+- [-] domine: da manja obara veću
 - [ ] Razaranje zamka topom (možda može i model)
   - [ ] dodati proceduralni zamak (vidi zamak-fizika, gradjevina-physijs)
   - [ ] dodati top (ima model)
@@ -161,6 +161,7 @@ live-server
     http://127.0.0.1:8080/15-fizika/75-vozilo-razbija/
 
 ### AI
+
 - [x] probati ai https://github.com/erosmarcon/three-steer
 - [ ] odvojiti ai pomagala
 - [ ] postaviti ai scenu sa modelima
