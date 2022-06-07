@@ -4,8 +4,9 @@ import { createSphere } from '/utils/balls.js'
 import { player } from './player.js'
 
 const SPHERE_RADIUS = 0.2
+const NUM_SPHERES = 100
 
-/* BULLET */
+export const bullets = Array(NUM_SPHERES).fill().map(() => createBullet())
 
 export function createBullet() {
   const mesh = createSphere({ r: SPHERE_RADIUS, widthSegments: 10, color: 0xbbbb44 })

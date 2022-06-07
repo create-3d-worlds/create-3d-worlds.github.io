@@ -5,7 +5,7 @@ import { hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import FPSRenderer from '/classes/2d/FPSRenderer.js'
 import { player, handleInput, playerCollides } from './player.js'
-import { createBullet, addBulletVelocity, checkBulletsCollisions } from './bullets.js'
+import { bullets, addBulletVelocity, checkBulletsCollisions } from './bullets.js'
 
 camera.rotation.order = 'YXZ'
 renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -13,17 +13,12 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping
 hemLight({ intensity: 0.5, groundColor: 0x002244 })
 
 const GRAVITY = 30
-const NUM_SPHERES = 100
+
+bullets.forEach(bullet => scene.add(bullet.mesh))
 
 let bulletIdx = 0
 
 const fpsRenderer = new FPSRenderer()
-
-const bullets = Array(NUM_SPHERES).fill().map(() => {
-  const bullet = createBullet()
-  scene.add(bullet.mesh)
-  return bullet
-})
 
 const world = new Octree()
 
