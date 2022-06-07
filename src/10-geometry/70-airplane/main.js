@@ -1,8 +1,7 @@
 /* global dat */
 import * as THREE from '/node_modules/three127/build/three.module.js'
-import { scene, camera, renderer } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { DEGREE } from '/utils/constants.js'
-import { drawAxes } from './drawAxes.js'
 
 function createAirplane() {
   const airplane = new THREE.Object3D()
@@ -45,13 +44,14 @@ function createAirplane() {
 
 /* INIT */
 
-camera.position.set(-350, 250, 100)
+createOrbitControls()
+
+camera.position.set(0, 100, -150)
 camera.lookAt(scene.position)
 
 const light = new THREE.DirectionalLight(0xFFFFFF, 1.0)
 light.position.set(-10, 10, 0)
 scene.add(light)
-drawAxes(scene)
 
 const airplane = createAirplane()
 scene.add(airplane)

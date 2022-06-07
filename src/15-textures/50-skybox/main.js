@@ -2,10 +2,13 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 
+const light = new THREE.AmbientLight(0x444444)
+scene.add(light)
+
 const textureLoader = new THREE.TextureLoader()
 
 createOrbitControls()
-camera.position.set(0, 50, 100)
+camera.position.set(0, 15, 30)
 
 scene.add(createGround({ size: 100 }))
 
