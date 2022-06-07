@@ -2,9 +2,8 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import { Capsule } from '/node_modules/three127/examples/jsm/math/Capsule.js'
 import { camera } from '/utils/scene.js'
 import keyboard from '/classes/Keyboard.js'
-import { GRAVITY } from './bullets.js'
 
-/* PLAYER */
+export const GRAVITY = 30
 
 export const player = {
   collider: new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35),
