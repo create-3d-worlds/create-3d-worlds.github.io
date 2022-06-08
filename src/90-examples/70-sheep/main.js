@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene, camera, renderer, createOrbitControls, clock } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
-import { createCloud, updateCloud, createSheep, updateJump } from '/utils/shapes.js'
+import { createCloud, updateCloud, createSheep, updateSheep } from '/utils/shapes.js'
 import Sky from './Sky.js'
 
 createOrbitControls()
@@ -27,7 +27,7 @@ scene.add(sky.group)
 void function animate() {
   requestAnimationFrame(animate)
   const elapsedTime = clock.getElapsedTime()
-  updateJump(sheep)
+  updateSheep(sheep)
   updateCloud(cloud, elapsedTime)
   sky.moveSky()
   renderer.render(scene, camera)

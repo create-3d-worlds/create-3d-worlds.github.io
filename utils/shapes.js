@@ -119,7 +119,7 @@ export function createSheep() {
   return group
 }
 
-export function updateJump(group) {
+export function updateSheep(group) {
   if (!keyboard.pressed.Space && group.position.y <= 0.4) return
   const speed = 0.06
   count += speed
