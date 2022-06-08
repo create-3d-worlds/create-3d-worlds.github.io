@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
-
-const rad = degrees => degrees * (Math.PI / 180)
+import { DEGREE } from '/utils/constants.js'
+import { degToRad } from '/utils/helpers.js'
 
 export function createSheep() {
   const group = new THREE.Group()
@@ -30,7 +30,7 @@ export function createSheep() {
 
   const head = new THREE.Group()
   head.position.set(0, 0.65, 1.6)
-  head.rotation.x = rad(-20)
+  head.rotation.x = degToRad(-20)
   group.add(head)
 
   const foreheadGeometry = new THREE.BoxGeometry(0.7, 0.6, 0.7)
@@ -45,13 +45,13 @@ export function createSheep() {
   face.castShadow = true
   face.receiveShadow = true
   face.position.y = -0.65
-  face.rotation.y = rad(45)
+  face.rotation.y = degToRad(45)
   head.add(face)
 
   const woolGeometry = new THREE.BoxGeometry(0.84, 0.46, 0.9)
   const wool = new THREE.Mesh(woolGeometry, woolMaterial)
   wool.position.set(0, 0.12, 0.07)
-  wool.rotation.x = rad(20)
+  wool.rotation.x = degToRad(20)
   head.add(wool)
 
   const rightEyeGeometry = new THREE.CylinderGeometry(0.08, 0.1, 0.06, 6)
@@ -59,7 +59,7 @@ export function createSheep() {
   rightEye.castShadow = true
   rightEye.receiveShadow = true
   rightEye.position.set(0.35, -0.48, 0.33)
-  rightEye.rotation.set(rad(130.8), 0, rad(-45))
+  rightEye.rotation.set(degToRad(130.8), 0, degToRad(-45))
   head.add(rightEye)
 
   const leftEye = rightEye.clone()
@@ -73,7 +73,7 @@ export function createSheep() {
   rightEar.castShadow = true
   rightEar.receiveShadow = true
   rightEar.position.set(0.35, -0.12, -0.07)
-  rightEar.rotation.set(rad(20), 0, rad(50))
+  rightEar.rotation.set(degToRad(20), 0, degToRad(50))
   rightEar.name = 'rightEar'
   head.add(rightEar)
 
@@ -89,7 +89,7 @@ export function createSheep() {
   frontRightLeg.castShadow = true
   frontRightLeg.receiveShadow = true
   frontRightLeg.position.set(0.7, -0.8, 0.5)
-  frontRightLeg.rotation.x = rad(-12)
+  frontRightLeg.rotation.x = degToRad(-12)
   frontRightLeg.name = 'frontRightLeg'
   group.add(frontRightLeg)
 
@@ -112,4 +112,43 @@ export function createSheep() {
   group.add(backLeftLeg)
 
   return group
+}
+
+export function createAirplane() {
+  const airplane = new THREE.Object3D()
+  const material = new THREE.MeshPhongMaterial({ shininess: 100 })
+
+  const nose = new THREE.Mesh(new THREE.SphereGeometry(15, 32, 16), material)
+  nose.rotation.x = 90 * DEGREE
+  nose.scale.y = 3
+  nose.position.y = 0
+  nose.position.z = 70
+  airplane.add(nose)
+
+  const body = new THREE.Mesh(new THREE.CylinderGeometry(15, 15, 180, 32), material)
+  body.rotation.x = 90 * DEGREE
+  body.position.y = 0
+  body.position.z = -20
+  airplane.add(body)
+
+  const wing = new THREE.Mesh(new THREE.CylinderGeometry(20, 20, 250, 32), material)
+  wing.scale.x = 0.2
+  wing.rotation.z = 90 * DEGREE
+  wing.position.y = 5
+  airplane.add(wing)
+
+  const tailWing = new THREE.Mesh(new THREE.CylinderGeometry(15, 15, 100, 32), material)
+  tailWing.scale.x = 0.2
+  tailWing.rotation.z = 90 * DEGREE
+  tailWing.position.y = 5
+  tailWing.position.z = -90
+  airplane.add(tailWing)
+
+  const tail = new THREE.Mesh(new THREE.CylinderGeometry(10, 15, 40, 32), material)
+  tail.scale.x = 0.15
+  tail.rotation.x = -10 * DEGREE
+  tail.position.y = 20
+  tail.position.z = -96
+  airplane.add(tail)
+  return airplane
 }

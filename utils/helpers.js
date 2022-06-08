@@ -43,7 +43,7 @@ export function randomInSquare(size, emptyCenter = 0) {
   return randomBool() ? { x, z } : { x: z, z: x }
 }
 
-export const degToRad = deg => deg * Math.PI / 180
+export const degToRad = degrees => degrees * Math.PI / 180
 
 /* returns 2D normalized device coordinates of the mouse, between -1 and 1. */
 export function normalizeMouse(e) {
