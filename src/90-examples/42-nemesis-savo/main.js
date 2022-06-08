@@ -1,19 +1,19 @@
+import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import {
-  createEnemy, isWall, createBullet, isHit, randomXZ, moveBullet, remove, hitEnemy, moveEnemy
+  createEnemy, isWall, isHit, randomXZ, moveBullet, remove, hitEnemy, moveEnemy
 } from './utils.js'
 import { UNITSIZE, NUM_AI, INITIAL_HEALTH, mapWidth } from './constants.js'
-import { normalizeMouse } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
 import { createFloor } from '/utils/ground.js'
 import { nemesis } from '/data/maps.js'
 import { create3DMap } from '/utils/maps.js'
 import FPSRenderer from '/classes/2d/FPSRenderer.js'
 import Savo from '/classes/Savo.js'
+import { createBullet } from '/utils/geometry.js'
 
 const enemies = []
 const bullets = []
-let mouse = { x: 0, y: 0 }
 
 let runGame = false
 let kills = 0
@@ -40,10 +40,15 @@ scene.add(player.mesh)
 const removeEnemy = (el, i) => remove(enemies, el, i)
 const removeBullet = (el, i) => remove(bullets, el, i)
 
-const addBullet = (acter) => {
-  const mesh = createBullet(acter)
-  bullets.push(mesh)
-  scene.add(mesh)
+const addBullet = owner => {
+  const bullet = createBullet()
+  bullet.position.set(owner.position.x, owner.position.y + 1, owner.position.z)
+  const vector = new THREE.Vector3(0, 0, 1) // center of the screen
+  vector.unproject(camera)
+  bullet.ray = new THREE.Ray(owner.position, vector.sub(owner.position).normalize())
+  bullet.owner = owner
+  bullets.push(bullet)
+  scene.add(bullet)
 }
 
 function addEnemy() {
@@ -109,11 +114,7 @@ function gameLoop() {
 
 /* EVENTS */
 
-document.addEventListener('mousemove', e => {
-  mouse = normalizeMouse(e)
-})
-
 document.addEventListener('click', e => {
   if (!runGame) reset()
-  if (e.button === 0) addBullet(camera)
+  if (e.button === 0) addBullet(player.mesh)
 })

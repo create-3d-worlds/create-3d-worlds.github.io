@@ -78,6 +78,9 @@ export function createBall({ r = 1 } = {}) {
   return mesh
 }
 
+export const createBullet = ({ color = 0x333333, r = .1, widthSegments = 6 } = {}) =>
+  createSphere({ r, color, widthSegments, castShadow: true, receiveShadow: true })
+
 /* WORLD SPHERE */
 
 export function createWorldSphere({ r = 26, widthSegments = 40, heightSegments = 40, distort = .5 } = {}) {
