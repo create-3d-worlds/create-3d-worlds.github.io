@@ -1,8 +1,11 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { DEGREE, RIGHT_ANGLE } from '/utils/constants.js'
 import { degToRad } from '/utils/helpers.js'
+import keyboard from '/classes/Keyboard.js'
 
 /*  SHEEP */
+
+let count = 0
 
 export function createSheep() {
   const group = new THREE.Group()
@@ -114,6 +117,25 @@ export function createSheep() {
   group.add(backLeftLeg)
 
   return group
+}
+
+export function updateJump(group) {
+  if (!keyboard.pressed.Space && group.position.y <= 0.4) return
+  const speed = 0.06
+  count += speed
+  group.position.y = Math.sin(count) + 1.38
+
+  const legRotation = Math.sin(count) * Math.PI / 6 + 0.4
+
+  group.getObjectByName('frontRightLeg').rotation.z = legRotation
+  group.getObjectByName('backRightLeg').rotation.z = legRotation
+  group.getObjectByName('frontLeftLeg').rotation.z = -legRotation
+  group.getObjectByName('backLeftLeg').rotation.z = -legRotation
+
+  const earRotation = Math.sin(count) * Math.PI / 3 + 1.5
+
+  group.getObjectByName('rightEar').rotation.z = earRotation
+  group.getObjectByName('leftEar').rotation.z = -earRotation
 }
 
 /*  AIRPLANE */
