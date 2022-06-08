@@ -14,7 +14,7 @@ live-server
 ### General
 
 - [x] srediti createBox i sve zavisne strukture
-- [ ] reuse player controls: FPS, player/move controls, Player.js, nemesis...
+- [ ] reuse player controls: nemesis...
 - [ ] sažvakati world-simulation
   - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
@@ -53,7 +53,7 @@ live-server
 - [x] napraviti 3D kišu
   - [ ] kiša da prati igraca
 - [x] napraviti sneg
-  - [x] zastariti Snow, ukloniti iz Savo
+  - [x] zastariti Snow, ukloniti iz savo
 - [x] probati eksplozije
 - [x] odvojiti pomagala za čestice
 - [x] implementirati BufferGeometry
@@ -88,7 +88,7 @@ live-server
 
 ### 2D Renderer
 
-- [x] crtati prvo lice (Savo)
+- [x] crtati prvo lice
   - [x] crtati nisan u centru ekrana
   - [x] weapon shaking
   - [x] crtati 3d igraca na 2d maloj mapi
@@ -174,10 +174,10 @@ live-server
 
 ### Scenes & examples
 
-- [x] Savo (ww2 fps)
+- [x] Savo (fps)
   - [x] dodati kišu
   - [x] srediti boju kiše
-  - [ ] srediti skok: pada kada udari u zid, pada ravno naniže kad pusti space
+  - [x] srediti skok: pada kada udari u zid, pada ravno naniže kad pusti space
   - [ ] dodati NPC karaktere (vidi 80-primeri/80-nemesis)
     - https://www.script-tutorials.com/demos/474/index3.html
   - [ ] dodati neke modele vozila i kuca

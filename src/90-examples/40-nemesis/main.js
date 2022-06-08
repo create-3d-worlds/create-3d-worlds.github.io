@@ -1,14 +1,15 @@
-import { FirstPersonControls } from '/node_modules/three127/examples/jsm/controls/FirstPersonControls.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import {
   getMapCell, createHealth, createEnemy, isWall, createBullet, distance, isHit, randomXZ, moveBullet, remove, hitEnemy, moveEnemy
 } from './utils.js'
-import { UNITSIZE, LOOKSPEED, MOVESPEED, NUM_AI, INITIAL_HEALTH, HEALTH_REFILL_TIME, mapWidth } from './constants.js'
+import { UNITSIZE, NUM_AI, INITIAL_HEALTH, HEALTH_REFILL_TIME, mapWidth } from './constants.js'
 import { normalizeMouse } from '/utils/helpers.js'
 import { dirLight } from '/utils/light.js'
 import { createFloor } from '/utils/ground.js'
 import { nemesis } from '/data/maps.js'
 import { create3DMap } from '/utils/maps.js'
+import FPSRenderer from '/classes/2d/FPSRenderer.js'
+import Savo from '/classes/Savo.js'
 
 const enemies = []
 const bullets = []
@@ -21,6 +22,8 @@ let lastHealthPickup = 0
 
 /* INIT */
 
+const fpsRenderer = new FPSRenderer()
+
 dirLight({ color: 0xF7EFBE, intensity: 0.7, position: [0.5, 1, 0.5] })
 dirLight({ color: 0xF7EFBE, intensity: 0.5, position: [-0.5, -1, -0.5] })
 
@@ -28,15 +31,13 @@ const floor = createFloor({ size: mapWidth * UNITSIZE, file: 'ground.jpg' })
 const walls = create3DMap({ matrix: nemesis, size: UNITSIZE })
 scene.add(floor, walls)
 
-camera.position.y = UNITSIZE * .2
-
-const controls = new FirstPersonControls(camera, document)
-controls.movementSpeed = MOVESPEED
-controls.lookSpeed = LOOKSPEED
-controls.lookVertical = false
-
 const healthBox = createHealth()
 scene.add(healthBox)
+
+const player = new Savo({ size: 2.5 })
+player.add(camera)
+player.addSolids(walls)
+scene.add(player.mesh)
 
 /* FUNCTIONS */
 
@@ -131,10 +132,11 @@ function gameLoop() {
   if (!runGame) return
   requestAnimationFrame(gameLoop)
   const delta = clock.getDelta()
-  controls.update(delta) // Move camera
+  player.update(delta)
   updateHealthBox()
   updateBullets(delta)
   updateEnemies(delta)
+  fpsRenderer.render(delta)
   if (health <= 0)
     runGame = false
   renderer.render(scene, camera)
