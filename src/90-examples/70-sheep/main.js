@@ -21,7 +21,6 @@ cloud.position.y = -2
 scene.add(cloud)
 
 const sky = new Sky()
-sky.showNightSky(false)
 scene.add(sky.group)
 
 void function animate() {
