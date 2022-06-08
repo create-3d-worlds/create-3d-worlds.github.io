@@ -1,21 +1,20 @@
 import { camera, scene, renderer } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
-import { createBox, createBumpBox } from '/utils/geometry.js'
+import { createBox } from '/utils/geometry.js'
 
 const rotSpeed = 0.005
 
-camera.position.set(0, 10, 20)
-camera.lookAt(scene.position)
+camera.position.set(0, .3, 2)
 initLights()
 
 /* CUBE */
 
-const cube = createBox({ size: 15, file: 'bricks.jpg' })
-cube.position.set(-13, 0, -5)
+const cube = createBox({ file: 'bricks.jpg' })
+cube.position.set(-1, 0, 0)
 scene.add(cube)
 
-const bumpCube = createBumpBox({ size: 15 })
-bumpCube.position.set(13, 0, -5)
+const bumpCube = createBox({ file: 'bricks.jpg', bumpFile: 'gray-bricks.jpg' })
+bumpCube.position.set(1, 0, 0)
 scene.add(bumpCube)
 
 /* LOOP */
