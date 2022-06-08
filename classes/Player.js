@@ -14,9 +14,8 @@ const { LoopOnce, LoopRepeat, AnimationMixer } = THREE
  * (loadModel handles size and rotation)
  */
 export default class Player {
-  constructor({ x = 0, y = 0, z = 0, mesh = createBox({ size: 2 }), autoCamera = true, speed, animations, animNames = {} } = {}) {
+  constructor({ mesh = createBox({ size: 2 }), autoCamera = true, speed, animations, animNames = {} } = {}) {
     this.mesh = mesh
-    this.mesh.position.set(x, y, z)
     this.size = getHeight(mesh)
     this.speed = speed || this.size * 2
     this.solids = []
