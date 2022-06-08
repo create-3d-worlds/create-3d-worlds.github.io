@@ -184,3 +184,47 @@ export function createLocomotive() {
   group.add(nose, cabin, chimney, smallWheelRear, smallWheelCenter, smallWheelFront, bigWheel)
   return group
 }
+
+export function createCloud() {
+  const group = new THREE.Group()
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xacb3fb,
+    roughness: 1,
+    flatShading: true
+  })
+
+  const partGeometry = new THREE.IcosahedronGeometry(1, 0)
+  const upperPart = new THREE.Mesh(partGeometry, material)
+  upperPart.name = 'upperPart'
+  group.add(upperPart)
+
+  const leftPart = upperPart.clone()
+  leftPart.position.set(-1.2, -0.3, 0)
+  leftPart.scale.set(0.8, 0.8, 0.8)
+  leftPart.name = 'leftPart'
+  group.add(leftPart)
+
+  const rightPart = leftPart.clone()
+  rightPart.position.x = -leftPart.position.x
+  rightPart.name = 'rightPart'
+  group.add(rightPart)
+
+  const frontPart = leftPart.clone()
+  frontPart.position.set(0, -0.4, 0.9)
+  frontPart.scale.set(0.7, 0.7, 0.7)
+  frontPart.name = 'frontPart'
+  group.add(frontPart)
+
+  const backPart = frontPart.clone()
+  backPart.position.z = -frontPart.position.z
+  backPart.name = 'backPart'
+  group.add(backPart)
+
+  group.traverse(part => {
+    part.castShadow = true
+    part.receiveShadow = true
+  })
+  group.position.y = -2
+  group.scale.set(1.5, 1.5, 1.5)
+  return group
+}

@@ -45,7 +45,7 @@ live-server
 - [x] spojiti nature u geometry
 - [x] ovcu u primere
 - [x] box-bump u pomagala
-- [ ] oblake u pomagala
+- [x] oblake u pomagala
 - [x] organize geometry utils (barrels, boxes, balls...)
 - [x] organize shapes utils (createAirplane, sheep, train...)
 
@@ -185,6 +185,7 @@ live-server
   - [ ] dodati tenk kako prolazi
   - [ ] dodati munje https://threejs.org/examples/?q=light#webgl_lightningstrike
   - [ ] dodati pucanje
+  - [ ] integrisati fps i nemesis
 
 - [ ] Svemir 
   - [ ] dodati model ring space-arcology
