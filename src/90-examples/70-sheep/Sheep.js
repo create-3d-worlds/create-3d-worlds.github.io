@@ -8,7 +8,9 @@ export default class Sheep {
     this.group = createSheep()
   }
 
-  jump(speed) {
+  updateJump() {
+    if (!keyboard.pressed.Space && this.group.position.y <= 0.4) return
+    const speed = 0.06
     time += speed
     this.group.position.y = Math.sin(time) + 1.38
 
@@ -23,14 +25,5 @@ export default class Sheep {
 
     this.group.getObjectByName('rightEar').rotation.z = earRotation
     this.group.getObjectByName('leftEar').rotation.z = -earRotation
-  }
-
-  updateJump() {
-    if (keyboard.pressed.Space)
-      this.jump(0.05)
-    else {
-      if (this.group.position.y <= 0.4) return
-      this.jump(0.08)
-    }
   }
 }

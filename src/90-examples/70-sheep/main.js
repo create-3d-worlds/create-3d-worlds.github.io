@@ -27,8 +27,9 @@ scene.add(sky.group)
 
 void function animate() {
   requestAnimationFrame(animate)
+  const elapsedTime = clock.getElapsedTime()
   sheep.updateJump()
-  updateCloud(cloud, clock.getElapsedTime())
+  updateCloud(cloud, elapsedTime)
   sky.moveSky()
   renderer.render(scene, camera)
 }()

@@ -2,6 +2,8 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import { DEGREE, RIGHT_ANGLE } from '/utils/constants.js'
 import { degToRad } from '/utils/helpers.js'
 
+/*  SHEEP */
+
 export function createSheep() {
   const group = new THREE.Group()
   group.position.y = 0.4
@@ -114,6 +116,8 @@ export function createSheep() {
   return group
 }
 
+/*  AIRPLANE */
+
 export function createAirplane() {
   const airplane = new THREE.Object3D()
   const material = new THREE.MeshPhongMaterial({ shininess: 100 })
@@ -153,6 +157,8 @@ export function createAirplane() {
   return airplane
 }
 
+/*  LOCOMOTIVE */
+
 export function createLocomotive() {
   const group = new THREE.Group()
   // materials
@@ -184,6 +190,8 @@ export function createLocomotive() {
   group.add(nose, cabin, chimney, smallWheelRear, smallWheelCenter, smallWheelFront, bigWheel)
   return group
 }
+
+/*  CLOUD */
 
 export function createCloud() {
   const group = new THREE.Group()
@@ -228,8 +236,8 @@ export function createCloud() {
   return group
 }
 
-export function updateCloud(group, delta) {
-  const time = delta * 2
+export function updateCloud(group, elapsedTime) {
+  const time = elapsedTime * 2
   group.getObjectByName('upperPart').position.y = -Math.cos(time) * 0.12
   group.getObjectByName('leftPart').position.y = -Math.cos(time) * 0.1 - 0.3
   group.getObjectByName('rightPart').position.y = -Math.cos(time) * 0.1 - 0.3
