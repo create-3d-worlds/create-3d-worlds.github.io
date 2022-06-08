@@ -30,16 +30,6 @@ export const createCrate = ({ x, y, z, size, file = 'crate.gif' } = {}) => creat
 export const createBumpBox = ({ x, y, z, size, file = 'bricks.jpg', bumpFile = 'gray-bricks.jpg' } = {}) =>
   createBox({ x, y, z, size, file, bumpFile })
 
-export function createPlayerBox({ x = 0, y = 0, z = 0, size = 2, transparent = false } = {}) {
-  const box = createBox({ size })
-  box.material.opacity = transparent ? 0 : 1
-  box.material.transparent = transparent
-  const group = new THREE.Group()
-  group.add(box)
-  group.position.set(x, y, z)
-  return group
-}
-
 /* factories */
 
 export function createRandomBoxes({ n = 100, size = 5, mapSize = 50 } = {}) {

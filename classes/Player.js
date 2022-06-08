@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import keyboard from '/classes/Keyboard.js'
-import { createPlayerBox } from '/utils/geometry.js'
+import { createBox } from '/utils/geometry.js'
 import { addSolids, raycastGround } from '/classes/actions/index.js'
 import { getHeight, directionBlocked, cameraFollowObject } from '/utils/helpers.js'
 import { dir } from '/utils/constants.js'
@@ -14,7 +14,7 @@ const { LoopOnce, LoopRepeat, AnimationMixer } = THREE
  * (loadModel handles size and rotation)
  */
 export default class Player {
-  constructor({ x = 0, y = 0, z = 0, mesh = createPlayerBox({ size: 2 }), autoCamera = true, speed, animations, animNames = {} } = {}) {
+  constructor({ x = 0, y = 0, z = 0, mesh = createBox({ size: 2 }), autoCamera = true, speed, animations, animNames = {} } = {}) {
     this.mesh = mesh
     this.mesh.position.set(x, y, z)
     this.size = getHeight(mesh)

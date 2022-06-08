@@ -44,7 +44,7 @@ live-server
 - [x] dodati primere drveća u geometriju
 - [x] spojiti nature u geometry
 - [x] ovcu u primere
-- [ ] box-bump u pomagala
+- [x] box-bump u pomagala
 - [ ] oblake u pomagala
 - [x] organize geometry utils (barrels, boxes, balls...)
 - [x] organize shapes utils (createAirplane, sheep, train...)
@@ -178,6 +178,7 @@ live-server
 - [x] Savo (ww2 fps)
   - [x] dodati kišu
   - [x] srediti boju kiše
+  - [ ] srediti skok: pada kada udari u zid, pada ravno naniže kad pusti space
   - [ ] dodati NPC karaktere (vidi 80-primeri/80-nemesis)
     - https://www.script-tutorials.com/demos/474/index3.html
   - [ ] dodati neke modele vozila i kuca
