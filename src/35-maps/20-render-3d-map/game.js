@@ -5,8 +5,8 @@ import matrix from '/data/small-map.js'
 
 hemLight()
 
-camera.position.z = 15
-camera.position.y = 10
+camera.position.z = 10
+camera.position.y = 7
 
 const controls = createOrbitControls()
 scene.add(createGround({ file: 'ground.jpg' }))
