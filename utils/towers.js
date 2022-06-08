@@ -14,7 +14,8 @@ function createCircle({ r = 100, y = 0, size = 10 } = {}) {
   for (let i = 0; i <= CIRCLE; i += step) {
     const x = Math.cos(i) * r
     const z = Math.sin(i) * r
-    const block = createBox({ size, x, y, z, zModifier: 2 })
+    const block = createBox({ size, zModifier: 2 })
+    block.position.set(x, y, z)
     block.rotateY(-i)
     blocks.push(block)
   }
@@ -51,7 +52,8 @@ export function createSpiralStairs({ floors = 5, radius = 30, stairsInCirle = 30
   for (let i = 0; i <= CIRCLE * floors; i += step) {
     const x = Math.cos(i) * radius
     const z = Math.sin(i) * radius
-    const block = createBox({ x, y: i * floorHeight, z, zModifier, xModifier, size: blockSize })
+    const block = createBox({ zModifier, xModifier, size: blockSize })
+    block.position.set(x, i * floorHeight, z)
     block.rotateY(Math.PI / 2 - i)
     stairs.add(block)
   }

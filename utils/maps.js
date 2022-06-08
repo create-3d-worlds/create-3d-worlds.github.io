@@ -11,19 +11,21 @@ export function randomMatrix(size = 10, wallPercent = .3) {
   return matrix
 }
 
-export function create3DMap({ matrix = randomMatrix(), size = 1, yModifier, origin } = {}) {
-  const defaultOrigin = {
-    x: -matrix[0].length * size / 2,
-    z: -matrix.length * size / 2
-  }
-  origin = origin || defaultOrigin // eslint-disable-line no-param-reassign
+export function create3DMap({ matrix = randomMatrix(), size = 1, yModifier } = {}) {
+  // const defaultOrigin = {
+  //   x: -matrix[0].length * size / 2,
+  //   z: -matrix.length * size / 2
+  // }
+  // origin = origin || defaultOrigin // eslint-disable-line no-param-reassign
   const textures = ['concrete.jpg', 'crate.gif', 'brick.png']
   const group = new THREE.Group()
   matrix.forEach((row, rowIndex) => row.forEach((val, columnIndex) => {
     if (!val) return
-    const x = (columnIndex * size) + origin.x
-    const z = (rowIndex * size) + origin.z
-    group.add(createBox({ x, z, size, file: textures[val - 1], yModifier }))
+    const x = (columnIndex * size)
+    const z = (rowIndex * size)
+    const box = createBox({ x, z, size, file: textures[val - 1], yModifier })
+    box.position.set(x, 0, z)
+    group.add(box)
   }))
   return group
 }

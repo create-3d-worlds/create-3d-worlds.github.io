@@ -5,7 +5,7 @@ const loader = new THREE.TextureLoader()
 
 /* BOXES */
 
-export function createBox({ x = 0, y = 0, z = 0, size = 1, file, bumpFile, color = randomNuance({ h: 0.1, s: 0.01, l: .75 }), zModifier = 1, yModifier = 1, xModifier = 1 } = {}) {
+export function createBox({ size = 1, file, bumpFile, color = randomNuance({ h: 0.1, s: 0.01, l: .75 }), zModifier = 1, yModifier = 1, xModifier = 1 } = {}) {
   const xSize = size * xModifier
   const ySize = size * yModifier
   const zSize = size * zModifier
@@ -17,27 +17,26 @@ export function createBox({ x = 0, y = 0, z = 0, size = 1, file, bumpFile, color
   }
   const material = new THREE.MeshPhongMaterial(options)
   const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.set(x, y, z)
-  // set position.y on bottom
   mesh.translateY(ySize / 2)
-  // mesh.updateMatrix()
-  // mesh.geometry.applyMatrix4(mesh.matrix)
+  mesh.updateMatrix()
+  mesh.geometry.applyMatrix4(mesh.matrix)
   return mesh
 }
 
-export const createCrate = ({ x, y, z, size, file = 'crate.gif' } = {}) => createBox({ x, y, z, size, file })
+export const createCrate = ({ size, file = 'crate.gif' } = {}) => createBox({ size, file })
 
-export const createBumpBox = ({ x, y, z, size, file = 'bricks.jpg', bumpFile = 'gray-bricks.jpg' } = {}) =>
-  createBox({ x, y, z, size, file, bumpFile })
+export const createBumpBox = ({ size, file = 'bricks.jpg', bumpFile = 'gray-bricks.jpg' } = {}) =>
+  createBox({ size, file, bumpFile })
 
-/* factories */
+/* FACTORIES */
 
 export function createRandomBoxes({ n = 100, size = 5, mapSize = 50 } = {}) {
   const group = new THREE.Group()
   for (let i = 0; i < n; i++) {
     const color = randomNuance({ h: 0.1, s: 0.01, l: .75 })
     const x = randomInRange(-mapSize, mapSize), y = randomInRange(-5, mapSize * .5), z = randomInRange(-mapSize, mapSize)
-    const box = createBox({ x, y, z, size, color })
+    const box = createBox({ size, color })
+    box.position.set(x, y, z)
     group.add(box)
   }
   return group
@@ -68,7 +67,6 @@ export function createSphere({
   return mesh
 }
 
-// grudva
 export function createBall({ r = 1 } = {}) {
   const geometry = new THREE.DodecahedronGeometry(r, 1)
   const material = new THREE.MeshStandardMaterial({

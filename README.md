@@ -13,8 +13,7 @@ live-server
 
 ### General
 
-- [ ] srediti render-3d-map/ i savo (jebe ga createBox)
-- [ ] srediti kod svih predmeta i modela position.y (vidi createBox applyMatrix4) 
+- [x] srediti createBox i sve zavisne strukture
 - [ ] reuse player controls: FPS, player/move controls, Player.js, nemesis...
 - [ ] sažvakati world-simulation
   - [ ] reuse generateTerrain from world-simulation
