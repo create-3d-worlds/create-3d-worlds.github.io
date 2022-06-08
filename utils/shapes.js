@@ -224,7 +224,15 @@ export function createCloud() {
     part.castShadow = true
     part.receiveShadow = true
   })
-  group.position.y = -2
   group.scale.set(1.5, 1.5, 1.5)
   return group
+}
+
+export function updateCloud(group, delta) {
+  const time = delta * 2
+  group.getObjectByName('upperPart').position.y = -Math.cos(time) * 0.12
+  group.getObjectByName('leftPart').position.y = -Math.cos(time) * 0.1 - 0.3
+  group.getObjectByName('rightPart').position.y = -Math.cos(time) * 0.1 - 0.3
+  group.getObjectByName('frontPart').position.y = -Math.cos(time) * 0.08 - 0.3
+  group.getObjectByName('backPart').position.y = -Math.cos(time) * 0.08 - 0.3
 }

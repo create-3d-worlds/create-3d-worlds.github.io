@@ -1,17 +1,21 @@
 import * as THREE from 'three'
 import { camera, scene, renderer } from '/utils/scene.js'
-import { createSheep } from '/utils/shapes.js'
+import { createSheep, createCloud } from '/utils/shapes.js'
 
 camera.position.z = 10
 
 const light = new THREE.AmbientLight(0xffffff)
 scene.add(light)
 
-const mesh = createSheep()
-scene.add(mesh)
+const sheep = createSheep()
+scene.add(sheep)
+
+const cloud = createCloud()
+scene.add(cloud)
+
 
 void function update() {
-  mesh.rotation.y += 0.01
+  sheep.rotation.y += 0.01
   renderer.render(scene, camera)
   requestAnimationFrame(update)
 }()

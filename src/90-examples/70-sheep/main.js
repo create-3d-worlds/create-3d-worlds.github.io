@@ -1,9 +1,10 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls, clock } from '/utils/scene.js'
 import { dirLight } from '/utils/light.js'
 import Sheep from './Sheep.js'
-import Cloud from './Cloud.js'
+import { createCloud, updateCloud } from '/utils/shapes.js'
 import Sky from './Sky.js'
+
 createOrbitControls()
 camera.lookAt(scene.position)
 camera.position.set(0, 1.5, 8)
@@ -16,8 +17,9 @@ dirLight({ color: 0xffd798, intensity: 0.8 })
 const sheep = new Sheep()
 scene.add(sheep.group)
 
-const cloud = new Cloud()
-scene.add(cloud.group)
+const cloud = createCloud()
+cloud.position.y = -2
+scene.add(cloud)
 
 const sky = new Sky()
 sky.showNightSky(false)
@@ -26,7 +28,7 @@ scene.add(sky.group)
 void function animate() {
   requestAnimationFrame(animate)
   sheep.updateJump()
-  cloud.update()
+  updateCloud(cloud, clock.getElapsedTime())
   sky.moveSky()
   renderer.render(scene, camera)
 }()
