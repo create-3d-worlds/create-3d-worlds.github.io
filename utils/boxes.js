@@ -17,8 +17,8 @@ export function createBox({ x = 0, y = 0, z = 0, size = 1, file, color = randomN
   mesh.position.set(x, y, z)
   // set position.y on bottom
   mesh.translateY(ySize / 2)
-  mesh.updateMatrix()
-  mesh.geometry.applyMatrix4(mesh.matrix)
+  // mesh.updateMatrix()
+  // mesh.geometry.applyMatrix4(mesh.matrix)
   return mesh
 }
 

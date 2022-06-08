@@ -13,11 +13,11 @@ live-server
 
 ### General
 
-- [ ] srediti render-3d-map/ i savo
+- [ ] srediti render-3d-map/ i savo (jebe ga createBox)
+- [ ] srediti kod svih predmeta i modela position.y (vidi createBox applyMatrix4) 
 - [ ] reuse player controls: FPS, player/move controls, Player.js, nemesis...
 - [ ] sažvakati world-simulation
   - [ ] reuse generateTerrain from world-simulation
-- [ ] srediti kod svih predmeta i modela position.y (vidi createBox applyMatrix4) 
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
   - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
@@ -37,15 +37,14 @@ live-server
 
 ### Geometry
 
-- [ ] dodati grudvu
-- [ ] dodati ovcu
 - [x] create a box
 - [x] create a lot of boxes
 - [x] create other basic shapes
 - [x] add texture
 - [x] dodati primere drveća u geometriju
+- [x] spojiti nature u geometry
 - [ ] izdvojiti box-bump u boxes
-- [ ] spojiti nature u geometry?
+- [ ] dodati ovcu
 - [ ] organize geometry utils (barrels, boxes, createAirplane, sheep...)
 
 ### Particles
