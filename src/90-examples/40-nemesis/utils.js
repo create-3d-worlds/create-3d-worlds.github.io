@@ -44,6 +44,7 @@ export function createBullet(obj, target) {
   let vector
   if (target) { // player is shooting
     vector = new THREE.Vector3(target.x, target.y, 1)
+    console.log(vector)
     vector.unproject(obj)
   } else
     vector = camera.position.clone()

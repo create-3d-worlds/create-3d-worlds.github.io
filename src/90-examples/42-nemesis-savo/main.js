@@ -43,6 +43,7 @@ const removeBullet = (el, i) => remove(bullets, el, i)
 const addBullet = owner => {
   const bullet = createBullet()
   bullet.position.set(owner.position.x, owner.position.y + .5, owner.position.z)
+  // metak ne reaguje na y osu
   const vector = new THREE.Vector3(0, 0, 1) // center of the screen
   vector.unproject(camera)
   bullet.ray = new THREE.Ray(owner.position, vector.sub(owner.position).normalize())

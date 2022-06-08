@@ -14,7 +14,6 @@ live-server
 ### General
 
 - [x] srediti createBox i sve zavisne strukture
-- [ ] reuse player controls: nemesis...
 - [ ] sažvakati world-simulation
   - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
@@ -186,6 +185,15 @@ live-server
   - [ ] dodati pucanje
   - [ ] integrisati fps i nemesis
 
+- [ ] Nemesis
+  - [x] dodati igrača
+  - [ ] probati utils/player u nemesis
+  - [ ] srediti koliziju sa zidom 
+  - [ ] dodati ai modele
+
+- [ ] FPS
+  - [x] dodati nišan iz savo na fps primer
+
 - [ ] Svemir 
   - [ ] dodati model ring space-arcology
   - [ ] dodati zvezdani svod
@@ -247,14 +255,6 @@ live-server
 - [x] Solar system
   - [x] ubaciti planete sa teksturom
   - [x] napraviti sunce sa teksturom
-
-- [ ] Nemesis
-  - [ ] dodati igrača
-  - [ ] srediti koliziju sa zidom 
-  - [ ] dodati ai modele
-
-- [ ] FPS
-  - [x] dodati nišan iz savo na fps primer
 
 ### Ostalo
 

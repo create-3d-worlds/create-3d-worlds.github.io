@@ -7,16 +7,16 @@ export default class FPSRenderer extends Canvas {
   constructor(weaponSrc = '/assets/images/savo.png') {
     super()
     this.weaponSrc = weaponSrc
-    this.weapon = new Image()
-    this.target = new Image()
+    this.weaponImg = new Image()
+    this.targetImg = new Image()
   }
 
   drawWeapon(elapsedTime) {
-    this.handleLoad(this.weapon, this.weaponSrc, 'drawWeaponOnLoad', elapsedTime)
+    this.handleLoad(this.weaponImg, this.weaponSrc, 'drawWeaponOnLoad', elapsedTime)
   }
 
   drawTarget(elapsedTime) {
-    this.handleLoad(this.target, targetSrc, 'drawTargetOnLoad', elapsedTime)
+    this.handleLoad(this.targetImg, targetSrc, 'drawTargetOnLoad', elapsedTime)
   }
 
   handleLoad(img, src, drawMethod, elapsedTime) {
@@ -28,11 +28,11 @@ export default class FPSRenderer extends Canvas {
   }
 
   drawWeaponOnLoad(elapsedTime) {
-    this.drawShake(this.weapon, elapsedTime, 0.51)
+    this.drawShake(this.weaponImg, elapsedTime, 0.51)
   }
 
   drawTargetOnLoad(elapsedTime) {
-    this.drawShake(this.target, elapsedTime, 0.5, 0.55)
+    this.drawShake(this.targetImg, elapsedTime, 0.5, 0.6)
   }
 
   drawShake(img, elapsedTime = 1, xAlign = 0.5, yAlign = 1) {
