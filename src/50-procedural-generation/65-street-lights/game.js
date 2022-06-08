@@ -1,7 +1,7 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene, camera, renderer, createOrbitControls, hemLight } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
-import { createLampposts } from '/utils/streetlights.js'
+import { createLampposts } from '/utils/city.js'
 
 hemLight({ intensity: .4 })
 renderer.setClearColor(0x000000)

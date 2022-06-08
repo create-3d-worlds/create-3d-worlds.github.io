@@ -1,6 +1,6 @@
 import { scene, camera, renderer, createOrbitControls, hemLight } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
-import { createCityLights } from '/utils/streetlights.js'
+import { createCityLights } from '/utils/city.js'
 import { createCity } from '/utils/city.js'
 
 hemLight({ intensity: 1.25 })
