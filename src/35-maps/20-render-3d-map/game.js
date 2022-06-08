@@ -10,7 +10,9 @@ camera.position.y = 10
 
 const controls = createOrbitControls()
 scene.add(createGround({ file: 'ground.jpg' }))
-scene.add(create3DMap({ matrix, size: 2 }))
+
+const map = create3DMap({ matrix, size: 1 })
+scene.add(map)
 
 void function gameLoop() {
   requestAnimationFrame(gameLoop)
