@@ -11,43 +11,43 @@ export default class FPSRenderer extends Canvas {
     this.target = new Image()
   }
 
-  drawWeapon(time) {
-    this.handleLoad(this.weapon, this.weaponSrc, 'drawWeaponOnLoad', time)
+  drawWeapon(elapsedTime) {
+    this.handleLoad(this.weapon, this.weaponSrc, 'drawWeaponOnLoad', elapsedTime)
   }
 
-  drawTarget(time) {
-    this.handleLoad(this.target, targetSrc, 'drawTargetOnLoad', time)
+  drawTarget(elapsedTime) {
+    this.handleLoad(this.target, targetSrc, 'drawTargetOnLoad', elapsedTime)
   }
 
-  handleLoad(img, src, drawMethod, time) {
-    if (img.complete && img.naturalWidth) this[drawMethod](time)
+  handleLoad(img, src, drawMethod, elapsedTime) {
+    if (img.complete && img.naturalWidth) this[drawMethod](elapsedTime)
     else {
-      img.onload = () => this[drawMethod](time)
+      img.onload = () => this[drawMethod](elapsedTime)
       img.src = src
     }
   }
 
-  drawWeaponOnLoad(time) {
-    this.drawShake(this.weapon, time, 0.51)
+  drawWeaponOnLoad(elapsedTime) {
+    this.drawShake(this.weapon, elapsedTime, 0.51)
   }
 
-  drawTargetOnLoad(time) {
-    this.drawShake(this.target, time, 0.5, 0.55)
+  drawTargetOnLoad(elapsedTime) {
+    this.drawShake(this.target, elapsedTime, 0.5, 0.55)
   }
 
-  drawShake(img, time = 1, xAlign = 0.5, yAlign = 1) {
+  drawShake(img, elapsedTime = 1, xAlign = 0.5, yAlign = 1) {
     const shaking = keyboard.controlsPressed ? 6 : 1
-    const shakeX = Math.cos(time * 2) * shaking
-    const shakeY = Math.sin(time * 4) * shaking
+    const shakeX = Math.cos(elapsedTime * 2) * shaking
+    const shakeY = Math.sin(elapsedTime * 4) * shaking
     const x = window.innerWidth * xAlign - img.width * 0.5 + shakeX
     const y = window.innerHeight * yAlign - img.height + shakeY + 10 // zbog praznine na dnu
     this.ctx.drawImage(img, x, y)
   }
 
-  render(time) {
+  render(elapsedTime) {
     this.clear()
-    this.drawWeapon(time)
-    this.drawTarget(time)
+    this.drawWeapon(elapsedTime)
+    this.drawTarget(elapsedTime)
   }
 }
 

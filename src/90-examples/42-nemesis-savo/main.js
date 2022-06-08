@@ -42,7 +42,7 @@ const removeBullet = (el, i) => remove(bullets, el, i)
 
 const addBullet = owner => {
   const bullet = createBullet()
-  bullet.position.set(owner.position.x, owner.position.y + 1, owner.position.z)
+  bullet.position.set(owner.position.x, owner.position.y + .5, owner.position.z)
   const vector = new THREE.Vector3(0, 0, 1) // center of the screen
   vector.unproject(camera)
   bullet.ray = new THREE.Ray(owner.position, vector.sub(owner.position).normalize())
@@ -106,7 +106,7 @@ function gameLoop() {
   player.update(delta)
   updateBullets(delta)
   updateEnemies(delta)
-  fpsRenderer.render(delta)
+  fpsRenderer.render(clock.getElapsedTime())
   if (health <= 0)
     runGame = false
   renderer.render(scene, camera)
