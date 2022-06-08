@@ -47,7 +47,7 @@ live-server
 - [ ] box-bump u pomagala
 - [ ] oblake u pomagala
 - [x] organize geometry utils (barrels, boxes, balls...)
-- [ ] organize shapes utils (createAirplane, sheep, train...)
+- [x] organize shapes utils (createAirplane, sheep, train...)
 
 ### Particles
 
