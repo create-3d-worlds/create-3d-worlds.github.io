@@ -4,11 +4,12 @@ import keyboard from '../Keyboard.js'
 const targetSrc = '/assets/images/crosshair.png'
 
 export default class FPSRenderer extends Canvas {
-  constructor(weaponSrc = '/assets/images/savo.png') {
+  constructor({ weaponSrc = '/assets/images/savo.png', targetY = 0.55 } = {}) {
     super()
     this.weaponSrc = weaponSrc
     this.weaponImg = new Image()
     this.targetImg = new Image()
+    this.targetY = targetY
   }
 
   drawWeapon(elapsedTime) {
@@ -32,7 +33,7 @@ export default class FPSRenderer extends Canvas {
   }
 
   drawTargetOnLoad(elapsedTime) {
-    this.drawShake(this.targetImg, elapsedTime, 0.5, 0.6)
+    this.drawShake(this.targetImg, elapsedTime, 0.5, this.targetY)
   }
 
   drawShake(img, elapsedTime = 1, xAlign = 0.5, yAlign = 1) {

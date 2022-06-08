@@ -9,8 +9,8 @@ import { createFloor } from '/utils/ground.js'
 import { nemesis } from '/data/maps.js'
 import { create3DMap } from '/utils/maps.js'
 import FPSRenderer from '/classes/2d/FPSRenderer.js'
-import Savo from '/classes/Savo.js'
-import { createBullet } from '/utils/geometry.js'
+import { handleInput } from '/utils/player.js'
+import { createBullet, createCrate } from '/utils/geometry.js'
 
 const enemies = []
 const bullets = []
@@ -19,9 +19,9 @@ let runGame = false
 let kills = 0
 let health = INITIAL_HEALTH
 
-/* INIT */
-
-const fpsRenderer = new FPSRenderer()
+const fpsRenderer = new FPSRenderer({ targetY: 0.5 })
+const player = createCrate({ size: 1 })
+scene.add(player)
 
 dirLight({ color: 0xF7EFBE, intensity: 0.7, position: [0.5, 1, 0.5] })
 dirLight({ color: 0xF7EFBE, intensity: 0.5, position: [-0.5, -1, -0.5] })
@@ -30,20 +30,19 @@ const floor = createFloor({ size: mapWidth * UNITSIZE, file: 'ground.jpg' })
 const walls = create3DMap({ matrix: nemesis, size: UNITSIZE })
 scene.add(floor, walls)
 
-const player = new Savo({ size: 2.5 })
+camera.position.set(0, 1.5, 0)
 player.add(camera)
-player.addSolids(walls) // umesto raycasta upit polja
-scene.add(player.mesh)
+scene.add(player)
 
 /* FUNCTIONS */
 
 const removeEnemy = (el, i) => remove(enemies, el, i)
+
 const removeBullet = (el, i) => remove(bullets, el, i)
 
 const addBullet = owner => {
   const bullet = createBullet()
   bullet.position.set(owner.position.x, owner.position.y + .5, owner.position.z)
-  // metak ne reaguje na y osu
   const vector = new THREE.Vector3(0, 0, 1) // center of the screen
   vector.unproject(camera)
   bullet.ray = new THREE.Ray(owner.position, vector.sub(owner.position).normalize())
@@ -104,7 +103,7 @@ function gameLoop() {
   if (!runGame) return
   requestAnimationFrame(gameLoop)
   const delta = clock.getDelta()
-  player.update(delta)
+  handleInput(player, delta)
   updateBullets(delta)
   updateEnemies(delta)
   fpsRenderer.render(clock.getElapsedTime())
@@ -117,5 +116,5 @@ function gameLoop() {
 
 document.addEventListener('click', e => {
   if (!runGame) reset()
-  if (e.button === 0) addBullet(player.mesh)
+  if (e.button === 0) addBullet(player)
 })

@@ -22,7 +22,7 @@ export function createEnemy({ x, z, size = UNITSIZE * .2 }) {
   const geometry = new THREE.BoxGeometry(size, size, size)
   const material = new THREE.MeshBasicMaterial({ map: textureLoader.load('images/face.png') })
   const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.set(x, UNITSIZE * 0.15, z)
+  mesh.position.set(x, UNITSIZE * .1, z)
   mesh.health = 100
   mesh.pathPos = 1
   mesh.lastRandomX = Math.random()

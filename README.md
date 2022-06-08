@@ -187,8 +187,8 @@ live-server
 
 - [ ] Nemesis
   - [x] dodati igrača
-  - [ ] probati utils/player u nemesis
-  - [ ] srediti koliziju sa zidom 
+  - [x] probati utils/player u nemesis
+  - [ ] srediti koliziju
   - [ ] dodati ai modele
 
 - [ ] FPS
