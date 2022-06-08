@@ -43,7 +43,7 @@ live-server
 - [x] add texture
 - [x] dodati primere drveća u geometriju
 - [x] spojiti nature u geometry
-- [ ] ovcu u primere
+- [x] ovcu u primere
 - [ ] box-bump u pomagala
 - [ ] oblake u pomagala
 - [x] organize geometry utils (barrels, boxes, balls...)

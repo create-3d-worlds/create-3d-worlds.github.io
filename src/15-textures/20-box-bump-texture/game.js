@@ -1,10 +1,8 @@
-import * as THREE from '/node_modules/three127/build/three.module.js'
 import { camera, scene, renderer } from '/utils/scene.js'
 import { initLights } from '/utils/light.js'
+import { createBox } from '/utils/geometry.js'
 
 const rotSpeed = 0.005
-const bumpScale = 1
-const loader = new THREE.TextureLoader()
 
 camera.position.set(0, 10, 20)
 camera.lookAt(scene.position)
@@ -12,18 +10,11 @@ initLights()
 
 /* CUBE */
 
-const geometry = new THREE.BoxGeometry(15, 15, 15)
-
-const material = new THREE.MeshPhongMaterial()
-material.map = loader.load('/assets/textures/bricks.jpg')
-const cube = new THREE.Mesh(geometry, material)
+const cube = createBox({ size: 15, file: 'bricks.jpg' })
 cube.position.set(-13, 0, -5)
 scene.add(cube)
 
-const bumpMaterial = material.clone()
-bumpMaterial.bumpMap = loader.load('/assets/textures/gray-bricks.jpg')
-const bumpCube = new THREE.Mesh(geometry, bumpMaterial)
-bumpCube.material.bumpScale = bumpScale
+const bumpCube = createBox({ size: 15, file: 'bricks.jpg', bumpFile: 'gray-bricks.jpg' })
 bumpCube.position.set(13, 0, -5)
 scene.add(bumpCube)
 
