@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { camera } from '/utils/scene.js'
-import { createSphere } from '/utils/balls.js'
+import { createSphere } from '/utils/geometry.js'
 import { player, GRAVITY } from './player.js'
 
 const SPHERE_RADIUS = 0.2

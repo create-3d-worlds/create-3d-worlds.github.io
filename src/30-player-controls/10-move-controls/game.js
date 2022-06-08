@@ -1,7 +1,7 @@
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { handleInput } from '/utils/player.js'
 import { createFloor } from '/utils/ground.js'
-import { createCrate } from '/utils/boxes.js'
+import { createCrate } from '/utils/geometry.js'
 import { initLights } from '/utils/light.js'
 
 initLights()

@@ -2,8 +2,8 @@
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
 import { randomInRange, getMouseIntersects } from '/utils/helpers.js'
-import { createBall } from '/utils/balls.js'
-import { createCrate } from '/utils/boxes.js'
+import { createBall } from '/utils/geometry.js'
+import { createCrate } from '/utils/geometry.js'
 import { ambLight } from '/utils/light.js'
 
 ambLight()

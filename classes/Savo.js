@@ -1,5 +1,5 @@
 import Player from '/classes/Player.js'
-import { createPlayerBox } from '/utils/boxes.js'
+import { createPlayerBox } from '/utils/geometry.js'
 import { camera } from '/utils/scene.js'
 
 export default class Savo extends Player {

@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
-import { createBox } from '/utils/boxes.js'
+import { createBox } from '/utils/geometry.js'
 
 export function randomMatrix(size = 10, wallPercent = .3) {
   const matrix = []

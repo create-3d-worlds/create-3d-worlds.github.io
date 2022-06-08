@@ -1,8 +1,8 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
-import { createBarrel } from '/utils/barrels.js'
-import { createCrate } from '/utils/boxes.js'
+import { createBarrel } from '/utils/geometry.js'
+import { createCrate } from '/utils/geometry.js'
 import { createMoon } from '/utils/planets.js'
 
 createOrbitControls()

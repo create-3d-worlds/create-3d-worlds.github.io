@@ -1,0 +1,111 @@
+import * as THREE from '/node_modules/three127/build/three.module.js'
+import { randomInRange, randomNuance } from './helpers.js'
+
+const loader = new THREE.TextureLoader()
+
+/* BOXES */
+
+export function createBox({ x = 0, y = 0, z = 0, size = 1, file, color = randomNuance({ h: 0.1, s: 0.01, l: .75 }), zModifier = 1, yModifier = 1, xModifier = 1 } = {}) {
+  const xSize = size * xModifier
+  const ySize = size * yModifier
+  const zSize = size * zModifier
+  const geometry = new THREE.BoxBufferGeometry(xSize, ySize, zSize)
+  const options = {
+    map: file ? loader.load(`/assets/textures/${file}`) : null,
+    color: !file ? color : null,
+  }
+  const material = new THREE.MeshPhongMaterial(options)
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.set(x, y, z)
+  // set position.y on bottom
+  mesh.translateY(ySize / 2)
+  // mesh.updateMatrix()
+  // mesh.geometry.applyMatrix4(mesh.matrix)
+  return mesh
+}
+
+export const createCrate = ({ x, y, z, size, file = 'crate.gif' } = {}) => createBox({ x, y, z, size, file })
+
+export function createPlayerBox({ x = 0, y = 0, z = 0, size = 2, transparent = false } = {}) {
+  const box = createBox({ size })
+  box.material.opacity = transparent ? 0 : 1
+  box.material.transparent = transparent
+  const group = new THREE.Group()
+  group.add(box)
+  group.position.set(x, y, z)
+  return group
+}
+
+/* factories */
+
+export function createRandomBoxes({ n = 100, size = 5, mapSize = 50 } = {}) {
+  const group = new THREE.Group()
+  for (let i = 0; i < n; i++) {
+    const color = randomNuance({ h: 0.1, s: 0.01, l: .75 })
+    const x = randomInRange(-mapSize, mapSize), y = randomInRange(-5, mapSize * .5), z = randomInRange(-mapSize, mapSize)
+    const box = createBox({ x, y, z, size, color })
+    group.add(box)
+  }
+  return group
+}
+
+/* SPHERES */
+
+export function createSphere({
+  r = 1, widthSegments = 32, heightSegments = widthSegments, color = 0xff0000,
+  castShadow = true, receiveShadow = true } = {}
+) {
+  const geometry = new THREE.SphereGeometry(r, widthSegments, heightSegments)
+  const material = new THREE.MeshStandardMaterial({
+    color,
+  })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.receiveShadow = receiveShadow
+  mesh.castShadow = castShadow
+  return mesh
+}
+
+// grudva
+export function createBall({ r = 1 } = {}) {
+  const geometry = new THREE.DodecahedronGeometry(r, 1)
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xe5f2f2,
+    flatShading: true
+  })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.receiveShadow = mesh.castShadow = true
+  return mesh
+}
+
+/* WORLD SPHERE */
+
+export function createWorldSphere({ r = 26, widthSegments = 40, heightSegments = 40, distort = .5 } = {}) {
+  const geometry = new THREE.SphereBufferGeometry(r, widthSegments, heightSegments)
+
+  const { position } = geometry.attributes
+  const vertex = new THREE.Vector3()
+  for (let i = 0, l = position.count; i < l; i ++) {
+    vertex.fromBufferAttribute(position, i)
+    vertex.x += randomInRange(-distort, distort)
+    vertex.z += randomInRange(-distort, distort)
+    position.setXYZ(i, vertex.x, vertex.y, vertex.z)
+  }
+
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xfffafa,
+    flatShading: true
+  })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.receiveShadow = mesh.castShadow = false
+  mesh.rotation.z = -Math.PI / 2
+  return mesh
+}
+
+/* BARRELS */
+
+export function createBarrel({ r = 40, height = 90, segments = 32 } = {}) {
+  const geometry = new THREE.CylinderGeometry(r, r, height, segments)
+  const material = new THREE.MeshBasicMaterial({ map: loader.load('/assets/textures/rust.jpg') })
+  const cylinder = new THREE.Mesh(geometry, material)
+  return cylinder
+}
