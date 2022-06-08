@@ -1,5 +1,5 @@
 import keyboard from '/classes/Keyboard.js'
-import { createSheep } from './createSheep.js'
+import { createSheep } from '/utils/shapes.js'
 
 let time = 0
 

@@ -43,9 +43,11 @@ live-server
 - [x] add texture
 - [x] dodati primere drveća u geometriju
 - [x] spojiti nature u geometry
-- [ ] izdvojiti box-bump u boxes
-- [ ] dodati ovcu
-- [ ] organize geometry utils (barrels, boxes, createAirplane, sheep...)
+- [ ] ovcu u primere
+- [ ] box-bump u pomagala
+- [ ] oblake u pomagala
+- [x] organize geometry utils (barrels, boxes, balls...)
+- [ ] organize shapes utils (createAirplane, sheep, train...)
 
 ### Particles
 
