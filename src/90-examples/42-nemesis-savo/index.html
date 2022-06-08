@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Nemesis</title>
+  <style>
+    body {
+      cursor: crosshair;
+      font-family: Courier New;
+      font-weight: bold;
+      margin: 0;
+      overflow: hidden;
+      padding: 0;
+      user-select: none;
+      background-color: #000;
+    }
+
+    #hud {
+      bottom: 10px;
+      position: absolute;
+      right: 10px;
+      z-index: 100;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="hud">
+    <p>Health: <span id="health">100</span><br />Score: <span id="score">0</span></p>
+  </div>
+
+  <!-- <p>Created by <a href="http://www.isaacsukin.com/">Isaac Sukin</a> using <a href="http://mrdoob.github.com/three.js/">Three.js</a></p> -->
+
+  <script src="main.js" type="module"></script>
+</body>
+
+</html>
