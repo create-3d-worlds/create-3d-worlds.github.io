@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
-import { createGradientSky } from '/utils/sky.js'
+import { createSkySphere } from '/utils/geometry.js'
 import { createTerrain } from '/utils/ground.js'
 import { createFirTrees } from '/utils/trees.js'
 import { cameraFollowObject } from '/utils/helpers.js'
@@ -13,7 +13,7 @@ const terrain = createTerrain({ size: 8000, segments: 200 })
 const trees = createFirTrees({ n: 500, mapSize: 4000, size: 25 })
 
 scene.fog = new THREE.Fog(0xE5C5AB, 1, 5000)
-scene.add(createGradientSky(), createSunLight(), terrain, trees)
+scene.add(createSkySphere(), createSunLight(), terrain, trees)
 
 const controls = createOrbitControls()
 

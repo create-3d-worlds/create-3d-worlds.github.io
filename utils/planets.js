@@ -6,8 +6,7 @@ textureLoader.setPath('/assets/textures/planets/')
 /* EARTH */
 
 export function createEarth({ r = 15, segments = 64 } = {}) {
-  // 4096 is the maximum width for maps
-  const map = textureLoader.load('earthmap4k.jpg')
+  const map = textureLoader.load('earthmap4k.jpg') // max width is 4096
   const bumpMap = textureLoader.load('earthbump4k.jpg')
   const specularMap = textureLoader.load('earthspec4k.jpg')
   const material = new THREE.MeshPhongMaterial({ map, specularMap, bumpMap })

@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { OrbitControls } from '/node_modules/three127/examples/jsm/controls/OrbitControls.js'
-import { createGradientSky } from './sky.js'
+import { createSkySphere } from './geometry.js'
 import { createGround } from './ground.js'
 import { initLights, hemLight, createSunLight } from './light.js'
 
@@ -9,7 +9,7 @@ export const scene = new THREE.Scene()
 
 export function createWorldScene(groundParam, skyParam, lightParam, fogParam = {}) {
   scene.add(createGround(groundParam))
-  scene.add(createGradientSky(skyParam))
+  scene.add(createSkySphere(skyParam))
   const light = createSunLight(lightParam)
   // const helper = new THREE.CameraHelper(light.shadow.camera)
   // scene.add(helper)

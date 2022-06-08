@@ -2,14 +2,14 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import { camera, scene, renderer, createOrbitControls, addUIControls } from '/utils/scene.js'
 import { cameraFollowObject } from '/utils/helpers.js'
 import { createHillyTerrain } from '/utils/ground/createHillyTerrain.js'
-import { createGradientSky } from '/utils/sky.js'
+import { createSkySphere } from '/utils/geometry.js'
 import { createSunLight } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import keyboard from '/classes/Keyboard.js'
 import Zeppelin from '/classes/aircrafts/Zeppelin.js'
 import { loadZeppelin } from '/utils/loaders.js'
 
-scene.add(createGradientSky({ r: 5000 }))
+scene.add(createSkySphere({ r: 5000 }))
 const light = createSunLight({ x: 500, y: 2000, z: 100, far: 5000 })
 scene.add(light)
 scene.remove(scene.getObjectByName('hemisphereLight')) // BUG: sa svetlom puca terrain
