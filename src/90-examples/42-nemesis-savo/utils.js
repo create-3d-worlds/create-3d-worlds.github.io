@@ -36,17 +36,13 @@ export function isWall(v) {
   return nemesis[c.z][c.x] > 0
 }
 
-export function createBullet(obj, target) {
+export function createBullet(obj) {
   const material = new THREE.MeshBasicMaterial({ color: 0x333333 })
   const geometry = new THREE.SphereGeometry(UNITSIZE * .01, 6, 6)
   const mesh = new THREE.Mesh(geometry, material)
   mesh.position.set(obj.position.x, obj.position.y * 0.8, obj.position.z)
-  let vector
-  if (target) { // player is shooting
-    vector = new THREE.Vector3(target.x, target.y, 1)
-    vector.unproject(obj)
-  } else
-    vector = camera.position.clone()
+  const vector = new THREE.Vector3(0, 0, 1) // screen center
+  vector.unproject(camera)
 
   mesh.ray = new THREE.Ray(obj.position, vector.sub(obj.position).normalize())
   mesh.owner = obj

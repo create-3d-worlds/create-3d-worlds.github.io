@@ -1,6 +1,6 @@
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import {
-  getMapCell, createEnemy, isWall, createBullet, distance, isHit, randomXZ, moveBullet, remove, hitEnemy, moveEnemy
+  createEnemy, isWall, createBullet, isHit, randomXZ, moveBullet, remove, hitEnemy, moveEnemy
 } from './utils.js'
 import { UNITSIZE, NUM_AI, INITIAL_HEALTH, mapWidth } from './constants.js'
 import { normalizeMouse } from '/utils/helpers.js'
@@ -32,17 +32,16 @@ scene.add(floor, walls)
 
 const player = new Savo({ size: 2.5 })
 player.add(camera)
-player.addSolids(walls)
+player.addSolids(walls) // umesto raycasta upit polja
 scene.add(player.mesh)
 
 /* FUNCTIONS */
 
 const removeEnemy = (el, i) => remove(enemies, el, i)
-
 const removeBullet = (el, i) => remove(bullets, el, i)
 
-const addBullet = (acter, target) => {
-  const mesh = createBullet(acter, target)
+const addBullet = (acter) => {
+  const mesh = createBullet(acter)
   bullets.push(mesh)
   scene.add(mesh)
 }
@@ -63,17 +62,9 @@ function bulletHitEnemy(bullet, i) {
   return false
 }
 
-function checkBulletHitPlayer(bullet, i) {
-  if (distance(bullet.position, camera.position) > 25 || bullet.owner == camera) return
-  health = (health - 10 < 0) ? 0 : health - 10
-  document.querySelector('#health').innerHTML = health
-  removeBullet(bullet, i)
-}
-
 function updateBullets(delta) {
   bullets.forEach((bullet, i) => {
     if (isWall(bullet.position)) return removeBullet(bullet, i)
-    checkBulletHitPlayer(bullet, i)
     if (!bulletHitEnemy(bullet, i)) moveBullet(bullet, delta)
   })
 }
@@ -84,19 +75,10 @@ const killEnemy = (enemy, i) => {
   document.querySelector('#score').innerHTML = kills * 100
 }
 
-const checkEnemyFire = enemy => {
-  const enemyCell = getMapCell(enemy.position)
-  const playerCell = getMapCell(camera.position)
-  if (Date.now() - enemy.lastShot < 750 || distance(enemyCell, playerCell) > 1) return
-  addBullet(enemy)
-  enemy.lastShot = Date.now()
-}
-
 function updateEnemies(delta) {
   enemies.forEach((enemy, i) => {
     if (enemy.health <= 0) killEnemy(enemy, i)
     moveEnemy(enemy, delta)
-    checkEnemyFire(enemy)
   })
 }
 
@@ -133,5 +115,5 @@ document.addEventListener('mousemove', e => {
 
 document.addEventListener('click', e => {
   if (!runGame) reset()
-  if (e.button === 0) addBullet(camera, mouse)
+  if (e.button === 0) addBullet(camera)
 })
