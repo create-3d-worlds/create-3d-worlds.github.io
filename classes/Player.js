@@ -51,18 +51,17 @@ export default class Player {
 
     this.normalizeGround(this.jumpStep)
 
-    if (this.inAir(this.jumpStep) && !pressed.Space) {
-      if (keyboard.left) this.turn(1)
-      if (keyboard.right) this.turn()
-      return this.fall()
-    }
+    if (this.inAir(this.jumpStep) && !pressed.Space)
+      this.fall()
 
     if (!keyboard.keyPressed || this.loopOncePressed)
       return this.idle()
 
     if (pressed.Space) {
-      if (keyboard.up && this.directionBlocked(dir.upForward))
+      if (keyboard.up && this.directionBlocked(dir.upForward)) {
+        if (!this.directionBlocked(dir.up)) return this.jump()
         return this.fall()
+      }
 
       if (keyboard.down && this.directionBlocked(dir.upBackward))
         return this.fall()
