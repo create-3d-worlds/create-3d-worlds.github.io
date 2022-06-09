@@ -165,8 +165,8 @@ export function randomGrayish({ min = .3, max = .7, colorful = .02 } = {}) {
 }
 
 // @param color hex, return THREE.Color()
-export function similarColor(color) {
-  const factor = randomInRange(-0.25, 0.25)
+export function similarColor(color, range = .25) {
+  const factor = randomInRange(-range, range)
   const hsl = {}
   const { h, s, l } = new THREE.Color(color).getHSL(hsl)
   const newCol = new THREE.Color().setHSL(h + h * factor, s, l + l * factor / 4)

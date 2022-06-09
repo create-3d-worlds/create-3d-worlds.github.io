@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
-import { randomInRange, randomNuance, getTexture } from '/utils/helpers.js'
+import { randomInRange, randomNuance, getTexture, similarColor } from '/utils/helpers.js'
 
 /* GROUND */
 
@@ -38,7 +38,7 @@ export function createTerrain({ size = 400, segments = 50, colorParam, factor = 
   const { position } = geometry.attributes
   const vertex = new THREE.Vector3()
 
-  for (let i = 0, l = position.count; i < l; i ++) {
+  for (let i = 0, l = position.count; i < l; i++) {
     vertex.fromBufferAttribute(position, i)
     vertex.y += randomInRange(-factor * 5, factor * 7.5) * Math.random() * Math.random()
     vertex.z += randomInRange(-factor, factor)
@@ -46,7 +46,7 @@ export function createTerrain({ size = 400, segments = 50, colorParam, factor = 
   }
 
   const colors = []
-  for (let i = 0, l = position.count; i < l; i ++) {
+  for (let i = 0, l = position.count; i < l; i++) {
     const color = randomNuance(colorParam)
     colors.push(color.r, color.g, color.b)
   }
@@ -60,21 +60,30 @@ export function createTerrain({ size = 400, segments = 50, colorParam, factor = 
 
 /* WATER */
 
-export function createWater({ size = 1000, opacity = 0.75, file } = {}) {
-  const geometry = new THREE.PlaneGeometry(size, size, 1, 1)
-  geometry.rotateX(-Math.PI / 2)
+export const createWater = ({ size = 1200, segments = 20, opacity = .6, file= 'water512.jpg' } = {}) => {
   const material = new THREE.MeshLambertMaterial({
+    color: 0x6699ff,
+    opacity,
     transparent: true,
-    opacity
+    vertexColors: THREE.FaceColors,
+    map: file ? getTexture({ file, repeat: 5 }) : null
   })
-  if (file)
-    material.map = getTexture({ file, repeat: 5 })
-  else
-    material.color.setHex(0x6699ff)
+  const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
+  geometry.dynamic = true
+  geometry.verticesNeedUpdate = true
 
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.receiveShadow = true
-  return mesh
+  const colors = []
+  for (let i = 0, l = geometry.attributes.position.count; i < l; i++) {
+    const nuance = similarColor(0x40E0D0, .15)
+    colors.push(nuance.r, nuance.g, nuance.b)
+  }
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
+
+  const water = new THREE.Mesh(geometry, material)
+  water.receiveShadow = true
+  water.name = 'water'
+  water.rotateX(-Math.PI / 2)
+  return water
 }
 
 /* ALIASES */
