@@ -35,15 +35,14 @@ export default class Bird extends Entity {
     this.state = this.machine.generate(birdJson, this, birdStates)
     this.mesh = mesh.clone()
     this.mesh.name = 'bird'
+    this.mesh.position.copy(new THREE.Vector3(rndInt(1100), 60 + roll(50), rndInt(1100)))
     this.mixer = new THREE.AnimationMixer(this.mesh)
     this.mixer.clipAction(animations[0]).play()
-    this.mesh.position.copy(new THREE.Vector3(rndInt(1100), 60 + roll(50), rndInt(1100)))
   }
 
   update(delta) {
     this.state = this.state.tick()
     super.update(delta)
-    if (this.mixer) this.mixer.update(delta)
   }
 
   attacked() {

@@ -27,14 +27,16 @@ const rabbitStates = {
 }
 
 export default class Rabbit extends Entity {
-  constructor(model) {
-    super(model)
+  constructor({ mesh, animations }) {
+    super(mesh)
     this.name = 'rabbit'
     this.health = 5
     this.speed = 50 + rndInt(40)
     this.state = this.machine.generate(rabbitJson, this, rabbitStates)
-    this.mesh = model.clone()
+    this.mesh = mesh.clone()
     this.mesh.name = 'rabbit'
+    this.mixer = new THREE.AnimationMixer(this.mesh)
+    this.mixer.clipAction(animations[0]).play()
   }
 
   update(delta) {

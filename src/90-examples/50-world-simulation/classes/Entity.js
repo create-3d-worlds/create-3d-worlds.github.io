@@ -34,5 +34,7 @@ export default class Entity {
     this.mesh.position.x += this.vel.x * delta * this.timeMult
     this.mesh.position.y += this.vel.y * delta * this.timeMult
     this.mesh.position.z += this.vel.z * delta * this.timeMult
+
+    if (this.mixer) this.mixer.update(delta)
   }
 }

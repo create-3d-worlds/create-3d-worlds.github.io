@@ -35,8 +35,9 @@ game.plantTrees()
 }
 
 {
-  const { mesh } = await loadModel({ file: 'animal-horse/horse.glb', size: 40, shouldCenter: true, shouldAdjustHeight: true })
-  for (let i = 0; i < HORSES; i++) game.randomPlaceEntity(new Rabbit(mesh))
+  const { mesh, animations } = await loadModel({ file: 'animal-horse/horse.glb', size: 40, shouldCenter: true, shouldAdjustHeight: true })
+  console.log(animations)
+  for (let i = 0; i < HORSES; i++) game.randomPlaceEntity(new Rabbit({ mesh, animations }))
 }
 
 {

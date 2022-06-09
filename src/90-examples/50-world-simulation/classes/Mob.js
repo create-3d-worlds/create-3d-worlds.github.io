@@ -3,7 +3,7 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import Entity from './Entity.js'
 import Arrow from './Arrow.js'
 import Resource from './Resource.js'
-import {rndInt, roll} from '../utils/helpers.js'
+import { rndInt, roll } from '../utils/helpers.js'
 
 const mobJson = {
   id: 'idle', strategy: 'prioritised',
