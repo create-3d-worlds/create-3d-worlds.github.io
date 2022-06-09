@@ -2,13 +2,32 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import { randomNuance } from '/utils/helpers.js'
 import SimplexNoise from '../libs/SimplexNoise.js'
 
-export function generateTerrain({ groundColor = 0x33aa33, waterColor = 0x6699ff } = {}) {
-  const resolution = 20
+const createWater = ({ size = 1200, color = 0x6699ff, segments = 20 } = {}) => {
+  const water_material = new THREE.MeshLambertMaterial({ color, opacity: 0.75, vertexColors: THREE.FaceColors })
+  const water_geometry = new THREE.PlaneGeometry(size, size, segments, segments)
+  water_geometry.dynamic = true
+  water_geometry.verticesNeedUpdate = true
+
+  const waterColors = []
+  for (let i = 0, l = water_geometry.attributes.position.count; i < l; i ++) {
+    const nuance = randomNuance(color)
+    waterColors.push(nuance.r, nuance.g, nuance.b)
+  }
+  water_geometry.setAttribute('color', new THREE.Float32BufferAttribute(waterColors, 3))
+
+  const water = new THREE.Mesh(water_geometry, water_material)
+  water.receiveShadow = true
+  water.name = 'water'
+  water.rotateX(-Math.PI / 2)
+  return water
+}
+
+export function generateTerrain({ groundColor = 0x33aa33, size = 1200, segments = 20 } = {}) {
   const material = new THREE.MeshLambertMaterial({
     color: groundColor,
     vertexColors: THREE.FaceColors
   })
-  const geometry = new THREE.PlaneGeometry(1200, 1200, resolution, resolution)
+  const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
   geometry.dynamic = true
   geometry.verticesNeedUpdate = true
 
@@ -24,7 +43,7 @@ export function generateTerrain({ groundColor = 0x33aa33, waterColor = 0x6699ff 
 
   for (let i = 0, l = position.count; i < l; i ++) {
     vertex.fromBufferAttribute(position, i)
-    n = noise.noise(vertex.x / resolution / factorX, vertex.y / resolution / factorY)
+    n = noise.noise(vertex.x / segments / factorX, vertex.y / segments / factorY)
     n -= 0.25
     vertex.z = n * factorZ
     position.setXYZ(i, vertex.x, vertex.y, vertex.z)
@@ -43,27 +62,10 @@ export function generateTerrain({ groundColor = 0x33aa33, waterColor = 0x6699ff 
   land.rotateX(-Math.PI / 2)
   land.position.set(0, 30, 0)
 
-  const water_material = new THREE.MeshLambertMaterial({ color: waterColor, opacity: 0.75, vertexColors: THREE.FaceColors })
-  const water_geometry = new THREE.PlaneGeometry(1200, 1200, resolution, resolution)
-  water_geometry.dynamic = true
-  water_geometry.verticesNeedUpdate = true
-
-  const waterColors = []
-  for (let i = 0, l = water_geometry.attributes.position.count; i < l; i ++) {
-    const color = randomNuance(waterColor)
-    waterColors.push(color.r, color.g, color.b)
-  }
-  water_geometry.setAttribute('color', new THREE.Float32BufferAttribute(waterColors, 3))
-
-  const water = new THREE.Mesh(water_geometry, water_material)
-  water.receiveShadow = true
-  water.name = 'water'
-  water.rotateX(-Math.PI / 2)
-
-  const terrain = new THREE.Object3D()
-  terrain.name = 'terrain'
-  terrain.add(land)
-  terrain.add(water)
-  terrain.receiveShadow = true
-  return terrain
+  const group = new THREE.Object3D()
+  group.name = 'terrain'
+  group.add(land)
+  group.add(createWater({ size, segments }))
+  group.receiveShadow = true
+  return group
 }
