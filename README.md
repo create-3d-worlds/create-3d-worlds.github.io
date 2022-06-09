@@ -13,7 +13,6 @@ live-server
 
 ### General
 
-- [x] srediti createBox i sve zavisne strukture
 - [ ] sažvakati world-simulation
   - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
@@ -46,6 +45,7 @@ live-server
 - [x] oblake u pomagala
 - [x] organize geometry utils (barrels, boxes, balls...)
 - [x] organize shapes utils (createAirplane, sheep, train...)
+- [x] srediti createBox i sve zavisne strukture
 
 ### Particles
 
