@@ -172,3 +172,24 @@ export function similarColor(color, range = .25) {
   const newCol = new THREE.Color().setHSL(h + h * factor, s, l + l * factor / 4)
   return newCol
 }
+
+export function checkIntersect(terrain, position) {
+  position.y += 200
+  const caster = new THREE.Raycaster()
+  const ray = new THREE.Vector3(0, -1, 0)
+  caster.set(position, ray)
+  const collisions = caster.intersectObject(terrain)
+  if (collisions.length > 0) return collisions[0].point
+  return position
+}
+
+export function putOnTerrain(terrain, totalTry, callBack) {
+  for (let i = 0; i < totalTry; i++) {
+    const pos = new THREE.Vector3(randomInt(-550, 550), 100, randomInt(-550, 550))
+    const collision = checkIntersect(terrain, pos)
+    if (collision.y > 0) {
+      collision.y += 10
+      callBack(collision)
+    }
+  }
+}

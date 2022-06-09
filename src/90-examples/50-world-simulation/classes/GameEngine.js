@@ -1,6 +1,6 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { randomInt } from '/utils/helpers.js'
+import { randomInt, putOnTerrain, checkIntersect } from '/utils/helpers.js'
 import { hemLight, dirLight } from '/utils/light.js'
 import { createEnvironment } from '/utils/ground/createHillyTerrain2.js'
 import Tree from './Tree.js'
@@ -65,24 +65,11 @@ class GameEngine {
   }
 
   plantTrees() {
-    for (let i = 0; i < TREES; i++) {
-      const rndPoint = new THREE.Vector3(randomInt(-550, 550), 100, randomInt(-550, 550))
-      const collision = this.place(rndPoint)
-      if (collision.y > 0) {
-        collision.y += 10
-        this.addEntity(new Tree(collision))
-      }
-    }
+    putOnTerrain(this.scene.getObjectByName('terrain'), TREES, pos => this.addEntity(new Tree(pos)))
   }
 
   place(position) {
-    position.y += 200
-    const caster = new THREE.Raycaster()
-    const ray = new THREE.Vector3(0, -1, 0)
-    caster.set(position, ray)
-    const collisions = caster.intersectObject(this.scene.getObjectByName('terrain').children[0])
-    if (collisions.length > 0) return collisions[0].point
-    return position
+    return checkIntersect(this.scene.getObjectByName('terrain'), position)
   }
 
   randomPlaceEntity(entity) {

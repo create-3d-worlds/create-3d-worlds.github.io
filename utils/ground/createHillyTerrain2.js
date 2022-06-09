@@ -34,7 +34,7 @@ export function createHillyTerrain(
 
   const land = new THREE.Mesh(geometry, material)
   land.receiveShadow = true
-  land.name = 'land'
+  land.name = 'terrain'
   land.rotateX(-Math.PI / 2)
   land.position.y = factorY * 1.2
   return land
@@ -43,7 +43,6 @@ export function createHillyTerrain(
 export function createEnvironment({ size = 1200, segments = 20 } = {}) {
   const land = createHillyTerrain({ size, segments })
   const group = new THREE.Object3D()
-  group.name = 'terrain'
   group.add(land)
   group.add(createWater({ size, segments }))
   group.receiveShadow = true
