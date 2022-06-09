@@ -1,6 +1,7 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { SimplexNoise } from '/libs/SimplexNoise.js'
 import { getTexture, randomNuance } from '/utils/helpers.js'
+import { createWater } from '/utils/ground.js'
 
 const noise = new SimplexNoise()
 
@@ -36,5 +37,15 @@ export const createHillyTerrain = (
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
   mesh.geometry.applyMatrix4(mesh.matrix)
+  mesh.name = 'terrain'
   return mesh
+}
+
+export function createEnvironment({ size = 1200, segments = 20 } = {}) {
+  const terrain = createHillyTerrain({ size, segments })
+  const group = new THREE.Object3D()
+  group.add(terrain)
+  group.add(createWater({ size, segments }))
+  group.receiveShadow = true
+  return group
 }

@@ -20,7 +20,7 @@ scene.add(createWater({ size: 400 }))
 putOnTerrain({
   size: 400,
   terrain,
-  total: 200,
+  total: 100,
   callBack: pos => {
     scene.add(createFirTree(pos))
   } })

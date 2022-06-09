@@ -2,10 +2,10 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { randomInt, putOnTerrain, checkIntersect } from '/utils/helpers.js'
 import { hemLight, dirLight } from '/utils/light.js'
-import { createEnvironment } from '/utils/ground/createHillyTerrain2.js'
+import { createEnvironment } from '/utils/ground/createHillyTerrain.js'
 import Tree from './Tree.js'
 
-const TREES = 100
+const TREES = 75
 const { innerWidth, innerHeight } = window
 
 class GameEngine {
@@ -71,7 +71,6 @@ class GameEngine {
       total: TREES,
       callBack: pos => this.addEntity(new Tree(pos))
     })
-
   }
 
   place(position) {

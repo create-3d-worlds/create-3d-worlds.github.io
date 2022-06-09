@@ -20,8 +20,8 @@ live-server
 // const nuance = new THREE.Color(f(vertex.z).hex())
 
 - [x] sažvakati world-simulation
-  - [ ] odvojiti pomagala sa drveće na terenu
-  - [ ] spojiti createHillyTerrain i createHillyTerrain2
+  - [x] odvojiti pomagala za drveće na terenu
+  - [x] spojiti createHillyTerrain i createHillyTerrain2
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
   - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
