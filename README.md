@@ -13,13 +13,13 @@ live-server
 
 ### General
 
-- [ ] upotrebiti hromu negde
+- [ ] upotrebiti hromu u nekom terenu
 // import chroma from '/libs/chroma.js'
 // const greens = [0xA0522D, 0x2d4c1e, 0x228b22, 0x33aa33]
 // const f = chroma.scale(greens).domain([-factorZ * .75, factorZ * .75])
 // const nuance = new THREE.Color(f(vertex.z).hex())
 - [x] sažvakati world-simulation
-  - [ ] reuse generateTerrain from world-simulation
+  - [ ] spojiti createHillyTerrain i createHillyTerrain2
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
   - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba

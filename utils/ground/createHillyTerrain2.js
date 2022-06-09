@@ -40,8 +40,8 @@ export function createHillyTerrain(
   return land
 }
 
-export function createEnvironment({ color = 0x33aa33, size = 1200, segments = 20 } = {}) {
-  const land = createHillyTerrain({ color, size, segments })
+export function createEnvironment({ size = 1200, segments = 20 } = {}) {
+  const land = createHillyTerrain({ size, segments })
   const group = new THREE.Object3D()
   group.name = 'terrain'
   group.add(land)

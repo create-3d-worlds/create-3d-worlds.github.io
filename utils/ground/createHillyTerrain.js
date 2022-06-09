@@ -4,7 +4,6 @@ import { getTexture, randomNuance } from '/utils/helpers.js'
 
 const noise = new SimplexNoise()
 
-// ima neka bizarna razlika između createHillyTerrain i createHillyTerrain2, ujednačiti
 export const createHillyTerrain = (
   { size = 400, segments = 20, color = 0x33aa33, factorX = size / 20, factorZ = size / 40, factorY = size / 10, file } = {}
 ) => {
