@@ -3,28 +3,28 @@ import { randomNuance } from '/utils/helpers.js'
 import SimplexNoise from '../libs/SimplexNoise.js'
 
 const createWater = ({ size = 1200, color = 0x6699ff, segments = 20 } = {}) => {
-  const water_material = new THREE.MeshLambertMaterial({ color, opacity: 0.75, vertexColors: THREE.FaceColors })
-  const water_geometry = new THREE.PlaneGeometry(size, size, segments, segments)
-  water_geometry.dynamic = true
-  water_geometry.verticesNeedUpdate = true
+  const material = new THREE.MeshLambertMaterial({ color, opacity: 0.75, vertexColors: THREE.FaceColors })
+  const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
+  geometry.dynamic = true
+  geometry.verticesNeedUpdate = true
 
-  const waterColors = []
-  for (let i = 0, l = water_geometry.attributes.position.count; i < l; i ++) {
+  const colors = []
+  for (let i = 0, l = geometry.attributes.position.count; i < l; i ++) {
     const nuance = randomNuance(color)
-    waterColors.push(nuance.r, nuance.g, nuance.b)
+    colors.push(nuance.r, nuance.g, nuance.b)
   }
-  water_geometry.setAttribute('color', new THREE.Float32BufferAttribute(waterColors, 3))
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
 
-  const water = new THREE.Mesh(water_geometry, water_material)
+  const water = new THREE.Mesh(geometry, material)
   water.receiveShadow = true
   water.name = 'water'
   water.rotateX(-Math.PI / 2)
   return water
 }
 
-export function generateTerrain({ groundColor = 0x33aa33, size = 1200, segments = 20 } = {}) {
+function createLand({ color = 0x33aa33, size = 1200, segments = 20 } = {}) {
   const material = new THREE.MeshLambertMaterial({
-    color: groundColor,
+    color,
     vertexColors: THREE.FaceColors
   })
   const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
@@ -49,19 +49,23 @@ export function generateTerrain({ groundColor = 0x33aa33, size = 1200, segments 
     position.setXYZ(i, vertex.x, vertex.y, vertex.z)
   }
 
-  const groundColors = []
+  const colors = []
   for (let i = 0, l = position.count; i < l; i ++) {
-    const color = randomNuance(groundColor)
-    groundColors.push(color.r, color.g, color.b)
+    const nuance = randomNuance(color)
+    colors.push(nuance.r, nuance.g, nuance.b)
   }
-  geometry.setAttribute('color', new THREE.Float32BufferAttribute(groundColors, 3))
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
 
   const land = new THREE.Mesh(geometry, material)
   land.receiveShadow = true
   land.name = 'land'
   land.rotateX(-Math.PI / 2)
-  land.position.set(0, 30, 0)
+  land.position.set(0, factorY * 1.2, 0)
+  return land
+}
 
+export function generateTerrain({ color = 0x33aa33, size = 1200, segments = 20 } = {}) {
+  const land = createLand({ color, size, segments })
   const group = new THREE.Object3D()
   group.name = 'terrain'
   group.add(land)
