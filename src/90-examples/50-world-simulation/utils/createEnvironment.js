@@ -64,7 +64,7 @@ function createLand({ color = 0x33aa33, size = 1200, segments = 20 } = {}) {
   return land
 }
 
-export function generateTerrain({ color = 0x33aa33, size = 1200, segments = 20 } = {}) {
+export function createEnvironment({ color = 0x33aa33, size = 1200, segments = 20 } = {}) {
   const land = createLand({ color, size, segments })
   const group = new THREE.Object3D()
   group.name = 'terrain'
