@@ -21,8 +21,6 @@ export const createHillyTerrain = (
 
   for (let i = 0, l = position.count; i < l; i ++) {
     vertex.fromBufferAttribute(position, i)
-    vertex.x += randomInRange(-factorX, factorX)
-    vertex.z += randomInRange(-factorZ, factorZ)
     const dist = noise.noise(vertex.x / segments / factorX, vertex.z / segments / factorZ)
     vertex.y = (dist - 0.2) * factorY
     position.setXYZ(i, vertex.x, vertex.y, vertex.z)
