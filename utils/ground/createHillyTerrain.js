@@ -4,18 +4,16 @@ import { randomInRange, getTexture, randomNuance } from '/utils/helpers.js'
 
 const noise = new SimplexNoise()
 
-// { size = 1000, y = 30, factorX = 50, factorZ = 25, factorY = 60 }
 export const createHillyTerrain = (
-  { size = 400, y = 30, color = 0x33aa33, factorX = size / 20, factorZ = size / 40, factorY = size / 10, file = 'grasslight-big.jpg' } = {}
+  { size = 400, segments = 20, color = 0x33aa33, factorX = size / 20, factorZ = size / 40, factorY = size / 10, file } = {}
 ) => {
-  const resolution = size / 20
   const material = new THREE.MeshLambertMaterial({
-    // color,
+    color: !file ? color : null,
     vertexColors: THREE.FaceColors,
     map: file ? getTexture({ file, repeat: 16 }) : null
   })
 
-  const geometry = new THREE.PlaneGeometry(size, size, resolution, resolution)
+  const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
   geometry.rotateX(-Math.PI / 2)
 
   const { position } = geometry.attributes
@@ -25,7 +23,7 @@ export const createHillyTerrain = (
     vertex.fromBufferAttribute(position, i)
     vertex.x += randomInRange(-factorX, factorX)
     vertex.z += randomInRange(-factorZ, factorZ)
-    const dist = noise.noise(vertex.x / resolution / factorX, vertex.z / resolution / factorZ)
+    const dist = noise.noise(vertex.x / segments / factorX, vertex.z / segments / factorZ)
     vertex.y = (dist - 0.2) * factorY
     position.setXYZ(i, vertex.x, vertex.y, vertex.z)
   }
@@ -39,7 +37,6 @@ export const createHillyTerrain = (
 
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
-  // mesh.castShadow = true
-  mesh.position.y = y
+  mesh.position.y = factorY * 1.2
   return mesh
 }
