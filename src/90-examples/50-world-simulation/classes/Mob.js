@@ -87,8 +87,8 @@ const mobStates = {
 }
 
 export default class Mob extends Entity {
-  constructor(game, model) {
-    super(model)
+  constructor({ game, mesh, animations }) {
+    super(mesh)
     this.game = game
     this.name = 'mob'
     this.target = null
@@ -99,9 +99,11 @@ export default class Mob extends Entity {
     this.carryEntity = undefined
     this.shootCooldown = 5
     this.vision = 50
-    this.mesh = model.clone()
+    this.mesh = mesh.clone()
     this.mesh.name = this.name
     this.mesh.position.copy(new THREE.Vector3(rndInt(1100), 100, rndInt(1100)))
+    this.mixer = new THREE.AnimationMixer(this.mesh.children[0])
+    this.mixer.clipAction(animations[1]).play()
   }
 
   update(delta) {

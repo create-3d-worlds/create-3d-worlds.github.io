@@ -31,12 +31,11 @@ game.plantTrees()
 
 {
   const { mesh, animations } = await loadModel({ file: 'character-ogro/ogro.md2', texture: 'character-ogro/skins/arboshak.png', size: 50, rot: { axis: [0, 1, 0], angle: -Math.PI * .5 }, shouldCenter: true, shouldAdjustHeight: true })
-  for (let i = 0; i < HUNTERS; i++) game.randomPlaceEntity(new Mob(game, mesh))
+  for (let i = 0; i < HUNTERS; i++) game.randomPlaceEntity(new Mob({ game, mesh, animations }))
 }
 
 {
   const { mesh, animations } = await loadModel({ file: 'animal-horse/horse.glb', size: 40, shouldCenter: true, shouldAdjustHeight: true })
-  console.log(animations)
   for (let i = 0; i < HORSES; i++) game.randomPlaceEntity(new Rabbit({ mesh, animations }))
 }
 
