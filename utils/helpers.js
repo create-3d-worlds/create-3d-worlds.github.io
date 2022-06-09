@@ -3,15 +3,18 @@ import { scene as defaultScene, camera as defaultCamera } from '/utils/scene.js'
 
 /* MATH */
 
-/* Get random integer between two values, include min, not include max */
+/*
+ * Get random float between two values, < max
+*/
 export function randomInRange(min, max, int = false) {
   const random = Math.random() * (max - min) + min
   return int ? Math.floor(random) : random
 }
 
+/* Get random int between two values, < max */
 export const randomInt = (min, max) => randomInRange(min, max, true)
 
-/* Get random integer between two values, inclusive */
+/* Get random int between two values, <= max (max inclusive) */
 export const roll = (max, min = 0) => Math.floor(Math.random() * (max - min + 1) + min)
 
 /* return 2D vector { x, z } */

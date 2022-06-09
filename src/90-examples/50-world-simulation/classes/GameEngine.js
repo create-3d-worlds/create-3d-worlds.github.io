@@ -1,9 +1,9 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import Tree from './Tree.js'
-import { rndInt } from '../utils/helpers.js'
-import { generateTerrain } from '../utils/generateTerrain.js'
+import { randomInt } from '/utils/helpers.js'
 import { hemLight, dirLight } from '/utils/light.js'
+import { generateTerrain } from '../utils/generateTerrain.js'
+import Tree from './Tree.js'
 
 const TREES = 100
 const { innerWidth, innerHeight } = window
@@ -56,25 +56,8 @@ class GameEngine {
   }
 
   initLights() {
-    const d = 500
-    // light for shadows
-    const dirLight = new THREE.DirectionalLight(0xffffcc, 0.5, 500)
-    dirLight.color.setHSL(0.1, 1, 0.95)
-    dirLight.position.set(-1, 1.75, 1)
-    dirLight.position.multiplyScalar(100)
-    dirLight.position.copy(this.camera.position)
-    dirLight.castShadow = true
-    dirLight.shadow.mapSize.width = 2048
-    dirLight.shadow.mapSize.height = 2048
-    dirLight.shadow.camera.left = -d
-    dirLight.shadow.camera.right = d
-    dirLight.shadow.camera.top = d
-    dirLight.shadow.camera.bottom = -d
-    dirLight.shadow.camera.far = 3500
-    dirLight.shadow.bias = -0.0001
-
+    dirLight({ color: 0xffffcc })
     hemLight({ color: 0xffffcc, intensity: .6 })
-    this.scene.add(dirLight)
   }
 
   pause() {
@@ -83,7 +66,7 @@ class GameEngine {
 
   plantTrees() {
     for (let i = 0; i < TREES; i++) {
-      const rndPoint = new THREE.Vector3(rndInt(1100), 100, rndInt(1100))
+      const rndPoint = new THREE.Vector3(randomInt(-550, 550), 100, randomInt(-550, 550))
       const collision = this.place(rndPoint)
       if (collision.y > 0) {
         collision.y -= 10
@@ -102,15 +85,11 @@ class GameEngine {
     return position
   }
 
-  placeEntity(entity) {
+  randomPlaceEntity(entity) {
+    entity.mesh.position.set(randomInt(-550, 550), 0, randomInt(-550, 550))
     const { x, y, z } = this.place(entity.mesh.position)
     entity.mesh.position.set(x, y, z)
     this.addEntity(entity)
-  }
-
-  randomPlaceEntity(entity) {
-    entity.mesh.position.set(rndInt(1100), 0, rndInt(1100))
-    this.placeEntity(entity)
   }
 
   switchCam() {
