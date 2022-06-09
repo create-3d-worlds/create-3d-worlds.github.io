@@ -1,6 +1,5 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { randomInRange, similarColor, randomNuance, randomInSquare } from './helpers.js'
-import { BufferGeometryUtils } from '/node_modules/three127/examples/jsm/utils/BufferGeometryUtils.js'
 
 const sketchSize = 0.04
 const browns = [0x3d2817, 0x664422, 0xA0522D, 0x886633, 0x966F33]

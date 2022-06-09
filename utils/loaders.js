@@ -137,7 +137,7 @@ export function loadFbxModel(params) {
 * Handle model load, resize, rotate, etc.
 * returns a promise that resolves with the { mesh, animations, mixer }
 */
-export const loadModel = ({ file, size, mtl, texture, rot = { angle: 0, axis: [0, 0, 0] }, shouldCenter = false, shouldAdjustHeight = false, adjust = () => {} }) => {
+export const loadModel = ({ file, size, mtl, texture, rot = { angle: 0, axis: [0, 0, 0] }, shouldAjust = false, shouldCenter = shouldAjust, shouldAdjustHeight = shouldAjust, adjust = () => {} }) => {
 
   const params = { file, size, mtl, texture, rot, shouldCenter, shouldAdjustHeight, adjust }
 
