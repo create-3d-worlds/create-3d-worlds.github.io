@@ -1,9 +1,10 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { SimplexNoise } from '/libs/SimplexNoise.js'
-import { randomInRange, getTexture, randomNuance } from '/utils/helpers.js'
+import { getTexture, randomNuance } from '/utils/helpers.js'
 
 const noise = new SimplexNoise()
 
+// ima neka bizarna razlika između createHillyTerrain i createHillyTerrain2, ujednačiti
 export const createHillyTerrain = (
   { size = 400, segments = 20, color = 0x33aa33, factorX = size / 20, factorZ = size / 40, factorY = size / 10, file } = {}
 ) => {

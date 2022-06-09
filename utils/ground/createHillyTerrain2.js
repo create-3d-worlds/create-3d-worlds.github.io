@@ -29,7 +29,7 @@ const createWater = ({ size = 1200, color = 0x6699ff, segments = 20 } = {}) => {
   return water
 }
 
-function createHillyTerrain(
+export function createHillyTerrain(
   { color = 0x33aa33, size = 1200, segments = 20, factorX = 50, factorY = 25, factorZ = 60, file } = {}
 ) {
   const material = new THREE.MeshLambertMaterial({

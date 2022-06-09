@@ -2,7 +2,7 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { randomInt } from '/utils/helpers.js'
 import { hemLight, dirLight } from '/utils/light.js'
-import { createEnvironment } from '../utils/createEnvironment.js'
+import { createEnvironment } from '/utils/ground/createHillyTerrain2.js'
 import Tree from './Tree.js'
 
 const TREES = 100
