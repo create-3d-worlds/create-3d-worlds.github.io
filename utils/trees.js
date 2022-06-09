@@ -4,7 +4,7 @@ import { BufferGeometryUtils } from '/node_modules/three127/examples/jsm/utils/B
 
 const sketchSize = 0.04
 const browns = [0x3d2817, 0x664422, 0xA0522D, 0x886633, 0x966F33]
-const greens = [0x228b22, 0x2d4c1e, 0x3EA055, 0x44aa44, 0x33ff33]
+const greens = [0x2d4c1e, 0x228b22, 0x3EA055, 0x44aa44, 0x33ff33]
 
 const randomBrown = () => browns[Math.floor(Math.random() * browns.length)]
 

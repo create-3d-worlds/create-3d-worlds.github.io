@@ -1,6 +1,7 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { randomNuance } from '/utils/helpers.js'
-import SimplexNoise from '../libs/SimplexNoise.js'
+import { SimplexNoise } from '/libs/SimplexNoise.js'
+import chroma from '/libs/chroma.js'
 
 const createWater = ({ size = 1200, color = 0x6699ff, segments = 20 } = {}) => {
   const material = new THREE.MeshLambertMaterial({ color, opacity: 0.75, vertexColors: THREE.FaceColors })
@@ -22,9 +23,11 @@ const createWater = ({ size = 1200, color = 0x6699ff, segments = 20 } = {}) => {
   return water
 }
 
-function createLand({ color = 0x33aa33, size = 1200, segments = 20 } = {}) {
+function createHillyTerrain(
+  { color = 0x33aa33, size = 1200, segments = 20 } = {}
+) {
   const material = new THREE.MeshLambertMaterial({
-    color,
+    // color,
     vertexColors: THREE.FaceColors
   })
   const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
@@ -49,9 +52,14 @@ function createLand({ color = 0x33aa33, size = 1200, segments = 20 } = {}) {
     position.setXYZ(i, vertex.x, vertex.y, vertex.z)
   }
 
+  const greens = [0xA0522D, 0x2d4c1e, 0x228b22, 0x33aa33]
+  const f = chroma.scale(greens).domain([-factorZ * .75, factorZ * .75])
+
   const colors = []
   for (let i = 0, l = position.count; i < l; i ++) {
-    const nuance = randomNuance(color)
+    vertex.fromBufferAttribute(position, i)
+    // const nuance = randomNuance(color)
+    const nuance = new THREE.Color(f(vertex.z).hex())
     colors.push(nuance.r, nuance.g, nuance.b)
   }
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
@@ -65,7 +73,7 @@ function createLand({ color = 0x33aa33, size = 1200, segments = 20 } = {}) {
 }
 
 export function createEnvironment({ color = 0x33aa33, size = 1200, segments = 20 } = {}) {
-  const land = createLand({ color, size, segments })
+  const land = createHillyTerrain({ color, size, segments })
   const group = new THREE.Object3D()
   group.name = 'terrain'
   group.add(land)

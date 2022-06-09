@@ -5,11 +5,12 @@ import { randomInRange, getTexture, randomNuance } from '/utils/helpers.js'
 const noise = new SimplexNoise()
 
 // { size = 1000, y = 30, factorX = 50, factorZ = 25, factorY = 60 }
-export const createHillyTerrain = ({ size = 400, y = 30, color = 0x33aa33, factorX = size / 20, factorZ = size / 40, factorY = size / 10, file = 'grasslight-big.jpg' } = {}
+export const createHillyTerrain = (
+  { size = 400, y = 30, color = 0x33aa33, factorX = size / 20, factorZ = size / 40, factorY = size / 10, file = 'grasslight-big.jpg' } = {}
 ) => {
   const resolution = size / 20
   const material = new THREE.MeshLambertMaterial({
-    color,
+    // color,
     vertexColors: THREE.FaceColors,
     map: file ? getTexture({ file, repeat: 16 }) : null
   })

@@ -13,7 +13,7 @@ live-server
 
 ### General
 
-- [ ] sažvakati world-simulation
+- [x] sažvakati world-simulation
   - [ ] reuse generateTerrain from world-simulation
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js

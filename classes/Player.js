@@ -4,7 +4,7 @@ import { createBox } from '/utils/geometry.js'
 import { addSolids, raycastGround } from '/classes/actions/index.js'
 import { getHeight, directionBlocked, cameraFollowObject } from '/utils/helpers.js'
 import { dir } from '/utils/constants.js'
-import { camera, createOrbitControls } from '/utils/scene.js'
+// import { camera, createOrbitControls } from '/utils/scene.js'
 
 const { pressed } = keyboard
 const { LoopOnce, LoopRepeat, AnimationMixer } = THREE
@@ -25,7 +25,7 @@ export default class Player {
     this.animNames = animNames
     this.animations = animations
     this.loopOncePressed = false
-    if (autoCamera) this.controls = createOrbitControls()
+    // if (autoCamera) this.controls = createOrbitControls()
   }
 
   inAir(step = this.size * .2) {
@@ -209,8 +209,8 @@ export default class Player {
     if (this.controls) {
       this.controls.target = this.mesh.position
       this.controls.update()
-      if (!keyboard.pressed.mouse)
-        cameraFollowObject(camera, this.mesh, { distance: this.size * 2, y: this.size * .75 })
+      // if (!keyboard.pressed.mouse)
+      //   cameraFollowObject(camera, this.mesh, { distance: this.size * 2, y: this.size * .75 })
     }
 
     const runDelta = (this.running && !this.animNames.run) ? delta * 2 : delta
