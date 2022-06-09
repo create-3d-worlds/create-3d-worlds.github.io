@@ -36,6 +36,6 @@ export const createHillyTerrain = (
 
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
-  mesh.position.y = factorY * 1.2
+  mesh.position.y = factorY * .75
   return mesh
 }
