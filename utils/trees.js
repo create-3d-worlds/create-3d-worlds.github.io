@@ -128,6 +128,7 @@ export function createFir({ x = 0, y = 0, z = 0, size = 5 } = {}) {
   return mesh
 }
 
+// size = full height
 export function createSimpleFir({ size = 12, x = 0, y = 0, z = 0 } = {}) {
   size = size * randomInRange(0.6, 1.4) // eslint-disable-line
   const treeData = {

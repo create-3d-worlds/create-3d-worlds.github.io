@@ -11,8 +11,7 @@ export default class Tree extends Entity {
     super()
     this.name = 'tree'
     this.units = 4
-    const tree = createSimpleFir({ size: 80 })
-    this.mesh = tree
+    this.mesh = createSimpleFir({ size: 80 })
     this.mesh.position.copy(pos)
   }
 }

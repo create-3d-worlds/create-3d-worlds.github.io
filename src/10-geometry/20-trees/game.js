@@ -7,8 +7,6 @@ createOrbitControls()
 camera.position.z = 20
 camera.position.y = 10
 
-// console.log(createFirTree({ x: 15 }))
-
 scene.add(
   createSimpleFir({ x: -30 }),
   createTree({ x: -15 }),

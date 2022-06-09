@@ -27,7 +27,6 @@ export default class Resource extends Entity {
     this.mesh = new THREE.Mesh(geometry, material)
     const { position } = geometry.attributes
     const vertex = new THREE.Vector3()
-    // TODO: see what this works
     for (let i = 0, l = position.count; i < l; i ++) {
       vertex.fromBufferAttribute(position, i)
       vertex.y += 5
