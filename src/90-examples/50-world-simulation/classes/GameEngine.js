@@ -65,7 +65,13 @@ class GameEngine {
   }
 
   plantTrees() {
-    putOnTerrain(this.scene.getObjectByName('terrain'), TREES, pos => this.addEntity(new Tree(pos)))
+    putOnTerrain({
+      size: 1200,
+      terrain: this.scene.getObjectByName('terrain'),
+      totalTry: TREES,
+      callBack: pos => this.addEntity(new Tree(pos))
+    })
+
   }
 
   place(position) {

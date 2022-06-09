@@ -181,7 +181,7 @@ export function checkIntersect(terrain, position) {
   const intersects = raycaster.intersectObject(terrain)
   return intersects.length
     ? intersects[0].point
-    : null
+    : position
 }
 
 export function putOnTerrain({ terrain, size, totalTry, callBack }) {
