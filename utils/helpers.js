@@ -175,11 +175,11 @@ export function similarColor(color, range = .25) {
 
 export function checkIntersect(terrain, position) {
   position.y += 200
-  const caster = new THREE.Raycaster()
-  const ray = new THREE.Vector3(0, -1, 0)
-  caster.set(position, ray)
-  const collisions = caster.intersectObject(terrain)
-  if (collisions.length > 0) return collisions[0].point
+  const raycaster = new THREE.Raycaster()
+  const direction = new THREE.Vector3(0, -1, 0)
+  raycaster.set(position, direction)
+  const intersects = raycaster.intersectObject(terrain)
+  if (intersects.length > 0) return intersects[0].point
   return position
 }
 
