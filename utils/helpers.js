@@ -179,15 +179,16 @@ export function checkIntersect(terrain, position) {
   const direction = new THREE.Vector3(0, -1, 0)
   raycaster.set(position, direction)
   const intersects = raycaster.intersectObject(terrain)
-  if (intersects.length > 0) return intersects[0].point
-  return position
+  return intersects.length
+    ? intersects[0].point
+    : null
 }
 
 export function putOnTerrain({ terrain, size, totalTry, callBack }) {
   const halfSize = size / 2
   for (let i = 0; i < totalTry; i++) {
     const pos = new THREE.Vector3(randomInt(-halfSize, halfSize), 200, randomInt(-halfSize, halfSize))
-    const collision = checkIntersect(terrain, pos)
-    if (collision.y > 0) callBack(collision)
+    const intersect = checkIntersect(terrain, pos)
+    if (intersect && intersect.y > 0) callBack(intersect)
   }
 }
