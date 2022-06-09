@@ -3,7 +3,7 @@ import { randomInRange, similarColor, randomNuance, randomInSquare } from './hel
 import { BufferGeometryUtils } from '/node_modules/three127/examples/jsm/utils/BufferGeometryUtils.js'
 
 const sketchSize = 0.04
-const browns = [0x3d2817, 0x664422, 0xA0522D, 0x886633]
+const browns = [0x3d2817, 0x664422, 0xA0522D, 0x886633, 0x966F33]
 const greens = [0x228b22, 0x2d4c1e, 0x3EA055, 0x44aa44, 0x33ff33]
 
 const randomBrown = () => browns[Math.floor(Math.random() * browns.length)]
@@ -126,6 +126,33 @@ export function createFir({ x = 0, y = 0, z = 0, size = 5 } = {}) {
   mesh.position.set(x, y, z)
   mesh.scale.set(size * 2, size * 2, size * 2) // other fir parts are much smaller
   return mesh
+}
+
+export function createSimpleFir({ size = 12, x = 0, y = 0, z = 0 } = {}) {
+  size = size * randomInRange(0.6, 1.4) // eslint-disable-line
+  const treeData = {
+    geom: {
+      leaves: new THREE.CylinderGeometry(0, .31 * size, .75 * size, 4, 1),
+      trunk: new THREE.BoxGeometry(.06 * size, .25 * size, .06 * size)
+    },
+    materials: {
+      leaves: new THREE.MeshLambertMaterial({ color: similarColor(greens[3]) }),
+      trunk: new THREE.MeshLambertMaterial({ color: randomBrown() })
+    }
+  }
+  const group = new THREE.Object3D()
+  const leaves = new THREE.Mesh(treeData.geom.leaves, treeData.materials.leaves)
+  const trunk = new THREE.Mesh(treeData.geom.trunk, treeData.materials.trunk)
+  leaves.name = 'leaves'
+  trunk.name = 'trunk'
+  leaves.castShadow = true
+  trunk.castShadow = true
+  leaves.position.y += size * .5
+  group.add(leaves)
+  group.add(trunk)
+  group.castShadow = true
+  group.position.set(x, y, z)
+  return group
 }
 
 /* FACTORIES */

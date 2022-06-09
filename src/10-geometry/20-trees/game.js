@@ -1,5 +1,5 @@
 import { createWorldScene, renderer, camera, createOrbitControls } from '/utils/scene.js'
-import { createTree, createSketchTree, createFirTree, createFir } from '/utils/trees.js'
+import { createTree, createSketchTree, createFirTree, createFir, createSimpleFir } from '/utils/trees.js'
 
 const scene = createWorldScene()
 createOrbitControls()
@@ -10,6 +10,7 @@ camera.position.y = 10
 // console.log(createFirTree({ x: 15 }))
 
 scene.add(
+  createSimpleFir({ x: -30 }),
   createTree({ x: -15 }),
   createSketchTree(),
   createFirTree({ x: 15 }),

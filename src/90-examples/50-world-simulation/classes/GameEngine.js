@@ -69,7 +69,7 @@ class GameEngine {
       const rndPoint = new THREE.Vector3(randomInt(-550, 550), 100, randomInt(-550, 550))
       const collision = this.place(rndPoint)
       if (collision.y > 0) {
-        collision.y -= 10
+        collision.y += 10
         this.addEntity(new Tree(collision))
       }
     }
