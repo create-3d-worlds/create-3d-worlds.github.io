@@ -1,5 +1,6 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { scene as defaultScene, camera as defaultCamera } from '/utils/scene.js'
+import { dir } from '/utils/constants.js'
 
 /* MATH */
 
@@ -81,7 +82,7 @@ export const getHeight = mesh => getSize(mesh, 'y')
 
 export function cameraFollowObject(camera, obj, { distance = 50, alpha = 0.06, y = 0 } = {}) {
   if (!obj) return
-  const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(obj.quaternion)
+  const direction = dir.forward.applyQuaternion(obj.quaternion)
   const newPosition = obj.position.clone()
   newPosition.sub(direction.multiplyScalar(distance))
   // camera height
@@ -99,32 +100,6 @@ export const centerObject = mesh => {
 
 export const adjustHeight = mesh => {
   mesh.translateY(getHeight(mesh) / 2)
-}
-
-/* RAYCAST */
-
-export const directionBlocked = (mesh, solids, vector) => {
-  if (!mesh || !solids.length || !vector) return false
-  const vec = vector.clone() // because applyQuaternion is mutable
-  const direction = vec.applyQuaternion(mesh.quaternion)
-  const bodyCenter = mesh.position.clone()
-  const height = getHeight(mesh)
-  bodyCenter.y += height
-  const raycaster = new THREE.Raycaster(bodyCenter, direction, 0, height)
-  const intersections = raycaster.intersectObjects(solids, true)
-  return intersections.length > 0
-}
-
-export function getMouseIntersects(e, camera = defaultCamera, scene = defaultScene) {
-  const mouse3D = new THREE.Vector3(
-    e.clientX / window.innerWidth * 2 - 1,
-    -e.clientY / window.innerHeight * 2 + 1,
-    0
-  )
-  const raycaster = new THREE.Raycaster()
-  raycaster.setFromCamera(mouse3D, camera)
-  const intersects = raycaster.intersectObjects(scene.children)
-  return intersects
 }
 
 /* TEXTURES */
@@ -174,19 +149,44 @@ export function similarColor(color, range = .25) {
   return newCol
 }
 
+/* RAYCAST */
+
+export const directionBlocked = (mesh, solids, vector) => {
+  if (!mesh || !solids.length || !vector) return false
+  const vec = vector.clone() // because applyQuaternion is mutable
+  const direction = vec.applyQuaternion(mesh.quaternion)
+  const bodyCenter = mesh.position.clone()
+  const height = getHeight(mesh)
+  bodyCenter.y += height
+  const raycaster = new THREE.Raycaster(bodyCenter, direction, 0, height)
+  const intersections = raycaster.intersectObjects(solids, true)
+  return intersections.length > 0
+}
+
+export function getMouseIntersects(e, camera = defaultCamera, scene = defaultScene) {
+  const mouse3D = new THREE.Vector3(
+    e.clientX / window.innerWidth * 2 - 1,
+    -e.clientY / window.innerHeight * 2 + 1,
+    0
+  )
+  const raycaster = new THREE.Raycaster()
+  raycaster.setFromCamera(mouse3D, camera)
+  const intersects = raycaster.intersectObjects(scene.children)
+  return intersects
+}
+
 export function checkIntersect(terrain, origin) {
   const raycaster = new THREE.Raycaster()
-  const direction = new THREE.Vector3(0, -1, 0)
-  raycaster.set(origin, direction)
+  raycaster.set(origin, dir.down)
   const intersects = raycaster.intersectObject(terrain)
   return intersects.length
     ? intersects[0].point
     : null
 }
 
-const findGroundRecursive = (terrain, size, counter = 0) => {
+export const findGroundRecursive = (terrain, size, counter = 0) => {
   const { x, z } = randomInSquare(size)
-  const intersect = checkIntersect(terrain, { x, y: 400, z })
+  const intersect = checkIntersect(terrain, { x, y: 200, z })
   if (intersect && intersect.y > 0) return intersect
   if (counter > 5) return null
   return findGroundRecursive(terrain, size, counter + 1)

@@ -1,5 +1,5 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
-import { randomInRange, similarColor, randomNuance, randomInSquare } from './helpers.js'
+import { randomInRange, similarColor, randomNuance, randomInSquare, findGroundRecursive } from './helpers.js'
 
 const sketchSize = 0.04
 const browns = [0x3d2817, 0x664422, 0xA0522D, 0x886633, 0x966F33]
@@ -172,30 +172,10 @@ export const createSketchTrees = (n, mapSize, size) =>
   createTrees(n, mapSize, size, createSketchTree)
 
 export const createTreesOnTerrain = ({ terrain, n = 100, mapSize = 400, size } = {}) => {
-  const groundY = terrain.position.y
-
-  const checkIntersect = (terrain, origin) => {
-    const direction = new THREE.Vector3(0, -1, 0)
-    const raycaster = new THREE.Raycaster()
-    raycaster.set(origin, direction)
-    const intersects = raycaster.intersectObject(terrain, true)
-    return intersects.length
-      ? intersects[0].point
-      : null
-  }
-
-  const findGroundRecursive = (terrain, mapSize, counter = 0) => {
-    const { x, z } = randomInSquare(mapSize)
-    const intersect = checkIntersect(terrain, { x, y: 400, z })
-    if (intersect && intersect.y > 0) return intersect
-    if (counter > 5) return null
-    return findGroundRecursive(terrain, mapSize, counter + 1)
-  }
-
   const group = new THREE.Group()
   for (let i = 0; i < n; i++) {
     const pos = findGroundRecursive(terrain, mapSize)
-    if (pos) group.add(createFirTree({ x: pos.x, y: pos.y + groundY, z: pos.z, size }))
+    if (pos) group.add(createFirTree({ x: pos.x, y: pos.y, z: pos.z, size }))
   }
   return group
 }
