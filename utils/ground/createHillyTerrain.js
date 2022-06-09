@@ -22,7 +22,7 @@ export const createHillyTerrain = (
   for (let i = 0, l = position.count; i < l; i ++) {
     vertex.fromBufferAttribute(position, i)
     const dist = noise.noise(vertex.x / segments / factorX, vertex.z / segments / factorZ)
-    vertex.y = (dist - 0.2) * factorY
+    vertex.y = factorY * (dist + .3) // +30% above sea level
     position.setXYZ(i, vertex.x, vertex.y, vertex.z)
   }
 
@@ -35,6 +35,6 @@ export const createHillyTerrain = (
 
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
-  mesh.position.y = factorY * .75
+  mesh.geometry.applyMatrix4(mesh.matrix)
   return mesh
 }

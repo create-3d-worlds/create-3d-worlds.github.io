@@ -39,10 +39,11 @@ const randomInRangeExcluded = (min, max, minExclude, maxExclude, round = false) 
 // }
 
 export function randomInSquare(size, emptyCenter = 0) {
-  const x = randomInRange(-size * .5, size * .5)
+  const halfSize = size * .5
+  const x = randomInRange(-halfSize, halfSize)
   const z = x > -emptyCenter && x < emptyCenter
-    ? randomInRangeExcluded(-size * .5, size * .5, -emptyCenter, emptyCenter)
-    : randomInRange(-size * .5, size * .5)
+    ? randomInRangeExcluded(-halfSize, halfSize, -emptyCenter, emptyCenter)
+    : randomInRange(-halfSize, halfSize)
   return randomBool() ? { x, z } : { x: z, z: x }
 }
 
@@ -174,7 +175,6 @@ export function similarColor(color, range = .25) {
 }
 
 export function checkIntersect(terrain, position) {
-  position.y += 200
   const raycaster = new THREE.Raycaster()
   const direction = new THREE.Vector3(0, -1, 0)
   raycaster.set(position, direction)
@@ -183,13 +183,11 @@ export function checkIntersect(terrain, position) {
   return position
 }
 
-export function putOnTerrain(terrain, totalTry, callBack) {
+export function putOnTerrain({ terrain, size, totalTry, callBack }) {
+  const halfSize = size / 2
   for (let i = 0; i < totalTry; i++) {
-    const pos = new THREE.Vector3(randomInt(-550, 550), 100, randomInt(-550, 550))
+    const pos = new THREE.Vector3(randomInt(-halfSize, halfSize), 200, randomInt(-halfSize, halfSize))
     const collision = checkIntersect(terrain, pos)
-    if (collision.y > 0) {
-      collision.y += 10
-      callBack(collision)
-    }
+    if (collision.y > 0) callBack(collision)
   }
 }
