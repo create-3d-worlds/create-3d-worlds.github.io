@@ -174,21 +174,20 @@ export const createSketchTrees = (n, mapSize, size) =>
 export const createTreesOnTerrain = ({ terrain, n = 100, mapSize = 400, size } = {}) => {
   const groundY = terrain.position.y
 
-  const findGround = (terrain, x, z) => {
+  const checkIntersect = (terrain, origin) => {
     const direction = new THREE.Vector3(0, -1, 0)
-    const origin = { x, y: 400, z }
     const raycaster = new THREE.Raycaster()
     raycaster.set(origin, direction)
     const intersects = raycaster.intersectObject(terrain, true)
-    if (intersects.length > 0 && intersects[0].point.y > -groundY / 2)
-      return intersects[0].point
-    return null
+    return intersects.length
+      ? intersects[0].point
+      : null
   }
 
   const findGroundRecursive = (terrain, mapSize, counter = 0) => {
     const { x, z } = randomInSquare(mapSize)
-    const ground = findGround(terrain, x, z)
-    if (ground) return ground
+    const intersect = checkIntersect(terrain, { x, y: 400, z })
+    if (intersect && intersect.y > 0) return intersect
     if (counter > 5) return null
     return findGroundRecursive(terrain, mapSize, counter + 1)
   }

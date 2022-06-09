@@ -68,14 +68,14 @@ class GameEngine {
     putOnTerrain({
       size: 1200,
       terrain: this.scene.getObjectByName('terrain'),
-      totalTry: TREES,
+      total: TREES,
       callBack: pos => this.addEntity(new Tree(pos))
     })
 
   }
 
   place(position) {
-    return checkIntersect(this.scene.getObjectByName('terrain'), position)
+    return checkIntersect(this.scene.getObjectByName('terrain'), position) || position
   }
 
   randomPlaceEntity(entity) {

@@ -174,21 +174,27 @@ export function similarColor(color, range = .25) {
   return newCol
 }
 
-export function checkIntersect(terrain, position) {
+export function checkIntersect(terrain, origin) {
   const raycaster = new THREE.Raycaster()
   const direction = new THREE.Vector3(0, -1, 0)
-  raycaster.set(position, direction)
+  raycaster.set(origin, direction)
   const intersects = raycaster.intersectObject(terrain)
   return intersects.length
     ? intersects[0].point
-    : position
+    : null
 }
 
-export function putOnTerrain({ terrain, size, totalTry, callBack }) {
-  const halfSize = size / 2
-  for (let i = 0; i < totalTry; i++) {
-    const pos = new THREE.Vector3(randomInt(-halfSize, halfSize), 200, randomInt(-halfSize, halfSize))
-    const intersect = checkIntersect(terrain, pos)
-    if (intersect && intersect.y > 0) callBack(intersect)
+const findGroundRecursive = (terrain, size, counter = 0) => {
+  const { x, z } = randomInSquare(size)
+  const intersect = checkIntersect(terrain, { x, y: 400, z })
+  if (intersect && intersect.y > 0) return intersect
+  if (counter > 5) return null
+  return findGroundRecursive(terrain, size, counter + 1)
+}
+
+export function putOnTerrain({ terrain, size, total, callBack }) {
+  for (let i = 0; i < total; i++) {
+    const pos = findGroundRecursive(terrain, size)
+    if (pos) callBack(pos)
   }
 }
