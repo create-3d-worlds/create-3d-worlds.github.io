@@ -5,11 +5,10 @@ import { createWater } from '/utils/ground.js'
 import chroma from '/libs/chroma.js'
 
 const noise = new SimplexNoise()
-const greens = ['#A62A2A', '#7a8a46', '#967848', '#ffffff']
-// const greens = [0xA0522D, 0x2d4c1e, 0x228b22, 0x33aa33]
+const greens = [0xA62A2A, 0x7a8a46, 0x33aa33, 0xffffff]
 
 export const createHillyTerrain = (
-  { size = 400, segments = 20, color = 0x33aa33, factorX = size / 20, factorZ = size / 40, factorY = size / 10, file } = {}
+  { size = 400, segments = 20, color = 0x228b22, factorX = size / 20, factorZ = size / 40, factorY = size / 10, file } = {}
 ) => {
   const material = new THREE.MeshLambertMaterial({
     color: !file ? color : null,
