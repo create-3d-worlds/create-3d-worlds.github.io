@@ -3,10 +3,10 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 const textureLoader = new THREE.TextureLoader()
 
 // TODO: možda izbaciti async
-async function terrainFromHeightmap({
+function terrainFromHeightmap({
   file = 'wiki.png', textureFile = '', widthSegments = 100, heightSegments = 100, displacementScale = 150, color = 0x33aa33,
 } = {}) {
-  const displacementMap = await textureLoader.loadAsync(`/assets/heightmaps/${file}`)
+  const displacementMap = textureLoader.load(`/assets/heightmaps/${file}`)
 
   const geometry = new THREE.PlaneBufferGeometry(1000, 1000, widthSegments, heightSegments)
 
