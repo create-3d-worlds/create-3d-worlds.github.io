@@ -8,7 +8,7 @@ const noise = new SimplexNoise()
 const greens = [0xA62A2A, 0x7a8a46, 0x228b22, 0xfffacd]
 
 export const createHillyTerrain = (
-  { size = 400, segments = 20, color = 0x6de86d, factorX = size / 20, factorZ = size / 40, factorY = size / 10, file } = {}
+  { size = 400, segments = 20, color = 0x4ae34a, factorX = size / 20, factorZ = size / 40, factorY = size / 10, file } = {}
 ) => {
   const material = new THREE.MeshLambertMaterial({
     color: !file ? color : null,
