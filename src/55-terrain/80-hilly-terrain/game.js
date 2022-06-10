@@ -14,6 +14,7 @@ camera.position.z = 50
 scene.add(createWater({ size: 400 }))
 const terrain = createHillyTerrain()
 scene.add(terrain)
+
 scene.add(createTreesOnTerrain({ terrain }))
 
 /* LOOP */
