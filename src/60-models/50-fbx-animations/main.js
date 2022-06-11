@@ -2,10 +2,6 @@ import * as THREE from '/node_modules/three127/build/three.module.js'
 import { FBXLoader } from '/node_modules/three127/examples/jsm/loaders/FBXLoader.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 
-const light = new THREE.PointLight()
-light.position.set(0.8, 1.4, 1.0)
-scene.add(light)
-
 const ambientLight = new THREE.AmbientLight()
 scene.add(ambientLight)
 
