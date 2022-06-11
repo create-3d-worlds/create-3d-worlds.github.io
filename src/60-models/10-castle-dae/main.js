@@ -5,10 +5,15 @@ import { loadModel } from '/utils/loaders.js'
 initLights()
 
 const controls = createOrbitControls()
-camera.position.set(0, 2, 15)
+camera.position.set(0, 2, 12)
 
-const { mesh } = await loadModel({ file: 'tvrdjava.dae', size: 10, rot: { angle: Math.PI * .5, axis: [1, 0, 0] } })
-scene.add(mesh)
+const { mesh: leftCastle } = await loadModel({ file: 'tvrdjava.dae', shouldAdjust: true, size: 10, rot: { angle: Math.PI * .5, axis: [1, 0, 0] } })
+scene.add(leftCastle)
+leftCastle.position.x = -10
+
+const { mesh: rightCastle } = await loadModel({ file: 'zamak.obj', size: 10, shouldAdjust: true })
+scene.add(rightCastle)
+rightCastle.position.x = 10
 
 /** LOOP **/
 

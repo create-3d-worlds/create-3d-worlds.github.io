@@ -13,21 +13,15 @@ live-server
 
 ### General
 
-- [ ] upotrebiti hromu u nekom terenu
-// import chroma from '/libs/chroma.js'
-// const greens = [0xA0522D, 0x2d4c1e, 0x228b22, 0x33aa33]
-// const f = chroma.scale(greens).domain([-factorZ * .75, factorZ * .75])
-// const nuance = new THREE.Color(f(vertex.z).hex())
-
-- [x] sažvakati world-simulation
-  - [x] odvojiti pomagala za drveće na terenu
-  - [x] spojiti createHillyTerrain i createHillyTerrain2
+- [ ] probati fbx animacije (models/character-girl-fighter)
+  - [ ] https://youtu.be/8n_v1aJmLmc
+  - [ ] https://sbcode.net/threejs/fbx-animation/
+  - [ ] izabrati animacije za mixamo modele: Kachujin G Rosales (girl), Arissa, Steve, Maw J Laygo
+  - [ ] ima gomila capoeira animacija (slažu se: Megan)
+- [ ] probati konačni automat https://youtu.be/EkPfhzIbp2g
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
   - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
-- [x] dovesti veličine u razmeru 1px : 1m
-- [x] pomeriti foldere sa igračem u scenu
-- [ ] probati konačni automat https://youtu.be/EkPfhzIbp2g
 
 - [x] ažurirati verziju (na 119)
 - [x] ažurirati verziju (na 127)
@@ -52,6 +46,7 @@ live-server
 - [x] organize geometry utils (barrels, boxes, balls...)
 - [x] organize shapes utils (createAirplane, sheep, train...)
 - [x] srediti createBox i sve zavisne strukture
+- [x] dovesti veličine u razmeru 1px : 1m
 
 ### Particles
 
@@ -89,7 +84,8 @@ live-server
 - [x] heightmap with texture
 - [x] kreirati stepenice u krug od kocki
 - [x] kreirati funkciju similarColor
-- [x] proceduralni grad: promeniti boju krova
+- [x] upotrebiti hromu u nekom terenu
+- [x] odvojiti pomagala za drveće na terenu
 
 ### 2D Renderer
 
@@ -229,6 +225,7 @@ live-server
 
 - [ ] Grad
   - [x] srediti grad
+  - [x] promeniti boju krova
   - [x] srediti grad-prozori
   - [x] optimizovati grad-prozori
   - [x] srediti uličnu rasvetu
