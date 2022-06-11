@@ -13,12 +13,14 @@ live-server
 
 ### General
 
-- [ ] probati fbx animacije (models/character-girl-fighter)
+- [ ] probati fbx animacije
   - [ ] https://youtu.be/8n_v1aJmLmc
   - [ ] https://sbcode.net/threejs/fbx-animation/
   - [ ] izabrati animacije za mixamo modele: Kachujin G Rosales (girl), Arissa, Steve, Maw J Laygo
   - [ ] ima gomila capoeira animacija (slažu se: Megan)
 - [ ] probati konačni automat https://youtu.be/EkPfhzIbp2g
+- [ ] zastariti character-girl
+- [ ] naučiti blender
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
   - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba

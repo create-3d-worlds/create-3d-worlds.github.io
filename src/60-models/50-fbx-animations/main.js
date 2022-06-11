@@ -9,7 +9,7 @@ const controls = createOrbitControls()
 controls.target.set(0, 1, 0)
 
 const fbxLoader = new FBXLoader()
-fbxLoader.load('/assets/models/character-girl-fighter/girl-walk.fbx', object => {
+fbxLoader.load('/assets/models/character-kachujin/Kachujin.fbx', object => {
   object.scale.set(.02, .02, .02)
   scene.add(object)
 })
