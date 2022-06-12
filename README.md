@@ -20,7 +20,13 @@ live-server
   - [ ] ima gomila capoeira animacija (slažu se: Megan)
 - [ ] probati konačni automat https://youtu.be/EkPfhzIbp2g
 - [ ] zastariti character-girl
-- [ ] naučiti blender
+- [ ] zameniti sve modele manjima
+- [ ] napraviti osnovne geometriju
+  - [ ] kutije sa municijom
+  - [ ] buriće metalne, drvene
+  - [ ] zgrade sa texturama iz ww2 aseta
+- [ ] videti threejs catapult projekt
+
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
   - [x] dodati `mesh.castShadow = true` i `mesh.receiveShadow = true` gde treba
@@ -315,4 +321,4 @@ Examples are from theese great books and tutorials:
 * [Three.js Cookbook](https://github.com/josdirksen/threejs-cookbook) (Jos Dirksen)
 * [How to Design 3D Games with Web Technology - Book 01: Three. Js - HTML5 and WebGL](https://thefiveplanets.org/b01/) (Jordi Josa)
 
-Free 3D Models are from sketchfab.com and other respected sites.
+Free 3D Models are from 3dwarehouse.sketchup.com, sketchfab.com, mixamo.com, archive3d.net and other respected sites.
