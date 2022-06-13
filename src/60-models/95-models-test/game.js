@@ -18,7 +18,7 @@ const randomPos = mesh => {
 }
 
 {
-  const { mesh } = await loadModel({ file: 'birds/flamingo.glb', size: 5, shouldCenter: true, shouldAdjustHeight: true })
+  const { mesh } = await loadModel({ file: 'animal/bird/flamingo.glb', size: 5, shouldCenter: true, shouldAdjustHeight: true })
   for (let i = 0; i < BIRDS; i++) {
     const bird = mesh.clone()
     scene.add(randomPos(bird))
@@ -26,13 +26,13 @@ const randomPos = mesh => {
 }
 
 {
-  const { mesh } = await loadModel({ file: 'tower-wizard/scene.gltf', size: 25 })
+  const { mesh } = await loadModel({ file: 'castle/wizard-isle/scene.gltf', size: 25 })
   const tower = mesh.clone()
   scene.add(randomPos(tower))
 }
 
 {
-  const { mesh } = await loadModel({ file: 'character-ogro/ogro.md2', texture: 'character-ogro/skins/arboshak.png', size: 5, rot: { axis: [0, 1, 0], angle: -Math.PI * .5 }, shouldCenter: true, shouldAdjustHeight: true })
+  const { mesh } = await loadModel({ file: 'character/ogro/ogro.md2', texture: 'character/ogro/skins/arboshak.png', size: 5, rot: { axis: [0, 1, 0], angle: -Math.PI * .5 }, shouldCenter: true, shouldAdjustHeight: true })
   for (let i = 0; i < HUNTERS; i++) {
     const hunter = mesh.clone()
     scene.add(randomPos(hunter))
@@ -40,7 +40,7 @@ const randomPos = mesh => {
 }
 
 {
-  const { mesh } = await loadModel({ file: 'animal-horse/horse.glb', size: 5 })
+  const { mesh } = await loadModel({ file: 'animal/horse/horse.glb', size: 5 })
   for (let i = 0; i < HORSES; i++) {
     const horse = mesh.clone()
     scene.add(randomPos(horse))
@@ -48,7 +48,7 @@ const randomPos = mesh => {
 }
 
 {
-  const { mesh } = await loadModel({ file: 'houses/house2-01.obj', mtl: 'houses/house2-01.mtl', size: 5 })
+  const { mesh } = await loadModel({ file: 'building/medieval-house/house1-01.obj', mtl: 'building/medieval-house/house1-01.mtl', size: 5 })
   for (let i = 0; i < HOUSES; i++) {
     const house = mesh.clone()
     scene.add(randomPos(house))

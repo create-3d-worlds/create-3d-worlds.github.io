@@ -13,7 +13,7 @@ scene.add(ground)
 
 initLights()
 
-const { mesh } = await loadModel({ file: 'houses/house2-02.obj', mtl: 'houses/house2-02.mtl', size: 12 })
+const { mesh } = await loadModel({ file: 'building/medieval-house/house1-02.obj', mtl: 'building/medieval-house/house1-02.mtl', size: 12 })
 scene.add(mesh)
 
 addUIControls({ commands: {

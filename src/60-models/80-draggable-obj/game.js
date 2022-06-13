@@ -14,7 +14,7 @@ const offset = new THREE.Vector3()
 const intersection = new THREE.Vector3()
 
 const mtlLoader = new MTLLoader()
-mtlLoader.setPath('/assets/models/items/')
+mtlLoader.setPath('/assets/models/item/')
 
 scene.background = new THREE.Color(0xe0e0e0)
 initLights()
@@ -22,17 +22,17 @@ initLights()
 camera.position.set(0, 5, 5)
 const controls = createOrbitControls()
 
-loadOBJ('potion.mtl', 'potion.obj', model => placeModel(model, false, 4))
-loadOBJ('potion2.mtl', 'potion.obj', model => placeModel(model, false, 4))
-loadOBJ('potion3.mtl', 'potion.obj', model => placeModel(model, false, 4))
-loadOBJ('money.mtl', 'money.obj', model => placeModel(model, false, 4))
-loadOBJ('axe.mtl', 'axe.obj', model => placeModel(model, true, 2))
-loadOBJ('hammer.mtl', 'hammer.obj', model => placeModel(model, true, 2))
-loadOBJ('shield.mtl', 'shield.obj', model => placeModel(model, true))
-loadOBJ('staff.mtl', 'staff.obj', model => placeModel(model, true))
-loadOBJ('sword.mtl', 'sword.obj', model => placeModel(model, true))
+loadOBJ('potion/potion.mtl', 'potion/potion.obj', model => placeModel(model, false, 4))
+loadOBJ('potion/potion2.mtl', 'potion/potion.obj', model => placeModel(model, false, 4))
+loadOBJ('potion/potion3.mtl', 'potion/potion.obj', model => placeModel(model, false, 4))
+loadOBJ('money/money.mtl', 'money/money.obj', model => placeModel(model, false, 4))
+loadOBJ('axe/axe.mtl', 'axe/axe.obj', model => placeModel(model, true, 2))
+loadOBJ('hammer/hammer.mtl', 'hammer/hammer.obj', model => placeModel(model, true, 2))
+loadOBJ('shield/shield.mtl', 'shield/shield.obj', model => placeModel(model, true))
+loadOBJ('staff/staff.mtl', 'staff/staff.obj', model => placeModel(model, true))
+loadOBJ('sword/sword.mtl', 'sword/sword.obj', model => placeModel(model, true))
 
-loadOBJ('chest.mtl', 'chest.obj', model => {
+loadOBJ('chest/chest.mtl', 'chest/chest.obj', model => {
   CHEST = model
   model.rotation.y = -Math.PI / 2
   scene.add(model)
@@ -55,7 +55,7 @@ function placeModel(model, shouldRotate = false, itemsNum = 1) {
 function loadOBJ(fileMaterial, fileOBJ, callback) {
   const objLoader = new OBJLoader() // mora nova instanca zbog setMaterials
   mtlLoader.load(fileMaterial, materials => {
-    objLoader.setPath('/assets/models/items/')
+    objLoader.setPath('/assets/models/item/')
     objLoader.setMaterials(materials)
     objLoader.load(fileOBJ, object => {
       callback(object.children[0])

@@ -22,7 +22,7 @@ const ground = createGround({ r: 3000, color: 0x91A566 })
 
 // const { mesh, mixer } = await loadModel({ file: '/aircraft_junkers_ju_87_stuka/scene.gltf', size: 30 })
 
-const { mesh, mixer } = await loadModel({ file: '/aircraft_messerschmitt_109/scene.gltf', size: 20 })
+const { mesh, mixer } = await loadModel({ file: '/aircraft/messerschmitt-bf-109/scene.gltf', size: 20 })
 
 mesh.position.y = 100
 

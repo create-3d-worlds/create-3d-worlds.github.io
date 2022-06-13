@@ -33,7 +33,7 @@ const controls = createOrbitControls()
 controls.target.set(0, 1, 0)
 
 const fbxLoader = new FBXLoader()
-fbxLoader.setPath('/assets/models/character-kachujin/')
+fbxLoader.setPath('/assets/models/character/kachujin/')
 fbxLoader.load('Kachujin.fbx', model => {
   model.scale.set(.02, .02, .02)
   scene.add(model)

@@ -14,6 +14,7 @@ live-server
 ### General
 
 - ažurirati linkove ka modelima
+- proveriti house inside
 - zameniti modele:
   - barrel
   - aircraft-s-e-5a

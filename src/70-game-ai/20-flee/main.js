@@ -13,14 +13,14 @@ camera.position.set(0, 100, 100)
 const floor = createFloor({ size: 1000 })
 scene.add(floor)
 
-const { mesh, animations } = await loadModel({ file: 'character-girl/girl.glb', size: .4 })
+const { mesh, animations } = await loadModel({ file: 'character/girl/girl.glb', size: .4 })
 const runnerMixer = getMixer(mesh, animations, animations.length - 1)
 const runner = new SteeringEntity(mesh)
 runner.maxSpeed = 1.5
 runner.position.set(randomInRange(-500, 500), 0, randomInRange(-500, 500))
 scene.add(runner)
 
-const { mesh: ghostMesh, mixer: ghostMixer } = await loadModel({ file: '/character-fantasma/scene.gltf' })
+const { mesh: ghostMesh, mixer: ghostMixer } = await loadModel({ file: '/character/fantasma/scene.gltf' })
 const pursuer = new SteeringEntity(ghostMesh)
 pursuer.maxSpeed = 1
 pursuer.position.set(randomInRange(-500, 500), 0, randomInRange(-500, 500))
