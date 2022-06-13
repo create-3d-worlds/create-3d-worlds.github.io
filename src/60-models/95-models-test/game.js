@@ -18,7 +18,7 @@ const randomPos = mesh => {
 }
 
 {
-  const { mesh } = await loadModel({ file: 'animal/bird/flamingo.glb', size: 5, shouldCenter: true, shouldAdjustHeight: true })
+  const { mesh } = await loadModel({ file: 'animal/flamingo.glb', size: 5, shouldCenter: true, shouldAdjustHeight: true })
   for (let i = 0; i < BIRDS; i++) {
     const bird = mesh.clone()
     scene.add(randomPos(bird))
@@ -40,7 +40,7 @@ const randomPos = mesh => {
 }
 
 {
-  const { mesh } = await loadModel({ file: 'animal/horse/horse.glb', size: 5 })
+  const { mesh } = await loadModel({ file: 'animal/horse.glb', size: 5 })
   for (let i = 0; i < HORSES; i++) {
     const horse = mesh.clone()
     scene.add(randomPos(horse))
