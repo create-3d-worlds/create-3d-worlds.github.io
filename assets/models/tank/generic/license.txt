@@ -1,0 +1,11 @@
+Model Information:
+* title:	Group 16
+* source:	https://sketchfab.com/3d-models/group-16-ecfc4150e194453ea67f2885551539f0
+* author:	mudroljub (https://sketchfab.com/mudroljub)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Group 16" (https://sketchfab.com/3d-models/group-16-ecfc4150e194453ea67f2885551539f0) by mudroljub (https://sketchfab.com/mudroljub) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

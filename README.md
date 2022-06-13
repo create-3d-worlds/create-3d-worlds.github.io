@@ -13,6 +13,14 @@ live-server
 
 ### General
 
+- ažurirati linkove ka modelima
+- zameniti modele:
+  - barrel
+  - aircraft-s-e-5a
+  - zeppelin-santos-dumont
+  - tower-wizard -> wizard-isle
+  - /items
+- zameniti izbrisane modele u 90-modeli
 - [ ] probati fbx animacije
   - [ ] https://youtu.be/8n_v1aJmLmc
   - [ ] https://sbcode.net/threejs/fbx-animation/
@@ -21,6 +29,7 @@ live-server
 - [ ] probati konačni automat https://youtu.be/EkPfhzIbp2g
 - [ ] zastariti character-girl
 - [ ] zameniti sve modele manjima
+- [ ] naći model propelera i rotirati ga na avionima
 - [ ] napraviti osnovne geometriju
   - [ ] kutije sa municijom
   - [ ] buriće metalne, drvene
@@ -321,4 +330,4 @@ Examples are from theese great books and tutorials:
 * [Three.js Cookbook](https://github.com/josdirksen/threejs-cookbook) (Jos Dirksen)
 * [How to Design 3D Games with Web Technology - Book 01: Three. Js - HTML5 and WebGL](https://thefiveplanets.org/b01/) (Jordi Josa)
 
-Free 3D Models are from 3dwarehouse.sketchup.com, sketchfab.com, mixamo.com, archive3d.net and other respected sites.
+Free 3D Models are from 3dwarehouse.sketchup.com, sketchfab.com, mixamo.com, archive3d.net, turbosquid.com and other respected sites.

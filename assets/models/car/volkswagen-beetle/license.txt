@@ -1,0 +1,11 @@
+Model Information:
+* title:	(Low-poly) Volkswagen Beetle
+* source:	https://sketchfab.com/3d-models/low-poly-volkswagen-beetle-f680ad7e98e445eaafed1a70f2c53911
+* author:	KrStolorz (https://sketchfab.com/KrStolorz)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "(Low-poly) Volkswagen Beetle" (https://sketchfab.com/3d-models/low-poly-volkswagen-beetle-f680ad7e98e445eaafed1a70f2c53911) by KrStolorz (https://sketchfab.com/KrStolorz) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

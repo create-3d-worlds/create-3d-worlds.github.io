@@ -1,0 +1,11 @@
+Model Information:
+* title:	Airship 遊俠號
+* source:	https://sketchfab.com/3d-models/airship-97c8a610c2e74d12ba87ba9d443e118b
+* author:	alen60303 (https://sketchfab.com/alen60303)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Airship 遊俠號" (https://sketchfab.com/3d-models/airship-97c8a610c2e74d12ba87ba9d443e118b) by alen60303 (https://sketchfab.com/alen60303) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

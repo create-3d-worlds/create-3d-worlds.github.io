@@ -1,0 +1,11 @@
+Model Information:
+* title:	Component 75
+* source:	https://sketchfab.com/3d-models/component-75-37e3ae31124c4db4bc043dbebd8e4c8e
+* author:	mudroljub (https://sketchfab.com/mudroljub)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Component 75" (https://sketchfab.com/3d-models/component-75-37e3ae31124c4db4bc043dbebd8e4c8e) by mudroljub (https://sketchfab.com/mudroljub) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Flying aircraft carrier
+* source:	https://sketchfab.com/3d-models/flying-aircraft-carrier-a3a4b2d9886e4e778433724d7e22803c
+* author:	mudroljub (https://sketchfab.com/mudroljub)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Flying aircraft carrier" (https://sketchfab.com/3d-models/flying-aircraft-carrier-a3a4b2d9886e4e778433724d7e22803c) by mudroljub (https://sketchfab.com/mudroljub) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

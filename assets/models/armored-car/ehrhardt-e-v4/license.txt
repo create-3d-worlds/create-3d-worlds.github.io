@@ -1,0 +1,11 @@
+Model Information:
+* title:	Armored-car-german
+* source:	https://sketchfab.com/3d-models/armored-car-german-a6fe59770c15424ca82058e90e16dc62
+* author:	mudroljub (https://sketchfab.com/mudroljub)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Armored-car-german" (https://sketchfab.com/3d-models/armored-car-german-a6fe59770c15424ca82058e90e16dc62) by mudroljub (https://sketchfab.com/mudroljub) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

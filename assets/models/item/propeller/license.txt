@@ -1,0 +1,11 @@
+Model Information:
+* title:	Propeller from Poly by Google
+* source:	https://sketchfab.com/3d-models/propeller-from-poly-by-google-bedea3b8563a4c06b364ecdd468f514f
+* author:	IronEqual (https://sketchfab.com/ie-niels)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Propeller from Poly by Google" (https://sketchfab.com/3d-models/propeller-from-poly-by-google-bedea3b8563a4c06b364ecdd468f514f) by IronEqual (https://sketchfab.com/ie-niels) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

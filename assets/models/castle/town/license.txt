@@ -1,0 +1,11 @@
+Model Information:
+* title:	Medieval castle with village
+* source:	https://sketchfab.com/3d-models/medieval-castle-with-village-5109b5e46e064790badecedf8f6d2ef6
+* author:	Artbake Graphics (https://sketchfab.com/ismir)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Medieval castle with village" (https://sketchfab.com/3d-models/medieval-castle-with-village-5109b5e46e064790badecedf8f6d2ef6) by Artbake Graphics (https://sketchfab.com/ismir) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

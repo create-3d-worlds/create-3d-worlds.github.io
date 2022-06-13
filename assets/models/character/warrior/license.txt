@@ -1,0 +1,11 @@
+Model Information:
+* title:	3DRT - Fantasy Warrior
+* source:	https://sketchfab.com/3d-models/3drt-fantasy-warrior-d39a0dee0f054c21b6751f7821aa7a8e
+* author:	3DRT.com (https://sketchfab.com/3DRT.com)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "3DRT - Fantasy Warrior" (https://sketchfab.com/3d-models/3drt-fantasy-warrior-d39a0dee0f054c21b6751f7821aa7a8e) by 3DRT.com (https://sketchfab.com/3DRT.com) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

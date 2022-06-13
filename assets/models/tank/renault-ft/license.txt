@@ -1,0 +1,11 @@
+Model Information:
+* title:	Ms1+37mm+gsr
+* source:	https://sketchfab.com/3d-models/ms137mmgsr-cb07bb5ca55141b2bbf8b0d0c512a03a
+* author:	mudroljub (https://sketchfab.com/mudroljub)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Ms1+37mm+gsr" (https://sketchfab.com/3d-models/ms137mmgsr-cb07bb5ca55141b2bbf8b0d0c512a03a) by mudroljub (https://sketchfab.com/mudroljub) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

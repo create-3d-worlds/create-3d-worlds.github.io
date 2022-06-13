@@ -1,0 +1,11 @@
+Model Information:
+* title:	Fokker Dr-1
+* source:	https://sketchfab.com/3d-models/fokker-dr-1-16fb2b6eb625490da5203ce1659da65a
+* author:	mudroljub (https://sketchfab.com/mudroljub)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Fokker Dr-1" (https://sketchfab.com/3d-models/fokker-dr-1-16fb2b6eb625490da5203ce1659da65a) by mudroljub (https://sketchfab.com/mudroljub) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

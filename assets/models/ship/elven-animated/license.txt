@@ -1,0 +1,11 @@
+Model Information:
+* title:	Asian Pirate Ship
+* source:	https://sketchfab.com/3d-models/asian-pirate-ship-e36211dff0ab474b8dbab25c92544bb9
+* author:	Daniel Sturing (https://sketchfab.com/Donnielo)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Asian Pirate Ship" (https://sketchfab.com/3d-models/asian-pirate-ship-e36211dff0ab474b8dbab25c92544bb9) by Daniel Sturing (https://sketchfab.com/Donnielo) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	German Messerschmitt Me 262 Schwalbe
+* source:	https://sketchfab.com/3d-models/german-messerschmitt-me-262-schwalbe-5a81d78cef22459ab655827c4f128baf
+* author:	mudroljub (https://sketchfab.com/mudroljub)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "German Messerschmitt Me 262 Schwalbe" (https://sketchfab.com/3d-models/german-messerschmitt-me-262-schwalbe-5a81d78cef22459ab655827c4f128baf) by mudroljub (https://sketchfab.com/mudroljub) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	T-34
+* source:	https://sketchfab.com/3d-models/t-34-3aa9cae355484d6f81abff4a8ca2a0bf
+* author:	mudroljub (https://sketchfab.com/mudroljub)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "T-34" (https://sketchfab.com/3d-models/t-34-3aa9cae355484d6f81abff4a8ca2a0bf) by mudroljub (https://sketchfab.com/mudroljub) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

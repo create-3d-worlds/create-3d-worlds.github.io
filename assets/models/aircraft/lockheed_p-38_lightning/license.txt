@@ -1,0 +1,11 @@
+Model Information:
+* title:	Lockheed P-38 Lightning
+* source:	https://sketchfab.com/3d-models/lockheed-p-38-lightning-5d4cc313068e470292de518ea28f2f30
+* author:	mudroljub (https://sketchfab.com/mudroljub)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Lockheed P-38 Lightning" (https://sketchfab.com/3d-models/lockheed-p-38-lightning-5d4cc313068e470292de518ea28f2f30) by mudroljub (https://sketchfab.com/mudroljub) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Low Poly medieval cannon
+* source:	https://sketchfab.com/3d-models/low-poly-medieval-cannon-42717150e3e741a3aee7346b85c06890
+* author:	Untara (https://sketchfab.com/untara)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Low Poly medieval cannon" (https://sketchfab.com/3d-models/low-poly-medieval-cannon-42717150e3e741a3aee7346b85c06890) by Untara (https://sketchfab.com/untara) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
