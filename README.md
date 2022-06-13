@@ -13,15 +13,7 @@ live-server
 
 ### General
 
-- ažurirati linkove ka modelima
-- proveriti house inside
-- zameniti modele:
-  - barrel
-  - aircraft-s-e-5a
-  - zeppelin-santos-dumont
-  - tower-wizard -> wizard-isle
-  - /items
-- zameniti izbrisane modele u 90-modeli
+- [x] ažurirati linkove ka modelima
 - [ ] probati fbx animacije
   - [ ] https://youtu.be/8n_v1aJmLmc
   - [ ] https://sbcode.net/threejs/fbx-animation/
