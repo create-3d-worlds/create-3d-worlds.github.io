@@ -13,19 +13,17 @@ live-server
 
 ### General
 
-- [x] ažurirati linkove ka modelima
 - [ ] probati fbx animacije
   - [ ] https://youtu.be/8n_v1aJmLmc
   - [ ] https://sbcode.net/threejs/fbx-animation/
-  - [ ] izabrati animacije za mixamo modele: Kachujin G Rosales (girl), Arissa, Steve, Maw J Laygo
-  - [ ] ima gomila capoeira animacija (slažu se: Megan)
+  - [x] izabrati animacije za mixamo modele: Kachujin G Rosales (girl), Arissa, Steve, Maw J Laygo
 - [ ] probati konačni automat https://youtu.be/EkPfhzIbp2g
 - [ ] zastariti character-girl
-- [ ] zameniti sve modele manjima
 - [ ] naći model propelera i rotirati ga na avionima
 - [ ] napraviti osnovne geometriju
   - [ ] kutije sa municijom
   - [ ] buriće metalne, drvene
+  - [ ] kuće i bunar
   - [ ] zgrade sa texturama iz ww2 aseta
 - [ ] videti threejs catapult projekt
 
@@ -156,6 +154,8 @@ live-server
 - [x] isprobati nove 3d modele
   - [x] organizovati modele tematski
   - [x] izbaciti nightelf-priest
+- [x] ažurirati linkove ka novim modelima
+- [x] zameniti modele manjima
 
 ### Physics
 
