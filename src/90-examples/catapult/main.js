@@ -7,7 +7,7 @@ const stonesBody = [], stonesMesh = [], catapultsBody = [], catapultsMesh = []
 const standsBody = [], standsMesh = [], collidables = []
 let mainStandBody, mainStandSize
 let userShootVelocity = 4
-let level
+const numEnemies = 1
 let attackSet
 const xPositions = [-46, -40, -28, -18, -5]
 let catapultModel
@@ -15,26 +15,17 @@ let endInterval, collisonInterval
 
 const gltfloader = new THREE.GLTFLoader()
 
-// window variables
 window.addEventListener('keyup', e => {
-  if (e.keyCode == 65)
+  if (e.code == 'KeyA')
     throwStone(catapultsBody[0], new THREE.Vector3(1, 1, 0), userShootVelocity, 'user')
 
-  if (e.keyCode == 67)
-    if (activeCamera === camera)
-      activeCamera = camera2
-    else
-      activeCamera = camera
+  if (e.code == 'KeyC')
+    activeCamera = activeCamera === camera ? camera2 : camera
 
-  const loading = document.getElementById('loading').innerHTML
-  if (e.keyCode == 32 && loading === 'ready to go !') {
+  if (e.code == 'Space') {
     clearInterval(endInterval)
     clearInterval(collisonInterval)
-    level = parseInt(prompt('Please enter hardship level you want \n choose between 1 to 4', 1))
-    if (level > 4)
-      level = 4
-
-    positioningEnemies(level)
+    positioningEnemies(numEnemies)
     activeCamera = camera
     document.getElementById('instruction').style.display = 'none'
     document.getElementById('game').style.display = 'none'
@@ -45,7 +36,7 @@ window.addEventListener('keyup', e => {
         gameOver()
 
       let check = 0
-      for (let i = 1; i < level + 1; i++)
+      for (let i = 1; i < numEnemies + 1; i++)
         if (catapultsMesh[i].parent == scene)
           check++
 
@@ -445,12 +436,11 @@ function positioningEnemies(number) {
     world.add(standsBody[i])
     scene.add(standsMesh[i])
   }
-  level = number
   attackSet = setInterval(enemyAttack, 3000)
 }
 
 function enemyAttack() {
-  for (let i = 1; i < level + 1; i++)
+  for (let i = 1; i < numEnemies + 1; i++)
     if (catapultsBody[i].world === world)
       throwStone(catapultsBody[i], new THREE.Vector3(-1, 1, 0), Math.random() * 12.5 + 8, 'enemy')
 }
