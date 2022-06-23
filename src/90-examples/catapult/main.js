@@ -15,50 +15,13 @@ let endInterval, collisonInterval
 
 const gltfloader = new THREE.GLTFLoader()
 
-window.addEventListener('keyup', e => {
-  if (e.code == 'KeyA')
-    throwStone(catapultsBody[0], new THREE.Vector3(1, 1, 0), userShootVelocity, 'user')
-
-  if (e.code == 'KeyC')
-    activeCamera = activeCamera === camera ? camera2 : camera
-
-  if (e.code == 'Space') {
-    clearInterval(endInterval)
-    clearInterval(collisonInterval)
-    positioningEnemies(numEnemies)
-    activeCamera = camera
-    document.getElementById('instruction').style.display = 'none'
-    document.getElementById('game').style.display = 'none'
-    document.getElementById('game').innerHTML = ''
-
-    endInterval = setInterval(() => {
-      if (catapultsMesh[0].parent == null)
-        gameOver()
-
-      let check = 0
-      for (let i = 1; i < numEnemies + 1; i++)
-        if (catapultsMesh[i].parent == scene)
-          check++
-
-      if (check === 0)
-        victory()
-    }, 5000)
-    collisonInterval = setInterval(() => {
-      for (let i = 0; i < stonesMesh.length; i++)
-        checkCollison(stonesMesh[i], collidables)
-    }, 130)
-  }
-})
-
 gltfloader.load('models/catapult2/scene.gltf', createCatapults)
 gltfloader.load('models/tower1/scene.gltf', createTower)
 
-initCannon()
+initPhysics()
 init()
-update()
 
-function initCannon() {
-
+function initPhysics() {
   // Setup our world
   world = new CANNON.World()
   world.quatNormalizeSkip = 0
@@ -107,7 +70,6 @@ function initCannon() {
   mainStandBody.addShape(mainStandShape)
   mainStandBody.position.set(-60, 5, 0)
   world.add(mainStandBody)
-
 }
 
 function init() {
@@ -234,7 +196,6 @@ function init() {
 }
 
 function updatePhysics() {
-
   // Step the physics world
   world.step(timeStep)
   // update stones
@@ -251,19 +212,6 @@ function updatePhysics() {
     standsMesh[i].position.copy(standsBody[i].position)
     standsMesh[i].quaternion.copy(standsBody[i].quaternion)
   }
-}
-
-function update() {
-  if (keyboard.pressed.KeyA && userShootVelocity < 50) {
-    document.getElementById('power').innerHTML = 'power :' + userShootVelocity
-    userShootVelocity += 0.5
-  }
-
-  renderer.render(scene, activeCamera)
-  updatePhysics()
-  requestAnimationFrame(() => {
-    update()
-  })
 }
 
 function checkCollison(stoneMesh, collidableMeshList) {
@@ -477,3 +425,52 @@ function throwStone(catapultBody, shootDirection, shootVelocity, name) {
   userShootVelocity = 0
   countStones++
 }
+
+/* LOOP */
+
+void function update() {
+  requestAnimationFrame(update)
+  if (keyboard.pressed.KeyA && userShootVelocity < 50) {
+    document.getElementById('power').innerHTML = 'power :' + userShootVelocity
+    userShootVelocity += 0.5
+  }
+  updatePhysics()
+  renderer.render(scene, activeCamera)
+}()
+
+/* EVENTS */
+
+window.addEventListener('keyup', e => {
+  if (e.code == 'KeyA')
+    throwStone(catapultsBody[0], new THREE.Vector3(1, 1, 0), userShootVelocity, 'user')
+
+  if (e.code == 'KeyC')
+    activeCamera = activeCamera === camera ? camera2 : camera
+
+  if (e.code == 'Space') {
+    clearInterval(endInterval)
+    clearInterval(collisonInterval)
+    positioningEnemies(numEnemies)
+    activeCamera = camera
+    document.getElementById('instruction').style.display = 'none'
+    document.getElementById('game').style.display = 'none'
+    document.getElementById('game').innerHTML = ''
+
+    endInterval = setInterval(() => {
+      if (catapultsMesh[0].parent == null)
+        gameOver()
+
+      let check = 0
+      for (let i = 1; i < numEnemies + 1; i++)
+        if (catapultsMesh[i].parent == scene)
+          check++
+
+      if (check === 0)
+        victory()
+    }, 5000)
+    collisonInterval = setInterval(() => {
+      for (let i = 0; i < stonesMesh.length; i++)
+        checkCollison(stonesMesh[i], collidables)
+    }, 130)
+  }
+})
