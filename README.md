@@ -13,6 +13,12 @@ live-server
 
 ### General
 
+- [ ] videti threejs catapult projekt
+- [ ] napraviti osnovne geometriju
+  - [ ] kutije sa municijom
+  - [ ] buriće metalne, drvene
+  - [ ] kuće i bunar
+  - [ ] zgrade sa texturama iz ww2 aseta
 - [ ] probati fbx animacije
   - [ ] https://youtu.be/8n_v1aJmLmc
   - [ ] https://sbcode.net/threejs/fbx-animation/
@@ -20,12 +26,6 @@ live-server
 - [ ] probati konačni automat https://youtu.be/EkPfhzIbp2g
 - [ ] zastariti character-girl
 - [ ] naći model propelera i rotirati ga na avionima
-- [ ] napraviti osnovne geometriju
-  - [ ] kutije sa municijom
-  - [ ] buriće metalne, drvene
-  - [ ] kuće i bunar
-  - [ ] zgrade sa texturama iz ww2 aseta
-- [ ] videti threejs catapult projekt
 
 - [x] svuda srediti svetla
   - [x] hemLight to lights.js
