@@ -11,7 +11,6 @@ let level
 let attackSet
 const xPositions = [-46, -40, -28, -18, -5]
 let catapultModel
-let cameraChange = 2
 let endInterval, collisonInterval
 
 const gltfloader = new THREE.GLTFLoader()
@@ -22,18 +21,13 @@ window.addEventListener('keyup', e => {
     throwStone(catapultsBody[0], new THREE.Vector3(1, 1, 0), userShootVelocity, 'user')
 
   if (e.keyCode == 67)
-    if (cameraChange > 0)
-      if (activeCamera === camera) {
-        activeCamera = camera2
-        cameraChange--
-      } else {
-        activeCamera = camera
-        cameraChange--
-      }
+    if (activeCamera === camera)
+      activeCamera = camera2
+    else
+      activeCamera = camera
 
   const loading = document.getElementById('loading').innerHTML
   if (e.keyCode == 32 && loading === 'ready to go !') {
-    cameraChange = 2
     clearInterval(endInterval)
     clearInterval(collisonInterval)
     level = parseInt(prompt('Please enter hardship level you want \n choose between 1 to 4', 1))
