@@ -1,42 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Catapult</title>
-    <link rel="stylesheet" href="main.css">
+  <meta charset="UTF-8">
+  <title>Catapult</title>
+  <link rel="stylesheet" href="main.css">
 
 </head>
+
 <body>
-<div id="webgl">
+  <div id="webgl">
     <div id="instruction">
-        <br>
-        Hi this is the instruction of the catapult game<br><br>
-        "A" key to shoot the enemies <br>
-        "space" key to start the game and to play again<br>
-        "C" key to change the camera (you can do this twice)<br>
-        <h4>author sina ghiasi using three js and cannon js library</h4>
-        <p id="loading" class="animate">Loading</p>
+      <br>
+      Hi this is the instruction of the catapult game<br><br>
+      "A" key to shoot the enemies <br>
+      "space" key to start the game and to play again<br>
+      "C" key to change the camera (you can do this twice)<br>
+      <h4>author sina ghiasi using three js and cannon js library</h4>
+      <p id="loading" class="animate">Loading</p>
     </div>
     <div id="power"></div>
     <div id="game"></div>
-</div>
+  </div>
 
-<script>
-    window.addEventListener("load",function f() {
-        document.getElementById("loading").innerHTML = "ready to go !"
+  <script>
+    window.addEventListener("load", function f() {
+      document.getElementById("loading").innerHTML = "ready to go !"
     })
-
-</script>
-<script src="lib/threejs/three.js"></script>
-<script src="lib/dat.gui.min.js"></script>
-<script src="lib/OrbitControls.js"></script>
-<script src="lib/THREEx.KeyboardState.js"></script>
-<script src="lib/Cannon.js"></script>
-<script src="lib/CannonDebugRenderer.js"></script>
-<script src="lib/stats.min.js"></script>
-<script src="lib/GLTFLoader.js"></script>
-<script src="main.js" type="module"></script>
-
+  </script>
+  <script src="lib/threejs/three.js"></script>
+  <script src="lib/Cannon.js"></script>
+  <script src="lib/GLTFLoader.js"></script>
+  <script src="main.js" type="module"></script>
 
 </body>
+
 </html>
