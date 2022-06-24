@@ -13,7 +13,7 @@ let activeCamera
 
 const gltfloader = new GLTFLoader()
 
-const stonesBody = [], stonesMesh = [], catapultsBody = [], catapultsMesh = []
+const stonesBody = [], stones = [], catapultsBody = [], catapultsMesh = []
 const standsBody = [], standsMesh = [], collidables = []
 const numEnemies = 1
 const xPositions = [-46, -40, -28, -18, -5]
@@ -95,8 +95,8 @@ function updatePhysics() {
   world.step(1 / 60)
   // update stones
   for (let i = 0; i < stonesBody.length; i++) {
-    stonesMesh[i].position.copy(stonesBody[i].position)
-    stonesMesh[i].quaternion.copy(stonesBody[i].quaternion)
+    stones[i].position.copy(stonesBody[i].position)
+    stones[i].quaternion.copy(stonesBody[i].quaternion)
   }
   // update catapults
   for (let i = 0; i < catapultsBody.length; i++) {
@@ -109,18 +109,16 @@ function updatePhysics() {
   }
 }
 
-function checkCollison(stoneMesh, collidableMeshList) {
-  const originPoint = stoneMesh.position.clone()
-  for (let vertexIndex = 0; vertexIndex < stoneMesh.geometry.vertices.length; vertexIndex++) {
-    const localVertex = stoneMesh.geometry.vertices[vertexIndex].clone()
-    const globalVertex = localVertex.applyMatrix4(stoneMesh.matrix)
-    const directionVector = globalVertex.sub(stoneMesh.position)
+function checkCollison(stone, collidables) {
+  for (let vertexIndex = 0; vertexIndex < stone.geometry.attributes.position.array.length; vertexIndex++) {
+    const localVertex = new THREE.Vector3().fromBufferAttribute(stone.geometry.attributes.position, vertexIndex).clone()
+    const globalVertex = localVertex.applyMatrix4(stone.matrix)
+    const directionVector = globalVertex.sub(stone.position)
 
-    const ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize())
-    const collisionResults = ray.intersectObjects(collidableMeshList)
-
+    const ray = new THREE.Raycaster(stone.position, directionVector.clone().normalize())
+    const collisionResults = ray.intersectObjects(collidables)
     if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length())
-      removeCatapult(collisionResults[0].object.name, stoneMesh.name)
+      removeCatapult(collisionResults[0].object.name, stone.name)
   }
 }
 
@@ -128,7 +126,7 @@ function createCatapults(gltf) {
   catapultModel = gltf.scene
   catapultModel.scale.set(1 / 3, 1 / 3, 1 / 3)
   const halfExt = new CANNON.Vec3(0.2, 0.8, 0.8)
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < numEnemies + 1; i++) {
     const catapultShape = new CANNON.Box(halfExt)
     const catapultBody = new CANNON.Body({ mass: 0 })
     catapultBody.addShape(catapultShape)
@@ -149,7 +147,7 @@ function positionUser() {
 }
 
 function createCollidables() {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < numEnemies + 1; i++) {
     const geometry = new THREE.BoxGeometry(3.2, 1.5, 3)
     const material = new THREE.MeshBasicMaterial({
       opacity: 0,
@@ -188,7 +186,7 @@ function createStands() {
   standTexture.magFilter = THREE.NearestFilter
   standTexture.minFilter = THREE.LinearMipMapLinearFilter
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < numEnemies + 1; i++) {
     const halfExt = new CANNON.Vec3(3, 0.6, 3)
     const standShape = new CANNON.Box(halfExt)
     const standBody = new CANNON.Body({ mass: 0 })
@@ -227,7 +225,7 @@ function createStones() {
     })
     const stoneMesh = new THREE.Mesh(stoneGeometry, material)
     stoneMesh.castShadow = true
-    stonesMesh.push(stoneMesh)
+    stones.push(stoneMesh)
   }
 }
 
@@ -246,11 +244,9 @@ function positioningEnemies() {
     scene.add(catapultsMesh[i])
     catapultsBody[i].position.copy(newPosition)
 
-    // make collidable mesh
     collidables[i].position.set(newPosition.x + 1, newPosition.y + 1, newPosition.z)
     scene.add(collidables[i])
 
-    // adding stand
     standsBody[i].position.set(newPosition.x + 1, newPosition.y - 0.9, newPosition.z - 0.5)
     world.add(standsBody[i])
     scene.add(standsMesh[i])
@@ -260,14 +256,13 @@ function positioningEnemies() {
 let countStones = 0
 
 function throwStone(catapultBody, shootDirection, shootVelocity, name) {
-  if (countStones > 19)
-    countStones = 0
+  if (countStones > 19) countStones = 0
 
   // shooting coordinate
   let { x, y, z } = catapultBody.position
 
   const stoneBody = stonesBody[countStones]
-  const stoneMesh = stonesMesh[countStones]
+  const stoneMesh = stones[countStones]
   scene.add(stoneMesh)
   world.add(stoneBody)
 
@@ -339,9 +334,8 @@ function update() {
 
   updatePhysics()
 
-  // TODO: fix checkCollison
-  // for (let i = 0; i < stonesMesh.length; i++)
-  // checkCollison(stonesMesh[i], collidables)
+  for (let i = 0; i < stones.length; i++)
+    checkCollison(stones[i], collidables)
 
   if (clock.getElapsedTime() > lastEnemyAttack + 3) {
     lastEnemyAttack = clock.getElapsedTime()
