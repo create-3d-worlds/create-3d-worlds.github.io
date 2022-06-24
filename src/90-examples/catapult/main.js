@@ -90,9 +90,9 @@ function checkCollison(stone, collidables) {
     const directionVector = globalVertex.sub(stone.position)
 
     const ray = new THREE.Raycaster(stone.position, directionVector.clone().normalize())
-    const collisionResults = ray.intersectObjects(collidables)
-    if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length())
-      removeCatapult(collisionResults[0].object.name, stone.name)
+    const targets = ray.intersectObjects(collidables)
+    if (targets.length > 0 && targets[0].distance < directionVector.length())
+      removeCatapult(targets[0].object.name, stone.name)
   }
 }
 
@@ -170,9 +170,9 @@ function createStones() {
       side: THREE.FrontSide,
       map: stoneTexture
     })
-    const stoneMesh = new THREE.Mesh(stoneGeometry, material)
-    stoneMesh.castShadow = true
-    stones.push(stoneMesh)
+    const stone = new THREE.Mesh(stoneGeometry, material)
+    stone.castShadow = true
+    stones.push(stone)
   }
 }
 
@@ -200,8 +200,8 @@ function throwStone(catapultBody, shootDirection, shootVelocity, name) {
   if (countStones > 19) countStones = 0
 
   const stoneBody = stonesBody[countStones]
-  const stoneMesh = stones[countStones]
-  scene.add(stoneMesh)
+  const stone = stones[countStones]
+  scene.add(stone)
   world.add(stoneBody)
 
   stoneBody.velocity.set(
@@ -215,8 +215,8 @@ function throwStone(catapultBody, shootDirection, shootVelocity, name) {
   z += shootDirection.z * (2)
 
   stoneBody.position.set(x, y, z)
-  stoneMesh.position.set(x, y, z)
-  stoneMesh.name = name
+  stone.position.set(x, y, z)
+  stone.name = name
   userShootVelocity = 0
   countStones++
 }
