@@ -12,6 +12,7 @@ ambLight({ intensity: 2 })
 dirLight({ intensity: 5 })
 
 const stones = [], stonesBody = []
+const towerPosition = { x: -60, y: 5, z: 0 }
 
 let activeCamera
 let lastEnemyAttack = 0
@@ -20,8 +21,26 @@ let countStones = 0
 let pause = true
 let playerCatapult, enemyCatapult, playerBox, enemyBox
 
-gltfloader.load('models/catapult2/scene.gltf', createCatapults)
-gltfloader.load('models/tower1/scene.gltf', createTower)
+gltfloader.load('models/catapult2/scene.gltf', gltf => {
+  const model = gltf.scene
+  model.scale.set(.33, .33, .33)
+
+  playerCatapult = model.clone()
+  enemyCatapult = model.clone()
+
+  playerBox = createCollidable('player')
+  enemyBox = createCollidable('enemy')
+
+  positionUser()
+})
+
+gltfloader.load('models/tower1/scene.gltf', gltf => {
+  const tower = gltf.scene
+  tower.scale.set(1 / 26, 1 / 15, 1 / 26)
+  tower.position.set(towerPosition.x, towerPosition.y - 4, towerPosition.z)
+  tower.castShadow = true
+  scene.add(tower)
+})
 
 const ground = createGround({ size: 512, file: 'grass-512.jpg' })
 scene.add(ground)
@@ -71,34 +90,21 @@ groundBody.addShape(groundShape)
 groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
 world.add(groundBody)
 
-const mainStandSize = new CANNON.Vec3(2, 7, 3)
-const mainStandShape = new CANNON.Box(mainStandSize)
-const mainStandBody = new CANNON.Body({ mass: 0, material: physicsMaterial })
-mainStandBody.addShape(mainStandShape)
-mainStandBody.position.set(-60, 5, 0)
-world.add(mainStandBody)
+const towerSize = new CANNON.Vec3(2, 7, 3)
+const towerShape = new CANNON.Box(towerSize)
+const towerBody = new CANNON.Body({ mass: 0, material: physicsMaterial })
+towerBody.addShape(towerShape)
+towerBody.position.set(towerPosition.x, towerPosition.y, towerPosition.z)
+world.add(towerBody)
 
 createStones()
 
 /* FUNCTIONS */
 
-function createCatapults(gltf) {
-  const model = gltf.scene
-  model.scale.set(.33, .33, .33)
-
-  playerCatapult = model.clone()
-  enemyCatapult = model.clone()
-
-  playerBox = createCollidable('player')
-  enemyBox = createCollidable('enemy')
-
-  positionUser()
-}
-
 function positionUser() {
   scene.add(playerCatapult)
-  playerCatapult.position.set(mainStandBody.position.x - 1.5, mainStandBody.position.y + mainStandSize.y, mainStandBody.position.z + 1)
-  playerBox.position.set(mainStandBody.position.x - 0.3, mainStandBody.position.y + mainStandSize.y + 1, mainStandBody.position.z)
+  playerCatapult.position.set(towerBody.position.x - 1.5, towerBody.position.y + towerSize.y, towerBody.position.z + 1)
+  playerBox.position.set(towerBody.position.x - 0.3, towerBody.position.y + towerSize.y + 1, towerBody.position.z)
   scene.add(playerBox)
 }
 
@@ -112,14 +118,6 @@ function createCollidable(name) {
   const mesh = new THREE.Mesh(geometry, material)
   mesh.name = name
   return mesh
-}
-
-function createTower(gltf) {
-  const tower = gltf.scene
-  tower.scale.set(1 / 26, 1 / 15, 1 / 26)
-  tower.position.set(mainStandBody.position.x, mainStandBody.position.y - 4, mainStandBody.position.z)
-  tower.castShadow = true
-  scene.add(tower)
 }
 
 function createStones() {
