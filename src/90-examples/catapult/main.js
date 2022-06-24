@@ -244,7 +244,7 @@ function checkCollison(stone) {
 
 /* LOOP */
 
-function update() {
+void function update() {
   requestAnimationFrame(update)
   if (pause) return
 
@@ -263,11 +263,9 @@ function update() {
     enemyAttack()
   }
   renderer.render(scene, activeCamera)
-}
+}()
 
 /* EVENTS */
-
-window.addEventListener('load', update)
 
 window.addEventListener('keyup', e => {
   if (e.code == 'KeyA') attack()
