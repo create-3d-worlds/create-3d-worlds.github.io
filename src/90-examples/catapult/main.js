@@ -18,7 +18,7 @@ let lastEnemyAttack = 0
 let userShootVelocity = 4
 let countStones = 0
 let pause = true
-let playerCatapult, enemyCatapult, playerBox, enemyBox, playerBody, enemyBody
+let playerCatapult, enemyCatapult, playerBox, enemyBox
 
 gltfloader.load('models/catapult2/scene.gltf', createCatapults)
 gltfloader.load('models/tower1/scene.gltf', createTower)
@@ -85,14 +85,6 @@ createStones()
 function createCatapults(gltf) {
   const model = gltf.scene
   model.scale.set(.33, .33, .33)
-  const halfExt = new CANNON.Vec3(0.2, 0.8, 0.8)
-
-  const catapultShape = new CANNON.Box(halfExt)
-  playerBody = new CANNON.Body({ mass: 0 })
-  playerBody.addShape(catapultShape)
-
-  enemyBody = new CANNON.Body({ mass: 0 })
-  enemyBody.addShape(catapultShape)
 
   playerCatapult = model.clone()
   enemyCatapult = model.clone()
@@ -104,9 +96,8 @@ function createCatapults(gltf) {
 }
 
 function positionUser() {
-  world.add(playerBody)
   scene.add(playerCatapult)
-  playerBody.position.set(mainStandBody.position.x - 1.5, mainStandBody.position.y + mainStandSize.y, mainStandBody.position.z + 1)
+  playerCatapult.position.set(mainStandBody.position.x - 1.5, mainStandBody.position.y + mainStandSize.y, mainStandBody.position.z + 1)
   playerBox.position.set(mainStandBody.position.x - 0.3, mainStandBody.position.y + mainStandSize.y + 1, mainStandBody.position.z)
   scene.add(playerBox)
 }
@@ -167,15 +158,14 @@ function getRandPosition() {
 
 function positioningEnemy() {
   const pos = getRandPosition()
-  world.add(enemyBody)
   scene.add(enemyCatapult)
-  enemyBody.position.copy(pos)
+  enemyCatapult.position.copy(pos)
 
   enemyBox.position.set(pos.x + 1, pos.y + 1, pos.z)
   scene.add(enemyBox)
 }
 
-function throwStone(catapultBody, shootDirection, shootVelocity, name) {
+function throwStone(catapult, shootDirection, shootVelocity, name) {
   if (countStones > 19) countStones = 0
 
   const stoneBody = stonesBody[countStones]
@@ -188,7 +178,7 @@ function throwStone(catapultBody, shootDirection, shootVelocity, name) {
     shootDirection.y * shootVelocity,
     shootDirection.z * shootVelocity
   )
-  let { x, y, z } = catapultBody.position
+  let { x, y, z } = catapult.position
   x += shootDirection.x * (2)
   y += shootDirection.y * (3)
   z += shootDirection.z * (2)
@@ -224,13 +214,12 @@ const checkVictory = () => {
 }
 
 function enemyAttack() {
-  if (enemyBody.world === world)
-    throwStone(enemyBody, new THREE.Vector3(-1, 1, 0), Math.random() * 12.5 + 8, 'enemy')
+  throwStone(enemyCatapult, new THREE.Vector3(-1, 1, 0), Math.random() * 12.5 + 8, 'enemy')
   checkVictory()
 }
 
 function attack() {
-  throwStone(playerBody, new THREE.Vector3(1, 1, 0), userShootVelocity, 'player')
+  throwStone(playerCatapult, new THREE.Vector3(1, 1, 0), userShootVelocity, 'player')
   checkVictory()
 }
 
@@ -240,24 +229,16 @@ function updatePhysics() {
     stones[i].position.copy(stoneBody.position)
     stones[i].quaternion.copy(stoneBody.quaternion)
   })
-
-  playerCatapult.position.copy(playerBody.position)
-  playerCatapult.quaternion.copy(playerBody.quaternion)
-
-  enemyCatapult.position.copy(enemyBody.position)
-  enemyCatapult.quaternion.copy(enemyBody.quaternion)
 }
 
 function checkCollison(stone) {
   if (stone.name == 'enemy' && stone.position.distanceTo(playerCatapult.position) < 1.5) {
     scene.remove(playerCatapult)
     scene.remove(playerBox)
-    playerBody.position.set(100, -100, 100)
   }
   if (stone.name == 'player' && stone.position.distanceTo(enemyCatapult.position) < 1.5) {
     scene.remove(enemyCatapult)
     scene.remove(enemyBox)
-    enemyBody.position.set(100, -100, 100)
   }
 }
 
