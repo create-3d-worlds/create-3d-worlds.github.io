@@ -11,7 +11,6 @@ const gltfloader = new GLTFLoader()
 ambLight({ intensity: 2 })
 dirLight({ intensity: 5 })
 
-const xPositions = [-46, -40, -28, -18, -5]
 const stones = [], stonesBody = []
 
 let activeCamera
@@ -19,7 +18,7 @@ let lastEnemyAttack = 0
 let userShootVelocity = 4
 let countStones = 0
 let pause = true
-let playerBox, enemyBox, playerCatapult, enemyCatapult, playerBody, enemyBody
+let playerCatapult, enemyCatapult, playerBox, enemyBox, playerBody, enemyBody
 
 gltfloader.load('models/catapult2/scene.gltf', createCatapults)
 gltfloader.load('models/tower1/scene.gltf', createTower)
@@ -184,16 +183,16 @@ function createStones() {
   }
 }
 
-function getRandPosition(index) {
+function getRandPosition() {
   const position = new THREE.Vector3()
-  const x = xPositions[index]
+  const x = -46
   const y = Math.floor(Math.random() * 20) + 5
   position.set(x, y, 0.7)
   return position
 }
 
 function positioningEnemy() {
-  const pos = getRandPosition(0)
+  const pos = getRandPosition()
   world.add(enemyBody)
   scene.add(enemyCatapult)
   enemyBody.position.copy(pos)
