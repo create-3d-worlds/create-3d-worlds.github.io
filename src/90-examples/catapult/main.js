@@ -1,29 +1,108 @@
 /* global CANNON, THREE */
 import keyboard from '/classes/Keyboard.js'
-let camera, camera2, activeCamera, orthographicCamera, scene, renderer
+let camera, camera2, activeCamera, orthographicCamera
 
 const clock = new THREE.Clock()
-let pause = true
-let lastEnemyAttack = 0
-let world, physicsMaterial, timeStep = 1 / 60
+const gltfloader = new THREE.GLTFLoader()
+
 const stonesBody = [], stonesMesh = [], catapultsBody = [], catapultsMesh = []
 const standsBody = [], standsMesh = [], collidables = []
-let mainStandBody, mainStandSize
-let userShootVelocity = 4
 const numEnemies = 1
 const xPositions = [-46, -40, -28, -18, -5]
-let catapultModel
 
-const gltfloader = new THREE.GLTFLoader()
+let pause = true
+let lastEnemyAttack = 0
+let world, physicsMaterial
+let mainStandBody, mainStandSize
+let userShootVelocity = 4
+let catapultModel
 
 gltfloader.load('models/catapult2/scene.gltf', createCatapults)
 gltfloader.load('models/tower1/scene.gltf', createTower)
 
+const scene = new THREE.Scene()
+
+const renderer = new THREE.WebGLRenderer({ antialias: true })
+renderer.setClearColor(new THREE.Color(0x000000))
+renderer.setSize(window.innerWidth, window.innerHeight)
+document.getElementById('webgl').appendChild(renderer.domElement)
+renderer.shadowMap.enabled = true
+
+const planeTexture = new THREE.TextureLoader().load('texture/Grass.jpg')
+planeTexture.repeat.set(20, 20)
+planeTexture.wrapS = THREE.RepeatWrapping
+planeTexture.wrapT = THREE.RepeatWrapping
+planeTexture.magFilter = THREE.NearestFilter
+planeTexture.minFilter = THREE.LinearMipMapLinearFilter
+
+// plane
+const geometry = new THREE.PlaneGeometry(512, 512)
+const material = new THREE.MeshStandardMaterial({
+  color: 0x232426,
+  side: THREE.BackSide,
+  map: planeTexture,
+  bumpMap: planeTexture,
+  bumpScale: 0.1
+})
+const plane = new THREE.Mesh(geometry, material)
+plane.rotation.x = Math.PI / 2
+plane.receiveShadow = true
+scene.add(plane)
+
+// sky box
+const reflectionCube = new THREE.CubeTextureLoader()
+  .setPath('texture/skybox4/')
+  .load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg'])
+reflectionCube.format = THREE.RGBFormat
+scene.background = reflectionCube
+
+createStones()
+createStands()
+
+const ambiantlight = new THREE.AmbientLight(0xffffff, 3)
+scene.add(ambiantlight)
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 5)
+directionalLight.position.set(-50, 50, 50)
+directionalLight.castShadow = true
+directionalLight.shadow.camera.near = 0.1
+directionalLight.shadow.camera.far = 500
+directionalLight.shadow.camera.right = 550
+directionalLight.shadow.camera.left = -550
+directionalLight.shadow.camera.top = 550
+directionalLight.shadow.camera.bottom = -550
+directionalLight.shadow.mapSize.width = 2048
+directionalLight.shadow.mapSize.height = 2048
+scene.add(directionalLight)
+
+camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1000)
+camera.position.x = -64
+camera.position.y = 14
+camera.position.z = 7
+
+camera2 = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1000)
+
+camera2.position.x = -62
+camera2.position.y = 16
+camera2.position.z = 0
+
+orthographicCamera = new THREE.OrthographicCamera(window.innerWidth / -40, window.innerWidth / 40, window.innerHeight / 40, window.innerHeight / -40, 0.01, 1000)
+orthographicCamera.position.set(0, 8, 15)
+camera.add(orthographicCamera)
+
+activeCamera = camera
+
+orthographicCamera.lookAt(-30, 10, 0)
+
+const look1 = new THREE.Vector3(-47, 10, 0)
+camera.lookAt(look1)
+
+const look2 = new THREE.Vector3(-47, 14, 0)
+camera2.lookAt(look2)
+
 initPhysics()
-init()
 
 function initPhysics() {
-  // Setup our world
   world = new CANNON.World()
   world.quatNormalizeSkip = 0
   world.quatNormalizeFast = false
@@ -32,17 +111,11 @@ function initPhysics() {
   solver.tolerance = 0.1
   world.defaultContactMaterial.contactEquationStiffness = 1e8
   world.defaultContactMaterial.contactEquationRelaxation = 3
-  const split = true
-  if (split)
-    world.solver = new CANNON.SplitSolver(solver)
-  else
-    world.solver = solver
+  world.solver = new CANNON.SplitSolver(solver)
   world.gravity.set(0, -9.82, 0)
   world.broadphase = new CANNON.NaiveBroadphase()
 
-  // Create a ground material (friction coefficient = 0.5)
   physicsMaterial = new CANNON.Material('groundMaterial')
-  // creat a contact material
   const physicsContactMaterial = new CANNON.ContactMaterial(physicsMaterial,
     physicsMaterial,
     {
@@ -57,7 +130,6 @@ function initPhysics() {
 
   world.addContactMaterial(physicsContactMaterial)
 
-  // Create a plane
   const groundShape = new CANNON.Plane()
   const groundBody = new CANNON.Body({ mass: 0, material: physicsMaterial })
   groundBody.addShape(groundShape)
@@ -73,122 +145,8 @@ function initPhysics() {
   world.add(mainStandBody)
 }
 
-function init() {
-  scene = new THREE.Scene()
-
-  renderer = new THREE.WebGLRenderer({ antialias: true })
-  renderer.setClearColor(new THREE.Color(0x000000))
-  renderer.setSize(window.innerWidth, window.innerHeight)
-  document.getElementById('webgl').appendChild(renderer.domElement)
-  renderer.shadowMap.enabled = true
-
-  const planeTexture = new THREE.TextureLoader().load('texture/Grass.jpg')
-  planeTexture.repeat.set(20, 20)
-  planeTexture.wrapS = THREE.RepeatWrapping
-  planeTexture.wrapT = THREE.RepeatWrapping
-  planeTexture.magFilter = THREE.NearestFilter
-  planeTexture.minFilter = THREE.LinearMipMapLinearFilter
-
-  // plane
-  const geometry = new THREE.PlaneGeometry(512, 512)
-  const material = new THREE.MeshStandardMaterial({
-    color: 0x232426,
-    side: THREE.BackSide,
-    map: planeTexture,
-    bumpMap: planeTexture,
-    bumpScale: 0.1
-  })
-  const plane = new THREE.Mesh(geometry, material)
-  plane.rotation.x = Math.PI / 2
-  plane.receiveShadow = true
-  scene.add(plane)
-
-  // sky box
-  const reflectionCube = new THREE.CubeTextureLoader()
-    .setPath('texture/skybox4/')
-    .load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg'])
-  reflectionCube.format = THREE.RGBFormat
-  scene.background = reflectionCube
-
-  createStones()
-  createStands()
-
-  const ambiantlight = new THREE.AmbientLight(0xffffff, 3)
-  scene.add(ambiantlight)
-
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 5)
-  directionalLight.position.set(-50, 50, 50)
-  directionalLight.castShadow = true
-  directionalLight.shadow.camera.near = 0.1
-  directionalLight.shadow.camera.far = 500
-  directionalLight.shadow.camera.right = 550
-  directionalLight.shadow.camera.left = -550
-  directionalLight.shadow.camera.top = 550
-  directionalLight.shadow.camera.bottom = -550
-  directionalLight.shadow.mapSize.width = 2048
-  directionalLight.shadow.mapSize.height = 2048
-
-  scene.add(directionalLight)/*
-    var helper = new THREE.DirectionalLightHelper( directionalLight, 500 );
-    scene.add( helper );
-
-*/
-  // cameras
-  camera = new THREE.PerspectiveCamera(
-    100,
-    window.innerWidth / window.innerHeight,
-    1,
-    1000
-  )
-  camera.position.x = -64
-  camera.position.y = 14
-  camera.position.z = 7
-
-  camera2 = new THREE.PerspectiveCamera(
-    100,
-    window.innerWidth / window.innerHeight,
-    1,
-    1000
-  )
-
-  camera2.position.x = -62
-  camera2.position.y = 16
-  camera2.position.z = 0
-
-  /* var helper = new THREE.CameraHelper( camera );
-    scene.add( helper );*/
-
-  orthographicCamera = new THREE.OrthographicCamera(window.innerWidth / -40, window.innerWidth / 40, window.innerHeight / 40, window.innerHeight / -40, 0.01, 1000)
-  orthographicCamera.position.set(0, 8, 15)
-  camera.add(orthographicCamera)
-
-  // setting default active camera
-
-  activeCamera = camera
-
-  orthographicCamera.lookAt(-30, 10, 0)
-
-  const look1 = new THREE.Vector3(-47, 10, 0)
-  camera.lookAt(look1)
-
-  const look2 = new THREE.Vector3(-47, 14, 0)
-  camera2.lookAt(look2)
-
-  // using gui to set the scene
-  /*
-
-        var gui = new dat.GUI();
-        var folder1 = gui.addFolder("camera and  light");
-         folder1.add(ambiantlight, 'intensity', 0, 10);
-         folder1.add(activeCamera.position, 'z', -200, 200);
-         folder1.add(activeCamera.position, 'x', -200, 200);
-         folder1.add(activeCamera.position, 'y', -200, 200);
-    */
-
-}
-
 function updatePhysics() {
-  world.step(timeStep)
+  world.step(1 / 60)
   // update stones
   for (let i = 0; i < stonesBody.length; i++) {
     stonesMesh[i].position.copy(stonesBody[i].position)
