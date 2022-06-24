@@ -1,9 +1,10 @@
 /* global CANNON */
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { GLTFLoader } from '/node_modules/three127/examples/jsm/loaders/GLTFLoader.js'
+import keyboard from '/classes/Keyboard.js'
 import { scene, renderer, clock } from '/utils/scene.js'
 import { ambLight, dirLight } from '/utils/light.js'
-import keyboard from '/classes/Keyboard.js'
+import { createGround } from '/utils/ground.js'
 
 let activeCamera
 
@@ -24,26 +25,9 @@ let catapultModel
 gltfloader.load('models/catapult2/scene.gltf', createCatapults)
 gltfloader.load('models/tower1/scene.gltf', createTower)
 
-const planeTexture = new THREE.TextureLoader().load('texture/Grass.jpg')
-planeTexture.repeat.set(20, 20)
-planeTexture.wrapS = THREE.RepeatWrapping
-planeTexture.wrapT = THREE.RepeatWrapping
-planeTexture.magFilter = THREE.NearestFilter
-planeTexture.minFilter = THREE.LinearMipMapLinearFilter
-
-// plane
-const geometry = new THREE.PlaneGeometry(512, 512)
-const material = new THREE.MeshStandardMaterial({
-  color: 0x232426,
-  side: THREE.BackSide,
-  map: planeTexture,
-  bumpMap: planeTexture,
-  bumpScale: 0.1
-})
-const plane = new THREE.Mesh(geometry, material)
-plane.rotation.x = Math.PI / 2
-plane.receiveShadow = true
-scene.add(plane)
+// TODO: check use
+const ground = createGround({ size: 512, file: 'grass-512.jpg' })
+scene.add(ground)
 
 // sky box
 const reflectionCube = new THREE.CubeTextureLoader()

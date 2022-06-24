@@ -4,9 +4,14 @@ import { randomInRange, randomNuance, getTexture, similarColor } from '/utils/he
 /* GROUND */
 
 export function createGroundMaterial({ size, color = 0x509f53, file } = {}) {
-  const params = { side: THREE.DoubleSide }
+  const params = { side: THREE.FrontSide }
   const material = file
-    ? new THREE.MeshBasicMaterial({ ...params, map: getTexture({ file, repeat: size / 10 }) })
+    ? new THREE.MeshStandardMaterial({
+      ...params,
+      color: 0x232426,
+      map: getTexture({ file, repeat: size / 8 }),
+      bumpMap: getTexture({ file, repeat: size / 8 })
+    })
     : new THREE.MeshPhongMaterial({ ...params, color }) // MeshLambertMaterial ne radi rasveta
   return material
 }
@@ -60,7 +65,7 @@ export function createTerrain({ size = 400, segments = 50, colorParam, factor = 
 
 /* WATER */
 
-export const createWater = ({ size = 1200, segments = 20, opacity = .6, file= 'water512.jpg' } = {}) => {
+export const createWater = ({ size = 1200, segments = 20, opacity = .6, file = 'water512.jpg' } = {}) => {
   const material = new THREE.MeshLambertMaterial({
     color: 0x6699ff,
     opacity,
