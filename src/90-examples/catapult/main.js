@@ -2,16 +2,17 @@
 import keyboard from '/classes/Keyboard.js'
 let camera, camera2, activeCamera, orthographicCamera, scene, renderer
 
+const clock = new THREE.Clock()
+let pause = true
+let lastEnemyAttack = 0
 let world, physicsMaterial, timeStep = 1 / 60
 const stonesBody = [], stonesMesh = [], catapultsBody = [], catapultsMesh = []
 const standsBody = [], standsMesh = [], collidables = []
 let mainStandBody, mainStandSize
 let userShootVelocity = 4
 const numEnemies = 1
-let attackSet
 const xPositions = [-46, -40, -28, -18, -5]
 let catapultModel
-let endInterval, collisonInterval
 
 const gltfloader = new THREE.GLTFLoader()
 
@@ -73,20 +74,14 @@ function initPhysics() {
 }
 
 function init() {
-  // making a scene
   scene = new THREE.Scene()
-  // scene.fog = new THREE.FogExp2(0xffffff,0.08);
 
-  // renderer
   renderer = new THREE.WebGLRenderer({ antialias: true })
   renderer.setClearColor(new THREE.Color(0x000000))
   renderer.setSize(window.innerWidth, window.innerHeight)
   document.getElementById('webgl').appendChild(renderer.domElement)
   renderer.shadowMap.enabled = true
 
-  // making our scene objects
-
-  // plane texture
   const planeTexture = new THREE.TextureLoader().load('texture/Grass.jpg')
   planeTexture.repeat.set(20, 20)
   planeTexture.wrapS = THREE.RepeatWrapping
@@ -94,7 +89,7 @@ function init() {
   planeTexture.magFilter = THREE.NearestFilter
   planeTexture.minFilter = THREE.LinearMipMapLinearFilter
 
-  // plane mesh
+  // plane
   const geometry = new THREE.PlaneGeometry(512, 512)
   const material = new THREE.MeshStandardMaterial({
     color: 0x232426,
@@ -102,7 +97,6 @@ function init() {
     map: planeTexture,
     bumpMap: planeTexture,
     bumpScale: 0.1
-
   })
   const plane = new THREE.Mesh(geometry, material)
   plane.rotation.x = Math.PI / 2
@@ -116,11 +110,9 @@ function init() {
   reflectionCube.format = THREE.RGBFormat
   scene.background = reflectionCube
 
-  // create reusable game objects
   createStones()
   createStands()
 
-  // lights
   const ambiantlight = new THREE.AmbientLight(0xffffff, 3)
   scene.add(ambiantlight)
 
@@ -196,7 +188,6 @@ function init() {
 }
 
 function updatePhysics() {
-  // Step the physics world
   world.step(timeStep)
   // update stones
   for (let i = 0; i < stonesBody.length; i++) {
@@ -229,15 +220,6 @@ function checkCollison(stoneMesh, collidableMeshList) {
   }
 }
 
-function gameOver() {
-  activeCamera = orthographicCamera
-  clearInterval(attackSet)
-  document.getElementById('game').innerHTML = 'Game over'
-  document.getElementById('game').style.color = 'red'
-  document.getElementById('game').style.display = 'block'
-  positionUser()
-}
-
 function createCatapults(gltf) {
   catapultModel = gltf.scene
   catapultModel.scale.set(1 / 3, 1 / 3, 1 / 3)
@@ -251,7 +233,6 @@ function createCatapults(gltf) {
     catapultsMesh.push(catapultModel.clone())
   }
   createCollidableMesh()
-  // setting user position
   positionUser()
 }
 
@@ -286,16 +267,6 @@ function removeCatapult(catapultName, stoneName) {
     scene.remove(standsMesh[catapultName])
     standsBody[catapultName].position.set(100, -100, 100)
   }
-}
-
-function victory() {
-  activeCamera = orthographicCamera
-  if (attackSet)
-    clearInterval(attackSet)
-
-  document.getElementById('game').innerHTML = 'Victory'
-  document.getElementById('game').style.color = '#0AB408'
-  document.getElementById('game').style.display = 'block'
 }
 
 function createTower(gltf) {
@@ -365,11 +336,8 @@ function getNewPosition(index) {
   return position
 }
 
-function positioningEnemies(number) {
-  if (attackSet)
-    clearInterval(attackSet)
-
-  for (let i = 1; i < number + 1; i++) {
+function positioningEnemies() {
+  for (let i = 1; i < numEnemies + 1; i++) {
     const newPosition = getNewPosition(i)
     world.add(catapultsBody[i])
     scene.add(catapultsMesh[i])
@@ -384,13 +352,6 @@ function positioningEnemies(number) {
     world.add(standsBody[i])
     scene.add(standsMesh[i])
   }
-  attackSet = setInterval(enemyAttack, 3000)
-}
-
-function enemyAttack() {
-  for (let i = 1; i < numEnemies + 1; i++)
-    if (catapultsBody[i].world === world)
-      throwStone(catapultsBody[i], new THREE.Vector3(-1, 1, 0), Math.random() * 12.5 + 8, 'enemy')
 }
 
 let countStones = 0
@@ -426,51 +387,86 @@ function throwStone(catapultBody, shootDirection, shootVelocity, name) {
   countStones++
 }
 
+function victory() {
+  activeCamera = orthographicCamera
+  document.getElementById('game').innerHTML = 'Victory'
+  document.getElementById('game').style.color = '#0AB408'
+  document.getElementById('game').style.display = 'block'
+}
+
+function gameOver() {
+  activeCamera = orthographicCamera
+  document.getElementById('game').innerHTML = 'Game over'
+  document.getElementById('game').style.color = 'red'
+  document.getElementById('game').style.display = 'block'
+  positionUser()
+}
+
+const checkVictory = () => {
+  if (catapultsMesh[0].parent == null)
+    gameOver()
+
+  let check = 0
+  for (let i = 1; i < numEnemies + 1; i++)
+    if (catapultsMesh[i].parent == scene)
+      check++
+
+  if (check === 0)
+    victory()
+}
+
+function enemyAttack() {
+  for (let i = 1; i < numEnemies + 1; i++)
+    if (catapultsBody[i].world === world)
+      throwStone(catapultsBody[i], new THREE.Vector3(-1, 1, 0), Math.random() * 12.5 + 8, 'enemy')
+  checkVictory()
+}
+
+function attack() {
+  throwStone(catapultsBody[0], new THREE.Vector3(1, 1, 0), userShootVelocity, 'user')
+  checkVictory()
+}
+
 /* LOOP */
 
-void function update() {
+function update() {
   requestAnimationFrame(update)
+  if (pause) return
+
   if (keyboard.pressed.KeyA && userShootVelocity < 50) {
     document.getElementById('power').innerHTML = 'power :' + userShootVelocity
     userShootVelocity += 0.5
   }
+
   updatePhysics()
+
+  for (let i = 0; i < stonesMesh.length; i++)
+    checkCollison(stonesMesh[i], collidables)
+
+  if (clock.getElapsedTime() > lastEnemyAttack + 3) {
+    lastEnemyAttack = clock.getElapsedTime()
+    enemyAttack()
+  }
+
   renderer.render(scene, activeCamera)
-}()
+}
 
 /* EVENTS */
 
+window.addEventListener('load', update)
+
 window.addEventListener('keyup', e => {
-  if (e.code == 'KeyA')
-    throwStone(catapultsBody[0], new THREE.Vector3(1, 1, 0), userShootVelocity, 'user')
+  if (e.code == 'KeyA') attack()
 
   if (e.code == 'KeyC')
     activeCamera = activeCamera === camera ? camera2 : camera
 
   if (e.code == 'Space') {
-    clearInterval(endInterval)
-    clearInterval(collisonInterval)
-    positioningEnemies(numEnemies)
+    positioningEnemies()
     activeCamera = camera
     document.getElementById('instruction').style.display = 'none'
     document.getElementById('game').style.display = 'none'
     document.getElementById('game').innerHTML = ''
-
-    endInterval = setInterval(() => {
-      if (catapultsMesh[0].parent == null)
-        gameOver()
-
-      let check = 0
-      for (let i = 1; i < numEnemies + 1; i++)
-        if (catapultsMesh[i].parent == scene)
-          check++
-
-      if (check === 0)
-        victory()
-    }, 5000)
-    collisonInterval = setInterval(() => {
-      for (let i = 0; i < stonesMesh.length; i++)
-        checkCollison(stonesMesh[i], collidables)
-    }, 130)
+    pause = false
   }
 })
