@@ -76,13 +76,13 @@ towerBody.addShape(towerShape)
 towerBody.position.set(towerPosition.x, towerPosition.y, towerPosition.z)
 world.add(towerBody)
 
-const { mesh: tower } = await loadModel({ file: 'castle/towers/tower3.obj', mtl: 'castle/towers/tower3.mtl' })
+const { mesh: tower } = await loadModel({ file: 'castle/towers/tower2.obj', mtl: 'castle/towers/tower2.mtl', scale: .66 })
 tower.scale.set(.66, .66, .66)
 tower.position.set(towerPosition.x, towerPosition.y - 4, towerPosition.z)
 tower.castShadow = true
 scene.add(tower)
 
-const { mesh: catapult } = await loadModel({ file: 'catapult/scene.gltf', scale: .25 })
+const { mesh: catapult } = await loadModel({ file: 'catapult/scene.gltf', scale: .2 })
 const playerCatapult = catapult.clone()
 playerCatapult.rotateY(Math.PI / 2)
 const enemyCatapult = catapult.clone()

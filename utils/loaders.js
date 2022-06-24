@@ -62,21 +62,18 @@ export const loadObj = params => {
   const mtlLoader = new MTLLoader()
   mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
 
-  return mtl
-    ? new Promise(resolve => {
-      mtlLoader.load(`/assets/models/${mtl}`, materials => {
+  return new Promise(resolve => {
+    mtl
+      ? mtlLoader.load(`/assets/models/${mtl}`, materials => {
         objLoader.setMaterials(materials)
         objLoader.load(`/assets/models/${file}`, model => {
           prepareMesh({ resolve, model, ...params })
         })
       })
-    })
-    : new Promise(resolve => {
-      objLoader.load(`/assets/models/${file}`, model => {
+      : objLoader.load(`/assets/models/${file}`, model => {
         prepareMesh({ resolve, model, ...params })
       })
-    })
-
+  })
 }
 
 /* GLB */
