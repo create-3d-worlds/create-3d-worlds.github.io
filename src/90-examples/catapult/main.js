@@ -11,15 +11,15 @@ const gltfloader = new GLTFLoader()
 ambLight({ intensity: 2 })
 dirLight({ intensity: 5 })
 
-const numEnemies = 1
 const xPositions = [-46, -40, -28, -18, -5]
-const stonesBody = [], stones = [], catapultsBody = [], catapults = [], collidables = []
+const stones = [], stonesBody = []
 
 let activeCamera
 let lastEnemyAttack = 0
 let userShootVelocity = 4
 let countStones = 0
 let pause = true
+let playerBox, enemyBox, playerCatapult, enemyCatapult, playerBody, enemyBody
 
 gltfloader.load('models/catapult2/scene.gltf', createCatapults)
 gltfloader.load('models/tower1/scene.gltf', createTower)
@@ -100,45 +100,53 @@ function createCatapults(gltf) {
   const model = gltf.scene
   model.scale.set(.33, .33, .33)
   const halfExt = new CANNON.Vec3(0.2, 0.8, 0.8)
-  for (let i = 0; i < numEnemies + 1; i++) {
-    const catapultShape = new CANNON.Box(halfExt)
-    const catapultBody = new CANNON.Body({ mass: 0 })
-    catapultBody.addShape(catapultShape)
 
-    catapultsBody.push(catapultBody)
-    catapults.push(model.clone())
-  }
-  createCollidables()
+  const catapultShape = new CANNON.Box(halfExt)
+  playerBody = new CANNON.Body({ mass: 0 })
+  playerBody.addShape(catapultShape)
+
+  enemyBody = new CANNON.Body({ mass: 0 })
+  enemyBody.addShape(catapultShape)
+
+  playerCatapult = model.clone()
+  enemyCatapult = model.clone()
+
+  playerBox = createCollidable('player')
+  enemyBox = createCollidable('enemy')
+
   positionUser()
 }
 
 function positionUser() {
-  world.add(catapultsBody[0])
-  scene.add(catapults[0])
-  catapultsBody[0].position.set(mainStandBody.position.x - 1.5, mainStandBody.position.y + mainStandSize.y, mainStandBody.position.z + 1)
-  collidables[0].position.set(mainStandBody.position.x - 0.3, mainStandBody.position.y + mainStandSize.y + 1, mainStandBody.position.z)
-  scene.add(collidables[0])
+  world.add(playerBody)
+  scene.add(playerCatapult)
+  playerBody.position.set(mainStandBody.position.x - 1.5, mainStandBody.position.y + mainStandSize.y, mainStandBody.position.z + 1)
+  playerBox.position.set(mainStandBody.position.x - 0.3, mainStandBody.position.y + mainStandSize.y + 1, mainStandBody.position.z)
+  scene.add(playerBox)
 }
 
-function createCollidables() {
-  for (let i = 0; i < numEnemies + 1; i++) {
-    const geometry = new THREE.BoxGeometry(3.2, 1.5, 3)
-    const material = new THREE.MeshBasicMaterial({
-      opacity: 0,
-      side: THREE.FrontSide,
-    })
-    material.transparent = true
-    const mesh = new THREE.Mesh(geometry, material)
-    mesh.name = i
-    collidables.push(mesh)
-  }
+function createCollidable(name) {
+  const geometry = new THREE.BoxGeometry(3.2, 1.5, 3)
+  const material = new THREE.MeshBasicMaterial({
+    opacity: 0,
+    side: THREE.FrontSide,
+  })
+  material.transparent = true
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.name = name
+  return mesh
 }
 
 function removeCatapult(catapultName, stoneName) {
-  if ((stoneName === 'enemy' && catapultName == 0) || (stoneName === 'user' && catapultName > 0)) {
-    scene.remove(collidables[catapultName])
-    scene.remove(catapults[catapultName])
-    catapultsBody[catapultName].position.set(100, -100, 100)
+  if (stoneName === 'enemy' && catapultName == 'player') {
+    scene.remove(playerCatapult)
+    scene.remove(playerBox)
+    playerBody.position.set(100, -100, 100)
+  }
+  if (stoneName === 'player' && catapultName == 'enemy') {
+    scene.remove(enemyCatapult)
+    scene.remove(enemyBox)
+    enemyBody.position.set(100, -100, 100)
   }
 }
 
@@ -184,16 +192,14 @@ function getRandPosition(index) {
   return position
 }
 
-function positioningEnemies() {
-  for (let i = 1; i < numEnemies + 1; i++) {
-    const pos = getRandPosition(i)
-    world.add(catapultsBody[i])
-    scene.add(catapults[i])
-    catapultsBody[i].position.copy(pos)
+function positioningEnemy() {
+  const pos = getRandPosition(0)
+  world.add(enemyBody)
+  scene.add(enemyCatapult)
+  enemyBody.position.copy(pos)
 
-    collidables[i].position.set(pos.x + 1, pos.y + 1, pos.z)
-    scene.add(collidables[i])
-  }
+  enemyBox.position.set(pos.x + 1, pos.y + 1, pos.z)
+  scene.add(enemyBox)
 }
 
 function throwStone(catapultBody, shootDirection, shootVelocity, name) {
@@ -235,25 +241,23 @@ function gameOver() {
 }
 
 const checkVictory = () => {
-  if (catapults[0].parent == null) gameOver()
+  if (playerCatapult.parent == null) gameOver()
 
   let check = 0
-  for (let i = 1; i < numEnemies + 1; i++)
-    if (catapults[i].parent == scene)
-      check++
+  if (enemyCatapult.parent == scene)
+    check++
 
   if (check === 0) victory()
 }
 
 function enemyAttack() {
-  for (let i = 1; i < numEnemies + 1; i++)
-    if (catapultsBody[i].world === world)
-      throwStone(catapultsBody[i], new THREE.Vector3(-1, 1, 0), Math.random() * 12.5 + 8, 'enemy')
+  if (enemyBody.world === world)
+    throwStone(enemyBody, new THREE.Vector3(-1, 1, 0), Math.random() * 12.5 + 8, 'enemy')
   checkVictory()
 }
 
 function attack() {
-  throwStone(catapultsBody[0], new THREE.Vector3(1, 1, 0), userShootVelocity, 'user')
+  throwStone(playerBody, new THREE.Vector3(1, 1, 0), userShootVelocity, 'player')
   checkVictory()
 }
 
@@ -264,10 +268,11 @@ function updatePhysics() {
     stones[i].quaternion.copy(stoneBody.quaternion)
   })
 
-  catapultsBody.forEach((catapultBody, i) => {
-    catapults[i].position.copy(catapultBody.position)
-    catapults[i].quaternion.copy(catapultBody.quaternion)
-  })
+  playerCatapult.position.copy(playerBody.position)
+  playerCatapult.quaternion.copy(playerBody.quaternion)
+
+  enemyCatapult.position.copy(enemyBody.position)
+  enemyCatapult.quaternion.copy(enemyBody.quaternion)
 }
 
 /* LOOP */
@@ -284,7 +289,7 @@ function update() {
   updatePhysics()
 
   for (let i = 0; i < stones.length; i++)
-    checkCollison(stones[i], collidables)
+    checkCollison(stones[i], [playerBox, enemyBox])
 
   if (clock.getElapsedTime() > lastEnemyAttack + 3) {
     lastEnemyAttack = clock.getElapsedTime()
@@ -304,7 +309,7 @@ window.addEventListener('keyup', e => {
     activeCamera = activeCamera === camera ? camera2 : camera
 
   if (e.code == 'Space') {
-    positioningEnemies()
+    positioningEnemy()
     activeCamera = camera
     document.getElementById('instruction').style.display = 'none'
     document.getElementById('game').style.display = 'none'
