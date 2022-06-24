@@ -108,6 +108,7 @@ export const getTexture = ({ file, repeat = 16 } = {}) => {
   const texture = new THREE.TextureLoader().load(`/assets/textures/${file}`)
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping
   texture.magFilter = THREE.NearestFilter
+  // texture.minFilter = THREE.LinearMipMapLinearFilter
   texture.repeat.set(repeat, repeat)
   return texture
 }

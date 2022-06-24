@@ -20,8 +20,6 @@ const xPositions = [-46, -40, -28, -18, -5]
 
 let pause = true
 let lastEnemyAttack = 0
-let world, physicsMaterial
-let mainStandBody, mainStandSize
 let userShootVelocity = 4
 let catapultModel
 let countStones = 0
@@ -34,9 +32,6 @@ scene.add(ground)
 
 scene.background = createSkyBox()
 
-createStones()
-createStands()
-
 const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1000)
 camera.position.set(-64, 14, 7)
 camera.lookAt(new THREE.Vector3(-47, 10, 0))
@@ -47,50 +42,50 @@ camera2.lookAt(new THREE.Vector3(-47, 14, 0))
 
 activeCamera = camera
 
-initPhysics()
+const world = new CANNON.World()
+world.quatNormalizeSkip = 0
+world.quatNormalizeFast = false
+const solver = new CANNON.GSSolver()
+solver.iterations = 10
+solver.tolerance = 0.1
+world.defaultContactMaterial.contactEquationStiffness = 1e8
+world.defaultContactMaterial.contactEquationRelaxation = 3
+world.solver = new CANNON.SplitSolver(solver)
+world.gravity.set(0, -9.82, 0)
+world.broadphase = new CANNON.NaiveBroadphase()
 
-function initPhysics() {
-  world = new CANNON.World()
-  world.quatNormalizeSkip = 0
-  world.quatNormalizeFast = false
-  const solver = new CANNON.GSSolver()
-  solver.iterations = 10
-  solver.tolerance = 0.1
-  world.defaultContactMaterial.contactEquationStiffness = 1e8
-  world.defaultContactMaterial.contactEquationRelaxation = 3
-  world.solver = new CANNON.SplitSolver(solver)
-  world.gravity.set(0, -9.82, 0)
-  world.broadphase = new CANNON.NaiveBroadphase()
+const physicsMaterial = new CANNON.Material('groundMaterial')
+const physicsContactMaterial = new CANNON.ContactMaterial(physicsMaterial,
+  physicsMaterial,
+  {
+    friction: 200.6,
+    frictionEquationStiffness: 1e8,
+    frictionEquationRegularizationTime: 3,
+    restitution: 0.3,
+    contactEquationStiffness: 1e8,
+    contactEquationRelaxation: 3
+  }
+)
 
-  physicsMaterial = new CANNON.Material('groundMaterial')
-  const physicsContactMaterial = new CANNON.ContactMaterial(physicsMaterial,
-    physicsMaterial,
-    {
-      friction: 200.6, // friction coefficient
-      frictionEquationStiffness: 1e8,
-      frictionEquationRegularizationTime: 3,
-      restitution: 0.3,  // restitution
-      contactEquationStiffness: 1e8,
-      contactEquationRelaxation: 3
-    }
-  )
+world.addContactMaterial(physicsContactMaterial)
 
-  world.addContactMaterial(physicsContactMaterial)
+const groundShape = new CANNON.Plane()
+const groundBody = new CANNON.Body({ mass: 0, material: physicsMaterial })
+groundBody.addShape(groundShape)
+groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
+world.add(groundBody)
 
-  const groundShape = new CANNON.Plane()
-  const groundBody = new CANNON.Body({ mass: 0, material: physicsMaterial })
-  groundBody.addShape(groundShape)
-  groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
-  world.add(groundBody)
+const mainStandSize = new CANNON.Vec3(2, 7, 3)
+const mainStandShape = new CANNON.Box(mainStandSize)
+const mainStandBody = new CANNON.Body({ mass: 0, material: physicsMaterial })
+mainStandBody.addShape(mainStandShape)
+mainStandBody.position.set(-60, 5, 0)
+world.add(mainStandBody)
 
-  // create stand for main catapult
-  mainStandSize = new CANNON.Vec3(2, 7, 3)
-  const mainStandShape = new CANNON.Box(mainStandSize)
-  mainStandBody = new CANNON.Body({ mass: 0, material: physicsMaterial })
-  mainStandBody.addShape(mainStandShape)
-  mainStandBody.position.set(-60, 5, 0)
-  world.add(mainStandBody)
-}
+createStones()
+createStands()
+
+/* FUNCTIONS */
 
 function checkCollison(stone, collidables) {
   for (let vertexIndex = 0; vertexIndex < stone.geometry.attributes.position.array.length; vertexIndex++) {
@@ -164,8 +159,7 @@ function createTower(gltf) {
 function createStands() {
   const standTexture = new THREE.TextureLoader().load('texture/brick_stone_wall.jpg')
   standTexture.repeat.set(1, 1)
-  standTexture.wrapS = THREE.RepeatWrapping
-  standTexture.wrapT = THREE.RepeatWrapping
+  standTexture.wrapS = standTexture.wrapT = THREE.RepeatWrapping
   standTexture.magFilter = THREE.NearestFilter
   standTexture.minFilter = THREE.LinearMipMapLinearFilter
 
@@ -176,7 +170,6 @@ function createStands() {
     standBody.addShape(standShape)
     standsBody.push(standBody)
 
-    // making mesh for our stone and add it to the scene and mesh array
     const standGeometry = new THREE.BoxGeometry(halfExt.x * 2, halfExt.y * 2, halfExt.z * 2)
     const material = new THREE.MeshPhongMaterial({ color: 0x232426, map: standTexture })
     const standMesh = new THREE.Mesh(standGeometry, material)
@@ -193,13 +186,11 @@ function createStones() {
   stoneTexture.minFilter = THREE.LinearMipMapLinearFilter
 
   for (let i = 0; i < 20; i++) {
-    // make a body for our stone and add it to body array
     const stoneShape = new CANNON.Sphere(0.3)
     const stoneBody = new CANNON.Body({ mass: 80, material: physicsMaterial })
     stoneBody.addShape(stoneShape)
     stonesBody.push(stoneBody)
 
-    // making mesh for our stone and add it to mesh array
     const stoneGeometry = new THREE.SphereGeometry(stoneShape.radius, 8, 8)
     const material = new THREE.MeshLambertMaterial({
       color: 0x232426,
@@ -212,7 +203,7 @@ function createStones() {
   }
 }
 
-function getNewPosition(index) {
+function getRandPosition(index) {
   const position = new THREE.Vector3()
   const x = xPositions[index]
   const y = Math.floor(Math.random() * 20) + 5
@@ -222,15 +213,15 @@ function getNewPosition(index) {
 
 function positioningEnemies() {
   for (let i = 1; i < numEnemies + 1; i++) {
-    const newPosition = getNewPosition(i)
+    const pos = getRandPosition(i)
     world.add(catapultsBody[i])
     scene.add(catapultsMesh[i])
-    catapultsBody[i].position.copy(newPosition)
+    catapultsBody[i].position.copy(pos)
 
-    collidables[i].position.set(newPosition.x + 1, newPosition.y + 1, newPosition.z)
+    collidables[i].position.set(pos.x + 1, pos.y + 1, pos.z)
     scene.add(collidables[i])
 
-    standsBody[i].position.set(newPosition.x + 1, newPosition.y - 0.9, newPosition.z - 0.5)
+    standsBody[i].position.set(pos.x + 1, pos.y - 0.9, pos.z - 0.5)
     world.add(standsBody[i])
     scene.add(standsMesh[i])
   }
@@ -296,8 +287,6 @@ function attack() {
   throwStone(catapultsBody[0], new THREE.Vector3(1, 1, 0), userShootVelocity, 'user')
   checkVictory()
 }
-
-/* UPDATES */
 
 function updatePhysics() {
   world.step(1 / 60)
