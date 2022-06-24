@@ -104,7 +104,7 @@ export const adjustHeight = mesh => {
 
 /* TEXTURES */
 
-export const getTexture = ({ file, repeat = 16 } = {}) => {
+export const getTexture = ({ file, repeat = 1 } = {}) => {
   const texture = new THREE.TextureLoader().load(`/assets/textures/${file}`)
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping
   texture.magFilter = THREE.NearestFilter

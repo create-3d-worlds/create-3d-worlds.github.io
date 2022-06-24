@@ -1,13 +1,11 @@
 /* global CANNON */
 import * as THREE from '/node_modules/three127/build/three.module.js'
-import { GLTFLoader } from '/node_modules/three127/examples/jsm/loaders/GLTFLoader.js'
 import keyboard from '/classes/Keyboard.js'
 import { scene, renderer, clock, createSkyBox } from '/utils/scene.js'
 import { ambLight, dirLight } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import { loadModel } from '/utils/loaders.js'
-
-const gltfloader = new GLTFLoader()
+import { getTexture } from '/utils/helpers.js'
 
 ambLight({ intensity: 2 })
 dirLight({ intensity: 5 })
@@ -109,25 +107,19 @@ function createCollidable(name) {
 }
 
 function createStones() {
-  const stoneTexture = new THREE.TextureLoader().load('texture/stoneTexture1.jpg')
-  stoneTexture.repeat.set(1, 1)
-  stoneTexture.wrapS = stoneTexture.wrapT = THREE.RepeatWrapping
-  stoneTexture.magFilter = THREE.NearestFilter
-  stoneTexture.minFilter = THREE.LinearMipMapLinearFilter
-
+  const texture = getTexture({ file: 'rocks.jpg', repeat: 1 })
   for (let i = 0; i < 20; i++) {
     const stoneShape = new CANNON.Sphere(0.3)
     const stoneBody = new CANNON.Body({ mass: 80, material: physicsMaterial })
     stoneBody.addShape(stoneShape)
     stonesBody.push(stoneBody)
-
-    const stoneGeometry = new THREE.SphereGeometry(stoneShape.radius, 8, 8)
+    const geometry = new THREE.SphereGeometry(stoneShape.radius, 8, 8)
     const material = new THREE.MeshLambertMaterial({
       color: 0x232426,
       side: THREE.FrontSide,
-      map: stoneTexture
+      map: texture
     })
-    const stone = new THREE.Mesh(stoneGeometry, material)
+    const stone = new THREE.Mesh(geometry, material)
     stone.castShadow = true
     stones.push(stone)
   }
@@ -136,7 +128,7 @@ function createStones() {
 function getRandPosition() {
   const position = new THREE.Vector3()
   const x = -46
-  const y = Math.floor(Math.random() * 20) + 5
+  const y = Math.floor(Math.random() * 20)
   position.set(x, y, 0.7)
   return position
 }
@@ -145,8 +137,7 @@ function positioningEnemy() {
   const pos = getRandPosition()
   scene.add(enemyCatapult)
   enemyCatapult.position.copy(pos)
-
-  enemyBox.position.set(pos.x + 1, pos.y + 1, pos.z)
+  enemyBox.position.set(pos.x, pos.y, pos.z)
   scene.add(enemyBox)
 }
 
