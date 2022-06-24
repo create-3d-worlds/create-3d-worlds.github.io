@@ -82,17 +82,11 @@ createStones()
 
 /* FUNCTIONS */
 
-function checkCollison(stone, collidables) {
-  for (let vertexIndex = 0; vertexIndex < stone.geometry.attributes.position.array.length; vertexIndex++) {
-    const localVertex = new THREE.Vector3().fromBufferAttribute(stone.geometry.attributes.position, vertexIndex).clone()
-    const globalVertex = localVertex.applyMatrix4(stone.matrix)
-    const directionVector = globalVertex.sub(stone.position)
-
-    const ray = new THREE.Raycaster(stone.position, directionVector.clone().normalize())
-    const targets = ray.intersectObjects(collidables)
-    if (targets.length > 0 && targets[0].distance < directionVector.length())
-      removeCatapult(targets[0].object.name, stone.name)
-  }
+function checkCollison(stone) {
+  if (stone.name == 'enemy' && stone.position.distanceTo(playerCatapult.position) < 1.5)
+    removeCatapult('player')
+  if (stone.name == 'player' && stone.position.distanceTo(enemyCatapult.position) < 1.5)
+    removeCatapult('enemy')
 }
 
 function createCatapults(gltf) {
@@ -136,13 +130,13 @@ function createCollidable(name) {
   return mesh
 }
 
-function removeCatapult(catapultName, stoneName) {
-  if (stoneName === 'enemy' && catapultName == 'player') {
+function removeCatapult(catapultName) {
+  if (catapultName == 'player') {
     scene.remove(playerCatapult)
     scene.remove(playerBox)
     playerBody.position.set(100, -100, 100)
   }
-  if (stoneName === 'player' && catapultName == 'enemy') {
+  if (catapultName == 'enemy') {
     scene.remove(enemyCatapult)
     scene.remove(enemyBox)
     enemyBody.position.set(100, -100, 100)
@@ -288,7 +282,7 @@ function update() {
   updatePhysics()
 
   for (let i = 0; i < stones.length; i++)
-    checkCollison(stones[i], [playerBox, enemyBox])
+    checkCollison(stones[i], [playerCatapult, enemyCatapult])
 
   if (clock.getElapsedTime() > lastEnemyAttack + 3) {
     lastEnemyAttack = clock.getElapsedTime()
