@@ -24,6 +24,7 @@ let world, physicsMaterial
 let mainStandBody, mainStandSize
 let userShootVelocity = 4
 let catapultModel
+let countStones = 0
 
 gltfloader.load('models/catapult2/scene.gltf', createCatapults)
 gltfloader.load('models/tower1/scene.gltf', createTower)
@@ -89,24 +90,6 @@ function initPhysics() {
   mainStandBody.addShape(mainStandShape)
   mainStandBody.position.set(-60, 5, 0)
   world.add(mainStandBody)
-}
-
-function updatePhysics() {
-  world.step(1 / 60)
-  // update stones
-  for (let i = 0; i < stonesBody.length; i++) {
-    stones[i].position.copy(stonesBody[i].position)
-    stones[i].quaternion.copy(stonesBody[i].quaternion)
-  }
-  // update catapults
-  for (let i = 0; i < catapultsBody.length; i++) {
-    catapultsMesh[i].position.copy(catapultsBody[i].position)
-    catapultsMesh[i].quaternion.copy(catapultsBody[i].quaternion)
-  }
-  for (let i = 0; i < standsBody.length; i++) {
-    standsMesh[i].position.copy(standsBody[i].position)
-    standsMesh[i].quaternion.copy(standsBody[i].quaternion)
-  }
 }
 
 function checkCollison(stone, collidables) {
@@ -253,13 +236,8 @@ function positioningEnemies() {
   }
 }
 
-let countStones = 0
-
 function throwStone(catapultBody, shootDirection, shootVelocity, name) {
   if (countStones > 19) countStones = 0
-
-  // shooting coordinate
-  let { x, y, z } = catapultBody.position
 
   const stoneBody = stonesBody[countStones]
   const stoneMesh = stones[countStones]
@@ -271,7 +249,7 @@ function throwStone(catapultBody, shootDirection, shootVelocity, name) {
     shootDirection.y * shootVelocity,
     shootDirection.z * shootVelocity
   )
-  // positioning stone out of shooting place
+  let { x, y, z } = catapultBody.position
   x += shootDirection.x * (2)
   y += shootDirection.y * (3)
   z += shootDirection.z * (2)
@@ -297,16 +275,14 @@ function gameOver() {
 }
 
 const checkVictory = () => {
-  if (catapultsMesh[0].parent == null)
-    gameOver()
+  if (catapultsMesh[0].parent == null) gameOver()
 
   let check = 0
   for (let i = 1; i < numEnemies + 1; i++)
     if (catapultsMesh[i].parent == scene)
       check++
 
-  if (check === 0)
-    victory()
+  if (check === 0) victory()
 }
 
 function enemyAttack() {
@@ -319,6 +295,26 @@ function enemyAttack() {
 function attack() {
   throwStone(catapultsBody[0], new THREE.Vector3(1, 1, 0), userShootVelocity, 'user')
   checkVictory()
+}
+
+/* UPDATES */
+
+function updatePhysics() {
+  world.step(1 / 60)
+  stonesBody.forEach((stoneBody, i) => {
+    stones[i].position.copy(stoneBody.position)
+    stones[i].quaternion.copy(stoneBody.quaternion)
+  })
+
+  catapultsBody.forEach((catapultBody, i) => {
+    catapultsMesh[i].position.copy(catapultBody.position)
+    catapultsMesh[i].quaternion.copy(catapultBody.quaternion)
+  })
+
+  standsBody.forEach((standBody, i) => {
+    standsMesh[i].position.copy(standBody.position)
+    standsMesh[i].quaternion.copy(standBody.quaternion)
+  })
 }
 
 /* LOOP */
@@ -341,7 +337,6 @@ function update() {
     lastEnemyAttack = clock.getElapsedTime()
     enemyAttack()
   }
-
   renderer.render(scene, activeCamera)
 }
 
@@ -358,7 +353,8 @@ window.addEventListener('keyup', e => {
   if (e.code == 'Space') {
     positioningEnemies()
     activeCamera = camera
-    document.getElementById('instruction').style.display = document.getElementById('game').style.display = 'none'
+    document.getElementById('instruction').style.display = 'none'
+    document.getElementById('game').style.display = 'none'
     document.getElementById('game').innerHTML = ''
     pause = false
   }
