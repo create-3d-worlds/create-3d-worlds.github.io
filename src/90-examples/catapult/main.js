@@ -6,23 +6,20 @@ import { scene, renderer, clock, createSkyBox } from '/utils/scene.js'
 import { ambLight, dirLight } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 
+const gltfloader = new GLTFLoader()
+
 ambLight({ intensity: 2 })
 dirLight({ intensity: 5 })
 
-let activeCamera
-
-const gltfloader = new GLTFLoader()
-
-const stonesBody = [], stones = [], catapultsBody = [], catapultsMesh = []
-const standsBody = [], standsMesh = [], collidables = []
 const numEnemies = 1
 const xPositions = [-46, -40, -28, -18, -5]
+const stonesBody = [], stones = [], catapultsBody = [], catapults = [], collidables = []
 
-let pause = true
+let activeCamera
 let lastEnemyAttack = 0
 let userShootVelocity = 4
-let catapultModel
 let countStones = 0
+let pause = true
 
 gltfloader.load('models/catapult2/scene.gltf', createCatapults)
 gltfloader.load('models/tower1/scene.gltf', createTower)
@@ -83,7 +80,6 @@ mainStandBody.position.set(-60, 5, 0)
 world.add(mainStandBody)
 
 createStones()
-createStands()
 
 /* FUNCTIONS */
 
@@ -101,8 +97,8 @@ function checkCollison(stone, collidables) {
 }
 
 function createCatapults(gltf) {
-  catapultModel = gltf.scene
-  catapultModel.scale.set(1 / 3, 1 / 3, 1 / 3)
+  const model = gltf.scene
+  model.scale.set(.33, .33, .33)
   const halfExt = new CANNON.Vec3(0.2, 0.8, 0.8)
   for (let i = 0; i < numEnemies + 1; i++) {
     const catapultShape = new CANNON.Box(halfExt)
@@ -110,7 +106,7 @@ function createCatapults(gltf) {
     catapultBody.addShape(catapultShape)
 
     catapultsBody.push(catapultBody)
-    catapultsMesh.push(catapultModel.clone())
+    catapults.push(model.clone())
   }
   createCollidables()
   positionUser()
@@ -118,7 +114,7 @@ function createCatapults(gltf) {
 
 function positionUser() {
   world.add(catapultsBody[0])
-  scene.add(catapultsMesh[0])
+  scene.add(catapults[0])
   catapultsBody[0].position.set(mainStandBody.position.x - 1.5, mainStandBody.position.y + mainStandSize.y, mainStandBody.position.z + 1)
   collidables[0].position.set(mainStandBody.position.x - 0.3, mainStandBody.position.y + mainStandSize.y + 1, mainStandBody.position.z)
   scene.add(collidables[0])
@@ -141,10 +137,8 @@ function createCollidables() {
 function removeCatapult(catapultName, stoneName) {
   if ((stoneName === 'enemy' && catapultName == 0) || (stoneName === 'user' && catapultName > 0)) {
     scene.remove(collidables[catapultName])
-    scene.remove(catapultsMesh[catapultName])
+    scene.remove(catapults[catapultName])
     catapultsBody[catapultName].position.set(100, -100, 100)
-    scene.remove(standsMesh[catapultName])
-    standsBody[catapultName].position.set(100, -100, 100)
   }
 }
 
@@ -154,27 +148,6 @@ function createTower(gltf) {
   tower.position.set(mainStandBody.position.x, mainStandBody.position.y - 4, mainStandBody.position.z)
   tower.castShadow = true
   scene.add(tower)
-}
-
-function createStands() {
-  const standTexture = new THREE.TextureLoader().load('texture/brick_stone_wall.jpg')
-  standTexture.repeat.set(1, 1)
-  standTexture.wrapS = standTexture.wrapT = THREE.RepeatWrapping
-  standTexture.magFilter = THREE.NearestFilter
-  standTexture.minFilter = THREE.LinearMipMapLinearFilter
-
-  for (let i = 0; i < numEnemies + 1; i++) {
-    const halfExt = new CANNON.Vec3(3, 0.6, 3)
-    const standShape = new CANNON.Box(halfExt)
-    const standBody = new CANNON.Body({ mass: 0 })
-    standBody.addShape(standShape)
-    standsBody.push(standBody)
-
-    const standGeometry = new THREE.BoxGeometry(halfExt.x * 2, halfExt.y * 2, halfExt.z * 2)
-    const material = new THREE.MeshPhongMaterial({ color: 0x232426, map: standTexture })
-    const standMesh = new THREE.Mesh(standGeometry, material)
-    standsMesh.push(standMesh)
-  }
 }
 
 function createStones() {
@@ -215,15 +188,11 @@ function positioningEnemies() {
   for (let i = 1; i < numEnemies + 1; i++) {
     const pos = getRandPosition(i)
     world.add(catapultsBody[i])
-    scene.add(catapultsMesh[i])
+    scene.add(catapults[i])
     catapultsBody[i].position.copy(pos)
 
     collidables[i].position.set(pos.x + 1, pos.y + 1, pos.z)
     scene.add(collidables[i])
-
-    standsBody[i].position.set(pos.x + 1, pos.y - 0.9, pos.z - 0.5)
-    world.add(standsBody[i])
-    scene.add(standsMesh[i])
   }
 }
 
@@ -266,11 +235,11 @@ function gameOver() {
 }
 
 const checkVictory = () => {
-  if (catapultsMesh[0].parent == null) gameOver()
+  if (catapults[0].parent == null) gameOver()
 
   let check = 0
   for (let i = 1; i < numEnemies + 1; i++)
-    if (catapultsMesh[i].parent == scene)
+    if (catapults[i].parent == scene)
       check++
 
   if (check === 0) victory()
@@ -296,13 +265,8 @@ function updatePhysics() {
   })
 
   catapultsBody.forEach((catapultBody, i) => {
-    catapultsMesh[i].position.copy(catapultBody.position)
-    catapultsMesh[i].quaternion.copy(catapultBody.quaternion)
-  })
-
-  standsBody.forEach((standBody, i) => {
-    standsMesh[i].position.copy(standBody.position)
-    standsMesh[i].quaternion.copy(standBody.quaternion)
+    catapults[i].position.copy(catapultBody.position)
+    catapults[i].quaternion.copy(catapultBody.quaternion)
   })
 }
 
