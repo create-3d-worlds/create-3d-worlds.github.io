@@ -16,7 +16,7 @@ const towerPosition = { x: -60, y: 5, z: 0 }
 let activeCamera
 let lastEnemyAttack = 0
 let userShootVelocity = 4
-let countStones = 0
+let stoneIndex = 0
 let pause = true
 
 const ground = createGround({ size: 512, file: 'grass-512.jpg' })
@@ -78,9 +78,6 @@ playerCatapult.rotateY(Math.PI / 2)
 const enemyCatapult = catapult.clone()
 enemyCatapult.rotateY(-Math.PI / 2)
 
-const playerBox = createCollidable('player')
-const enemyBox = createCollidable('enemy')
-
 positionUser()
 
 createStones()
@@ -90,20 +87,6 @@ createStones()
 function positionUser() {
   scene.add(playerCatapult)
   playerCatapult.position.set(towerPosition.x - 1.5, towerPosition.y + 7, towerPosition.z + 1)
-  playerBox.position.set(towerPosition.x - 0.3, towerPosition.y + 8, towerPosition.z)
-  scene.add(playerBox)
-}
-
-function createCollidable(name) {
-  const geometry = new THREE.BoxGeometry(3.2, 1.5, 3)
-  const material = new THREE.MeshBasicMaterial({
-    opacity: 0,
-    side: THREE.FrontSide,
-  })
-  material.transparent = true
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.name = name
-  return mesh
 }
 
 function createStones() {
@@ -137,15 +120,12 @@ function positioningEnemy() {
   const pos = getRandPosition()
   scene.add(enemyCatapult)
   enemyCatapult.position.copy(pos)
-  enemyBox.position.set(pos.x, pos.y, pos.z)
-  scene.add(enemyBox)
 }
 
 function throwStone(catapult, shootDirection, shootVelocity, name) {
-  if (countStones > 19) countStones = 0
-
-  const stoneBody = stonesBody[countStones]
-  const stone = stones[countStones]
+  if (stoneIndex > 19) stoneIndex = 0
+  const stone = stones[stoneIndex]
+  const stoneBody = stonesBody[stoneIndex]
   scene.add(stone)
   world.add(stoneBody)
 
@@ -160,10 +140,9 @@ function throwStone(catapult, shootDirection, shootVelocity, name) {
   z += shootDirection.z * (2)
 
   stoneBody.position.set(x, y, z)
-  stone.position.set(x, y, z)
   stone.name = name
   userShootVelocity = 0
-  countStones++
+  stoneIndex++
 }
 
 function victory() {
@@ -203,19 +182,17 @@ function updatePhysics() {
   world.step(1 / 60)
   stonesBody.forEach((stoneBody, i) => {
     stones[i].position.copy(stoneBody.position)
-    stones[i].quaternion.copy(stoneBody.quaternion)
   })
 }
 
+function checkHit(stone, catapult) {
+  if (stone.position.distanceTo(catapult.position) < 1.5)
+    scene.remove(catapult)
+}
+
 function checkCollison(stone) {
-  if (stone.name == 'enemy' && stone.position.distanceTo(playerCatapult.position) < 1.5) {
-    scene.remove(playerCatapult)
-    scene.remove(playerBox)
-  }
-  if (stone.name == 'player' && stone.position.distanceTo(enemyCatapult.position) < 1.5) {
-    scene.remove(enemyCatapult)
-    scene.remove(enemyBox)
-  }
+  if (stone.name == 'enemy') checkHit(stone, playerCatapult)
+  if (stone.name == 'player') checkHit(stone, enemyCatapult)
 }
 
 /* LOOP */
