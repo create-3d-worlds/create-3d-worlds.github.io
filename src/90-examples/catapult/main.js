@@ -82,13 +82,6 @@ createStones()
 
 /* FUNCTIONS */
 
-function checkCollison(stone) {
-  if (stone.name == 'enemy' && stone.position.distanceTo(playerCatapult.position) < 1.5)
-    removeCatapult('player')
-  if (stone.name == 'player' && stone.position.distanceTo(enemyCatapult.position) < 1.5)
-    removeCatapult('enemy')
-}
-
 function createCatapults(gltf) {
   const model = gltf.scene
   model.scale.set(.33, .33, .33)
@@ -128,19 +121,6 @@ function createCollidable(name) {
   const mesh = new THREE.Mesh(geometry, material)
   mesh.name = name
   return mesh
-}
-
-function removeCatapult(catapultName) {
-  if (catapultName == 'player') {
-    scene.remove(playerCatapult)
-    scene.remove(playerBox)
-    playerBody.position.set(100, -100, 100)
-  }
-  if (catapultName == 'enemy') {
-    scene.remove(enemyCatapult)
-    scene.remove(enemyBox)
-    enemyBody.position.set(100, -100, 100)
-  }
 }
 
 function createTower(gltf) {
@@ -266,6 +246,19 @@ function updatePhysics() {
 
   enemyCatapult.position.copy(enemyBody.position)
   enemyCatapult.quaternion.copy(enemyBody.quaternion)
+}
+
+function checkCollison(stone) {
+  if (stone.name == 'enemy' && stone.position.distanceTo(playerCatapult.position) < 1.5) {
+    scene.remove(playerCatapult)
+    scene.remove(playerBox)
+    playerBody.position.set(100, -100, 100)
+  }
+  if (stone.name == 'player' && stone.position.distanceTo(enemyCatapult.position) < 1.5) {
+    scene.remove(enemyCatapult)
+    scene.remove(enemyBox)
+    enemyBody.position.set(100, -100, 100)
+  }
 }
 
 /* LOOP */
