@@ -1,7 +1,7 @@
 /* global CANNON */
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import keyboard from '/classes/Keyboard.js'
-import { scene, renderer, clock, createSkyBox } from '/utils/scene.js'
+import { scene, camera, renderer, clock, createSkyBox } from '/utils/scene.js'
 import { ambLight, dirLight } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import { loadModel } from '/utils/loaders.js'
@@ -19,12 +19,11 @@ let userShootVelocity = 4
 let stoneIndex = 0
 let pause = true
 
+scene.background = createSkyBox()
+
 const ground = createGround({ size: 512, file: 'grass-512.jpg' })
 scene.add(ground)
 
-scene.background = createSkyBox()
-
-const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1000)
 camera.position.set(-64, 14, 7)
 camera.lookAt(new THREE.Vector3(-47, 10, 0))
 
@@ -33,39 +32,6 @@ camera2.position.set(-62, 16, 0)
 camera2.lookAt(new THREE.Vector3(-47, 14, 0))
 
 activeCamera = camera
-
-const world = new CANNON.World()
-world.quatNormalizeSkip = 0
-world.quatNormalizeFast = false
-const solver = new CANNON.GSSolver()
-solver.iterations = 10
-solver.tolerance = 0.1
-world.defaultContactMaterial.contactEquationStiffness = 1e8
-world.defaultContactMaterial.contactEquationRelaxation = 3
-world.solver = new CANNON.SplitSolver(solver)
-world.gravity.set(0, -9.82, 0)
-world.broadphase = new CANNON.NaiveBroadphase()
-
-const physicsMaterial = new CANNON.Material('groundMaterial')
-const physicsContactMaterial = new CANNON.ContactMaterial(physicsMaterial,
-  physicsMaterial,
-  {
-    friction: 200.6,
-    frictionEquationStiffness: 1e8,
-    frictionEquationRegularizationTime: 3,
-    restitution: 0.3,
-    contactEquationStiffness: 1e8,
-    contactEquationRelaxation: 3
-  }
-)
-
-world.addContactMaterial(physicsContactMaterial)
-
-const groundShape = new CANNON.Plane()
-const groundBody = new CANNON.Body({ mass: 0, material: physicsMaterial })
-groundBody.addShape(groundShape)
-groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
-world.add(groundBody)
 
 const { mesh: tower } = await loadModel({ file: 'castle/towers/tower2.obj', mtl: 'castle/towers/tower2.mtl', size: 12 })
 tower.position.set(towerPosition.x, towerPosition.y - 4, towerPosition.z)
@@ -78,16 +44,25 @@ playerCatapult.rotateY(Math.PI / 2)
 const enemyCatapult = catapult.clone()
 enemyCatapult.rotateY(-Math.PI / 2)
 
-positionUser()
+playerCatapult.position.set(towerPosition.x - 1.5, towerPosition.y + 7, towerPosition.z + 1)
+scene.add(playerCatapult)
+
+/* INIT PHYSICS */
+
+const world = new CANNON.World()
+world.gravity.set(0, -9.82, 0)
+
+const physicsMaterial = new CANNON.Material()
+
+const groundShape = new CANNON.Plane()
+const groundBody = new CANNON.Body({ mass: 0, material: physicsMaterial })
+groundBody.addShape(groundShape)
+groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
+world.add(groundBody)
 
 createStones()
 
 /* FUNCTIONS */
-
-function positionUser() {
-  scene.add(playerCatapult)
-  playerCatapult.position.set(towerPosition.x - 1.5, towerPosition.y + 7, towerPosition.z + 1)
-}
 
 function createStones() {
   const texture = getTexture({ file: 'rocks.jpg', repeat: 1 })
@@ -96,6 +71,7 @@ function createStones() {
     const stoneBody = new CANNON.Body({ mass: 80, material: physicsMaterial })
     stoneBody.addShape(stoneShape)
     stonesBody.push(stoneBody)
+
     const geometry = new THREE.SphereGeometry(stoneShape.radius, 8, 8)
     const material = new THREE.MeshLambertMaterial({
       color: 0x232426,
@@ -155,7 +131,7 @@ function gameOver() {
   document.getElementById('game').innerHTML = 'Game over'
   document.getElementById('game').style.color = 'red'
   document.getElementById('game').style.display = 'block'
-  positionUser()
+  scene.add(playerCatapult)
 }
 
 const checkVictory = () => {
