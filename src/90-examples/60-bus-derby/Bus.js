@@ -52,7 +52,6 @@ export function createBus(color) {  // "green" or "red"
   const wheelWidth = 1
   const segments = 50
   const wheelMaterials = []
-  const wheelImage = './textures/bus_wheel_front_uv_fill.png'
   const wheelGeometry = new THREE.CylinderGeometry(wheelRadius, wheelRadius, wheelWidth, segments)
 
   // wheel side & back material (color only, no image)
@@ -61,8 +60,8 @@ export function createBus(color) {  // "green" or "red"
   wheelMaterials.push(wheelColorMaterial)  // (.materialindex = 0)
 
   // wheel front material (wheel image)
-  const wheelImageLoader = new THREE.TextureLoader()
-  wheelImageLoader.load(wheelImage, texture => {
+  const textureLoader = new THREE.TextureLoader()
+  textureLoader.load('./textures/bus_wheel_front_uv_fill.png', texture => {
     const wheelImageMaterial = Physijs.createMaterial(
       new THREE.MeshBasicMaterial({ map: texture }), bwf, bwr
     )
