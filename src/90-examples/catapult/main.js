@@ -69,13 +69,6 @@ groundBody.addShape(groundShape)
 groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
 world.add(groundBody)
 
-const towerSize = new CANNON.Vec3(2, 7, 3)
-const towerShape = new CANNON.Box(towerSize)
-const towerBody = new CANNON.Body({ mass: 0, material: physicsMaterial })
-towerBody.addShape(towerShape)
-towerBody.position.set(towerPosition.x, towerPosition.y, towerPosition.z)
-world.add(towerBody)
-
 const { mesh: tower } = await loadModel({ file: 'castle/towers/tower2.obj', mtl: 'castle/towers/tower2.mtl', size: 12 })
 tower.position.set(towerPosition.x, towerPosition.y - 4, towerPosition.z)
 tower.castShadow = true
@@ -98,8 +91,8 @@ createStones()
 
 function positionUser() {
   scene.add(playerCatapult)
-  playerCatapult.position.set(towerPosition.x - 1.5, towerPosition.y + towerSize.y, towerPosition.z + 1)
-  playerBox.position.set(towerPosition.x - 0.3, towerPosition.y + towerSize.y + 1, towerPosition.z)
+  playerCatapult.position.set(towerPosition.x - 1.5, towerPosition.y + 7, towerPosition.z + 1)
+  playerBox.position.set(towerPosition.x - 0.3, towerPosition.y + 8, towerPosition.z)
   scene.add(playerBox)
 }
 
@@ -118,8 +111,7 @@ function createCollidable(name) {
 function createStones() {
   const stoneTexture = new THREE.TextureLoader().load('texture/stoneTexture1.jpg')
   stoneTexture.repeat.set(1, 1)
-  stoneTexture.wrapS = THREE.RepeatWrapping
-  stoneTexture.wrapT = THREE.RepeatWrapping
+  stoneTexture.wrapS = stoneTexture.wrapT = THREE.RepeatWrapping
   stoneTexture.magFilter = THREE.NearestFilter
   stoneTexture.minFilter = THREE.LinearMipMapLinearFilter
 
