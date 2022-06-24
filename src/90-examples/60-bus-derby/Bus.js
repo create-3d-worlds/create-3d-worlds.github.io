@@ -1,7 +1,7 @@
 import Physijs from '/libs/physi-ecma.js'
 import * as THREE from '/node_modules/three127/build/three.module.js'
-import { GLTFLoader } from '/node_modules/three127/examples/jsm/loaders/GLTFLoader.js'
 import { scene } from '/utils/physics.js'
+import { loadModel } from '/utils/loaders.js'
 
 const bwf = 3.5  // bus wheel friction
 const bwr = .1  // bus wheel restitution
@@ -21,7 +21,7 @@ function configureWheelConstraints(constraint) {
   return constraint
 }
 
-export function createBus(color) {  // "green" or "red"
+export async function createBus(color) {  // "green" or "red"
   const bus = {}
   bus.score = 0
 
@@ -33,16 +33,10 @@ export function createBus(color) {  // "green" or "red"
   bus.mesh.position.set(pos.x, pos.y, pos.z)
   bus.mesh.castShadow = true
 
-  const loader = new GLTFLoader()
-  loader.load(`/assets/models/bus/${color}.glb`, gltf => {
-    const scale = 5.6
-    const model = gltf.scene.children[0]
-    model.rotation.set (0, -1.5708, 0)
-    model.scale.set (scale, scale, scale)
-    model.position.set (0, 3.6, 0)
-    model.castShadow = true
-    bus.mesh.add(model)
-  })
+  const { mesh: model } = await loadModel({ file: `bus/${color}.glb`, size: 11 })
+  model.rotateY(-1.5708)
+  model.translateY(3.6)
+  bus.mesh.add(model)
 
   if (color === 'green') bus.mesh.rotation.y = Math.PI
 
@@ -59,7 +53,6 @@ export function createBus(color) {  // "green" or "red"
   const wheelColorMaterial = Physijs.createMaterial(wheelColorBaseMaterial, bwf, bwr)
   wheelMaterials.push(wheelColorMaterial)  // (.materialindex = 0)
 
-  // wheel front material (wheel image)
   const textureLoader = new THREE.TextureLoader()
   textureLoader.load('/assets/images/bus_wheel.png', texture => {
     const wheelImageMaterial = Physijs.createMaterial(
@@ -87,7 +80,6 @@ export function createBus(color) {  // "green" or "red"
   configureWheel(bus.wheel_bl_mesh, { x: backX, y: 2, z: pos.z + 5 }, 'port')
   configureWheel(bus.wheel_br_mesh, { x: backX, y: 2, z: pos.z - 5 }, 'starboard')
 
-  // wheel constraints
   const frontLeftWheel = new Physijs.DOFConstraint(bus.wheel_fl_mesh, bus.mesh, bus.wheel_fl_mesh.position)
   const frontRightWheel = new Physijs.DOFConstraint(bus.wheel_fr_mesh, bus.mesh, bus.wheel_fr_mesh.position)
   const backLeftWheel = new Physijs.DOFConstraint(bus.wheel_bl_mesh, bus.mesh, bus.wheel_bl_mesh.position)

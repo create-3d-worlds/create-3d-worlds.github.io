@@ -13,8 +13,8 @@ ambLight({ scene, intensity: 0.85 })
 const ground = createGround({ friction: 4.2, bounciness: .1, file: 'asphalt.jpg' })
 scene.add(ground)
 
-const greenBus = createBus('green')
-const redBus = createBus('red')
+const greenBus = await createBus('green')
+const redBus = await createBus('red')
 
 const turn = ({ bus, limit, velocity, maxForce }) => {
   bus.frontRightWheel.configureAngularMotor(1, -limit, limit, velocity, maxForce)
