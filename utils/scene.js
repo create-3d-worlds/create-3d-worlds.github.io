@@ -107,6 +107,16 @@ export function addScoreUI({ score = 0, title = 'Score' } = {}) {
   return updateScore
 }
 
+// SKYBOX
+
+export function createSkyBox({ folder = 'skybox2' } = {}) {
+  const texture = new THREE.CubeTextureLoader()
+    .setPath(`/assets/textures/${folder}/`)
+    .load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg'])
+  // texture.format = THREE.RGBFormat
+  return texture
+}
+
 /* SHORTCUTS */
 
 export { createGround, initLights, hemLight }

@@ -1,31 +1,15 @@
-import * as THREE from '/node_modules/three127/build/three.module.js'
-import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
+import { camera, scene, renderer, createSkyBox, createOrbitControls } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
+import { initLights } from '/utils/light.js'
 
-const light = new THREE.AmbientLight(0x444444)
-scene.add(light)
-
-const textureLoader = new THREE.TextureLoader()
-
+initLights()
 createOrbitControls()
 camera.position.set(0, 15, 30)
 
-scene.add(createGround({ size: 100 }))
+const ground = createGround({ size: 512, file: 'grass-512.jpg' })
+scene.add(ground)
 
-// skybox
-
-const directions = ['xpos', 'xneg', 'ypos', 'yneg', 'zpos', 'zneg']
-const skyGeometry = new THREE.BoxGeometry(5000, 5000, 5000)
-
-const materialArray = []
-for (let i = 0; i < 6; i++)
-  materialArray.push(new THREE.MeshBasicMaterial({
-    map: textureLoader.load('images/dawnmountain-' + directions[i] + '.png'),
-    side: THREE.BackSide
-  }))
-
-const skyBox = new THREE.Mesh(skyGeometry, materialArray)
-scene.add(skyBox)
+scene.background = createSkyBox()
 
 /* LOOP */
 

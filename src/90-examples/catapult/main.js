@@ -2,7 +2,7 @@
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { GLTFLoader } from '/node_modules/three127/examples/jsm/loaders/GLTFLoader.js'
 import keyboard from '/classes/Keyboard.js'
-import { scene, renderer, clock } from '/utils/scene.js'
+import { scene, renderer, clock, createSkyBox } from '/utils/scene.js'
 import { ambLight, dirLight } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 
@@ -31,12 +31,7 @@ gltfloader.load('models/tower1/scene.gltf', createTower)
 const ground = createGround({ size: 512, file: 'grass-512.jpg' })
 scene.add(ground)
 
-// sky box
-const reflectionCube = new THREE.CubeTextureLoader()
-  .setPath('texture/skybox4/')
-  .load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg'])
-reflectionCube.format = THREE.RGBFormat
-scene.background = reflectionCube
+scene.background = createSkyBox()
 
 createStones()
 createStands()

@@ -6,11 +6,9 @@ import { randomInRange, randomNuance, getTexture, similarColor } from '/utils/he
 export function createGroundMaterial({ size, color = 0x509f53, file } = {}) {
   const params = { side: THREE.FrontSide }
   const material = file
-    ? new THREE.MeshStandardMaterial({
+    ? new THREE.MeshBasicMaterial({
       ...params,
-      color: 0x232426,
       map: getTexture({ file, repeat: size / 8 }),
-      bumpMap: getTexture({ file, repeat: size / 8 })
     })
     : new THREE.MeshPhongMaterial({ ...params, color }) // MeshLambertMaterial ne radi rasveta
   return material
