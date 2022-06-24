@@ -6,6 +6,9 @@ import { scene, renderer, clock } from '/utils/scene.js'
 import { ambLight, dirLight } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 
+ambLight({ intensity: 2 })
+dirLight({ intensity: 5 })
+
 let activeCamera
 
 const gltfloader = new GLTFLoader()
@@ -25,7 +28,6 @@ let catapultModel
 gltfloader.load('models/catapult2/scene.gltf', createCatapults)
 gltfloader.load('models/tower1/scene.gltf', createTower)
 
-// TODO: check use
 const ground = createGround({ size: 512, file: 'grass-512.jpg' })
 scene.add(ground)
 
@@ -38,9 +40,6 @@ scene.background = reflectionCube
 
 createStones()
 createStands()
-
-ambLight({ intensity: 2 })
-dirLight({ intensity: 5 })
 
 const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1000)
 camera.position.set(-64, 14, 7)

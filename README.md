@@ -14,6 +14,7 @@ live-server
 ### General
 
 - [ ] videti threejs catapult projekt
+- [ ] fix cameraFollowObject
 - [ ] napraviti osnovne geometriju
   - [ ] kutije sa municijom
   - [ ] buriće metalne, drvene

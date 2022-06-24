@@ -7,7 +7,9 @@ import { createSunLight } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import keyboard from '/classes/Keyboard.js'
 import Zeppelin from '/classes/aircrafts/Zeppelin.js'
-import { loadZeppelin } from '/utils/loaders.js'
+import { loadModel } from '/utils/loaders.js'
+
+// camera.position.set(0, 0, 0)
 
 scene.add(createSkySphere({ r: 5000 }))
 const light = createSunLight({ x: 500, y: 2000, z: 100, far: 5000 })
@@ -23,8 +25,13 @@ const controls = createOrbitControls()
 const ground = createHillyTerrain({ size: 10000, y: 100, factorX: 5, factorZ: 2.5, factorY: 200 })
 scene.add(ground)
 
-const { mesh } = await loadZeppelin()
+const { mesh } = await loadModel({
+  file: 'airship/zeppelin-lowpoly/scene.gltf',
+  size: 20,
+  rot: { axis: [0, 1, 0], angle: Math.PI },
+})
 const zeppelin = new Zeppelin({ mesh })
+zeppelin.mesh.add(camera)
 scene.add(zeppelin.mesh)
 mesh.position.y = 256
 controls.target = mesh.position
@@ -39,7 +46,7 @@ void function animate() {
   controls.update()
   zeppelin.update()
 
-  if (!keyboard.pressed.mouse) cameraFollowObject(camera, zeppelin.mesh)
+  // if (!keyboard.pressed.mouse) cameraFollowObject(camera, zeppelin.mesh)
   renderer.render(scene, camera)
 }()
 
