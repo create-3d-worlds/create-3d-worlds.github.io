@@ -1,9 +1,12 @@
-/* global CANNON, THREE */
+/* global CANNON */
+import * as THREE from '/node_modules/three127/build/three.module.js'
+import { GLTFLoader } from '/node_modules/three127/examples/jsm/loaders/GLTFLoader.js'
+
 import keyboard from '/classes/Keyboard.js'
 let camera, camera2, activeCamera, orthographicCamera
 
 const clock = new THREE.Clock()
-const gltfloader = new THREE.GLTFLoader()
+const gltfloader = new GLTFLoader()
 
 const stonesBody = [], stonesMesh = [], catapultsBody = [], catapultsMesh = []
 const standsBody = [], standsMesh = [], collidables = []
@@ -190,7 +193,7 @@ function createCatapults(gltf) {
     catapultsBody.push(catapultBody)
     catapultsMesh.push(catapultModel.clone())
   }
-  createCollidableMesh()
+  createCollidables()
   positionUser()
 }
 
@@ -202,16 +205,15 @@ function positionUser() {
   scene.add(collidables[0])
 }
 
-function createCollidableMesh() {
+function createCollidables() {
   for (let i = 0; i < 5; i++) {
-    const collideGeometry = new THREE.BoxGeometry(3.2, 1.5, 3)
+    const geometry = new THREE.BoxGeometry(3.2, 1.5, 3)
     const material = new THREE.MeshBasicMaterial({
       opacity: 0,
       side: THREE.FrontSide,
     })
-
     material.transparent = true
-    const mesh = new THREE.Mesh(collideGeometry, material)
+    const mesh = new THREE.Mesh(geometry, material)
     mesh.name = i
     collidables.push(mesh)
   }
@@ -398,8 +400,9 @@ function update() {
 
   updatePhysics()
 
-  for (let i = 0; i < stonesMesh.length; i++)
-    checkCollison(stonesMesh[i], collidables)
+  // TODO: fix checkCollison
+  // for (let i = 0; i < stonesMesh.length; i++)
+  // checkCollison(stonesMesh[i], collidables)
 
   if (clock.getElapsedTime() > lastEnemyAttack + 3) {
     lastEnemyAttack = clock.getElapsedTime()
