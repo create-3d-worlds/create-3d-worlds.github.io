@@ -34,7 +34,7 @@ export function createBus(color) {  // "green" or "red"
   bus.mesh.castShadow = true
 
   const loader = new GLTFLoader()
-  loader.load(`./models/bus_body_${color}.glb`, gltf => {
+  loader.load(`/assets/models/bus/${color}.glb`, gltf => {
     const scale = 5.6
     const model = gltf.scene.children[0]
     model.rotation.set (0, -1.5708, 0)
@@ -61,7 +61,7 @@ export function createBus(color) {  // "green" or "red"
 
   // wheel front material (wheel image)
   const textureLoader = new THREE.TextureLoader()
-  textureLoader.load('./textures/bus_wheel_front_uv_fill.png', texture => {
+  textureLoader.load('/assets/images/bus_wheel.png', texture => {
     const wheelImageMaterial = Physijs.createMaterial(
       new THREE.MeshBasicMaterial({ map: texture }), bwf, bwr
     )
