@@ -2,6 +2,9 @@ import { camera, renderer } from '/utils/scene.js'
 import { scene, createGround } from '/utils/physics.js'
 import { ambLight } from '/utils/light.js'
 import { createBus } from './bus.js'
+import keyboard from '/classes/Keyboard.js'
+
+const { pressed } = keyboard
 
 camera.position.set(0, 50, 100)
 
@@ -20,71 +23,42 @@ const turn = ({ bus, limit, velocity, maxForce }) => {
   bus.frontLeftWheel.enableAngularMotor(1)
 }
 
-const move = ({ bus, lowLimit, velocity, maxForce }) => {
-  bus.backLeftWheel.configureAngularMotor(2, lowLimit, 0, velocity, maxForce)
+const move = ({ bus, limit, velocity, maxForce }) => {
+  bus.backLeftWheel.configureAngularMotor(2, limit, 0, velocity, maxForce)
   bus.backLeftWheel.enableAngularMotor(2)
-  bus.backRightWheel.configureAngularMotor(2, lowLimit, 0, velocity, maxForce)
+  bus.backRightWheel.configureAngularMotor(2, limit, 0, velocity, maxForce)
   bus.backRightWheel.enableAngularMotor(2)
 }
 
-/* EVENTS */
+/* INPUT */
 
-function handleKeyDown(e) {
-  switch (e.code) {
-    case 'KeyW': case 'ArrowUp':
-      move({ bus: greenBus, lowLimit: 1, velocity: -15, maxForce: 500 })
-      break
-    case 'KeyS': case 'ArrowDown':
-      move({ bus: greenBus, lowLimit: 1, velocity: 10, maxForce: 350 })
-      break
-    case 'KeyA': case 'ArrowLeft':
-      turn({ bus: greenBus, limit: Math.PI / 4, velocity: 5, maxForce: 50 })
-      break
-    case 'KeyD': case 'ArrowRight':
-      turn({ bus: greenBus, limit: Math.PI / 4, velocity: -5, maxForce: 50 })
-      break
+function handleInput() {
+  if (keyboard.up) move({ bus: greenBus, limit: 1, velocity: -15, maxForce: 500 })
+  if (keyboard.down) move({ bus: greenBus, limit: 1, velocity: 10, maxForce: 350 })
+  if (keyboard.left) turn({ bus: greenBus, limit: Math.PI / 4, velocity: 5, maxForce: 50 })
+  if (keyboard.right) turn({ bus: greenBus, limit: Math.PI / 4, velocity: -5, maxForce: 50 })
 
-    case 'KeyP':
-      move({ bus: redBus, lowLimit: 1, velocity: 15, maxForce: 500 })
-      break
-    case 'Semicolon':
-      move({ bus: redBus, lowLimit: 1, velocity: -10, maxForce: 350 })
-      break
-    case 'KeyL':
-      turn({ bus: redBus, limit: Math.PI / 4, velocity: 5, maxForce: 50 })
-      break
-    case 'Quote':
-      turn({ bus: redBus, limit: Math.PI / 4, velocity: -5, maxForce: 50 })
-      break
-  }
+  if (pressed.KeyP) move({ bus: redBus, limit: 1, velocity: 15, maxForce: 500 })
+  if (pressed.Semicolon) move({ bus: redBus, limit: 1, velocity: -10, maxForce: 350 })
+  if (pressed.KeyL) turn({ bus: redBus, limit: Math.PI / 4, velocity: 5, maxForce: 50 })
+  if (pressed.Quote) turn({ bus: redBus, limit: Math.PI / 4, velocity: -5, maxForce: 50 })
 }
-
-function handleKeyUp(e) {
-  switch (e.code) {
-    case 'KeyA': case 'KeyD': case 'ArrowLeft': case 'ArrowRight':
-      turn({ bus: greenBus, limit: 0, velocity: 5, maxForce: 50 })
-      break
-    case 'KeyW': case 'KeyS': case 'ArrowUp': case 'ArrowDown':
-      move({ bus: greenBus, lowLimit: 0, velocity: 0, maxForce: 50 })
-      break
-
-    case 'KeyL': case 'Quote':
-      turn({ bus: redBus, limit: 0, velocity: 5, maxForce: 50 })
-      break
-    case 'KeyP': case 'Semicolon':
-      move({ bus: redBus, lowLimit: 0, velocity: 0, maxForce: 50 })
-      break
-  }
-}
-
-document.onkeydown = handleKeyDown
-document.onkeyup = handleKeyUp
 
 /* LOOP */
 
 void function render() {
   scene.simulate()
   camera.lookAt(0, 1, 0)
+  handleInput()
   renderer.render(scene, camera)
   requestAnimationFrame(render)
 }()
+
+/* EVENTS */
+
+document.onkeyup = () => {
+  if (!keyboard.left || !keyboard.right) turn({ bus: greenBus, limit: 0, velocity: 5, maxForce: 50 })
+  if (!keyboard.up || !keyboard.down) move({ bus: greenBus, limit: 0, velocity: 0, maxForce: 50 })
+  if (!pressed.KeyL || !pressed.Quote) turn({ bus: redBus, limit: 0, velocity: 5, maxForce: 50 })
+  if (!pressed.KeyP || !pressed.Semicolon) move({ bus: redBus, limit: 0, velocity: 0, maxForce: 50 })
+}

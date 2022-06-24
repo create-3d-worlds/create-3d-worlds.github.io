@@ -13,7 +13,6 @@ live-server
 
 ### General
 
-- [ ] videti threejs catapult projekt
 - [ ] fix cameraFollowObject
 - [ ] napraviti osnovne geometriju
   - [ ] kutije sa municijom
@@ -161,6 +160,7 @@ live-server
 ### Physics
 
 - [ ] dodati primere fizike iz 2D primera
+- [x] sažvakati threejs catapult projekt
 - [ ] sažvakati bus-derby
 - [x] odvojiti fizička pomagala
 - [ ] ujednačiti createTerrain i druga fizička pomagala sa standardnim
