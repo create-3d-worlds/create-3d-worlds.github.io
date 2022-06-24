@@ -5,6 +5,7 @@ import keyboard from '/classes/Keyboard.js'
 import { scene, renderer, clock, createSkyBox } from '/utils/scene.js'
 import { ambLight, dirLight } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
+import { loadModel } from '/utils/loaders.js'
 
 const gltfloader = new GLTFLoader()
 
@@ -19,28 +20,6 @@ let lastEnemyAttack = 0
 let userShootVelocity = 4
 let countStones = 0
 let pause = true
-let playerCatapult, enemyCatapult, playerBox, enemyBox
-
-gltfloader.load('models/catapult2/scene.gltf', gltf => {
-  const model = gltf.scene
-  model.scale.set(.33, .33, .33)
-
-  playerCatapult = model.clone()
-  enemyCatapult = model.clone()
-
-  playerBox = createCollidable('player')
-  enemyBox = createCollidable('enemy')
-
-  positionUser()
-})
-
-gltfloader.load('models/tower1/scene.gltf', gltf => {
-  const tower = gltf.scene
-  tower.scale.set(1 / 26, 1 / 15, 1 / 26)
-  tower.position.set(towerPosition.x, towerPosition.y - 4, towerPosition.z)
-  tower.castShadow = true
-  scene.add(tower)
-})
 
 const ground = createGround({ size: 512, file: 'grass-512.jpg' })
 scene.add(ground)
@@ -97,14 +76,34 @@ towerBody.addShape(towerShape)
 towerBody.position.set(towerPosition.x, towerPosition.y, towerPosition.z)
 world.add(towerBody)
 
+gltfloader.load('models/tower1/scene.gltf', gltf => {
+  const tower = gltf.scene
+  tower.scale.set(1 / 15, 1 / 15, 1 / 15)
+  tower.position.set(towerPosition.x, towerPosition.y - 4, towerPosition.z)
+  tower.castShadow = true
+  scene.add(tower)
+})
+
+const { mesh: catapult } = await loadModel({ file: 'catapult/scene.gltf', scale: .25 })
+
+const playerCatapult = catapult.clone()
+playerCatapult.rotateY(Math.PI / 2)
+const enemyCatapult = catapult.clone()
+enemyCatapult.rotateY(-Math.PI / 2)
+
+const playerBox = createCollidable('player')
+const enemyBox = createCollidable('enemy')
+
+positionUser()
+
 createStones()
 
 /* FUNCTIONS */
 
 function positionUser() {
   scene.add(playerCatapult)
-  playerCatapult.position.set(towerBody.position.x - 1.5, towerBody.position.y + towerSize.y, towerBody.position.z + 1)
-  playerBox.position.set(towerBody.position.x - 0.3, towerBody.position.y + towerSize.y + 1, towerBody.position.z)
+  playerCatapult.position.set(towerPosition.x - 1.5, towerPosition.y + towerSize.y, towerPosition.z + 1)
+  playerBox.position.set(towerPosition.x - 0.3, towerPosition.y + towerSize.y + 1, towerPosition.z)
   scene.add(playerBox)
 }
 
