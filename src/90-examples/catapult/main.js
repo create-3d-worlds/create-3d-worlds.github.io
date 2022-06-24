@@ -1,11 +1,12 @@
 /* global CANNON */
 import * as THREE from '/node_modules/three127/build/three.module.js'
 import { GLTFLoader } from '/node_modules/three127/examples/jsm/loaders/GLTFLoader.js'
-
+import { scene, renderer, clock } from '/utils/scene.js'
+import { ambLight, dirLight } from '/utils/light.js'
 import keyboard from '/classes/Keyboard.js'
-let camera, camera2, activeCamera, orthographicCamera
 
-const clock = new THREE.Clock()
+let activeCamera
+
 const gltfloader = new GLTFLoader()
 
 const stonesBody = [], stonesMesh = [], catapultsBody = [], catapultsMesh = []
@@ -22,14 +23,6 @@ let catapultModel
 
 gltfloader.load('models/catapult2/scene.gltf', createCatapults)
 gltfloader.load('models/tower1/scene.gltf', createTower)
-
-const scene = new THREE.Scene()
-
-const renderer = new THREE.WebGLRenderer({ antialias: true })
-renderer.setClearColor(new THREE.Color(0x000000))
-renderer.setSize(window.innerWidth, window.innerHeight)
-document.getElementById('webgl').appendChild(renderer.domElement)
-renderer.shadowMap.enabled = true
 
 const planeTexture = new THREE.TextureLoader().load('texture/Grass.jpg')
 planeTexture.repeat.set(20, 20)
@@ -62,46 +55,18 @@ scene.background = reflectionCube
 createStones()
 createStands()
 
-const ambiantlight = new THREE.AmbientLight(0xffffff, 3)
-scene.add(ambiantlight)
+ambLight({ intensity: 2 })
+dirLight({ intensity: 5 })
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 5)
-directionalLight.position.set(-50, 50, 50)
-directionalLight.castShadow = true
-directionalLight.shadow.camera.near = 0.1
-directionalLight.shadow.camera.far = 500
-directionalLight.shadow.camera.right = 550
-directionalLight.shadow.camera.left = -550
-directionalLight.shadow.camera.top = 550
-directionalLight.shadow.camera.bottom = -550
-directionalLight.shadow.mapSize.width = 2048
-directionalLight.shadow.mapSize.height = 2048
-scene.add(directionalLight)
+const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1000)
+camera.position.set(-64, 14, 7)
+camera.lookAt(new THREE.Vector3(-47, 10, 0))
 
-camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1000)
-camera.position.x = -64
-camera.position.y = 14
-camera.position.z = 7
-
-camera2 = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1000)
-
-camera2.position.x = -62
-camera2.position.y = 16
-camera2.position.z = 0
-
-orthographicCamera = new THREE.OrthographicCamera(window.innerWidth / -40, window.innerWidth / 40, window.innerHeight / 40, window.innerHeight / -40, 0.01, 1000)
-orthographicCamera.position.set(0, 8, 15)
-camera.add(orthographicCamera)
+const camera2 = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1000)
+camera2.position.set(-62, 16, 0)
+camera2.lookAt(new THREE.Vector3(-47, 14, 0))
 
 activeCamera = camera
-
-orthographicCamera.lookAt(-30, 10, 0)
-
-const look1 = new THREE.Vector3(-47, 10, 0)
-camera.lookAt(look1)
-
-const look2 = new THREE.Vector3(-47, 14, 0)
-camera2.lookAt(look2)
 
 initPhysics()
 
@@ -321,9 +286,7 @@ function throwStone(catapultBody, shootDirection, shootVelocity, name) {
     countStones = 0
 
   // shooting coordinate
-  let { x } = catapultBody.position
-  let { y } = catapultBody.position
-  let { z } = catapultBody.position
+  let { x, y, z } = catapultBody.position
 
   const stoneBody = stonesBody[countStones]
   const stoneMesh = stonesMesh[countStones]
@@ -348,14 +311,12 @@ function throwStone(catapultBody, shootDirection, shootVelocity, name) {
 }
 
 function victory() {
-  activeCamera = orthographicCamera
   document.getElementById('game').innerHTML = 'Victory'
   document.getElementById('game').style.color = '#0AB408'
   document.getElementById('game').style.display = 'block'
 }
 
 function gameOver() {
-  activeCamera = orthographicCamera
   document.getElementById('game').innerHTML = 'Game over'
   document.getElementById('game').style.color = 'red'
   document.getElementById('game').style.display = 'block'
@@ -425,8 +386,7 @@ window.addEventListener('keyup', e => {
   if (e.code == 'Space') {
     positioningEnemies()
     activeCamera = camera
-    document.getElementById('instruction').style.display = 'none'
-    document.getElementById('game').style.display = 'none'
+    document.getElementById('instruction').style.display = document.getElementById('game').style.display = 'none'
     document.getElementById('game').innerHTML = ''
     pause = false
   }
