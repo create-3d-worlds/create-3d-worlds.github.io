@@ -1,0 +1,11 @@
+Model Information:
+* title:	Low Poly Apache Gunship
+* source:	https://sketchfab.com/3d-models/low-poly-apache-gunship-035ed0b967f848cfa9e0ff0ade53c3dd
+* author:	Duane's Mind (https://sketchfab.com/duanesmind)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Low Poly Apache Gunship" (https://sketchfab.com/3d-models/low-poly-apache-gunship-035ed0b967f848cfa9e0ff0ade53c3dd) by Duane's Mind (https://sketchfab.com/duanesmind) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

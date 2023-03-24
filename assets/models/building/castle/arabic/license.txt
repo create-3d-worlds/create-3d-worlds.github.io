@@ -1,0 +1,11 @@
+Model Information:
+* title:	Castle modeling done with Spacedraw mobile
+* source:	https://sketchfab.com/3d-models/castle-modeling-done-with-spacedraw-mobile-b2cb767d75ae434aaa74f5b9c1ce1e5f
+* author:	Karthik Naidu (https://sketchfab.com/Karthik_TS)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Castle modeling done with Spacedraw mobile" (https://sketchfab.com/3d-models/castle-modeling-done-with-spacedraw-mobile-b2cb767d75ae434aaa74f5b9c1ce1e5f) by Karthik Naidu (https://sketchfab.com/Karthik_TS) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

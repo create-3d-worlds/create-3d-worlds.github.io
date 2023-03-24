@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="sr-RS">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Lander</title>
+  <style>
+    #stats {
+      position: absolute;
+      font-family: monospace;
+      left: 20px;
+      top: 20px;
+      z-index: 9;
+      color: lightgreen;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="stats"></div>
+
+  <script type="importmap">
+    {
+        "imports": {
+            "three": "/node_modules/three/build/three.module.js"
+        }
+    }
+  </script>
+  <script src="main.js" type="module"></script>
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+https://sketchfab.com/3d-models/opel-blitz-19d30236d4e843559f75051dfbef5892

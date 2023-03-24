@@ -1,0 +1,11 @@
+Model Information:
+* title:	Castle
+* source:	https://sketchfab.com/3d-models/castle-d9e2a603c73a492b8a5619ba1f790e06
+* author:	VitSh (https://sketchfab.com/VitSh)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Castle" (https://sketchfab.com/3d-models/castle-d9e2a603c73a492b8a5619ba1f790e06) by VitSh (https://sketchfab.com/VitSh) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

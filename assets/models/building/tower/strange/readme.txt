@@ -1,0 +1,1 @@
+https://sketchfab.com/3d-models/xyz-hw-silhouette-v03-abdbaf168c4c4e29b4a7a5f2a70fc9e9

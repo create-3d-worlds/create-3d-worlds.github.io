@@ -1,0 +1,1 @@
+https://sketchfab.com/3d-models/zis-5b-c42598c6810249c3b5c348bdc2292d33

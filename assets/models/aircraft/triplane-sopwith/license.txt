@@ -1,0 +1,11 @@
+Model Information:
+* title:	Triplan Sopwith - la Première Guerre mondiale
+* source:	https://sketchfab.com/3d-models/triplan-sopwith-la-premiere-guerre-mondiale-8ffd31cefc7f46b08fe60f84289e1209
+* author:	3Dtechno-science (https://sketchfab.com/3dtechnoscience)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Triplan Sopwith - la Première Guerre mondiale" (https://sketchfab.com/3d-models/triplan-sopwith-la-premiere-guerre-mondiale-8ffd31cefc7f46b08fe60f84289e1209) by 3Dtechno-science (https://sketchfab.com/3dtechnoscience) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

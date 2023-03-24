@@ -1,0 +1,11 @@
+Model Information:
+* title:	Dwarven Fort
+* source:	https://sketchfab.com/3d-models/dwarven-fort-01a7dc1624c44f80be3ecc190ab8bdd1
+* author:	mudroljub (https://sketchfab.com/mudroljub)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Dwarven Fort" (https://sketchfab.com/3d-models/dwarven-fort-01a7dc1624c44f80be3ecc190ab8bdd1) by mudroljub (https://sketchfab.com/mudroljub) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

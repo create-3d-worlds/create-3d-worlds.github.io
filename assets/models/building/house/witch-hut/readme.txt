@@ -1,0 +1,1 @@
+https://sketchfab.com/3d-models/xyz-silhouette-15e2eb67b4044d44afeec0d798e61cd3

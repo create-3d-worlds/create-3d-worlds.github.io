@@ -1,0 +1,1 @@
+https://sketchfab.com/3d-models/xyz-school-29ac3558d7c8498ba961164a623047bb

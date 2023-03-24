@@ -1,0 +1,1 @@
+https://sketchfab.com/3d-models/windmill-game-ready-6a006afce57a447baa60c7a6791f0086

@@ -1,0 +1,24 @@
+# Blender MTL File: 'None'
+# Material Count: 2
+
+newmtl mat_0-humvee_desert_body_diffuse.jpg
+Ns 509.803922
+Ka 0.000000 0.000000 0.000000
+Kd 0.484270 0.530227 0.541251
+Ks 0.270789 0.270789 0.270789
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd humvee_desert_body_diffuse.jpg
+
+newmtl mat_1-humvee_desert_glass_diffuse.jpg
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.255870 0.255870 0.255870
+Ks 0.270789 0.270789 0.270789
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.903382
+illum 2
+map_Kd humvee_desert_glass_diffuse.jpg

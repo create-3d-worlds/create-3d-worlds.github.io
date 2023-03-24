@@ -1,0 +1,1 @@
+https://sketchfab.com/3d-models/sopwith-pup-la-premiere-guerre-mondiale-6a5f268fd29247098905daa24c59bc37

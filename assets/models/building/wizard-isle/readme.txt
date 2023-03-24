@@ -1,0 +1,1 @@
+https://sketchfab.com/3d-models/viziers-observation-deck-6b444842b498499ea5d38e822bfceefc

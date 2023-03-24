@@ -1,0 +1,11 @@
+Model Information:
+* title:	Armoured car 233
+* source:	https://sketchfab.com/3d-models/armoured-car-233-e10f3563bf174aa0a80385e9840bca7b
+* author:	mudroljub (https://sketchfab.com/mudroljub)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Armoured car 233" (https://sketchfab.com/3d-models/armoured-car-233-e10f3563bf174aa0a80385e9840bca7b) by mudroljub (https://sketchfab.com/mudroljub) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

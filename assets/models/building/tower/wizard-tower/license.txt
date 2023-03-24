@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tower asset fot 'Tower of the Wizard' scene
+* source:	https://sketchfab.com/3d-models/tower-asset-fot-tower-of-the-wizard-scene-bd64c3eb9deb4d52938798ad70bba708
+* author:	VitSh (https://sketchfab.com/VitSh)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tower asset fot 'Tower of the Wizard' scene" (https://sketchfab.com/3d-models/tower-asset-fot-tower-of-the-wizard-scene-bd64c3eb9deb4d52938798ad70bba708) by VitSh (https://sketchfab.com/VitSh) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Autoblinda
+* source:	https://sketchfab.com/3d-models/autoblinda-3b55244be1624e5496a092412e5d0f5c
+* author:	mudroljub (https://sketchfab.com/mudroljub)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Autoblinda" (https://sketchfab.com/3d-models/autoblinda-3b55244be1624e5496a092412e5d0f5c) by mudroljub (https://sketchfab.com/mudroljub) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

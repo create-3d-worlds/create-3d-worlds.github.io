@@ -1,0 +1,11 @@
+Model Information:
+* title:	train
+* source:	https://sketchfab.com/3d-models/train-801f5d27314740bcbc09c0f30440a946
+* author:	jpoulse (https://sketchfab.com/jpoulse)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "train" (https://sketchfab.com/3d-models/train-801f5d27314740bcbc09c0f30440a946) by jpoulse (https://sketchfab.com/jpoulse) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

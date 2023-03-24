@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cannon shoots</title>
+  <style>
+    #impulse {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+  <input type="range" id="impulse" min="15" max="25" step="0.2">
+
+  <script src="/node_modules/three/examples/jsm/libs/ammo.wasm.js"></script>
+  <script type="importmap">
+    {
+        "imports": {
+            "three": "/node_modules/three/build/three.module.js"
+        }
+    }
+  </script>
+  <script type="module" src="main.js"></script>
+
+</body>
+</html>
