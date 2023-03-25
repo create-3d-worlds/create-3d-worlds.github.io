@@ -140,10 +140,10 @@ export default class Maze {
     }
   }
 
-  putPlayer(mesh, tile = [1, 1]) {
-    mesh.position.copy(this.tilePosition(...tile))
-    mesh.lookAt(0, 0, 0)
-    mesh.rotateY(Math.PI)
+  putPlayer(player, tile = [1, 1]) {
+    player.position = this.tilePosition(...tile)
+    player.mesh.lookAt(0, 0, 0)
+    player.mesh.rotateY(Math.PI)
   }
 
   /* RENDER */

@@ -22,7 +22,7 @@ scene.add(city)
 
 const player = new Avatar({ size: .5, camera, solids: [city, hill] })
 scene.add(player.mesh)
-maze.putPlayer(player.mesh)
+maze.putPlayer(player)
 
 const renderer = createToonRenderer()
 

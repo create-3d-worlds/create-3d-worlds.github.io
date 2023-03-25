@@ -18,7 +18,7 @@ const city = maze.toTiledMesh({ maxHeight: cellSize * 3, material })
 scene.add(city)
 
 const player = new Avatar({ size: .5, camera, solids: city })
-maze.putPlayer(player.mesh)
+maze.putPlayer(player)
 scene.add(player.mesh)
 
 /* LOOP */

@@ -12,7 +12,6 @@ npx live-server
 ## TODO
 
 Mazes:
-- putOnTerrain: automatizovati prilikom setovanja pozicije
 - getEmptyCoords na Maze, isprobati
 
 ### Scenes & examples

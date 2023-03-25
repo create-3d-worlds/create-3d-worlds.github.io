@@ -74,6 +74,11 @@ export default class Actor {
     return this.mesh.position
   }
 
+  set position(pos) {
+    this.mesh.position.copy(pos)
+    this.putOnGround()
+  }
+
   get name() {
     return this.mesh.name
   }
@@ -339,13 +344,6 @@ export default class Actor {
     const intersect = findGround({ pos: mesh.position, solids, y: this.height })
 
     this.groundY = intersect ? intersect.point.y : 0
-  }
-
-  putOnTerrain() {
-    if (!this.solids) return
-
-    const intersect = findGround({ pos: this.position, solids: this.solids })
-    this.position.y = intersect.point.y
   }
 
   applyGravity(delta) {

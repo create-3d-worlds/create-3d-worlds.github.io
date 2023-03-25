@@ -17,9 +17,8 @@ scene.add(dunes)
 const renderer = createToonRenderer()
 
 const player = new WitchPlayer({ camera, solids: [dunes, ruins] })
-player.position.copy(maze.cellPosition(0, 0))
+player.position = maze.cellPosition(0, 0)
 scene.add(player.mesh)
-player.putOnTerrain()
 
 /* LOOP */
 

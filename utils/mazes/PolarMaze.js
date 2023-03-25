@@ -57,10 +57,10 @@ export default class PolarMaze extends Maze {
     return grid
   }
 
-  putPlayer(mesh) {
+  putPlayer(player) {
     const mazeSize = this.rows * this.cellSize
-    mesh.position.set(this.cellSize * .5, 0, -mazeSize - this.cellSize)
-    mesh.lookAt(0, 0, -mazeSize * 2)
+    player.position = { x: this.cellSize * .5, y: 0, z: -mazeSize - this.cellSize }
+    player.mesh.lookAt(0, 0, -mazeSize * 2)
   }
 
   /* RENDER */

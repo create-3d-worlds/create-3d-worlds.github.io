@@ -17,7 +17,7 @@ const pyramid = maze.toPyramid({ texture: 'walls/mayan.jpg' })
 scene.add(pyramid)
 
 const player = new Avatar({ size: .5, speed: 2, camera, solids: pyramid })
-maze.putPlayer(player.mesh)
+maze.putPlayer(player)
 scene.add(player.mesh)
 
 /* LOOP */
