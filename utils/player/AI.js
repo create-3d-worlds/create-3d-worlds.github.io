@@ -109,9 +109,8 @@ export default class AI extends Actor {
   lookAtTarget() {
     if (!this.target) return
     const { x, z } = this.target.position
-    const newPos = new Vector3(x, this.position.y, z)
-    this.mesh.lookAt(newPos)
-    this.mesh.rotateY(Math.PI)
+    const pos = new Vector3(x, this.position.y, z)
+    this.lookAt(pos)
   }
 
   turnSmooth(angle = Math.PI, duration = 2500) {

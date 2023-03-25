@@ -243,6 +243,11 @@ export default class Actor {
     putOnTerrain(this.mesh, this.solids)
   }
 
+  lookAt(pos) {
+    this.mesh.lookAt(pos)
+    this.mesh.rotateY(Math.PI)
+  }
+
   /* COMBAT */
 
   raycast() {
