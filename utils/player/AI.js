@@ -18,6 +18,7 @@ const baseStates = {
   wander: 'wander',
   flee: 'flee',
   follow: 'follow',
+  defend: 'defend',
 }
 const pursueStates = [baseStates.idle, baseStates.patrol, baseStates.wander]
 
@@ -26,7 +27,7 @@ const runAnims = ['pursue', 'flee']
 
 export default class AI extends Actor {
   constructor({
-    jumpStyle = jumpStyles.FALSE_JUMP, attackStyle = attackStyles.LOOP, baseState = baseStates.idle, speed = 1.8, shouldRaycastGround = false, sightDistance = 25, followDistance = 1.5, patrolDistance = 10, attackDistance = 1.25, target, ...params
+    jumpStyle = jumpStyles.FALSE_JUMP, attackStyle = attackStyles.LOOP, baseState = baseStates.wander, speed = 1.8, shouldRaycastGround = false, sightDistance = 25, followDistance = 1.5, patrolDistance = 10, attackDistance = 1.25, target, ...params
   } = {}) {
     super({
       ...params,
@@ -76,7 +77,12 @@ export default class AI extends Actor {
     return (-1.3 < dotProduct && dotProduct < -0.7)
   }
 
-  get targetInRange() {
+  get targetInAttackRange() {
+    if (!this.target) return false
+    return this.distancToTarget < this.attackDistance
+  }
+
+  get targetInSightRange() {
     if (!this.target) return false
     return this.distancToTarget < this.sightDistance
   }
@@ -89,7 +95,7 @@ export default class AI extends Actor {
   get targetSpotted() {
     if (!this.target) return false
     if (this.targetAbove) return false
-    return (this.targetInRange && this.lookingAtTarget) || (this.targetInRange * .3) // feel if too close
+    return (this.targetInSightRange && this.lookingAtTarget) || (this.targetInSightRange * .3) // feel if too close
   }
 
   /* ANIMS */

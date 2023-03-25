@@ -14,7 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Savo
-  - AI: dodati DefendState (stoji u mestu, nišani i puca), brani objekte, za bunker i sl.
+  - da ne rade komande nakon smrti
   - srediti audio
   - dodati pauzu između pucanja
 

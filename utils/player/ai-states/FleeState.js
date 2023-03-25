@@ -19,7 +19,7 @@ export default class FleeState extends RunState {
 
     /* TRANSIT */
 
-    if (Date.now() - this.last > this.minFleeTime && !actor.targetInRange)
+    if (Date.now() - this.last > this.minFleeTime && !actor.targetInSightRange)
       actor.setState('idle')
   }
 
