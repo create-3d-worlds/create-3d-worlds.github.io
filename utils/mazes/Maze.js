@@ -1,5 +1,5 @@
 import { sample } from '/utils/helpers.js'
-import { meshFromMaze, meshFromTilemap, tileToPosition, calcPyramidHeight } from '/utils/mazes.js'
+import { meshFromMaze, meshFromTilemap, tileToPosition, calcPyramidHeight, getEmptyFields } from '/utils/mazes.js'
 import { recursiveBacktracker } from '/utils/mazes/algorithms.js'
 import Cell from './Cell.js'
 
@@ -83,8 +83,9 @@ export default class Maze {
     return this.grid[row][column]
   }
 
+  // not precise because of walls
   cellPosition(row, column) {
-    const grid = Array(this.rows) // grid != tilemap (not counting walls)
+    const grid = Array(this.rows) // grid != tilemap (tilemap including walls)
     grid[0] = Array(this.columns)
     return tileToPosition(grid, [row, column], this.cellSize)
   }
@@ -138,6 +139,11 @@ export default class Maze {
 
       cell.link(sample(best))
     }
+  }
+
+  getEmptyCoords() {
+    const fields = getEmptyFields(this.tilemap)
+    return fields.map(field => tileToPosition(this.tilemap, field, this.cellSize))
   }
 
   /* RENDER */

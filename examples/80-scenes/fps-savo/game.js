@@ -1,7 +1,6 @@
 import { scene, renderer, camera, clock, setBackground } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { sample } from '/utils/helpers.js'
-import { getEmptyCoords, meshFromTilemap } from '/utils/mazes.js'
 import { hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { Snow } from '/utils/classes/Particles.js'
@@ -15,20 +14,18 @@ import { GermanFlameThrowerAI } from '/utils/actors/ww2/GermanFlameThrower.js'
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
 
-const maze = new Maze(10, 10, truePrims)
+const maze = new Maze(10, 10, truePrims, 10)
 maze.distances = maze.first_cell.distances.path_to(maze.last_cell)
-const { tilemap } = maze
 
 const enemyClasses = [GermanFlameThrowerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, SSSoldierAI, SSSoldierAI, SSSoldierAI, NaziOfficerAI]
 
 hemLight({ intensity: .75 })
 setBackground(0x070b34)
 
-const cellSize = 10
-const coords = getEmptyCoords(tilemap, cellSize)
+const coords = maze.getEmptyCoords()
 
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
-const walls = meshFromTilemap({ tilemap, cellSize, texture: 'terrain/concrete.jpg' })
+const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
 
 const show = new Snow()
 scene.add(show.mesh)

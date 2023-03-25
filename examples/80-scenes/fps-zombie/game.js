@@ -1,8 +1,6 @@
 import { scene, renderer, camera, clock, setBackground } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { sample } from '/utils/helpers.js'
-import { getEmptyCoords, meshFromTilemap } from '/utils/mazes.js'
-import { smallMap } from '/utils/data/maps.js'
 import { hemLight, lightningStrike } from '/utils/light.js'
 import { Rain } from '/utils/classes/Particles.js'
 import FPSPlayer from '/utils/player/FPSPlayer.js'
@@ -15,25 +13,29 @@ import { ZombieDoctorCrawlAI } from '/utils/actors/horror/ZombieDoctorCrawl.js'
 import { ZombieDoctorAI } from '/utils/actors/horror/ZombieDoctor.js'
 import { ZombieGuardAI } from '/utils/actors/horror/ZombieGuard.js'
 
-const enemyClasses = [GhostAI, GothGirlAI, ZombieBarefootAI, ZombieCopAI, ZombieDoctorCrawlAI, ZombieDoctorAI, ZombieGuardAI]
+import Maze from '/utils/mazes/Maze.js'
+import { truePrims } from '/utils/mazes/algorithms.js'
 
 setBackground(0x070b34)
 const light = hemLight({ intensity: .75 })
 
-const cellSize = 20
-
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
-const walls = meshFromTilemap({ tilemap: smallMap, cellSize, texture: 'terrain/concrete.jpg' })
-const coords = getEmptyCoords(smallMap, cellSize)
 
 const rain = new Rain()
 scene.add(rain.mesh)
+
+const maze = new Maze(8, 8, truePrims, 20)
+const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
+const coords = maze.getEmptyCoords()
 
 const solids = [walls]
 
 /* ACTORS */
 
-const player = new FPSPlayer({ camera, coords })
+const enemyClasses = [GhostAI, GothGirlAI, ZombieBarefootAI, ZombieCopAI, ZombieDoctorCrawlAI, ZombieDoctorAI, ZombieGuardAI]
+
+const player = new FPSPlayer({ camera })
+player.putInMaze(maze)
 scene.add(player.mesh)
 
 const enemies = []

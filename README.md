@@ -12,7 +12,7 @@ npx live-server
 ## TODO
 
 Mazes:
-- getEmptyCoords na Maze, isprobati
+- getEmptyCoords i player.putInMaze da se ne preklapa
 
 ### Scenes & examples
 
