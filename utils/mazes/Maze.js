@@ -1,9 +1,18 @@
-import { sample } from '/utils/helpers.js'
-import { meshFromMaze, meshFromTilemap, tileToPosition, calcPyramidHeight, getEmptyFields } from '/utils/mazes.js'
+import { sample, shuffle } from '/utils/helpers.js'
+import { meshFromMaze, meshFromTilemap, tileToPosition, calcPyramidHeight } from '/utils/mazes.js'
 import { recursiveBacktracker } from '/utils/mazes/algorithms.js'
 import Cell from './Cell.js'
 
 const EMPTY = 0, WALL = 1
+
+function getEmptyTiles(tilemap) {
+  const fields = []
+  tilemap.forEach((row, z) => row.forEach((value, x) => {
+    console.log(z, x) // 1, 1
+    if (value < 1) fields.push([z, x])
+  }))
+  return fields
+}
 
 /**
  * Create a perfect maze with an algorithm, render maze in various ways, etc.
@@ -142,7 +151,8 @@ export default class Maze {
   }
 
   getEmptyCoords() {
-    const fields = getEmptyFields(this.tilemap)
+    const fields = getEmptyTiles(this.tilemap)
+    shuffle(fields)
     return fields.map(field => tileToPosition(this.tilemap, field, this.cellSize))
   }
 

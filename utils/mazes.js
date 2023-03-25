@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import * as BufferGeometryUtils from '/node_modules/three/examples/jsm/utils/BufferGeometryUtils.js'
-import { centerGeometry, getTexture, shuffle } from '/utils/helpers.js'
+import { centerGeometry, getTexture } from '/utils/helpers.js'
 import { createBuildingTexture, createBuildingGeometry } from '/utils/city.js'
 import chroma from '/libs/chroma.js'
 
@@ -11,24 +11,10 @@ const textureLoader = new THREE.TextureLoader()
 
 /* HELPERS */
 
-export function getEmptyFields(tilemap) {
-  const fields = []
-  tilemap.forEach((row, z) => row.forEach((value, x) => {
-    if (value < 1) fields.push([z, x])
-  }))
-  shuffle(fields)
-  return fields
-}
-
 export const tileToPosition = (tilemap, [row, column], cellSize = 1) => {
   const x = column * cellSize - tilemap[0].length / 2 * cellSize + cellSize / 2
   const z = row * cellSize - tilemap.length / 2 * cellSize + cellSize / 2
   return { x, y: 0, z }
-}
-
-export function getEmptyCoords(tilemap, cellSize) {
-  const fields = getEmptyFields(tilemap)
-  return fields.map(field => tileToPosition(tilemap, field, cellSize))
 }
 
 /* MESH FROM TILEMAP */
