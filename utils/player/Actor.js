@@ -4,7 +4,7 @@ import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js
 
 import { createOrbitControls } from '/utils/scene.js'
 import CameraFollow from '/utils/classes/CameraFollow.js'
-import { addSolids, findGround, getSize, directionBlocked, getMesh, putOnGround, raycast, getParent, belongsTo } from '/utils/helpers.js'
+import { addSolids, findGround, getSize, directionBlocked, getMesh, putOnTerrain, raycast, getParent, belongsTo } from '/utils/helpers.js'
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 
@@ -57,7 +57,7 @@ export default class Actor {
 
     if (solids) {
       this.addSolids(solids)
-      if (shouldRaycastGround) this.putOnGround()
+      if (shouldRaycastGround) this.putOnTerrain()
     }
 
     if (mapSize) {
@@ -76,7 +76,7 @@ export default class Actor {
 
   set position(pos) {
     this.mesh.position.copy(pos)
-    this.putOnGround()
+    this.putOnTerrain()
   }
 
   get name() {
@@ -239,8 +239,8 @@ export default class Actor {
     this.mesh.translateZ(this.velocity.z)
   }
 
-  putOnGround() {
-    putOnGround(this.mesh, this.solids)
+  putOnTerrain() {
+    putOnTerrain(this.mesh, this.solids)
   }
 
   /* COMBAT */

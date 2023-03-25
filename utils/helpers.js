@@ -228,7 +228,7 @@ export function findGround({ solids, pos, y = 200 }) {
 
 export const getGroundY = ({ solids, pos, y }) => findGround({ solids, pos, y })?.point?.y || 0
 
-export const putOnGround = (mesh, solids, adjustment = 0) => {
+export const putOnTerrain = (mesh, solids, adjustment = 0) => {
   mesh.position.y = getGroundY({ solids, pos: mesh.position }) + adjustment
 }
 

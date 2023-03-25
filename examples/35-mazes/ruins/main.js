@@ -7,7 +7,7 @@ import { WitchPlayer } from '/utils/actors/fantasy/Witch.js'
 
 hemLight()
 
-const maze = new Maze(4, 8, recursiveDivision, 10)
+const maze = new Maze(10, 20, recursiveDivision, 10)
 const ruins = maze.toMesh()
 scene.add(ruins)
 
