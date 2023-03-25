@@ -7,7 +7,7 @@ import { WitchPlayer } from '/utils/actors/fantasy/Witch.js'
 
 hemLight()
 
-const maze = new Maze(15, 15, recursiveDivision, 10)
+const maze = new Maze(4, 8, recursiveDivision, 10)
 const ruins = maze.toMesh()
 scene.add(ruins)
 
@@ -17,6 +17,7 @@ scene.add(dunes)
 const renderer = createToonRenderer()
 
 const player = new WitchPlayer({ camera, solids: [dunes, ruins] })
+player.position.copy(maze.getCellPosition([0, 7]))
 scene.add(player.mesh)
 
 /* LOOP */

@@ -34,7 +34,7 @@ export function getEmptyCoords(tilemap, cellSize) {
 
 export const firstCellPos = (tilemap, size) => tileToPosition(tilemap, [1, 1], size)
 
-/* MESH FROM MATRIX */
+/* MESH FROM TILEMAP */
 
 const scale = (value, range1, range2) =>
   (value - range1[0]) * (range2[1] - range2[0]) / (range1[1] - range1[0]) + range2[0]

@@ -11,10 +11,7 @@ npx live-server
 
 ## TODO
 
-- srediti git
-
 Mazes:
-- pregledati sve primere i refactor
 - check putInMaze
 - minas tirit srediti hodanje uzbrdo ili smanjiti brdo
 
