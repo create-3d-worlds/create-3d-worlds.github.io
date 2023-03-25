@@ -12,7 +12,7 @@ npx live-server
 ## TODO
 
 Mazes:
-- putOnTerrain: dodavanje igrača na teren (ruins, ruins-polar...)
+- putOnTerrain: automatizovati prilikom setovanja pozicije
 - getEmptyCoords na Maze, isprobati
 
 ### Scenes & examples

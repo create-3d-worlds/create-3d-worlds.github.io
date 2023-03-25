@@ -341,6 +341,13 @@ export default class Actor {
     this.groundY = intersect ? intersect.point.y : 0
   }
 
+  putOnTerrain() {
+    if (!this.solids) return
+
+    const intersect = findGround({ pos: this.position, solids: this.solids })
+    this.position.y = intersect.point.y
+  }
+
   applyGravity(delta) {
     if (this.velocity.y > -this.fallLimit * delta)
       this.velocity.y -= this.gravity * delta
