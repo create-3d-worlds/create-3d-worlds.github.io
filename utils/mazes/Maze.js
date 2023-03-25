@@ -19,6 +19,8 @@ export default class Maze {
     if (algorithm) algorithm(this)
   }
 
+  /* GETTERS */
+
   get size() {
     return this.rows * this.columns
   }
@@ -75,6 +77,24 @@ export default class Maze {
     return tilemap
   }
 
+  cell(row, column) {
+    if (row < 0 || row > this.rows - 1) return null
+    if (column < 0 || column > this.grid[row].length - 1) return null
+    return this.grid[row][column]
+  }
+
+  cellPosition(row, column) {
+    const grid = Array(this.rows) // grid != tilemap (not counting walls)
+    grid[0] = Array(this.columns)
+    return tileToPosition(grid, [row, column], this.cellSize)
+  }
+
+  tilePosition(row, column) {
+    return tileToPosition(this.tilemap, [row, column], this.cellSize)
+  }
+
+  /* METHODS */
+
   createGrid(rows, columns) {
     const grid = new Array(rows)
     for (let i = 0; i < rows; i += 1) {
@@ -93,12 +113,6 @@ export default class Maze {
       }
 
     return grid
-  }
-
-  cell(row, column) {
-    if (row < 0 || row > this.rows - 1) return null
-    if (column < 0 || column > this.grid[row].length - 1) return null
-    return this.grid[row][column]
   }
 
   * each_row() {
@@ -124,16 +138,6 @@ export default class Maze {
 
       cell.link(sample(best))
     }
-  }
-
-  tilePosition(tile) {
-    return tileToPosition(this.tilemap, tile, this.cellSize)
-  }
-
-  cellPosition(cell) {
-    const model = Array(this.rows) // model != tilemap (not including walls)
-    model[0] = Array(this.columns)
-    return tileToPosition(model, cell, this.cellSize)
   }
 
   /* RENDER */

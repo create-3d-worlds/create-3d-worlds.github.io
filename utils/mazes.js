@@ -20,8 +20,7 @@ export function getEmptyFields(tilemap) {
   return fields
 }
 
-export const tileToPosition = (tilemap, field, cellSize = 1) => {
-  const [row, column] = field
+export const tileToPosition = (tilemap, [row, column], cellSize = 1) => {
   const x = column * cellSize - tilemap[0].length / 2 * cellSize + cellSize / 2
   const z = row * cellSize - tilemap.length / 2 * cellSize + cellSize / 2
   return { x, y: 0, z }
@@ -31,8 +30,6 @@ export function getEmptyCoords(tilemap, cellSize) {
   const fields = getEmptyFields(tilemap)
   return fields.map(field => tileToPosition(tilemap, field, cellSize))
 }
-
-export const firstCellPos = (tilemap, size) => tileToPosition(tilemap, [1, 1], size)
 
 /* MESH FROM TILEMAP */
 
@@ -104,7 +101,7 @@ export function meshFromTilemap({ tilemap, cellSize = 1, maxHeight = cellSize, t
 }
 
 export function putInMaze(mesh, tilemap, size) {
-  const { x, z } = firstCellPos(tilemap, size)
+  const { x, z } = tileToPosition(tilemap, [1, 1], size)
   mesh.position.set(x, 0, z)
   mesh.lookAt(x, 0, z - 1)
 }

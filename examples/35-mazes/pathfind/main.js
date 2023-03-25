@@ -17,7 +17,7 @@ const walls = maze.toTiledMesh({ renderPath: true })
 scene.add(walls)
 
 const player = new Player({ solids: walls })
-player.position.copy(maze.tilePosition([1, 1]))
+player.position.copy(maze.tilePosition(1, 1))
 
 scene.add(player.mesh)
 
