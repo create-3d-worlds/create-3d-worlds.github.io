@@ -1,4 +1,4 @@
-import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
+import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import Maze from '/utils/mazes/Maze.js'
 import { huntAndKill } from '/utils/mazes/algorithms.js'
 import Avatar from '/utils/player/Avatar.js'
@@ -16,7 +16,7 @@ const maze = new Maze(12, 12, huntAndKill, cellSize)
 const pyramid = maze.toPyramid({ texture: 'walls/mayan.jpg' })
 scene.add(pyramid)
 
-const player = new Avatar({ size: .5, speed: 2, camera, solids: pyramid })
+const player = new Avatar({ size: .5, speed: 2, camera, solids: pyramid, skin: 'lava' })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
@@ -24,6 +24,7 @@ scene.add(player.mesh)
 
 void function loop() {
   requestAnimationFrame(loop)
-  player.update()
+  const delta = clock.getDelta()
+  player.update(delta)
   renderer.render(scene, camera)
 }()

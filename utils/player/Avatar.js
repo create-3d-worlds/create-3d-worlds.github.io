@@ -16,7 +16,7 @@ export default class Avatar extends Player {
       this.mesh.getObjectByName('leftHand'), this.mesh.getObjectByName('rightHand'),
       this.mesh.getObjectByName('leftLeg'), this.mesh.getObjectByName('rightLeg')
     ]
-    this.jumpForce = this.gravity * 2
+    this.jumpForce = this.gravity * 1.8
     if (this.cameraFollow) this.cameraFollow.speed = 4
   }
 
@@ -42,7 +42,7 @@ export default class Avatar extends Player {
     })
   }
 
-  update(delta) {
+  update(delta = 1 / 60) {
     super.update(delta)
     const { name } = this.currentState
 
