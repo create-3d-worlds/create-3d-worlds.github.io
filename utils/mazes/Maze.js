@@ -126,14 +126,14 @@ export default class Maze {
     }
   }
 
-  getTilePosition(field) {
-    return tileToPosition(this.tilemap, field, this.cellSize)
+  tilePosition(tile) {
+    return tileToPosition(this.tilemap, tile, this.cellSize)
   }
 
-  getCellPosition(field) {
+  cellPosition(cell) {
     const model = Array(this.rows) // model != tilemap (not including walls)
     model[0] = Array(this.columns)
-    return tileToPosition(model, field, this.cellSize)
+    return tileToPosition(model, cell, this.cellSize)
   }
 
   /* RENDER */
