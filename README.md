@@ -18,7 +18,8 @@ Mazes:
 ### Scenes & examples
 
 - FPS / Savo
-  - probati recursiveDivision
+  - AI: dodati DefendState (stoji u mestu, nišani i puca), brani objekte, za bunker i sl.
+  - maze: probati recursiveDivision
   - pozicionirati igrača na najdalju tačku od izlaza (prvu tačku?)
   - dodati izlaz iz lavirinta
   - isprobati igru sa braid

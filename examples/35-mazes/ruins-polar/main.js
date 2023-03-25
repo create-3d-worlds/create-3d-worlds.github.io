@@ -17,6 +17,7 @@ scene.add(ruins)
 
 const player = new ResistanceFighterPlayer({ camera, solids: [ruins, ground] })
 scene.add(player.mesh)
+maze.putPlayer(player.mesh)
 
 /* LOOP */
 

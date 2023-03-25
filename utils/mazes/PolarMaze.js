@@ -7,6 +7,21 @@ export default class PolarMaze extends Maze {
     super(rows, 1, algorithm, cellSize)
   }
 
+  /* GETTERS */
+
+  get random_cell() {
+    const row = Math.floor(Math.random() * this.rows)
+    const col = Math.floor(Math.random() * this.grid[row].length)
+    return this.cell(row, col)
+  }
+
+  cell(row, column) {
+    if (row < 0 || row > this.rows - 1) return null
+    return this.grid[row][column % this.grid[row].length]
+  }
+
+  /* UTILS */
+
   createGrid(rows) {
     const grid = new Array(rows)
     const row_height = 1 / rows
@@ -42,15 +57,10 @@ export default class PolarMaze extends Maze {
     return grid
   }
 
-  cell(row, column) {
-    if (row < 0 || row > this.rows - 1) return null
-    return this.grid[row][column % this.grid[row].length]
-  }
-
-  get random_cell() {
-    const row = Math.floor(Math.random() * this.rows)
-    const col = Math.floor(Math.random() * this.grid[row].length)
-    return this.cell(row, col)
+  putPlayer(mesh) {
+    const mazeSize = this.rows * this.cellSize
+    mesh.position.set(this.cellSize * .5, 0, -mazeSize - this.cellSize)
+    mesh.lookAt(0, 0, -mazeSize * 2)
   }
 
   /* RENDER */
