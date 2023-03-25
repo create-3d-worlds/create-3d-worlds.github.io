@@ -26,7 +26,7 @@ scene.add(rain.mesh)
 
 const maze = new Maze(8, 8, truePrims, 20)
 const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
-const coords = maze.getEmptyCoords()
+const coords = maze.getEmptyCoords(true)
 
 const solids = [walls]
 

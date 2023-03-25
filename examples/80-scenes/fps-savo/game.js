@@ -22,7 +22,7 @@ const enemyClasses = [GermanFlameThrowerAI, GermanMachineGunnerAI, GermanMachine
 hemLight({ intensity: .75 })
 setBackground(0x070b34)
 
-const coords = maze.getEmptyCoords()
+const coords = maze.getEmptyCoords(true)
 
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
 const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })

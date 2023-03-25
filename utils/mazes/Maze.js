@@ -5,10 +5,10 @@ import Cell from './Cell.js'
 
 const EMPTY = 0, WALL = 1
 
-function getEmptyTiles(tilemap) {
+function getEmptyTiles(tilemap, skipFirst = false) {
   const fields = []
   tilemap.forEach((row, z) => row.forEach((value, x) => {
-    console.log(z, x) // 1, 1
+    if (skipFirst && z === 1 && x === 1) return
     if (value < 1) fields.push([z, x])
   }))
   return fields
@@ -150,8 +150,8 @@ export default class Maze {
     }
   }
 
-  getEmptyCoords() {
-    const fields = getEmptyTiles(this.tilemap)
+  getEmptyCoords(skipFirst) {
+    const fields = getEmptyTiles(this.tilemap, skipFirst)
     shuffle(fields)
     return fields.map(field => tileToPosition(this.tilemap, field, this.cellSize))
   }
