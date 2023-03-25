@@ -36,17 +36,3 @@ export const reactions = {
   STEP_OFF: 'STEP_OFF',
   STOP: 'STOP',
 }
-
-/**
- * pursue (if target): idle, patrol, wander
- * doesn't pursue: flee i follow
- */
-export const baseAiStates = {
-  idle: 'idle',
-  patrol: 'patrol',
-  wander: 'wander',
-  flee: 'flee',
-  follow: 'follow',
-}
-
-export const pursueStates = [baseAiStates.idle, baseAiStates.patrol, baseAiStates.wander]

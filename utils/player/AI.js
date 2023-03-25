@@ -4,16 +4,29 @@ import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js
 import { Input } from '/utils/classes/Input.js'
 import Actor from './Actor.js'
 import { getAIState } from './states/index.js'
-import { jumpStyles, attackStyles, baseAiStates, pursueStates } from '/utils/constants.js'
+import { jumpStyles, attackStyles } from '/utils/constants.js'
 
 const { randFloatSpread } = MathUtils
+
+/**
+ * pursue target: idle, patrol, wander
+ * doesn't pursue: flee i follow
+ */
+const baseStates = {
+  idle: 'idle',
+  patrol: 'patrol',
+  wander: 'wander',
+  flee: 'flee',
+  follow: 'follow',
+}
+const pursueStates = [baseStates.idle, baseStates.patrol, baseStates.wander]
 
 const walkAnims = ['wander', 'follow', 'patrol']
 const runAnims = ['pursue', 'flee']
 
 export default class AI extends Actor {
   constructor({
-    jumpStyle = jumpStyles.FALSE_JUMP, attackStyle = attackStyles.LOOP, baseState = baseAiStates.wander, speed = 1.8, shouldRaycastGround = false, sightDistance = 25, followDistance = 1.5, patrolDistance = 10, attackDistance = 1.25, target, ...params
+    jumpStyle = jumpStyles.FALSE_JUMP, attackStyle = attackStyles.LOOP, baseState = baseStates.idle, speed = 1.8, shouldRaycastGround = false, sightDistance = 25, followDistance = 1.5, patrolDistance = 10, attackDistance = 1.25, target, ...params
   } = {}) {
     super({
       ...params,

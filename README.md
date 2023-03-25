@@ -16,6 +16,7 @@ npx live-server
 - FPS / Savo
   - AI: dodati DefendState (stoji u mestu, nišani i puca), brani objekte, za bunker i sl.
   - srediti audio
+  - dodati pauzu između pucanja
 
 - FPS / Horror
   - scena groblje
