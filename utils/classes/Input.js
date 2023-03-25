@@ -37,11 +37,9 @@ class Input {
 
     document.addEventListener('pointerdown', e => this.handleMouseDown(e))
     document.addEventListener('pointerup', e => this.handleMouseUp(e))
-    document.addEventListener('pointermove', e => this.checkDirection(e))
 
     document.addEventListener('mousedown', e => this.handleMouseDown(e))
     document.addEventListener('mouseup', e => this.handleMouseUp(e))
-    document.addEventListener('mousemove', e => this.checkDirection(e))
 
     document.addEventListener('visibilitychange', () => this.reset())
     window.addEventListener('blur', () => this.reset())
@@ -57,22 +55,10 @@ class Input {
   }
 
   handleMouseUp(e) {
-    if (e.button === 0) {
+    if (e.button === 0)
       this.pressed.mouse = false
-      this.resetSwipe()
-    }
     if (e.button === 2)
       this.pressed.mouse2 = false
-  }
-
-  checkDirection(e) {
-    if (!this.pressed.mouse) return
-    this.SwipeX = e.pageX - this.startX
-    this.SwipeY = e.pageY - this.startY
-  }
-
-  resetSwipe() {
-    this.SwipeX = this.SwipeY = 0
   }
 
   reset() {
@@ -170,25 +156,6 @@ class Input {
   get touched() {
     return Object.keys(this.pressed).length > 0
   }
-
-  /* SWIPES */
-
-  get swipeLeft() {
-    return this.SwipeX < -this.swipeThreshold
-  }
-
-  get swipeRight() {
-    return this.SwipeX > this.swipeThreshold
-  }
-
-  get swipeUp() {
-    return this.SwipeY < -this.swipeThreshold
-  }
-
-  get swipeDown() {
-    return this.SwipeY > this.swipeThreshold
-  }
-
 }
 
 export { Input }         // export class
