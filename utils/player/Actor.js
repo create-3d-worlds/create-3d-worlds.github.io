@@ -128,6 +128,10 @@ export default class Actor {
     return this.currentState.action
   }
 
+  get state() {
+    this.currentState.name
+  }
+
   get acceleration() {
     const { input, speed, runCoefficient } = this
     if (input.amountForward) return speed * -input.amountForward * (input.up ? 2 : 1.5)
@@ -291,16 +295,17 @@ export default class Actor {
 
   updateMove(delta, reaction = reactions.BOUNCE) {
     const direction = this.input.up ? dir.forward : dir.backward
+
     if (this.directionBlocked(direction))
       if (reaction == reactions.BOUNCE) this.bounce()
       else if (reaction == reactions.TURN_SMOOTH) this.turnSmooth()
       else if (reaction == reactions.STEP_OFF) this.stepOff(delta * 2.5)
       else if (reaction == reactions.STOP) return
 
-    this.handleRoughTerrain(Math.abs(this.acceleration) * delta)
+    if (this.state != 'jump') this.handleRoughTerrain(Math.abs(this.acceleration) * delta)
 
     const jumpDir = this.input.up ? dir.upForward : dir.upBackward
-    if (this.input.space && this.directionBlocked(jumpDir)) return
+    if (this.state == 'jump' && this.directionBlocked(jumpDir)) return
 
     this.velocity.z += -this.acceleration * delta
     this.velocity.z *= (1 - this.drag)

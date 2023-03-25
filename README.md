@@ -12,7 +12,7 @@ npx live-server
 ## TODO
 
 Mazes:
-- minas tirit srediti hodanje uzbrdo ili smanjiti brdo
+- putOnTerrain: dodavanje igrača na teren (ruins, ruins-polar...)
 - getEmptyCoords na Maze, isprobati
 
 ### Scenes & examples

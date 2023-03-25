@@ -17,9 +17,7 @@ export default class Avatar extends Player {
       this.mesh.getObjectByName('leftLeg'), this.mesh.getObjectByName('rightLeg')
     ]
     this.jumpForce = this.gravity * 2
-
-    if (this.cameraFollow)
-      this.cameraFollow.speed = 4
+    if (this.cameraFollow) this.cameraFollow.speed = 4
   }
 
   idleAnim() {
