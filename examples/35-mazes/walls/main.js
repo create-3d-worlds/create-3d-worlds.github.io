@@ -13,7 +13,7 @@ const walls = maze.toTiledMesh({ texture: 'walls/stonetiles.jpg', maxHeight: 6 }
 scene.add(walls)
 
 const player = new SorceressPlayer({ camera, solids: walls })
-maze.putPlayer(player)
+player.putInMaze(maze)
 player.cameraFollow.aerial = [0, 20, 0]
 scene.add(player.mesh)
 

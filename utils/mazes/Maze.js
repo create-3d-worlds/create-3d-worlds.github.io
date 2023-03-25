@@ -140,12 +140,6 @@ export default class Maze {
     }
   }
 
-  putPlayer(player, tile = [1, 1]) {
-    player.position = this.tilePosition(...tile)
-    player.mesh.lookAt(0, 0, 0)
-    player.mesh.rotateY(Math.PI)
-  }
-
   /* RENDER */
 
   toString() {

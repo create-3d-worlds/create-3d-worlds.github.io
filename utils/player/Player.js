@@ -54,9 +54,21 @@ export default class Player extends Actor {
     if (this.cameraFollow) addCameraButton(this)
   }
 
-  updateMove(delta, reaction = reactions.STOP) {
-    super.updateMove(delta, reaction)
+  /* UTILS */
+
+  putInMaze(maze, tile = [1, 1]) {
+    this.position = maze.tilePosition(...tile)
+    this.mesh.lookAt(0, 0, 0)
+    this.mesh.rotateY(Math.PI)
   }
+
+  putInPolarMaze(maze) {
+    const mazeSize = maze.rows * maze.cellSize
+    this.position = { x: maze.cellSize * .5, y: 0, z: -mazeSize - maze.cellSize }
+    this.mesh.lookAt(0, 0, -mazeSize * 2)
+  }
+
+  /* COMBAT */
 
   attackAction(name = 'enemy') {
     super.attackAction(name)
@@ -64,6 +76,12 @@ export default class Player extends Actor {
 
   hit(mesh, range = [35, 55]) {
     super.hit(mesh, range)
+  }
+
+  /* UPDATES */
+
+  updateMove(delta, reaction = reactions.STOP) {
+    super.updateMove(delta, reaction)
   }
 
   update(delta) {
