@@ -24,10 +24,10 @@ scene.add(createGround({ file: 'terrain/ground.jpg' }))
 const rain = new Rain()
 scene.add(rain.mesh)
 
-const maze = new Maze(8, 8, truePrims, 20)
+const maze = new Maze(4, 4, truePrims, 20)
 const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
 const coords = maze.getEmptyCoords(true)
-
+maze.braid()
 const solids = [walls]
 
 /* ACTORS */

@@ -30,7 +30,8 @@ export default class SpecialState extends State {
 
   onFinish() {
     this.cleanup()
-    this.actor.setState(this.prevOrIdle)
+    if (this.name != 'death')
+      this.actor.setState(this.prevOrIdle)
   }
 
   exit() {

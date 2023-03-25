@@ -14,27 +14,25 @@ import { GermanFlameThrowerAI } from '/utils/actors/ww2/GermanFlameThrower.js'
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
 
-const maze = new Maze(10, 10, truePrims, 10)
-maze.distances = maze.first_cell.distances.path_to(maze.last_cell)
-
-const enemyClasses = [GermanFlameThrowerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, SSSoldierAI, SSSoldierAI, SSSoldierAI, NaziOfficerAI]
-
 hemLight({ intensity: .75 })
 setBackground(0x070b34)
-
-const coords = maze.getEmptyCoords(true)
-
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
-const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
 
 const show = new Snow()
 scene.add(show.mesh)
+
+const maze = new Maze(8, 8, truePrims, 10)
+const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
+const coords = maze.getEmptyCoords(true)
 
 const solids = [walls]
 
 /* ACTORS */
 
+const enemyClasses = [GermanFlameThrowerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, SSSoldierAI, SSSoldierAI, SSSoldierAI, NaziOfficerAI]
+
 const player = new FPSPlayer({ camera, coords, pointerLockId: 'instructions' })
+player.putInMaze(maze)
 scene.add(player.mesh)
 
 const enemies = []
