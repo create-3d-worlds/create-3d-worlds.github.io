@@ -100,12 +100,6 @@ export function meshFromTilemap({ tilemap, cellSize = 1, maxHeight = cellSize, t
   return mesh
 }
 
-export function putInMaze(mesh, tilemap, size) {
-  const { x, z } = tileToPosition(tilemap, [1, 1], size)
-  mesh.position.set(x, 0, z)
-  mesh.lookAt(x, 0, z - 1)
-}
-
 /* MESH FROM GRID */
 
 const turnTo = (geometry, p1, p2) => {

@@ -12,7 +12,6 @@ npx live-server
 ## TODO
 
 Mazes:
-- check putInMaze
 - minas tirit srediti hodanje uzbrdo ili smanjiti brdo
 - getEmptyCoords na Maze, isprobati
 

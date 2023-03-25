@@ -93,7 +93,7 @@ export default class Maze {
     return tileToPosition(this.tilemap, [row, column], this.cellSize)
   }
 
-  /* METHODS */
+  /* UTILS */
 
   createGrid(rows, columns) {
     const grid = new Array(rows)
@@ -138,6 +138,12 @@ export default class Maze {
 
       cell.link(sample(best))
     }
+  }
+
+  putPlayer(mesh, tile = [1, 1]) {
+    mesh.position.copy(this.tilePosition(...tile))
+    mesh.lookAt(0, 0, 0)
+    mesh.rotateY(Math.PI)
   }
 
   /* RENDER */

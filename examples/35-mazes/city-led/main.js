@@ -1,6 +1,5 @@
 import { scene, renderer, camera, setBackground } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
-import { putInMaze } from '/utils/mazes.js'
 import Maze from '/utils/mazes/Maze.js'
 import { aldousBroder } from '/utils/mazes/algorithms.js'
 import Avatar from '/utils/player/Avatar.js'
@@ -15,11 +14,11 @@ setBackground(0)
 scene.add(createFloor())
 
 const maze = new Maze(10, 10, aldousBroder, cellSize)
-const walls = maze.toTiledMesh({ maxHeight: cellSize * 3, material })
-scene.add(walls)
+const city = maze.toTiledMesh({ maxHeight: cellSize * 3, material })
+scene.add(city)
 
-const player = new Avatar({ size: .5, camera, solids: walls })
-putInMaze(player.mesh, maze.tilemap, cellSize)
+const player = new Avatar({ size: .5, camera, solids: city })
+maze.putPlayer(player.mesh)
 scene.add(player.mesh)
 
 /* LOOP */
