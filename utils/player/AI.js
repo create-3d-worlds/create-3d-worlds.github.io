@@ -4,26 +4,13 @@ import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js
 import { Input } from '/utils/classes/Input.js'
 import Actor from './Actor.js'
 import { getAIState } from './states/index.js'
-import { jumpStyles, attackStyles } from '/utils/constants.js'
+import { jumpStyles, attackStyles, baseStates } from '/utils/constants.js'
 
 const { randFloatSpread } = MathUtils
 
-/**
- * pursue target: idle, patrol, wander
- * doesn't pursue: flee i follow
- */
-const baseStates = {
-  idle: 'idle',
-  patrol: 'patrol',
-  wander: 'wander',
-  flee: 'flee',
-  follow: 'follow',
-  defend: 'defend',
-}
-const pursueStates = [baseStates.idle, baseStates.patrol, baseStates.wander]
-
-const walkAnims = ['wander', 'follow', 'patrol']
-const runAnims = ['pursue', 'flee']
+const walking = [baseStates.wander, baseStates.follow, baseStates.patrol]
+const running = [baseStates.pursue, baseStates.flee]
+const pursuingFrom = [baseStates.idle, baseStates.patrol, baseStates.wander]
 
 export default class AI extends Actor {
   constructor({
@@ -59,7 +46,7 @@ export default class AI extends Actor {
   /* GETTERS */
 
   get inPursueState() {
-    return pursueStates.includes(this.baseState)
+    return pursuingFrom.includes(this.baseState)
   }
 
   get distancToTarget() {
@@ -103,10 +90,10 @@ export default class AI extends Actor {
   setupMixer(animations, animDict) {
     const { actions } = this
     super.setupMixer(animations, animDict)
-    walkAnims.forEach(name => {
+    walking.forEach(name => {
       if (!actions[name]) actions[name] = actions.walk
     })
-    runAnims.forEach(name => {
+    running.forEach(name => {
       if (!actions[name]) actions[name] = actions.run
     })
   }

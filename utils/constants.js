@@ -36,3 +36,16 @@ export const reactions = {
   STEP_OFF: 'STEP_OFF',
   STOP: 'STOP',
 }
+
+/**
+ * pursue target: idle, patrol, wander
+ * doesn't pursue: flee i follow
+ */
+export const baseStates = {
+  idle: 'idle',
+  patrol: 'patrol',
+  wander: 'wander',
+  flee: 'flee',
+  follow: 'follow',
+  defend: 'defend',
+}

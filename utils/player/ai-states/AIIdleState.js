@@ -1,4 +1,5 @@
 import { MathUtils } from 'three'
+import { baseStates } from '/utils/constants.js'
 import IdleState from '../states/IdleState.js'
 
 const { randInt } = MathUtils
@@ -11,7 +12,7 @@ export default class AIIdleState extends IdleState {
 
   update() {
     const { actor } = this
-    const { baseState, followDistance } = actor
+    const { baseState, followDistance, targetInSightRange, targetInAttackRange, distancToTarget } = actor
 
     this.turnEvery(this.interval, Math.PI / 4)
 
@@ -26,13 +27,13 @@ export default class AIIdleState extends IdleState {
     if (actor.inPursueState && actor.targetSpotted)
       actor.setState('pursue')
 
-    if (baseState == 'defend' && actor.targetInAttackRange)
+    if (baseState == baseStates.defend && targetInAttackRange)
       actor.setState('attack')
 
-    if (baseState == 'flee' && actor.targetInSightRange)
+    if (baseState == baseStates.flee && targetInSightRange)
       actor.setState('flee')
 
-    if (baseState == 'follow' && actor.targetInSightRange && actor.distancToTarget > followDistance * 1.25)
+    if (baseState == baseStates.follow && targetInSightRange && distancToTarget > followDistance * 1.25)
       actor.setState('follow')
   }
 }
