@@ -8,8 +8,8 @@ import { jumpStyles, attackStyles, baseStates } from '/utils/constants.js'
 
 const { randFloatSpread } = MathUtils
 
-const walking = [baseStates.wander, baseStates.follow, baseStates.patrol]
-const running = [baseStates.pursue, baseStates.flee]
+const walking = ['wander', 'follow', 'patrol']
+const running = ['pursue', 'flee']
 const pursuingFrom = [baseStates.idle, baseStates.patrol, baseStates.wander]
 
 export default class AI extends Actor {

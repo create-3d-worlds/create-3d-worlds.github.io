@@ -123,16 +123,17 @@ export default class FPSPlayer extends Player {
 
   update(delta) {
     input.attack = input.pressed.mouse // attack with mouse
-    super.update(delta)
 
     if (this.isAlive) {
+      super.update(delta)
       this.time += (input.run ? delta * this.runCoefficient : delta)
       if (this.mixer)
         this.fpsRenderer.renderTarget(this.time)
-      if (!this.mixer)
+      else
         this.fpsRenderer.render(this.time)
-    } else
-      this.fpsRenderer.clear()
+    }
+
+    if (this.isDead) this.fpsRenderer.clear()
 
     if (this.hurting) this.fpsRenderer.drawPain()
 
