@@ -14,9 +14,9 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Savo
-  - da ne rade komande nakon smrti
-  - srediti audio
   - dodati pauzu između pucanja
+  - ostaviti primer FPSPlayer model
+  - srediti audio
 
 - FPS / Horror
   - scena groblje

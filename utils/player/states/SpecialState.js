@@ -11,6 +11,8 @@ export default class SpecialState extends State {
 
   enter(oldState, oldAction) {
     super.enter(oldState)
+    if (this.name == 'death' && !this.action) return
+
     if (!this.action) return this.actor.setState(this.prevOrIdle)
 
     this.oldState = oldState
@@ -30,8 +32,8 @@ export default class SpecialState extends State {
 
   onFinish() {
     this.cleanup()
-    if (this.name != 'death')
-      this.actor.setState(this.prevOrIdle)
+    if (this.name == 'death') return
+    this.actor.setState(this.prevOrIdle)
   }
 
   exit() {
