@@ -134,7 +134,7 @@ export default class Actor {
   }
 
   get state() {
-    this.currentState.name
+    this.currentState?.name
   }
 
   get acceleration() {
