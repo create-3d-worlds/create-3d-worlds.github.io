@@ -3,7 +3,7 @@ import AI from '/utils/player/AI.js'
 import Player from '/utils/player/Player.js'
 import FPSPlayer from '/utils/player/FPSPlayer.js'
 
-export const animDictX = {
+export const animDictBackup = {
   idle: 'Rifle Idle',
   walk: 'Rifle Walk',
   run: 'Rifle Run',
