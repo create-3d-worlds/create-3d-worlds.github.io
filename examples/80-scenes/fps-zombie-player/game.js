@@ -34,7 +34,7 @@ const enemyClasses = [GothGirlAI, ZombieBarefootAI, ZombieCopAI, ZombieDoctorAI,
 
 const player = new PartisanPlayer({ camera })
 player.putInMaze(maze)
-player.cameraFollow.distance = 1
+player.cameraFollow.distance = 1.5
 scene.add(player.mesh)
 
 const enemies = []

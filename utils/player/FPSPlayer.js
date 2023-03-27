@@ -13,7 +13,6 @@ export default class FPSPlayer extends Player {
   constructor({
     camera = defaultCamera,
     mouseSensitivity = .002,
-    rifleBurst = false,
     pointerLockId,
     ...rest
   } = {}) {
@@ -25,13 +24,11 @@ export default class FPSPlayer extends Player {
     })
     this.mouseSensitivity = mouseSensitivity
     this.pointerLockId = pointerLockId
-    this.rifleBurst = rifleBurst
     this.time = 0
     this.energy = 100
     this.hurting = false
 
-    const file = rifleBurst ? 'rifle-burst' : 'rifle'
-    this.audio = new Audio(`/assets/sounds/${file}.mp3`)
+    this.audio = new Audio('/assets/sounds/rifle.mp3')
     this.audio.volume = config.volume
 
     this.fpsRenderer = new FPSRenderer()
@@ -78,35 +75,35 @@ export default class FPSPlayer extends Player {
     this.camera.rotation.x = Math.max(-0.1, Math.min(Math.PI / 8, this.camera.rotation.x))
   }
 
-  attackAction() {
-    this.audio.currentTime = 0
-    this.audio.play()
+  // attackAction() {
+  //   this.audio.currentTime = 0
+  //   this.audio.play()
+  //   this.shoot()
+  //   this.time += 5 // recoil
+  // }
 
-    const shoots = this.rifleBurst ? 5 : 1
-    for (let i = 0; i < shoots; i++)
-      setTimeout(() => this.shoot(), i * 100)
+  intersect() {
+    return getCameraIntersects(this.camera, this.solids)
   }
 
   shoot() {
-    const intersects = getCameraIntersects(this.camera, this.solids)
+    const intersects = this.intersect()
     if (!intersects.length) return
 
     const { point, object } = intersects[0]
     const scene = getScene(object)
+    const timeToHit = this.action ? this.action.getClip().duration * 500 : 200
 
-    let ricochetColor = 0xcccccc
-
-    if (belongsTo(object, 'enemy')) {
-      const mesh = getParent(object, 'enemy')
-      this.hit(mesh)
-      ricochetColor = mesh.userData.hitColor
-    } else
-      shootDecals(intersects[0], { scene, color: 0x000000 })
-
-    this.ricochet.reset({ pos: point, unitAngle: 0.2, color: ricochetColor })
-    scene.add(this.ricochet.mesh)
-
-    this.time += 5
+    setTimeout(() => {
+      if (belongsTo(object, 'enemy')) {
+        const mesh = getParent(object, 'enemy')
+        this.explode(scene, point, mesh.userData.hitColor)
+        this.hit(mesh)
+      } else {
+        this.explode(scene, point, 0xcccccc)
+        shootDecals(intersects[0], { scene, color: 0x000000 })
+      }
+    }, timeToHit)
   }
 
   painEffect() {

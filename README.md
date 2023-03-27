@@ -14,8 +14,8 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Savo
-  - probati PartisanPlayer
-    - dodati rikošet i decals
+  - kamera iz vazduha da prati ugao
+    - da ide malo ispred?
   - srediti audio
 
 - FPS / Horror

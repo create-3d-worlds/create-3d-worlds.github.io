@@ -244,7 +244,7 @@ export const findGroundRecursive = (terrain, size, counter = 0) => {
 export const raycast = (mesh, dir, height, rayLength) => {
   const direction = dir.clone().applyQuaternion(mesh.quaternion)
   const bodyCenter = mesh.position.clone()
-  bodyCenter.y += height * .5
+  bodyCenter.y += height
   return new THREE.Raycaster(bodyCenter, direction, 0, rayLength)
 }
 
@@ -257,7 +257,7 @@ export const directionBlocked = (mesh, solids, currDir) => {
   if (!mesh || !solids.length || !currDir) return false
   const { y, z } = getSize(mesh)
   const rayLength = currDir == dir.forward ? z : y
-  const intersects = intersect(mesh, solids, currDir, y, rayLength)
+  const intersects = intersect(mesh, solids, currDir, y * .5, rayLength)
   return intersects.length > 0
 }
 

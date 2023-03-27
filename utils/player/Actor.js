@@ -2,9 +2,11 @@ import * as THREE from 'three'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
 
-import { addSolids, findGround, getSize, directionBlocked, getMesh, putOnTerrain, intersect, getParent, belongsTo } from '/utils/helpers.js'
+import { addSolids, findGround, getSize, directionBlocked, getMesh, putOnTerrain, intersect, getParent, belongsTo, getScene } from '/utils/helpers.js'
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
+import { shootDecals } from '/utils/decals.js'
+import Particles from '/utils/classes/Particles.js'
 
 const { randInt } = THREE.MathUtils
 
@@ -43,6 +45,7 @@ export default class Actor {
       this.setupMixer(animations, animDict)
       if (rifle) this.addRifle(clone(rifle))
       if (pistol) this.addPistol(clone(pistol))
+      if (rifle || pistol) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
     }
 
     if (coords) this.position.copy(coords.pop())
@@ -147,6 +150,10 @@ export default class Actor {
       || this.position.z <= this.boundaries.min.z
   }
 
+  get firearm() {
+    return Boolean(this.rifle || this.pistol)
+  }
+
   /* STATE MACHINE */
 
   setState(name) {
@@ -166,7 +173,6 @@ export default class Actor {
     this.mixer = new THREE.AnimationMixer(getMesh(this.mesh))
     for (const key in animDict) {
       const clip = animations.find(anim => anim.name == animDict[key])
-      console.log(key, clip)
       this.actions[key] = this.mixer.clipAction(clip)
     }
     if (!animDict.run && animDict.walk) {
@@ -202,7 +208,7 @@ export default class Actor {
   /* COMBAT */
 
   intersect() {
-    return intersect(this.mesh, this.solids, dir.forward, this.height, this.attackDistance)
+    return intersect(this.mesh, this.solids, dir.forward, this.height * .75, this.attackDistance)
   }
 
   hit(mesh, range = [35, 55]) {
@@ -211,15 +217,28 @@ export default class Actor {
       mesh.userData.hitAmount = randInt(...range)
   }
 
+  explode(scene, pos, color) {
+    this.ricochet.reset({ pos, unitAngle: 0.2, color })
+    scene.add(this.ricochet.mesh)
+  }
+
   attackAction(name) {
     const intersects = this.intersect()
-    const object = intersects[0]?.object
-    if (!belongsTo(object, name)) return
+    if (!intersects.length) return
 
-    const timeToHit = this.action ? this.action.getClip().duration * 500 : 500
+    const { point, object } = intersects[0]
+    const scene = getScene(object)
+    const timeToHit = this.action ? this.action.getClip().duration * 500 : 200
 
     setTimeout(() => {
-      this.hit(getParent(object, name))
+      if (belongsTo(object, name)) {
+        const mesh = getParent(object, name)
+        if (this.firearm) this.explode(scene, point, mesh.userData.hitColor)
+        this.hit(mesh)
+      } else if (this.firearm) {
+        this.explode(scene, point, 0xcccccc)
+        shootDecals(intersects[0], { scene, color: 0x000000 })
+      }
     }, timeToHit)
   }
 
@@ -365,6 +384,8 @@ export default class Actor {
 
     if (this.rifle) this.updateRifle()
     if (this.outOfBounds) this.bounce()
+
+    if (this.firearm) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
 
     TWEEN.update()
   }
