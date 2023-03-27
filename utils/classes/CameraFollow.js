@@ -30,6 +30,7 @@ export default class CameraFollow {
     this.camera.position.copy(calc(mesh, offset))
     this.camera.lookAt(calc(mesh, lookAt))
 
+    this.addButton()
     // this.camera.near = .5
     // this.camera.updateProjectionMatrix()
   }
@@ -44,6 +45,36 @@ export default class CameraFollow {
 
     this.camera.position.copy(this.currentPosition)
     this.camera.lookAt(this.currentLookat)
+  }
+
+  addButton() {
+    const style = `
+    top: 20px;
+    right: 20px;
+    position: absolute;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    user-select: none;
+  `
+    let toggle = false
+    const initial = this.offset
+
+    const button = document.createElement('button')
+    button.setAttribute('id', 'change-camera')
+    button.style.cssText = style
+
+    const image = document.createElement('img')
+    image.setAttribute('src', '/assets/images/change-camera.png')
+    image.setAttribute('alt', 'change camera')
+    button.appendChild(image)
+
+    button.addEventListener('click', () => {
+      toggle = !toggle
+      this.offset = toggle ? this.aerial : initial
+    })
+    document.body.appendChild(button)
   }
 
   update(delta, stateName) {

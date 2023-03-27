@@ -9,35 +9,6 @@ import CameraFollow from '/utils/classes/CameraFollow.js'
 
 import Actor from './Actor.js'
 
-function addCameraButton(player) {
-  const style = `
-    top: 20px;
-    right: 20px;
-    position: absolute;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    outline: none;
-  `
-  let aerialView = false
-  const initial = player.cameraFollow.offset
-
-  const button = document.createElement('button')
-  button.setAttribute('id', 'change-camera')
-  button.style.cssText = style
-
-  const image = document.createElement('img')
-  image.setAttribute('src', '/assets/images/change-camera.png')
-  image.setAttribute('alt', 'change camera')
-  button.appendChild(image)
-
-  button.addEventListener('click', () => {
-    aerialView = !aerialView
-    player.cameraFollow.offset = aerialView ? player.cameraFollow.aerial : initial
-  })
-  document.body.appendChild(button)
-}
-
 export default class Player extends Actor {
   constructor({
     input = defaultKeyboard,
@@ -60,7 +31,6 @@ export default class Player extends Actor {
       this.orbitControls = createOrbitControls()
       this.orbitControls.mouseButtons = { RIGHT: THREE.MOUSE.ROTATE }
       this.shouldAlignCamera = true
-      addCameraButton(this)
     }
   }
 
