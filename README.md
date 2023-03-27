@@ -15,8 +15,6 @@ npx live-server
 
 - FPS / Savo
   - ostaviti primer PartisanFPSPlayer
-  - dodati pauzu između pucanja
-    - napraviti novo stanje koje ne nasleđuje SpecialState, i tip napada koji ga koristi?
   - srediti audio
 
 - FPS / Horror
