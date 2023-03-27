@@ -3,7 +3,7 @@ import { createGround } from '/utils/ground.js'
 import { sample } from '/utils/helpers.js'
 import { hemLight, lightningStrike } from '/utils/light.js'
 import { Rain } from '/utils/classes/Particles.js'
-import { PartisanFPSPlayer } from '/utils/actors/ww2/Partisan.js'
+import { PartisanAimFPSPlayer } from '/utils/actors/ww2/PartisanAim.js'
 
 import { GhostAI } from '/utils/actors/horror/Ghost.js'
 import { GothGirlAI } from '/utils/actors/horror/GothGirl.js'
@@ -34,7 +34,7 @@ const solids = [walls]
 
 const enemyClasses = [GhostAI, GothGirlAI, ZombieBarefootAI, ZombieCopAI, ZombieDoctorCrawlAI, ZombieDoctorAI, ZombieGuardAI]
 
-const player = new PartisanFPSPlayer({ camera })
+const player = new PartisanAimFPSPlayer({ camera })
 player.putInMaze(maze)
 scene.add(player.mesh)
 

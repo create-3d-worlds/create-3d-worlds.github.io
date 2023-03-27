@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Savo
-  - PartisanFPSPlayer: hendlovati različite animacije
   - probati PartisanPlayer
     - dodati rikošet
   - srediti audio
