@@ -11,7 +11,8 @@ npx live-server
 
 ## TODO
 
-- BUG: ne rade mazes: walls, ruins, ruins-polar...
+- kameru na igrača
+  - BUG: ne radi kad se prebaci kamera na igrača mazes/walls, ruins, ruins-polar...
 
 ### Scenes & examples
 

@@ -7,6 +7,8 @@ import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 import { shootDecals } from '/utils/decals.js'
 import Particles from '/utils/classes/Particles.js'
+import { createOrbitControls } from '/utils/scene.js'
+import CameraFollow from '/utils/classes/CameraFollow.js'
 
 const { randInt } = THREE.MathUtils
 
@@ -17,7 +19,8 @@ const { randInt } = THREE.MathUtils
  */
 export default class Actor {
   constructor({
-    mesh = createPlayerBox(), animations, animDict, input, solids, gravity = .7, jumpStyle, speed = 2, jumpForce = gravity * 1.66, maxJumpTime = 17, fallLimit = gravity * 20, drag = 0.5, getState, shouldRaycastGround, rifle, pistol, mapSize, coords, attackDistance, hitColor = 0x8a0303, energy = 100, runCoefficient = 2, useShootEffects = Boolean(this.rifle || this.pistol),
+    mesh = createPlayerBox(), animations, animDict, input, solids, gravity = .7, jumpStyle, speed = 2, jumpForce = gravity * 1.66, maxJumpTime = 17, fallLimit = gravity * 20, drag = 0.5, getState, shouldRaycastGround, rifle, pistol, mapSize, coords, attackDistance, hitColor = 0x8a0303, energy = 100, runCoefficient = 2, useShootEffects = Boolean(this.rifle || this.pistol), camera,
+
   }) {
     this.mesh = clone(mesh)
     this.mesh.userData.hitAmount = 0
@@ -58,6 +61,13 @@ export default class Actor {
     if (mapSize) {
       const halfMap = mapSize / 2
       this.boundaries = new THREE.Box3(new THREE.Vector3(-halfMap, 0, -halfMap), new THREE.Vector3(halfMap, 0, halfMap))
+    }
+
+    if (camera) {
+      this.cameraFollow = new CameraFollow({ camera, mesh: this.mesh, height: this.height })
+      this.orbitControls = createOrbitControls()
+      this.orbitControls.mouseButtons = { RIGHT: THREE.MOUSE.ROTATE }
+      this.shouldAlignCamera = true
     }
 
     this.setState('idle')
@@ -368,6 +378,16 @@ export default class Actor {
       this.mesh.position.y = this.groundY
   }
 
+  updateCamera(delta) {
+    const { x, y, z } = this.mesh.position
+    const { lookAt } = this.cameraFollow
+
+    if (this.input.pressed.mouse2)
+      this.orbitControls.target = new THREE.Vector3(x, y + lookAt[1], z)
+    else
+      this.cameraFollow.update(delta, this.currentState.name)
+  }
+
   update(delta = 1 / 60) {
     this.updateGround()
     this.currentState.update(delta)
@@ -380,6 +400,7 @@ export default class Actor {
 
     if (this.useShootEffects) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
 
+    if (this.cameraFollow) this.updateCamera(delta)
     TWEEN.update()
   }
 }

@@ -17,7 +17,7 @@ export default class CameraFollow {
     offset = [0, height * .95, height * 1.5],
     lookAt = [0, height * .95, 0],
     aerialOffset = [0, height * 10, -height * 2.75],
-    aerialLookAt = [0, height * .95, -height * 3],
+    aerialLookAt = [0, 0, -height * 3],
   }) {
     this.mesh = mesh
     this.camera = camera
@@ -33,12 +33,19 @@ export default class CameraFollow {
     this.camera.lookAt(calc(mesh, lookAt))
 
     this.addButton()
-    // this.camera.near = .5
-    // this.camera.updateProjectionMatrix()
   }
 
   set distance(x) {
     this.offset[2] = x
+  }
+
+  set height(x) {
+    this.aerialOffset[1] = x
+  }
+
+  set near(x) {
+    this.camera.near = x
+    this.camera.updateProjectionMatrix()
   }
 
   alignCamera() {
