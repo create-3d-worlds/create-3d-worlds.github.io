@@ -18,7 +18,7 @@ export default class FPSPlayer extends Player {
       mesh: createPlayerBox({ visible: false }),
       jumpStyle: jumpStyles.FLY,
       attackDistance: 100,
-      firearm: true,
+      useShootEffects: true,
       ...rest,
     })
     this.mouseSensitivity = mouseSensitivity

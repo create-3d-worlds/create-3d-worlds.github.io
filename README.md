@@ -17,14 +17,15 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Savo
+  - BUG: intersekt daje stare vrednosti, pre setTimeout
   - srediti audio
-  - ai da ne koriste decals i rikošet?
 
 - FPS / Zombies
   - dodati promenu kamere odnosno igrača sa modelom ili bez
   - scena groblje
 
 - RPG / Fantasy
+  - možda niže da napada, trenutno .75 visine
   - bug: ostaje raskečena nakon skoka (držati spejs i pustiti pred tlo)
   - srediti borbu, previše promašuje (videti kako simon dev)
   - da se ai ne približavaju previše

@@ -9,7 +9,6 @@ export const animDict = {
   run: 'Rifle Run Aim',
   jump: 'Jump Forward',
   attack: 'Firing Rifle',
-  pain: 'Reaction',
   death: 'Dying',
 }
 

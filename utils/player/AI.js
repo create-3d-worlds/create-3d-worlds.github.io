@@ -14,7 +14,7 @@ const pursuingFrom = [baseStates.idle, baseStates.patrol, baseStates.wander]
 
 export default class AI extends Actor {
   constructor({
-    jumpStyle = jumpStyles.FALSE_JUMP, attackStyle = attackStyles.LOOP, baseState = baseStates.wander, speed = 1.8, shouldRaycastGround = false, sightDistance = 25, followDistance = 1.5, patrolDistance = 10, attackDistance = 1.25, target, ...params
+    jumpStyle = jumpStyles.FALSE_JUMP, attackStyle = attackStyles.LOOP, baseState = baseStates.wander, speed = 1.8, sightDistance = 25, followDistance = 1.5, patrolDistance = 10, attackDistance = 1.25, target, ...params
   } = {}) {
     super({
       ...params,
@@ -22,7 +22,8 @@ export default class AI extends Actor {
       attackDistance,
       input: new Input(false),
       getState: name => getAIState(name, jumpStyle, attackStyle),
-      shouldRaycastGround,
+      useShootEffects: false,
+      shouldRaycastGround: false,
     })
     this.mesh.name = 'enemy'
     if (target) {

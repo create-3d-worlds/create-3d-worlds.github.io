@@ -17,7 +17,7 @@ const { randInt } = THREE.MathUtils
  */
 export default class Actor {
   constructor({
-    mesh = createPlayerBox(), animations, animDict, input, solids, gravity = .7, jumpStyle, speed = 2, jumpForce = gravity * 1.66, maxJumpTime = 17, fallLimit = gravity * 20, drag = 0.5, getState, shouldRaycastGround, rifle, pistol, mapSize, coords, attackDistance, hitColor = 0x8a0303, energy = 100, runCoefficient = 2, firearm = Boolean(this.rifle || this.pistol),
+    mesh = createPlayerBox(), animations, animDict, input, solids, gravity = .7, jumpStyle, speed = 2, jumpForce = gravity * 1.66, maxJumpTime = 17, fallLimit = gravity * 20, drag = 0.5, getState, shouldRaycastGround, rifle, pistol, mapSize, coords, attackDistance, hitColor = 0x8a0303, energy = 100, runCoefficient = 2, useShootEffects = Boolean(this.rifle || this.pistol),
   }) {
     this.mesh = clone(mesh)
     this.mesh.userData.hitAmount = 0
@@ -38,7 +38,7 @@ export default class Actor {
     this.shouldRaycastGround = shouldRaycastGround
     this.runCoefficient = runCoefficient
     this.attackDistance = this.depth > attackDistance ? Math.ceil(this.depth) : attackDistance
-    this.firearm = firearm
+    this.useShootEffects = useShootEffects
     this.actions = {}
 
     if (animations?.length && animDict) {
@@ -46,7 +46,7 @@ export default class Actor {
       if (rifle) this.addRifle(clone(rifle))
       if (pistol) this.addPistol(clone(pistol))
     }
-    if (firearm) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
+    if (useShootEffects) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
 
     if (coords) this.position.copy(coords.pop())
 
@@ -173,12 +173,8 @@ export default class Actor {
     }
     if (!animDict.run && animDict.walk) {
       const clip = animations.find(anim => anim.name == animDict.walk)
-      this.actions.run = this.createRun(clip)
+      this.actions.run = this.mixer.clipAction(clip.clone()).setEffectiveTimeScale(1.5)
     }
-  }
-
-  createRun(walk) {
-    return this.mixer.clipAction(walk.clone()).setEffectiveTimeScale(1.5)
   }
 
   findHands() {
@@ -229,9 +225,9 @@ export default class Actor {
     setTimeout(() => {
       if (belongsTo(object, name)) {
         const mesh = getParent(object, name)
-        if (this.firearm) this.explode(scene, point, mesh.userData.hitColor)
+        if (this.useShootEffects) this.explode(scene, point, mesh.userData.hitColor)
         this.hit(mesh)
-      } else if (this.firearm) {
+      } else if (this.useShootEffects) {
         this.explode(scene, point, 0xcccccc)
         shootDecals(intersects[0], { scene, color: 0x000000 })
       }
@@ -381,7 +377,7 @@ export default class Actor {
     if (this.rifle) this.updateRifle()
     if (this.outOfBounds) this.bounce()
 
-    if (this.firearm) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
+    if (this.useShootEffects) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
 
     TWEEN.update()
   }
