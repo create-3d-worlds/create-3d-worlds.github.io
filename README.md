@@ -11,9 +11,6 @@ npx live-server
 
 ## TODO
 
-- kamera iz vazduha da prati ugao
-  - da ide malo ispred?
-
 ### Scenes & examples
 
 - FPS / Savo

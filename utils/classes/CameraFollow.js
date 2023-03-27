@@ -16,14 +16,16 @@ export default class CameraFollow {
   constructor({ camera, mesh, height = 2, speed = 2,
     offset = [0, height * .95, height * 1.5],
     lookAt = [0, height * .95, 0],
-    aerial = [0, height * 10, 0],
+    aerialOffset = [0, height * 10, -height * 2.75],
+    aerialLookAt = [0, height * .95, -height * 3],
   }) {
     this.mesh = mesh
     this.camera = camera
+    this.speed = speed
     this.offset = offset
     this.lookAt = lookAt
-    this.speed = speed
-    this.aerial = aerial
+    this.aerialOffset = aerialOffset
+    this.aerialLookAt = aerialLookAt
     this.currentPosition = new THREE.Vector3()
     this.currentLookat = new THREE.Vector3()
 
@@ -59,7 +61,8 @@ export default class CameraFollow {
     user-select: none;
   `
     let toggle = false
-    const initial = this.offset
+    const initialOffset = this.offset
+    const initialLookAt = this.lookAt
 
     const button = document.createElement('button')
     button.setAttribute('id', 'change-camera')
@@ -72,7 +75,8 @@ export default class CameraFollow {
 
     button.addEventListener('click', () => {
       toggle = !toggle
-      this.offset = toggle ? this.aerial : initial
+      this.offset = toggle ? this.aerialOffset : initialOffset
+      this.lookAt = toggle ? this.aerialLookAt : initialLookAt
     })
     document.body.appendChild(button)
   }
