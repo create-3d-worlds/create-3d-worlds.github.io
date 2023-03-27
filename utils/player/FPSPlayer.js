@@ -67,7 +67,7 @@ export default class FPSPlayer extends Player {
   }
 
   updateCamera() {
-    if (!this.pointerLockId) this.camera.lookAt(this.cameraTarget)
+    if (!this.pointerLockId && !this.mixer) this.camera.lookAt(this.cameraTarget)
   }
 
   moveCursor(e) {

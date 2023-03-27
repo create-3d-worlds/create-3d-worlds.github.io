@@ -3,17 +3,25 @@ import AI from '/utils/player/AI.js'
 import Player from '/utils/player/Player.js'
 import FPSPlayer from '/utils/player/FPSPlayer.js'
 
-export const animDict = {
+export const animDictX = {
   idle: 'Rifle Idle',
-  // idle: 'Rifle Aiming Idle',
   walk: 'Rifle Walk',
-  // walk: 'Walking',
   run: 'Rifle Run',
-  // run: 'Rifle Run Aim',
   jump: 'Jump Forward',
   attack: 'Firing Rifle',
   attack2: 'Fire Rifle Crouch',
   // special: 'Toss Grenade',
+  pain: 'Reaction',
+  death: 'Dying',
+}
+
+export const animDict = {
+  idle: 'Rifle Aiming Idle',
+  walk: 'Walking',
+  run: 'Rifle Run Aim',
+  jump: 'Jump Forward',
+  attack: 'Firing Rifle',
+  attack2: 'Fire Rifle Crouch',
   pain: 'Reaction',
   death: 'Dying',
 }

@@ -166,6 +166,7 @@ export default class Actor {
     this.mixer = new THREE.AnimationMixer(getMesh(this.mesh))
     for (const key in animDict) {
       const clip = animations.find(anim => anim.name == animDict[key])
+      console.log(key, clip)
       this.actions[key] = this.mixer.clipAction(clip)
     }
     if (!animDict.run && animDict.walk) {

@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Savo
-  - ostaviti primer PartisanFPSPlayer
   - srediti audio
 
 - FPS / Horror
