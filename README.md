@@ -11,6 +11,8 @@ npx live-server
 
 ## TODO
 
+- BUG: ne rade mazes: walls, ruins, ruins-polar...
+
 ### Scenes & examples
 
 - FPS / Savo
