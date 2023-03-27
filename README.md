@@ -15,7 +15,7 @@ npx live-server
 
 - FPS / Savo
   - probati PartisanPlayer
-    - dodati rikošet
+    - dodati rikošet i decals
   - srediti audio
 
 - FPS / Horror

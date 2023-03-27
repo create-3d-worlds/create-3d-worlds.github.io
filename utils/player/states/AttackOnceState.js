@@ -11,7 +11,6 @@ export default class AttackOnceState extends SpecialState {
   }
 
   update(delta) {
-    this.actor.updateMove(delta)
     this.actor.updateTurn(delta)
 
     /* TRANSIT */

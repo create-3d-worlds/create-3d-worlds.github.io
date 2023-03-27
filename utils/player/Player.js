@@ -64,6 +64,16 @@ export default class Player extends Actor {
     }
   }
 
+  /* COMBAT */
+
+  attackAction(name = 'enemy') {
+    super.attackAction(name)
+  }
+
+  hit(mesh, range = [35, 55]) {
+    super.hit(mesh, range)
+  }
+
   /* UTILS */
 
   putInMaze(maze, tile = [1, 1]) {
@@ -76,16 +86,6 @@ export default class Player extends Actor {
     const mazeSize = maze.rows * maze.cellSize
     this.position = { x: maze.cellSize * .5, y: 0, z: -mazeSize - maze.cellSize }
     this.mesh.lookAt(0, 0, -mazeSize * 2)
-  }
-
-  /* COMBAT */
-
-  attackAction(name = 'enemy') {
-    super.attackAction(name)
-  }
-
-  hit(mesh, range = [35, 55]) {
-    super.hit(mesh, range)
   }
 
   /* UPDATES */

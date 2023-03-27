@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
 
-import { addSolids, findGround, getSize, directionBlocked, getMesh, putOnTerrain, raycast, getParent, belongsTo } from '/utils/helpers.js'
+import { addSolids, findGround, getSize, directionBlocked, getMesh, putOnTerrain, intersect, getParent, belongsTo } from '/utils/helpers.js'
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 
@@ -199,6 +199,30 @@ export default class Actor {
     this.rightHand.add(mesh)
   }
 
+  /* COMBAT */
+
+  intersect() {
+    return intersect(this.mesh, this.solids, dir.forward, this.height, this.attackDistance)
+  }
+
+  hit(mesh, range = [35, 55]) {
+    const distance = this.position.distanceTo(mesh.position)
+    if (distance <= this.attackDistance)
+      mesh.userData.hitAmount = randInt(...range)
+  }
+
+  attackAction(name) {
+    const intersects = this.intersect()
+    const object = intersects[0]?.object
+    if (!belongsTo(object, name)) return
+
+    const timeToHit = this.action ? this.action.getClip().duration * 500 : 500
+
+    setTimeout(() => {
+      this.hit(getParent(object, name))
+    }, timeToHit)
+  }
+
   /* UTILS */
 
   add(obj) {
@@ -239,30 +263,6 @@ export default class Actor {
   lookAt(pos) {
     this.mesh.lookAt(pos)
     this.mesh.rotateY(Math.PI)
-  }
-
-  /* COMBAT */
-
-  raycast() {
-    const intersects = raycast(this.mesh, this.solids, dir.forward, this.height, this.attackDistance)
-    return intersects[0]?.object
-  }
-
-  hit(mesh, range = [35, 55]) {
-    const distance = this.position.distanceTo(mesh.position)
-    if (distance <= this.attackDistance)
-      mesh.userData.hitAmount = randInt(...range)
-  }
-
-  attackAction(name) {
-    const object = this.raycast()
-    if (!belongsTo(object, name)) return
-
-    const timeToHit = this.action ? this.action.getClip().duration * 500 : 500
-
-    setTimeout(() => {
-      this.hit(getParent(object, name))
-    }, timeToHit)
   }
 
   /* UPDATES */
