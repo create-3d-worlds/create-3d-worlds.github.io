@@ -11,14 +11,17 @@ npx live-server
 
 ## TODO
 
+- kamera iz vazduha da prati ugao
+  - da ide malo ispred?
+
 ### Scenes & examples
 
 - FPS / Savo
-  - kamera iz vazduha da prati ugao
-    - da ide malo ispred?
   - srediti audio
+  - ai da ne koriste decals i rikošet?
 
-- FPS / Horror
+- FPS / Zombies
+  - dodati promenu kamere odnosno igrača sa modelom ili bez
   - scena groblje
 
 - RPG / Fantasy

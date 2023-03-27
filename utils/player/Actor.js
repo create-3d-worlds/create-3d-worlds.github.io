@@ -17,7 +17,7 @@ const { randInt } = THREE.MathUtils
  */
 export default class Actor {
   constructor({
-    mesh = createPlayerBox(), animations, animDict, input, solids, gravity = .7, jumpStyle, speed = 2, jumpForce = gravity * 1.66, maxJumpTime = 17, fallLimit = gravity * 20, drag = 0.5, getState, shouldRaycastGround, rifle, pistol, mapSize, coords, attackDistance, hitColor = 0x8a0303, energy = 100, runCoefficient = 2,
+    mesh = createPlayerBox(), animations, animDict, input, solids, gravity = .7, jumpStyle, speed = 2, jumpForce = gravity * 1.66, maxJumpTime = 17, fallLimit = gravity * 20, drag = 0.5, getState, shouldRaycastGround, rifle, pistol, mapSize, coords, attackDistance, hitColor = 0x8a0303, energy = 100, runCoefficient = 2, firearm = Boolean(this.rifle || this.pistol),
   }) {
     this.mesh = clone(mesh)
     this.mesh.userData.hitAmount = 0
@@ -38,15 +38,15 @@ export default class Actor {
     this.shouldRaycastGround = shouldRaycastGround
     this.runCoefficient = runCoefficient
     this.attackDistance = this.depth > attackDistance ? Math.ceil(this.depth) : attackDistance
-
+    this.firearm = firearm
     this.actions = {}
 
     if (animations?.length && animDict) {
       this.setupMixer(animations, animDict)
       if (rifle) this.addRifle(clone(rifle))
       if (pistol) this.addPistol(clone(pistol))
-      if (rifle || pistol) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
     }
+    if (firearm) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
 
     if (coords) this.position.copy(coords.pop())
 
@@ -148,10 +148,6 @@ export default class Actor {
       || this.position.x <= this.boundaries.min.x
       || this.position.z >= this.boundaries.max.z
       || this.position.z <= this.boundaries.min.z
-  }
-
-  get firearm() {
-    return Boolean(this.rifle || this.pistol)
   }
 
   /* STATE MACHINE */

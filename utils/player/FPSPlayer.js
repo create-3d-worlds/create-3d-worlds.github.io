@@ -1,9 +1,7 @@
 import Player from '/utils/player/Player.js'
 import { camera as defaultCamera } from '/utils/scene.js'
-import { getCameraIntersects, getScene, belongsTo, getParent, shakeCamera } from '/utils/helpers.js'
+import { getCameraIntersects, shakeCamera } from '/utils/helpers.js'
 import FPSRenderer from '/utils/classes/2d/FPSRenderer.js'
-import { shootDecals } from '/utils/decals.js'
-import Particles from '/utils/classes/Particles.js'
 import config from '/config.js'
 import input from '/utils/classes/Input.js'
 import { jumpStyles } from '/utils/constants.js'
@@ -20,6 +18,7 @@ export default class FPSPlayer extends Player {
       mesh: createPlayerBox({ visible: false }),
       jumpStyle: jumpStyles.FLY,
       attackDistance: 100,
+      firearm: true,
       ...rest,
     })
     this.mouseSensitivity = mouseSensitivity
@@ -38,8 +37,6 @@ export default class FPSPlayer extends Player {
     camera.position.set(cameraX, this.cameraHeight, cameraZ)
     camera.rotation.set(0, 0, 0)
     this.mesh.add(camera)
-
-    this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
 
     if (pointerLockId) {
       const domElement = document.getElementById(pointerLockId)
@@ -75,35 +72,15 @@ export default class FPSPlayer extends Player {
     this.camera.rotation.x = Math.max(-0.1, Math.min(Math.PI / 8, this.camera.rotation.x))
   }
 
-  // attackAction() {
-  //   this.audio.currentTime = 0
-  //   this.audio.play()
-  //   this.shoot()
-  //   this.time += 5 // recoil
-  // }
+  attackAction() {
+    this.audio.currentTime = 0
+    this.audio.play()
+    super.attackAction()
+    this.time += 5 // recoil
+  }
 
   intersect() {
     return getCameraIntersects(this.camera, this.solids)
-  }
-
-  shoot() {
-    const intersects = this.intersect()
-    if (!intersects.length) return
-
-    const { point, object } = intersects[0]
-    const scene = getScene(object)
-    const timeToHit = this.action ? this.action.getClip().duration * 500 : 200
-
-    setTimeout(() => {
-      if (belongsTo(object, 'enemy')) {
-        const mesh = getParent(object, 'enemy')
-        this.explode(scene, point, mesh.userData.hitColor)
-        this.hit(mesh)
-      } else {
-        this.explode(scene, point, 0xcccccc)
-        shootDecals(intersects[0], { scene, color: 0x000000 })
-      }
-    }, timeToHit)
   }
 
   painEffect() {
@@ -133,8 +110,6 @@ export default class FPSPlayer extends Player {
     if (this.isDead) this.fpsRenderer.clear()
 
     if (this.hurting) this.fpsRenderer.drawPain()
-
-    this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
 
     this.updateCamera()
   }
