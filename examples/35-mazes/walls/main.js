@@ -14,7 +14,7 @@ scene.add(walls)
 
 const player = new SorceressPlayer({ camera, solids: walls })
 player.putInMaze(maze)
-player.cameraFollow. = [0, 20, 0]
+player.cameraFollow.aerialOffset = [0, 20, 0]
 scene.add(player.mesh)
 
 /* LOOP */
