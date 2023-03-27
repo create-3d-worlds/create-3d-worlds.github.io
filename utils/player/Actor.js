@@ -215,14 +215,15 @@ export default class Actor {
   }
 
   attackAction(name) {
-    const intersects = this.intersect()
-    if (!intersects.length) return
-
-    const { point, object } = intersects[0]
-    const scene = getScene(object)
     const timeToHit = this.action ? this.action.getClip().duration * 500 : 200
 
     setTimeout(() => {
+      const intersects = this.intersect()
+      if (!intersects.length) return
+
+      const { point, object } = intersects[0]
+      const scene = getScene(object)
+
       if (belongsTo(object, name)) {
         const mesh = getParent(object, name)
         if (this.useShootEffects) this.explode(scene, point, mesh.userData.hitColor)

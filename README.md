@@ -17,7 +17,6 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Savo
-  - BUG: intersekt daje stare vrednosti, pre setTimeout
   - srediti audio
 
 - FPS / Zombies
