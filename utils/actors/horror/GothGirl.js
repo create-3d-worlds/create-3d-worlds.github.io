@@ -18,7 +18,7 @@ const { mesh, animations } = await loadModel({ file: 'goth-girl.fbx', prefix: 'c
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, speed: .5, runCoefficient: 8 }
+const sharedProps = { mesh, animations, animDict, speed: .5, runCoefficient: 8, sightDistance: 15 }
 
 export class GothGirlPlayer extends Player {
   constructor(props = {}) {

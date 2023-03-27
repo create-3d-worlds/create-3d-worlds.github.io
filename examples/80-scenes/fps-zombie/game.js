@@ -9,7 +9,7 @@ import { GhostAI } from '/utils/actors/horror/Ghost.js'
 import { GothGirlAI } from '/utils/actors/horror/GothGirl.js'
 import { ZombieBarefootAI } from '/utils/actors/horror/ZombieBarefoot.js'
 import { ZombieCopAI } from '/utils/actors/horror/ZombieCop.js'
-import { ZombieDoctorCrawlAI } from '/utils/actors/horror/ZombieDoctorCrawl.js'
+// import { ZombieDoctorCrawlAI } from '/utils/actors/horror/ZombieDoctorCrawl.js'
 import { ZombieDoctorAI } from '/utils/actors/horror/ZombieDoctor.js'
 import { ZombieGuardAI } from '/utils/actors/horror/ZombieGuard.js'
 
@@ -32,7 +32,7 @@ const solids = [walls]
 
 /* ACTORS */
 
-const enemyClasses = [GhostAI, GothGirlAI, ZombieBarefootAI, ZombieCopAI, ZombieDoctorCrawlAI, ZombieDoctorAI, ZombieGuardAI]
+const enemyClasses = [GhostAI, GothGirlAI, ZombieBarefootAI, ZombieCopAI, ZombieDoctorAI, ZombieGuardAI]
 
 const player = new PartisanAimFPSPlayer({ camera })
 player.putInMaze(maze)
