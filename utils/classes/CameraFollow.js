@@ -70,6 +70,7 @@ export default class CameraFollow {
     let toggle = false
     const initialOffset = this.offset
     const initialLookAt = this.lookAt
+    const initialSpeed = this.speed
 
     const button = document.createElement('button')
     button.setAttribute('id', 'change-camera')
@@ -84,6 +85,7 @@ export default class CameraFollow {
       toggle = !toggle
       this.offset = toggle ? this.aerialOffset : initialOffset
       this.lookAt = toggle ? this.aerialLookAt : initialLookAt
+      this.speed = toggle ? initialSpeed * .75 : initialSpeed
     })
     document.body.appendChild(button)
   }
