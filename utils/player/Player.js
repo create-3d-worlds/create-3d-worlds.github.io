@@ -20,8 +20,7 @@ export default class Player extends Actor {
     camera,
     ...params
   } = {}) {
-    super({ input, jumpStyle, getState, shouldRaycastGround, attackDistance, ...params })
-    this.name = 'player'
+    super({ name: 'player', input, jumpStyle, getState, shouldRaycastGround, attackDistance, ...params })
 
     if (useJoystick) this.input.joystick = new JoyStick()
 

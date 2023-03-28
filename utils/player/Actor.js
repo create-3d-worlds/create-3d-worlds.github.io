@@ -7,6 +7,7 @@ import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 import { shootDecals } from '/utils/decals.js'
 import Particles from '/utils/classes/Particles.js'
+import config from '/config.js'
 
 const { randInt } = THREE.MathUtils
 
@@ -17,13 +18,13 @@ const { randInt } = THREE.MathUtils
  */
 export default class Actor {
   constructor({
-    mesh = createPlayerBox(), animations, animDict, input, solids, gravity = .7, jumpStyle, speed = 2, jumpForce = gravity * 1.66, maxJumpTime = 17, fallLimit = gravity * 20, drag = 0.5, getState, shouldRaycastGround, rifle, pistol, mapSize, coords, attackDistance, hitColor = 0x8a0303, energy = 100, runCoefficient = 2, useShootEffects = Boolean(this.rifle || this.pistol),
-
+    mesh = createPlayerBox(), name, animations, animDict, input, solids, gravity = .7, jumpStyle, speed = 2, jumpForce = gravity * 1.66, maxJumpTime = 17, fallLimit = gravity * 20, drag = 0.5, getState, shouldRaycastGround, rifle, pistol, mapSize, coords, attackDistance, hitColor = 0x8a0303, energy = 100, runCoefficient = 2, firearmed = Boolean(rifle || pistol),
   }) {
     this.mesh = clone(mesh)
     this.mesh.userData.hitAmount = 0
     this.mesh.userData.energy = energy
     this.mesh.userData.hitColor = hitColor
+    this.name = name
     this.speed = speed
     this.solids = []
     this.groundY = 0
@@ -39,7 +40,7 @@ export default class Actor {
     this.shouldRaycastGround = shouldRaycastGround
     this.runCoefficient = runCoefficient
     this.attackDistance = this.depth > attackDistance ? Math.ceil(this.depth) : attackDistance
-    this.useShootEffects = useShootEffects
+    this.firearmed = firearmed
     this.actions = {}
 
     if (animations?.length && animDict) {
@@ -47,7 +48,12 @@ export default class Actor {
       if (rifle) this.addRifle(clone(rifle))
       if (pistol) this.addPistol(clone(pistol))
     }
-    if (useShootEffects) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
+
+    if (firearmed) {
+      this.audio = new Audio('/assets/sounds/rifle.mp3')
+      this.audio.volume = config.volume
+      if (name == 'player') this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
+    }
 
     if (coords) this.position.copy(coords.pop())
 
@@ -215,7 +221,13 @@ export default class Actor {
     scene.add(this.ricochet.mesh)
   }
 
+  gunSound() {
+    this.audio.currentTime = 0
+    this.audio.play()
+  }
+
   attackAction(name) {
+    if (this.firearmed) this.gunSound()
     const timeToHit = this.action ? this.action.getClip().duration * 500 : 200
 
     setTimeout(() => {
@@ -227,9 +239,9 @@ export default class Actor {
 
       if (belongsTo(object, name)) {
         const mesh = getParent(object, name)
-        if (this.useShootEffects) this.explode(scene, point, mesh.userData.hitColor)
         this.hit(mesh)
-      } else if (this.useShootEffects) {
+        if (this.firearmed && this.name == 'player') this.explode(scene, point, mesh.userData.hitColor)
+      } else if (this.firearmed && this.name == 'player') {
         this.explode(scene, point, 0xcccccc)
         shootDecals(intersects[0], { scene, color: 0x000000 })
       }
@@ -379,7 +391,7 @@ export default class Actor {
     if (this.rifle) this.updateRifle()
     if (this.outOfBounds) this.bounce()
 
-    if (this.useShootEffects) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
+    if (this.firearmed && this.name == 'player') this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
 
     TWEEN.update()
   }

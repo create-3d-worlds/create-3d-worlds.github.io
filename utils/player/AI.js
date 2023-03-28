@@ -17,15 +17,14 @@ export default class AI extends Actor {
     jumpStyle = jumpStyles.FALSE_JUMP, attackStyle = attackStyles.LOOP, baseState = baseStates.wander, speed = 1.8, sightDistance = 25, followDistance = 1.5, patrolDistance = 10, attackDistance = 1.25, target, ...params
   } = {}) {
     super({
-      ...params,
+      name: 'enemy',
       speed,
       attackDistance,
       input: new Input(false),
       getState: name => getAIState(name, jumpStyle, attackStyle),
-      useShootEffects: false,
       shouldRaycastGround: false,
+      ...params,
     })
-    this.mesh.name = 'enemy'
     if (target) {
       this.target = target
       this.addSolids(target)

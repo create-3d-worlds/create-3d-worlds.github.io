@@ -2,7 +2,6 @@ import Player from '/utils/player/Player.js'
 import { camera as defaultCamera } from '/utils/scene.js'
 import { getCameraIntersects, shakeCamera } from '/utils/helpers.js'
 import FPSRenderer from '/utils/classes/2d/FPSRenderer.js'
-import config from '/config.js'
 import input from '/utils/classes/Input.js'
 import { jumpStyles } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
@@ -18,7 +17,7 @@ export default class FPSPlayer extends Player {
       mesh: createPlayerBox({ visible: false }),
       jumpStyle: jumpStyles.FLY,
       attackDistance: 100,
-      useShootEffects: true,
+      firearmed: true,
       ...rest,
     })
     this.mouseSensitivity = mouseSensitivity
@@ -26,10 +25,6 @@ export default class FPSPlayer extends Player {
     this.time = 0
     this.energy = 100
     this.hurting = false
-
-    this.audio = new Audio('/assets/sounds/rifle.mp3')
-    this.audio.volume = config.volume
-
     this.fpsRenderer = new FPSRenderer()
     this.camera = camera
     const cameraX = this.mixer ? -.05 : 0
@@ -73,8 +68,6 @@ export default class FPSPlayer extends Player {
   }
 
   attackAction() {
-    this.audio.currentTime = 0
-    this.audio.play()
     super.attackAction()
     this.time += 5 // recoil
   }

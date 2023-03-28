@@ -15,6 +15,8 @@ npx live-server
 
 - FPS / Savo
   - srediti audio
+  - BUG: ai pucaju kroz zid i prolaze kroz zid
+    - staviti kameru nekom i posmatrati
 
 - FPS / Zombies
   - dodati promenu kamere odnosno igrača sa modelom ili bez
