@@ -14,7 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Zombies
-  - dodati promenu kamere / igrača sa modelom i bez
+  - dodati promenu igrača sa modelom i bez
   - scena groblje
 
 - RPG / Fantasy
@@ -78,32 +78,31 @@ Spomenici
 - Groblje
  - nasumično zakriviti kamenove
 
-### Polishing
+### Optimizacija
 
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
-- prebaciti CameraFollow na Player?
-- optimizovati modele https://github.com/donmccurdy/glTF-Transform
-- obrisati sve što nije modularno
-- dodati svuda toon-shader gde se slaže
-  https://www.maya-ndljk.com/blog/threejs-basic-toon-shader
-  https://summer-afternoon.vlucendo.com/
-- dodati UI komande redom
-- automatsko puštanje zvuka
-- popraviti HTML margine
-- optimizacija 
+  - odrediti blizinu u lavirintu?
+- optimizovati statične modele https://github.com/donmccurdy/glTF-Transform
+- primeniti savete 
   - https://twitter.com/mrdoob/status/966609115140128768
   - https://attackingpixels.com/tips-tricks-optimizing-three-js-performance/
-- probati VR
-  - https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
-  - https://ski-mountain-vr.herokuapp.com/
+
+### Polishing
+
+- popraviti HTML margine?
+- dodati toon-shader gde se slaže
+  https://www.maya-ndljk.com/blog/threejs-basic-toon-shader
+  https://summer-afternoon.vlucendo.com/
+- dodati UI komande
+- dodati komande za dodirne ekrane (strelice i dugmiće)
+- probati VR https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
 - dodati preloader po potrebi
-- reuse main loop?
-  - pauzirati scenu na tab unfocus
-- sve dobro dokumentovati
+- pauzirati scenu na tab unfocus
 
 ### Publish
 - srediti root-relativne linkove da rade u podfolderu
 - možda build proces, minifikacija, i sl.
+- sve dobro dokumentovati
 
 ## Helpers
 

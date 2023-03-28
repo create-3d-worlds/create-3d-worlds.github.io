@@ -87,8 +87,9 @@ export default class AI extends Actor {
   }
 
   get targetSpotted() {
-    if (this.targetNear)
-      this.lookAtTarget()
+    if (!this.target) return
+
+    if (this.targetNear) this.lookAtTarget()
     const intersects = this.intersect()
     if (!intersects.length) return false
 

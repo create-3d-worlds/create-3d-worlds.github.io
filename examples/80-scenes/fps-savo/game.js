@@ -60,8 +60,7 @@ scene.add(...solids)
 
 /* LOOP */
 
-void function loop() {
-  requestAnimationFrame(loop)
+renderer.setAnimationLoop(() => {
   renderer.render(scene, camera)
   if (!document.pointerLockElement) return
   const delta = clock.getDelta()
@@ -71,5 +70,4 @@ void function loop() {
   rain.update({ delta, pos: player.position })
   if (Math.random() > .997) lightningStrike(light)
   tank.update(delta)
-}()
-
+})
