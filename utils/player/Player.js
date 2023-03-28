@@ -4,7 +4,8 @@ import JoyStick from '/utils/classes/JoyStick.js'
 import defaultKeyboard from '/utils/classes/Input.js'
 import { jumpStyles, attackStyles, reactions } from '/utils/constants.js'
 import { getPlayerState } from './states/index.js'
-
+import { createOrbitControls } from '/utils/scene.js'
+import CameraFollow from '/utils/classes/CameraFollow.js'
 import Actor from './Actor.js'
 
 export default class Player extends Actor {
@@ -16,12 +17,20 @@ export default class Player extends Actor {
     getState = name => getPlayerState(name, jumpStyle, attackStyle),
     shouldRaycastGround = true,
     attackDistance = 1.5,
+    camera,
     ...params
   } = {}) {
     super({ input, jumpStyle, getState, shouldRaycastGround, attackDistance, ...params })
     this.name = 'player'
 
     if (useJoystick) this.input.joystick = new JoyStick()
+
+    if (camera) {
+      this.cameraFollow = new CameraFollow({ camera, mesh: this.mesh, height: this.height })
+      this.orbitControls = createOrbitControls()
+      this.orbitControls.mouseButtons = { RIGHT: THREE.MOUSE.ROTATE }
+      this.shouldAlignCamera = true
+    }
   }
 
   /* COMBAT */
@@ -54,11 +63,22 @@ export default class Player extends Actor {
     super.updateMove(delta, reaction)
   }
 
-  update(delta) {
+  updateCamera(delta) {
+    const { x, y, z } = this.mesh.position
+    const { lookAt } = this.cameraFollow
+
+    if (this.input.pressed.mouse2)
+      this.orbitControls.target = new THREE.Vector3(x, y + lookAt[1], z)
+    else
+      this.cameraFollow.update(delta, this.currentState.name)
+  }
+
+  update(delta = 1 / 60) {
     super.update(delta)
     if (this.shouldAlignCamera) {
       this.cameraFollow.alignCamera()
       this.shouldAlignCamera = false
     }
+    if (this.cameraFollow) this.updateCamera(delta)
   }
 }

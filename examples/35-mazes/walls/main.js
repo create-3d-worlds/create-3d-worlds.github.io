@@ -1,6 +1,6 @@
 import Maze from '/utils/mazes/Maze.js'
 import { recursiveBacktracker } from '/utils/mazes/algorithms.js'
-import { scene, renderer, camera } from '/utils/scene.js'
+import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import { SorceressPlayer } from '/utils/actors/fantasy/Sorceress.js'
@@ -20,6 +20,7 @@ scene.add(player.mesh)
 
 void function loop() {
   requestAnimationFrame(loop)
-  player.update()
+  const dt = clock.getDelta()
+  player.update(dt)
   renderer.render(scene, camera)
 }()

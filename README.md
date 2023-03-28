@@ -11,9 +11,6 @@ npx live-server
 
 ## TODO
 
-- kameru na igrača
-  - BUG: ne radi kad se prebaci kamera na igrača mazes/walls, ruins, ruins-polar...
-
 ### Scenes & examples
 
 - FPS / Savo

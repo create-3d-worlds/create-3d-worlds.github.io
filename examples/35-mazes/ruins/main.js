@@ -1,5 +1,5 @@
+import { scene, createToonRenderer, camera, clock } from '/utils/scene.js'
 import Maze from '/utils/mazes/Maze.js'
-import { scene, createToonRenderer, camera } from '/utils/scene.js'
 import { recursiveDivision } from '/utils/mazes/algorithms.js'
 import { hemLight } from '/utils/light.js'
 import { createDunes } from '/utils/ground.js'
@@ -25,6 +25,7 @@ scene.add(player.mesh)
 
 void function loop() {
   requestAnimationFrame(loop)
-  player.update()
+  const dt = clock.getDelta()
+  player.update(dt)
   renderer.render(scene, camera)
 }()
