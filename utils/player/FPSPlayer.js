@@ -66,7 +66,9 @@ export default class FPSPlayer extends Player {
 
     this.mesh.rotateY(-e.movementX * this.mouseSensitivity)
     this.camera.rotateX(-e.movementY * this.mouseSensitivity)
-    this.camera.rotation.x = Math.max(-0.1, Math.min(Math.PI / 8, this.camera.rotation.x))
+    const lowerRotation = -Math.PI / 10
+    const upperRotation = Math.PI / 8
+    this.camera.rotation.x = Math.max(lowerRotation, Math.min(upperRotation, this.camera.rotation.x))
   }
 
   attackAction() {
