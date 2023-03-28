@@ -332,7 +332,7 @@ export function createChaseCamera(mesh, camera = defaultCamera) {
 
   camera.position.copy(mesh.position)
 
-  return function () {
+  return function() {
     const v = new THREE.Vector3()
     camera.lookAt(mesh.position)
     pivot.getWorldPosition(v)

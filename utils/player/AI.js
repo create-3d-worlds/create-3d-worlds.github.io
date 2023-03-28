@@ -5,6 +5,7 @@ import { Input } from '/utils/classes/Input.js'
 import Actor from './Actor.js'
 import { getAIState } from './states/index.js'
 import { jumpStyles, attackStyles, baseStates } from '/utils/constants.js'
+import { belongsTo } from '/utils/helpers.js'
 
 const { randFloatSpread } = MathUtils
 
@@ -80,9 +81,19 @@ export default class AI extends Actor {
     return this.target.position.y >= this.position.y + this.height * .5
   }
 
-  get targetSpotted() {
+  get targetNear() {
     if (!this.target || this.targetAbove) return false
     return (this.targetInSightRange && this.lookingAtTarget) || (this.targetInSightRange * .3) // feel if too close
+  }
+
+  get targetSpotted() {
+    if (this.targetNear)
+      this.lookAtTarget()
+    const intersects = this.intersect()
+    if (!intersects.length) return false
+
+    const { object } = intersects[0]
+    return belongsTo(object, this.target.name)
   }
 
   /* ANIMS */

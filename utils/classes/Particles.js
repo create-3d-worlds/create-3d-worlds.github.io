@@ -160,7 +160,6 @@ export class Rain extends Particles {
   update({ min = 0, max = 50, minVelocity = 30, maxVelocity = 90, ...rest } = {}) {
     super.update({ min, max, axis: 1, minVelocity, maxVelocity, ...rest })
     if (input.touched && !this.playing) {
-      console.log(input.touched)
       this.audio.play()
       this.playing = true
     }

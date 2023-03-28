@@ -14,9 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Savo
-  - BUG: ai pucaju kroz zid i prolaze kroz zid
-    - staviti kameru nekom i posmatrati?
-    - refaktorisati da koriste zrak?
+  - BUG: ai pucaju kroz zid i prolaze kroz zid?
 
 - FPS / Zombies
   - dodati promenu kamere odnosno igrača sa modelom ili bez
