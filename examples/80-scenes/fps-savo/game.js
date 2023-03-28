@@ -3,7 +3,7 @@ import { createGround } from '/utils/ground.js'
 import { sample } from '/utils/helpers.js'
 import { hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
-import { Snow } from '/utils/classes/Particles.js'
+import { Rain } from '/utils/classes/Particles.js'
 import FPSPlayer from '/utils/player/FPSPlayer.js'
 import { TankAI } from '/utils/actors/Tank.js'
 import { GermanMachineGunnerAI } from '/utils/actors/ww2/GermanMachineGunner.js'
@@ -18,8 +18,8 @@ hemLight({ intensity: .75 })
 setBackground(0x070b34)
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
 
-const show = new Snow()
-scene.add(show.mesh)
+const rain = new Rain()
+scene.add(rain.mesh)
 
 const maze = new Maze(8, 8, truePrims, 10)
 const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
@@ -68,7 +68,7 @@ void function loop() {
 
   player.update(delta)
   enemies.forEach(enemy => enemy.update(delta))
-  show.update({ delta, pos: player.position })
+  rain.update({ delta, pos: player.position })
   tank.update(delta)
 }()
 
