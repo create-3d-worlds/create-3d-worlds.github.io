@@ -4,7 +4,8 @@ import { dir } from '/utils/constants.js'
 import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
 
 const { randFloat, randFloatSpread } = THREE.MathUtils
-const raycaster = new THREE.Raycaster()
+const raycasterLong = new THREE.Raycaster()
+const raycasterShort = new THREE.Raycaster()
 
 /* MATH */
 
@@ -205,8 +206,8 @@ export const getIntersects = (raycaster, target = defaultScene) => (
 
 const distanceTo = ({ pos, solids }, direction) => {
   if (!pos || !solids.length) return Infinity
-  raycaster.set(pos, direction)
-  const intersects = getIntersects(raycaster, solids)
+  raycasterLong.set(pos, direction)
+  const intersects = getIntersects(raycasterLong, solids)
 
   const point = intersects[0]?.point
   return point ? pos.distanceTo(point) : Infinity
@@ -221,8 +222,8 @@ export const distanceDown = ({ pos, solids }) => distanceTo({ pos, solids }, dir
 
 export function findGround({ solids, pos, y = 200 }) {
   const origin = { x: pos.x, y: pos.y + y, z: pos.z }
-  raycaster.set(origin, dir.down)
-  const intersects = getIntersects(raycaster, solids)
+  raycasterLong.set(origin, dir.down)
+  const intersects = getIntersects(raycasterLong, solids)
   return intersects?.[0]
 }
 
@@ -245,7 +246,9 @@ export const raycast = (mesh, dir, height, rayLength) => {
   const direction = dir.clone().applyQuaternion(mesh.quaternion)
   const bodyCenter = mesh.position.clone()
   bodyCenter.y += height
-  return new THREE.Raycaster(bodyCenter, direction, 0, rayLength)
+  raycasterShort.far = rayLength
+  raycasterShort.set(bodyCenter, direction)
+  return raycasterShort
 }
 
 export const intersect = (mesh, solids, dir, height, rayLength) => {
@@ -253,23 +256,27 @@ export const intersect = (mesh, solids, dir, height, rayLength) => {
   return getIntersects(raycaster, solids)
 }
 
-export const directionBlocked = (mesh, solids, currDir) => {
+export const intersectDir = (mesh, solids, currDir) => {
   if (!mesh || !solids.length || !currDir) return false
   const { y, z } = getSize(mesh)
   const rayLength = currDir == dir.forward ? z : y
-  const intersects = intersect(mesh, solids, currDir, y * .5, rayLength)
+  return intersect(mesh, solids, currDir, y * .5, rayLength)
+}
+
+export const directionBlocked = (mesh, solids, currDir) => {
+  const intersects = intersectDir(mesh, solids, currDir)
   return intersects.length > 0
 }
 
 export function getMouseIntersects(e, camera = defaultCamera, target = defaultScene) {
   const mouse = normalizeMouse(e)
-  raycaster.setFromCamera(mouse, camera)
-  return getIntersects(raycaster, target)
+  raycasterLong.setFromCamera(mouse, camera)
+  return getIntersects(raycasterLong, target)
 }
 
 export function getCameraIntersects(camera, target) {
-  raycaster.set(camera.getWorldPosition(new THREE.Vector3()), camera.getWorldDirection(new THREE.Vector3()))
-  return getIntersects(raycaster, target)
+  raycasterLong.set(camera.getWorldPosition(new THREE.Vector3()), camera.getWorldDirection(new THREE.Vector3()))
+  return getIntersects(raycasterLong, target)
 }
 
 /* TEXTURES */
@@ -327,7 +334,7 @@ export function createChaseCamera(mesh, camera = defaultCamera) {
 
   camera.position.copy(mesh.position)
 
-  return function() {
+  return function () {
     const v = new THREE.Vector3()
     camera.lookAt(mesh.position)
     pivot.getWorldPosition(v)
