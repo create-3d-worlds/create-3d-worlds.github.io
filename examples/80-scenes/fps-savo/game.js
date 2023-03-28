@@ -1,7 +1,7 @@
 import { scene, renderer, camera, clock, setBackground } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { sample } from '/utils/helpers.js'
-import { hemLight } from '/utils/light.js'
+import { hemLight, lightningStrike } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { Rain } from '/utils/classes/Particles.js'
 import FPSPlayer from '/utils/player/FPSPlayer.js'
@@ -14,7 +14,7 @@ import { GermanFlameThrowerAI } from '/utils/actors/ww2/GermanFlameThrower.js'
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
 
-hemLight({ intensity: .75 })
+const light = hemLight({ intensity: .75 })
 setBackground(0x070b34)
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
 
@@ -69,6 +69,7 @@ void function loop() {
   player.update(delta)
   enemies.forEach(enemy => enemy.update(delta))
   rain.update({ delta, pos: player.position })
+  if (Math.random() > .997) lightningStrike(light)
   tank.update(delta)
 }()
 

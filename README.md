@@ -14,8 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Savo
-  - srediti audio
-    - probati kišu
   - BUG: ai pucaju kroz zid i prolaze kroz zid
     - staviti kameru nekom i posmatrati?
     - refaktorisati da koriste zrak?

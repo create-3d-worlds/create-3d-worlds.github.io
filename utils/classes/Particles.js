@@ -148,7 +148,7 @@ export class Stars extends Particles {
 }
 
 export class Rain extends Particles {
-  constructor({ file = 'raindrop.png', num = 1000, size = .1, opacity = .7, minRadius = 1.5, maxRadius = 5, color = 0xDEF4FC } = {}) {
+  constructor({ file = 'raindrop.png', num = 1000, size = .1, opacity = .7, minRadius = 2, maxRadius = 5, color = 0xDEF4FC } = {}) {
     super({ file, num, size, opacity, minRadius, maxRadius, color, blending: THREE.NormalBlending })
 
     this.audio = new Audio('/assets/sounds/rain.mp3')
