@@ -10,6 +10,7 @@ export default class FPSPlayer extends Player {
   constructor({
     camera = defaultCamera,
     mouseSensitivity = .002,
+    attackSound = 'rifle.mp3',
     pointerLockId,
     ...rest
   } = {}) {
@@ -17,7 +18,8 @@ export default class FPSPlayer extends Player {
       mesh: createPlayerBox({ visible: false }),
       jumpStyle: jumpStyles.FLY,
       attackDistance: 100,
-      firearmed: true,
+      useGunEffects: true,
+      attackSound,
       ...rest,
     })
     this.mouseSensitivity = mouseSensitivity

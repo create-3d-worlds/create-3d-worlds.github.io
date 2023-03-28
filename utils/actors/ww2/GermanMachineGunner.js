@@ -19,7 +19,7 @@ const { mesh: rifle } = await loadModel({ file: 'weapon/mg-42/lowpoly.fbx', scal
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, rifle, speed: 1.8, attackStyle: 'LOOP' }
+const sharedProps = { mesh, animations, animDict, rifle, speed: 1.8, attackStyle: 'LOOP', attackSound: 'rifle-burst.mp3' }
 
 export class GermanMachineGunnerPlayer extends Player {
   constructor(props = {}) {

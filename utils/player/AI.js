@@ -23,6 +23,7 @@ export default class AI extends Actor {
       input: new Input(false),
       getState: name => getAIState(name, jumpStyle, attackStyle),
       shouldRaycastGround: false,
+      useGunEffects: false,
       ...params,
     })
     if (target) {
@@ -80,8 +81,7 @@ export default class AI extends Actor {
   }
 
   get targetSpotted() {
-    if (!this.target) return false
-    if (this.targetAbove) return false
+    if (!this.target || this.targetAbove) return false
     return (this.targetInSightRange && this.lookingAtTarget) || (this.targetInSightRange * .3) // feel if too close
   }
 
