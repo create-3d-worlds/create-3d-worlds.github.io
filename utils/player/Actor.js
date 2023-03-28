@@ -233,7 +233,7 @@ export default class Actor {
   /* COMBAT */
 
   intersect() {
-    return intersect(this.mesh, this.solids, dir.forward, this.height * .75, this.attackDistance)
+    return intersect(this.mesh, this.solids, dir.forward, this.height * .75)
   }
 
   hit(mesh, range = [35, 55]) {
@@ -261,7 +261,9 @@ export default class Actor {
       const intersects = this.intersect()
       if (!intersects.length) return
 
-      const { point, object } = intersects[0]
+      const { point, object, distance } = intersects[0]
+      if (distance > this.attackDistance) return
+
       const scene = getScene(object)
 
       if (belongsTo(object, name)) {

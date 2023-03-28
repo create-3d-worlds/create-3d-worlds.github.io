@@ -14,6 +14,8 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Savo
+  - gornja kamera malo sporije
+  - dozvoliti nišan malo niže
   - BUG: ai pucaju kroz zid i prolaze kroz zid
     - staviti kameru nekom i posmatrati?
     - refaktorisati da koriste zrak?
