@@ -13,11 +13,8 @@ npx live-server
 
 ### Scenes & examples
 
-- FPS / Savo
-  - BUG: ai pucaju kroz zid i prolaze kroz zid?
-
 - FPS / Zombies
-  - dodati promenu kamere odnosno igrača sa modelom ili bez
+  - dodati promenu kamere / igrača sa modelom i bez
   - scena groblje
 
 - RPG / Fantasy
