@@ -15,7 +15,7 @@ scene.background = new THREE.Color(0x070b34)
 
 /* PLAYER */
 
-const player = new FPSPlayer({ camera, coords, mapSize, pointerLockId: 'instructions' })
+const player = new FPSPlayer({ camera, coords, mapSize, usePointerLock: 'instructions' })
 scene.add(player.mesh)
 
 const solids = []

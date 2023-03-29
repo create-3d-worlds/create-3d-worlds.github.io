@@ -11,7 +11,7 @@ export default class FPSPlayer extends Player {
     camera = defaultCamera,
     mouseSensitivity = .002,
     attackSound = 'rifle.mp3',
-    pointerLockId,
+    usePointerLock = true,
     ...rest
   } = {}) {
     super({
@@ -23,7 +23,7 @@ export default class FPSPlayer extends Player {
       ...rest,
     })
     this.mouseSensitivity = mouseSensitivity
-    this.pointerLockId = pointerLockId
+    this.usePointerLock = usePointerLock
     this.time = 0
     this.energy = 100
     this.hurting = false
@@ -35,8 +35,10 @@ export default class FPSPlayer extends Player {
     camera.rotation.set(0, 0, 0)
     this.mesh.add(camera)
 
-    if (pointerLockId) this.addPointerLock()
+    if (usePointerLock) this.addPointerLock()
   }
+
+  /* GETTERS */
 
   get cameraHeight() {
     return this.height * .82
@@ -47,6 +49,8 @@ export default class FPSPlayer extends Player {
     pos.y += this.cameraHeight
     return pos
   }
+
+  /* UTILS */
 
   addPointerLock() {
     const html = /* html */`
@@ -84,10 +88,6 @@ export default class FPSPlayer extends Player {
     document.addEventListener('mousemove', e => this.moveCursor(e))
   }
 
-  updateCamera() {
-    if (!this.pointerLockId && !this.mixer) this.camera.lookAt(this.cameraTarget)
-  }
-
   moveCursor(e) {
     if (this.hurting || this.isDead || !document.pointerLockElement) return
 
@@ -98,13 +98,15 @@ export default class FPSPlayer extends Player {
     this.camera.rotation.x = Math.max(lowerRotation, Math.min(upperRotation, this.camera.rotation.x))
   }
 
+  intersect() {
+    return getCameraIntersects(this.camera, this.solids)
+  }
+
+  /* COMBAT */
+
   attackAction() {
     super.attackAction()
     this.time += 5 // recoil
-  }
-
-  intersect() {
-    return getCameraIntersects(this.camera, this.solids)
   }
 
   painEffect() {
@@ -117,6 +119,12 @@ export default class FPSPlayer extends Player {
   checkHit() {
     if (this.hitAmount) this.painEffect()
     super.checkHit()
+  }
+
+  /* UPDATES */
+
+  updateCamera() {
+    if (!this.usePointerLock && !this.mixer) this.camera.lookAt(this.cameraTarget)
   }
 
   update(delta) {

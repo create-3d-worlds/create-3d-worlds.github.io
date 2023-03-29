@@ -14,8 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Zombies
-  - dodati promenu igrača sa modelom i bez
-    - dodati pointerLockId na model 
+  - dodati promenu igrača sa modelom i bez 
     - da leva ruka prati pomeranje miša
   - scena groblje
 
@@ -112,6 +111,7 @@ DODATI:
   - UI komande
   - komande za dodirne ekrane (strelice i dugmiće)
   - reload button (kad igrač umre)
+  - full screen btn
   - preloader po potrebi
 - probati VR https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
 - pauzirati scenu na tab unfocus
