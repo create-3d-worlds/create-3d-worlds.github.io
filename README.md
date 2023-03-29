@@ -15,6 +15,8 @@ npx live-server
 
 - FPS / Zombies
   - dodati promenu igrača sa modelom i bez
+    - dodati pointerLockId na model 
+    - da leva ruka prati pomeranje miša
   - scena groblje
 
 - RPG / Fantasy
@@ -85,6 +87,9 @@ npx live-server
 - Groblje
  - nasumično zakriviti kamenove
 
+- Savo
+  - dodati intro na pisaćoj mašini
+
 ### Optimizacija
 
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
@@ -93,6 +98,7 @@ npx live-server
 - primeniti savete 
   - https://twitter.com/mrdoob/status/966609115140128768
   - https://attackingpixels.com/tips-tricks-optimizing-three-js-performance/
+- izmeriti statistike, ako je presporo izbacivati nevažno
 
 ### Polishing
 

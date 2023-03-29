@@ -9,6 +9,7 @@ const animDict = {
 /* LOADING */
 
 const { mesh, animations } = await loadModel({ file: 'character/ghost/scene.gltf', angle: Math.PI })
+mesh.translateY(-.3)
 
 /* EXTENDED CLASSES */
 

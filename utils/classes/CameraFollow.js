@@ -7,8 +7,7 @@ const calc = (mesh, pos) => new THREE.Vector3(...pos)
 
 const speedFactor = state => {
   if (state == 'fall') return 2
-  if (state == 'run') return 1.5
-  // if (state == 'jump') return 1.25
+  if (state == 'run') return 2
   return 1
 }
 

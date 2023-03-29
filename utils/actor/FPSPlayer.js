@@ -35,16 +35,7 @@ export default class FPSPlayer extends Player {
     camera.rotation.set(0, 0, 0)
     this.mesh.add(camera)
 
-    if (pointerLockId) {
-      const domElement = document.getElementById(pointerLockId)
-      domElement.addEventListener('click', () => document.body.requestPointerLock())
-
-      document.addEventListener('pointerlockchange', () => {
-        domElement.style.display = document.pointerLockElement ? 'none' : 'block'
-      })
-
-      document.addEventListener('mousemove', e => this.moveCursor(e))
-    }
+    if (pointerLockId) this.addPointerLock()
   }
 
   get cameraHeight() {
@@ -55,6 +46,42 @@ export default class FPSPlayer extends Player {
     const pos = this.mesh.position.clone()
     pos.y += this.cameraHeight
     return pos
+  }
+
+  addPointerLock() {
+    const html = /* html */`
+    <div>
+      <h1>Click to start</h1>
+
+      Shoot: MOUSE<br />
+      Move: WASD or ARROWS<br />
+      Run: CAPSLOCK<br />
+      Jump: SPACE<br />
+    </div>
+    `
+    const css = `
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(242, 242, 242, 0.8);
+      border: 3px dashed black;
+      padding: 0 20px 20px 20px;
+      text-align: center;
+      cursor: crosshair;
+    `
+    const div = document.createElement('div')
+    div.innerHTML = html
+    div.setAttribute('style', css)
+    document.body.appendChild(div)
+
+    div.addEventListener('click', () => document.body.requestPointerLock())
+
+    document.addEventListener('pointerlockchange', () => {
+      div.style.display = document.pointerLockElement ? 'none' : 'block'
+    })
+
+    document.addEventListener('mousemove', e => this.moveCursor(e))
   }
 
   updateCamera() {
