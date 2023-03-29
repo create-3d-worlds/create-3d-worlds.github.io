@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Zombies
-  - bolju pain animaciju za vojnika
   - dodati promenu igrača sa modelom i bez
   - scena groblje
 
@@ -99,13 +98,14 @@ npx live-server
 
 - popraviti HTML margine?
 DODATI:
-  - ciljeve i poene scenama
   - toon-shader gde se slaže
     https://www.maya-ndljk.com/blog/threejs-basic-toon-shader
     https://summer-afternoon.vlucendo.com/
+  - cilj i poene?
+  - indikator energije?
   - UI komande
   - komande za dodirne ekrane (strelice i dugmiće)
-  - reload button
+  - reload button (kad igrač umre)
   - preloader po potrebi
 - probati VR https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
 - pauzirati scenu na tab unfocus

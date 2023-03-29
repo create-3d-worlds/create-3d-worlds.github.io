@@ -11,7 +11,7 @@ export const animDict = {
   attack: 'Firing Rifle',
   attack2: 'Fire Rifle Crouch',
   // special: 'Toss Grenade',
-  pain: 'Reaction',
+  pain: 'Hit Reaction',
   death: 'Dying',
 }
 
