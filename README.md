@@ -20,12 +20,14 @@ npx live-server
   - scena groblje
 
 - RPG / Fantasy
-  - isprobati nove animacije
   - srediti borbu, previše promašuje (videti kako simon dev)
+    - srediti LOOP attack, da ne bude neranjiva i da napada svaki loop
     - možda niže da napada, trenutno .75 visine
-    - da se ai ne približavaju previše
+    - možda ne koristiti zrak
     - dodati mač, sekiru?
     - bacanje magije (pogledati i shadere)
+    - da se ai ne približavaju previše
+  - zepelin prenisko
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)
   - uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)

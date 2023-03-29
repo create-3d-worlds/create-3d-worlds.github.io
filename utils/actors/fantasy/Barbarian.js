@@ -5,9 +5,9 @@ import { loadModel } from '/utils/loaders.js'
 const animDict = {
   idle: 'Unarmed Idle',
   walk: 'Dwarf Walk',
-  run: 'Running',
+  run: 'Fast Run',
   jump: 'Mutant Jumping',
-  attack: 'Standing Melee Kick',
+  attack: 'Sword And Shield Slash', // Standing Melee Kick
   attack2: 'Mma Kick',
   special: 'Standing 2H Magic Attack 05',
   pain: 'Standing React Large From Right',
@@ -16,11 +16,11 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ prefix: 'character/barbarian/', file: 'model.fbx', angle: Math.PI, fixColors: true, animDict, size: 1.78 })
+const { mesh, animations } = await loadModel({ prefix: 'character/barbarian/', file: 'model.fbx', angle: Math.PI, fixColors: true, animDict, size: 1.78, runCoefficient: 4 })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, jumpStyle: 'FLY_JUMP', maxJumpTime: 18 }
+const sharedProps = { mesh, animations, animDict, jumpStyle: 'FLY_JUMP', maxJumpTime: 18, attackStyle: 'LOOP' }
 
 export class BarbarianPlayer extends Player {
   constructor(props = {}) {
