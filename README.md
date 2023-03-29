@@ -11,15 +11,15 @@ npx live-server
 
 ## TODO
 
-- useHitEffects i decals na Player?
-
 ### Scenes & examples
 
 - FPS / Zombies
+  - bolju pain animaciju za vojnika
   - dodati promenu igrača sa modelom i bez
   - scena groblje
 
 - RPG / Fantasy
+  - naći animacije koje se više slažu sa sekirom (trčanje i sl)
   - srediti borbu, previše promašuje (videti kako simon dev)
     - srediti LOOP attack, da ne bude neranjiva i da napada svaki loop
     - možda niže da napada, trenutno .75 visine
@@ -48,7 +48,11 @@ npx live-server
   - dodati proceduralnu planetu http://colordodge.com/ProceduralPlanet/?seed=Ridi%20Genow
   - mozda iskoristiti astronauta da luta po planeti https://codepen.io/b29/pen/LoaRKx
 
-Spomenici
+- Planete / Balonko
+  - hodanje po planeti, uzimati u obzir normals ili centar sfere i ispravljati igraca
+  - da skace po malim planetama
+
+- Spomenici
   - napraviti scenu sa jugoslovenskim spomenicima
 
 - Zeppelin
@@ -95,6 +99,7 @@ Spomenici
 
 - popraviti HTML margine?
 DODATI:
+  - ciljeve i poene scenama
   - toon-shader gde se slaže
     https://www.maya-ndljk.com/blog/threejs-basic-toon-shader
     https://summer-afternoon.vlucendo.com/
