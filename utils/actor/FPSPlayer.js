@@ -128,7 +128,8 @@ export default class FPSPlayer extends Player {
   }
 
   update(delta) {
-    input.attack = input.pressed.mouse // attack with mouse
+    if (this.usePointerLock) input.attack = input.pressed.mouse // shoot with mouse
+
     super.update(delta)
 
     if (this.isAlive) {
