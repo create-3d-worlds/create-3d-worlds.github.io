@@ -18,7 +18,7 @@ const animDict = {
 
 const { mesh, animations } = await loadModel({ prefix: 'character/barbarian/', file: 'model.fbx', angle: Math.PI, fixColors: true, animDict, size: 1.78, runCoefficient: 4 })
 
-const { mesh: pistol } = await loadModel({ file: 'weapon/axe-lowpoly/untitled.fbx', scale: .18 })
+const { mesh: pistol } = await loadModel({ file: 'weapon/axe-lowpoly/model.fbx', scale: .18 })
 
 /* EXTENDED CLASSES */
 
