@@ -14,13 +14,12 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Zombies
-  - dodati promenu igrača sa modelom i bez 
-    - da leva ruka prati pomeranje miša
-  - scena groblje
+  - dodati PartisanAimFPSPlayer u neki lavirint, ukinuti fps-zombie
+  - merge fps-zombie-player i graveyard
 
 - RPG / Fantasy
   - naći animacije koje se više slažu sa sekirom (trčanje i sl)
-  - srediti borbu, previše promašuje (videti kako simon dev)
+  - srediti borbu, previše promašuje (videti simon dev https://youtu.be/SBfZAVzbhCg)
     - srediti LOOP attack, da ne bude neranjiva i da napada svaki loop
     - možda niže da napada, trenutno .75 visine
     - možda ne koristiti zrak

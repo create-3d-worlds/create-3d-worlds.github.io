@@ -36,6 +36,6 @@ export class PartisanAimPlayer extends Player {
 
 export class PartisanAimFPSPlayer extends FPSPlayer {
   constructor(props = {}) {
-    super({ ...sharedProps, ...props })
+    super({ ...sharedProps, usePointerLock: false, ...props })
   }
 }
