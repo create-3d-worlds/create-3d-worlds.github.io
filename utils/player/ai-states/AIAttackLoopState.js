@@ -16,7 +16,7 @@ export default class AIAttackLoopState extends State {
     this.actor.attackAction()
 
     if (this.actor.mixer) {
-      if (this.action) this.transitFrom(oldAction, .5)
+      if (this.action) this.transitFrom(oldAction, .25)
       this.actor.mixer.addEventListener('loop', this.attackAgain)
     } else
       this.myInterval = setInterval(() => this.attackAgain(), 3000)
