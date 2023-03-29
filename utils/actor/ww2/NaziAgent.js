@@ -16,11 +16,11 @@ const animDict = {
 
 const { mesh, animations } = await loadModel({ file: 'nazi-agent.fbx', prefix: 'character/soldier/', animDict, angle: Math.PI + .3, fixColors: true, size: 1.8 })
 
-const { mesh: pistol } = await loadModel({ file: 'weapon/luger/model.fbx', scale: .18 })
+const { mesh: rightHandWeapon } = await loadModel({ file: 'weapon/luger/model.fbx', scale: .18 })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, pistol }
+const sharedProps = { mesh, animations, animDict, rightHandWeapon }
 
 export class NaziAgentPlayer extends Player {
   constructor(props = {}) {

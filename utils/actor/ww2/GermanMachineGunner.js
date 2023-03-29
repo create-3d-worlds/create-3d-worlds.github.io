@@ -15,11 +15,11 @@ const animDict = {
 
 const { mesh, animations } = await loadModel({ file: 'german-machine-gunner.fbx', animDict, prefix: 'character/soldier/', angle: Math.PI, fixColors: true })
 
-const { mesh: rifle } = await loadModel({ file: 'weapon/mg-42/lowpoly.fbx', scale: 1.4 })
+const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/mg-42/lowpoly.fbx', scale: 1.4 })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, rifle, speed: 1.8, attackStyle: 'LOOP', attackSound: 'rifle-burst.mp3' }
+const sharedProps = { mesh, animations, animDict, twoHandedWeapon, speed: 1.8, attackStyle: 'LOOP', attackSound: 'rifle-burst.mp3' }
 
 export class GermanMachineGunnerPlayer extends Player {
   constructor(props = {}) {

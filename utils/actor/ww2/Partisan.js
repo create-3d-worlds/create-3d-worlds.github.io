@@ -19,11 +19,11 @@ export const animDict = {
 
 const { mesh, animations } = await loadModel({ file: 'partisan.fbx', angle: Math.PI, animDict, prefix: 'character/soldier/', fixColors: true, size: 1.8 })
 
-const { mesh: rifle } = await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI })
+const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, rifle, attackDistance: 50 }
+const sharedProps = { mesh, animations, animDict, twoHandedWeapon, attackDistance: 50 }
 
 export class PartisanAI extends AI {
   constructor(props = {}) {

@@ -17,11 +17,11 @@ const animDict = {
 
 const { mesh, animations } = await loadModel({ file: 'german-machine-gunner.fbx', animDict, prefix: 'character/soldier/', angle: Math.PI, fixColors: true })
 
-const { mesh: rifle } = await loadModel({ file: 'weapon/flame-gun/model.fbx', scale: .75 })
+const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/flame-gun/model.fbx', scale: .75 })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, rifle, speed: 1.8, attackStyle: 'LOOP', attackDistance: 7., attackSound: 'fire-swoosh.mp3' }
+const sharedProps = { mesh, animations, animDict, twoHandedWeapon, speed: 1.8, attackStyle: 'LOOP', attackDistance: 7., attackSound: 'fire-swoosh.mp3' }
 
 const constructor = self => {
   const particles = new Flame()

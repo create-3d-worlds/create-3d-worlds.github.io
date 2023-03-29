@@ -7,11 +7,11 @@ import { animDict } from './Partisan.js'
 
 const { mesh, animations } = await loadModel({ file: 'soldier.fbx', angle: Math.PI, animDict, prefix: 'character/soldier/', fixColors: true })
 
-const { mesh: rifle } = await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI })
+const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, rifle }
+const sharedProps = { mesh, animations, animDict, twoHandedWeapon }
 
 export class SoldierPlayer extends Player {
   constructor(props = {}) {

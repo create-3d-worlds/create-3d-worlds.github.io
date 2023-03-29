@@ -33,16 +33,16 @@ export default class Actor {
     drag = 0.5,
     getState,
     shouldRaycastGround,
-    rifle,
-    pistol,
+    twoHandedWeapon,
+    rightHandWeapon,
     mapSize,
     coords,
     attackDistance,
     hitColor = 0x8a0303,
     energy = 100,
     runCoefficient = 2,
-    useGunEffects = Boolean(rifle || pistol),
-    attackSound = (rifle || pistol) ? 'rifle.mp3' : '',
+    useGunEffects = Boolean(twoHandedWeapon || rightHandWeapon),
+    attackSound = (twoHandedWeapon || rightHandWeapon) ? 'rifle.mp3' : '',
   }) {
     this.mesh = clone(mesh)
     this.mesh.userData.hitAmount = 0
@@ -70,8 +70,8 @@ export default class Actor {
 
     if (animations?.length && animDict) {
       this.setupMixer(animations, animDict)
-      if (rifle) this.addRifle(clone(rifle))
-      if (pistol) this.addPistol(clone(pistol))
+      if (twoHandedWeapon) this.addTwoHandedWeapon(clone(twoHandedWeapon))
+      if (rightHandWeapon) this.addRightHandWeapon(clone(rightHandWeapon))
     }
 
     if (attackSound) {
@@ -219,13 +219,13 @@ export default class Actor {
     })
   }
 
-  addRifle(mesh) {
+  addTwoHandedWeapon(mesh) {
     if (!this.rightHand || !this.leftHand) this.findHands()
     this.rightHand.add(mesh)
-    this.rifle = mesh
+    this.twoHandedWeapon = mesh
   }
 
-  addPistol(mesh) {
+  addRightHandWeapon(mesh) {
     if (!this.rightHand) this.findHands()
     this.rightHand.add(mesh)
   }
@@ -324,7 +324,7 @@ export default class Actor {
   updateRifle() {
     const pos = new THREE.Vector3()
     this.leftHand.getWorldPosition(pos)
-    this.rifle.lookAt(pos)
+    this.twoHandedWeapon.lookAt(pos)
   }
 
   checkHit() {
@@ -417,7 +417,7 @@ export default class Actor {
 
     this.checkHit()
 
-    if (this.rifle) this.updateRifle()
+    if (this.twoHandedWeapon) this.updateRifle()
     if (this.outOfBounds) this.bounce()
 
     if (this.useGunEffects) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
