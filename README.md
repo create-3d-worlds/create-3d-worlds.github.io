@@ -11,7 +11,7 @@ npx live-server
 
 ## TODO
 
-- merge player i actors folder
+- useHitEffects i decals na Player?
 
 ### Scenes & examples
 

@@ -41,7 +41,8 @@ export default class Actor {
     hitColor = 0x8a0303,
     energy = 100,
     runCoefficient = 2,
-    useGunEffects = Boolean(twoHandedWeapon || rightHandWeapon),
+    useHitEffects = Boolean(twoHandedWeapon || rightHandWeapon),
+    leaveDecals = attackDistance > 10,
     attackSound = '',
   }) {
     this.mesh = clone(mesh)
@@ -65,7 +66,8 @@ export default class Actor {
     this.runCoefficient = runCoefficient
     this.attackDistance = this.depth > attackDistance ? Math.ceil(this.depth) : attackDistance
     this.attackSound = attackSound
-    this.useGunEffects = useGunEffects
+    this.useHitEffects = useHitEffects
+    this.leaveDecals = leaveDecals
     this.actions = {}
 
     if (animations?.length && animDict) {
@@ -79,7 +81,7 @@ export default class Actor {
       this.audio.volume = config.volume
     }
 
-    if (useGunEffects) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
+    if (useHitEffects) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
 
     if (coords) this.position.copy(coords.pop())
 
@@ -236,10 +238,10 @@ export default class Actor {
     return intersect(this.mesh, this.solids, dir.forward, this.height * .75)
   }
 
-  hit(mesh, range = [35, 55]) {
+  hit(mesh, damage = [35, 55]) {
     const distance = this.position.distanceTo(mesh.position)
     if (distance <= this.attackDistance)
-      mesh.userData.hitAmount = randInt(...range)
+      mesh.userData.hitAmount = randInt(...damage)
   }
 
   explode(scene, pos, color) {
@@ -269,8 +271,8 @@ export default class Actor {
       if (belongsTo(object, name)) {
         const mesh = getParent(object, name)
         this.hit(mesh)
-        if (this.useGunEffects) this.explode(scene, point, mesh.userData.hitColor)
-      } else if (this.useGunEffects) {
+        if (this.useHitEffects) this.explode(scene, point, mesh.userData.hitColor)
+      } else if (this.leaveDecals) { // if not hit enemy
         this.explode(scene, point, 0xcccccc)
         shootDecals(intersects[0], { scene, color: 0x000000 })
       }
@@ -420,7 +422,7 @@ export default class Actor {
     if (this.twoHandedWeapon) this.updateRifle()
     if (this.outOfBounds) this.bounce()
 
-    if (this.useGunEffects) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
+    if (this.useHitEffects) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
 
     TWEEN.update()
   }

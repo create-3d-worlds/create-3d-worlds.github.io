@@ -38,8 +38,8 @@ export default class Player extends Actor {
     super.attackAction(name)
   }
 
-  hit(mesh, range = [35, 55]) {
-    super.hit(mesh, range)
+  hit(mesh, damage = [35, 55]) {
+    super.hit(mesh, damage)
   }
 
   /* UTILS */

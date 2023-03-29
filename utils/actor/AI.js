@@ -24,7 +24,8 @@ export default class AI extends Actor {
       input: new Input(false),
       getState: name => getAIState(name, jumpStyle, attackStyle),
       shouldRaycastGround: false,
-      useGunEffects: false,
+      useHitEffects: false,
+      leaveDecals: false,
       ...params,
     })
     if (target) {
