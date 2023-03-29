@@ -42,7 +42,7 @@ export default class Actor {
     energy = 100,
     runCoefficient = 2,
     useGunEffects = Boolean(twoHandedWeapon || rightHandWeapon),
-    attackSound = (twoHandedWeapon || rightHandWeapon) ? 'rifle.mp3' : '',
+    attackSound = '',
   }) {
     this.mesh = clone(mesh)
     this.mesh.userData.hitAmount = 0

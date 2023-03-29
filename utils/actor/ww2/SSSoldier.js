@@ -20,7 +20,7 @@ const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/rifle.fbx', sc
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, twoHandedWeapon, speed: 1.75 }
+const sharedProps = { mesh, animations, animDict, twoHandedWeapon, speed: 1.75, attackSound: 'rifle.mp3' }
 
 export class SSSoldierPlayer extends Player {
   constructor(props = {}) {

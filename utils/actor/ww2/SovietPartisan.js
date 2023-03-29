@@ -23,7 +23,7 @@ const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/mg-42/model.fb
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, twoHandedWeapon, attackStyle: 'LOOP' }
+const sharedProps = { mesh, animations, animDict, twoHandedWeapon, attackStyle: 'LOOP', attackSound: 'rifle.mp3' }
 
 export class SovietPartisanPlayer extends Player {
   constructor(props = {}) {

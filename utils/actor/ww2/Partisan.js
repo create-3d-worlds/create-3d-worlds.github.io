@@ -23,7 +23,7 @@ const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/rifle.fbx', sc
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, twoHandedWeapon, attackDistance: 50 }
+const sharedProps = { mesh, animations, animDict, twoHandedWeapon, attackDistance: 50, attackSound: 'rifle.mp3' }
 
 export class PartisanAI extends AI {
   constructor(props = {}) {

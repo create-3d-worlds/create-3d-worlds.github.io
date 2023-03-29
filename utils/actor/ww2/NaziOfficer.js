@@ -20,7 +20,7 @@ const { mesh: rightHandWeapon } = await loadModel({ file: 'weapon/luger/model.fb
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, rightHandWeapon, speed: 1.9 }
+const sharedProps = { mesh, animations, animDict, rightHandWeapon, speed: 1.9, attackSound: 'rifle.mp3' }
 
 export class NaziOfficerPlayer extends Player {
   constructor(props = {}) {
