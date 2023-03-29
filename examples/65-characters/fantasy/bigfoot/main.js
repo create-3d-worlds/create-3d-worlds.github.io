@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { BigfootPlayer } from '/utils/actors/fantasy/Bigfoot.js'
+import { BigfootPlayer } from '/utils/actor/fantasy/Bigfoot.js'
 
 scene.add(createSun())
 scene.add(createGround({ size: 100 }))

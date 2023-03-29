@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import Maze from '/utils/mazes/Maze.js'
 import { huntAndKill } from '/utils/mazes/algorithms.js'
-import Avatar from '/utils/player/Avatar.js'
+import Avatar from '/utils/actor/Avatar.js'
 import { hemLight } from '/utils/light.js'
 import { createMarble } from '/utils/ground.js'
 

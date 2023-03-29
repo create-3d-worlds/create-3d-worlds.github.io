@@ -1,7 +1,7 @@
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 
-import { SorceressPlayer } from '/utils/actors/fantasy/Sorceress.js'
+import { SorceressPlayer } from '/utils/actor/fantasy/Sorceress.js'
 import { createStoneCircles } from '/utils/geometry/towers.js'
 import { createSun } from '/utils/light.js'
 

@@ -4,7 +4,7 @@ import { createGround } from '/utils/ground.js'
 import { hemLight } from '/utils/light.js'
 import { createFirTrees } from '/utils/geometry/trees.js'
 import input from '/utils/classes/Input.js'
-import Avatar from '/utils/player/Avatar.js'
+import Avatar from '/utils/actor/Avatar.js'
 
 hemLight({ intensity: 1.25 })
 

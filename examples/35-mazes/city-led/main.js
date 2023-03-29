@@ -2,7 +2,7 @@ import { scene, renderer, camera, setBackground } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
 import Maze from '/utils/mazes/Maze.js'
 import { aldousBroder } from '/utils/mazes/algorithms.js'
-import Avatar from '/utils/player/Avatar.js'
+import Avatar from '/utils/actor/Avatar.js'
 import { hemLight } from '/utils/light.js'
 import { material, uniforms } from '/utils/shaders/lightning-led.js'
 

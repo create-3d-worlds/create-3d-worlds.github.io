@@ -4,7 +4,7 @@ import { createMoon } from '/utils/light.js'
 import { createBox } from '/utils/geometry.js'
 import { randomInSquare } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
-import { GhostAI } from '/utils/actors/horror/Ghost.js'
+import { GhostAI } from '/utils/actor/horror/Ghost.js'
 
 const mapSize = 100
 const npcs = []

@@ -1,6 +1,6 @@
 import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { hemLight } from '/utils/light.js'
-import Player from '/utils/player/Player.js'
+import Player from '/utils/actor/Player.js'
 import { createGround } from '/utils/ground.js'
 import Maze from '/utils/mazes/Maze.js'
 

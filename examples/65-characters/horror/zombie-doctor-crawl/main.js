@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { ZombieDoctorCrawlPlayer } from '/utils/actors/horror/ZombieDoctorCrawl.js'
+import { ZombieDoctorCrawlPlayer } from '/utils/actor/horror/ZombieDoctorCrawl.js'
 
 createOrbitControls()
 

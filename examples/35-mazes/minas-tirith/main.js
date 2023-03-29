@@ -3,7 +3,7 @@ import { recursiveBacktracker } from '/utils/mazes/algorithms.js'
 import { scene, createToonRenderer, camera } from '/utils/scene.js'
 import { createSun, ambLight } from '/utils/light.js'
 import { createHill } from '/utils/ground.js'
-import Avatar from '/utils/player/Avatar.js'
+import Avatar from '/utils/actor/Avatar.js'
 
 const rows = 20
 const cellSize = 10

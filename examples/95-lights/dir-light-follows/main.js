@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 
-import { SorceressPlayer } from '/utils/actors/fantasy/Sorceress.js'
+import { SorceressPlayer } from '/utils/actor/fantasy/Sorceress.js'
 import { dirLight, lightFollow } from '/utils/light.js'
 import { createStoneCircles } from '/utils/geometry/towers.js'
 

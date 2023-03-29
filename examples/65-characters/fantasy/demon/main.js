@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { DemonPlayer } from '/utils/actors/fantasy/Demon.js'
+import { DemonPlayer } from '/utils/actor/fantasy/Demon.js'
 
 scene.add(createSun())
 scene.add(createGround({ size: 100 }))

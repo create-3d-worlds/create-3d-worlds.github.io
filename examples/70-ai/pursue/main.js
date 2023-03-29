@@ -1,8 +1,8 @@
 import { camera, scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
 import { ambLight } from '/utils/light.js'
-import { SorceressPlayer } from '/utils/actors/fantasy/Sorceress.js'
-import { OrcOgreAI } from '/utils/actors/fantasy/OrcOgre.js'
+import { SorceressPlayer } from '/utils/actor/fantasy/Sorceress.js'
+import { OrcOgreAI } from '/utils/actor/fantasy/OrcOgre.js'
 
 const mapSize = 100
 const npcs = []

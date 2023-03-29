@@ -1,8 +1,8 @@
 import { camera, scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
 import { ambLight } from '/utils/light.js'
-import { GolemAI } from '/utils/actors/fantasy/Golem.js'
-import { SorceressPlayer } from '/utils/actors/fantasy/Sorceress.js'
+import { GolemAI } from '/utils/actor/fantasy/Golem.js'
+import { SorceressPlayer } from '/utils/actor/fantasy/Sorceress.js'
 
 const mapSize = 100
 const npcs = []
