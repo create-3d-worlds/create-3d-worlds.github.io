@@ -70,7 +70,7 @@ export default class FPSPlayer extends Player {
       transform: translate(-50%, -50%);
       background-color: rgba(242, 242, 242, 0.8);
       border: 3px dashed black;
-      padding: 0 20px 20px 20px;
+      padding: 0 40px 40px 40px;
       text-align: center;
       cursor: crosshair;
     `
