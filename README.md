@@ -11,6 +11,8 @@ npx live-server
 
 ## TODO
 
+- merge player i actors folder
+
 ### Scenes & examples
 
 - FPS / Zombies
@@ -18,13 +20,13 @@ npx live-server
   - scena groblje
 
 - RPG / Fantasy
-  - možda niže da napada, trenutno .75 visine
-  - bug: ostaje raskečena nakon skoka (držati spejs i pustiti pred tlo)
+  - isprobati nove animacije
   - srediti borbu, previše promašuje (videti kako simon dev)
-  - da se ai ne približavaju previše
-  - bacanje magije (pogledati i shadere)
-  - slona 
-  - dodati mač?
+    - možda niže da napada, trenutno .75 visine
+    - da se ai ne približavaju previše
+    - dodati mač, sekiru?
+    - bacanje magije (pogledati i shadere)
+  - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)
   - uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)
 
@@ -90,13 +92,15 @@ Spomenici
 ### Polishing
 
 - popraviti HTML margine?
-- dodati toon-shader gde se slaže
-  https://www.maya-ndljk.com/blog/threejs-basic-toon-shader
-  https://summer-afternoon.vlucendo.com/
-- dodati UI komande
-- dodati komande za dodirne ekrane (strelice i dugmiće)
+DODATI:
+  - toon-shader gde se slaže
+    https://www.maya-ndljk.com/blog/threejs-basic-toon-shader
+    https://summer-afternoon.vlucendo.com/
+  - UI komande
+  - komande za dodirne ekrane (strelice i dugmiće)
+  - reload button
+  - preloader po potrebi
 - probati VR https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
-- dodati preloader po potrebi
 - pauzirati scenu na tab unfocus
 
 ### Publish

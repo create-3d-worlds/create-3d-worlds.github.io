@@ -16,7 +16,7 @@ export default class CameraFollow {
   constructor({ camera, mesh, height = 2, speed = 2,
     offset = [0, height * .95, height * 1.5],
     lookAt = [0, height * .95, 0],
-    aerialOffset = [0, height * 10, -height * 2.75],
+    aerialOffset = [0, height * 8, -height * 2.75],
     aerialLookAt = [0, 0, -height * 3],
   }) {
     this.mesh = mesh

@@ -28,7 +28,7 @@ export default class State {
   /* FSM */
 
   enter(oldState, oldAction) {
-    // if (this.actor.name == 'player') console.log(this.name)
+    if (this.actor.name == 'player') console.log(this.name, this.action)
     this.prevState = oldState?.name
     if (this.action) this.action.enabled = true
   }

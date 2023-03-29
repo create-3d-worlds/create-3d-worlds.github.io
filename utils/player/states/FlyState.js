@@ -1,17 +1,11 @@
 import * as THREE from 'three'
 import State from './State.js'
-import { dir, jumpStyles } from '/utils/constants.js'
+import { dir } from '/utils/constants.js'
 
 export default class FlyState extends State {
   constructor(actor, name) {
     super(actor, name)
     this.maxJumpTime = Infinity
-  }
-
-  get longFalling() {
-    return (this.actor.jumpStyle === jumpStyles.FLY_JUMP || this.actor.jumpStyle === jumpStyles.FLY && !this.input.space)
-        && this.jumpTime > 10
-        && this.actor.velocity.y <= 0
   }
 
   enter(oldState, oldAction) {
@@ -52,9 +46,6 @@ export default class FlyState extends State {
     actor.applyVelocityY()
 
     /* TRANSIT */
-
-    if (this.longFalling)
-      actor.setState('fall')
 
     if (actor.velocity.y <= 0 && !actor.inAir) {
       actor.velocity.y = 0
