@@ -15,6 +15,9 @@ npx live-server
 
 ### Scenes & examples
 
+- Graveyard
+  - da se zombiji spawnuju svako malo, izlaze iz zemlje naokolo (možda iz dima)
+
 - FPS / Zombies
   - merge fps-zombie-player i graveyard
 

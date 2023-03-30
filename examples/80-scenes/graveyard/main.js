@@ -18,25 +18,24 @@ camera.lookAt(scene.position)
 scene.add(createMoon({ intensity: .5, position: [15, 30, -30] }))
 scene.add(createGround({ size: mapSize }))
 
-const obstacles = []
+const solids = []
 const coords = getAllCoords({ mapSize, fieldSize: 1 })
 
 for (let i = 0; i < 60; i++) {
   const { x, z } = coords.pop()
-  const tombstone = createTombstone({ x, y: -1, z })
-  obstacles.push(tombstone)
-  scene.add(tombstone)
+  const tombstone = createTombstone({ x, z })
+  solids.push(tombstone)
 }
 
 for (let i = 0; i < 30; i++) {
   const npc = new GhostAI({ coords, mapSize })
   npcs.push(npc)
-  scene.add(npc.mesh)
+  solids.push(npc.mesh)
 }
 
-const player = new ResistanceFighterPlayer({ camera, solids: obstacles })
-player.addSolids(npcs.map(ai => ai.mesh))
+const player = new ResistanceFighterPlayer({ camera, solids })
 scene.add(player.mesh)
+scene.add(...solids)
 
 /* LOOP */
 
