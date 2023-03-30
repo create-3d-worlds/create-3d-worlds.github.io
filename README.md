@@ -11,6 +11,8 @@ npx live-server
 
 ## TODO
 
+- obrisati svetla, nešto prebaciti u primere
+
 ### Scenes & examples
 
 - FPS / Zombies

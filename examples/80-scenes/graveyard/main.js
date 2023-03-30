@@ -4,7 +4,7 @@ import { createMoon } from '/utils/light.js'
 import { getAllCoords } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
 import { GhostAI } from '/utils/actor/horror/Ghost.js'
-import { PartisanPlayer } from '/utils/actor/ww2/Partisan.js'
+import { ResistanceFighterPlayer } from '/utils/actor/ww2/ResistanceFighter.js'
 
 const mapSize = 100
 const npcs = []
@@ -29,12 +29,13 @@ for (let i = 0; i < 60; i++) {
 }
 
 for (let i = 0; i < 30; i++) {
-  const npc = new GhostAI({ coords, solids: obstacles })
+  const npc = new GhostAI({ coords, mapSize })
   npcs.push(npc)
   scene.add(npc.mesh)
 }
 
-const player = new PartisanPlayer({ camera, solids: obstacles })
+const player = new ResistanceFighterPlayer({ camera, solids: obstacles })
+player.addSolids(npcs.map(ai => ai.mesh))
 scene.add(player.mesh)
 
 /* LOOP */

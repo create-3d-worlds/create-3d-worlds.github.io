@@ -42,7 +42,7 @@ export default class Actor {
     energy = 100,
     runCoefficient = 2,
     useHitEffects = Boolean(twoHandedWeapon || rightHandWeapon),
-    leaveDecals = attackDistance > 10,
+    leaveDecals = attackDistance > 5,
     attackSound = '',
   }) {
     this.mesh = clone(mesh)
