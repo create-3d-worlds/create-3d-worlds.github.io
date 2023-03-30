@@ -11,29 +11,6 @@ const raycaster = new THREE.Raycaster()
 export const mapRange = (number, inMin, inMax, outMin, outMax) =>
   (number - inMin) * (outMax - outMin) / (inMax - inMin) + outMin
 
-export function randomInCircle(radius, emptyCenter = 0) {
-  const random = emptyCenter ? randFloat(emptyCenter, 1) : Math.random()
-  const r = Math.sqrt(random) * radius
-  const angle = Math.random() * Math.PI * 2
-  const x = Math.cos(angle) * r
-  const z = Math.sin(angle) * r
-  return { x, z }
-}
-
-const randomBool = () => Math.random() < 0.5
-
-const randomInRangeExcluded = (min, max, minExclude, maxExclude) =>
-  randomBool() ? randFloat(min, minExclude) : randFloat(maxExclude, max)
-
-export function randomInSquare(size, emptyCenter = 0) {
-  const halfSize = size * .5
-  const x = randFloatSpread(size)
-  const z = x > -emptyCenter && x < emptyCenter
-    ? randomInRangeExcluded(-halfSize, halfSize, -emptyCenter, emptyCenter)
-    : randFloatSpread(size)
-  return randomBool() ? { x, y: 0, z } : { x: z, y: 0, z: x }
-}
-
 /*
   @return shuffled coordinates for given mapSize
 */
