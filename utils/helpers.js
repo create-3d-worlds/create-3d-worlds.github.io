@@ -209,13 +209,10 @@ export const putOnTerrain = (mesh, solids, adjustment = 0) => {
   mesh.position.y = getGroundY({ solids, pos: mesh.position }) + adjustment
 }
 
-// TODO: use coords, remove recursive
-export const findGroundRecursive = (terrain, size, counter = 0) => {
-  const coord = randomInSquare(size)
-  const intersect = findGround({ solids: terrain, pos: coord, y: 200 })
-  if (intersect?.point?.y > 0) return intersect.point
-  if (counter > 5) return null
-  return findGroundRecursive(terrain, size, counter + 1)
+export const findGroundRecursive = (solids, coords) => {
+  const coord = coords.pop()
+  const intersect = findGround({ solids, pos: coord, y: 200 })
+  return (intersect?.point?.y > 0) ? intersect.point : null
 }
 
 const raycast = (mesh, dir, y) => {

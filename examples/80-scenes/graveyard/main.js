@@ -29,9 +29,9 @@ for (let i = 0; i < 60; i++) {
 }
 
 for (let i = 0; i < 30; i++) {
-  const npc = new GhostAI({ coords, mapSize })
-  npcs.push(npc)
-  scene.add(npc.mesh)
+  const ghost = new GhostAI({ coords, mapSize })
+  npcs.push(ghost)
+  scene.add(ghost.mesh)
 }
 
 const player = new ResistanceFighterPlayer({ camera, solids })
@@ -43,18 +43,15 @@ scene.add(...solids)
 
 const zombies = ['GothGirl', 'ZombieBarefoot', 'ZombieCop', 'ZombieDoctor', 'ZombieGuard']
 
-function spawnZombie(interval) {
+async function spawnZombie(interval) {
   if (Date.now() - last >= interval) {
     const name = sample(zombies)
-
-    import(`/utils/actor/horror/${name}.js`)
-      .then(obj => {
-        const ZombieClass = obj[name + 'AI']
-        const zombie = new ZombieClass({ target: player.mesh, solids, coord: sample(coords) })
-        player.addSolids(zombie.mesh)
-        scene.add(zombie.mesh)
-        npcs.push(zombie)
-      })
+    const obj = await import(`/utils/actor/horror/${name}.js`)
+    const ZombieClass = obj[name + 'AI']
+    const zombie = new ZombieClass({ target: player.mesh, solids, coord: sample(coords) })
+    player.addSolids(zombie.mesh)
+    scene.add(zombie.mesh)
+    npcs.push(zombie)
 
     last = Date.now()
   }
@@ -65,9 +62,9 @@ function spawnZombie(interval) {
 void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
+
   player.update(delta)
   npcs.forEach(npc => npc.update(delta))
-
   spawnZombie(10000)
 
   renderer.render(scene, camera)

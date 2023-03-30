@@ -16,6 +16,7 @@ npx live-server
 ### Scenes & examples
 
 - Graveyard
+  - srediti default distancu kamere, uporediti rpg
   - da zombiji izlaze iz zemlje (ili dima)
   - srediti ptičju perspektivu
     - da bude default?
