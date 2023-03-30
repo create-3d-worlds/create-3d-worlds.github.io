@@ -84,10 +84,7 @@ export default class Particles {
 
   }
 
-  /**
-   * expands particles from center according to unitAngle and velocity
-   */
-  expand({ velocity = 1.1, maxRounds = 50, gravity = 0 } = {}) { // velocity < 1 reverses direction
+  fadeOut(maxRounds) {
     const { mesh } = this
     if (++this.t > maxRounds) {
       mesh.visible = false
@@ -95,8 +92,16 @@ export default class Particles {
     }
 
     mesh.material.opacity = 1 - this.t / maxRounds
-    const { position } = mesh.geometry.attributes
+  }
 
+  /**
+   * expands particles from center according to unitAngle and velocity
+   */
+  expand({ velocity = 1.1, maxRounds = 50, gravity = 0 } = {}) { // velocity < 1 reverses direction
+    if (!this.mesh.visible) return
+    this.fadeOut(maxRounds)
+
+    const { position } = this.mesh.geometry.attributes
     const vertex = new THREE.Vector3()
     for (let i = 0, l = position.count; i < l; i++) {
       vertex.fromBufferAttribute(position, i)
@@ -111,10 +116,13 @@ export default class Particles {
   /**
    * moves particles vertically or horizontally according to axis
    */
-  update({ delta = 1 / 60, min = -500, max = 500, axis = 2, minVelocity = 50, maxVelocity = 300, loop = true, pos, rotateY } = {}) {
+  update({ delta = 1 / 60, min = -500, max = 500, axis = 2, minVelocity = 50, maxVelocity = 300, loop = true, maxRounds = 250, pos, rotateY } = {}) {
+    if (!this.mesh.visible) return
+    if (!loop) this.fadeOut(maxRounds)
+
     const { geometry } = this.mesh
-    if (!geometry.attributes.velocity) addVelocity({ geometry, minVelocity, maxVelocity })
     const { position, velocity } = geometry.attributes
+    if (!velocity) addVelocity({ geometry, minVelocity, maxVelocity })
 
     velocity.array.forEach((vel, i) => {
       const index = 3 * i + axis
@@ -181,13 +189,8 @@ export class Flame extends Particles {
     super({ num, file, size, minRadius, maxRadius, color, ...rest })
   }
 
-  update({ delta, min = 0, max = 8, axis = 2, minVelocity = 5, maxVelocity = 10, loop = true, ...rest } = {}) {
-    if (this.mesh.material.opacity <= 0) return
-
-    super.update({ delta, min, max, axis, minVelocity, maxVelocity, loop, ...rest })
-
-    if (!loop)
-      this.mesh.material.opacity -= 1.75 * delta
+  update({ delta, min = 0, max = 8, axis = 2, minVelocity = 5, maxVelocity = 10, ...rest } = {}) {
+    super.update({ delta, min, max, axis, minVelocity, maxVelocity, ...rest })
   }
 }
 
@@ -197,12 +200,7 @@ export class Smoke extends Particles {
     this.mesh.rotateX(Math.PI)
   }
 
-  update({ delta, loop = true, rotateY = .009, min = -4, max = 0, minVelocity = 2, maxVelocity = 5, ...rest } = {}) {
-    if (this.mesh.material.opacity <= 0) return
-
-    super.update({ loop, rotateY, min, max, minVelocity, maxVelocity, axis: 1, ...rest })
-
-    if (!loop)
-      this.mesh.material.opacity -= .2 * delta
+  update({ rotateY = .009, min = -4, max = 0, minVelocity = 2, maxVelocity = 5, ...rest } = {}) {
+    super.update({ rotateY, min, max, minVelocity, maxVelocity, axis: 1, ...rest })
   }
 }
