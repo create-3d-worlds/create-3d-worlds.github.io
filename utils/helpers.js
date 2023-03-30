@@ -209,12 +209,6 @@ export const putOnTerrain = (mesh, solids, adjustment = 0) => {
   mesh.position.y = getGroundY({ solids, pos: mesh.position }) + adjustment
 }
 
-export const findGroundRecursive = (solids, coords) => {
-  const coord = coords.pop()
-  const intersect = findGround({ solids, pos: coord, y: 200 })
-  return (intersect?.point?.y > 0) ? intersect.point : null
-}
-
 const raycast = (mesh, dir, y) => {
   const direction = dir.clone().applyQuaternion(mesh.quaternion)
   const bodyCenter = mesh.position.clone()
