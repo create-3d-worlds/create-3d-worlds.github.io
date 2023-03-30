@@ -12,6 +12,7 @@ npx live-server
 ## TODO
 
 - obrisati svetla, nešto prebaciti u primere
+- AI remove initial random position, update examples with coords
 
 ### Scenes & examples
 

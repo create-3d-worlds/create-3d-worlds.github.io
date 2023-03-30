@@ -40,9 +40,6 @@ export default class AI extends Actor {
     this.randomizeAction()
     this.mesh.rotateY(Math.random() * Math.PI * 2)
 
-    if (params.mapSize && !params.coords)
-      this.position.set(randFloatSpread(params.mapSize), 0, randFloatSpread(params.mapSize))
-
     this.setState(baseState)
   }
 

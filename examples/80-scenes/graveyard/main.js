@@ -52,7 +52,9 @@ async function spawnZombie(interval) {
     const name = sample(zombies)
     const obj = await import(`/utils/actor/horror/${name}.js`)
     const ZombieClass = obj[name + 'AI']
-    const zombie = new ZombieClass({ mapSize, target: player.mesh, solids, coord: sample(coords) })
+    const coord = sample(coords)
+    const zombie = new ZombieClass({ mapSize, target: player.mesh, solids, coords: [coord] })
+    particles.reset({ pos: [coord.x, coord.y, coord.z] })
     player.addSolids(zombie.mesh)
     scene.add(zombie.mesh)
     npcs.push(zombie)

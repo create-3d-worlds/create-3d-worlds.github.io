@@ -78,6 +78,7 @@ export default class Particles {
     const { mesh } = this
     this.t = 0
     mesh.visible = true
+    mesh.material.opacity = 1
     setPosition(mesh, pos)
 
     const { position } = mesh.geometry.attributes
