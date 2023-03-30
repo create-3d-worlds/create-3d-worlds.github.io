@@ -14,7 +14,7 @@ import { ZombieDoctorAI } from '/utils/actor/horror/ZombieDoctor.js'
 import { ZombieGuardAI } from '/utils/actor/horror/ZombieGuard.js'
 
 import Maze from '/utils/mazes/Maze.js'
-import { truePrims } from '/utils/mazes/algorithms.js'
+import { recursiveBacktracker } from '/utils/mazes/algorithms.js'
 
 setBackground(0x070b34)
 const light = hemLight({ intensity: .75 })
@@ -24,8 +24,8 @@ scene.add(createGround({ file: 'terrain/ground.jpg' }))
 const rain = new Rain()
 scene.add(rain.mesh)
 
-const maze = new Maze(4, 4, truePrims, 20)
-const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
+const maze = new Maze(5, 10, recursiveBacktracker, 5)
+const walls = maze.toTiledMesh({ texture: 'walls/stonetiles.jpg', maxHeight: 6 })
 const coords = maze.getEmptyCoords(true)
 maze.braid()
 const solids = [walls]
@@ -39,7 +39,7 @@ player.putInMaze(maze)
 scene.add(player.mesh)
 
 const enemies = []
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 10; i++) {
   const EnemyClass = sample(enemyClasses)
   const enemy = new EnemyClass({ coords, target: player.mesh })
   enemies.push(enemy)

@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Zombies
-  - dodati PartisanAimFPSPlayer u neki lavirint, ukinuti fps-zombie
   - merge fps-zombie-player i graveyard
 
 - RPG / Fantasy
