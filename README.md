@@ -17,6 +17,8 @@ npx live-server
 
 - Graveyard
   - da se zombiji spawnuju svako malo, izlaze iz zemlje naokolo (možda iz dima)
+  - srediti ptičju perspektivu
+    - da bude default?
 
 - FPS / Zombies
   - merge fps-zombie-player i graveyard
