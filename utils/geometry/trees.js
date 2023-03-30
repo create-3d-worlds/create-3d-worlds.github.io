@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { similarColor, findGround, getAllCoords, maxItems } from '/utils/helpers.js'
+import { similarColor, findGround, getShuffledCoords, maxItems } from '/utils/helpers.js'
 
 const { randFloat } = THREE.MathUtils
 
@@ -151,7 +151,7 @@ export function createSimpleFir({ size = 12, x = 0, y = 0, z = 0 } = {}) {
 
 /* FACTORIES */
 
-export function createTrees({ mapSize = 100, size = 4, n = maxItems(mapSize, size) / 4, nFirTrees = 0, coords = getAllCoords({ mapSize, fieldSize: size }) } = {}) {
+export function createTrees({ mapSize = 100, size = 4, n = maxItems(mapSize, size) / 4, nFirTrees = 0, coords = getShuffledCoords({ mapSize, fieldSize: size }) } = {}) {
   const group = new THREE.Group()
   for (let i = 0; i < n; i++) {
     const { x, z } = coords.pop()
@@ -166,7 +166,7 @@ export function createTrees({ mapSize = 100, size = 4, n = maxItems(mapSize, siz
 
 export const createFirTrees = ({ mapSize = 100, size = 5, n = maxItems(mapSize, size) / 4, ...params } = {}) => createTrees({ mapSize, size, nFirTrees: n, n: 0, ...params })
 
-export const createTreesOnTerrain = ({ terrain, n = 100, mapSize = 400, size, coords = getAllCoords({ mapSize, fieldSize: size }) } = {}) => {
+export const createTreesOnTerrain = ({ terrain, n = 100, mapSize = 400, size, coords = getShuffledCoords({ mapSize, fieldSize: size }) } = {}) => {
   const group = new THREE.Group()
   for (let i = 0; i < n; i++) {
     const intersect = findGround({ solids: terrain, pos: coords.pop(), y: 200 })

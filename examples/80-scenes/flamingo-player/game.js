@@ -2,13 +2,13 @@ import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createHillyTerrain } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { createSun } from '/utils/light.js'
-import { sample, getAllCoords } from '/utils/helpers.js'
+import { sample, getShuffledCoords } from '/utils/helpers.js'
 import { OrcAI } from '/utils/actor/fantasy/Orc.js'
 import { OrcOgreAI } from '/utils/actor/fantasy/OrcOgre.js'
 import { FlamingoAI, FlamingoPlayer } from '/utils/actor/Flamingo.js'
 
 const mapSize = 200
-const coords = getAllCoords({ mapSize: mapSize * .9, fieldSize: 5 })
+const coords = getShuffledCoords({ mapSize: mapSize * .9, fieldSize: 5 })
 scene.add(createSun())
 
 const terrain = createHillyTerrain({ size: mapSize, segments: 20 })

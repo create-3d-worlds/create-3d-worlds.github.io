@@ -1,7 +1,7 @@
 import { camera, scene, renderer, setBackground, clock } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { createMoon } from '/utils/light.js'
-import { getAllCoords, sample } from '/utils/helpers.js'
+import { getShuffledCoords, sample } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
 import { GhostAI } from '/utils/actor/horror/Ghost.js'
 import { ResistanceFighterPlayer } from '/utils/actor/ww2/ResistanceFighter.js'
@@ -10,7 +10,7 @@ import { Smoke } from '/utils/classes/Particles.js'
 const mapSize = 100
 const npcs = []
 const solids = []
-const coords = getAllCoords({ mapSize, fieldSize: 1 })
+const coords = getShuffledCoords({ mapSize, fieldSize: 1 })
 
 let last = Date.now()
 

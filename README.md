@@ -17,6 +17,7 @@ npx live-server
 
 - Graveyard
   - napad igrača da bude tečan
+  - možda pokoje drvo (osušeno)
 
 - RPG / Fantasy
   - naći animacije koje se više slažu sa sekirom (trčanje i sl)

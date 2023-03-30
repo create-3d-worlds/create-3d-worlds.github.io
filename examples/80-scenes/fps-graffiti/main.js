@@ -2,12 +2,12 @@ import * as THREE from 'three'
 import { camera, scene, renderer, clock } from '/utils/scene.js'
 import { createMoon } from '/utils/light.js'
 import { createGraffitiCity } from '/utils/city.js'
-import { getAllCoords } from '/utils/helpers.js'
+import { getShuffledCoords } from '/utils/helpers.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import { SSSoldierAI } from '/utils/actor/ww2/SSSoldier.js'
 
 const mapSize = 200
-const coords = getAllCoords({ mapSize })
+const coords = getShuffledCoords({ mapSize })
 
 scene.fog = new THREE.FogExp2(0xF6F1D5, 0.0055)
 scene.add(createMoon())

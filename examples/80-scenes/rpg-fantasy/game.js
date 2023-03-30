@@ -2,7 +2,7 @@ import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createHillyTerrain } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { createSun } from '/utils/light.js'
-import { sample, getAllCoords, putOnTerrain } from '/utils/helpers.js'
+import { sample, getShuffledCoords, putOnTerrain } from '/utils/helpers.js'
 import { BarbarianPlayer } from '/utils/actor/fantasy/Barbarian.js'
 import { OrcAI } from '/utils/actor/fantasy/Orc.js'
 import { OrcOgreAI } from '/utils/actor/fantasy/OrcOgre.js'
@@ -15,7 +15,7 @@ const mapSize = 400
 const enemyClasses = [OrcAI, OrcOgreAI]
 const npcs = []
 
-const coords = getAllCoords({ mapSize: mapSize * .9, fieldSize: 5 })
+const coords = getShuffledCoords({ mapSize: mapSize * .9, fieldSize: 5 })
 scene.add(createSun({ position: [15, 100, 50] }))
 
 const terrain = createHillyTerrain({ size: mapSize, factorY: 30 })
