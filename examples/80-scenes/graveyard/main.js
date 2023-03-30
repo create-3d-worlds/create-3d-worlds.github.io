@@ -1,4 +1,4 @@
-import { camera, scene, renderer, createOrbitControls, setBackground, clock } from '/utils/scene.js'
+import { camera, scene, renderer, setBackground, clock } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { createMoon } from '/utils/light.js'
 import { getAllCoords, sample } from '/utils/helpers.js'
@@ -8,25 +8,25 @@ import { ResistanceFighterPlayer } from '/utils/actor/ww2/ResistanceFighter.js'
 
 const mapSize = 100
 const npcs = []
+const solids = []
+const coords = getAllCoords({ mapSize, fieldSize: 1 })
+
 let last = Date.now()
+
+/* SCENE */
 
 setBackground(0x070b34)
 
-createOrbitControls()
-camera.position.set(15, 5, 30)
-camera.lookAt(scene.position)
-
 scene.add(createMoon({ intensity: .5, position: [15, 30, -30] }))
 scene.add(createGround({ size: mapSize }))
-
-const solids = []
-const coords = getAllCoords({ mapSize, fieldSize: 1 })
 
 for (let i = 0; i < 60; i++) {
   const { x, z } = coords.pop()
   const tombstone = createTombstone({ x, z })
   solids.push(tombstone)
 }
+
+/* ACTORS */
 
 for (let i = 0; i < 30; i++) {
   const ghost = new GhostAI({ coords, mapSize })
@@ -38,8 +38,6 @@ const player = new ResistanceFighterPlayer({ camera, solids })
 player.cameraFollow.distance = 1.5
 scene.add(player.mesh)
 scene.add(...solids)
-
-/* FUNCTIONS */
 
 const zombies = ['GothGirl', 'ZombieBarefoot', 'ZombieCop', 'ZombieDoctor', 'ZombieGuard']
 
