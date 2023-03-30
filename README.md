@@ -16,7 +16,7 @@ npx live-server
 ### Scenes & examples
 
 - Graveyard
-  - da se zombiji spawnuju svako malo, izlaze iz zemlje naokolo (možda iz dima)
+  - da zombiji izlaze iz zemlje (ili dima)
   - srediti ptičju perspektivu
     - da bude default?
 

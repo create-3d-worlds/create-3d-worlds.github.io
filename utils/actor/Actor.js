@@ -36,6 +36,7 @@ export default class Actor {
     twoHandedWeapon,
     rightHandWeapon,
     mapSize,
+    coord,
     coords,
     attackDistance,
     hitColor = 0x8a0303,
@@ -83,6 +84,7 @@ export default class Actor {
 
     if (useHitEffects) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
 
+    if (coord) this.position.copy(coord)
     if (coords) this.position.copy(coords.pop())
 
     if (solids) {

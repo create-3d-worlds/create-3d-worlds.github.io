@@ -43,18 +43,17 @@ scene.add(...solids)
 
 const zombies = ['GothGirl', 'ZombieBarefoot', 'ZombieCop', 'ZombieDoctor', 'ZombieGuard']
 
-function spawnEvery(interval) {
+function spawnZombie(interval) {
   if (Date.now() - last >= interval) {
     const name = sample(zombies)
 
     import(`/utils/actor/horror/${name}.js`)
       .then(obj => {
         const ZombieClass = obj[name + 'AI']
-        const zombie = new ZombieClass({ target: player.mesh })
-        zombie.position = sample(coords)
-        npcs.push(zombie)
+        const zombie = new ZombieClass({ target: player.mesh, solids, coord: sample(coords) })
         player.addSolids(zombie.mesh)
         scene.add(zombie.mesh)
+        npcs.push(zombie)
       })
 
     last = Date.now()
@@ -69,7 +68,7 @@ void function loop() {
   player.update(delta)
   npcs.forEach(npc => npc.update(delta))
 
-  spawnEvery(10000)
+  spawnZombie(10000)
 
   renderer.render(scene, camera)
 }()
