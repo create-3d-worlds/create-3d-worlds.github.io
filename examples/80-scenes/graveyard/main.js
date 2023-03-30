@@ -54,7 +54,7 @@ async function spawnZombie(interval) {
     const ZombieClass = obj[name + 'AI']
     const coord = sample(coords)
     const zombie = new ZombieClass({ mapSize, target: player.mesh, solids, coords: [coord] })
-    particles.reset({ pos: [coord.x, coord.y, coord.z] })
+    particles.reset({ pos: coord })
     player.addSolids(zombie.mesh)
     scene.add(zombie.mesh)
     npcs.push(zombie)

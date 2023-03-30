@@ -6,13 +6,6 @@ import config from '/config.js'
 const { randFloat } = THREE.MathUtils
 const textureLoader = new THREE.TextureLoader()
 
-const setPosition = (mesh, pos) => {
-  if (Array.isArray(pos))
-    mesh.position.set(...pos)
-  else
-    mesh.position.copy(pos)
-}
-
 function addVelocity({ geometry, minVelocity = .5, maxVelocity = 3 } = {}) {
   const velocities = []
   for (let i = 0; i < geometry.attributes.position.count; i++)
@@ -74,12 +67,12 @@ export default class Particles {
     return this.mesh
   }
 
-  reset({ pos = [0, 0, 0], unitAngle = 1, color } = {}) {
+  reset({ pos = { x: 0, y: 0, z: 0 }, unitAngle = 1, color } = {}) {
     const { mesh } = this
     this.t = 0
     mesh.visible = true
     mesh.material.opacity = 1
-    setPosition(mesh, pos)
+    mesh.position.copy(pos)
 
     const { position } = mesh.geometry.attributes
     for (let i = 0, l = position.array.length; i < l; i++)

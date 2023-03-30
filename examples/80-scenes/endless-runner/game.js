@@ -99,7 +99,7 @@ function addTreeOrTwo() {
 }
 
 const hit = tree => {
-  explosion.reset({ pos: [player.position.x, 2, 4.8], unitAngle: 0.2 })
+  explosion.reset({ pos: { x: player.position.x, y: 2, z: 4.8 }, unitAngle: 0.2 })
   updateScore()
   tree.visible = false
   setTimeout(() => {

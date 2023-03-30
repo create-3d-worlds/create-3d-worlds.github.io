@@ -18,6 +18,5 @@ void function render() {
 /* EVENT */
 
 document.addEventListener('click', e => {
-  const { x, y, z } = mouseToWorld(e, camera)
-  explosion.reset({ pos: [x, y, z], unitAngle: 0.1 })
+  explosion.reset({ pos: mouseToWorld(e, camera), unitAngle: 0.1 })
 })
