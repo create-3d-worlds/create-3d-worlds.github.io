@@ -16,13 +16,8 @@ npx live-server
 ### Scenes & examples
 
 - Graveyard
-  - srediti default distancu kamere, uporediti rpg
   - da zombiji izlaze iz zemlje (ili dima)
-  - srediti ptičju perspektivu
-    - da bude default?
-
-- FPS / Zombies
-  - merge fps-zombie-player i graveyard
+  - srediti napad da bude tečan
 
 - RPG / Fantasy
   - naći animacije koje se više slažu sa sekirom (trčanje i sl)

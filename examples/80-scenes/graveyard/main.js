@@ -45,15 +45,15 @@ const zombies = ['GothGirl', 'ZombieBarefoot', 'ZombieCop', 'ZombieDoctor', 'Zom
 
 async function spawnZombie(interval) {
   if (Date.now() - last >= interval) {
+    last = Date.now()
+
     const name = sample(zombies)
     const obj = await import(`/utils/actor/horror/${name}.js`)
     const ZombieClass = obj[name + 'AI']
-    const zombie = new ZombieClass({ target: player.mesh, solids, coord: sample(coords) })
+    const zombie = new ZombieClass({ mapSize, target: player.mesh, solids, coord: sample(coords) })
     player.addSolids(zombie.mesh)
     scene.add(zombie.mesh)
     npcs.push(zombie)
-
-    last = Date.now()
   }
 }
 
