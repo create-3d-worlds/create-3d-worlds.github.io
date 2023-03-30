@@ -5,6 +5,7 @@ import { getAllCoords, sample } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
 import { GhostAI } from '/utils/actor/horror/Ghost.js'
 import { ResistanceFighterPlayer } from '/utils/actor/ww2/ResistanceFighter.js'
+import { Smoke } from '/utils/classes/Particles.js'
 
 const mapSize = 100
 const npcs = []
@@ -14,6 +15,9 @@ const coords = getAllCoords({ mapSize, fieldSize: 1 })
 let last = Date.now()
 
 /* SCENE */
+
+const particles = new Smoke({ size: 1, num: 100, minRadius: 0, maxRadius: .5 })
+scene.add(particles.mesh)
 
 setBackground(0x070b34)
 
@@ -64,6 +68,8 @@ void function loop() {
   player.update(delta)
   npcs.forEach(npc => npc.update(delta))
   spawnZombie(10000)
+
+  particles.update({ delta, min: -1, max: 0, minVelocity: .2, maxVelocity: .5, loop: false })
 
   renderer.render(scene, camera)
 }()

@@ -16,7 +16,7 @@ npx live-server
 ### Scenes & examples
 
 - Graveyard
-  - da zombiji izlaze iz zemlje (ili dima)
+  - da zombiji izlaze iz dima (ili bilo kakav fade in)
   - srediti napad da bude tečan
 
 - RPG / Fantasy

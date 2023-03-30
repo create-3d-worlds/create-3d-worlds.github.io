@@ -203,7 +203,12 @@ export class Smoke extends Particles {
     this.mesh.rotateX(Math.PI)
   }
 
-  update(params = {}) {
-    super.update({ rotateY: .009, min: -4, max: 0, minVelocity: 2, maxVelocity: 5, axis: 1, ...params })
+  update({ delta, loop = true, rotateY = .009, min = -4, max = 0, minVelocity = 2, maxVelocity = 5, ...rest } = {}) {
+    if (this.mesh.material.opacity <= 0) return
+
+    super.update({ loop, rotateY, min, max, minVelocity, maxVelocity, axis: 1, ...rest })
+
+    if (!loop)
+      this.mesh.material.opacity -= .2 * delta
   }
 }
