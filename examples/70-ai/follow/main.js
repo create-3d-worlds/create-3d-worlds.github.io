@@ -3,9 +3,11 @@ import { createFloor } from '/utils/ground.js'
 import { ambLight } from '/utils/light.js'
 import { SorceressPlayer } from '/utils/actor/fantasy/Sorceress.js'
 import { GolemAI } from '/utils/actor/fantasy/Golem.js'
+import { getAllCoords } from '/utils/helpers.js'
 
 const mapSize = 100
 const npcs = []
+const coords = getAllCoords({ mapSize })
 
 ambLight()
 camera.position.set(0, 10, 15)
@@ -19,7 +21,7 @@ scene.add(player.mesh)
 const solids = []
 
 for (let i = 0; i < 10; i++) {
-  const ai = new GolemAI({ mapSize, baseState: 'follow', target: player.mesh })
+  const ai = new GolemAI({ mapSize, coords, baseState: 'follow', target: player.mesh })
   npcs.push(ai)
   solids.push(ai.mesh)
   scene.add(ai.mesh)

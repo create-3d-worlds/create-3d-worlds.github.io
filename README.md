@@ -12,13 +12,11 @@ npx live-server
 ## TODO
 
 - obrisati svetla, nešto prebaciti u primere
-- AI remove initial random position, update examples with coords
 
 ### Scenes & examples
 
 - Graveyard
-  - da zombiji izlaze iz dima (ili bilo kakav fade in)
-  - srediti napad da bude tečan
+  - napad igrača da bude tečan
 
 - RPG / Fantasy
   - naći animacije koje se više slažu sa sekirom (trčanje i sl)
