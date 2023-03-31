@@ -52,7 +52,6 @@ export default class Player extends Actor {
   } = {}) {
     super({ input, jumpStyle, getState, shouldRaycastGround, attackDistance, ...params })
     this.name = 'player'
-    this.shouldAlignCamera = Boolean(this.cameraFollow)
 
     if (useJoystick) this.input.joystick = new JoyStick()
 
@@ -60,6 +59,7 @@ export default class Player extends Actor {
       this.cameraFollow = new CameraFollow({ camera, mesh: this.mesh, height: this.height })
       this.orbitControls = createOrbitControls()
       this.orbitControls.mouseButtons = { RIGHT: THREE.MOUSE.ROTATE }
+      this.shouldAlignCamera = true
       addCameraButton(this)
     }
   }
