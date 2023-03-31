@@ -12,7 +12,7 @@ export default class AttackLoopState extends State {
     this.actor.attackAction()
 
     if (this.action) {
-      this.transitFrom(oldAction, .5)
+      this.transitFrom(oldAction, .25)
       this.actor.mixer.addEventListener('loop', this.attackAgain)
     }
   }

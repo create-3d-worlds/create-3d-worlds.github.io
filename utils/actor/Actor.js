@@ -256,7 +256,7 @@ export default class Actor {
   }
 
   attackAction(name) {
-    const timeToHit = this.action ? this.action.getClip().duration * 500 : 200
+    const timeToHit = this.action ? (this.action.getClip().duration * 1000 * .33) : 200
 
     setTimeout(() => {
       if (this.attackSound) this.playAttackSound()
