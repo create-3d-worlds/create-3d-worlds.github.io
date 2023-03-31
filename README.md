@@ -11,11 +11,12 @@ npx live-server
 
 ## TODO
 
+- dodati crveni fps pain i ostalim igračima
+
 ### Scenes & examples
 
 - Graveyard
-  - napad igrača da bude tečan
-  - možda pokoje drvo (osušeno)
+  - možda pokoje drvo (osušeno) i drugo za atmosferu
 
 - RPG / Fantasy
   - naći animacije koje se više slažu sa sekirom (trčanje i sl)

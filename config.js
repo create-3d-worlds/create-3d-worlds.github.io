@@ -1,3 +1,3 @@
 export default {
-  volume: 0 // .4
+  volume: .4 // .4
 }

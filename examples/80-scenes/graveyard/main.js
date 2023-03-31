@@ -69,7 +69,7 @@ void function loop() {
 
   player.update(delta)
   npcs.forEach(npc => npc.update(delta))
-  spawnZombie(10000)
+  // spawnZombie(10000)
 
   particles.update({ delta, min: -1, max: 0, minVelocity: .2, maxVelocity: .5, loop: false })
 

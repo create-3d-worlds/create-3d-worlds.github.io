@@ -12,7 +12,7 @@ export default class Player extends Actor {
   constructor({
     input = defaultKeyboard,
     useJoystick,
-    attackStyle = attackStyles.ONCE,
+    attackStyle = attackStyles.LOOP,
     jumpStyle = jumpStyles.FALSE_JUMP,
     getState = name => getPlayerState(name, jumpStyle, attackStyle),
     shouldRaycastGround = true,

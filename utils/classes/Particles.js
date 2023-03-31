@@ -121,9 +121,9 @@ export default class Particles {
     if (!loop) this.fadeOut(maxRounds)
 
     const { geometry } = this.mesh
-    const { position, velocity } = geometry.attributes
-    if (!velocity) addVelocity({ geometry, minVelocity, maxVelocity })
+    if (!geometry.attributes.velocity) addVelocity({ geometry, minVelocity, maxVelocity })
 
+    const { position, velocity } = geometry.attributes
     velocity.array.forEach((vel, i) => {
       const index = 3 * i + axis
       const currentPos = position.array[index]
