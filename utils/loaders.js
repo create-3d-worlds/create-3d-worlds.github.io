@@ -33,20 +33,23 @@ const createGroup = model => {
   return group
 }
 
-const prepareMesh = ({ model, size = 2, angle, axis = [0, 1, 0], animations, shouldCenter, shouldAdjustHeight, castShadow = true, receiveShadow = false, scale = getScale(model, size) }) => {
+const prepareMesh = async({ model, size = 2, texture, angle, axis = [0, 1, 0], animations, shouldCenter, shouldAdjustHeight, castShadow = true, receiveShadow = false, scale = getScale(model, size) }) => {
   model.scale.set(scale, scale, scale)
-
   // https://stackoverflow.com/questions/28848863/
   if (shouldCenter) centerMesh(model)
   if (shouldAdjustHeight) adjustHeight(model)
+
+  const map = texture ? await textureLoader.loadAsync(`/assets/textures/${texture}`) : null
 
   model.traverse(child => {
     if (child.isMesh) {
       child.castShadow = castShadow
       child.receiveShadow = receiveShadow
+      if (map) child.material.map = map
       if (!child.geometry.attributes.normal) child.geometry.computeVertexNormals()
     }
   })
+
   if (angle) model.rotateOnWorldAxis(new THREE.Vector3(...axis), angle)
 
   const mixer = animations && animations.length ? getMixer(model, animations) : null
@@ -67,7 +70,7 @@ export const loadObj = async params => {
     objLoader.setMaterials(materials)
   }
   const model = await objLoader.loadAsync(`/assets/models/${file}`)
-  return prepareMesh({ model, ...params })
+  return await prepareMesh({ model, ...params })
 }
 
 /* GLB */
@@ -75,7 +78,7 @@ export const loadObj = async params => {
 export async function loadGlb(params) {
   const gtflLoader = new GLTFLoader()
   const { scene, animations } = await gtflLoader.loadAsync(`/assets/models/${params.file}`)
-  return prepareMesh({ model: scene, animations, ...params })
+  return await prepareMesh({ model: scene, animations, ...params })
 }
 
 /* DAE */
@@ -83,7 +86,7 @@ export async function loadGlb(params) {
 export async function loadDae(params) {
   const colladaLoader = new ColladaLoader()
   const { scene } = await colladaLoader.loadAsync(`/assets/models/${params.file}`)
-  return prepareMesh({ model: scene, animations: scene.animations, ...params })
+  return await prepareMesh({ model: scene, animations: scene.animations, ...params })
 }
 
 /* MD2 */
@@ -96,14 +99,14 @@ export async function loadMd2(params) {
   const { animations } = geometry
   const material = new THREE.MeshLambertMaterial({ map })
   const model = new THREE.Mesh(geometry, material)
-  return prepareMesh({ model, animations, ...params })
+  return await prepareMesh({ model, animations, ...params, texture: null })
 }
 
 /* FBX */
 
 export async function loadFbx(params) {
   const loader = new FBXLoader()
-  const { file = 'model.fbx', texture, doubleSide } = params
+  const { file = 'model.fbx', doubleSide } = params
   const model = await loader.loadAsync(`/assets/models/${file}`)
 
   // fix holes in model
@@ -111,19 +114,12 @@ export async function loadFbx(params) {
     if (child.isMesh) child.material.side = THREE.DoubleSide
   })
 
-  if (texture) {
-    const map = await textureLoader.loadAsync(`/assets/textures/${texture}`)
-    model.traverse(child => {
-      if (child.isMesh) child.material.map = map
-    })
-  }
-
   if (!params.animations && model.animations.length)
     model.animations[0].name = params.name
 
   const animations = params.animations ? params.animations : model.animations
 
-  return prepareMesh({ model, animations, ...params })
+  return await prepareMesh({ model, animations, ...params })
 }
 
 /* @param names: array or dict object */

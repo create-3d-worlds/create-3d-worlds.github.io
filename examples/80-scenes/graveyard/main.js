@@ -6,6 +6,7 @@ import { createTombstone } from '/utils/geometry/shapes.js'
 import { GhostAI } from '/utils/actor/horror/Ghost.js'
 import { ResistanceFighterPlayer } from '/utils/actor/ww2/ResistanceFighter.js'
 import { Smoke } from '/utils/classes/Particles.js'
+import { loadModel } from '/utils/loaders.js'
 
 const mapSize = 100
 const npcs = []
@@ -28,6 +29,15 @@ for (let i = 0; i < 60; i++) {
   const { x, z } = coords.pop()
   const tombstone = createTombstone({ x, z })
   solids.push(tombstone)
+}
+
+const { mesh } = await loadModel({ file: 'nature/dead-tree/model.glb', texture: 'tree.jpg', size: 5 })
+
+for (let i = 0; i < 10; i++) {
+  const { x, z } = coords.pop()
+  const tree = mesh.clone()
+  solids.push(tree)
+  tree.position.set(x, 0, z)
 }
 
 /* ACTORS */

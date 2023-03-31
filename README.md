@@ -17,6 +17,7 @@ npx live-server
 
 - Graveyard
   - možda pokoje drvo (osušeno) i drugo za atmosferu
+  - igrač pada na scenu?
 
 - RPG / Fantasy
   - naći animacije koje se više slažu sa sekirom (trčanje i sl)
