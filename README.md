@@ -16,8 +16,8 @@ npx live-server
 ### Scenes & examples
 
 - Graveyard
-  - možda pokoje drvo (osušeno) i drugo za atmosferu
-  - igrač pada na scenu?
+  - bug: igrač pada na scenu?
+  - bug: pucanje brlja
 
 - RPG / Fantasy
   - naći animacije koje se više slažu sa sekirom (trčanje i sl)

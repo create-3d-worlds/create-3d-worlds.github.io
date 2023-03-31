@@ -1,7 +1,7 @@
 import { camera, scene, renderer, setBackground, clock } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { createMoon } from '/utils/light.js'
-import { getShuffledCoords, sample } from '/utils/helpers.js'
+import { getShuffledCoords, sample, getMesh } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
 import { GhostAI } from '/utils/actor/horror/Ghost.js'
 import { ResistanceFighterPlayer } from '/utils/actor/ww2/ResistanceFighter.js'
@@ -31,13 +31,17 @@ for (let i = 0; i < 60; i++) {
   solids.push(tombstone)
 }
 
-const { mesh } = await loadModel({ file: 'nature/dead-tree/model.glb', texture: 'tree.jpg', size: 5 })
+const { mesh } = await loadModel({ file: 'nature/dead-tree/model.glb', size: 5 })
 
 for (let i = 0; i < 10; i++) {
   const { x, z } = coords.pop()
   const tree = mesh.clone()
-  solids.push(tree)
   tree.position.set(x, 0, z)
+  const scale = Math.random() * 1 + 1
+  tree.scale.set(scale, scale, scale)
+  tree.rotateY(Math.random() * Math.PI)
+  getMesh(tree).material.color.setHex(0x000000)
+  solids.push(tree)
 }
 
 /* ACTORS */
