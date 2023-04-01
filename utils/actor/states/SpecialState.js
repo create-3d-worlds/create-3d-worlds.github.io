@@ -26,17 +26,13 @@ export default class SpecialState extends State {
     this.action.play()
   }
 
-  cleanup() {
-    this.actor?.mixer?.removeEventListener('finished', this.onFinish)
-  }
-
   onFinish() {
-    this.cleanup()
+    // this.actor?.mixer?.removeEventListener('finished', this.onFinish)
     if (this.name == 'death') return
     this.actor.setState(this.prevOrIdle)
   }
 
   exit() {
-    this.cleanup()
+    this.actor?.mixer?.removeEventListener('finished', this.onFinish)
   }
 }
