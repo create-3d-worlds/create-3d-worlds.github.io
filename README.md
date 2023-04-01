@@ -11,7 +11,8 @@ npx live-server
 
 ## TODO
 
-- dodati crveni fps pain i ostalim igračima
+- Tree extends Entity
+- dodati crveni pain to Player
 
 ### Scenes & examples
 
@@ -99,6 +100,7 @@ npx live-server
   - https://twitter.com/mrdoob/status/966609115140128768
   - https://attackingpixels.com/tips-tricks-optimizing-three-js-performance/
 - izmeriti statistike, ako je presporo izbacivati nevažno
+- izbaciti TWEEN?
 
 ### Polishing
 
@@ -121,6 +123,7 @@ DODATI:
 - srediti root-relativne linkove da rade u podfolderu
 - možda build proces, minifikacija, i sl.
 - sve dobro dokumentovati
+- minimalni bekend za statistike i pamćenje poena ili bar brojač poseta
 
 ## Helpers
 

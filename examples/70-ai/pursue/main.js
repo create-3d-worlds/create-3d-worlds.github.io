@@ -19,7 +19,7 @@ const player = new SorceressPlayer()
 scene.add(player.mesh)
 
 for (let i = 0; i < 7; i++) {
-  const ai = new OrcOgreAI({ mapSize, coords, target: player.mesh })
+  const ai = new OrcOgreAI({ mapSize, pos: coords.pop(), target: player.mesh })
   npcs.push(ai)
   scene.add(ai.mesh)
 }

@@ -1,12 +1,13 @@
 import { camera, scene, renderer, setBackground, clock } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { createMoon } from '/utils/light.js'
-import { getShuffledCoords, sample, getMesh } from '/utils/helpers.js'
+import { getShuffledCoords, sample } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
 import { GhostAI } from '/utils/actor/horror/Ghost.js'
 import { ResistanceFighterPlayer } from '/utils/actor/ww2/ResistanceFighter.js'
 import { Smoke } from '/utils/classes/Particles.js'
 import { loadModel } from '/utils/loaders.js'
+import Entity from '/utils/actor/Entity.js'
 
 const mapSize = 100
 const npcs = []
@@ -34,18 +35,13 @@ for (let i = 0; i < 60; i++) {
 const { mesh } = await loadModel({ file: 'nature/dead-tree/model.glb', size: 5 })
 
 for (let i = 0; i < 10; i++) {
-  const { x, z } = coords.pop()
-  const tree = mesh.clone()
-  tree.position.set(x, 0, z)
-  const scale = Math.random() * 1 + 1
-  tree.scale.set(scale, scale, scale)
-  tree.rotateY(Math.random() * Math.PI)
-  getMesh(tree).material.color.setHex(0x000000)
-  solids.push(tree)
+  const tree = new Entity({ mesh, pos: coords.pop(), color: 0x000000, scale: Math.random() * 1 + 1 })
+  tree.mesh.rotateY(Math.random() * Math.PI)
+  solids.push(tree.mesh)
 }
 
 for (let i = 0; i < 30; i++) {
-  const ghost = new GhostAI({ coords, mapSize })
+  const ghost = new GhostAI({ pos: coords.pop(), mapSize })
   npcs.push(ghost)
   scene.add(ghost.mesh)
 }
@@ -67,9 +63,9 @@ async function spawnZombie(interval) {
     const name = sample(zombies)
     const obj = await import(`/utils/actor/horror/${name}.js`)
     const ZombieClass = obj[name + 'AI']
-    const coord = sample(coords)
-    const zombie = new ZombieClass({ mapSize, target: player.mesh, solids, coords: [coord] })
-    particles.reset({ pos: coord })
+    const pos = sample(coords)
+    const zombie = new ZombieClass({ mapSize, target: player.mesh, solids, pos })
+    particles.reset({ pos })
     player.addSolids(zombie.mesh)
     scene.add(zombie.mesh)
     npcs.push(zombie)

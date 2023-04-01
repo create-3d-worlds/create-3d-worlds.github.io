@@ -15,14 +15,14 @@ scene.background = new THREE.Color(0x070b34)
 
 /* PLAYER */
 
-const player = new FPSPlayer({ camera, coords, mapSize, usePointerLock: 'instructions' })
+const player = new FPSPlayer({ camera, pos: coords.pop(), mapSize, usePointerLock: 'instructions' })
 scene.add(player.mesh)
 
 const solids = []
 
 const enemies = []
 for (let i = 0; i < 10; i++) {
-  const enemy = new SSSoldierAI({ coords, mapSize, target: player.mesh })
+  const enemy = new SSSoldierAI({ pos: coords.pop(), mapSize, target: player.mesh })
   enemies.push(enemy)
   solids.push(enemy.mesh)
   scene.add(enemy.mesh)
@@ -40,7 +40,7 @@ void function loop() {
   enemies.forEach(enemy => enemy.update(delta))
 }()
 
-const city = createGraffitiCity({ scene, mapSize, coords })
+const city = createGraffitiCity({ scene, mapSize, pos: coords.pop() })
 scene.add(city)
 
 player.addSolids(city, enemies.map(e => e.mesh))

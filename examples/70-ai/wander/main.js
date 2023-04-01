@@ -19,7 +19,7 @@ const player = new SorceressPlayer()
 scene.add(player.mesh)
 
 for (let i = 0; i < 20; i++) {
-  const ai = new GolemAI({ mapSize, coords, baseState: 'wander' })
+  const ai = new GolemAI({ mapSize, pos: coords.pop(), baseState: 'wander' })
   npcs.push(ai)
   scene.add(ai.mesh)
 }

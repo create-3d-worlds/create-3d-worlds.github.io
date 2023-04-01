@@ -2,7 +2,8 @@ import * as THREE from 'three'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
 
-import { addSolids, getGroundY, getSize, directionBlocked, getMesh, putOnTerrain, intersect, getParent, belongsTo, getScene } from '/utils/helpers.js'
+import Entity from '/utils/actor/Entity.js'
+import { getGroundY, getSize, directionBlocked, getMesh, intersect, getParent, belongsTo, getScene } from '/utils/helpers.js'
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 import { shootDecals } from '/utils/decals.js'
@@ -16,7 +17,7 @@ const { randInt } = THREE.MathUtils
  * @param animDict: maps finite state to animation
  ** anim keys: idle, walk, run, jump, fall, attack, attack2, special, pain, death
  */
-export default class Actor {
+export default class Actor extends Entity {
   constructor({
     mesh = createPlayerBox(),
     name,
@@ -36,8 +37,7 @@ export default class Actor {
     twoHandedWeapon,
     rightHandWeapon,
     mapSize,
-    coord,
-    coords,
+    pos,
     attackDistance,
     hitColor = 0x8a0303,
     energy = 100,
@@ -46,13 +46,11 @@ export default class Actor {
     leaveDecals = attackDistance > 5,
     attackSound = '',
   }) {
-    this.mesh = clone(mesh)
+    super({ mesh, name, pos, solids })
     this.mesh.userData.hitAmount = 0
     this.mesh.userData.energy = energy
     this.mesh.userData.hitColor = hitColor
-    this.name = name
     this.speed = speed
-    this.solids = []
     this.groundY = 0
     this.gravity = gravity
     this.velocity = new THREE.Vector3()
@@ -84,13 +82,6 @@ export default class Actor {
 
     if (useHitEffects) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
 
-    if (coords) this.position.copy(coords.pop())
-
-    if (solids) {
-      this.addSolids(solids)
-      if (shouldRaycastGround) this.putOnTerrain()
-    }
-
     if (mapSize) {
       const halfMap = mapSize / 2
       this.boundaries = new THREE.Box3(
@@ -102,23 +93,6 @@ export default class Actor {
   }
 
   /* GETTERS & SETTERS */
-
-  get position() {
-    return this.mesh.position
-  }
-
-  set position(pos) {
-    this.mesh.position.copy(pos)
-    this.putOnTerrain()
-  }
-
-  get name() {
-    return this.mesh.name
-  }
-
-  set name(name) {
-    this.mesh.name = name
-  }
 
   get energy() {
     return this.mesh.userData.energy
@@ -284,14 +258,6 @@ export default class Actor {
 
   /* UTILS */
 
-  add(obj) {
-    this.mesh.add(obj)
-  }
-
-  addSolids(...newSolids) {
-    addSolids(this.solids, ...newSolids)
-  }
-
   handleRoughTerrain(step) {
     if (!this.heightDifference) return
 
@@ -313,10 +279,6 @@ export default class Actor {
   bounce(angle = Math.PI) {
     this.turn(angle)
     this.mesh.translateZ(this.velocity.z)
-  }
-
-  putOnTerrain() {
-    putOnTerrain(this.mesh, this.solids)
   }
 
   lookAt(pos) {

@@ -31,25 +31,25 @@ const solids = [walls]
 
 const enemyClasses = [GermanFlameThrowerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, SSSoldierAI, SSSoldierAI, SSSoldierAI, NaziOfficerAI]
 
-const player = new FPSPlayer({ camera, coords })
+const player = new FPSPlayer({ camera, pos: coords.pop() })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
 const enemies = []
 for (let i = 0; i < 20; i++) {
   const EnemyClass = sample(enemyClasses)
-  const enemy = new EnemyClass({ coords, target: player.mesh })
+  const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh })
   enemies.push(enemy)
   solids.push(enemy.mesh)
 }
 
 /* OBJECTS */
 
-const tank = new TankAI({ coords })
+const tank = new TankAI({ pos: coords.pop() })
 solids.push(tank.mesh)
 
 const { mesh: bunker } = await loadModel({ file: 'building/bunker.fbx', texture: 'terrain/concrete.jpg', size: 2.5 })
-bunker.position.copy(coords.pop())
+bunker.position.copy(pos: coords.pop().pop())
 solids.push(bunker)
 
 player.addSolids(solids)

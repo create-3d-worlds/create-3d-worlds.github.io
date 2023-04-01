@@ -17,7 +17,7 @@ scene.add(terrain)
 const trees = createTreesOnTerrain({ terrain })
 scene.add(trees)
 
-const player = new FlamingoPlayer({ coords, mapSize, camera, solids: terrain })
+const player = new FlamingoPlayer({ pos: coords.pop(), mapSize, camera, solids: terrain })
 scene.add(player.mesh)
 
 const enemyClasses = [OrcAI, OrcOgreAI]
@@ -25,7 +25,7 @@ const enemyClasses = [OrcAI, OrcOgreAI]
 const enemies = []
 for (let i = 0; i < 10; i++) {
   const EnemyClass = sample(enemyClasses)
-  const enemy = new EnemyClass({ coords, solids: terrain, target: player.mesh, mapSize, shouldRaycastGround: true })
+  const enemy = new EnemyClass({ pos: coords.pop(), solids: terrain, target: player.mesh, mapSize, shouldRaycastGround: true })
   enemies.push(enemy)
   scene.add(enemy.mesh)
 }
@@ -35,7 +35,7 @@ player.addSolids(enemyMeshes)
 
 const birds = []
 for (let i = 0; i < 10; i++) {
-  const bird = new FlamingoAI({ mapSize, coords })
+  const bird = new FlamingoAI({ mapSize, pos: coords.pop() })
   birds.push(bird)
   scene.add(bird.mesh)
 }

@@ -21,7 +21,7 @@ scene.add(player.mesh)
 const solids = []
 
 for (let i = 0; i < 10; i++) {
-  const ai = new GolemAI({ mapSize, coords, baseState: 'follow', target: player.mesh })
+  const ai = new GolemAI({ mapSize, pos: coords.pop(), baseState: 'follow', target: player.mesh })
   npcs.push(ai)
   solids.push(ai.mesh)
   scene.add(ai.mesh)

@@ -26,12 +26,12 @@ scene.add(trees)
 
 /* ACTORS */
 
-const player = new BarbarianPlayer({ coords, mapSize, camera, solids: terrain })
+const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, camera, solids: terrain })
 scene.add(player.mesh)
 
 for (let i = 0; i < 20; i++) {
   const Enemy = sample(enemyClasses)
-  const enemy = new Enemy({ coords, solids: [terrain, player.mesh], target: player.mesh, mapSize, shouldRaycastGround: true })
+  const enemy = new Enemy({ pos: coords.pop(), solids: [terrain, player.mesh], target: player.mesh, mapSize, shouldRaycastGround: true })
   npcs.push(enemy)
   scene.add(enemy.mesh)
 }
@@ -39,7 +39,7 @@ for (let i = 0; i < 20; i++) {
 player.addSolids(npcs.map(enemy => enemy.mesh))
 
 for (let i = 0; i < 10; i++) {
-  const bird = new FlamingoAI({ mapSize, coords })
+  const bird = new FlamingoAI({ mapSize, pos: coords.pop() })
   npcs.push(bird)
   scene.add(bird.mesh)
 }
