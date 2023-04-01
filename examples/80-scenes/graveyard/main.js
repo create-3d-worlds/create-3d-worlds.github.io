@@ -11,11 +11,11 @@ import { loadModel } from '/utils/loaders.js'
 const mapSize = 100
 const npcs = []
 const solids = []
-const coords = getShuffledCoords({ mapSize, fieldSize: 1 })
+const coords = getShuffledCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
 
 let last = Date.now()
 
-/* SCENE */
+/* INIT */
 
 const particles = new Smoke({ size: 1, num: 100, minRadius: 0, maxRadius: .5 })
 scene.add(particles.mesh)
@@ -44,8 +44,6 @@ for (let i = 0; i < 10; i++) {
   solids.push(tree)
 }
 
-/* ACTORS */
-
 for (let i = 0; i < 30; i++) {
   const ghost = new GhostAI({ coords, mapSize })
   npcs.push(ghost)
@@ -56,6 +54,9 @@ const player = new ResistanceFighterPlayer({ camera, solids })
 player.cameraFollow.distance = 1.5
 scene.add(player.mesh)
 scene.add(...solids)
+// player.position.set(0, 0, 0)
+
+/* FUNCTIONS */
 
 const zombies = ['GothGirl', 'ZombieBarefoot', 'ZombieCop', 'ZombieDoctor', 'ZombieGuard']
 

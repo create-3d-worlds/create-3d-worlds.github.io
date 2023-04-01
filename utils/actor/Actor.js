@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
 
-import { addSolids, findGround, getSize, directionBlocked, getMesh, putOnTerrain, intersect, getParent, belongsTo, getScene } from '/utils/helpers.js'
+import { addSolids, getGroundY, getSize, directionBlocked, getMesh, putOnTerrain, intersect, getParent, belongsTo, getScene } from '/utils/helpers.js'
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 import { shootDecals } from '/utils/decals.js'
@@ -93,7 +93,9 @@ export default class Actor {
 
     if (mapSize) {
       const halfMap = mapSize / 2
-      this.boundaries = new THREE.Box3(new THREE.Vector3(-halfMap, 0, -halfMap), new THREE.Vector3(halfMap, 0, halfMap))
+      this.boundaries = new THREE.Box3(
+        new THREE.Vector3(-halfMap, 0, -halfMap), new THREE.Vector3(halfMap, 0, halfMap)
+      )
     }
 
     this.setState('idle')
@@ -396,9 +398,7 @@ export default class Actor {
     const { mesh, solids } = this
     if (!solids || !this.shouldRaycastGround) return
 
-    const intersect = findGround({ pos: mesh.position, solids, y: this.height })
-
-    this.groundY = intersect ? intersect.point.y : 0
+    this.groundY = getGroundY({ pos: mesh.position, solids, y: this.height })
   }
 
   applyGravity(delta) {

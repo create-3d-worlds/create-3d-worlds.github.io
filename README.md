@@ -16,7 +16,7 @@ npx live-server
 ### Scenes & examples
 
 - Graveyard
-  - bug: igrač pada na scenu?
+  - BUG: putOnTerrain, igrač pada na scenu?
   - bug: pucanje brlja
 
 - RPG / Fantasy
