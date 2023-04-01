@@ -14,17 +14,18 @@ const { randInt } = THREE.MathUtils
 
 /**
  * Base abstract class for AI and Player, handles movement, animations...
- * @param animDict: maps finite state to animation
+ * @param animDict: maps state to animation
  ** anim keys: idle, walk, run, jump, fall, attack, attack2, special, pain, death
  */
 export default class Actor extends Entity {
   constructor({
     mesh = createPlayerBox(),
     name,
+    pos,
+    solids,
     animations,
     animDict,
     input,
-    solids,
     gravity = .7,
     jumpStyle,
     speed = 2,
@@ -37,7 +38,6 @@ export default class Actor extends Entity {
     twoHandedWeapon,
     rightHandWeapon,
     mapSize,
-    pos,
     attackDistance,
     hitColor = 0x8a0303,
     energy = 100,

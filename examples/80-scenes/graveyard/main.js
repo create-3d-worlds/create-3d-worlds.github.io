@@ -6,8 +6,7 @@ import { createTombstone } from '/utils/geometry/shapes.js'
 import { GhostAI } from '/utils/actor/horror/Ghost.js'
 import { ResistanceFighterPlayer } from '/utils/actor/ww2/ResistanceFighter.js'
 import { Smoke } from '/utils/classes/Particles.js'
-import { loadModel } from '/utils/loaders.js'
-import Entity from '/utils/actor/Entity.js'
+import DeadTree from '/utils/actor/objects/DeadTree.js'
 
 const mapSize = 100
 const npcs = []
@@ -32,11 +31,8 @@ for (let i = 0; i < 60; i++) {
   solids.push(tombstone)
 }
 
-const { mesh } = await loadModel({ file: 'nature/dead-tree/model.glb', size: 5 })
-
 for (let i = 0; i < 10; i++) {
-  const tree = new Entity({ mesh, pos: coords.pop(), color: 0x000000, scale: Math.random() * 1 + 1 })
-  tree.mesh.rotateY(Math.random() * Math.PI)
+  const tree = new DeadTree({ pos: coords.pop(), scale: Math.random() * 1 + 1, rotateY: Math.random() * Math.PI })
   solids.push(tree.mesh)
 }
 
@@ -50,7 +46,6 @@ const player = new ResistanceFighterPlayer({ camera, solids })
 player.cameraFollow.distance = 1.5
 scene.add(player.mesh)
 scene.add(...solids)
-// player.position.set(0, 0, 0)
 
 /* FUNCTIONS */
 

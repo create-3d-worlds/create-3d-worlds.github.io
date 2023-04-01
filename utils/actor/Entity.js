@@ -2,18 +2,18 @@ import { getMesh, putOnTerrain, addSolids } from '/utils/helpers.js'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 
 export default class Entity {
-  constructor({ mesh, name, pos, color, solids, scale } = {}) {
+  constructor({ mesh, name, pos, color, solids, scale, rotateY } = {}) {
     this.mesh = clone(mesh)
     this.name = name
     this.solids = []
     if (solids) {
       this.addSolids(solids)
-      // if (shouldRaycastGround)
-      this.putOnTerrain()
+      this.putOnTerrain() // ako zeza ukloniti
     }
     if (pos) this.position = pos
     if (scale) this.mesh.scale.set(scale, scale, scale)
     if (color != undefined) getMesh(this.mesh).material.color.setHex(color)
+    if (rotateY) this.mesh.rotateY(rotateY)
   }
 
   /* GETTERS & SETTERS */
