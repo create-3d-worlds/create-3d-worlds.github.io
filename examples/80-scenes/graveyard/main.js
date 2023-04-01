@@ -26,8 +26,7 @@ scene.add(createMoon({ intensity: .5, position: [15, 30, -30] }))
 scene.add(createGround({ size: mapSize }))
 
 for (let i = 0; i < 60; i++) {
-  const { x, z } = coords.pop()
-  const tombstone = createTombstone({ x, z })
+  const tombstone = createTombstone({ pos: coords.pop() })
   solids.push(tombstone)
 }
 
@@ -43,7 +42,6 @@ for (let i = 0; i < 30; i++) {
 }
 
 const player = new ResistanceFighterPlayer({ camera, solids })
-player.cameraFollow.distance = 1.5
 scene.add(player.mesh)
 scene.add(...solids)
 
@@ -75,9 +73,8 @@ void function loop() {
 
   player.update(delta)
   npcs.forEach(npc => npc.update(delta))
-  spawnZombie(10000)
-
   particles.update({ delta, min: -1, max: 0, minVelocity: .2, maxVelocity: .5, loop: false })
+  spawnZombie(10000)
 
   renderer.render(scene, camera)
 }()

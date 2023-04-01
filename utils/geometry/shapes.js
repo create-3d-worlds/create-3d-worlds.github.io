@@ -175,11 +175,11 @@ export function createTank({ tankWidth = 4, tankHeight = 1.2, tankLength = 8 } =
 
 /* TOMB */
 
-function createExtruded({ shape, x, y, z, color = randomGray(), scale = Math.random() * .01 + .02 }) {
+function createExtruded({ shape, pos, color = randomGray(), scale = Math.random() * .01 + .02 }) {
   const params = { depth: 8, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1 }
   const geometry = new THREE.ExtrudeGeometry(shape, params)
   const mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ color }))
-  mesh.position.set(x, y, z)
+  mesh.position.copy(pos)
   mesh.scale.set(scale, scale, scale)
   mesh.castShadow = mesh.receiveShadow = true
   return mesh
@@ -192,4 +192,7 @@ const createTombShape = () => new THREE.Shape()
   .lineTo(80, 40)
   .absarc(60, 40, 20, 2 * Math.PI, Math.PI, true)
 
-export const createTombstone = ({ shape = createTombShape(), x = 0, y = -1, z = 0, scale = Math.random() * .01 + .02 } = {}) => createExtruded({ shape, x, y, z, scale })
+export const createTombstone = ({ shape = createTombShape(), pos, scale = Math.random() * .01 + .02 } = {}) => {
+  pos.y -= 1
+  return createExtruded({ shape, pos, scale })
+}

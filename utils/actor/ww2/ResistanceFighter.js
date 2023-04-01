@@ -16,6 +16,7 @@ const sharedProps = { mesh, animations, animDict, twoHandedWeapon, attackSound: 
 export class ResistanceFighterPlayer extends Player {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
+    this.cameraFollow.distance = 1.5
   }
 }
 

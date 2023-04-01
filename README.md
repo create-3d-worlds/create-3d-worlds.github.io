@@ -11,7 +11,6 @@ npx live-server
 
 ## TODO
 
-- Tree extends Entity
 - dodati crveni pain to Player
 
 ### Scenes & examples
