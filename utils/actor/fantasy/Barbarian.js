@@ -29,14 +29,14 @@ export class BarbarianPlayer extends Player {
     super({ ...sharedProps, ...props })
   }
 
-  checkHit() {
-    // untouchable during attack
-    if (this.currentState.name.includes('attack')) {
-      this.hitAmount = 0
-      return
-    }
-    super.checkHit()
-  }
+  // checkHit() {
+  //   // untouchable during attack
+  //   if (this.currentState.name.includes('attack')) {
+  //     this.hitAmount = 0
+  //     return
+  //   }
+  //   super.checkHit()
+  // }
 }
 
 export class BarbarianAI extends AI {
