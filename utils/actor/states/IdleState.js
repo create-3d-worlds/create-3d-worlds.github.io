@@ -3,7 +3,7 @@ import State from './State.js'
 const chooseDuration = prevState => {
   if (['run', 'flee', 'pursue'].includes(prevState)) return .75
   if (prevState === 'jump') return .25
-  return .75
+  return .5
 }
 
 export default class IdleState extends State {

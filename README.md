@@ -14,7 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - RPG / Fantasy
-  - naći animacije koje se više slažu sa sekirom (trčanje i sl)
+  - BUG: secka kad isključi sve animacije!
   - srediti borbu, previše promašuje (videti simon dev https://youtu.be/SBfZAVzbhCg)
     - srediti LOOP attack, da ne bude neranjiva i da napada svaki loop
     - možda niže da napada, trenutno .75 visine
@@ -22,6 +22,9 @@ npx live-server
     - dodati mač, sekiru?
     - bacanje magije (pogledati i shadere)
     - da se ai ne približavaju previše
+    - neki ai ne mogu da priđu da napadnu?
+    - handle attack2
+    - BUG: attack pa attack2 uvek baguje
   - zepelin prenisko
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)

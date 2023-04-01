@@ -4,7 +4,7 @@ export default class AttackLoopState extends State {
 
   constructor(...args) {
     super(...args)
-    this.attackAgain = this.attackAgain.bind(this)
+    this.onLoopEnd = this.onLoopEnd.bind(this)
   }
 
   enter(oldState, oldAction) {
@@ -13,27 +13,23 @@ export default class AttackLoopState extends State {
 
     if (this.action) {
       this.transitFrom(oldAction, .25)
-      this.actor.mixer.addEventListener('loop', this.attackAgain)
+      this.actor.mixer.addEventListener('loop', this.onLoopEnd)
     }
   }
 
-  attackAgain() {
+  onLoopEnd() {
     if (this.actor.input.attack) this.actor.attackAction()
+    else this.actor.setState(this.prevOrIdle)
   }
 
   update(delta) {
     const { actor } = this
 
     actor.updateTurn(delta)
-
-    /* TRANSIT */
-
-    if (!actor.input.attack && !actor.input.attack2)
-      actor.setState(this.prevOrIdle)
   }
 
   exit() {
-    this.actor?.mixer?.removeEventListener('loop', this.attackAgain)
+    this.actor?.mixer?.removeEventListener('loop', this.onLoopEnd)
     if (this.actor.endAttack) this.actor.endAttack()
   }
 }

@@ -3,12 +3,12 @@ import AI from '/utils/actor/AI.js'
 import { loadModel } from '/utils/loaders.js'
 
 const animDict = {
-  idle: 'Unarmed Idle',
-  walk: 'Dwarf Walk',
+  idle: 'Sword And Shield Idle', // Unarmed Idle
+  walk: 'Standing Walk Forward', // Dwarf Walk
   run: 'Fast Run',
   jump: 'Mutant Jumping',
-  attack: 'Sword And Shield Slash', // Standing Melee Kick
-  attack2: 'Mma Kick',
+  attack: 'Sword And Shield Slash', // Sword And Shield Kick, Standing Melee Kick
+  attack2: 'Standing Melee Kick',
   special: 'Standing 2H Magic Attack 05',
   pain: 'Standing React Large From Right',
   death: 'Falling Back Death',
