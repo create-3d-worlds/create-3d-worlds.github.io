@@ -15,14 +15,12 @@ npx live-server
 ### Scenes & examples
 
 - RPG / Fantasy
-  - dodati lowpoly drvece i ostalo https://quaternius.com/
   - srediti borbu 
     - BUG: visina napada i rikošeta nije ista?
     - bacanje magije (pogledati i shadere)
     - da se ai ne približavaju previše
     - neki ai ne mogu da priđu da napadnu?
-    - videti simon dev https://youtu.be/SBfZAVzbhCg
-    - ne koristiti zrak nego daljinu i ugao?
+    - ne koristiti zrak nego razdaljinu i ugao?
     - odlučiti sekira ili kapuera
   - zepelin prenisko
   - dodati slona 
