@@ -33,14 +33,14 @@ export class BarbarianPlayer extends Player {
     super.attackAction('enemy', this.height * .5)
   }
 
-  // checkHit() {
-  //   // untouchable during attack
-  //   if (this.currentState.name.includes('attack')) {
-  //     this.hitAmount = 0
-  //     return
-  //   }
-  //   super.checkHit()
-  // }
+  checkHit() {
+    if (this.currentState.name.includes('attack')) {
+      // untouchable during attack
+      this.hitAmount = 0
+      return
+    }
+    super.checkHit()
+  }
 }
 
 export class BarbarianAI extends AI {

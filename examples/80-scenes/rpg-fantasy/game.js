@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createHillyTerrain } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
@@ -13,6 +14,8 @@ import { loadModel } from '/utils/loaders.js'
 
 const mapSize = 400
 const npcs = []
+
+scene.fog = new THREE.FogExp2(0xf0fff0, .005)
 
 const coords = getShuffledCoords({ mapSize: mapSize * .9, fieldSize: 5 })
 scene.add(createSun({ position: [15, 100, 50] }))

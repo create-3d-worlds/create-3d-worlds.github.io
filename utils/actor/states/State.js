@@ -44,9 +44,9 @@ export default class State {
     const { mixer } = this.actor
     const active = mixer?._actions.filter(action => action.isRunning() && action !== this.action)
 
-    if (active.length > 1) mixer.stopAllAction()
+    // if (active.length > 1) mixer.stopAllAction()
     const first = active.pop()
-    // active.forEach(action => action.stop())
+    active.forEach(action => action.stop())
     return first
   }
 

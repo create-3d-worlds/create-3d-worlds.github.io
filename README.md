@@ -11,17 +11,19 @@ npx live-server
 
 ## TODO
 
+
 ### Scenes & examples
 
 - RPG / Fantasy
-  - BUG: prelaz animacija secka (reproduckija: trčanje, idle, hodanje, idle...)
+  - dodati lowpoly drvece i ostalo https://quaternius.com/
   - srediti borbu 
+    - BUG: visina napada i rikošeta nije ista?
     - bacanje magije (pogledati i shadere)
     - da se ai ne približavaju previše
     - neki ai ne mogu da priđu da napadnu?
-    - handle attack2
     - videti simon dev https://youtu.be/SBfZAVzbhCg
-    - možda ne koristiti zrak
+    - ne koristiti zrak nego daljinu i ugao?
+    - odlučiti sekira ili kapuera
   - zepelin prenisko
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)
