@@ -12,7 +12,6 @@ import { ZappelinAI } from '/utils/actor/Zappelin.js'
 import { loadModel } from '/utils/loaders.js'
 
 const mapSize = 400
-const enemyClasses = [OrcAI, OrcOgreAI]
 const npcs = []
 
 const coords = getShuffledCoords({ mapSize: mapSize * .9, fieldSize: 5 })
@@ -30,8 +29,8 @@ const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, camera, solids:
 scene.add(player.mesh)
 
 for (let i = 0; i < 20; i++) {
-  const Enemy = sample(enemyClasses)
-  const enemy = new Enemy({ pos: coords.pop(), solids: [terrain, player.mesh], target: player.mesh, mapSize, shouldRaycastGround: true })
+  const Enemy = sample([OrcAI, OrcOgreAI])
+  const enemy = new Enemy({ pos: coords.pop(), solids: [terrain], target: player.mesh, mapSize, shouldRaycastGround: true })
   npcs.push(enemy)
   scene.add(enemy.mesh)
 }
@@ -45,7 +44,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 for (let i = 0; i < 5; i++) {
-  const cloud = new CloudAI({ mapSize })
+  const cloud = new CloudAI({ mapSize, pos: coords.pop() })
   npcs.push(cloud)
   scene.add(cloud.mesh)
 }

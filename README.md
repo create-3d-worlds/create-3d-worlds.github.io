@@ -11,15 +11,10 @@ npx live-server
 
 ## TODO
 
-- dodati crveni pain to Player
-
 ### Scenes & examples
 
-- Graveyard
-  - BUG: putOnTerrain, igrač pada na scenu?
-  - bug: pucanje brlja
-
 - RPG / Fantasy
+  - BUG: meša animacije, ostaje neka neugašena
   - naći animacije koje se više slažu sa sekirom (trčanje i sl)
   - srediti borbu, previše promašuje (videti simon dev https://youtu.be/SBfZAVzbhCg)
     - srediti LOOP attack, da ne bude neranjiva i da napada svaki loop

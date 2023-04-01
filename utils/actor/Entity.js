@@ -8,7 +8,7 @@ export default class Entity {
     this.solids = []
     if (solids) {
       this.addSolids(solids)
-      this.putOnTerrain() // ako zeza ukloniti
+      // this.putOnTerrain() // ako zeza ukloniti
     }
     if (pos) this.position = pos
     if (scale) this.mesh.scale.set(scale, scale, scale)
