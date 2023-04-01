@@ -211,8 +211,8 @@ export default class Actor extends Entity {
 
   /* COMBAT */
 
-  intersect() {
-    return intersect(this.mesh, this.solids, dir.forward, this.height * .75)
+  intersect(height = this.height * .75) {
+    return intersect(this.mesh, this.solids, dir.forward, height)
   }
 
   hit(mesh, damage = [35, 55]) {
@@ -231,13 +231,13 @@ export default class Actor extends Entity {
     this.audio.play()
   }
 
-  attackAction(name) {
+  attackAction(name, height) {
     const timeToHit = this.action ? (this.action.getClip().duration * 1000 * .5) : 200
 
     setTimeout(() => {
       if (this.attackSound) this.playAttackSound()
 
-      const intersects = this.intersect()
+      const intersects = this.intersect(height)
       if (!intersects.length) return
 
       const { point, object, distance } = intersects[0]

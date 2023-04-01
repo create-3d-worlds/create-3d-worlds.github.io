@@ -14,15 +14,14 @@ npx live-server
 ### Scenes & examples
 
 - RPG / Fantasy
-  - BUG: secka kad isključi sve animacije!
+  - BUG: prelaz animacija secka (reproduckija: trčanje, idle, hodanje, idle...)
   - srediti borbu 
-    - možda niže da napada, trenutno .75 visine
-    - možda ne koristiti zrak
     - bacanje magije (pogledati i shadere)
     - da se ai ne približavaju previše
     - neki ai ne mogu da priđu da napadnu?
     - handle attack2
     - videti simon dev https://youtu.be/SBfZAVzbhCg
+    - možda ne koristiti zrak
   - zepelin prenisko
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)

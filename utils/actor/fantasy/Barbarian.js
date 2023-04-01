@@ -29,6 +29,10 @@ export class BarbarianPlayer extends Player {
     super({ ...sharedProps, ...props })
   }
 
+  attackAction() {
+    super.attackAction('enemy', this.height * .5)
+  }
+
   // checkHit() {
   //   // untouchable during attack
   //   if (this.currentState.name.includes('attack')) {
