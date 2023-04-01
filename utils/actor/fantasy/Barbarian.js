@@ -22,7 +22,7 @@ const { mesh: rightHandWeapon } = await loadModel({ file: 'weapon/axe-lowpoly/mo
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, jumpStyle: 'FLY_JUMP', maxJumpTime: 18, attackStyle: 'ONCE', rightHandWeapon }
+const sharedProps = { mesh, animations, animDict, jumpStyle: 'FLY_JUMP', maxJumpTime: 18, attackStyle: 'LOOP', rightHandWeapon }
 
 export class BarbarianPlayer extends Player {
   constructor(props = {}) {

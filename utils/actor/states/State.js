@@ -41,12 +41,12 @@ export default class State {
 
   findActiveAction(prevAction) {
     if (prevAction) return prevAction
-    const active = this.actor.mixer?._actions
-      .filter(action => action.isRunning() && action !== this.action)
+    const { mixer } = this.actor
+    const active = mixer?._actions.filter(action => action.isRunning() && action !== this.action)
 
-    // if (active.length > 1) this.actor.mixer.stopAllAction()
+    if (active.length > 1) mixer.stopAllAction()
     const first = active.pop()
-    active.forEach(action => action.stop())
+    // active.forEach(action => action.stop())
     return first
   }
 
