@@ -36,7 +36,6 @@ const aiStates = {
   flee: FleeState,
   patrol: PatrolState,
   follow: FollowState,
-  attack: AIAttackOnceState,
   fall: AIFallState,
 }
 

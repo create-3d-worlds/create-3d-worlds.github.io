@@ -24,7 +24,6 @@ npx live-server
     - da se ai ne približavaju previše
     - neki ai ne mogu da priđu da napadnu?
     - handle attack2
-    - BUG: attack pa attack2 uvek baguje
   - zepelin prenisko
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)

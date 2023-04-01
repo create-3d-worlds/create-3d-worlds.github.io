@@ -12,20 +12,19 @@ export default class AttackLoopState extends State {
     this.actor.attackAction()
 
     if (this.action) {
+      this.action.reset()
       this.transitFrom(oldAction, .25)
       this.actor.mixer.addEventListener('loop', this.onLoopEnd)
     }
   }
 
   onLoopEnd() {
-    if (this.actor.input.attack) this.actor.attackAction()
+    if (this.actor.input[this.name]) this.actor.attackAction()
     else this.actor.setState(this.prevOrIdle)
   }
 
   update(delta) {
-    const { actor } = this
-
-    actor.updateTurn(delta)
+    this.actor.updateTurn(delta)
   }
 
   exit() {
