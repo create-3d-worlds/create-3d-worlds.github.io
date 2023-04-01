@@ -16,11 +16,11 @@ npx live-server
 
 - RPG / Fantasy
   - srediti borbu 
+    - odlučiti sekira ili kapuera
     - bacanje magije (pogledati i shadere)
     - da se ai ne približavaju previše
     - neki ai ne mogu da priđu da napadnu?
     - ne koristiti zrak nego razdaljinu i ugao ili koliziju sekire sa neprijateljem?
-    - odlučiti sekira ili kapuera
   - zepelin prenisko
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)

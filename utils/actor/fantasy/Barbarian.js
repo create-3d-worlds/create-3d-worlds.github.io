@@ -3,12 +3,12 @@ import AI from '/utils/actor/AI.js'
 import { loadModel } from '/utils/loaders.js'
 
 const animDict = {
-  idle: 'Sword And Shield Idle', // Unarmed Idle
-  walk: 'Standing Walk Forward', // Dwarf Walk
+  idle: 'Idle',
+  walk: 'Dwarf Walk',
   run: 'Fast Run',
   jump: 'Mutant Jumping',
-  attack: 'Sword And Shield Slash', // Sword And Shield Kick, Standing Melee Kick
-  attack2: 'Standing Melee Kick',
+  attack: 'Standing Melee Kick',
+  attack2: 'Mma Kick',
   special: 'Standing 2H Magic Attack 05',
   pain: 'Standing React Large From Right',
   death: 'Falling Back Death',
@@ -18,11 +18,11 @@ const animDict = {
 
 const { mesh, animations } = await loadModel({ prefix: 'character/barbarian/', file: 'model.fbx', angle: Math.PI, fixColors: true, animDict, size: 1.78, runCoefficient: 4 })
 
-const { mesh: rightHandWeapon } = await loadModel({ file: 'weapon/axe-lowpoly/model.fbx', scale: .18 })
+// const { mesh: rightHandWeapon } = await loadModel({ file: 'weapon/axe-lowpoly/model.fbx', scale: .18 })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, jumpStyle: 'FLY_JUMP', maxJumpTime: 18, attackStyle: 'LOOP', rightHandWeapon }
+const sharedProps = { mesh, animations, animDict, jumpStyle: 'FLY_JUMP', maxJumpTime: 18, attackStyle: 'LOOP' }
 
 export class BarbarianPlayer extends Player {
   constructor(props = {}) {
