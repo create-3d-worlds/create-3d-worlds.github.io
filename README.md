@@ -11,18 +11,19 @@ npx live-server
 
 ## TODO
 
+- BUG: brlja animacije kad ne isključi sve, kad isključi sve onda secka
+- BUG: nakon smrti ostaje zabrljana animacija
+
 ### Scenes & examples
 
 - RPG / Fantasy
   - srediti borbu 
-    - da se ai ne približavaju previše
     - ne koristiti zrak nego razdaljinu i ugao ili koliziju sekire sa neprijateljem?
     - bacanje magije (pogledati i shadere)
   - zepelin prenisko
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)
   - uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)
-  - BUG: brlja animacije kad ne isključi sve, kad isključi sve onda secka
 
 - Adventure / Avatar
   - merge stairway-girl, stairway-to-heaven, tower-of-babel, random-boxes?
