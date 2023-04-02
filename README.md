@@ -15,8 +15,6 @@ npx live-server
 
 - RPG / Fantasy
   - srediti borbu 
-    - neki ai ne mogu da priđu da napadnu?
-      - dodati 4-ti argument to directionBlocked
     - da se ai ne približavaju previše
     - ne koristiti zrak nego razdaljinu i ugao ili koliziju sekire sa neprijateljem?
     - bacanje magije (pogledati i shadere)

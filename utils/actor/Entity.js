@@ -6,14 +6,19 @@ export default class Entity {
     this.mesh = clone(mesh)
     this.name = name
     this.solids = []
-    if (solids) {
+
+    if (solids)
       this.addSolids(solids)
       // this.putOnTerrain() // ako zeza ukloniti
-    }
+
     if (pos) this.position = pos
     if (scale) this.mesh.scale.set(scale, scale, scale)
     if (color != undefined) getMesh(this.mesh).material.color.setHex(color)
     if (rotateY) this.mesh.rotateY(rotateY)
+
+    const { y, z } = getSize(this.mesh)
+    this.height = y
+    this.depth = z
   }
 
   /* GETTERS & SETTERS */
@@ -33,14 +38,6 @@ export default class Entity {
   set position(pos) {
     this.mesh.position.copy(pos)
     this.putOnTerrain()
-  }
-
-  get height() {
-    return getSize(this.mesh, 'y')
-  }
-
-  get depth() {
-    return getSize(this.mesh, 'z')
   }
 
   /* UTILS */

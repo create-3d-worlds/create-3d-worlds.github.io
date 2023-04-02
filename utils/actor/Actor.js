@@ -260,8 +260,9 @@ export default class Actor extends Entity {
       this.mesh.position.y = this.groundY
   }
 
-  directionBlocked(dir, solids = this.solids) {
-    return directionBlocked(this.mesh, solids, dir)
+  directionBlocked(currDir, solids = this.solids) {
+    const rayLength = currDir == dir.forward ? this.depth : this.height
+    return directionBlocked(this.mesh, solids, currDir, rayLength)
   }
 
   turn(angle) {
