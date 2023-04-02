@@ -1,4 +1,4 @@
-import { getMesh, putOnTerrain, addSolids } from '/utils/helpers.js'
+import { getMesh, putOnTerrain, getSize, addSolids } from '/utils/helpers.js'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 
 export default class Entity {
@@ -33,6 +33,14 @@ export default class Entity {
   set position(pos) {
     this.mesh.position.copy(pos)
     this.putOnTerrain()
+  }
+
+  get height() {
+    return getSize(this.mesh, 'y')
+  }
+
+  get depth() {
+    return getSize(this.mesh, 'z')
   }
 
   /* UTILS */

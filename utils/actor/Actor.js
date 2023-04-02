@@ -3,7 +3,7 @@ import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
 
 import Entity from '/utils/actor/Entity.js'
-import { getGroundY, getSize, directionBlocked, getMesh, intersect, getParent, belongsTo, getScene } from '/utils/helpers.js'
+import { getGroundY, directionBlocked, getMesh, intersect, getParent, belongsTo, getScene } from '/utils/helpers.js'
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 import { shootDecals } from '/utils/decals.js'
@@ -116,14 +116,6 @@ export default class Actor extends Entity {
 
   get isAlive() {
     return !this.isDead
-  }
-
-  get height() {
-    return getSize(this.mesh, 'y')
-  }
-
-  get depth() {
-    return getSize(this.mesh, 'z')
   }
 
   get heightDifference() {

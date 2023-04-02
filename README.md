@@ -11,23 +11,20 @@ npx live-server
 
 ## TODO
 
-- BUG: prelaz attack LOOP i idle brlja anim (vratiti chooseDuration nakon popravke)
-  - izgleda da radi tranziciju od početnog stanja napada ka idle, a trebalo bi od kraja napada
-
 ### Scenes & examples
 
 - RPG / Fantasy
-  - BUG: brlja animacije kad ne isključi sve
   - srediti borbu 
-    - odlučiti sekira ili kapuera
-    - bacanje magije (pogledati i shadere)
-    - da se ai ne približavaju previše
     - neki ai ne mogu da priđu da napadnu?
+      - dodati 4-ti argument to directionBlocked
+    - da se ai ne približavaju previše
     - ne koristiti zrak nego razdaljinu i ugao ili koliziju sekire sa neprijateljem?
+    - bacanje magije (pogledati i shadere)
   - zepelin prenisko
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)
   - uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)
+  - BUG: brlja animacije kad ne isključi sve, kad isključi sve onda secka
 
 - Adventure / Avatar
   - merge stairway-girl, stairway-to-heaven, tower-of-babel, random-boxes?

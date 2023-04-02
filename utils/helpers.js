@@ -227,10 +227,10 @@ export const intersectDir = (mesh, solids, currDir) => {
   return intersect(mesh, solids, currDir)
 }
 
-export const directionBlocked = (mesh, solids, currDir) => {
-  const { y, z } = getSize(mesh)
+const defaultLength = (currDir, mesh) => currDir == dir.forward ? getSize(mesh, 'z') : getSize(mesh, 'y')
+
+export const directionBlocked = (mesh, solids, currDir, rayLength = defaultLength(currDir, mesh)) => {
   const intersects = intersectDir(mesh, solids, currDir)
-  const rayLength = currDir == dir.forward ? z : y
   return intersects.length && intersects[0].distance < rayLength
 }
 
