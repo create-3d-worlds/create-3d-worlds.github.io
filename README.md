@@ -11,10 +11,13 @@ npx live-server
 
 ## TODO
 
+- BUG: prelaz attack LOOP i idle brlja anim (vratiti chooseDuration nakon popravke)
+  - izgleda da radi tranziciju od početnog stanja napada ka idle, a trebalo bi od kraja napada
 
 ### Scenes & examples
 
 - RPG / Fantasy
+  - BUG: brlja animacije kad ne isključi sve
   - srediti borbu 
     - odlučiti sekira ili kapuera
     - bacanje magije (pogledati i shadere)

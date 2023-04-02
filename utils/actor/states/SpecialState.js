@@ -27,7 +27,7 @@ export default class SpecialState extends State {
   }
 
   onFinish() {
-    // this.actor?.mixer?.removeEventListener('finished', this.onFinish)
+    this.actor?.mixer?.removeEventListener('finished', this.onFinish)
     if (this.name == 'death') return
     this.actor.setState(this.prevOrIdle)
   }
