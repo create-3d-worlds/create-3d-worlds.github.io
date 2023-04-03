@@ -43,7 +43,7 @@ const constructor = self => {
 const enterAttack = self => {
   getScene(self.mesh).add(self.particles.mesh)
 
-  self.particles.reset({ resetPosition: false })
+  self.particles.reset({ randomize: false })
   updateFlamePos(self)
 
   self.shouldFadeOut = false

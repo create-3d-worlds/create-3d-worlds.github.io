@@ -70,14 +70,14 @@ export default class Particles {
     return new THREE.Points(geometry, material)
   }
 
-  reset({ pos = { x: 0, y: 0, z: 0 }, unitAngle = this.unitAngle, color, resetPosition = true } = {}) {
+  reset({ pos, unitAngle = this.unitAngle, color, randomize = true } = {}) {
     const { mesh } = this
     this.t = 0
     mesh.visible = true
     mesh.material.opacity = 1
-    mesh.position.copy(pos)
+    if (pos) mesh.position.copy(pos)
 
-    if (resetPosition) {
+    if (randomize) {
       const { position } = mesh.geometry.attributes
       for (let i = 0, l = position.array.length; i < l; i++)
         position.array[i] = randFloat(-unitAngle, unitAngle)
@@ -187,12 +187,12 @@ export class Explosion extends Particles {
 }
 
 export class Flame extends Particles {
-  constructor({ file = 'fire.png', size = 5, num = 50, minRadius = 0, maxRadius = .5, color = 0xffffff, ...rest } = {}) {
-    super({ num, file, size, minRadius, maxRadius, color, ...rest })
+  constructor({ file = 'fire.png', size = 5, num = 50, minRadius = 0, maxRadius = .5, ...rest } = {}) {
+    super({ num, file, size, minRadius, maxRadius, ...rest })
   }
 
-  update({ delta, min = 0, max = 8, axis = 2, minVelocity = 5, maxVelocity = 10, ...rest } = {}) {
-    super.update({ delta, min, max, axis, minVelocity, maxVelocity, ...rest })
+  update({ delta, maxRounds = 75, min = 0, max = 8, axis = 2, minVelocity = 5, maxVelocity = 10, ...rest } = {}) {
+    super.update({ delta, maxRounds, min, max, axis, minVelocity, maxVelocity, ...rest })
   }
 }
 
