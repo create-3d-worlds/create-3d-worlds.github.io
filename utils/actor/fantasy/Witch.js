@@ -2,6 +2,7 @@ import Player from '/utils/actor/Player.js'
 import AI from '/utils/actor/AI.js'
 import { loadModel } from '/utils/loaders.js'
 import { Flame } from '/utils/classes/Particles.js'
+import { getScene } from '/utils/helpers.js'
 
 const animDict = {
   idle: 'Crouch Idle',
@@ -22,15 +23,24 @@ const sharedProps = { mesh, animations, animDict, attackStyle: 'ONCE', attackDis
 
 const constructor = self => {
   const particles = new Flame({ num: 25 })
+  particles.mesh.material.opacity = 0
+  self.particles = particles
+}
+
+const updateFlamePos = self => {
+  const { particles, mesh } = self
+  particles.mesh.position.copy(mesh.position)
+  particles.mesh.rotation.copy(mesh.rotation)
   particles.mesh.rotateX(Math.PI)
   particles.mesh.translateY(-1.2)
   particles.mesh.translateZ(1.75)
-  particles.mesh.material.opacity = 0
-  self.particles = particles
-  self.add(particles.mesh)
 }
 
 const attackAction = self => {
+  updateFlamePos(self)
+  const scene = getScene(self.mesh)
+  scene.add(self.particles.mesh)
+
   self.particles.mesh.material.opacity = 1
   self.particles.mesh.visible = true
   self.shouldFadeOut = false
