@@ -24,7 +24,7 @@ const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/flame-gun/mode
 
 const sharedProps = { mesh, animations, animDict, twoHandedWeapon, speed: 1.8, attackStyle: 'LOOP', attackDistance: 7, attackSound: 'fire-swoosh.mp3' }
 
-const updateFlamePos = self => {
+const adjustFlamePos = self => {
   const { particles, mesh } = self
   particles.mesh.position.copy(mesh.position)
   particles.mesh.rotation.copy(mesh.rotation)
@@ -42,10 +42,8 @@ const constructor = self => {
 
 const enterAttack = self => {
   getScene(self.mesh).add(self.particles.mesh)
-
   self.particles.reset({ randomize: false })
-  updateFlamePos(self)
-
+  adjustFlamePos(self)
   self.shouldFadeOut = false
 }
 
@@ -75,7 +73,7 @@ export class GermanFlameThrowerPlayer extends Player {
   update(delta) {
     super.update(delta)
     update(this, delta)
-    if (this.input.attack) updateFlamePos(this)
+    if (this.state.includes('attack')) adjustFlamePos(this)
   }
 }
 
@@ -97,5 +95,6 @@ export class GermanFlameThrowerAI extends AI {
   update(delta) {
     super.update(delta)
     update(this, delta)
+    if (this.state.includes('attack')) adjustFlamePos(this)
   }
 }

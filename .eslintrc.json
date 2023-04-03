@@ -17,6 +17,7 @@
     "constructor-super": "error",
     "curly": ["warn", "multi"],
     "dot-notation": "warn",
+    "getter-return": "error",
     "indent": ["warn", 2, { "SwitchCase": 1 }],
     "key-spacing": ["warn", { "afterColon": true }],
     "keyword-spacing": "warn",

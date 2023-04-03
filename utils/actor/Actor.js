@@ -133,7 +133,7 @@ export default class Actor extends Entity {
   }
 
   get state() {
-    this.currentState?.name
+    return this.currentState?.name
   }
 
   get acceleration() {

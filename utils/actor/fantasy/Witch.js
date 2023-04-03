@@ -28,9 +28,8 @@ const constructor = self => {
   self.shouldFadeOut = false
 }
 
-const updateFlamePos = self => {
+const adjustFlamePos = self => {
   const { particles, mesh } = self
-  particles.mesh.position.copy(mesh.position)
   particles.mesh.rotation.copy(mesh.rotation)
   particles.mesh.rotateX(Math.PI)
   particles.mesh.translateY(-1.2)
@@ -39,8 +38,8 @@ const updateFlamePos = self => {
 
 const enterAttack = self => {
   getScene(self.mesh).add(self.particles.mesh)
-  self.particles.reset()
-  updateFlamePos(self)
+  self.particles.reset({ pos: self.position })
+  adjustFlamePos(self)
   self.shouldFadeOut = false
 }
 
