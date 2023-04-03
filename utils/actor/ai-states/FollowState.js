@@ -20,7 +20,7 @@ export default class FollowState extends WalkState {
     if (!actor.targetInSightRange)
       actor.setState('idle')
 
-    if (actor.distancToTarget < actor.followDistance)
+    if (actor.distanceToTarget < actor.followDistance)
       actor.setState('idle')
   }
 

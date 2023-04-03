@@ -16,7 +16,7 @@ export default class PursueState extends RunState {
 
     /* TRANSIT */
 
-    if (actor.distancToTarget < actor.attackDistance)
+    if (actor.distanceToTarget < actor.attackDistance)
       actor.setState('attack')
 
     if (!actor.targetSpotted)

@@ -12,7 +12,7 @@ export default class AIIdleState extends IdleState {
 
   update() {
     const { actor } = this
-    const { baseState, followDistance, targetInSightRange, targetInAttackRange, distancToTarget } = actor
+    const { baseState, followDistance, targetInSightRange, targetInAttackRange, distanceToTarget } = actor
 
     this.turnEvery(this.interval, Math.PI / 4)
 
@@ -33,7 +33,7 @@ export default class AIIdleState extends IdleState {
     if (baseState == baseStates.flee && targetInSightRange)
       actor.setState('flee')
 
-    if (baseState == baseStates.follow && targetInSightRange && distancToTarget > followDistance * 1.25)
+    if (baseState == baseStates.follow && targetInSightRange && distanceToTarget > followDistance * 1.25)
       actor.setState('follow')
   }
 }

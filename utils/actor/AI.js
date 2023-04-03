@@ -49,7 +49,7 @@ export default class AI extends Actor {
     return pursuingFrom.includes(this.baseState)
   }
 
-  get distancToTarget() {
+  get distanceToTarget() {
     if (!this.target) return Infinity
     return this.position.distanceTo(this.target.position)
   }
@@ -66,12 +66,12 @@ export default class AI extends Actor {
 
   get targetInAttackRange() {
     if (!this.target) return false
-    return this.distancToTarget < this.attackDistance
+    return this.distanceToTarget < this.attackDistance
   }
 
   get targetInSightRange() {
     if (!this.target) return false
-    return this.distancToTarget < this.sightDistance
+    return this.distanceToTarget < this.sightDistance
   }
 
   get targetAbove() {
