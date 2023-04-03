@@ -11,13 +11,12 @@ npx live-server
 
 ## TODO
 
-- BUG: kad ne isključi sve animacije brlja i ostaje nakon smrti, kad isključi secka
-
 ### Scenes & examples
 
 - RPG / Fantasy
   - srediti borbu 
     - bacanje magije (pogledati i shadere)
+      - kad se plamen ugasi do kraja, više ne radi
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)
   - uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)

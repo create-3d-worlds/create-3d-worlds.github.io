@@ -81,7 +81,6 @@ export default class Particles {
 
     if (color)
       mesh.material.color = new THREE.Color(color)
-
   }
 
   fadeOut(maxRounds) {
@@ -90,7 +89,6 @@ export default class Particles {
       mesh.visible = false
       return
     }
-
     mesh.material.opacity = 1 - this.t / maxRounds
   }
 

@@ -21,7 +21,7 @@ const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/flame-gun/mode
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, twoHandedWeapon, speed: 1.8, attackStyle: 'LOOP', attackDistance: 7., attackSound: 'fire-swoosh.mp3' }
+const sharedProps = { mesh, animations, animDict, twoHandedWeapon, speed: 1.8, attackStyle: 'LOOP', attackDistance: 7, attackSound: 'fire-swoosh.mp3' }
 
 const constructor = self => {
   const particles = new Flame()
@@ -35,6 +35,7 @@ const constructor = self => {
 
 const attackAction = self => {
   self.particles.mesh.material.opacity = 1
+  self.particles.mesh.visible = true
   self.shouldFadeOut = false
 }
 

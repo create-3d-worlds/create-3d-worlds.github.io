@@ -13,4 +13,8 @@ export default class AIAttackOnceState extends SpecialState {
     super.enter(oldState, oldAction)
     this.actor.lookAtTarget()
   }
+
+  exit() {
+    if (this.actor.endAttack) this.actor.endAttack()
+  }
 }
