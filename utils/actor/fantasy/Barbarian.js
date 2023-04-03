@@ -29,8 +29,8 @@ export class BarbarianPlayer extends Player {
     super({ ...sharedProps, ...props })
   }
 
-  attackAction() {
-    super.attackAction('enemy', this.height * .5)
+  enterAttack() {
+    super.enterAttack('enemy', this.height * .5)
   }
 
   checkHit() {

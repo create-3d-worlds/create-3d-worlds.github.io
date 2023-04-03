@@ -40,7 +40,7 @@ const constructor = self => {
   self.shouldFadeOut = false
 }
 
-const attackAction = self => {
+const enterAttack = self => {
   getScene(self.mesh).add(self.particles.mesh)
 
   self.particles.reset({ resetPosition: false })
@@ -63,9 +63,9 @@ export class GermanFlameThrowerPlayer extends Player {
     constructor(this)
   }
 
-  attackAction() {
-    super.attackAction()
-    attackAction(this)
+  enterAttack() {
+    super.enterAttack()
+    enterAttack(this)
   }
 
   endAttack() {
@@ -84,9 +84,9 @@ export class GermanFlameThrowerAI extends AI {
     constructor(this)
   }
 
-  attackAction() {
-    super.attackAction()
-    attackAction(this)
+  enterAttack() {
+    super.enterAttack()
+    enterAttack(this)
   }
 
   endAttack() {

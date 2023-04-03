@@ -9,7 +9,7 @@ export default class AttackLoopState extends State {
 
   enter(oldState, oldAction) {
     super.enter(oldState)
-    this.actor.attackAction()
+    this.actor.enterAttack()
 
     if (this.action) {
       this.action.reset()
@@ -19,7 +19,7 @@ export default class AttackLoopState extends State {
   }
 
   onLoopEnd() {
-    if (this.actor.input[this.name]) this.actor.attackAction()
+    if (this.actor.input[this.name]) this.actor.enterAttack()
     else this.actor.setState(this.prevOrIdle)
   }
 

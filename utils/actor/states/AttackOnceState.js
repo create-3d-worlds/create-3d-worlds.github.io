@@ -7,7 +7,7 @@ export default class AttackOnceState extends SpecialState {
     else
       this.duration = 300
 
-    this.actor.attackAction()
+    this.actor.enterAttack()
   }
 
   update(delta) {

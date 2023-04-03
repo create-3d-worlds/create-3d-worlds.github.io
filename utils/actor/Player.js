@@ -34,8 +34,8 @@ export default class Player extends Actor {
 
   /* COMBAT */
 
-  attackAction(name = 'enemy', height) {
-    super.attackAction(name, height)
+  enterAttack(name = 'enemy', height) {
+    super.enterAttack(name, height)
   }
 
   hit(mesh, damage = [35, 55]) {

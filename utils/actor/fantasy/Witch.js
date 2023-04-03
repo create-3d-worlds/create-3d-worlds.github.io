@@ -37,7 +37,7 @@ const updateFlamePos = self => {
   particles.mesh.translateZ(1.75)
 }
 
-const attackAction = self => {
+const enterAttack = self => {
   getScene(self.mesh).add(self.particles.mesh)
   self.particles.reset()
   updateFlamePos(self)
@@ -58,10 +58,10 @@ export class WitchPlayer extends Player {
     constructor(this)
   }
 
-  attackAction() {
+  enterAttack() {
     setTimeout(() => {
-      super.attackAction()
-      attackAction(this)
+      super.enterAttack()
+      enterAttack(this)
     }, 1000)
   }
 

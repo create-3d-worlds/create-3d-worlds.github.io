@@ -104,8 +104,8 @@ export default class FPSPlayer extends Player {
 
   /* COMBAT */
 
-  attackAction() {
-    super.attackAction()
+  enterAttack() {
+    super.enterAttack()
     this.time += 5 // recoil
   }
 
