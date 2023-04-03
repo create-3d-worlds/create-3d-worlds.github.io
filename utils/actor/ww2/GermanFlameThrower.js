@@ -24,7 +24,6 @@ const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/flame-gun/mode
 
 const sharedProps = { mesh, animations, animDict, twoHandedWeapon, speed: 1.8, attackStyle: 'LOOP', attackDistance: 7, attackSound: 'fire-swoosh.mp3' }
 
-
 const updateFlamePos = self => {
   const { particles, mesh } = self
   particles.mesh.position.copy(mesh.position)
@@ -38,6 +37,7 @@ const constructor = self => {
   const particles = new Flame()
   particles.mesh.material.opacity = 0
   self.particles = particles
+  self.shouldFadeOut = false
 }
 
 const attackAction = self => {
@@ -45,6 +45,7 @@ const attackAction = self => {
   const scene = getScene(self.mesh)
   scene.add(self.particles.mesh)
 
+  self.particles.t = 0
   self.particles.mesh.material.opacity = 1
   self.particles.mesh.visible = true
   self.shouldFadeOut = false

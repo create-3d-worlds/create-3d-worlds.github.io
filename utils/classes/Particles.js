@@ -13,61 +13,64 @@ function addVelocity({ geometry, minVelocity = .5, maxVelocity = 3 } = {}) {
   geometry.setAttribute('velocity', new THREE.Float32BufferAttribute(velocities, 1))
 }
 
-function createParticles({ num = 10000, file = 'ball.png', color, size = .5, opacity = 1, unitAngle = 1, minRadius = 100, maxRadius = 1000, blending = THREE.AdditiveBlending } = {}) {
-  const geometry = new THREE.BufferGeometry()
-  const positions = []
-  const colors = []
-
-  for (let i = 0; i < num; i++) {
-    const vertex = new THREE.Vector3(
-      randFloat(-unitAngle, unitAngle), randFloat(-unitAngle, unitAngle), randFloat(-unitAngle, unitAngle)
-    )
-    const velocity = randFloat(minRadius, maxRadius)
-    vertex.multiplyScalar(velocity)
-    const { x, y, z } = vertex
-    positions.push(x, y, z)
-    if (!color) {
-      const color = similarColor(0xf2c5f3)
-      colors.push(color.r, color.g, color.b)
-    }
-  }
-
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
-  if (!color) geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
-
-  const material = new THREE.PointsMaterial({
-    size,
-    transparent: true,
-    opacity,
-  })
-  if (file) {
-    material.map = textureLoader.load(`/assets/textures/particles/${file}`)
-    material.blending = blending
-    material.depthWrite = false // for explosion
-  }
-
-  if (color)
-    material.color = new THREE.Color(color)
-  else
-    material.vertexColors = true
-
-  return new THREE.Points(geometry, material)
-}
-
 /**
  * Particles base class, creates particles in sphere space
  */
 export default class Particles {
-  constructor(params) {
+  constructor({ num = 10000, file = 'ball.png', color, size = .5, opacity = 1, unitAngle = 1, minRadius = 100, maxRadius = 1000, blending = THREE.AdditiveBlending } = {}) {
     this.t = 0
-    this.mesh = createParticles(params)
+    this.unitAngle = unitAngle
+    this.mesh = this.createParticles({ num, file, color, size, opacity, minRadius, maxRadius, blending })
   }
 
   get particles() {
     return this.mesh
   }
 
-  reset({ pos = { x: 0, y: 0, z: 0 }, unitAngle = 1, color } = {}) {
+  createParticles({ num = 10000, file = 'ball.png', color, size = .5, opacity = 1, minRadius = 100, maxRadius = 1000, blending = THREE.AdditiveBlending } = {}) {
+    const { unitAngle } = this
+    const geometry = new THREE.BufferGeometry()
+    const positions = []
+    const colors = []
+
+    for (let i = 0; i < num; i++) {
+      const vertex = new THREE.Vector3(
+        randFloat(-unitAngle, unitAngle), randFloat(-unitAngle, unitAngle), randFloat(-unitAngle, unitAngle)
+      )
+      const radius = randFloat(minRadius, maxRadius)
+      vertex.multiplyScalar(radius)
+      const { x, y, z } = vertex
+      positions.push(x, y, z)
+
+      if (!color) {
+        const color = similarColor(0xf2c5f3)
+        colors.push(color.r, color.g, color.b)
+      }
+    }
+
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
+    if (!color) geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
+
+    const material = new THREE.PointsMaterial({
+      size,
+      transparent: true,
+      opacity,
+    })
+    if (file) {
+      material.map = textureLoader.load(`/assets/textures/particles/${file}`)
+      material.blending = blending
+      material.depthWrite = false // for explosion
+    }
+
+    if (color)
+      material.color = new THREE.Color(color)
+    else
+      material.vertexColors = true
+
+    return new THREE.Points(geometry, material)
+  }
+
+  reset({ pos = { x: 0, y: 0, z: 0 }, unitAngle = this.unitAngle, color } = {}) {
     const { mesh } = this
     this.t = 0
     mesh.visible = true
@@ -77,19 +80,18 @@ export default class Particles {
     const { position } = mesh.geometry.attributes
     for (let i = 0, l = position.array.length; i < l; i++)
       position.array[i] = randFloat(-unitAngle, unitAngle)
-    position.needsUpdate = true
 
     if (color)
       mesh.material.color = new THREE.Color(color)
   }
 
   fadeOut(maxRounds) {
-    const { mesh } = this
-    if (++this.t > maxRounds) {
-      mesh.visible = false
+    this.t++
+    if (this.t > maxRounds) {
+      this.mesh.visible = false
       return
     }
-    mesh.material.opacity = 1 - this.t / maxRounds
+    this.mesh.material.opacity = 1 - this.t / maxRounds
   }
 
   /**

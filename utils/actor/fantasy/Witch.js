@@ -22,9 +22,10 @@ const { mesh, animations } = await loadModel({ file: 'model.fbx', angle: Math.PI
 const sharedProps = { mesh, animations, animDict, attackStyle: 'ONCE', attackDistance: 3 }
 
 const constructor = self => {
-  const particles = new Flame({ num: 25 })
+  const particles = new Flame({ num: 25, minRadius: 0, maxRadius: .5 })
   particles.mesh.material.opacity = 0
   self.particles = particles
+  self.shouldFadeOut = false
 }
 
 const updateFlamePos = self => {
@@ -37,12 +38,15 @@ const updateFlamePos = self => {
 }
 
 const attackAction = self => {
-  updateFlamePos(self)
   const scene = getScene(self.mesh)
   scene.add(self.particles.mesh)
 
-  self.particles.mesh.material.opacity = 1
-  self.particles.mesh.visible = true
+  // self.particles.t = 0
+  // self.particles.mesh.material.opacity = 1
+  // self.particles.mesh.visible = true
+  self.particles.reset()
+  updateFlamePos(self)
+
   self.shouldFadeOut = false
 }
 
