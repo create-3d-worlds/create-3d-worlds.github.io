@@ -13,10 +13,16 @@ npx live-server
 
 ### Scenes & examples
 
+- Particles / bacanje magije
+  - dodavati scene a ne sebi da se plamen ne pomera sa likom
+  - menjati boju i svojstva plamena
+  - probati dim i druge efekte
+  - pogledati i shadere
+  - bacanje magije na special
+  - odvojiti attack i attack2
+  - praviti damage
+
 - RPG / Fantasy
-  - srediti borbu 
-    - bacanje magije (pogledati i shadere)
-      - kad se plamen ugasi do kraja, više ne radi
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)
   - uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)

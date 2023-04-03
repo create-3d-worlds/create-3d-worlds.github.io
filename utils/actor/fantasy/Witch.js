@@ -41,7 +41,7 @@ const endAttack = self => {
 }
 
 const update = (self, delta) => {
-  self.particles.update({ delta, max: self.attackDistance, loop: !self.shouldFadeOut, minVelocity: 2.5, maxVelocity: 5, maxRounds: 50 })
+  self.particles.update({ delta, max: self.attackDistance, loop: !self.shouldFadeOut, minVelocity: 2.5, maxVelocity: 5, maxRounds: 75 })
 }
 
 export class WitchPlayer extends Player {
@@ -51,8 +51,10 @@ export class WitchPlayer extends Player {
   }
 
   attackAction() {
-    super.attackAction()
-    attackAction(this)
+    setTimeout(() => {
+      super.attackAction()
+      attackAction(this)
+    }, 1000)
   }
 
   endAttack() {
