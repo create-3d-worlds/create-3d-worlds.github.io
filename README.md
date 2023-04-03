@@ -14,7 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Particles / bacanje magije
-  - dodavati scene a ne sebi da se plamen ne pomera sa likom
+  - BUG: samo prvi put odleti daleko, drugi put ne
   - menjati boju i svojstva plamena
   - probati dim i druge efekte
   - pogledati i shadere
