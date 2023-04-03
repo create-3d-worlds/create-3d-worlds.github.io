@@ -70,16 +70,18 @@ export default class Particles {
     return new THREE.Points(geometry, material)
   }
 
-  reset({ pos = { x: 0, y: 0, z: 0 }, unitAngle = this.unitAngle, color } = {}) {
+  reset({ pos = { x: 0, y: 0, z: 0 }, unitAngle = this.unitAngle, color, resetPosition = true } = {}) {
     const { mesh } = this
     this.t = 0
     mesh.visible = true
     mesh.material.opacity = 1
     mesh.position.copy(pos)
 
-    const { position } = mesh.geometry.attributes
-    for (let i = 0, l = position.array.length; i < l; i++)
-      position.array[i] = randFloat(-unitAngle, unitAngle)
+    if (resetPosition) {
+      const { position } = mesh.geometry.attributes
+      for (let i = 0, l = position.array.length; i < l; i++)
+        position.array[i] = randFloat(-unitAngle, unitAngle)
+    }
 
     if (color)
       mesh.material.color = new THREE.Color(color)

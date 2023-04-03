@@ -41,13 +41,11 @@ const constructor = self => {
 }
 
 const attackAction = self => {
-  updateFlamePos(self)
-  const scene = getScene(self.mesh)
-  scene.add(self.particles.mesh)
+  getScene(self.mesh).add(self.particles.mesh)
 
-  self.particles.t = 0
-  self.particles.mesh.material.opacity = 1
-  self.particles.mesh.visible = true
+  self.particles.reset({ resetPosition: false })
+  updateFlamePos(self)
+
   self.shouldFadeOut = false
 }
 

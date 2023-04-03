@@ -38,15 +38,9 @@ const updateFlamePos = self => {
 }
 
 const attackAction = self => {
-  const scene = getScene(self.mesh)
-  scene.add(self.particles.mesh)
-
-  // self.particles.t = 0
-  // self.particles.mesh.material.opacity = 1
-  // self.particles.mesh.visible = true
+  getScene(self.mesh).add(self.particles.mesh)
   self.particles.reset()
   updateFlamePos(self)
-
   self.shouldFadeOut = false
 }
 
