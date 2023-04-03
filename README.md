@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Particles / bacanje magije
-  - da se plamen vrti zajedno sa actorom
   - menjati boju i svojstva plamena
   - probati dim i druge efekte
   - pogledati i shadere

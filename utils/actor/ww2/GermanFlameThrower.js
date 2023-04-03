@@ -75,6 +75,7 @@ export class GermanFlameThrowerPlayer extends Player {
   update(delta) {
     super.update(delta)
     update(this, delta)
+    if (this.input.attack) updateFlamePos(this)
   }
 }
 
