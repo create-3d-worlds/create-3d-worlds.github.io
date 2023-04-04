@@ -16,9 +16,11 @@ npx live-server
 ### Scenes & examples
 
 - RPG / Fantasy
-  - da enemy cita iz solids, ili da automatski dodaje enemy iz scene u solids?
+  - da automatski dodaje enemy iz scene u solids
+    - getter koji vraća solids + enemies
   - karakter dolazi do kuće i ulazi (vidi house model primer)
   - uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)
+  - zepelin i oblaci da održavaju visinu od tla
 
 - Adventure / Avatar
   - merge stairway-girl, stairway-to-heaven, tower-of-babel, random-boxes?

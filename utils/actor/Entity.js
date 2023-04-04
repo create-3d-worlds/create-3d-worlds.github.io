@@ -8,11 +8,10 @@ export default class Entity {
     this.mesh = clone(mesh)
     this.name = name
 
-    if (solids)
-      this.addSolids(solids)
-      // this.putOnTerrain() // ako zeza ukloniti
-
     if (pos) this.position = pos
+    if (solids) this.addSolids(solids)
+    if (pos && solids) putOnTerrain(this.mesh, solids)
+
     if (scale) this.mesh.scale.set(scale, scale, scale)
     if (color != undefined) getMesh(this.mesh).material.color.setHex(color)
     if (rotateY) this.mesh.rotateY(rotateY)
@@ -38,7 +37,6 @@ export default class Entity {
 
   set position(pos) {
     this.mesh.position.copy(pos)
-    this.putOnTerrain()
   }
 
   get solids() {
@@ -68,9 +66,5 @@ export default class Entity {
       if (Array.isArray(newSolid)) newSolid.forEach(this.pushUnique)
       else this.pushUnique(newSolid)
     })
-  }
-
-  putOnTerrain() {
-    putOnTerrain(this.mesh, this.solids)
   }
 }
