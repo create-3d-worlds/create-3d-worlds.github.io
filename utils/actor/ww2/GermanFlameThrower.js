@@ -37,22 +37,21 @@ const constructor = self => {
   const particles = new Flame()
   particles.mesh.material.opacity = 0
   self.particles = particles
-  self.shouldFadeOut = false
 }
 
 const enterAttack = self => {
   getScene(self.mesh).add(self.particles.mesh)
   self.particles.reset({ randomize: false })
   adjustFlamePos(self)
-  self.shouldFadeOut = false
+  self.shouldLoop = true
 }
 
 const endAttack = self => {
-  self.shouldFadeOut = true
+  self.shouldLoop = false
 }
 
 const update = (self, delta) => {
-  self.particles.update({ delta, max: self.attackDistance, loop: !self.shouldFadeOut })
+  self.particles.update({ delta, max: self.attackDistance, loop: self.shouldLoop })
 }
 
 export class GermanFlameThrowerPlayer extends Player {

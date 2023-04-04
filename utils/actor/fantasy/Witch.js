@@ -25,7 +25,6 @@ const constructor = self => {
   const particles = new Flame({ num: 25, minRadius: 0, maxRadius: .5 })
   particles.mesh.material.opacity = 0
   self.particles = particles
-  self.shouldFadeOut = false
 }
 
 const adjustFlamePos = self => {
@@ -38,17 +37,19 @@ const adjustFlamePos = self => {
 
 const enterAttack = self => {
   getScene(self.mesh).add(self.particles.mesh)
-  self.particles.reset({ pos: self.position })
-  adjustFlamePos(self)
-  self.shouldFadeOut = false
+  setTimeout(() => {
+    self.particles.reset({ pos: self.position })
+    adjustFlamePos(self)
+    self.shouldLoop = true
+  }, 1000)
 }
 
 const endAttack = self => {
-  self.shouldFadeOut = true
+  self.shouldLoop = false
 }
 
 const update = (self, delta) => {
-  self.particles.update({ delta, max: self.attackDistance, loop: !self.shouldFadeOut, minVelocity: 2.5, maxVelocity: 5 })
+  self.particles.update({ delta, max: self.attackDistance, loop: self.shouldLoop, minVelocity: 2.5, maxVelocity: 5 })
 }
 
 export class WitchPlayer extends Player {
@@ -58,10 +59,8 @@ export class WitchPlayer extends Player {
   }
 
   enterAttack() {
-    setTimeout(() => {
-      super.enterAttack()
-      enterAttack(this)
-    }, 1000)
+    super.enterAttack()
+    enterAttack(this)
   }
 
   endAttack() {
