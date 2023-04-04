@@ -26,21 +26,19 @@ const createParticles = () => {
   return particles
 }
 
-const adjustFlamePos = self => {
+const resetParticles = self => {
   const { particles, mesh } = self
+  particles.reset({ pos: self.position })
   particles.mesh.rotation.copy(mesh.rotation)
   particles.mesh.rotateX(Math.PI)
   particles.mesh.translateY(-1.2)
   particles.mesh.translateZ(1.75)
+  self.shouldLoop = true
 }
 
 const enterAttack = self => {
   self.scene.add(self.particles.mesh)
-  setTimeout(() => {
-    self.particles.reset({ pos: self.position })
-    adjustFlamePos(self)
-    self.shouldLoop = true
-  }, 1000)
+  setTimeout(() => resetParticles(self), 1000)
 }
 
 const exitAttack = self => {
