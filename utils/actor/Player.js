@@ -5,6 +5,7 @@ import defaultKeyboard from '/utils/classes/Input.js'
 import { jumpStyles, attackStyles, reactions } from '/utils/constants.js'
 import { getPlayerState } from './states/index.js'
 import { createOrbitControls } from '/utils/scene.js'
+import { findChildren } from '/utils/helpers.js'
 import CameraFollow from '/utils/classes/CameraFollow.js'
 import Actor from './Actor.js'
 
@@ -30,6 +31,12 @@ export default class Player extends Actor {
       this.orbitControls.mouseButtons = { RIGHT: THREE.MOUSE.ROTATE }
       this.shouldAlignCamera = true
     }
+  }
+
+  /* GETTERS */
+
+  get enemies() {
+    return findChildren(this.scene, 'enemy')
   }
 
   /* COMBAT */

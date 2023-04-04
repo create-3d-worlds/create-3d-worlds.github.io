@@ -2,7 +2,6 @@ import Player from '/utils/actor/Player.js'
 import AI from '/utils/actor/AI.js'
 import { loadModel } from '/utils/loaders.js'
 import { RedFlame } from '/utils/classes/Particles.js'
-import { findChildren } from '/utils/helpers.js'
 
 const animDict = {
   idle: 'Idle',
@@ -54,14 +53,11 @@ export class BarbarianPlayer extends Player {
   }
 
   enterSpecial() {
-    const enemies = findChildren(this.scene, 'enemy')
     this.scene.add(this.particles.mesh)
     setTimeout(() => {
       this.resetParticles()
-      enemies.forEach(mesh => {
-        const distance = this.position.distanceTo(mesh.position)
-        if (distance < this.attackDistance * 2) this.hit(mesh, [89, 135])
-      })
+      const near = this.enemies.filter(mesh => this.position.distanceTo(mesh.position) < 3)
+      near.forEach(mesh => this.hit(mesh, [89, 135]))
     }, 1000)
   }
 
