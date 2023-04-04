@@ -13,9 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Savo: 
-  - BUG: ne radi kretanje
-
 - Particles / bacanje magije
   - praviti damage
   - reuse methods
