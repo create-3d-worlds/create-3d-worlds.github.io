@@ -1,6 +1,6 @@
-import SpecialState from './SpecialState.js'
+import AnimOnceState from './AnimOnceState.js'
 
-export default class AttackOnceState extends SpecialState {
+export default class AttackOnceState extends AnimOnceState {
   enter(oldState, oldAction) {
     if (this.action)
       super.enter(oldState, oldAction)

@@ -7,8 +7,8 @@ const animDict = {
   walk: 'Dwarf Walk',
   run: 'Fast Run',
   jump: 'Mutant Jumping',
-  attack: 'Mma Kick',
-  attack2: 'Standing Melee Kick',
+  attack: 'Sword And Shield Slash',
+  attack2: 'Standing Melee Kick', // Mma Kick
   special: 'Standing 2H Magic Attack 05',
   pain: 'Standing React Large From Right',
   death: 'Falling Back Death',
@@ -18,11 +18,11 @@ const animDict = {
 
 const { mesh, animations } = await loadModel({ prefix: 'character/barbarian/', file: 'model.fbx', angle: Math.PI, fixColors: true, animDict, size: 1.78, runCoefficient: 4 })
 
-// const { mesh: rightHandWeapon } = await loadModel({ file: 'weapon/axe-lowpoly/model.fbx', scale: .18 })
+const { mesh: rightHandWeapon } = await loadModel({ file: 'weapon/axe-lowpoly/model.fbx', scale: .18 })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, jumpStyle: 'FLY_JUMP', maxJumpTime: 18, attackStyle: 'LOOP' }
+const sharedProps = { rightHandWeapon, mesh, animations, animDict, jumpStyle: 'FLY_JUMP', maxJumpTime: 18, attackStyle: 'LOOP' }
 
 export class BarbarianPlayer extends Player {
   constructor(props = {}) {
@@ -35,8 +35,7 @@ export class BarbarianPlayer extends Player {
 
   checkHit() {
     if (this.currentState.name.includes('attack')) {
-      // untouchable during attack
-      this.hitAmount = 0
+      this.hitAmount = 0 // untouchable during attack
       return
     }
     super.checkHit()

@@ -1,6 +1,6 @@
-import SpecialState from '../states/SpecialState.js'
+import AnimOnceState from '../states/AnimOnceState.js'
 
-export default class AIAttackOnceState extends SpecialState {
+export default class AIAttackOnceState extends AnimOnceState {
   constructor(...args) {
     super(...args)
     const { actions } = this.actor

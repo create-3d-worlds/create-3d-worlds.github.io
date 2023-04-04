@@ -1,6 +1,6 @@
-import SpecialState from './SpecialState.js'
+import AnimOnceState from './AnimOnceState.js'
 
-export default class JumpState extends SpecialState {
+export default class JumpState extends AnimOnceState {
 
   enter(oldState, oldAction) {
     super.enter(oldState, oldAction)

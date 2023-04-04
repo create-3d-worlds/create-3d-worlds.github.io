@@ -20,6 +20,7 @@ npx live-server
   - reuse methods
 
 - RPG / Fantasy
+  - vratiti sekiru
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)
   - uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)

@@ -3,7 +3,7 @@ import State from './State.js'
 
 const duration = .25
 
-export default class SpecialState extends State {
+export default class AnimOnceState extends State {
   constructor(...args) {
     super(...args)
     this.onFinish = this.onFinish.bind(this)

@@ -3,7 +3,7 @@ import { jumpStyles } from '/utils/constants.js'
 import IdleState from './IdleState.js'
 import RunState from './RunState.js'
 import WalkState from './WalkState.js'
-import SpecialState from './SpecialState.js'
+import AnimOnceState from './AnimOnceState.js'
 import JumpState from './JumpState.js'
 import JumpFlyState from './JumpFlyState.js'
 import FlyState from './FlyState.js'
@@ -53,7 +53,7 @@ export function getPlayerState(name, jumpStyle, attackStyle) {
     if (attackStyle === 'LOOP') return AttackLoopState
     if (attackStyle === 'ONCE') return AttackOnceState
   }
-  return playerStates[name] || SpecialState
+  return playerStates[name] || AnimOnceState
 }
 
 export function getAIState(name, jumpStyle, attackStyle) {
@@ -62,5 +62,5 @@ export function getAIState(name, jumpStyle, attackStyle) {
     if (attackStyle === 'LOOP') return AIAttackLoopState
     if (attackStyle === 'ONCE') return AIAttackOnceState
   }
-  return aiStates[name] || SpecialState
+  return aiStates[name] || AnimOnceState
 }
