@@ -11,9 +11,12 @@ npx live-server
 
 ## TODO
 
+- organize folders (classes, etc.)
+
 ### Scenes & examples
 
 - RPG / Fantasy
+  - da enemy cita iz solids, ili da automatski dodaje enemy iz scene u solids?
   - karakter dolazi do kuće i ulazi (vidi house model primer)
   - uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)
 

@@ -104,11 +104,7 @@ export const centerGeometry = geometry => {
 
 export const adjustHeight = mesh => mesh.translateY(getHeight(mesh) / 2)
 
-/**
-   * Add solid objects for player to collide
-   * @param {array} oldSolids pass by reference
-   * @param {array or mesh} newSolids
-   */
+// TODO: move to Aircraft
 export const addSolids = (oldSolids, ...newSolids) => {
   const pushUnique = obj => {
     if (!oldSolids.includes(obj)) oldSolids.push(obj)

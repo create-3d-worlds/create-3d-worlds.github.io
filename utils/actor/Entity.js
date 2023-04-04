@@ -1,11 +1,12 @@
-import { getMesh, putOnTerrain, getSize, addSolids, getScene } from '/utils/helpers.js'
+import { getMesh, putOnTerrain, getSize, getScene } from '/utils/helpers.js'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 
 export default class Entity {
+  #solids = []
+
   constructor({ mesh, name, pos, color, solids, scale, rotateY } = {}) {
     this.mesh = clone(mesh)
     this.name = name
-    this.solids = []
 
     if (solids)
       this.addSolids(solids)
@@ -22,6 +23,10 @@ export default class Entity {
   }
 
   /* GETTERS & SETTERS */
+
+  get solids() {
+    return this.#solids
+  }
 
   get name() {
     return this.mesh.name
@@ -50,8 +55,19 @@ export default class Entity {
     this.mesh.add(obj)
   }
 
+  pushUnique = obj => {
+    if (!this.solids.includes(obj)) this.solids.push(obj)
+  }
+
+  /**
+   * Add solid objects to collide (terrain, walls, actors, etc.)
+   * @param {array of meshes, mesh or meshes} newSolids
+   */
   addSolids(...newSolids) {
-    addSolids(this.solids, ...newSolids)
+    newSolids.forEach(newSolid => {
+      if (Array.isArray(newSolid)) newSolid.forEach(this.pushUnique)
+      else this.pushUnique(newSolid)
+    })
   }
 
   putOnTerrain() {
