@@ -34,6 +34,12 @@ export default class RunState extends State {
     if (this.actor.inAir)
       this.actor.setState('fall')
 
+    if (actor.input.attack)
+      actor.setState('attack')
+
+    if (this.input.attack2)
+      this.actor.setState('attack2')
+
     if (!this.actor.input.run)
       actor.setState('walk')
 

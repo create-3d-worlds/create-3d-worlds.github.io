@@ -14,11 +14,10 @@ npx live-server
 ### Scenes & examples
 
 - Particles / bacanje magije
-  - praviti damage
+  - special da pravi area damage
   - reuse methods
 
 - RPG / Fantasy
-  - vratiti sekiru
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)
   - uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)
@@ -104,6 +103,7 @@ DODATI:
   - komande za dodirne ekrane (strelice i dugmiće)
   - reload button (kad igrač umre)
   - full screen btn
+  - mute btn
   - preloader po potrebi
 - probati VR https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
 - pauzirati scenu na tab unfocus

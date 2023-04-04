@@ -2,6 +2,7 @@ import Player from '/utils/actor/Player.js'
 import AI from '/utils/actor/AI.js'
 import { loadModel } from '/utils/loaders.js'
 import { RedFlame } from '/utils/classes/Particles.js'
+import { findChildren } from '/utils/helpers.js'
 
 const animDict = {
   idle: 'Idle',
@@ -53,6 +54,8 @@ export class BarbarianPlayer extends Player {
   }
 
   enterSpecial() {
+    const enemies = findChildren(this.scene, 'enemy')
+    console.log(enemies)
     this.scene.add(this.particles.mesh)
     setTimeout(() => this.resetParticles(), 1000)
   }

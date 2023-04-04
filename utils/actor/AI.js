@@ -15,10 +15,18 @@ const pursuingFrom = [baseStates.idle, baseStates.patrol, baseStates.wander]
 
 export default class AI extends Actor {
   constructor({
-    jumpStyle = jumpStyles.FALSE_JUMP, attackStyle = attackStyles.LOOP, baseState = baseStates.wander, speed = 1.8, sightDistance = 25, followDistance = 1.5, patrolDistance = 10, attackDistance = 1.25, target, ...params
+    speed = 1.8,
+    jumpStyle = jumpStyles.FALSE_JUMP,
+    attackStyle = attackStyles.LOOP,
+    baseState = baseStates.wander,
+    sightDistance = 25,
+    followDistance = 1.5,
+    patrolDistance = 10,
+    attackDistance = 1.25,
+    target,
+    ...params
   } = {}) {
     super({
-      name: 'enemy',
       speed,
       attackDistance,
       input: new Input(false),
@@ -29,6 +37,7 @@ export default class AI extends Actor {
       ...params,
     })
     if (target) {
+      this.name = 'enemy'
       this.target = target
       this.addSolids(target)
     }
@@ -85,7 +94,7 @@ export default class AI extends Actor {
   }
 
   get targetSpotted() {
-    if (!this.target) return
+    if (!this.target) return false
 
     if (this.targetNear) this.lookAtTarget()
     const intersects = this.intersect()
