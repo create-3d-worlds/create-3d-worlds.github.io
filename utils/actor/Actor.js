@@ -15,7 +15,6 @@ const { randInt } = THREE.MathUtils
 /**
  * Base abstract class for AI and Player, handles movement, animations...
  * @param animDict: maps state to animation
- ** anim keys: idle, walk, run, jump, fall, attack, attack2, special, pain, death
  */
 export default class Actor extends Entity {
   constructor({

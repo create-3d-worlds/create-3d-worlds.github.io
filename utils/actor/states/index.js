@@ -21,24 +21,6 @@ import AIAttackOnceState from '../ai-states/AIAttackOnceState.js'
 import AIAttackLoopState from '../ai-states/AIAttackLoopState.js'
 import AIFallState from '../ai-states/AIFallState.js'
 
-const playerStates = {
-  idle: IdleState,
-  walk: WalkState,
-  run: RunState,
-  jump: FlyState,
-  fall: FallState,
-}
-
-const aiStates = {
-  idle: AIIdleState,
-  wander: WanderState,
-  pursue: PursueState,
-  flee: FleeState,
-  patrol: PatrolState,
-  follow: FollowState,
-  fall: AIFallState,
-}
-
 const chooseJumpState = jumpStyle => {
   switch (jumpStyle) {
     case jumpStyles.FALSE_JUMP: return JumpState
@@ -48,19 +30,35 @@ const chooseJumpState = jumpStyle => {
 }
 
 export function getPlayerState(name, jumpStyle, attackStyle) {
-  if (name === 'jump') return chooseJumpState (jumpStyle)
-  if (name === 'attack' || name === 'attack2') {
-    if (attackStyle === 'LOOP') return AttackLoopState
-    if (attackStyle === 'ONCE') return AttackOnceState
+  switch (name) {
+    case 'idle': return IdleState
+    case 'walk': return WalkState
+    case 'run': return RunState
+    case 'fall': return FallState
+    case 'jump': return chooseJumpState(jumpStyle)
+    case 'attack':
+    case 'attack2': {
+      if (attackStyle === 'LOOP') return AttackLoopState
+      if (attackStyle === 'ONCE') return AttackOnceState
+    }
+    default: return AnimOnceState
   }
-  return playerStates[name] || AnimOnceState
 }
 
 export function getAIState(name, jumpStyle, attackStyle) {
-  if (name === 'jump') return chooseJumpState (jumpStyle)
-  if (name === 'attack') {
-    if (attackStyle === 'LOOP') return AIAttackLoopState
-    if (attackStyle === 'ONCE') return AIAttackOnceState
+  switch (name) {
+    case 'idle': return AIIdleState
+    case 'wander': return WanderState
+    case 'pursue': return PursueState
+    case 'flee': return FleeState
+    case 'patrol': return PatrolState
+    case 'follow': return FollowState
+    case 'fall': return AIFallState
+    case 'jump': return chooseJumpState(jumpStyle)
+    case 'attack': {
+      if (attackStyle === 'LOOP') return AIAttackLoopState
+      if (attackStyle === 'ONCE') return AIAttackOnceState
+    }
+    default: return AnimOnceState
   }
-  return aiStates[name] || AnimOnceState
 }
