@@ -9,8 +9,8 @@ const animDict = {
   walk: 'Dwarf Walk',
   run: 'Fast Run',
   jump: 'Mutant Jumping',
-  attack: 'Sword And Shield Slash',
-  attack2: 'Standing Melee Kick', // Mma Kick
+  attack: 'Standing Melee Kick',
+  attack2: 'Sword And Shield Slash', // Mma Kick
   special: 'Standing 2H Magic Attack 05',
   pain: 'Standing React Large From Right',
   death: 'Falling Back Death',
@@ -55,9 +55,14 @@ export class BarbarianPlayer extends Player {
 
   enterSpecial() {
     const enemies = findChildren(this.scene, 'enemy')
-    console.log(enemies)
     this.scene.add(this.particles.mesh)
-    setTimeout(() => this.resetParticles(), 1000)
+    setTimeout(() => {
+      this.resetParticles()
+      enemies.forEach(mesh => {
+        const distance = this.position.distanceTo(mesh.position)
+        if (distance < this.attackDistance * 2) this.hit(mesh, [89, 135])
+      })
+    }, 1000)
   }
 
   exitSpecial() {

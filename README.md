@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Particles / bacanje magije
-  - special da pravi area damage
   - reuse methods
 
 - RPG / Fantasy
