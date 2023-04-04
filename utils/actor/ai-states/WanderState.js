@@ -7,7 +7,8 @@ export default class WanderState extends WalkState {
   enter(oldState, oldAction) {
     super.enter(oldState, oldAction)
     this.input.up = true
-    this.interval = randInt(3000, 5000)
+    const { height } = this.actor
+    this.interval = randInt(height * 1500, height * 2500)
   }
 
   update(delta) {

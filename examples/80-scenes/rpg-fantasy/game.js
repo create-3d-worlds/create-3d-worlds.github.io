@@ -1,4 +1,3 @@
-import * as THREE from 'three'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createHillyTerrain } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
@@ -8,14 +7,13 @@ import { BarbarianPlayer } from '/utils/actor/fantasy/Barbarian.js'
 import { OrcAI } from '/utils/actor/fantasy/Orc.js'
 import { OrcOgreAI } from '/utils/actor/fantasy/OrcOgre.js'
 import { FlamingoAI } from '/utils/actor/Flamingo.js'
+import { ElephantAI } from '/utils/actor/Elephant.js'
 import { CloudAI } from '/utils/actor/Cloud.js'
 import { ZappelinAI } from '/utils/actor/Zappelin.js'
 import { loadModel } from '/utils/loaders.js'
 
 const mapSize = 400
 const npcs = []
-
-scene.fog = new THREE.FogExp2(0xf0fff0, .005)
 
 const coords = getShuffledCoords({ mapSize: mapSize * .9, fieldSize: 5 })
 scene.add(createSun({ position: [15, 100, 50] }))
@@ -33,7 +31,7 @@ scene.add(player.mesh)
 
 for (let i = 0; i < 20; i++) {
   const Enemy = sample([OrcAI, OrcOgreAI])
-  const enemy = new Enemy({ pos: coords.pop(), solids: [terrain], target: player.mesh, mapSize, shouldRaycastGround: true })
+  const enemy = new Enemy({ pos: coords.pop(), target: player.mesh, mapSize, solids: [terrain], shouldRaycastGround: true })
   npcs.push(enemy)
   scene.add(enemy.mesh)
 }
@@ -56,11 +54,12 @@ const { mesh: castle } = await loadModel({ file: 'building/castle/fortress.fbx',
 putOnTerrain(castle, terrain, -5)
 scene.add(castle)
 
-player.addSolids(castle)
+const elephant = new ElephantAI({ mapSize, pos: coords.pop(), solids: [terrain], shouldRaycastGround: true })
+player.addSolids(castle, elephant.mesh)
 
 const airship = new ZappelinAI({ mapSize })
-scene.add(airship.mesh)
-npcs.push(airship)
+scene.add(airship.mesh, elephant.mesh)
+npcs.push(airship, elephant)
 
 /* LOOP */
 
