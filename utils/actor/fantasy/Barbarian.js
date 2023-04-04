@@ -56,8 +56,7 @@ export class BarbarianPlayer extends Player {
     this.scene.add(this.particles.mesh)
     setTimeout(() => {
       this.resetParticles()
-      const near = this.enemies.filter(mesh => this.position.distanceTo(mesh.position) < 3)
-      near.forEach(mesh => this.hit(mesh, [89, 135]))
+      this.areaDamage()
     }, 1000)
   }
 

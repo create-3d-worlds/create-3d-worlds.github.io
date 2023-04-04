@@ -49,6 +49,11 @@ export default class Player extends Actor {
     super.hit(mesh, damage)
   }
 
+  areaDamage() {
+    const near = this.enemies.filter(mesh => this.position.distanceTo(mesh.position) < 3)
+    near.forEach(mesh => this.hit(mesh, [89, 135]))
+  }
+
   /* UTILS */
 
   putInMaze(maze, tile = [1, 1]) {

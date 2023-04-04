@@ -13,9 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Particles / bacanje magije
-  - reuse methods
-
 - RPG / Fantasy
   - dodati slona 
   - karakter dolazi do kuće i ulazi (vidi house model primer)
