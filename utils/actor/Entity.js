@@ -24,10 +24,6 @@ export default class Entity {
 
   /* GETTERS & SETTERS */
 
-  get solids() {
-    return this.#solids
-  }
-
   get name() {
     return this.mesh.name
   }
@@ -43,6 +39,10 @@ export default class Entity {
   set position(pos) {
     this.mesh.position.copy(pos)
     this.putOnTerrain()
+  }
+
+  get solids() {
+    return this.#solids
   }
 
   get scene() {
