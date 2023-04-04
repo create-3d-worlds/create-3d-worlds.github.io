@@ -21,10 +21,10 @@ const { mesh, animations } = await loadModel({ file: 'model.fbx', angle: Math.PI
 
 const sharedProps = { mesh, animations, animDict, attackStyle: 'ONCE', attackDistance: 3 }
 
-const constructor = self => {
-  const particles = new Flame({ num: 25, minRadius: 0, maxRadius: .5 })
+const createParticles = () => {
+  const particles = new Flame({ num: 25, minRadius: 0, maxRadius: .5 }) // or RedFlame
   particles.mesh.material.opacity = 0
-  self.particles = particles
+  return particles
 }
 
 const adjustFlamePos = self => {
@@ -55,7 +55,7 @@ const update = (self, delta) => {
 export class WitchPlayer extends Player {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
-    constructor(this)
+    this.particles = createParticles()
   }
 
   enterAttack() {

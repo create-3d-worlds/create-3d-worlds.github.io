@@ -14,11 +14,8 @@ npx live-server
 ### Scenes & examples
 
 - Particles / bacanje magije
-  - odvojiti attack i attack2?
-    - attack: fire.png (sa i bez blending = THREE.NormalBlending),
-    file = 'fire.png', size = 10, num = 150, minRadius = 0, maxRadius = .5, color, blending = THREE.NormalBlending
-    - attack2: fireball.png
   - Barbarian: bacanje magije na special
+  - odvojiti attack i attack2?
   - praviti damage
   - reuse methods
 

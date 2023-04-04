@@ -196,6 +196,12 @@ export class Flame extends Particles {
   }
 }
 
+export class RedFlame extends Flame {
+  constructor() {
+    super(({ file: 'fire.png', size: 10, num: 150, minRadius: 0, maxRadius: .5, blending: THREE.NormalBlending }))
+  }
+}
+
 export class Smoke extends Particles {
   constructor({ file = 'smoke.png', size = 1, num = 10, minRadius = 0, maxRadius = .1, color = 0x999999, blending = THREE.NormalBlending, ...rest } = {}) {
     super({ num, file, size, minRadius, maxRadius, color, blending, ...rest })
