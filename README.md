@@ -13,6 +13,9 @@ npx live-server
 
 ### Scenes & examples
 
+- Savo: 
+  - BUG: ne radi kretanje
+
 - Particles / bacanje magije
   - Barbarian: bacanje magije na special
   - odvojiti attack i attack2?

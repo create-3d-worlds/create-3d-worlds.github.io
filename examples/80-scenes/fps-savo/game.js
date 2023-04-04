@@ -49,7 +49,7 @@ const tank = new TankAI({ pos: coords.pop() })
 solids.push(tank.mesh)
 
 const { mesh: bunker } = await loadModel({ file: 'building/bunker.fbx', texture: 'terrain/concrete.jpg', size: 2.5 })
-bunker.position.copy(pos: coords.pop().pop())
+bunker.position.copy(coords.pop())
 solids.push(bunker)
 
 player.addSolids(solids)

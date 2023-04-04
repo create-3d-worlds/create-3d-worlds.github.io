@@ -2,7 +2,6 @@ import Player from '/utils/actor/Player.js'
 import AI from '/utils/actor/AI.js'
 import { loadModel } from '/utils/loaders.js'
 import { Flame } from '/utils/classes/Particles.js'
-import { getScene } from '/utils/helpers.js'
 
 const animDict = {
   idle: 'Machine Gun Idle',
@@ -40,13 +39,13 @@ const constructor = self => {
 }
 
 const enterAttack = self => {
-  getScene(self.mesh).add(self.particles.mesh)
+  self.scene.add(self.particles.mesh)
   self.particles.reset({ randomize: false })
   adjustFlamePos(self)
   self.shouldLoop = true
 }
 
-const endAttack = self => {
+const exitAttack = self => {
   self.shouldLoop = false
 }
 
@@ -65,8 +64,8 @@ export class GermanFlameThrowerPlayer extends Player {
     enterAttack(this)
   }
 
-  endAttack() {
-    endAttack(this)
+  exitAttack() {
+    exitAttack(this)
   }
 
   update(delta) {
@@ -87,8 +86,8 @@ export class GermanFlameThrowerAI extends AI {
     enterAttack(this)
   }
 
-  endAttack() {
-    endAttack(this)
+  exitAttack() {
+    exitAttack(this)
   }
 
   update(delta) {

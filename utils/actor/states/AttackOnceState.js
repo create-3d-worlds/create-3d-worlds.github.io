@@ -20,6 +20,6 @@ export default class AttackOnceState extends AnimOnceState {
   }
 
   exit() {
-    if (this.actor.endAttack) this.actor.endAttack()
+    if (this.actor.exitAttack) this.actor.exitAttack()
   }
 }

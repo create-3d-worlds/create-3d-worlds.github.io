@@ -11,6 +11,6 @@ export default class MagicState extends AnimOnceState {
   }
 
   exit() {
-    if (this.actor.endMagic) this.actor.endMagic()
+    if (this.actor.exitMagic) this.actor.exitMagic()
   }
 }

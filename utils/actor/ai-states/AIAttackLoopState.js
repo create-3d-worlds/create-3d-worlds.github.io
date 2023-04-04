@@ -49,6 +49,6 @@ export default class AIAttackLoopState extends State {
 
   exit() {
     this.cleanup()
-    if (this.actor.endAttack) this.actor.endAttack()
+    if (this.actor.exitAttack) this.actor.exitAttack()
   }
 }

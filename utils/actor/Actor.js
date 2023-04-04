@@ -3,7 +3,7 @@ import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
 
 import Entity from '/utils/actor/Entity.js'
-import { getGroundY, directionBlocked, getMesh, intersect, getParent, belongsTo, getScene } from '/utils/helpers.js'
+import { getGroundY, directionBlocked, getMesh, intersect, getParent, belongsTo } from '/utils/helpers.js'
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 import { shootDecals } from '/utils/decals.js'
@@ -212,9 +212,9 @@ export default class Actor extends Entity {
       mesh.userData.hitAmount = randInt(...damage)
   }
 
-  explode(scene, pos, color) {
+  explode(pos, color) {
     this.ricochet.reset({ pos, unitAngle: 0.2, color })
-    scene.add(this.ricochet.mesh)
+    this.scene.add(this.ricochet.mesh)
   }
 
   playAttackSound() {
@@ -234,15 +234,13 @@ export default class Actor extends Entity {
       const { point, object, distance } = intersects[0]
       if (distance > this.attackDistance) return
 
-      const scene = getScene(object)
-
       if (belongsTo(object, name)) {
         const mesh = getParent(object, name)
         this.hit(mesh)
-        if (this.useHitEffects) this.explode(scene, point, mesh.userData.hitColor)
+        if (this.useHitEffects) this.explode(point, mesh.userData.hitColor)
       } else if (this.leaveDecals) { // if not hit enemy
-        this.explode(scene, point, 0xcccccc)
-        shootDecals(intersects[0], { scene, color: 0x000000 })
+        this.explode(point, 0xcccccc)
+        shootDecals(intersects[0], { scene: this.scene, color: 0x000000 })
       }
     }, timeToHit)
   }

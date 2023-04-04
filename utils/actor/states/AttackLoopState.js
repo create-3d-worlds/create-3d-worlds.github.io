@@ -29,6 +29,6 @@ export default class AttackLoopState extends State {
 
   exit() {
     this.actor?.mixer?.removeEventListener('loop', this.onLoopEnd)
-    if (this.actor.endAttack) this.actor.endAttack()
+    if (this.actor.exitAttack) this.actor.exitAttack()
   }
 }

@@ -2,7 +2,6 @@ import Player from '/utils/actor/Player.js'
 import AI from '/utils/actor/AI.js'
 import { loadModel } from '/utils/loaders.js'
 import { Flame } from '/utils/classes/Particles.js'
-import { getScene } from '/utils/helpers.js'
 
 const animDict = {
   idle: 'Crouch Idle',
@@ -36,7 +35,7 @@ const adjustFlamePos = self => {
 }
 
 const enterAttack = self => {
-  getScene(self.mesh).add(self.particles.mesh)
+  self.scene.add(self.particles.mesh)
   setTimeout(() => {
     self.particles.reset({ pos: self.position })
     adjustFlamePos(self)
@@ -44,7 +43,7 @@ const enterAttack = self => {
   }, 1000)
 }
 
-const endAttack = self => {
+const exitAttack = self => {
   self.shouldLoop = false
 }
 
@@ -63,8 +62,8 @@ export class WitchPlayer extends Player {
     enterAttack(this)
   }
 
-  endAttack() {
-    endAttack(this)
+  exitAttack() {
+    exitAttack(this)
   }
 
   update(delta) {
