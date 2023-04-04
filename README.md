@@ -17,7 +17,6 @@ npx live-server
   - BUG: ne radi kretanje
 
 - Particles / bacanje magije
-  - Barbarian: bacanje magije na special
   - odvojiti attack i attack2?
   - praviti damage
   - reuse methods

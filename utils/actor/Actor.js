@@ -41,7 +41,7 @@ export default class Actor extends Entity {
     hitColor = 0x8a0303,
     energy = 100,
     runCoefficient = 2,
-    useHitEffects = Boolean(twoHandedWeapon || rightHandWeapon),
+    useRicochet = Boolean(twoHandedWeapon || rightHandWeapon),
     leaveDecals = attackDistance > 5,
     attackSound = '',
   }) {
@@ -64,7 +64,7 @@ export default class Actor extends Entity {
     this.runCoefficient = runCoefficient
     this.attackDistance = this.depth > attackDistance ? Math.ceil(this.depth) : attackDistance
     this.attackSound = attackSound
-    this.useHitEffects = useHitEffects
+    this.useRicochet = useRicochet
     this.leaveDecals = leaveDecals
     this.actions = {}
 
@@ -79,7 +79,7 @@ export default class Actor extends Entity {
       this.audio.volume = config.volume
     }
 
-    if (useHitEffects) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
+    if (useRicochet) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
 
     if (mapSize) {
       const halfMap = mapSize / 2
@@ -237,7 +237,7 @@ export default class Actor extends Entity {
       if (belongsTo(object, name)) {
         const mesh = getParent(object, name)
         this.hit(mesh)
-        if (this.useHitEffects) this.explode(point, mesh.userData.hitColor)
+        if (this.useRicochet) this.explode(point, mesh.userData.hitColor)
       } else if (this.leaveDecals) { // if not hit enemy
         this.explode(point, 0xcccccc)
         shootDecals(intersects[0], { scene: this.scene, color: 0x000000 })
@@ -375,7 +375,7 @@ export default class Actor extends Entity {
     if (this.twoHandedWeapon) this.updateRifle()
     if (this.outOfBounds) this.bounce()
 
-    if (this.useHitEffects) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
+    if (this.useRicochet) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
 
     TWEEN.update()
   }

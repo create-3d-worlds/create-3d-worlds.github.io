@@ -1,6 +1,7 @@
 import Player from '/utils/actor/Player.js'
 import AI from '/utils/actor/AI.js'
 import { loadModel } from '/utils/loaders.js'
+import { RedFlame } from '/utils/classes/Particles.js'
 
 const animDict = {
   idle: 'Idle',
@@ -27,6 +28,8 @@ const sharedProps = { rightHandWeapon, mesh, animations, animDict, jumpStyle: 'F
 export class BarbarianPlayer extends Player {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
+    this.particles = new RedFlame()
+    this.particles.mesh.material.opacity = 0
   }
 
   enterAttack() {
@@ -39,6 +42,28 @@ export class BarbarianPlayer extends Player {
       return
     }
     super.checkHit()
+  }
+
+  resetParticles() {
+    const { particles } = this
+    particles.reset({ pos: this.mesh.position })
+    particles.mesh.rotation.copy(this.mesh.rotation)
+    particles.mesh.rotateX(Math.PI)
+    this.shouldLoop = true
+  }
+
+  enterSpecial() {
+    this.scene.add(this.particles.mesh)
+    setTimeout(() => this.resetParticles(), 1000)
+  }
+
+  exitSpecial() {
+    this.shouldLoop = false
+  }
+
+  update(delta) {
+    super.update(delta)
+    this.particles.update({ delta, max: this.attackDistance, loop: this.shouldLoop, minVelocity: 2.5, maxVelocity: 5 })
   }
 }
 

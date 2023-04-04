@@ -10,7 +10,7 @@ import FlyState from './FlyState.js'
 import FallState from './FallState.js'
 import AttackLoopState from './AttackLoopState.js'
 import AttackOnceState from './AttackOnceState.js'
-import MagicState from './MagicState.js'
+import SpecialState from './SpecialState.js'
 
 import AIIdleState from '../ai-states/AIIdleState.js'
 import WanderState from '../ai-states/WanderState.js'
@@ -36,7 +36,7 @@ export function getPlayerState(name, jumpStyle, attackStyle) {
     case 'walk': return WalkState
     case 'run': return RunState
     case 'fall': return FallState
-    case 'magic': return MagicState
+    case 'special': return SpecialState
     case 'jump': return chooseJumpState(jumpStyle)
     case 'attack':
     case 'attack2': {

@@ -21,7 +21,7 @@ const { mesh, animations } = await loadModel({ file: 'model.fbx', angle: Math.PI
 const sharedProps = { mesh, animations, animDict, attackStyle: 'ONCE', attackDistance: 3 }
 
 const createParticles = () => {
-  const particles = new Flame({ num: 25, minRadius: 0, maxRadius: .5 }) // or RedFlame
+  const particles = new Flame({ num: 25, minRadius: 0, maxRadius: .5 })
   particles.mesh.material.opacity = 0
   return particles
 }

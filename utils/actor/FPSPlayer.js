@@ -18,7 +18,7 @@ export default class FPSPlayer extends Player {
       mesh: createPlayerBox({ visible: false }),
       jumpStyle: jumpStyles.FLY,
       attackDistance: 100,
-      useHitEffects: true,
+      useRicochet: true,
       attackSound,
       ...rest,
     })
