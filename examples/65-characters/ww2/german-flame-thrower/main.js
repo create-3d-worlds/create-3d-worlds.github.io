@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock, setBackground } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { GermanFlameThrowerPlayer } from '/utils/actor/ww2/GermanFlameThrower.js'
+import { GermanFlameThrowerPlayer } from '/utils/actor/derived/ww2/GermanFlameThrower.js'
 
 scene.add(createSun())
 scene.add(createGround({ size: 100 }))

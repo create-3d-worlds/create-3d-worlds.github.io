@@ -3,7 +3,7 @@ import Maze from '/utils/mazes/Maze.js'
 import { recursiveDivision } from '/utils/mazes/algorithms.js'
 import { hemLight } from '/utils/light.js'
 import { createDunes } from '/utils/ground.js'
-import { WitchPlayer } from '/utils/actor/fantasy/Witch.js'
+import { WitchPlayer } from '/utils/actor/derived/fantasy/Witch.js'
 
 hemLight()
 

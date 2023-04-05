@@ -3,7 +3,7 @@ import { scene, camera, createToonRenderer, clock } from '/utils/scene.js'
 import { recursiveBacktracker } from '/utils/mazes/algorithms.js'
 import { createSun } from '/utils/light.js'
 import { createDunes } from '/utils/ground.js'
-import { ResistanceFighterPlayer } from '/utils/actor/ww2/ResistanceFighter.js'
+import { ResistanceFighterPlayer } from '/utils/actor/derived/ww2/ResistanceFighter.js'
 
 const sun = createSun()
 scene.add(sun)

@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { GolemPlayer } from '/utils/actor/fantasy/Golem.js'
+import { GolemPlayer } from '/utils/actor/derived/fantasy/Golem.js'
 
 createOrbitControls()
 

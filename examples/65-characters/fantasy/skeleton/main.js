@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { SkeletonPlayer } from '/utils/actor/fantasy/Skeleton.js'
+import { SkeletonPlayer } from '/utils/actor/derived/fantasy/Skeleton.js'
 
 createOrbitControls()
 

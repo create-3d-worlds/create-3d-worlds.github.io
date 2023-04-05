@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { BarbarianPlayer } from '/utils/actor/fantasy/Barbarian.js'
+import { BarbarianPlayer } from '/utils/actor/derived/fantasy/Barbarian.js'
 
 scene.add(createSun())
 scene.add(createGround({ size: 100 }))

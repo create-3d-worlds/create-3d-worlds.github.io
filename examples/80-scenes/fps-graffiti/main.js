@@ -4,7 +4,7 @@ import { createMoon } from '/utils/light.js'
 import { createGraffitiCity } from '/utils/city.js'
 import { getShuffledCoords } from '/utils/helpers.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
-import { SSSoldierAI } from '/utils/actor/ww2/SSSoldier.js'
+import { SSSoldierAI } from '/utils/actor/derived/ww2/SSSoldier.js'
 
 const mapSize = 200
 const coords = getShuffledCoords({ mapSize })
