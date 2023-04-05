@@ -10,7 +10,7 @@ const { mesh } = await loadModel({ file: 'airship/zeppelin.fbx', size: 20 })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, shouldRaycastGround: false, speed: 4, baseState: 'patrol', patrolDistance: Infinity }
+const sharedProps = { mesh, shouldRaycastGround: true, speed: 4, baseState: 'patrol', patrolDistance: Infinity, altitude: 40 }
 
 export class ZappelinPlayer extends Player {
   constructor(props = {}) {

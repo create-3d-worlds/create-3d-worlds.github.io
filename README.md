@@ -12,19 +12,22 @@ npx live-server
 ## TODO
 
 - organize folders (classes, etc.)
+- Entity to GameObject
 
 ### Scenes & examples
 
 - RPG / Fantasy
+  - napraviti scenu sa ravnim tlom
   - karakter dolazi do kuće i ulazi (vidi house model primer)
-  - uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)
-  - zepelin i oblaci da održavaju visinu od tla
 
 - Adventure / Avatar
   - merge stairway-girl, stairway-to-heaven, tower-of-babel, random-boxes?
   - avatar previše ide strafe?
   - avatar zapinje uzbrdo (minas tirit maze)
   - dodati DOUBLE_JUMP
+
+- City
+  - merge fps-graffiti i još ponešto, staviti nešto što nema drugde
 
 - Svemir 
   - dodati model ring space-arcology

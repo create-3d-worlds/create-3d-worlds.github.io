@@ -46,6 +46,7 @@ export default class Actor extends Entity {
     useRicochet = Boolean(twoHandedWeapon || rightHandWeapon),
     leaveDecals = attackDistance > 5,
     attackSound = '',
+    altitude = 0, // for flying objects
   }) {
     super({ mesh, name, pos, solids })
     this.mesh.userData.hitAmount = 0
@@ -68,6 +69,7 @@ export default class Actor extends Entity {
     this.attackSound = attackSound
     this.useRicochet = useRicochet
     this.leaveDecals = leaveDecals
+    this.altitude = altitude
     this.actions = {}
 
     if (solids) this.addSolids(solids)
@@ -374,7 +376,7 @@ export default class Actor extends Entity {
     const { solids } = this
     if (!solids || !this.shouldRaycastGround) return
 
-    this.groundY = getGroundY({ pos: this.position, solids, y: this.height })
+    this.groundY = getGroundY({ pos: this.position, solids, y: this.height }) + this.altitude
   }
 
   applyGravity(delta) {

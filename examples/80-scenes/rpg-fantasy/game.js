@@ -32,7 +32,7 @@ const solids = [terrain, castle]
 
 /* ACTORS */
 
-const airship = new ZappelinAI({ mapSize })
+const airship = new ZappelinAI({ mapSize, solids: terrain })
 const elephant = new ElephantAI({ mapSize, pos: coords.pop(), solids, shouldRaycastGround: true })
 
 scene.add(airship.mesh, elephant.mesh)
@@ -40,7 +40,7 @@ npcs.push(airship, elephant)
 
 solids.push(elephant.mesh)
 
-const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, camera, solids })
+const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera })
 scene.add(player.mesh)
 
 for (let i = 0; i < 20; i++) {
