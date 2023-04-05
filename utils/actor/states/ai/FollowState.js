@@ -1,4 +1,4 @@
-import WalkState from '../states/WalkState.js'
+import WalkState from '../WalkState.js'
 import { reactions } from '/utils/constants.js'
 
 export default class FollowState extends WalkState {

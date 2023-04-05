@@ -1,4 +1,4 @@
-import State from '../states/State.js'
+import State from '../State.js'
 
 export default class AIFallState extends State {
   update(delta) {

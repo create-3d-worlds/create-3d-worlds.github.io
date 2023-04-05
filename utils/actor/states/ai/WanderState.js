@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import WalkState from '../states/WalkState.js'
+import WalkState from '../WalkState.js'
 
 const { randInt } = THREE.MathUtils
 

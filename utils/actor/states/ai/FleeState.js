@@ -1,5 +1,5 @@
 import { MathUtils } from 'three'
-import RunState from '../states/RunState.js'
+import RunState from '../RunState.js'
 
 const { randInt } = MathUtils
 

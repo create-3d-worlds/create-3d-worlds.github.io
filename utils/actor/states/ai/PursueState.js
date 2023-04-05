@@ -1,4 +1,4 @@
-import RunState from '../states/RunState.js'
+import RunState from '../RunState.js'
 import { reactions } from '/utils/constants.js'
 
 export default class PursueState extends RunState {

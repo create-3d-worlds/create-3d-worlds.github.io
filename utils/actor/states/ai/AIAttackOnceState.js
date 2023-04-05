@@ -1,4 +1,4 @@
-import AnimOnceState from '../states/AnimOnceState.js'
+import AnimOnceState from '../AnimOnceState.js'
 
 export default class AIAttackOnceState extends AnimOnceState {
   constructor(...args) {

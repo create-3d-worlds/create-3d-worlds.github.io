@@ -1,6 +1,6 @@
 import { MathUtils } from 'three'
 import { baseStates } from '/utils/constants.js'
-import IdleState from '../states/IdleState.js'
+import IdleState from '../IdleState.js'
 
 const { randInt } = MathUtils
 

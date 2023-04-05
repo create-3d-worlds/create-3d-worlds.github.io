@@ -1,4 +1,4 @@
-import WalkState from '../states/WalkState.js'
+import WalkState from '../WalkState.js'
 
 export default class PatrolState extends WalkState {
   enter(oldState, oldAction) {
