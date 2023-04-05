@@ -1,9 +1,17 @@
-import { createWorldScene, camera, renderer, clock } from '/utils/scene.js'
+import * as THREE from 'three'
+import { scene, camera, renderer, clock } from '/utils/scene.js'
+import { createSkySphere } from '/utils/geometry.js'
 import { createSpiralStairs } from '/utils/geometry/towers.js'
-import { createTerrain } from '/utils/ground.js'
+import { createGround, createTerrain } from '/utils/ground.js'
+import { hemLight, createSun } from '/utils/light.js'
 import Avatar from '/utils/actor/Avatar.js'
 
-const scene = createWorldScene()
+scene.add(createGround())
+scene.add(createSkySphere())
+const light = createSun()
+scene.add(light)
+scene.fog = new THREE.Fog(0xffffff, 1, 5000)
+hemLight({ scene, intensity: 0.5 })
 
 const terrain = createTerrain()
 scene.add(terrain)

@@ -11,8 +11,6 @@ npx live-server
 
 ## TODO
 
-- organize folders (classes, etc.)
-
 ### Scenes & examples
 
 - Adventure / Avatar
