@@ -67,6 +67,9 @@ export default class Actor extends Entity {
     this.useRicochet = useRicochet
     this.leaveDecals = leaveDecals
     this.actions = {}
+    this.solids = []
+
+    if (solids) this.addSolids(solids)
 
     if (animations?.length && animDict) {
       this.setupMixer(animations, animDict)
@@ -153,6 +156,10 @@ export default class Actor extends Entity {
       || this.position.z <= this.boundaries.min.z
   }
 
+  getSolids() {
+    return [...this.solids]
+  }
+
   /* STATE MACHINE */
 
   setState(name) {
@@ -203,7 +210,7 @@ export default class Actor extends Entity {
   /* COMBAT */
 
   intersect(height = this.height * .75) {
-    return intersect(this.mesh, this.solids, dir.forward, height)
+    return intersect(this.mesh, this.getSolids(), dir.forward, height)
   }
 
   hit(mesh, damage = [35, 55]) {
@@ -257,7 +264,7 @@ export default class Actor extends Entity {
       this.mesh.position.y = this.groundY
   }
 
-  directionBlocked(currDir, solids = this.solids) {
+  directionBlocked(currDir, solids = this.getSolids()) {
     const rayLength = currDir == dir.forward ? this.depth : this.height
     return directionBlocked(this.mesh, solids, currDir, rayLength)
   }
@@ -274,6 +281,22 @@ export default class Actor extends Entity {
   lookAt(pos) {
     this.mesh.lookAt(pos)
     this.mesh.rotateY(Math.PI)
+  }
+
+  pushToSolids = obj => {
+    if (obj !== this.mesh && !this.solids.includes(obj))
+      this.solids.push(obj)
+  }
+
+  /**
+   * Add solid objects to collide (terrain, walls, actors, etc.)
+   * @param {array of meshes, mesh or meshes} newSolids
+   */
+  addSolids(...newSolids) {
+    newSolids.forEach(newSolid => {
+      if (Array.isArray(newSolid)) newSolid.forEach(this.pushToSolids)
+      else this.pushToSolids(newSolid)
+    })
   }
 
   /* UPDATES */
@@ -347,10 +370,10 @@ export default class Actor extends Entity {
   }
 
   updateGround() {
-    const { mesh, solids } = this
+    const solids = this.getSolids()
     if (!solids || !this.shouldRaycastGround) return
 
-    this.groundY = getGroundY({ pos: mesh.position, solids, y: this.height })
+    this.groundY = getGroundY({ pos: this.position, solids, y: this.height })
   }
 
   applyGravity(delta) {
