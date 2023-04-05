@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
 
-import Entity from '/utils/actor/Entity.js'
+import GameObject from '/utils/actor/GameObject.js'
 import { getGroundY, directionBlocked, getMesh, intersect, getParent, belongsTo } from '/utils/helpers.js'
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
@@ -16,7 +16,7 @@ const { randInt } = THREE.MathUtils
  * Base abstract class for AI and Player, handles movement, animations...
  * @param animDict: maps state to animation
  */
-export default class Actor extends Entity {
+export default class Actor extends GameObject {
   #solids = []
 
   constructor({

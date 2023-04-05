@@ -12,7 +12,6 @@ npx live-server
 ## TODO
 
 - organize folders (classes, etc.)
-- Entity to GameObject
 
 ### Scenes & examples
 

@@ -1,7 +1,7 @@
 import { getMesh, putOnTerrain, getSize, getScene } from '/utils/helpers.js'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 
-export default class Entity {
+export default class GameObject {
 
   constructor({ mesh, name, pos, color, solids, scale, rotateY } = {}) {
     this.mesh = clone(mesh)
