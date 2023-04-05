@@ -10,6 +10,8 @@ import CameraFollow from '/utils/classes/CameraFollow.js'
 import Actor from './Actor.js'
 
 export default class Player extends Actor {
+  #solidsAdded = false
+
   constructor({
     input = defaultKeyboard,
     useJoystick,
@@ -37,6 +39,14 @@ export default class Player extends Actor {
 
   get enemies() {
     return findChildren(this.scene, 'enemy')
+  }
+
+  getSolids() {
+    if (!this.#solidsAdded) {
+      this.addSolids(this.enemies)
+      this.#solidsAdded = true
+    }
+    return this.solids
   }
 
   /* COMBAT */

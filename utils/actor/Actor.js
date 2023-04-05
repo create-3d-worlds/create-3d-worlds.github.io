@@ -157,7 +157,7 @@ export default class Actor extends Entity {
   }
 
   getSolids() {
-    return [...this.solids]
+    return this.solids
   }
 
   /* STATE MACHINE */

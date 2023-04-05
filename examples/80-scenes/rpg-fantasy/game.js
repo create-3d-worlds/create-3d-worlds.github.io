@@ -36,7 +36,7 @@ for (let i = 0; i < 20; i++) {
   scene.add(enemy.mesh)
 }
 
-player.addSolids(npcs.map(enemy => enemy.mesh))
+// player.addSolids(npcs.map(enemy => enemy.mesh))
 
 for (let i = 0; i < 10; i++) {
   const bird = new FlamingoAI({ mapSize, pos: coords.pop() })
