@@ -17,6 +17,8 @@ const { randInt } = THREE.MathUtils
  * @param animDict: maps state to animation
  */
 export default class Actor extends Entity {
+  #solids = []
+
   constructor({
     mesh = createPlayerBox(),
     name,
@@ -67,7 +69,6 @@ export default class Actor extends Entity {
     this.useRicochet = useRicochet
     this.leaveDecals = leaveDecals
     this.actions = {}
-    this.solids = []
 
     if (solids) this.addSolids(solids)
 
@@ -156,8 +157,8 @@ export default class Actor extends Entity {
       || this.position.z <= this.boundaries.min.z
   }
 
-  getSolids() {
-    return this.solids
+  get solids() {
+    return this.#solids
   }
 
   /* STATE MACHINE */
@@ -210,7 +211,7 @@ export default class Actor extends Entity {
   /* COMBAT */
 
   intersect(height = this.height * .75) {
-    return intersect(this.mesh, this.getSolids(), dir.forward, height)
+    return intersect(this.mesh, this.solids, dir.forward, height)
   }
 
   hit(mesh, damage = [35, 55]) {
@@ -264,7 +265,7 @@ export default class Actor extends Entity {
       this.mesh.position.y = this.groundY
   }
 
-  directionBlocked(currDir, solids = this.getSolids()) {
+  directionBlocked(currDir, solids = this.solids) {
     const rayLength = currDir == dir.forward ? this.depth : this.height
     return directionBlocked(this.mesh, solids, currDir, rayLength)
   }
@@ -284,8 +285,8 @@ export default class Actor extends Entity {
   }
 
   pushToSolids = obj => {
-    if (obj !== this.mesh && !this.solids.includes(obj))
-      this.solids.push(obj)
+    if (obj !== this.mesh && !this.#solids.includes(obj))
+      this.#solids.push(obj)
   }
 
   /**
@@ -370,7 +371,7 @@ export default class Actor extends Entity {
   }
 
   updateGround() {
-    const solids = this.getSolids()
+    const { solids } = this
     if (!solids || !this.shouldRaycastGround) return
 
     this.groundY = getGroundY({ pos: this.position, solids, y: this.height })

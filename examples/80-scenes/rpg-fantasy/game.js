@@ -24,19 +24,31 @@ scene.add(terrain)
 const trees = createTreesOnTerrain({ terrain })
 scene.add(trees)
 
+const { mesh: castle } = await loadModel({ file: 'building/castle/fortress.fbx', size: 40 })
+putOnTerrain(castle, terrain, -5)
+scene.add(castle)
+
+const solids = [terrain, castle]
+
 /* ACTORS */
 
-const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, camera, solids: terrain })
+const airship = new ZappelinAI({ mapSize })
+const elephant = new ElephantAI({ mapSize, pos: coords.pop(), solids, shouldRaycastGround: true })
+
+scene.add(airship.mesh, elephant.mesh)
+npcs.push(airship, elephant)
+
+solids.push(elephant.mesh)
+
+const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, camera, solids })
 scene.add(player.mesh)
 
 for (let i = 0; i < 20; i++) {
   const Enemy = sample([OrcAI, OrcOgreAI])
-  const enemy = new Enemy({ pos: coords.pop(), target: player.mesh, mapSize, solids: [terrain], shouldRaycastGround: true })
+  const enemy = new Enemy({ pos: coords.pop(), target: player.mesh, mapSize, solids, shouldRaycastGround: true })
   npcs.push(enemy)
   scene.add(enemy.mesh)
 }
-
-// player.addSolids(npcs.map(enemy => enemy.mesh))
 
 for (let i = 0; i < 10; i++) {
   const bird = new FlamingoAI({ mapSize, pos: coords.pop() })
@@ -49,17 +61,6 @@ for (let i = 0; i < 5; i++) {
   npcs.push(cloud)
   scene.add(cloud.mesh)
 }
-
-const { mesh: castle } = await loadModel({ file: 'building/castle/fortress.fbx', size: 40 })
-putOnTerrain(castle, terrain, -5)
-scene.add(castle)
-
-const elephant = new ElephantAI({ mapSize, pos: coords.pop(), solids: [terrain], shouldRaycastGround: true })
-player.addSolids(castle, elephant.mesh)
-
-const airship = new ZappelinAI({ mapSize })
-scene.add(airship.mesh, elephant.mesh)
-npcs.push(airship, elephant)
 
 /* LOOP */
 
