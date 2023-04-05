@@ -53,7 +53,7 @@ export default class Entity {
     this.mesh.add(obj)
   }
 
-  pushUnique = obj => {
+  pushToSolids = obj => {
     if (obj !== this.mesh && !this.solids.includes(obj))
       this.solids.push(obj)
   }
@@ -64,8 +64,8 @@ export default class Entity {
    */
   addSolids(...newSolids) {
     newSolids.forEach(newSolid => {
-      if (Array.isArray(newSolid)) newSolid.forEach(this.pushUnique)
-      else this.pushUnique(newSolid)
+      if (Array.isArray(newSolid)) newSolid.forEach(this.pushToSolids)
+      else this.pushToSolids(newSolid)
     })
   }
 }
