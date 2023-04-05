@@ -1,24 +1,26 @@
-import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
-import { createGround } from '/utils/ground.js'
-
-import { SorceressPlayer } from '/utils/actor/fantasy/Sorceress.js'
-import { createStoneCircles } from '/utils/geometry/towers.js'
+import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
-
-camera.position.y = 15
-createOrbitControls()
+import { createGround } from '/utils/ground.js'
+import { createStoneCircles, createSpiralStairs } from '/utils/geometry/towers.js'
+import { SorceressPlayer } from '/utils/actor/fantasy/Sorceress.js'
 
 const light = createSun()
 scene.add(light)
 
+const floor = createGround()
+scene.add(floor)
+
 const stones = createStoneCircles()
 scene.add(stones)
 
-const plane = createGround({ size: 20 })
-scene.add(plane)
+const stairs = createSpiralStairs({ radius: 25, stairsInCirle: 50, floorHeight: 15, depth: 5, size: 4 })
+stairs.translateY(-2)
+scene.add(stairs)
 
-const player = new SorceressPlayer()
+const player = new SorceressPlayer({ camera, speed: 4 })
 scene.add(player.mesh)
+
+player.addSolids(floor, stairs)
 
 /* LOOP */
 

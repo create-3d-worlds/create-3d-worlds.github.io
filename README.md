@@ -16,15 +16,18 @@ npx live-server
 
 ### Scenes & examples
 
-- RPG / Fantasy
-  - napraviti scenu sa ravnim tlom
-  - karakter dolazi do kuće i ulazi (vidi house model primer)
-
 - Adventure / Avatar
-  - merge stairway-girl, stairway-to-heaven, tower-of-babel, random-boxes?
+  - merge stairway-to-heaven, tower-of-babel, random-boxes
+  - vratiti šarenog
   - avatar previše ide strafe?
   - avatar zapinje uzbrdo (minas tirit maze)
   - dodati DOUBLE_JUMP
+  - da lava bude svuda ili da ne bude trava nego kamenje
+
+- Adventure / Sorceress
+  - SorceressPlayer da baca magiju, reuse methods
+  - dodati tri sunca
+  - menjanje kamere: dodati i statičnu kameru koja gleda celu scenu
 
 - City
   - merge fps-graffiti i još ponešto, staviti nešto što nema drugde
@@ -48,6 +51,7 @@ npx live-server
 
 - Zeppelin
   - umesto createChaseCamera koristiti 3rd person?
+  - probati ZeppelinPlayer umesto trenutnog
 
 - Aircraft / 1943
   - dodati izbor aviona
@@ -80,6 +84,10 @@ npx live-server
 - Savo
   - dodati intro na pisaćoj mašini
 
+- RPG / Fantasy
+  - napraviti scenu sa ravnim tlom
+  - karakter dolazi do kuće i ulazi (vidi house model primer)
+
 ### Optimizacija
 
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
@@ -90,6 +98,7 @@ npx live-server
   - https://attackingpixels.com/tips-tricks-optimizing-three-js-performance/
 - izmeriti statistike, ako je presporo izbacivati nevažno
 - izbaciti TWEEN?
+- smanjiti zavisnosti fajlova, obrisati neke helper funkcije ili prebaciti na klase
 
 ### Polishing
 
