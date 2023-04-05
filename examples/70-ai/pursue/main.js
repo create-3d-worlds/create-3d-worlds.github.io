@@ -1,8 +1,8 @@
 import { camera, scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
 import { ambLight } from '/utils/light.js'
-import { SorceressPlayer } from '/utils/actor/derived/fantasy/Sorceress.js'
-import { OrcOgreAI } from '/utils/actor/derived/fantasy/OrcOgre.js'
+import { SorceressPlayer } from '/utils/actor/child/fantasy/Sorceress.js'
+import { OrcOgreAI } from '/utils/actor/child/fantasy/OrcOgre.js'
 import { getShuffledCoords } from '/utils/helpers.js'
 
 const mapSize = 100

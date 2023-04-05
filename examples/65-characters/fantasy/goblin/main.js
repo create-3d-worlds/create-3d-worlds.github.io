@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { GoblinPlayer } from '/utils/actor/derived/fantasy/Goblin.js'
+import { GoblinPlayer } from '/utils/actor/child/fantasy/Goblin.js'
 
 createOrbitControls()
 

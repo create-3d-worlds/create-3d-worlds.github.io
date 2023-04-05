@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { NudeVictimPlayer } from '/utils/actor/derived/horror/NudeVictim.js'
+import { NudeVictimPlayer } from '/utils/actor/child/horror/NudeVictim.js'
 
 createOrbitControls()
 

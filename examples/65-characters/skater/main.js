@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { Skater } from '/utils/actor/derived/Skater.js'
+import { Skater } from '/utils/actor/child/Skater.js'
 
 createOrbitControls()
 

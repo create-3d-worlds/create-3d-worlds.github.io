@@ -2,7 +2,7 @@ import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import { createStoneCircles, createSpiralStairs } from '/utils/geometry/towers.js'
-import { SorceressPlayer } from '/utils/actor/derived/fantasy/Sorceress.js'
+import { SorceressPlayer } from '/utils/actor/child/fantasy/Sorceress.js'
 
 const light = createSun()
 scene.add(light)

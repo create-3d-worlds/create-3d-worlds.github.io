@@ -3,8 +3,8 @@ import { createHillyTerrain } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { createSun } from '/utils/light.js'
 import { sample, getShuffledCoords } from '/utils/helpers.js'
-import { OrcAI } from '/utils/actor/derived/fantasy/Orc.js'
-import { OrcOgreAI } from '/utils/actor/derived/fantasy/OrcOgre.js'
+import { OrcAI } from '/utils/actor/child/fantasy/Orc.js'
+import { OrcOgreAI } from '/utils/actor/child/fantasy/OrcOgre.js'
 import { FlamingoAI, FlamingoPlayer } from '/utils/actor/Flamingo.js'
 
 const mapSize = 200
