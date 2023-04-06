@@ -11,7 +11,7 @@ scene.add(floor)
 const boxes = createRandomBoxes({ n: 400, mapSize: 200 })
 scene.add(boxes)
 
-const player = new Avatar({ camera, solids: [floor, boxes], jumpStyle: 'FLY_JUMP' })
+const player = new Avatar({ camera, solids: [floor, boxes], jumpStyle: 'DOUBLE_JUMP' })
 player.cameraFollow.distance = 7
 scene.add(player.mesh)
 

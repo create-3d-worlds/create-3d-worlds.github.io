@@ -34,8 +34,8 @@ export default class FlyState extends State {
     actor.updateMove(delta)
     actor.applyGravity(delta)
 
-    if (this.input.space && this.jumpTime < this.maxJumpTime) {
-      if (actor.velocity.y < actor.fallLimit * delta)
+    if (actor.input.space && this.jumpTime < this.maxJumpTime) {
+      if (actor.velocity.y < actor.maxVelocityY * delta)
         actor.velocity.y += actor.jumpForce * delta
       this.jumpTime++
     }

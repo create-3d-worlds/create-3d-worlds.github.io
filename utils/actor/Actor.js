@@ -32,7 +32,7 @@ export default class Actor extends GameObject {
     speed = 2,
     jumpForce = gravity * 1.66,
     maxJumpTime = 17,
-    fallLimit = gravity * 20,
+    maxVelocityY = gravity * 20,
     drag = 0.5,
     getState,
     shouldRaycastGround,
@@ -56,7 +56,7 @@ export default class Actor extends GameObject {
     this.groundY = 0
     this.gravity = gravity
     this.velocity = new THREE.Vector3()
-    this.fallLimit = fallLimit
+    this.maxVelocityY = maxVelocityY
     this.jumpStyle = jumpStyle
     this.maxJumpTime = maxJumpTime
     this.jumpForce = jumpForce
@@ -380,7 +380,7 @@ export default class Actor extends GameObject {
   }
 
   applyGravity(delta) {
-    if (this.velocity.y > -this.fallLimit * delta)
+    if (this.velocity.y > -this.maxVelocityY * delta)
       this.velocity.y -= this.gravity * delta
   }
 
