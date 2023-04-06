@@ -13,18 +13,13 @@ npx live-server
 
 ### Scenes & examples
 
-- Avatar
-  - BUG: trese i zapinje po ravnom podu
-  - BUG: srediti hodanje po terenu, zapinje uzbrdo (minas tirit maze)
-
 - Adventure / Avatar
-  - u rupi da lava bude svuda ili da ne bude trava nego kamenje
-  - pre početka scene izbor skina za avatar
+  - BUG: kamera sekca kad pada
+  - pre početka scene izbor skina za avatar?
 
-- Random-boxes
+- Avatar / Random-boxes
   - postaviti nagrade / novčiće na kocke, skupljati
   - merge with adventure?
-  - BUG: dok leti naviše ne ide napred, tek kad počne padati SAMO IZ PTIČJE KAMERE?!
 
 - Adventure / Sorceress
   - SorceressPlayer da baca magiju, reuse methods
