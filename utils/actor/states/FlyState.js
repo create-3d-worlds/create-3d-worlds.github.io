@@ -27,6 +27,14 @@ export default class FlyState extends State {
     }
   }
 
+  get ableToJump() {
+    return this.actor.input.space && this.jumpTime < this.maxJumpTime
+  }
+
+  shouldAddForce(delta) {
+    return this.actor.velocity.y < this.actor.maxVelocityY * delta
+  }
+
   update(delta) {
     const { actor } = this
 
@@ -34,10 +42,10 @@ export default class FlyState extends State {
     actor.updateMove(delta)
     actor.applyGravity(delta)
 
-    if (actor.input.space && this.jumpTime < this.maxJumpTime) {
-      if (actor.velocity.y < actor.maxVelocityY * delta)
-        actor.velocity.y += actor.jumpForce * delta
+    if (this.ableToJump) {
       this.jumpTime++
+      if (this.shouldAddForce(delta))
+        actor.velocity.y += actor.jumpForce * delta
     }
 
     if (actor.velocity.y > 0 && actor.directionBlocked(dir.up))
@@ -47,10 +55,12 @@ export default class FlyState extends State {
 
     /* TRANSIT */
 
-    if (actor.velocity.y <= 0 && !actor.inAir) {
-      actor.velocity.y = 0
-      actor.setState(this.prevState) // bez prevState brlja aktivne animacije
-    }
+    this.transit()
+  }
+
+  transit() {
+    if (this.actor.velocity.y < 0 && !this.ableToJump)
+      this.actor.setState('fall')
   }
 
   exit() {

@@ -1,6 +1,9 @@
 import { jumpStyles } from '/utils/constants.js'
 import State from './State.js'
 
+const movableJumps = [jumpStyles.FLY, jumpStyles.FLY_JUMP, jumpStyles.DOUBLE_JUMP]
+const flyingJumps = [jumpStyles.FLY]
+
 export default class FallState extends State {
   enter(oldState, oldAction) {
     super.enter(oldState, oldAction)
@@ -17,12 +20,12 @@ export default class FallState extends State {
     actor.applyGravity(delta)
     actor.applyVelocityY()
 
-    if ([jumpStyles.FLY, jumpStyles.FLY_JUMP].includes(actor.jumpStyle) && actor.input.up)
+    if (movableJumps.includes(actor.jumpStyle) && actor.input.up)
       actor.updateMove(delta)
 
     /* TRANSIT */
 
-    if (actor.jumpStyle === jumpStyles.FLY && this.input.space)
+    if (flyingJumps.includes(actor.jumpStyle) && this.input.space)
       actor.setState('jump')
 
     if (!actor.inAir) {

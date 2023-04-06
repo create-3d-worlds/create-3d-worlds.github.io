@@ -8,14 +8,25 @@ export default class DoubleJumpState extends FlyState {
     this.doubleJumpUsed = false
   }
 
-  update(delta) {
-    super.update(delta)
+  transit() {
+    const { actor } = this
+    if (this.jumpTime >= this.maxJumpTime && this.doubleJumpUsed)
+      this.actor.setState('fall')
 
+    if (!actor.inAir) {
+      actor.velocity.y = 0
+      actor.setState('idle')
+    }
+  }
+
+  update(delta) {
     if (!this.input.space) this.spaceReleased = true
 
     if (this.spaceReleased && !this.doubleJumpUsed) {
       this.jumpTime = 0
       this.doubleJumpUsed = true
     }
+
+    super.update(delta)
   }
 }

@@ -6,6 +6,7 @@ const calc = (mesh, pos) => new THREE.Vector3(...pos)
   .add(mesh.position)
 
 const speedFactor = state => {
+  // if (state == 'jump') return 2
   if (state == 'fall') return 2
   if (state == 'run') return 2
   return 1
@@ -66,7 +67,7 @@ export default class CameraFollow {
     outline: none;
     user-select: none;
   `
-    let toggle = false
+    let aerial = false
     const initialOffset = this.offset
     const initialLookAt = this.lookAt
     const initialSpeed = this.speed
@@ -81,10 +82,10 @@ export default class CameraFollow {
     button.appendChild(image)
 
     button.addEventListener('click', () => {
-      toggle = !toggle
-      this.offset = toggle ? this.aerialOffset : initialOffset
-      this.lookAt = toggle ? this.aerialLookAt : initialLookAt
-      this.speed = toggle ? initialSpeed * .75 : initialSpeed
+      aerial = !aerial
+      this.offset = aerial ? this.aerialOffset : initialOffset
+      this.lookAt = aerial ? this.aerialLookAt : initialLookAt
+      this.speed = aerial ? initialSpeed * .75 : initialSpeed
     })
     document.body.appendChild(button)
   }
