@@ -37,8 +37,9 @@ export class BarbarianPlayer extends Player {
   }
 
   checkHit() {
-    if (this.currentState.name.includes('attack')) {
-      this.hitAmount = 0 // untouchable during attack
+    // untouchable during attack
+    if (this.state.includes('attack')) {
+      this.hitAmount = 0
       return
     }
     super.checkHit()

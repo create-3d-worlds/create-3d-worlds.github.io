@@ -14,9 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Adventure / Avatar
-  - BUG: kamera sekca kad leti i pada
-    - kontrolisati brzinu kamere pri padu ili u FallState ili CameraFollow, ne na oba mesta
-    - ažurirati da radi i sa double jump
   - pre početka scene izbor skina za avatar?
 
 - Avatar / Random-boxes

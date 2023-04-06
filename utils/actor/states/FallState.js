@@ -5,14 +5,6 @@ const movableJumps = [jumpStyles.FLY, jumpStyles.FLY_JUMP, jumpStyles.DOUBLE_JUM
 const flyingJumps = [jumpStyles.FLY]
 
 export default class FallState extends State {
-  enter(oldState, oldAction) {
-    super.enter(oldState, oldAction)
-    if (this.actor.cameraFollow) {
-      this.initCameraSpeed = this.actor.cameraFollow.speed
-      this.actor.cameraFollow.speed = this.initCameraSpeed * 3
-    }
-  }
-
   update(delta) {
     const { actor } = this
 
@@ -32,10 +24,5 @@ export default class FallState extends State {
       actor.velocity.y = 0
       actor.setState('idle')
     }
-  }
-
-  exit() {
-    if (this.actor.cameraFollow)
-      this.actor.cameraFollow.speed = this.initCameraSpeed
   }
 }

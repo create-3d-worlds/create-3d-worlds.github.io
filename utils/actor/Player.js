@@ -91,7 +91,7 @@ export default class Player extends Actor {
     if (this.input.pressed.mouse2)
       this.orbitControls.target = new THREE.Vector3(x, y + lookAt[1], z)
     else
-      this.cameraFollow.update(delta, this.currentState.name)
+      this.cameraFollow.update(delta, this.state)
   }
 
   update(delta = 1 / 60) {
