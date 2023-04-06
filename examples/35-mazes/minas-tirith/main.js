@@ -20,7 +20,8 @@ const maze = new PolarMaze(rows, recursiveBacktracker, cellSize)
 const city = maze.toCity({ texture: 'terrain/snow.jpg' })
 scene.add(city)
 
-const player = new Avatar({ size: .5, camera, solids: [city, hill] })
+const player = new Avatar({ camera, solids: [city, hill] })
+player.cameraFollow.distance = 3
 scene.add(player.mesh)
 player.putInPolarMaze(maze)
 

@@ -46,7 +46,7 @@ scene.add(...solids, lava)
 
 /* PLAYER */
 
-const player = new Avatar({ camera, solids, skin: 'DISCO' })
+const player = new Avatar({ camera, solids, pos: [60, 0, 0], skin: 'DISCO' })
 scene.add(player.mesh)
 
 /* LOOP */
