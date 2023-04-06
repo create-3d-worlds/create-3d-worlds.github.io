@@ -15,11 +15,11 @@ npx live-server
 
 - Adventure / Avatar
   - merge random-boxes
-  - vratiti šarenog
   - avatar previše ide strafe?
-  - avatar zapinje uzbrdo (minas tirit maze)
+  - srediti hodanje po terenu, zapinje uzbrdo (minas tirit maze)
   - dodati DOUBLE_JUMP
   - da lava bude svuda ili da ne bude trava nego kamenje
+  - dugme da avatar menja skinove
 
 - Adventure / Sorceress
   - SorceressPlayer da baca magiju, reuse methods

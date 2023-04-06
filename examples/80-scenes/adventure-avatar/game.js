@@ -1,6 +1,6 @@
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createSkySphere } from '/utils/geometry.js'
-import { createSpiralStairs, createBabelTower, createBaradDur, createSpaceTower } from '/utils/geometry/towers.js'
+import { createStairway, createBabelTower, createBaradDur, createRingTower } from '/utils/geometry/towers.js'
 import { createTerrain, createLava } from '/utils/ground.js'
 import { hemLight, dirLight } from '/utils/light.js'
 import { getShuffledCoords } from '/utils/helpers.js'
@@ -19,12 +19,12 @@ scene.add(terrain)
 
 const coords = getShuffledCoords({ mapSize: mapSize / 2, fieldSize: 50, emptyCenter: 100 })
 
-const stairsLeft = createSpiralStairs({ floors: 5 })
+const stairsLeft = createStairway({ floors: 5 })
 stairsLeft.position.copy(coords.pop())
 stairsLeft.rotateY(Math.PI / 2)
 scene.add(stairsLeft)
 
-const stairsRight = createSpiralStairs({ floors: 5 })
+const stairsRight = createStairway({ floors: 5 })
 stairsRight.position.copy(coords.pop())
 stairsRight.rotateY(-Math.PI / 4)
 scene.add(stairsRight)
@@ -36,16 +36,16 @@ lava.translateY(1.5)
 const baradDur = createBaradDur()
 baradDur.position.copy(coords.pop())
 
-const spaceTower = createSpaceTower()
+const spaceTower = createRingTower()
 spaceTower.position.copy(coords.pop())
 
 scene.add(terrain, lava, babelTower, baradDur, spaceTower)
 
+/* PLAYER */
+
 const solids = [terrain, stairsRight, stairsLeft, babelTower, baradDur, spaceTower]
 
-const player = new Avatar({ camera, solids })
-player.mesh.position.set(60, 0, 0)
-// player.lookAt(scene.position)
+const player = new Avatar({ camera, solids, pos: [60, 0, 0], skin: 'DISCO' })
 scene.add(player.mesh)
 
 /* LOOP */

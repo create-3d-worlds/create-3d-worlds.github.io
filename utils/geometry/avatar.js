@@ -2,9 +2,9 @@ import * as THREE from 'three'
 import { material } from '/utils/shaders/lava.js'
 
 export const skins = {
-  STONE: 'stone',
-  LAVA: 'lava',
-  DISCO: 'disco'
+  STONE: 'STONE',
+  LAVA: 'LAVA',
+  DISCO: 'DISCO'
 }
 
 const { STONE, LAVA, DISCO } = skins

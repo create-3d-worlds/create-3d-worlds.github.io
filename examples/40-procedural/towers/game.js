@@ -1,7 +1,7 @@
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
 import { dirLight, hemLight } from '/utils/light.js'
-import { createBabelTower, createBaradDur, createSpaceTower } from '/utils/geometry/towers.js'
+import { createBabelTower, createBaradDur, createRingTower } from '/utils/geometry/towers.js'
 
 dirLight({ intensity: .2 })
 hemLight({ intensity: .75 })
@@ -11,7 +11,7 @@ createOrbitControls()
 
 const babelTower = createBabelTower({ floors: 6 })
 const baradDur = createBaradDur()
-const spaceTower = createSpaceTower()
+const spaceTower = createRingTower()
 
 baradDur.position.x = 200
 spaceTower.position.z = -200

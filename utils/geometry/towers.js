@@ -36,7 +36,7 @@ export function createBaradDur({ floors = 6, size = 20, r = 5 } = {}) {
   return group
 }
 
-export function createSpaceTower({ floors = 6, size = 5, r = 5 } = {}) {
+export function createRingTower({ floors = 6, size = 5, r = 5 } = {}) {
   const group = new THREE.Group()
   for (let i = 0; i < floors; i++)
     group.add(...createCircle({ r: r - i * 5, y: i * size * 2, size }))
@@ -45,7 +45,7 @@ export function createSpaceTower({ floors = 6, size = 5, r = 5 } = {}) {
 
 // STAIRWAY TO HEAVEN
 
-export function createSpiralStairs({ floors = 5, radius = 30, stairsInCirle = 30, floorHeight = 20, depth = 6, size = 4 } = {}) {
+export function createStairway({ floors = 5, radius = 30, stairsInCirle = 30, floorHeight = 20, depth = 6, size = 4 } = {}) {
   const stairs = new THREE.Group
   const step = CIRCLE / stairsInCirle
 
