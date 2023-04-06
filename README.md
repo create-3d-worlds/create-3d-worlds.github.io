@@ -14,7 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Adventure / Avatar
-  - merge stairway-to-heaven, tower-of-babel, random-boxes
+  - merge random-boxes
   - vratiti šarenog
   - avatar previše ide strafe?
   - avatar zapinje uzbrdo (minas tirit maze)

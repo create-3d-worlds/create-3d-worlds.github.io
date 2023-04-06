@@ -1,42 +1,59 @@
-import * as THREE from 'three'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createSkySphere } from '/utils/geometry.js'
-import { createSpiralStairs } from '/utils/geometry/towers.js'
-import { createGround, createTerrain } from '/utils/ground.js'
-import { hemLight, createSun } from '/utils/light.js'
+import { createSpiralStairs, createBabelTower, createBaradDur, createSpaceTower } from '/utils/geometry/towers.js'
+import { createTerrain, createLava } from '/utils/ground.js'
+import { hemLight, dirLight } from '/utils/light.js'
+import { getShuffledCoords } from '/utils/helpers.js'
 import Avatar from '/utils/actor/Avatar.js'
 
-scene.add(createGround())
-scene.add(createSkySphere())
-const light = createSun()
-scene.add(light)
-scene.fog = new THREE.Fog(0xffffff, 1, 5000)
-hemLight({ scene, intensity: 0.5 })
+const mapSize = 1000
 
-const terrain = createTerrain()
+scene.add(createSkySphere())
+hemLight({ intensity: 1 }) // createSun pravi bug prilikom letenja
+dirLight({ intensity: .25 })
+
+const terrain = createTerrain({ size: mapSize, factor: 10 })
 scene.add(terrain)
 
+/* BUILDING */
+
+const coords = getShuffledCoords({ mapSize: mapSize / 2, fieldSize: 50, emptyCenter: 100 })
+
 const stairsLeft = createSpiralStairs({ floors: 5 })
-const stairsRight = createSpiralStairs({ floors: 5 })
-scene.add(stairsRight)
+stairsLeft.position.copy(coords.pop())
+stairsLeft.rotateY(Math.PI / 2)
 scene.add(stairsLeft)
 
-stairsLeft.position.x = 50
-stairsLeft.rotateY(Math.PI / 2)
-stairsRight.position.x = -50
+const stairsRight = createSpiralStairs({ floors: 5 })
+stairsRight.position.copy(coords.pop())
 stairsRight.rotateY(-Math.PI / 4)
+scene.add(stairsRight)
 
-const avatar = new Avatar({ camera })
-avatar.addSolids(terrain, stairsRight, stairsLeft)
-avatar.mesh.rotateY(Math.PI)
-scene.add(avatar.mesh)
+const babelTower = createBabelTower({ floors: 6 })
+const lava = createLava({ size: 50 })
+lava.translateY(1.5)
+
+const baradDur = createBaradDur()
+baradDur.position.copy(coords.pop())
+
+const spaceTower = createSpaceTower()
+spaceTower.position.copy(coords.pop())
+
+scene.add(terrain, lava, babelTower, baradDur, spaceTower)
+
+const solids = [terrain, stairsRight, stairsLeft, babelTower, baradDur, spaceTower]
+
+const player = new Avatar({ camera, solids })
+player.mesh.position.set(60, 0, 0)
+// player.lookAt(scene.position)
+scene.add(player.mesh)
 
 /* LOOP */
 
 void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
-  avatar.update(delta)
+  player.update(delta)
 
   renderer.render(scene, camera)
 }()
