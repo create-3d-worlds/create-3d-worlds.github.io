@@ -258,6 +258,8 @@ export default class Actor extends GameObject {
   /* UTILS */
 
   handleRoughTerrain(step) {
+    console.log(this.mesh.position.y, this.groundY)
+    console.log('heightDifference:', this.heightDifference)
     if (!this.heightDifference) return
 
     if (this.heightDifference < 0)

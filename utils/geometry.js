@@ -183,6 +183,17 @@ export function createWoodBarrel({ r = .4, R = .5, h = 1 } = {}) {
   return mesh
 }
 
+/* COIN */
+
+export function createCoin(radius = 1, depth = .2) {
+  const geometry = new THREE.CylinderGeometry(radius, radius, depth)
+  const material = new THREE.MeshPhongMaterial({ color: 0xffd700, metalness: 1, roughness: 0 })
+  const mesh = new THREE.Mesh(geometry, material)
+  translateY(mesh, radius * 2)
+  mesh.rotation.x = Math.PI / 2
+  return mesh
+}
+
 /* STRUCTURES */
 
 export function createRandomBoxes({ n = 100, size = 5, mapSize = 100 } = {}) {
