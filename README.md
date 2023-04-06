@@ -13,13 +13,15 @@ npx live-server
 
 ### Scenes & examples
 
-- Avatar
-  - BUG: zapinje po ravnom tlu, logovati groundY i position.y
-  - pre početka scene izbor skina za avatar?
-
-- Avatar / Random-boxes
-  - postaviti nagrade / novčiće na kocke, skupljati
-  - merge with adventure?
+- Avatar / Random boxes
+  - postaviti novčiće na kocke, skupljati
+    - napraviti mesh ili naći model
+    - napraviti da se okreće
+    - kada se igrač približi novčiću nestaje uz animaciju, igrač dobija poen
+    - prilikom kreiranja kocki postaviti i novčić 
+    - možda ne na svaku?
+    - prikazivati broj skupljenih i raspoloživih novčića
+  - createRandomBoxes: merge geometry radi optimizacije?
 
 - Adventure / Sorceress
   - SorceressPlayer da baca magiju, reuse methods
@@ -84,6 +86,9 @@ npx live-server
 - RPG / Fantasy
   - napraviti scenu sa ravnim tlom
   - karakter dolazi do kuće i ulazi (vidi house model primer)
+
+- Avatar
+  - pre početka scene izbor skina za avatar?
 
 ### Optimizacija
 

@@ -16,7 +16,7 @@ const maze = new Maze(12, 12, huntAndKill, cellSize)
 const pyramid = maze.toPyramid({ texture: 'walls/mayan.jpg' })
 scene.add(pyramid)
 
-const player = new Avatar({ size: .5, speed: 2, camera, solids: pyramid, skin: 'lava' })
+const player = new Avatar({ size: .5, speed: 2, camera, solids: pyramid, skin: 'LAVA' })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
