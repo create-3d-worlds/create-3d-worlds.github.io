@@ -257,16 +257,21 @@ export default class Actor extends GameObject {
 
   /* UTILS */
 
-  handleRoughTerrain(step) {
+  handleTerrain(step) {
     console.log(this.mesh.position.y, this.groundY)
     console.log('heightDifference:', this.heightDifference)
-    if (!this.heightDifference) return
+
+    if (this.heightDifference == 0) return
 
     if (this.heightDifference < 0)
       this.mesh.translateY(step)
 
-    if (this.heightDifference > 0 && this.heightDifference <= step)
-      this.mesh.position.y = this.groundY
+    if (this.heightDifference > 0)
+      if (this.heightDifference <= step)
+        this.mesh.position.y = this.groundY
+      else
+        this.mesh.translateY(-step)
+
   }
 
   directionBlocked(currDir, solids = this.solids) {
@@ -344,7 +349,8 @@ export default class Actor extends GameObject {
       else if (reaction == reactions.STEP_OFF) this.stepOff(delta * 2.5)
       else if (reaction == reactions.STOP) return
 
-    if (this.state != 'jump') this.handleRoughTerrain(Math.abs(this.acceleration) * delta)
+    const flying = ['jump', 'fall']
+    if (!flying.includes(this.state)) this.handleTerrain(Math.abs(this.acceleration) * delta)
 
     const jumpDir = this.input.up ? dir.upForward : dir.upBackward
     if (this.state == 'jump' && this.directionBlocked(jumpDir)) return

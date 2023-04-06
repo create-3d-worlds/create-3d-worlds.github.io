@@ -26,5 +26,6 @@ void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
   player.update(delta)
+  coin.update(delta)
   renderer.render(scene, camera)
 }()

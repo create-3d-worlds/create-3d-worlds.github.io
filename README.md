@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Random boxes
-  - napraviti coin mesh
   - napraviti da se okreće
   - kada se igrač približi novčiću nestaje uz animaciju, igrač dobija poen
   - prilikom kreiranja kocki postaviti i novčić 

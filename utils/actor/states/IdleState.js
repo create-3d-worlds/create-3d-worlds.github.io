@@ -2,7 +2,7 @@ import State from './State.js'
 
 const chooseDuration = prevState => {
   if (['run', 'flee', 'pursue'].includes(prevState)) return .75
-  if (prevState === 'jump' || prevState === 'attack' || prevState === 'attack2') return .25
+  if (['jump', 'fall', 'attack', 'attack2'].includes(prevState)) return .25
   return .5
 }
 
