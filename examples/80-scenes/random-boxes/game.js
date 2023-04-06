@@ -8,17 +8,12 @@ hemLight()
 
 const floor = createGround({ file: 'terrain/ground.jpg' })
 scene.add(floor)
-const boxes = createRandomBoxes()
+const boxes = createRandomBoxes({ n: 400, mapSize: 200 })
 scene.add(boxes)
 
-camera.position.z = 9
-
-const player = new Avatar({ size: 1 })
-player.mesh.rotateY(Math.PI)
-player.add(camera)
+const player = new Avatar({ camera, solids: [floor, boxes], jumpStyle: 'FLY_JUMP' })
+player.cameraFollow.distance = 7
 scene.add(player.mesh)
-
-player.addSolids(floor, boxes)
 
 /* LOOP */
 
