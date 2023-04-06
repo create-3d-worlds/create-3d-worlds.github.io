@@ -13,7 +13,8 @@ npx live-server
 
 ### Scenes & examples
 
-- Adventure / Avatar
+- Avatar
+  - BUG: zapinje po ravnom tlu, logovati groundY i position.y
   - pre početka scene izbor skina za avatar?
 
 - Avatar / Random-boxes
