@@ -116,6 +116,7 @@ export const addSolids = (oldSolids, ...newSolids) => {
 }
 
 export const getScene = object => {
+  if (!object.parent) return null
   if (object.parent.type === 'Scene') return object.parent
   return getScene(object.parent)
 }

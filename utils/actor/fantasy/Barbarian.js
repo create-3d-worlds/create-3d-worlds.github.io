@@ -8,8 +8,8 @@ const animDict = {
   walk: 'Dwarf Walk',
   run: 'Fast Run',
   jump: 'Mutant Jumping',
-  attack: 'Standing Melee Kick',
-  attack2: 'Sword And Shield Slash', // Mma Kick
+  attack: 'Sword And Shield Slash', // Mma Kick
+  attack2: 'Standing Melee Kick',
   special: 'Standing 2H Magic Attack 05',
   pain: 'Standing React Large From Right',
   death: 'Falling Back Death',
