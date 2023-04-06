@@ -8,7 +8,7 @@ export default class GameObject {
     this.name = name
 
     if (pos) this.position = pos
-    if (pos && solids) putOnTerrain(this.mesh, solids)
+    if (solids) putOnTerrain(this.mesh, solids)
 
     if (scale) this.mesh.scale.set(scale, scale, scale)
     if (color != undefined) getMesh(this.mesh).material.color.setHex(color)
