@@ -54,7 +54,8 @@ export default class Entity {
   }
 
   pushUnique = obj => {
-    if (!this.solids.includes(obj)) this.solids.push(obj)
+    if (obj !== this.mesh && !this.solids.includes(obj))
+      this.solids.push(obj)
   }
 
   /**

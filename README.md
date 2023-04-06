@@ -18,6 +18,7 @@ npx live-server
 - RPG / Fantasy
   - da automatski dodaje enemy iz scene u solids
     - getter koji vraća solids + enemies
+    - možda da solids bude unique Set
   - karakter dolazi do kuće i ulazi (vidi house model primer)
   - uzima predmete (50-rad-sa-modelima/80-uzimanje-predmeta/)
   - zepelin i oblaci da održavaju visinu od tla

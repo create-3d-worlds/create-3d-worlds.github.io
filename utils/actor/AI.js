@@ -124,13 +124,6 @@ export default class AI extends Actor {
 
   /* UTILS */
 
-  addSolids(solids) {
-    const notMe = Array.isArray(solids)
-      ? solids.filter(solid => solid !== this.mesh)
-      : solids
-    super.addSolids(notMe)
-  }
-
   lookAtTarget() {
     if (!this.target) return
     const { x, z } = this.target.position
