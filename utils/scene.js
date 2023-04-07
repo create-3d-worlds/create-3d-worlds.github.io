@@ -135,23 +135,3 @@ export function addUIControls({ commands = baseCommands, title = 'COMMANDS' } = 
   )
   document.body.appendChild(div)
 }
-
-export function addScoreUI({ score = 0, title = 'Points', subtitle } = {}) {
-  const div = document.createElement('div')
-  const style = `
-    position: absolute;
-    color: yellow;
-    top: 20px;
-    left: 20px;
-  `
-  div.style.cssText = style
-  document.body.appendChild(div)
-
-  const updateScore = (point = 1, subValue) => {
-    score += point // eslint-disable-line no-param-reassign
-    div.innerHTML = `${title}: ${score}`
-    if (subValue) div.innerHTML += `<br>${subtitle}: ${subValue}`
-  }
-  updateScore(0)
-  return updateScore
-}

@@ -1,9 +1,10 @@
-import { scene, camera, renderer, clock, addScoreUI } from '/utils/scene.js'
+import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createRandomBoxes } from '/utils/geometry.js'
 import { createGround } from '/utils/ground.js'
 import { hemLight, createSun } from '/utils/light.js'
 import Avatar from '/utils/actor/Avatar.js'
 import Coin from '/utils/actor/child/Coin.js'
+import Score from '/utils/ui/Score.js'
 
 const coins = []
 
@@ -27,7 +28,7 @@ const player = new Avatar({ camera, solids: [floor, ...boxes], jumpStyle: 'DOUBL
 player.cameraFollow.distance = 6
 scene.add(player.mesh)
 
-const updateScore = addScoreUI({ title: 'Coins collected', subtitle: 'Coins left' })
+const score = new Score({ title: 'Points', subtitle: 'Coins left', subValue: coins.length })
 
 /* functions */
 
@@ -35,7 +36,7 @@ function checkCollision(coin) {
   if (player.distanceTo(coin.mesh) > 1.35) return
   coins.splice(coins.findIndex(c => c === coin), 1)
   coin.dispose()
-  updateScore(1, coins.length)
+  score.render(1, coins.length)
 }
 
 /* LOOP */

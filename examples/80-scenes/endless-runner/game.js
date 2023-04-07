@@ -1,10 +1,11 @@
 import * as THREE from 'three'
-import { camera, scene, renderer, clock, addScoreUI } from '/utils/scene.js'
+import { camera, scene, renderer, clock } from '/utils/scene.js'
 import { createBall, createWorldSphere } from '/utils/geometry.js'
 import { createFir } from '/utils/geometry/trees.js'
 import { hemLight } from '/utils/light.js'
 import input from '/utils/classes/Input.js'
 import Particles from '/utils/classes/Particles.js'
+import Score from '/utils/ui/Score.js'
 
 const { randFloat, randInt } = THREE.MathUtils
 const { random } = Math
@@ -55,7 +56,7 @@ const gap = 6.28 / numTrees
 for (let i = 0; i < numTrees; i++)
   addSideTree(i * gap, i % 2)
 
-const updateScore = addScoreUI({ title: 'Pogotaka' })
+const score = new Score({ title: 'Pogotaka' })
 
 /* FUNCTIONS */
 
@@ -100,7 +101,7 @@ function addTreeOrTwo() {
 
 const hit = tree => {
   explosion.reset({ pos: { x: player.position.x, y: 2, z: 4.8 }, unitAngle: 0.2 })
-  updateScore()
+  score.render(1)
   tree.visible = false
   setTimeout(() => {
     tree.visible = true
