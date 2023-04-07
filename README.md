@@ -14,11 +14,11 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Random boxes
-  - napraviti da se okreće
-  - kada se igrač približi novčiću nestaje uz animaciju, igrač dobija poen
-  - prilikom kreiranja kocki postaviti i novčić 
+  - kada se igrač približi, novčić nestaje uz animaciju, igrač dobija poen
+  - postaviti novčiće na kocke
+    - prilikom kreiranja kocki postaviti i novčić 
     - možda svaku kocku proslediti novčiću kao solid da sleti na nju i istu poziciju
-  - možda ne na svaku?
+    - možda ne na svaku?
   - prikazivati broj skupljenih i raspoloživih novčića
   - createRandomBoxes: merge geometry radi optimizacije?
 

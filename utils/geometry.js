@@ -6,8 +6,8 @@ const { randFloat, randFloatSpread } = THREE.MathUtils
 
 const textureLoader = new THREE.TextureLoader()
 
-const translateY = (mesh, h) => {
-  mesh.translateY(h * .5)
+const translateY = (mesh, y) => {
+  mesh.translateY(y)
   mesh.updateMatrix()
   mesh.geometry.applyMatrix4(mesh.matrix)
 }
@@ -25,7 +25,7 @@ export function createBox({ size = 1, width = size, height = size, depth = size,
   const material = new THREE.MeshPhongMaterial(options)
   const mesh = new THREE.Mesh(geometry, material)
 
-  if (updateHeight) translateY(mesh, height)
+  if (updateHeight) translateY(mesh, height / 2)
   else mesh.translateY(height / 2)
 
   if (pos) mesh.position.copy(pos)
@@ -139,7 +139,7 @@ export function createRustyBarrel({ r = .4, height = 1, segments = 32, file = 'm
     topMaterial, // bottom
   ]
   const mesh = new THREE.Mesh(geometry, materials)
-  translateY(mesh, height)
+  translateY(mesh, height / 2)
   mesh.castShadow = mesh.receiveShadow = true
   return mesh
 }
@@ -179,7 +179,7 @@ export function createWoodBarrel({ r = .4, R = .5, h = 1 } = {}) {
 
   const mesh = new THREE.Mesh(geometry, materials)
   mesh.castShadow = mesh.receiveShadow = true
-  translateY(mesh, h)
+  translateY(mesh, h / 2)
   return mesh
 }
 
@@ -189,7 +189,7 @@ export function createCoin(radius = 1, depth = .2) {
   const geometry = new THREE.CylinderGeometry(radius, radius, depth)
   const material = new THREE.MeshPhongMaterial({ color: 0xffd700 })
   const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.y = radius
+  mesh.translateY(radius)
   mesh.rotation.x = Math.PI / 2
   return mesh
 }

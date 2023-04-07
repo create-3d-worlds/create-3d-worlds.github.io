@@ -47,4 +47,14 @@ export default class GameObject {
   add(obj) {
     this.mesh.add(obj)
   }
+
+  dispose(mesh) {
+    mesh.geometry.dispose()
+    mesh.material.dispose()
+    this.scene.remove(mesh)
+  }
+
+  distanceTo(mesh) {
+    return this.position.distanceTo(mesh.position)
+  }
 }

@@ -217,7 +217,7 @@ export default class Actor extends GameObject {
   }
 
   hit(mesh, damage = [35, 55]) {
-    const distance = this.position.distanceTo(mesh.position)
+    const distance = this.distanceTo(mesh)
     if (distance <= this.attackDistance)
       mesh.userData.hitAmount = randInt(...damage)
   }

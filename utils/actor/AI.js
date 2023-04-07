@@ -60,7 +60,7 @@ export default class AI extends Actor {
 
   get distanceToTarget() {
     if (!this.target) return Infinity
-    return this.position.distanceTo(this.target.position)
+    return this.distanceTo(this.target)
   }
 
   get lookingAtTarget() {

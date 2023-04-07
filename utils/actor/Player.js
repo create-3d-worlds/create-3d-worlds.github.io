@@ -41,6 +41,10 @@ export default class Player extends Actor {
     return findChildren(this.scene, 'enemy')
   }
 
+  get coins() {
+    return findChildren(this.scene, 'coin')
+  }
+
   get solids() {
     if (!this.#enemiesAdded) {
       this.addSolids(this.enemies)
@@ -60,7 +64,7 @@ export default class Player extends Actor {
   }
 
   areaDamage() {
-    const near = this.enemies.filter(mesh => this.position.distanceTo(mesh.position) < 3)
+    const near = this.enemies.filter(mesh => this.distanceTo(mesh) < 3)
     near.forEach(mesh => this.hit(mesh, [89, 135]))
   }
 
@@ -79,6 +83,13 @@ export default class Player extends Actor {
   }
 
   /* UPDATES */
+
+  checkCoins() {
+    this.coins.forEach(mesh => {
+      const distance = this.distanceTo(mesh)
+      if (distance <= 1.1) this.dispose(mesh)
+    })
+  }
 
   updateMove(delta, reaction = reactions.STOP) {
     super.updateMove(delta, reaction)
@@ -101,5 +112,6 @@ export default class Player extends Actor {
       this.shouldAlignCamera = false
     }
     if (this.cameraFollow) this.updateCamera(delta)
+    if (this.coins) this.checkCoins()
   }
 }
