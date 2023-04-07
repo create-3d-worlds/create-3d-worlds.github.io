@@ -136,13 +136,13 @@ export function addUIControls({ commands = baseCommands, title = 'COMMANDS' } = 
   document.body.appendChild(div)
 }
 
-export function addScoreUI({ score = 0, title = 'Score' } = {}) {
+export function addScoreUI({ score = 0, title = 'Points' } = {}) {
   const div = document.createElement('div')
   const style = `
     position: absolute;
     color: yellow;
     top: 20px;
-    right: 20px;
+    left: 20px;
   `
   div.style.cssText = style
   document.body.appendChild(div)

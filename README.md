@@ -15,6 +15,7 @@ npx live-server
 
 - Avatar / Random boxes
   - prikazivati broj skupljenih i raspoloživih novčića
+    - pobeda ako se skupe svi novčići
   - createRandomBoxes: merge geometry radi optimizacije?
   - createCoin: reuse material and geometry?
 

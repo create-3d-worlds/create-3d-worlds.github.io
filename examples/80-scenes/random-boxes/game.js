@@ -1,4 +1,4 @@
-import { scene, camera, renderer, clock } from '/utils/scene.js'
+import { scene, camera, renderer, clock, addScoreUI } from '/utils/scene.js'
 import { createRandomBoxes } from '/utils/geometry.js'
 import { createGround } from '/utils/ground.js'
 import { hemLight, createSun } from '/utils/light.js'
@@ -24,8 +24,20 @@ boxes.forEach(box => {
 })
 
 const player = new Avatar({ camera, solids: [floor, ...boxes], jumpStyle: 'DOUBLE_JUMP' })
-player.cameraFollow.distance = 7
+player.cameraFollow.distance = 6
 scene.add(player.mesh)
+
+const updateScore = addScoreUI()
+
+/* functions */
+
+function checkCollision(coin) {
+  if (player.distanceTo(coin.mesh) > 1.35) return
+  coins.splice(coins.findIndex(c => c === coin), 1)
+  coin.dispose()
+  updateScore()
+  console.log('coins left:', coins.length)
+}
 
 /* LOOP */
 
@@ -33,6 +45,9 @@ void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
   player.update(delta)
-  coins.forEach(coin => coin.update(delta))
+  coins.forEach(coin => {
+    coin.update(delta)
+    checkCollision(coin)
+  })
   renderer.render(scene, camera)
 }()

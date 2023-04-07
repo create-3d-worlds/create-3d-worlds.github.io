@@ -24,7 +24,6 @@ export default class Player extends Actor {
     ...params
   } = {}) {
     super({ name: 'player', input, jumpStyle, getState, shouldRaycastGround, attackDistance, ...params })
-    this.mesh.userData.points = 0
 
     if (useJoystick) this.input.joystick = new JoyStick()
 
@@ -42,24 +41,12 @@ export default class Player extends Actor {
     return findChildren(this.scene, 'enemy')
   }
 
-  get coins() {
-    return findChildren(this.scene, 'coin')
-  }
-
   get solids() {
     if (!this.#enemiesAdded) {
       this.addSolids(this.enemies)
       this.#enemiesAdded = true
     }
     return super.solids
-  }
-
-  get points() {
-    return this.mesh.userData.points
-  }
-
-  set points(points) {
-    this.mesh.userData.points = points
   }
 
   /* COMBAT */
@@ -93,15 +80,6 @@ export default class Player extends Actor {
 
   /* UPDATES */
 
-  checkCoins() {
-    this.coins.forEach(mesh => {
-      if (this.distanceTo(mesh) <= 1.35) {
-        this.dispose(mesh)
-        this.points++
-      }
-    })
-  }
-
   updateMove(delta, reaction = reactions.STOP) {
     super.updateMove(delta, reaction)
   }
@@ -123,6 +101,5 @@ export default class Player extends Actor {
       this.shouldAlignCamera = false
     }
     if (this.cameraFollow) this.updateCamera(delta)
-    if (this.coins) this.checkCoins()
   }
 }
