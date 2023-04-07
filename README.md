@@ -11,13 +11,18 @@ npx live-server
 
 ## TODO
 
-- addUIControls to /ui, možda refakt u klasu
+- UIControls
+  - addUIControls to /ui, možda refakt u klasu
+  - možda dodavati automatski u donji ugao
+- Score
+  - srediti boje
+  - dodati localStorage, pamtiti hi score
+  - dodati uslov za pobedu i pobednički ekran / animaciju
 
 ### Scenes & examples
 
 - Avatar / Random boxes
-  - prikazivati broj skupljenih i raspoloživih novčića
-    - pobeda ako se skupe svi novčići
+  - velika pobeda ako se skupe svi novčići
   - createRandomBoxes: merge geometry radi optimizacije?
   - createCoin: reuse material and geometry?
 

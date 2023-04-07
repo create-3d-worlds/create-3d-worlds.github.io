@@ -1,12 +1,13 @@
 const style = `
-  position: absolute;
   color: yellow;
-  top: 20px;
   left: 20px;
+  position: absolute;
+  top: 20px;
+  user-select: none;
 `
 
 export default class Score {
-  constructor({ points = 0, title = 'Score', subtitle, subValue } = {}) {
+  constructor({ title = 'Score', points = 0, subtitle, subValue } = {}) {
     this.points = points
     this.title = title
     this.subtitle = subtitle
@@ -20,7 +21,7 @@ export default class Score {
 
   render(point = 1, subValue) {
     this.points += point
-    this.div.innerHTML = `${this.title}: ${this.points}`
-    if (this.subValue) this.div.innerHTML += `<br>${this.subtitle}: ${subValue}`
+    this.div.innerHTML = `<h3 style="margin:4px 0">${this.title}: ${this.points}</h3>`
+    if (this.subValue) this.div.innerHTML += `<div>${this.subtitle}: ${subValue}</div>`
   }
 }
