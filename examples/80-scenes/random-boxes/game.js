@@ -6,6 +6,7 @@ import Avatar from '/utils/actor/Avatar.js'
 import Coin from '/utils/actor/child/Coin.js'
 import Score from '/utils/ui/Score.js'
 
+const numBoxes = 400
 const coins = []
 
 hemLight()
@@ -13,16 +14,15 @@ scene.add(createSun({ intensity: .25 }))
 
 const floor = createGround({ file: 'terrain/ground.jpg' })
 scene.add(floor)
-const boxes = createRandomBoxes({ n: 400, mapSize: 200 })
+const boxes = createRandomBoxes({ n: numBoxes, mapSize: 200 })
 scene.add(...boxes)
 
-boxes.forEach(box => {
-  if (Math.random() < .75) return
-  const coin = new Coin({ pos: box.position })
+for (let i = 0; i < numBoxes / 4; i++) {
+  const coin = new Coin({ pos: boxes[i].position })
   coin.mesh.translateZ(-6.15)
   coins.push(coin)
   scene.add(coin.mesh)
-})
+}
 
 const player = new Avatar({ camera, solids: [floor, ...boxes], jumpStyle: 'DOUBLE_JUMP' })
 player.cameraFollow.distance = 6

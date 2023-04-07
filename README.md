@@ -11,13 +11,14 @@ npx live-server
 
 ## TODO
 
-- UIControls
-  - addUIControls to /ui, možda refakt u klasu
-  - možda dodavati automatski u donji ugao
 - Score
   - srediti boje
   - dodati localStorage, pamtiti hi score
   - dodati uslov za pobedu i pobednički ekran / animaciju
+
+- UIControls
+  - addUIControls to /ui, možda refakt u klasu
+  - možda dodavati automatski u donji ugao
 
 ### Scenes & examples
 

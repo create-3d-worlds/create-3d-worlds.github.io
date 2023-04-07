@@ -4,6 +4,11 @@ const style = `
   position: absolute;
   top: 20px;
   user-select: none;
+  text-shadow:
+  -1px -1px 0 #000,  
+   1px -1px 0 #000,
+  -1px  1px 0 #000,
+   1px  1px 0 #000;
 `
 
 export default class Score {
