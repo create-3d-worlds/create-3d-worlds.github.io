@@ -27,7 +27,7 @@ const player = new Avatar({ camera, solids: [floor, ...boxes], jumpStyle: 'DOUBL
 player.cameraFollow.distance = 6
 scene.add(player.mesh)
 
-const updateScore = addScoreUI()
+const updateScore = addScoreUI({ title: 'Coins collected', subtitle: 'Coins left' })
 
 /* functions */
 
@@ -35,8 +35,7 @@ function checkCollision(coin) {
   if (player.distanceTo(coin.mesh) > 1.35) return
   coins.splice(coins.findIndex(c => c === coin), 1)
   coin.dispose()
-  updateScore()
-  console.log('coins left:', coins.length)
+  updateScore(1, coins.length)
 }
 
 /* LOOP */
