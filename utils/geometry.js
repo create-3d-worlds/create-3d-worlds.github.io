@@ -197,15 +197,15 @@ export function createCoin(radius = 1, depth = .2) {
 /* STRUCTURES */
 
 export function createRandomBoxes({ n = 100, size = 5, mapSize = 100 } = {}) {
-  const group = new THREE.Group()
+  const arr = []
   for (let i = 0; i < n; i++) {
     const color = randomGray()
     const x = randFloatSpread(mapSize), y = randFloat(-5, mapSize * .25), z = randFloatSpread(mapSize)
     const box = createBox({ size, color })
     box.position.set(x, y, z)
-    group.add(box)
+    arr.push(box)
   }
-  return group
+  return arr
 }
 
 export function createCrates({ width = 8, height = 6, depth = 2, size = 1, x = 0, z = 0 } = {}) {

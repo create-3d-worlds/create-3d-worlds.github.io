@@ -95,8 +95,7 @@ export default class Player extends Actor {
 
   checkCoins() {
     this.coins.forEach(mesh => {
-      const distance = this.distanceTo(mesh)
-      if (distance <= 1.1) {
+      if (this.distanceTo(mesh) <= 1.35) {
         this.dispose(mesh)
         this.points++
       }
