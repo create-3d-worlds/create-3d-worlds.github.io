@@ -187,7 +187,7 @@ export function createWoodBarrel({ r = .4, R = .5, h = 1 } = {}) {
 
 export function createCoin(radius = 1, depth = .2) {
   const geometry = new THREE.CylinderGeometry(radius, radius, depth)
-  const material = new THREE.MeshPhongMaterial({ color: 0xffd700 })
+  const material = new THREE.MeshPhongMaterial({ color: 0xffd700 }) // MeshNormalMaterial
   const mesh = new THREE.Mesh(geometry, material)
   mesh.translateY(radius)
   mesh.rotation.x = Math.PI / 2

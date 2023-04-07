@@ -21,6 +21,7 @@ npx live-server
     - možda ne na svaku?
   - prikazivati broj skupljenih i raspoloživih novčića
   - createRandomBoxes: merge geometry radi optimizacije?
+  - createCoin: reuse material and geometry?
 
 - Adventure / Sorceress
   - SorceressPlayer da baca magiju, reuse methods

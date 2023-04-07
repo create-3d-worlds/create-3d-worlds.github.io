@@ -48,13 +48,19 @@ export default class GameObject {
     this.mesh.add(obj)
   }
 
-  dispose(mesh) {
+  dispose(mesh = this.mesh) {
     mesh.geometry.dispose()
     mesh.material.dispose()
-    this.scene.remove(mesh)
+    this.scene?.remove(mesh)
   }
 
   distanceTo(mesh) {
     return this.position.distanceTo(mesh.position)
+  }
+
+  fadeOut(mesh = this.mesh) {
+    mesh.material.transparent = true
+    mesh.material.opacity -= 0.01
+    console.log('fade')
   }
 }
