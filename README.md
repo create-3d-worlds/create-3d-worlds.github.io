@@ -12,8 +12,8 @@ npx live-server
 ## TODO
 
 - Score
-  - srediti boje
   - dodati localStorage, pamtiti hi score
+    - upisivanje imena pored poena za top listu
   - dodati uslov za pobedu i pobednički ekran / animaciju
 
 - UIControls
@@ -24,6 +24,7 @@ npx live-server
 
 - Avatar / Random boxes
   - velika pobeda ako se skupe svi novčići
+  - možda ograničiti vreme
   - createRandomBoxes: merge geometry radi optimizacije?
   - createCoin: reuse material and geometry?
 

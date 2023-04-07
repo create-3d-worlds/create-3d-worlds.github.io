@@ -28,7 +28,7 @@ const player = new Avatar({ camera, solids: [floor, ...boxes], jumpStyle: 'DOUBL
 player.cameraFollow.distance = 6
 scene.add(player.mesh)
 
-const score = new Score({ title: 'POINTS', subtitle: 'coins left', subValue: coins.length })
+const score = new Score({ title: 'POINTS', subtitle: 'coins left', subvalue: coins.length })
 
 /* functions */
 
