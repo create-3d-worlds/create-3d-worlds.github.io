@@ -1,14 +1,12 @@
-const webFonts = ['Arial', 'Verdana', 'Trebuchet MS', 'Brush Script MT', 'Brush Script MT']
-
 const getStyle = (color, stroke) => /* css */`
   .score {
     color: ${color};
+    font-family: Verdana;
     left: 20px;
     position: absolute;
+    text-shadow: -1px -1px 0 ${stroke}, 1px -1px 0 ${stroke}, -1px  1px 0 ${stroke}, 1px  1px 0 ${stroke};
     top: 20px;
     user-select: none;
-    text-shadow: -1px -1px 0 ${stroke}, 1px -1px 0 ${stroke}, -1px  1px 0 ${stroke}, 1px  1px 0 ${stroke};
-    font-family: Verdana;
   }
 
   .score h3 {
@@ -41,8 +39,8 @@ export default class Score {
     style.textContent = getStyle(color, stroke)
     document.head.appendChild(style)
 
-    const saved = localStorage.getItem(location.pathname)
-    console.log('hi score: ', JSON.parse(saved))
+    this.highScore = Number(localStorage.getItem(location.pathname))
+    console.log('High score: ', this.highScore)
 
     this.render(points, subvalue)
   }
@@ -53,7 +51,7 @@ export default class Score {
     this.div.innerHTML = `<h3>${this.title}: ${this.points}</h3>`
     if (this.subvalue) this.div.innerHTML += `<div class="blink">${this.subtitle}: ${subvalue}</div>`
 
-    // da čuva samo ako je oboren prethodni skor
-    localStorage.setItem(location.pathname, this.points)
+    if (this.points > this.highScore)
+      localStorage.setItem(location.pathname, this.points)
   }
 }

@@ -12,8 +12,7 @@ npx live-server
 ## TODO
 
 - Score
-  - dodati localStorage, pamtiti hi score
-    - upisivanje imena pored poena za top listu
+  - upisivanje imena pored poena za top listu
   - dodati uslov za pobedu i pobednički ekran / animaciju
 
 - UIControls
@@ -130,6 +129,7 @@ DODATI:
 - možda build proces, minifikacija, i sl.
 - sve dobro dokumentovati
 - minimalni bekend za statistike i pamćenje poena ili bar brojač poseta
+  - možda server na rosberyju
 
 ## Helpers
 

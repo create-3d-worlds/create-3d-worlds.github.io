@@ -7,7 +7,7 @@ import Coin from '/utils/actor/child/Coin.js'
 import Score from '/utils/ui/Score.js'
 
 const numBoxes = 400
-const coins = []
+const numCoins = numBoxes / 4
 
 hemLight()
 scene.add(createSun({ intensity: .25 }))
@@ -17,7 +17,8 @@ scene.add(floor)
 const boxes = createRandomBoxes({ n: numBoxes, mapSize: 200 })
 scene.add(...boxes)
 
-for (let i = 0; i < numBoxes / 4; i++) {
+const coins = []
+for (let i = 0; i < numCoins; i++) {
   const coin = new Coin({ pos: boxes[i].position })
   coin.mesh.translateZ(-6.15)
   coins.push(coin)
@@ -33,7 +34,7 @@ const score = new Score({ title: 'POINTS', subtitle: 'coins left', subvalue: coi
 /* functions */
 
 function checkCollision(coin) {
-  if (player.distanceTo(coin.mesh) > 1.35) return
+  if (player.distanceTo(coin.mesh) > 1.4) return
   coins.splice(coins.findIndex(c => c === coin), 1)
   coin.dispose()
   score.render(1, coins.length)
