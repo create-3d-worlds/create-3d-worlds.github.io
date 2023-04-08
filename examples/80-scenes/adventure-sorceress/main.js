@@ -1,7 +1,8 @@
 import { scene, renderer, camera, clock } from '/utils/scene.js'
-import { createSun, orbiting } from '/utils/light.js'
+import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import { createStoneCircles, createStairway } from '/utils/geometry/towers.js'
+import { orbiting } from '/utils/geometry/planets.js'
 import { SorceressPlayer } from '/utils/actor/child/fantasy/Sorceress.js'
 
 const sun = createSun()

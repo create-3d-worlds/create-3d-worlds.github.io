@@ -120,10 +120,3 @@ export function lightFollow(light, target, distance = [12, 8, 1]) {
   const newPos = new THREE.Vector3(...distance).add(target.position)
   light.position.copy(newPos)
 }
-
-export function orbiting(sun, time, sunRadius = 8) {
-  const x = Math.cos(time) * sunRadius
-  const z = Math.sin(time) * sunRadius
-  sun.position.set(x, 10, z)
-
-}

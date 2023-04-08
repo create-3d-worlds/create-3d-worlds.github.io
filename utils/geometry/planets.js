@@ -74,3 +74,12 @@ export function createSaturn() {
 
 export const createJupiter = ({ r = 10, segments = 32 } = {}) =>
   createSphere({ r, segments, file: 'planets/jupiter.jpg' })
+
+/* MOVE */
+
+export function orbiting(planet, time, orbit = 8, vertically = false) {
+  const x = Math.cos(time) * orbit
+  const z = Math.sin(time) * orbit
+  const pos = vertically ? { x, y: z, z: 0 } : { x, y: 10, z }
+  planet.position.copy(pos)
+}

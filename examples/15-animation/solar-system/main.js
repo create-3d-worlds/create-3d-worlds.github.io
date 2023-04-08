@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { scene, renderer, addUIControls, createOrbitControls } from '/utils/scene.js'
 import { createStarSphere } from '/utils/particles.js'
-import { createEarth, createMoon, createSun } from '/utils/geometry/planets.js'
+import { createEarth, createMoon, createSun, orbiting } from '/utils/geometry/planets.js'
 
 createOrbitControls()
 renderer.setClearColor(0x000000)
@@ -54,8 +54,10 @@ function createMoonGroup(moon, earthToMoonCamera) {
 
 function updatePlanets() {
   time += speed
-  const earthSpeed = time * 0.001
-  earth.position.set(250 * Math.cos(earthSpeed), 250 * Math.sin(earthSpeed), 0)
+  // const earthSpeed = time * 0.001
+  // earth.position.set(250 * Math.cos(earthSpeed), 250 * Math.sin(earthSpeed), 0)
+  orbiting(earth, time * 0.001, 250, true)
+
   const moonSpeed = time * 0.02
   moonGroup.rotation.set(0, 0, moonSpeed)
 }
