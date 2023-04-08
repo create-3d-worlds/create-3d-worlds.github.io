@@ -20,7 +20,6 @@ export default class Coin extends GameObject {
     this.mesh.rotateZ(Math.random() * Math.PI)
     this.audio = new Audio('/assets/sounds/fairy-arcade-sparkle.mp3')
     this.audio.volume = config.volume
-    this.audio.preload = 'auto'
   }
 
   playSound() {

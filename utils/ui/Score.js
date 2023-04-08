@@ -36,7 +36,7 @@ const getStyle = (color, stroke) => /* css */`
   }
 `
 
-const defaultMessageDict = {
+const defaultDict = {
   1: 'Well, that\'s a good start!',
   10: 'Keep up the good work!',
   25: 'Nice result so far...',
@@ -45,7 +45,7 @@ const defaultMessageDict = {
 }
 
 export default class Score {
-  constructor({ title = 'Score', points = 0, subtitle, totalPoints, color = 'yellow', stroke = '#000', messageDict = defaultMessageDict } = {}) {
+  constructor({ title = 'Score', points = 0, subtitle, totalPoints, color = 'yellow', stroke = '#000', messageDict = defaultDict } = {}) {
     this.points = points
     this.title = title
     this.subtitle = subtitle
@@ -64,14 +64,14 @@ export default class Score {
     style.textContent = getStyle(color, stroke)
     document.head.appendChild(style)
 
-    this.highScore = Number(localStorage.getItem(location.pathname))
-    console.log('High score: ', this.highScore)
+    this.highScore = +localStorage.getItem(location.pathname)
 
-    this.render(points, totalPoints)
+    this.renderPoints(points, totalPoints)
+    this.renderHeighScore()
   }
 
-  /* call render only when score changes, because of optimisation  */
-  render(point = 1, pointsLeft) {
+  /* call it only when score changes, because of optimisation  */
+  renderPoints(point = 1, pointsLeft) {
     this.points += point
 
     this.scoreDiv.innerHTML = `<h3>${this.title}: ${this.points}</h3>`
@@ -91,12 +91,24 @@ export default class Score {
     `
   }
 
+  clear() {
+    this.centralDiv.innerHTML = ''
+  }
+
+  clearLatter(miliseconds = 1500) {
+    setTimeout(() => this.clear(), miliseconds)
+  }
+
   renderMotivation() {
     const message = this.messageDict[this.points]
     if (!message) return
     this.centralDiv.innerHTML = `<h3>${message}</h3>`
-    setTimeout(() => {
-      this.centralDiv.innerHTML = ''
-    }, 1500)
+    this.clearLatter()
+  }
+
+  renderHeighScore() {
+    if (this.highScore < 2) return
+    this.centralDiv.innerHTML = `<h3>The current high score is ${this.highScore} points. Beat it!</h3>`
+    this.clearLatter(3000)
   }
 }

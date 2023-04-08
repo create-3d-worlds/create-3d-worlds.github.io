@@ -15,7 +15,6 @@ npx live-server
 
 - Avatar / Random boxes
   - ograničiti vreme?
-  - negde prikazivati high score
 
 - Adventure / Sorceress
   - SorceressPlayer da baca magiju, reuse methods
