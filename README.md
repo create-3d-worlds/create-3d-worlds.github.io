@@ -14,8 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Random boxes
-  - Score: pobednički ekran ako se skupe svi novčići (za početak samo natpis BRAVO!)
-    - prikazivati poruke na pola i na 3/4 sakupljenih
+  - dodati zvuk uzimanja novčića
   - ograničiti vreme?
   - prikazati high score po svršetku partije
   - createRandomBoxes: merge geometry radi optimizacije?

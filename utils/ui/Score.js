@@ -36,12 +36,23 @@ const getStyle = (color, stroke) => /* css */`
   }
 `
 
+const getMessage = percent => {
+  console.log(percent)
+  switch (percent) {
+    case .01: return 'Congrats, your first score!'
+    case .25: return 'Keep up the good work!'
+    case .5: return 'Half down, half to go!'
+    case .75: return 'You smell victory in the air...'
+    default: return ''
+  }
+}
+
 export default class Score {
-  constructor({ title = 'Score', points = 0, subtitle, subvalue, color = 'yellow', stroke = '#000' } = {}) {
+  constructor({ title = 'Score', points = 0, subtitle, totalPoints, color = 'yellow', stroke = '#000' } = {}) {
     this.points = points
     this.title = title
     this.subtitle = subtitle
-    this.subvalue = subvalue
+    this.totalPoints = totalPoints
 
     this.scoreDiv = document.createElement('div')
     this.scoreDiv.className = 'score'
@@ -58,15 +69,19 @@ export default class Score {
     this.highScore = Number(localStorage.getItem(location.pathname))
     console.log('High score: ', this.highScore)
 
-    this.render(points, subvalue)
+    this.render(points, totalPoints)
   }
 
   /* call render only when score changes, because of optimisation  */
-  render(point = 1, subvalue) {
+  render(point = 1, pointsLeft) {
     this.points += point
 
     this.scoreDiv.innerHTML = `<h3>${this.title}: ${this.points}</h3>`
-    if (this.subvalue) this.scoreDiv.innerHTML += `<div class="blink">${this.subtitle}: ${subvalue}</div>`
+    if (pointsLeft) this.scoreDiv.innerHTML += `<div class="blink">${this.subtitle}: ${pointsLeft}</div>`
+
+    this.renderMotivation()
+
+    if (pointsLeft === 0) this.renderVictory()
 
     if (this.points > this.highScore)
       localStorage.setItem(location.pathname, this.points)
@@ -76,5 +91,14 @@ export default class Score {
     this.centralDiv.innerHTML = `<h1>BRAVO!</h1>
     <h3>You have collected all coins</h3>
     `
+  }
+
+  renderMotivation() {
+    const message = getMessage(this.points / this.totalPoints)
+    if (!message) return
+    this.centralDiv.innerHTML = `<h3>${message}</h3>`
+    setTimeout(() => {
+      this.centralDiv.innerHTML = ''
+    }, 1500)
   }
 }

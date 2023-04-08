@@ -29,7 +29,7 @@ const player = new Avatar({ camera, solids: [floor, ...boxes], jumpStyle: 'DOUBL
 player.cameraFollow.distance = 6
 scene.add(player.mesh)
 
-const score = new Score({ title: 'POINTS', subtitle: 'coins left', subvalue: coins.length })
+const score = new Score({ title: 'POINTS', subtitle: 'coins left', totalPoints: coins.length })
 
 /* functions */
 
@@ -38,8 +38,6 @@ function checkCollision(coin) {
   coins.splice(coins.findIndex(c => c === coin), 1)
   coin.dispose()
   score.render(1, coins.length)
-
-  if (true) score.renderVictory() // !coins.length
 }
 
 /* LOOP */
