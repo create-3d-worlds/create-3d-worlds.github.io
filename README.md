@@ -13,12 +13,9 @@ npx live-server
 
 ### Scenes & examples
 
-- Avatar / Random boxes
-  - ograničiti vreme?
-
 - Adventure / Sorceress
-  - SorceressPlayer da baca magiju, reuse methods
   - dodati tri sunca
+  - SorceressPlayer da baca magiju, reuse methods
   - menjanje kamere: dodati i statičnu kameru koja gleda celu scenu
 
 - City
