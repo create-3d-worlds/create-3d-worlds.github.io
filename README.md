@@ -15,9 +15,7 @@ npx live-server
 
 - Avatar / Random boxes
   - negde prikazivati high score
-  - dodati zvuk uzimanja novčića
   - ograničiti vreme?
-  - prikazati high score po svršetku partije
   - createRandomBoxes: merge geometry radi optimizacije?
   - createCoin: reuse material and geometry?
 
