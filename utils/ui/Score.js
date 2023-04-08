@@ -1,16 +1,28 @@
 const getStyle = (color, stroke) => /* css */`
-  .score {
+  body {
     color: ${color};
     font-family: Verdana;
+    text-shadow: -1px -1px 0 ${stroke}, 1px -1px 0 ${stroke}, -1px  1px 0 ${stroke}, 1px  1px 0 ${stroke};
+    user-select: none;
+  }
+
+  .score {
     left: 20px;
     position: absolute;
-    text-shadow: -1px -1px 0 ${stroke}, 1px -1px 0 ${stroke}, -1px  1px 0 ${stroke}, 1px  1px 0 ${stroke};
     top: 20px;
-    user-select: none;
   }
 
   .score h3 {
     margin: 0 0 8px;
+  }
+
+  .central {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 40px 40px 40px;
+    text-align: center;
   }
 
   .blink {
@@ -31,9 +43,13 @@ export default class Score {
     this.subtitle = subtitle
     this.subvalue = subvalue
 
-    this.div = document.createElement('div')
-    this.div.className = 'score'
-    document.body.appendChild(this.div)
+    this.scoreDiv = document.createElement('div')
+    this.scoreDiv.className = 'score'
+    document.body.appendChild(this.scoreDiv)
+
+    this.centralDiv = document.createElement('div')
+    this.centralDiv.className = 'central'
+    document.body.appendChild(this.centralDiv)
 
     const style = document.createElement('style')
     style.textContent = getStyle(color, stroke)
@@ -45,13 +61,20 @@ export default class Score {
     this.render(points, subvalue)
   }
 
+  /* call render only when score changes, because of optimisation  */
   render(point = 1, subvalue) {
     this.points += point
 
-    this.div.innerHTML = `<h3>${this.title}: ${this.points}</h3>`
-    if (this.subvalue) this.div.innerHTML += `<div class="blink">${this.subtitle}: ${subvalue}</div>`
+    this.scoreDiv.innerHTML = `<h3>${this.title}: ${this.points}</h3>`
+    if (this.subvalue) this.scoreDiv.innerHTML += `<div class="blink">${this.subtitle}: ${subvalue}</div>`
 
     if (this.points > this.highScore)
       localStorage.setItem(location.pathname, this.points)
+  }
+
+  renderVictory() {
+    this.centralDiv.innerHTML = `<h1>BRAVO!</h1>
+    <h3>You have collected all coins</h3>
+    `
   }
 }

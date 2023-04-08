@@ -11,19 +11,13 @@ npx live-server
 
 ## TODO
 
-- Score
-  - upisivanje imena pored poena za top listu
-  - dodati uslov za pobedu i pobednički ekran / animaciju
-
-- UIControls
-  - addUIControls to /ui, možda refakt u klasu
-  - možda dodavati automatski u donji ugao
-
 ### Scenes & examples
 
 - Avatar / Random boxes
-  - velika pobeda ako se skupe svi novčići
-  - možda ograničiti vreme
+  - Score: pobednički ekran ako se skupe svi novčići (za početak samo natpis BRAVO!)
+    - prikazivati poruke na pola i na 3/4 sakupljenih
+  - ograničiti vreme?
+  - prikazati high score po svršetku partije
   - createRandomBoxes: merge geometry radi optimizacije?
   - createCoin: reuse material and geometry?
 
@@ -94,6 +88,10 @@ npx live-server
 - Avatar
   - pre početka scene izbor skina za avatar?
 
+### Završno
+
+- puštati i restartovati scenu, probati intro i outro za scene
+
 ### Optimizacija
 
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
@@ -123,6 +121,7 @@ DODATI:
   - preloader po potrebi
 - probati VR https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
 - pauzirati scenu na tab unfocus
+- po završetku partije upisivanje imena pored poena za top listu
 
 ### Publish
 - srediti root-relativne linkove da rade u podfolderu

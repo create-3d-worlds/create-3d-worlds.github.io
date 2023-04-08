@@ -38,6 +38,8 @@ function checkCollision(coin) {
   coins.splice(coins.findIndex(c => c === coin), 1)
   coin.dispose()
   score.render(1, coins.length)
+
+  if (true) score.renderVictory() // !coins.length
 }
 
 /* LOOP */
