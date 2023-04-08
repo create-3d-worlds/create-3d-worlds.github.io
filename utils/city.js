@@ -289,15 +289,14 @@ export function createTexturedBuilding({ width, height, depth = width, color = 0
 export const createGraffitiBuilding = param =>
   createTexturedBuilding({ graffitiChance: .5, ...param })
 
-export const createArtBuilding = param => {
-  // return array with a file at random index
-  const getFiles = () => {
-    const files = []
-    files[sample([0, 1, 3, 4])] = 'banksy/' + sample(banksyArt)
-    return files
-  }
-  return createGraffitiBuilding({ files: getFiles(), ...param })
+// return an array with a file at random index and rest empty
+const getFiles = () => {
+  const files = []
+  files[sample([0, 1, 3, 4])] = 'banksy/' + sample(banksyArt)
+  return files
 }
+
+export const createArtBuilding = param => createGraffitiBuilding({ files: getFiles(), ...param })
 
 /* CITY */
 

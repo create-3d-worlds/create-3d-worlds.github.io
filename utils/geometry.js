@@ -38,8 +38,6 @@ export function createBox({ size = 1, width = size, height = size, depth = size,
 
 export const createPlayerBox = ({ visible = true, ...params } = {}) => {
   const mesh = createBox({ height: 1.78, width: .4, depth: .4, ...params })
-  // mesh.updateMatrix()
-  // mesh.geometry.applyMatrix4(mesh.matrix)
   mesh.visible = visible
   return mesh
 }
@@ -180,17 +178,6 @@ export function createWoodBarrel({ r = .4, R = .5, h = 1 } = {}) {
   const mesh = new THREE.Mesh(geometry, materials)
   mesh.castShadow = mesh.receiveShadow = true
   translateY(mesh, h / 2)
-  return mesh
-}
-
-/* COIN */
-
-export function createCoin(radius = 1, depth = .2) {
-  const geometry = new THREE.CylinderGeometry(radius, radius, depth)
-  const material = new THREE.MeshPhongMaterial({ color: 0xffd700 }) // MeshNormalMaterial
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.translateY(radius)
-  mesh.rotation.x = Math.PI / 2
   return mesh
 }
 

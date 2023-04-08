@@ -14,10 +14,8 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Random boxes
-  - negde prikazivati high score
   - ograničiti vreme?
-  - createRandomBoxes: merge geometry radi optimizacije?
-  - createCoin: reuse material and geometry?
+  - negde prikazivati high score
 
 - Adventure / Sorceress
   - SorceressPlayer da baca magiju, reuse methods
@@ -101,6 +99,7 @@ npx live-server
 - izmeriti statistike, ako je presporo izbacivati nevažno
 - izbaciti TWEEN?
 - smanjiti zavisnosti fajlova, obrisati neke helper funkcije ili prebaciti na klase
+  - npr createCoin to Coin class, i ostale funkcije koje imaju matične klase
 
 ### Polishing
 

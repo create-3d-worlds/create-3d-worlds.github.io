@@ -1,6 +1,18 @@
-import config from '/config.js'
-import { createCoin } from '/utils/geometry.js'
+import * as THREE from 'three'
+
 import GameObject from '/utils/actor/GameObject.js'
+import config from '/config.js'
+
+const material = new THREE.MeshPhongMaterial({ color: 0xffd700 })
+
+function createCoin(radius = 1, depth = .2) {
+  const geometry = new THREE.CylinderGeometry(radius, radius, depth)
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.translateY(radius)
+  mesh.rotation.x = Math.PI / 2
+
+  return mesh
+}
 
 export default class Coin extends GameObject {
   constructor(param = {}) {
