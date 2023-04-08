@@ -1,11 +1,11 @@
 import { scene, renderer, camera, clock } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
+import { createSun, orbiting } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import { createStoneCircles, createStairway } from '/utils/geometry/towers.js'
 import { SorceressPlayer } from '/utils/actor/child/fantasy/Sorceress.js'
 
-const light = createSun()
-scene.add(light)
+const sun = createSun()
+scene.add(sun)
 
 const floor = createGround()
 scene.add(floor)
@@ -24,16 +24,11 @@ player.addSolids(floor, stairs)
 
 /* LOOP */
 
-const lightRadius = 8
-let lightAngle = 0
-
 void function loop() {
-  lightAngle += .003
-  const x = Math.cos(lightAngle) * lightRadius
-  const z = Math.sin(lightAngle) * lightRadius
-  light.position.set(x, 10, z)
-
   const delta = clock.getDelta()
+  const elapsed = clock.getElapsedTime()
+
+  orbiting(sun, elapsed * .1)
   player.update(delta)
 
   renderer.render(scene, camera)
