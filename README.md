@@ -12,7 +12,7 @@ npx live-server
 ## TODO
 
 - nešto iz konstanti u fajlove?
-
+- BUG: Barbarian nakon skoka ostaje ukočena
 - BUG: nekad dokument izgubi fokus pa ne prima komande, fokusirati dokument kad izgubi fokus 
   - https://stackoverflow.com/questions/6976486/is-there-any-way-in-javascript-to-focus-the-document-content-area
   - https://stackoverflow.com/questions/7389328/detect-if-browser-tab-has-focus

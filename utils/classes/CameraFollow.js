@@ -11,26 +11,26 @@ const speedFactor = state => {
   return 1
 }
 
-const THIRD_PERSON = 'THIRD_PERSON', AERIAL = 'AERIAL', ORBITAL = 'ORBITAL'
-const cameraStyles = [THIRD_PERSON, AERIAL, ORBITAL]
+const THIRD_PERSON = 'THIRD_PERSON', BIRDS_EYE = 'BIRDS_EYE', ORBITAL = 'ORBITAL'
+const cameraStyles = [THIRD_PERSON, BIRDS_EYE, ORBITAL]
 
 export default class CameraFollow {
   constructor({ camera, mesh, height = 2, speed = 2,
     offset = [0, height * .95, height * 1.5],
     lookAt = [0, height * .95, 0],
-    aerialOffset = [0, height * 8, -height * 2.75],
-    aerialLookAt = [0, 0, -height * 3],
-    orbitalOffset = [25, 25, 25]
+    birdsEyeOffset = [0, height * 8, -height * 2.75],
+    birdsEyeLookAt = [0, 0, -height * 3],
+    orbitalOffset = [-height * 10, height * 10, height * 10]
   }) {
     this.mesh = mesh
     this.camera = camera
 
-    this.speed = this.thirdPersonSpeed = speed
-    this.offset = this.thirdPersonOffset = offset
-    this.lookAt = this.thirdPersonLookAt = lookAt
+    this.thirdPersonSpeed = this.speed = speed
+    this.thirdPersonOffset = this.offset = offset
+    this.thirdPersonLookAt = this.lookAt = lookAt
 
-    this.aerialOffset = aerialOffset
-    this.aerialLookAt = aerialLookAt
+    this.birdsEyeOffset = birdsEyeOffset
+    this.birdsEyeLookAt = birdsEyeLookAt
     this.orbitalOffset = orbitalOffset
 
     this.currentPosition = new THREE.Vector3()
@@ -49,7 +49,7 @@ export default class CameraFollow {
   }
 
   set height(x) {
-    this.aerialOffset[1] = x
+    this.birdsEyeOffset[1] = x
   }
 
   set near(x) {
@@ -91,7 +91,7 @@ export default class CameraFollow {
 
   getOffset(cameraStyle) {
     switch (cameraStyle) {
-      case AERIAL: return this.aerialOffset
+      case BIRDS_EYE: return this.birdsEyeOffset
       case THIRD_PERSON: return this.thirdPersonOffset
       case ORBITAL: return this.orbitalOffset
       default: return this.thirdPersonOffset
@@ -100,16 +100,16 @@ export default class CameraFollow {
 
   getLookAt(cameraStyle) {
     switch (cameraStyle) {
-      case AERIAL: return this.aerialLookAt
+      case BIRDS_EYE: return this.birdsEyeLookAt
       case THIRD_PERSON: return this.thirdPersonLookAt
-      case ORBITAL: return this.aerialLookAt
+      case ORBITAL: return this.birdsEyeLookAt
       default: return this.thirdPersonLookAt
     }
   }
 
   getSpeed(cameraStyle) {
     switch (cameraStyle) {
-      case AERIAL: return this.thirdPersonSpeed * .75
+      case BIRDS_EYE: return this.thirdPersonSpeed * .75
       case THIRD_PERSON: return this.thirdPersonSpeed
       case ORBITAL: return this.thirdPersonSpeed * .25
       default: return this.thirdPersonSpeed
