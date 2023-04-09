@@ -35,8 +35,7 @@ export default class CameraFollow {
 
     this.currentPosition = new THREE.Vector3()
     this.currentLookat = new THREE.Vector3()
-
-    this.i = 0
+    this.cameraIndex = 0
 
     this.camera.position.copy(calc(mesh, offset))
     this.camera.lookAt(calc(mesh, lookAt))
@@ -117,7 +116,7 @@ export default class CameraFollow {
   }
 
   toggleCamera() {
-    const cameraStyle = cameraStyles[++this.i % cameraStyles.length]
+    const cameraStyle = cameraStyles[++this.cameraIndex % cameraStyles.length]
     this.offset = this.getOffset(cameraStyle)
     this.lookAt = this.getLookAt(cameraStyle)
     this.speed = this.getSpeed(cameraStyle)
