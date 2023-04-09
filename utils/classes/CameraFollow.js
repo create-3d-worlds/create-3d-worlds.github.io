@@ -11,26 +11,32 @@ const speedFactor = state => {
   return 1
 }
 
+const THIRD_PERSON = 'THIRD_PERSON', AERIAL = 'AERIAL', ORBITAL = 'ORBITAL'
+const cameraStyles = [THIRD_PERSON, AERIAL, ORBITAL]
+
 export default class CameraFollow {
   constructor({ camera, mesh, height = 2, speed = 2,
     offset = [0, height * .95, height * 1.5],
     lookAt = [0, height * .95, 0],
     aerialOffset = [0, height * 8, -height * 2.75],
     aerialLookAt = [0, 0, -height * 3],
+    orbitalOffset = [25, 25, 25]
   }) {
     this.mesh = mesh
     this.camera = camera
-    this.speed = speed
-    this.offset = offset
-    this.lookAt = lookAt
+
+    this.speed = this.thirdPersonSpeed = speed
+    this.offset = this.thirdPersonOffset = offset
+    this.lookAt = this.thirdPersonLookAt = lookAt
+
     this.aerialOffset = aerialOffset
     this.aerialLookAt = aerialLookAt
+    this.orbitalOffset = orbitalOffset
+
     this.currentPosition = new THREE.Vector3()
     this.currentLookat = new THREE.Vector3()
-    this.initialOffset = offset
-    this.initialLookAt = lookAt
-    this.initialSpeed = speed
-    this.aerial = false
+
+    this.i = 0
 
     this.camera.position.copy(calc(mesh, offset))
     this.camera.lookAt(calc(mesh, lookAt))
@@ -83,11 +89,38 @@ export default class CameraFollow {
     document.body.appendChild(button)
   }
 
+  getOffset(cameraStyle) {
+    switch (cameraStyle) {
+      case AERIAL: return this.aerialOffset
+      case THIRD_PERSON: return this.thirdPersonOffset
+      case ORBITAL: return this.orbitalOffset
+      default: return this.thirdPersonOffset
+    }
+  }
+
+  getLookAt(cameraStyle) {
+    switch (cameraStyle) {
+      case AERIAL: return this.aerialLookAt
+      case THIRD_PERSON: return this.thirdPersonLookAt
+      case ORBITAL: return this.aerialLookAt
+      default: return this.thirdPersonLookAt
+    }
+  }
+
+  getSpeed(cameraStyle) {
+    switch (cameraStyle) {
+      case AERIAL: return this.thirdPersonSpeed * .75
+      case THIRD_PERSON: return this.thirdPersonSpeed
+      case ORBITAL: return this.thirdPersonSpeed * .25
+      default: return this.thirdPersonSpeed
+    }
+  }
+
   toggleCamera() {
-    this.aerial = !this.aerial
-    this.offset = this.aerial ? this.aerialOffset : this.initialOffset
-    this.lookAt = this.aerial ? this.aerialLookAt : this.initialLookAt
-    this.speed = this.aerial ? this.initialSpeed * .75 : this.initialSpeed
+    const cameraStyle = cameraStyles[++this.i % cameraStyles.length]
+    this.offset = this.getOffset(cameraStyle)
+    this.lookAt = this.getLookAt(cameraStyle)
+    this.speed = this.getSpeed(cameraStyle)
   }
 
   update(delta, stateName) {

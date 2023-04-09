@@ -11,9 +11,11 @@ npx live-server
 
 ## TODO
 
-- TODO: dinamički import gde god je uslovno
-  - Player, use OrbitControls umesto createOrbitControls, možda i drugde
-- menjanje kamere: dodati i statičnu kameru koja gleda celu scenu
+- nešto iz konstanti u fajlove?
+
+- BUG: nekad dokument izgubi fokus pa ne prima komande, fokusirati dokument kad izgubi fokus 
+  - https://stackoverflow.com/questions/6976486/is-there-any-way-in-javascript-to-focus-the-document-content-area
+  - https://stackoverflow.com/questions/7389328/detect-if-browser-tab-has-focus
 
 ### Scenes & examples
 
@@ -106,6 +108,7 @@ DODATI:
   - cilj i poene?
   - indikator energije?
   - UI komande
+  - dodati game UI https://ronenness.github.io/RPGUI ?
   - komande za dodirne ekrane (strelice i dugmiće)
   - reload button (kad igrač umre)
   - full screen btn
