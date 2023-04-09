@@ -7,7 +7,7 @@ import { getGroundY, directionBlocked, getMesh, intersect, getParent, belongsTo 
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 import { shootDecals } from '/utils/decals.js'
-import Particles from '/utils/classes/Particles.js'
+import Particles, { Flame } from '/utils/classes/Particles.js'
 import config from '/config.js'
 
 const { randInt } = THREE.MathUtils
@@ -47,6 +47,7 @@ export default class Actor extends GameObject {
     leaveDecals = attackDistance > 5,
     attackSound = '',
     altitude = 0, // for flying objects
+    useFlame = false,
   }) {
     super({ mesh, name, pos, solids })
     this.mesh.userData.hitAmount = 0
@@ -62,15 +63,16 @@ export default class Actor extends GameObject {
     this.jumpForce = jumpForce
     this.drag = drag
     this.input = input
+    this.actions = {}
     this.getState = getState
     this.shouldRaycastGround = shouldRaycastGround
     this.runCoefficient = runCoefficient
     this.attackDistance = this.depth > attackDistance ? Math.ceil(this.depth) : attackDistance
     this.attackSound = attackSound
     this.useRicochet = useRicochet
+    this.useFlame = useFlame
     this.leaveDecals = leaveDecals
     this.altitude = altitude
-    this.actions = {}
 
     if (solids) this.addSolids(solids)
 
@@ -92,6 +94,12 @@ export default class Actor extends GameObject {
       this.boundaries = new THREE.Box3(
         new THREE.Vector3(-halfMap, 0, -halfMap), new THREE.Vector3(halfMap, 0, halfMap)
       )
+    }
+
+    // TODO: dinamički import gde god je uslovno
+    if (useFlame) {
+      this.flame = new Flame({ num: 25, minRadius: 0, maxRadius: .5 })
+      this.flame.mesh.material.opacity = 0
     }
 
     this.setState('idle')
@@ -222,11 +230,6 @@ export default class Actor extends GameObject {
       mesh.userData.hitAmount = randInt(...damage)
   }
 
-  explode(pos, color) {
-    this.ricochet.reset({ pos, unitAngle: 0.2, color })
-    this.scene.add(this.ricochet.mesh)
-  }
-
   playAttackSound() {
     this.audio.currentTime = 0
     this.audio.play()
@@ -253,6 +256,32 @@ export default class Actor extends GameObject {
         shootDecals(intersects[0], { scene: this.scene, color: 0x000000 })
       }
     }, timeToHit)
+  }
+
+  /* PARTICLES */
+
+  explode(pos, color) {
+    this.ricochet.reset({ pos, unitAngle: 0.2, color })
+    this.scene.add(this.ricochet.mesh)
+  }
+
+  resetFlame() {
+    const { flame, mesh } = this
+    flame.reset({ pos: this.position })
+    flame.mesh.rotation.copy(mesh.rotation)
+    flame.mesh.rotateX(Math.PI)
+    flame.mesh.translateY(-1.2)
+    flame.mesh.translateZ(1.75)
+    this.shouldLoop = true
+  }
+
+  startFlame() {
+    this.scene.add(this.flame.mesh)
+    setTimeout(() => this.resetFlame(), 1000)
+  }
+
+  endFlame() {
+    this.shouldLoop = false
   }
 
   /* UTILS */
@@ -409,6 +438,7 @@ export default class Actor extends GameObject {
     if (this.outOfBounds) this.bounce()
 
     if (this.useRicochet) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
+    if (this.useFlame) this.flame.update({ delta, max: this.attackDistance, loop: this.shouldLoop, minVelocity: 2.5, maxVelocity: 5 })
 
     TWEEN.update()
   }

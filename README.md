@@ -11,12 +11,10 @@ npx live-server
 
 ## TODO
 
+- Barbarian reuse flame
 - menjanje kamere: dodati i statičnu kameru koja gleda celu scenu
 
 ### Scenes & examples
-
-- Adventure / Sorceress
-  - SorceressPlayer da baca magiju, reuse methods
 
 - City
   - merge fps-graffiti i još ponešto, staviti nešto što nema drugde
