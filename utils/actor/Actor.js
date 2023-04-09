@@ -7,7 +7,6 @@ import { getGroundY, directionBlocked, getMesh, intersect, getParent, belongsTo 
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 import { shootDecals } from '/utils/decals.js'
-import Particles, { Flame, RedFlame } from '/utils/classes/Particles.js'
 import config from '/config.js'
 
 const { randInt } = THREE.MathUtils
@@ -87,8 +86,6 @@ export default class Actor extends GameObject {
       this.audio.volume = config.volume
     }
 
-    if (useRicochet) this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
-
     if (mapSize) {
       const halfMap = mapSize / 2
       this.boundaries = new THREE.Box3(
@@ -96,10 +93,21 @@ export default class Actor extends GameObject {
       )
     }
 
-    // TODO: dinamički import gde god je uslovno
+    if (useRicochet) {
+      const promise = import('/utils/classes/Particles.js')
+      promise.then(obj => {
+        const Particles = obj.default
+        this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
+      })
+    }
+
     if (useFlame) {
-      this.flame = new Flame({ num: 25, minRadius: 0, maxRadius: .5 })
-      this.flame.mesh.material.opacity = 0
+      const promise = import('/utils/classes/Particles.js')
+      promise.then(obj => {
+        const { Flame } = obj
+        this.flame = new Flame({ num: 25, minRadius: 0, maxRadius: .5 })
+        this.flame.mesh.material.opacity = 0
+      })
     }
 
     this.setState('idle')
@@ -431,7 +439,7 @@ export default class Actor extends GameObject {
   }
 
   updateFlame(delta) {
-    this.flame.update({ delta, max: this.attackDistance, loop: this.shouldLoop, minVelocity: 2.5, maxVelocity: 5 })
+    this.flame?.update({ delta, max: this.attackDistance, loop: this.shouldLoop, minVelocity: 2.5, maxVelocity: 5 })
   }
 
   update(delta = 1 / 60) {
@@ -444,7 +452,7 @@ export default class Actor extends GameObject {
     if (this.twoHandedWeapon) this.updateRifle()
     if (this.outOfBounds) this.bounce()
 
-    if (this.useRicochet) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
+    if (this.useRicochet) this.ricochet?.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
     if (this.useFlame) this.updateFlame(delta)
 
     TWEEN.update()

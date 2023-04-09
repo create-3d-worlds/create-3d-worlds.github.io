@@ -11,6 +11,9 @@ npx live-server
 
 ## TODO
 
+- TODO: dinamički import gde god je uslovno
+  - Player CameraFollow
+  - Player, use OrbitControls umesto createOrbitControls, možda i drugde
 - menjanje kamere: dodati i statičnu kameru koja gleda celu scenu
 
 ### Scenes & examples

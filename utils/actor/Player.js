@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 
-import JoyStick from '/utils/classes/JoyStick.js'
 import defaultKeyboard from '/utils/classes/Input.js'
 import { jumpStyles, attackStyles, reactions } from '/utils/constants.js'
 import { getPlayerState } from './states/index.js'
@@ -25,14 +24,26 @@ export default class Player extends Actor {
   } = {}) {
     super({ name: 'player', input, jumpStyle, getState, shouldRaycastGround, attackDistance, ...params })
 
-    if (useJoystick) this.input.joystick = new JoyStick()
+    if (useJoystick) {
+      const promise = import('/utils/classes/JoyStick.js')
+      promise.then(obj => {
+        const JoyStick = obj.default
+        this.input.joystick = new JoyStick()
+      })
+    }
 
     if (camera) {
-      this.cameraFollow = new CameraFollow({ camera, mesh: this.mesh, height: this.height })
-      this.orbitControls = createOrbitControls()
-      this.orbitControls.maxPolarAngle = Math.PI - Math.PI / 4
-      this.orbitControls.mouseButtons = { RIGHT: THREE.MOUSE.ROTATE }
       this.shouldAlignCamera = true
+
+      this.cameraFollow = new CameraFollow({ camera, mesh: this.mesh, height: this.height })
+
+      const promise = import('/utils/scene.js')
+      promise.then(obj => {
+        const { createOrbitControls } = obj
+        this.orbitControls = createOrbitControls()
+        this.orbitControls.maxPolarAngle = Math.PI - Math.PI / 4
+        this.orbitControls.mouseButtons = { RIGHT: THREE.MOUSE.ROTATE }
+      })
     }
   }
 
