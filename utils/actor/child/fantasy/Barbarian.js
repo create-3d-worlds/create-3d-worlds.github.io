@@ -36,9 +36,8 @@ export class BarbarianPlayer extends Player {
   }
 
   checkHit() {
-    // untouchable during attack
     if (this.state.includes('attack')) {
-      this.hitAmount = 0
+      this.hitAmount = 0 // untouchable during attack
       return
     }
     super.checkHit()
@@ -53,11 +52,7 @@ export class BarbarianPlayer extends Player {
   }
 
   enterSpecial() {
-    this.scene.add(this.flame.mesh)
-    setTimeout(() => {
-      this.resetFlame()
-      this.areaDamage()
-    }, 1000)
+    this.startFlame(1000, () => this.areaDamage())
   }
 
   exitSpecial() {

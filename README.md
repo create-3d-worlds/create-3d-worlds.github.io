@@ -11,7 +11,6 @@ npx live-server
 
 ## TODO
 
-- Barbarian reuse flame
 - menjanje kamere: dodati i statičnu kameru koja gleda celu scenu
 
 ### Scenes & examples

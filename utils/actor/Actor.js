@@ -275,9 +275,12 @@ export default class Actor extends GameObject {
     this.shouldLoop = true
   }
 
-  startFlame() {
+  startFlame(defer = 1000, someMethod) {
     this.scene.add(this.flame.mesh)
-    setTimeout(() => this.resetFlame(), 1000)
+    setTimeout(() => {
+      this.resetFlame()
+      if (someMethod) someMethod()
+    }, defer)
   }
 
   endFlame() {
