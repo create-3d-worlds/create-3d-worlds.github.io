@@ -21,24 +21,24 @@ const { mesh, animations } = await loadModel({ file: 'model.fbx', angle: Math.PI
 const sharedProps = { mesh, animations, animDict, attackStyle: 'ONCE', attackDistance: 3 }
 
 const createParticles = () => {
-  const particles = new Flame({ num: 25, minRadius: 0, maxRadius: .5 })
-  particles.mesh.material.opacity = 0
-  return particles
+  const flame = new Flame({ num: 25, minRadius: 0, maxRadius: .5 })
+  flame.mesh.material.opacity = 0
+  return flame
 }
 
-const resetParticles = self => {
-  const { particles, mesh } = self
-  particles.reset({ pos: self.position })
-  particles.mesh.rotation.copy(mesh.rotation)
-  particles.mesh.rotateX(Math.PI)
-  particles.mesh.translateY(-1.2)
-  particles.mesh.translateZ(1.75)
+const resetFlame = self => {
+  const { flame, mesh } = self
+  flame.reset({ pos: self.position })
+  flame.mesh.rotation.copy(mesh.rotation)
+  flame.mesh.rotateX(Math.PI)
+  flame.mesh.translateY(-1.2)
+  flame.mesh.translateZ(1.75)
   self.shouldLoop = true
 }
 
 const enterAttack = self => {
-  self.scene.add(self.particles.mesh)
-  setTimeout(() => resetParticles(self), 1000)
+  self.scene.add(self.flame.mesh)
+  setTimeout(() => resetFlame(self), 1000)
 }
 
 const exitAttack = self => {
@@ -46,13 +46,13 @@ const exitAttack = self => {
 }
 
 const update = (self, delta) => {
-  self.particles.update({ delta, max: self.attackDistance, loop: self.shouldLoop, minVelocity: 2.5, maxVelocity: 5 })
+  self.flame.update({ delta, max: self.attackDistance, loop: self.shouldLoop, minVelocity: 2.5, maxVelocity: 5 })
 }
 
 export class WitchPlayer extends Player {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
-    this.particles = createParticles()
+    this.flame = createParticles()
   }
 
   enterAttack() {
