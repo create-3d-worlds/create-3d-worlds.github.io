@@ -2,7 +2,6 @@ import Player from '/utils/actor/Player.js'
 import FPSRenderer from '/utils/actor/FPSRenderer.js'
 import { camera as defaultCamera } from '/utils/scene.js'
 import { getCameraIntersects, shakeCamera } from '/utils/helpers.js'
-import input from '/utils/classes/Input.js'
 import { jumpStyles, attackStyles } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 
@@ -129,6 +128,7 @@ export default class FPSPlayer extends Player {
   }
 
   update(delta) {
+    const { input } = this
     if (this.usePointerLock) input.attack = input.pressed.mouse // shoot with mouse
 
     super.update(delta)

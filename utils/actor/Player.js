@@ -3,9 +3,7 @@ import * as THREE from 'three'
 import defaultKeyboard from '/utils/classes/Input.js'
 import { jumpStyles, attackStyles, reactions } from '/utils/constants.js'
 import { getPlayerState } from './states/index.js'
-import { createOrbitControls } from '/utils/scene.js'
 import { findChildren } from '/utils/helpers.js'
-import CameraFollow from '/utils/classes/CameraFollow.js'
 import Actor from './Actor.js'
 
 export default class Player extends Actor {
@@ -34,11 +32,14 @@ export default class Player extends Actor {
 
     if (camera) {
       this.shouldAlignCamera = true
-
-      this.cameraFollow = new CameraFollow({ camera, mesh: this.mesh, height: this.height })
-
-      const promise = import('/utils/scene.js')
+      const promise = import('/utils/classes/CameraFollow.js')
       promise.then(obj => {
+        const CameraFollow = obj.default
+        this.cameraFollow = new CameraFollow({ camera, mesh: this.mesh, height: this.height })
+      })
+
+      const orbitPromise = import('/utils/scene.js')
+      orbitPromise.then(obj => {
         const { createOrbitControls } = obj
         this.orbitControls = createOrbitControls()
         this.orbitControls.maxPolarAngle = Math.PI - Math.PI / 4
@@ -108,7 +109,7 @@ export default class Player extends Actor {
 
   update(delta = 1 / 60) {
     super.update(delta)
-    if (this.shouldAlignCamera) {
+    if (this.cameraFollow && this.shouldAlignCamera) {
       this.cameraFollow.alignCamera()
       this.shouldAlignCamera = false
     }
