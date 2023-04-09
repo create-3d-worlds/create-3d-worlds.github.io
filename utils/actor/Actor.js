@@ -7,7 +7,7 @@ import { getGroundY, directionBlocked, getMesh, intersect, getParent, belongsTo 
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 import { shootDecals } from '/utils/decals.js'
-import Particles, { Flame } from '/utils/classes/Particles.js'
+import Particles, { Flame, RedFlame } from '/utils/classes/Particles.js'
 import config from '/config.js'
 
 const { randInt } = THREE.MathUtils
@@ -427,6 +427,10 @@ export default class Actor extends GameObject {
       this.mesh.position.y = this.groundY
   }
 
+  updateFlame(delta) {
+    this.flame.update({ delta, max: this.attackDistance, loop: this.shouldLoop, minVelocity: 2.5, maxVelocity: 5 })
+  }
+
   update(delta = 1 / 60) {
     this.updateGround()
     this.currentState.update(delta)
@@ -438,7 +442,7 @@ export default class Actor extends GameObject {
     if (this.outOfBounds) this.bounce()
 
     if (this.useRicochet) this.ricochet.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
-    if (this.useFlame) this.flame.update({ delta, max: this.attackDistance, loop: this.shouldLoop, minVelocity: 2.5, maxVelocity: 5 })
+    if (this.useFlame) this.updateFlame(delta)
 
     TWEEN.update()
   }

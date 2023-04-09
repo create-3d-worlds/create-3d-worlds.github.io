@@ -8,7 +8,7 @@ const animDict = {
   walk: 'Standing Walk Forward',
   run: 'Standing Sprint Forward',
   attack: 'Standing 1H Magic Attack 01',
-  special: 'Standing 2H Magic Attack 04',
+  attack2: 'Standing 2H Magic Attack 04',
 }
 
 /* LOADING */

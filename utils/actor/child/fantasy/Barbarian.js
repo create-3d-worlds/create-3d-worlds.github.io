@@ -23,13 +23,12 @@ const { mesh: rightHandWeapon } = await loadModel({ file: 'weapon/axe-lowpoly/mo
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { rightHandWeapon, mesh, animations, animDict, jumpStyle: 'FLY_JUMP', maxJumpTime: 18, attackStyle: 'LOOP' }
+const sharedProps = { rightHandWeapon, mesh, animations, animDict, jumpStyle: 'FLY_JUMP', maxJumpTime: 18, attackStyle: 'LOOP', useFlame: true }
 
 export class BarbarianPlayer extends Player {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
-    this.particles = new RedFlame()
-    this.particles.mesh.material.opacity = 0
+    this.flame = new RedFlame()
   }
 
   enterAttack() {
@@ -45,29 +44,24 @@ export class BarbarianPlayer extends Player {
     super.checkHit()
   }
 
-  resetParticles() {
-    const { particles } = this
-    particles.reset({ pos: this.mesh.position })
-    particles.mesh.rotation.copy(this.mesh.rotation)
-    particles.mesh.rotateX(Math.PI)
+  resetFlame() {
+    const { flame } = this
+    flame.reset({ pos: this.mesh.position })
+    flame.mesh.rotation.copy(this.mesh.rotation)
+    flame.mesh.rotateX(Math.PI)
     this.shouldLoop = true
   }
 
   enterSpecial() {
-    this.scene.add(this.particles.mesh)
+    this.scene.add(this.flame.mesh)
     setTimeout(() => {
-      this.resetParticles()
+      this.resetFlame()
       this.areaDamage()
     }, 1000)
   }
 
   exitSpecial() {
-    this.shouldLoop = false
-  }
-
-  update(delta) {
-    super.update(delta)
-    this.particles.update({ delta, max: this.attackDistance, loop: this.shouldLoop, minVelocity: 2.5, maxVelocity: 5 })
+    this.endFlame()
   }
 }
 
