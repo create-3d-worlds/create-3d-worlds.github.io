@@ -6,6 +6,7 @@ import { orbiting } from '/utils/geometry/planets.js'
 import { SorceressPlayer } from '/utils/actor/child/fantasy/Sorceress.js'
 
 const sun = createSun()
+sun.position.y = 10
 const sun2 = createSun({ addLight: false })
 const sun3 = createSun({ addLight: false })
 scene.add(sun, sun2, sun3)

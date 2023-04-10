@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Svemir 
-  - dodati model ring space-arcology
   - dodati zvezdani svod
   - bolja distribucija zvezda (perlin noise)
   - probati letenje kroz zvezde
