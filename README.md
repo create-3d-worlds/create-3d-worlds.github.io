@@ -11,14 +11,14 @@ npx live-server
 
 ## TODO
 
-solar-system
-- merge planets/createSun with light/createSun
-
 ### Scenes & examples
 
 - Svemir / Balonko
   - hodanje po planeti, uzimati u obzir normals ili centar sfere i ispravljati igraca
   - da skace po malim planetama
+
+- Parting the sea
+  - dodati karakter čarobnjaka i još neke detalje
 
 - Spomenici
   - napraviti scenu sa jugoslovenskim spomenicima
