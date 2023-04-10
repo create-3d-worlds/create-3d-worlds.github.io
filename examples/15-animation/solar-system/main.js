@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { scene, renderer, addUIControls, createOrbitControls } from '/utils/scene.js'
-import { createStarSphere } from '/utils/particles.js'
 import { createEarth, createMoon, createSun, orbiting } from '/utils/geometry/planets.js'
+import { Stars } from '/utils/classes/Particles.js'
 
 createOrbitControls()
 renderer.setClearColor(0x000000)
@@ -33,7 +33,8 @@ moon.position.set(0, 100, 0)
 const moonGroup = createMoonGroup(moon, earthToMoonCamera)
 earth.add(moonGroup)
 
-scene.add(createStarSphere({ num: 10000, r: 1000, size: 3, file: null }))
+const stars = new Stars()
+scene.add(stars.mesh)
 
 /* FUNCTIONS */
 
@@ -55,9 +56,7 @@ function createMoonGroup(moon, earthToMoonCamera) {
 function updatePlanets() {
   time += speed
   orbiting(earth, time * 0.001, 250, 1)
-
-  const moonSpeed = time * 0.02
-  moonGroup.rotation.set(0, 0, moonSpeed)
+  moonGroup.rotation.set(0, 0, time * 0.02)
 }
 
 function updateCamera() {

@@ -13,7 +13,7 @@ ambLight()
 const stars = new Stars()
 scene.add(stars.mesh)
 
-const jupiter = createJupiter({ r: 3 })
+const jupiter = createJupiter({ r: 5 })
 jupiter.position.set(-150, 8, 0)
 scene.add(jupiter)
 
@@ -38,6 +38,7 @@ void function loop() {
 
   arcology.rotateY(dt * .02)
   jupiter.rotateY(dt * .2)
+  saturn.rotateY(dt * -.2)
   moon.rotateY(dt)
 
   orbitAround({ moon, planet: jupiter, time: time * .5, radiusX: 15, radiusZ: 20 })
