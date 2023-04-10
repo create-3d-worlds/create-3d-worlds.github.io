@@ -98,3 +98,10 @@ export function orbiting(planet, time, radiusX = 8, axis = 0, radiusZ = radiusX)
       break
   }
 }
+
+export function orbitAround({ moon, planet, time, radiusX = 8, axis = 0, radiusZ = radiusX }) {
+  orbiting(moon, time, radiusX, axis, radiusZ)
+  moon.position.x += planet.position.x
+  // moon.position.y += planet.position.y
+  moon.position.z += planet.position.z
+}
