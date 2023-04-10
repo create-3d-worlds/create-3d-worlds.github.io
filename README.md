@@ -70,6 +70,10 @@ npx live-server
 - Avatar
   - pre početka scene izbor skina za avatar?
 
+- Avatar towers
+  - dodati novčiće na stepenice?
+  - ograničiti vreme?
+
 - Barbarian
   - BUG: nakon skoka ostaje ukočena
 
