@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { scene, renderer, addUIControls, createOrbitControls } from '/utils/scene.js'
-import { createEarth, createMoon, createSun, orbiting } from '/utils/geometry/planets.js'
+import { createEarth, createMoon, orbiting } from '/utils/geometry/planets.js'
+import { createSun } from '/utils/light.js'
 import { Stars } from '/utils/classes/Particles.js'
 
 createOrbitControls()
@@ -19,7 +20,7 @@ let defaultCamera = universalCamera
 universalCamera.position.z = 1000
 scene.add(universalCamera)
 
-const sun = createSun({ r: 50 })
+const sun = createSun({ r: 50, file: 'planets/sun.jpg' })
 scene.add(sun)
 
 const earth = createEarth({ r: 20 })
