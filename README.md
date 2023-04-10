@@ -11,8 +11,6 @@ npx live-server
 
 ## TODO
 
-- da neki igrači mogu da se okreću tokom napada (npr. sa puškom) a neki ne mogu (kad bacaju plamen)
-
 ### Scenes & examples
 
 - Svemir 

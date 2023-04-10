@@ -24,7 +24,8 @@ export default class AttackLoopState extends State {
   }
 
   update(delta) {
-    // this.actor.updateTurn(delta)
+    if (this.actor.turnWhileAttack)
+      this.actor.updateTurn(delta)
   }
 
   exit() {

@@ -47,6 +47,7 @@ export default class Actor extends GameObject {
     attackSound = '',
     altitude = 0, // for flying objects
     useFlame = false,
+    turnWhileAttack = !useFlame,
   }) {
     super({ mesh, name, pos, solids })
     this.mesh.userData.hitAmount = 0
@@ -72,6 +73,7 @@ export default class Actor extends GameObject {
     this.useFlame = useFlame
     this.leaveDecals = leaveDecals
     this.altitude = altitude
+    this.turnWhileAttack = turnWhileAttack
 
     if (solids) this.addSolids(solids)
 

@@ -11,7 +11,8 @@ export default class AttackOnceState extends AnimOnceState {
   }
 
   update(delta) {
-    // this.actor.updateTurn(delta)
+    if (this.actor.turnWhileAttack)
+      this.actor.updateTurn(delta)
 
     /* TRANSIT */
 
