@@ -5,6 +5,7 @@ import { jumpStyles, attackStyles, reactions } from '/utils/constants.js'
 import { getPlayerState } from './states/index.js'
 import { findChildren } from '/utils/helpers.js'
 import Actor from './Actor.js'
+import CameraFollow from '/utils/classes/CameraFollow.js'
 
 export default class Player extends Actor {
   #enemiesAdded = false
@@ -32,11 +33,7 @@ export default class Player extends Actor {
 
     if (camera) {
       this.shouldAlignCamera = true
-      const promise = import('/utils/classes/CameraFollow.js')
-      promise.then(obj => {
-        const CameraFollow = obj.default
-        this.cameraFollow = new CameraFollow({ camera, mesh: this.mesh, height: this.height })
-      })
+      this.cameraFollow = new CameraFollow({ camera, mesh: this.mesh, height: this.height })
 
       const orbitPromise = import('/utils/scene.js')
       orbitPromise.then(obj => {

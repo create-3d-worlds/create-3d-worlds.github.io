@@ -11,22 +11,15 @@ npx live-server
 
 ## TODO
 
-- BUG: nekad dokument izgubi fokus pa ne prima komande, fokusirati dokument kad izgubi fokus 
-  - https://stackoverflow.com/questions/6976486/is-there-any-way-in-javascript-to-focus-the-document-content-area
-  - https://stackoverflow.com/questions/7389328/detect-if-browser-tab-has-focus
+- da neki igrači mogu da se okreću tokom napada (npr. sa puškom) a neki ne mogu (kad bacaju plamen)
 
 ### Scenes & examples
-
-- City
-  - merge fps-graffiti i još ponešto, staviti nešto što nema drugde
 
 - Svemir 
   - dodati model ring space-arcology
   - dodati zvezdani svod
   - bolja distribucija zvezda (perlin noise)
   - probati letenje kroz zvezde
-  - sletanje na platformu (naći 2d primer)
-    - sletanje na mesec (textured moon)
   - dodati proceduralnu planetu http://colordodge.com/ProceduralPlanet/?seed=Ridi%20Genow
   - mozda iskoristiti astronauta da luta po planeti https://codepen.io/b29/pen/LoaRKx
 

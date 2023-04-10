@@ -29,11 +29,11 @@ container.appendChild(renderer.domElement)
 renderer.setSize(window.innerWidth, window.innerHeight)
 // Some mobiles have a pixel ratio 5. Improve battery life by limiting this to 2.
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio))
-renderer.domElement.focus()
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-
 renderer.setClearColor(0x87CEEB) // 0x7ec0ee
+
+renderer.domElement.focus()
 
 window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight)
