@@ -14,11 +14,10 @@ const stars = new Stars({ minRadius: 150 })
 scene.add(stars.mesh)
 
 const jupiter = createJupiter({ r: 5 })
-jupiter.position.set(-150, 8, 0)
+jupiter.position.set(-150, 0, 0)
 scene.add(jupiter)
 
-const moon = createMoon()
-moon.position.set(0, 8, 0)
+const moon = createMoon({ r: 1.5 })
 scene.add(moon)
 
 const saturn = createSaturn({ r: 3 })
@@ -26,7 +25,6 @@ saturn.position.set(150, 0, 0)
 scene.add(saturn)
 
 const { mesh: arcology } = await loadModel({ file: 'space/arcology-ring/model.fbx', scale: .5, shouldCenter: true })
-arcology.translateY(1)
 scene.add(arcology)
 
 /* LOOP */
@@ -41,7 +39,7 @@ void function loop() {
   saturn.rotateY(dt * -.2)
   moon.rotateY(dt)
 
-  orbitAround({ moon, planet: jupiter, time: time * .5, radiusX: 15, radiusZ: 20 })
+  orbitAround({ moon, planet: jupiter, time: time * .5, radiusX: 12, radiusZ: 15 })
   stars.update({ delta: dt * .001 })
 
   renderer.render(scene, camera)

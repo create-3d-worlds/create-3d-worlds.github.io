@@ -13,10 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Svemir 
-  - dodati proceduralnu planetu http://colordodge.com/ProceduralPlanet/?seed=Ridi%20Genow
-  - mozda iskoristiti astronauta da luta po planeti https://codepen.io/b29/pen/LoaRKx
-
 - Planete / Balonko
   - hodanje po planeti, uzimati u obzir normals ili centar sfere i ispravljati igraca
   - da skace po malim planetama
