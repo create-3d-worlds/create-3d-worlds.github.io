@@ -61,12 +61,12 @@ function createRing(radius, tube, color) {
   return ring
 }
 
-export function createSaturn() {
+export function createSaturn({ r = 1 } = {}) {
   const group = new THREE.Group()
-  group.add(createSphere({ file: 'planets/saturn.jpg' })) // color: 0xDDBC77
-  group.add(createRing(1.4, .2, 0x665E4E))
-  group.add(createRing(1.9, .2, 0x7C776B))
-  group.add(createRing(2.4, .2, 0x645F52))
+  group.add(createSphere({ r, file: 'planets/saturn.jpg' })) // color: 0xDDBC77
+  group.add(createRing(r * 1.4, r * .2, 0x665E4E))
+  group.add(createRing(r * 1.9, r * .2, 0x7C776B))
+  group.add(createRing(r * 2.4, r * .2, 0x645F52))
   return group
 }
 
