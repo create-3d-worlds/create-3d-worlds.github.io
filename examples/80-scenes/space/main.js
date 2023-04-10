@@ -25,9 +25,9 @@ const saturn = createSaturn({ r: 3 })
 saturn.position.set(150, 0, 0)
 scene.add(saturn)
 
-const { mesh: ring } = await loadModel({ file: 'space/arcology-ring/model.fbx', scale: .5, shouldCenter: true })
-ring.translateY(1)
-scene.add(ring)
+const { mesh: arcology } = await loadModel({ file: 'space/arcology-ring/model.fbx', scale: .5, shouldCenter: true })
+arcology.translateY(1)
+scene.add(arcology)
 
 /* LOOP */
 
@@ -35,10 +35,10 @@ void function loop() {
   requestAnimationFrame(loop)
   const dt = clock.getDelta()
   const time = clock.getElapsedTime()
-  ring.rotateY(dt * .02)
 
-  jupiter.rotation.y += dt * .2
-  moon.rotation.y -= dt
+  arcology.rotateY(dt * .02)
+  jupiter.rotateY(dt * .2)
+  moon.rotateY(dt)
 
   orbitAround({ moon, planet: jupiter, time: time * .5, radiusX: 15, radiusZ: 20 })
 

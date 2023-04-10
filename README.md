@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Svemir 
-  - dodati zvezdani svod
   - bolja distribucija zvezda (perlin noise)
   - probati letenje kroz zvezde
   - dodati proceduralnu planetu http://colordodge.com/ProceduralPlanet/?seed=Ridi%20Genow
