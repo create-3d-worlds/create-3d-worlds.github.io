@@ -14,6 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Random boxes
+  - negde prikazivati high score
   - dodati zvuk uzimanja novčića
   - ograničiti vreme?
   - prikazati high score po svršetku partije

@@ -31,7 +31,7 @@ scene.add(player.mesh)
 
 const score = new Score({ title: 'POINTS', subtitle: 'coins left', totalPoints: coins.length })
 
-/* functions */
+/* FUNCTIONS */
 
 function checkCollision(coin) {
   if (player.distanceTo(coin.mesh) > 1.4) return

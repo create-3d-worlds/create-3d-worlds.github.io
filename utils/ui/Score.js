@@ -36,23 +36,21 @@ const getStyle = (color, stroke) => /* css */`
   }
 `
 
-const getMessage = percent => {
-  console.log(percent)
-  switch (percent) {
-    case .01: return 'Congrats, your first score!'
-    case .25: return 'Keep up the good work!'
-    case .5: return 'Half down, half to go!'
-    case .75: return 'You smell victory in the air...'
-    default: return ''
-  }
+const defaultMessageDict = {
+  1: 'Well, that\'s a good start!',
+  10: 'Keep up the good work!',
+  25: 'Nice result so far...',
+  50: 'Half down, half to go!',
+  75: 'You smell victory in the air...',
 }
 
 export default class Score {
-  constructor({ title = 'Score', points = 0, subtitle, totalPoints, color = 'yellow', stroke = '#000' } = {}) {
+  constructor({ title = 'Score', points = 0, subtitle, totalPoints, color = 'yellow', stroke = '#000', messageDict = defaultMessageDict } = {}) {
     this.points = points
     this.title = title
     this.subtitle = subtitle
     this.totalPoints = totalPoints
+    this.messageDict = messageDict
 
     this.scoreDiv = document.createElement('div')
     this.scoreDiv.className = 'score'
@@ -94,7 +92,7 @@ export default class Score {
   }
 
   renderMotivation() {
-    const message = getMessage(this.points / this.totalPoints)
+    const message = this.messageDict[this.points]
     if (!message) return
     this.centralDiv.innerHTML = `<h3>${message}</h3>`
     setTimeout(() => {
