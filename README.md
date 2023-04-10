@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Svemir 
-  - probati letenje kroz zvezde
   - dodati proceduralnu planetu http://colordodge.com/ProceduralPlanet/?seed=Ridi%20Genow
   - mozda iskoristiti astronauta da luta po planeti https://codepen.io/b29/pen/LoaRKx
 

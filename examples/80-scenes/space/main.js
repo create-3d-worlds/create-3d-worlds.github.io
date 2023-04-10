@@ -10,7 +10,7 @@ setBackground(0x000000)
 createOrbitControls()
 ambLight()
 
-const stars = new Stars()
+const stars = new Stars({ minRadius: 150 })
 scene.add(stars.mesh)
 
 const jupiter = createJupiter({ r: 5 })
@@ -42,6 +42,7 @@ void function loop() {
   moon.rotateY(dt)
 
   orbitAround({ moon, planet: jupiter, time: time * .5, radiusX: 15, radiusZ: 20 })
+  stars.update({ delta: dt * .001 })
 
   renderer.render(scene, camera)
 }()
