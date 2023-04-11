@@ -6,7 +6,7 @@ import { getSize } from '/utils/helpers.js'
 export default class Lander extends Sprite {
   constructor(mesh) {
     super(mesh)
-    this.fuel = 250
+    this.fuel = 2500
     this.flame = new Flame()
     this.flame.mesh.rotateX(Math.PI * .5)
     this.flame.mesh.material.opacity = 0
@@ -68,7 +68,7 @@ export default class Lander extends Sprite {
       && this.mesh.position.x < platform.position.x + platformWidth * .45
   }
 
-  checkLanding(platform, dt) {
+  checkLanding(platform) {
     if (!this.isSameHeight(platform) || !this.isSameWidth(platform)) return
 
     this.falling = false
