@@ -17,7 +17,7 @@ probati platform.sync(avatar.mesh, dt)
 
 - Lander
   - Platform extends Actor
-  - merge Sprite and Lander
+  - Lander extends Actor
   - pokušati sledanje na neki model svemirskog broda
   - dodati out of fuel msg
   - dodati arkology pozadinu

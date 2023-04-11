@@ -1,16 +1,20 @@
-import Sprite from './Sprite.js'
+import { Vector2 } from 'three'
+
 import input from '/utils/classes/Input.js'
 import { Flame } from '/utils/classes/Particles.js'
 import { getSize } from '/utils/helpers.js'
 
-export default class Lander extends Sprite {
+export default class Lander {
   constructor(mesh) {
-    super(mesh)
+    this.mesh = mesh
     this.fuel = 250
+    this.velocity = new Vector2()
+    this.falling = true
+    this.failure = false
+
     this.flame = new Flame()
     this.flame.mesh.rotateX(Math.PI * .5)
     this.flame.mesh.material.opacity = 0
-    this.failure = false
   }
 
   get hasLanded() {
@@ -68,7 +72,7 @@ export default class Lander extends Sprite {
       && this.mesh.position.x < platform.position.x + platformWidth * .45
   }
 
-  renderFailure() {
+  doFailure() {
     this.mesh.rotation.z = Math.PI * .5
     this.resetFlame(Math.PI * .5, [0, 1.25, 0])
   }
@@ -81,13 +85,27 @@ export default class Lander extends Sprite {
     this.stop()
 
     if (this.failure)
-      this.renderFailure()
+      this.doFailure()
     else
       this.clearThrust()
   }
 
+  stop() {
+    this.velocity.set(0, 0)
+  }
+
+  addVector(angle, thrust) {
+    this.velocity.add({ x: thrust * Math.cos(angle), y: thrust * Math.sin(angle) })
+  }
+
+  applyGravity(dt) {
+    this.addVector(-Math.PI / 2, .01625 * dt)
+  }
+
   update(delta) {
-    super.update(delta)
+    if (this.falling) this.applyGravity(delta)
+    this.mesh.position.x += this.velocity.x
+    this.mesh.position.y += this.velocity.y
     this.handleInput(delta)
     this.flame.update({ delta, max: 3, loop: this.shouldLoop })
   }
