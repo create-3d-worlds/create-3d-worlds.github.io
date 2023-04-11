@@ -30,6 +30,7 @@ export default class Player extends Actor {
     if (camera) {
       this.cameraFollow = new CameraFollow({ camera, mesh: this.mesh, height: this.height })
       this.orbitControls = createOrbitControls()
+      this.orbitControls.maxPolarAngle = Math.PI - Math.PI / 4
       this.orbitControls.mouseButtons = { RIGHT: THREE.MOUSE.ROTATE }
       this.shouldAlignCamera = true
     }
