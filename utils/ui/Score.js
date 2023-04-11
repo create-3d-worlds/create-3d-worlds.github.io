@@ -70,33 +70,16 @@ export default class Score {
     this.renderHeighScore()
   }
 
-  /* call it only when score changes  */
-  renderPoints(point = 1, enemiesLeft) {
-    this.points += point
-
-    this.scoreDiv.innerHTML = `<h3>${this.title}: ${this.points}</h3>`
-    if (enemiesLeft) this.scoreDiv.innerHTML += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
-
-    this.renderMotivation()
-
-    if (enemiesLeft === 0) this.renderVictory()
-
-    if (this.points > this.highScore)
-      localStorage.setItem(location.pathname, this.points)
-  }
-
-  renderVictory() {
-    this.centralDiv.innerHTML = `<h1>BRAVO!</h1>
-    <h3>You have collected all coins</h3>
-    `
-  }
-
   clear() {
     this.centralDiv.innerHTML = ''
   }
 
   clearLatter(miliseconds = 1500) {
     setTimeout(() => this.clear(), miliseconds)
+  }
+
+  renderText(text) {
+    this.centralDiv.innerHTML = `<h3>${text}</h3>`
   }
 
   renderMotivation() {
@@ -111,4 +94,21 @@ export default class Score {
     this.centralDiv.innerHTML = `<h3>The current high score is ${this.highScore} points. Beat it!</h3>`
     this.clearLatter(3000)
   }
+
+  /* call it only when score changes  */
+  renderPoints(point = 1, enemiesLeft, energyLeft) {
+    this.points += point
+
+    this.scoreDiv.innerHTML = `<h3>${this.title}: ${this.points}</h3>`
+    if (enemiesLeft) this.scoreDiv.innerHTML += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
+    if (energyLeft) this.scoreDiv.innerHTML += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
+
+    this.renderMotivation()
+
+    if (enemiesLeft === 0) this.renderText('BRAVO!<br>You have collected all coins')
+
+    if (this.points > this.highScore)
+      localStorage.setItem(location.pathname, this.points)
+  }
+
 }

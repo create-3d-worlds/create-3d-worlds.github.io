@@ -6,7 +6,7 @@ import { getSize } from '/utils/helpers.js'
 export default class Lander extends Sprite {
   constructor(mesh) {
     super(mesh)
-    this.fuel = 2500
+    this.fuel = 250
     this.flame = new Flame()
     this.flame.mesh.rotateX(Math.PI * .5)
     this.flame.mesh.material.opacity = 0
@@ -72,7 +72,7 @@ export default class Lander extends Sprite {
     if (!this.isSameHeight(platform) || !this.isSameWidth(platform)) return
 
     this.falling = false
-    if (this.dy < -0.04) this.failure = true // must before stop()
+    if (this.velocity.y < -0.04) this.failure = true // must before stop()
     this.stop()
 
     if (this.failure) {
@@ -80,12 +80,6 @@ export default class Lander extends Sprite {
       this.resetFlame(Math.PI * .5, [0, 1.25, 0])
     } else
       this.clearThrust()
-  }
-
-  showStats(element) {
-    let html = 'Fuel: ' + this.fuel + '<br />'
-    if (!this.falling) html += (this.failure ? 'Landing failure!' : 'Nice landing!')
-    element.innerHTML = html
   }
 
   update(delta) {

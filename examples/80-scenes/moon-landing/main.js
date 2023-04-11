@@ -4,8 +4,9 @@ import { loadModel } from '/utils/loaders.js'
 import { createBox } from '/utils/geometry.js'
 import Lander from './Lander.js'
 import { Stars } from '/utils/classes/Particles.js'
+import Score from '/utils/ui/Score.js'
 
-const stats = document.getElementById('stats')
+const score = new Score({ subtitle: 'Fuel' })
 
 /* CLASSES */
 
@@ -60,12 +61,15 @@ void function loop() {
   const dt = clock.getDelta()
 
   platform.move(dt)
-  if (lander.hasLanded) platform.sync(lander.mesh, dt)
-
+  if (lander.hasLanded) {
+    platform.sync(lander.mesh, dt)
+    score.renderText(lander.failure ? 'Landing failure!' : 'Nice landing!')
+  }
   lander.handleInput(dt)
   lander.checkLanding(platform.mesh, dt)
   lander.update(dt)
-  lander.showStats(stats)
+
+  score.renderPoints(0, null, lander.fuel)
 
   renderer.render(scene, camera)
 }()
