@@ -11,14 +11,13 @@ npx live-server
 
 ## TODO
 
-- createWorldScene
+- obrisati createWorldScene
+- menjanje kamere: dodati i statičnu kameru koja gleda celu scenu
 
 ### Scenes & examples
 
 - Adventure / Sorceress
-  - dodati tri sunca
   - SorceressPlayer da baca magiju, reuse methods
-  - menjanje kamere: dodati i statičnu kameru koja gleda celu scenu
 
 - City
   - merge fps-graffiti i još ponešto, staviti nešto što nema drugde

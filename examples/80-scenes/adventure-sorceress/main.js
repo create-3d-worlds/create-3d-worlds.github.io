@@ -20,10 +20,8 @@ const stairs = createStairway({ radius: 25, stairsInCirle: 50, floorHeight: 15, 
 stairs.translateY(-2)
 scene.add(stairs)
 
-const player = new SorceressPlayer({ camera, speed: 4 })
+const player = new SorceressPlayer({ camera, speed: 4, solids: [floor, stairs, stones] })
 scene.add(player.mesh)
-
-player.addSolids(floor, stairs)
 
 /* LOOP */
 

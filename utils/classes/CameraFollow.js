@@ -27,6 +27,10 @@ export default class CameraFollow {
     this.aerialLookAt = aerialLookAt
     this.currentPosition = new THREE.Vector3()
     this.currentLookat = new THREE.Vector3()
+    this.initialOffset = offset
+    this.initialLookAt = lookAt
+    this.initialSpeed = speed
+    this.aerial = false
 
     this.camera.position.copy(calc(mesh, offset))
     this.camera.lookAt(calc(mesh, lookAt))
@@ -66,11 +70,6 @@ export default class CameraFollow {
     outline: none;
     user-select: none;
   `
-    let aerial = false
-    const initialOffset = this.offset
-    const initialLookAt = this.lookAt
-    const initialSpeed = this.speed
-
     const button = document.createElement('button')
     button.setAttribute('id', 'change-camera')
     button.style.cssText = style
@@ -80,13 +79,15 @@ export default class CameraFollow {
     image.setAttribute('alt', 'change camera')
     button.appendChild(image)
 
-    button.addEventListener('click', () => {
-      aerial = !aerial
-      this.offset = aerial ? this.aerialOffset : initialOffset
-      this.lookAt = aerial ? this.aerialLookAt : initialLookAt
-      this.speed = aerial ? initialSpeed * .75 : initialSpeed
-    })
+    button.addEventListener('click', () => this.toggleCamera())
     document.body.appendChild(button)
+  }
+
+  toggleCamera() {
+    this.aerial = !this.aerial
+    this.offset = this.aerial ? this.aerialOffset : this.initialOffset
+    this.lookAt = this.aerial ? this.aerialLookAt : this.initialLookAt
+    this.speed = this.aerial ? this.initialSpeed * .75 : this.initialSpeed
   }
 
   update(delta, stateName) {
