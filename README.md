@@ -16,7 +16,8 @@ probati platform.sync(avatar.mesh, dt)
 ### Scenes & examples
 
 - Lander
-  - refact: Platform extends GameObject, potom Actor
+  - Platform extends Actor
+  - merge Sprite and Lander
   - pokušati sledanje na neki model svemirskog broda
   - dodati out of fuel msg
   - dodati arkology pozadinu

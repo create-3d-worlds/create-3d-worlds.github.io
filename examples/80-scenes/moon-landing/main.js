@@ -1,38 +1,12 @@
 import { scene, camera, renderer, clock, setBackground } from '/utils/scene.js'
 import { createMoon } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
-import { createBox } from '/utils/geometry.js'
-import Lander from './Lander.js'
 import { Stars } from '/utils/classes/Particles.js'
 import Score from '/utils/ui/Score.js'
+import Lander from './Lander.js'
+import Platform from './Platform.js'
 
 const score = new Score({ subtitle: 'Fuel' })
-
-/* CLASSES */
-
-class Platform {
-  constructor() {
-    this.step = 2
-    this.range = 30
-    this.mesh = createBox({ width: 5, height: 1, depth: 2.5 })
-    this.mesh.position.y = -10
-  }
-
-  updateStep() {
-    if (this.mesh.position.x >= this.range) this.step = -this.step
-    if (this.mesh.position.x <= -this.range) this.step = this.step
-    if (Math.random() > .997) this.step = -this.step
-  }
-
-  move(dt) {
-    this.updateStep()
-    this.mesh.position.x += this.step * dt
-  }
-
-  sync(mesh, dt) {
-    mesh.position.x += this.step * dt
-  }
-}
 
 /* INIT */
 
