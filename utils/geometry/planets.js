@@ -77,9 +77,15 @@ export const createJupiter = ({ r = 10, segments = 32 } = {}) =>
 
 /* MOVE */
 
-export function orbiting(planet, time, orbit = 8, vertically = false) {
+export function orbiting(planet, time, orbit = 8, axis = 1) {
   const x = Math.cos(time) * orbit
   const z = Math.sin(time) * orbit
-  const pos = vertically ? { x, y: z, z: 0 } : { x, y: 10, z }
+  const pos = axis == 1
+    ? { x, y: z, z: 0 }
+    : axis == 2
+      ? { x, y: z, z }
+      : axis == 3
+        ? { x, y: x, z }
+        : { x, y: 10, z }
   planet.position.copy(pos)
 }

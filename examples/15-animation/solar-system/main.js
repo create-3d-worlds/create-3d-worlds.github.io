@@ -54,9 +54,7 @@ function createMoonGroup(moon, earthToMoonCamera) {
 
 function updatePlanets() {
   time += speed
-  // const earthSpeed = time * 0.001
-  // earth.position.set(250 * Math.cos(earthSpeed), 250 * Math.sin(earthSpeed), 0)
-  orbiting(earth, time * 0.001, 250, true)
+  orbiting(earth, time * 0.001, 250, 1)
 
   const moonSpeed = time * 0.02
   moonGroup.rotation.set(0, 0, moonSpeed)

@@ -62,17 +62,18 @@ export function ambLight({ scene = defaultScene, color = 0xffffff, intensity = 1
 
 /* SUN */
 
-export function createSun({ color = 0xffffff, intensity = 1, target, position = [15, 50, 50], mapSize = 1024, r = 1, transparent = false, planetColor = 0xFCE570 } = {}) {
-  const light = pointLight({ color, intensity, target, mapSize })
-  const ambientLight = new THREE.AmbientLight(0xfffee1, intensity * .5)
-
-  const container = new THREE.Mesh(
+export function createSun({ color = 0xffffff, intensity = 1, target, position = [15, 50, 50], mapSize = 1024, r = 1, transparent = false, planetColor = 0xFCE570, addLight = true } = {}) {
+  const mesh = new THREE.Mesh(
     new THREE.SphereGeometry(r),
     new THREE.MeshToonMaterial({ color: planetColor, transparent, opacity: transparent ? 0 : 1 })
   )
-  container.add(light, ambientLight)
-  container.position.set(...position)
-  return container
+  if (addLight) {
+    const light = pointLight({ color, intensity, target, mapSize })
+    const ambientLight = new THREE.AmbientLight(0xfffee1, intensity * .5)
+    mesh.add(light, ambientLight)
+  }
+  mesh.position.set(...position)
+  return mesh
 }
 
 export const createMoon = ({

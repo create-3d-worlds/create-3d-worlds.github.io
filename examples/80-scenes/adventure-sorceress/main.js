@@ -6,7 +6,9 @@ import { orbiting } from '/utils/geometry/planets.js'
 import { SorceressPlayer } from '/utils/actor/child/fantasy/Sorceress.js'
 
 const sun = createSun()
-scene.add(sun)
+const sun2 = createSun({ addLight: false })
+const sun3 = createSun({ addLight: false })
+scene.add(sun, sun3, sun2)
 
 const floor = createGround()
 scene.add(floor)
@@ -29,7 +31,10 @@ void function loop() {
   const delta = clock.getDelta()
   const elapsed = clock.getElapsedTime()
 
-  orbiting(sun, elapsed * .1)
+  orbiting(sun, elapsed * .1, 50)
+  orbiting(sun2, elapsed * .1, 50, 1)
+  orbiting(sun3, elapsed * .1, 50, 2)
+
   player.update(delta)
 
   renderer.render(scene, camera)
