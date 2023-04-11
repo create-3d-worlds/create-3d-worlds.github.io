@@ -14,10 +14,11 @@ npx live-server
 ### Scenes & examples
 
 - Lander
-  - reuse showStats
-    - show victory
-        if (!this.falling) html += (this.failure ? 'Landing failure!' : 'Nice landing!')
+  - dodati out of fuel msg
+  - napraviti klasu Platform
+  - dodati arkology pozadinu
   - merge space i moon-landing?
+    - pokušati sledanje na meš
   - solar-system, dreaming-of-jupiter?
 
 - Svemir / Balonko
