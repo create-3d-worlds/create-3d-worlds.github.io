@@ -59,7 +59,7 @@ void function loop() {
   requestAnimationFrame(loop)
   const dt = clock.getDelta()
 
-  platform.move(dt, !lander.falling ? lander : null)
+  platform.move(dt, lander.hasLanded ? lander : null)
 
   lander.handleInput(dt)
   lander.checkLanding(platform.mesh, dt)
