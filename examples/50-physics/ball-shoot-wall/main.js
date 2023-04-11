@@ -19,7 +19,7 @@ createOrbitControls()
 camera.position.set(-10, 1.5, 0)
 camera.lookAt(10, 0, 0)
 
-const sun = createSun({ position: [-5, 10, 5] })
+const sun = createSun({ pos: [-5, 10, 5] })
 scene.add(sun)
 
 const ground = createGround({ size: 40, color: 0xFFFFFF })

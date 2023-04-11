@@ -11,7 +11,7 @@ scene.fog = new THREE.Fog(0xE5C5AB, 200, 950)
 
 scene.add(
   new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .9),
-  createSun({ x: 150, y: 350, z: -150 })
+  createSun({ pos: [150, 350, -150] })
 )
 
 camera.position.set(-68, 143, -90)

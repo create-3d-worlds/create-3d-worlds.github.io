@@ -6,7 +6,7 @@ import { createFloor } from '/utils/ground.js'
 const controls = createOrbitControls()
 camera.position.set(0, 25, 50)
 
-scene.add(createSun({ position: [50, 100, 50] }))
+scene.add(createSun({ pos: [50, 100, 50] }))
 scene.add(createFloor())
 
 const building = createGraffitiBuilding()

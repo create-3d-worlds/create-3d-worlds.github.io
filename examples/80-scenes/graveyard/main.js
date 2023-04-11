@@ -22,7 +22,7 @@ scene.add(particles.mesh)
 
 setBackground(0x070b34)
 
-scene.add(createMoon({ intensity: .5, position: [15, 30, -30] }))
+scene.add(createMoon({ intensity: .5, pos: [15, 30, -30] }))
 scene.add(createGround({ size: mapSize }))
 
 for (let i = 0; i < 60; i++) {

@@ -12,7 +12,7 @@ const mapSize = 400
 camera.position.set(0, mapSize * .33, mapSize * .9)
 camera.lookAt(scene.position)
 
-scene.add(createMoon({ position: [150, 150, 50] }))
+scene.add(createMoon({ pos: [150, 150, 50] }))
 
 const floor = createFloor({ size: 600, color: 0x303038 })
 scene.add(floor)

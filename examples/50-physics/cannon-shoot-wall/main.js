@@ -18,7 +18,7 @@ const maxImpulse = 25
 
 const cameraFollow = new VehicleCamera({ camera, offsetCamera: [0, 1, -3], lookatCamera: [0, 2, 4] })
 
-const sun = createSun({ position: [-5, 10, 5] })
+const sun = createSun({ pos: [-5, 10, 5] })
 scene.add(sun)
 
 const ground = createGround({ size: 40, color: 0x509f53 })

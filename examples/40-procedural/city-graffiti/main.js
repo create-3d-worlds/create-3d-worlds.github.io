@@ -9,7 +9,7 @@ const mapSize = 200
 camera.position.set(0, mapSize * .33, mapSize * .9)
 camera.lookAt(scene.position)
 
-scene.add(createSun({ position: [50, 100, 50] }))
+scene.add(createSun({ pos: [50, 100, 50] }))
 
 const city = createGraffitiCity({ scene, mapSize })
 scene.add(city)

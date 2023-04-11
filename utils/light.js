@@ -12,7 +12,7 @@ let oldIntensity, oldBackground
 
 export function dirLight({
   scene = defaultScene,
-  position = [20, 50, 20],
+  pos = [20, 50, 20],
   color = 0xffffff,
   intensity = 1,
   target,
@@ -20,7 +20,7 @@ export function dirLight({
   area = 5,
 } = {}) {
   const light = new THREE.DirectionalLight(color, intensity)
-  light.position.set(...position)
+  light.position.set(...pos)
   light.castShadow = true
   light.shadow.mapSize.width = light.shadow.mapSize.height = mapSize
   if (target) light.target = target
@@ -62,7 +62,7 @@ export function ambLight({ scene = defaultScene, color = 0xffffff, intensity = 1
 
 /* SUN */
 
-export function createSun({ color = 0xffffff, intensity = 1, target, position = [15, 50, 50], mapSize = 1024, r = 1, transparent = false, planetColor = 0xFCE570, addLight = true } = {}) {
+export function createSun({ color = 0xffffff, intensity = 1, target, pos = [15, 50, 50], mapSize = 1024, r = 1, transparent = false, planetColor = 0xFCE570, addLight = true } = {}) {
   const mesh = new THREE.Mesh(
     new THREE.SphereGeometry(r),
     new THREE.MeshToonMaterial({ color: planetColor, transparent, opacity: transparent ? 0 : 1 })
@@ -72,13 +72,13 @@ export function createSun({ color = 0xffffff, intensity = 1, target, position = 
     const ambientLight = new THREE.AmbientLight(0xfffee1, intensity * .5)
     mesh.add(light, ambientLight)
   }
-  mesh.position.set(...position)
+  mesh.position.set(...pos)
   return mesh
 }
 
 export const createMoon = ({
-  position = [50, 100, 50], color = 0xFFF8DE, planetColor = 0xF6F1D5, r = 4, ...rest
-} = {}) => createSun({ position, color, planetColor, r, ...rest })
+  pos = [50, 100, 50], color = 0xFFF8DE, planetColor = 0xF6F1D5, r = 4, ...rest
+} = {}) => createSun({ pos, color, planetColor, r, ...rest })
 
 export function lightningStrike(light, scene = defaultScene) {
   if (!oldIntensity) oldIntensity = light.intensity

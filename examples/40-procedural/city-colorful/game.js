@@ -5,7 +5,7 @@ import { hemLight, createMoon } from '/utils/light.js'
 
 hemLight()
 setBackground(0x000000)
-const moon = createMoon({ position: [50, 150, 50] })
+const moon = createMoon({ pos: [50, 150, 50] })
 
 const mapSize = 300
 const numBuildings = 200

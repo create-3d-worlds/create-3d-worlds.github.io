@@ -2,7 +2,7 @@ import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createEarth, createSaturn, createMoon } from '/utils/geometry/planets.js'
 import { dirLight } from '/utils/light.js'
 
-dirLight({ position: [100, 10, -50] })
+dirLight({ pos: [100, 10, -50] })
 renderer.setClearColor(0x000000)
 
 const controls = createOrbitControls()

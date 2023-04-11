@@ -15,7 +15,7 @@ const world = new PhysicsWorld()
 const raycaster = new THREE.Raycaster()
 
 camera.position.set(0, 20, 50)
-scene.add(createSun({ position: [10, 50, 20] }))
+scene.add(createSun({ pos: [10, 50, 20] }))
 
 const ground = createGround()
 world.add(ground, 0)

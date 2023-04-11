@@ -16,7 +16,7 @@ const mapSize = 400
 const npcs = []
 
 const coords = getShuffledCoords({ mapSize: mapSize * .9, fieldSize: 5 })
-scene.add(createSun({ position: [15, 100, 50] }))
+scene.add(createSun({ pos: [15, 100, 50] }))
 
 const terrain = createHillyTerrain({ size: mapSize, factorY: 30 })
 scene.add(terrain)

@@ -13,7 +13,7 @@ const hill = createHill(mazeSize * 2.05, 164)
 scene.add(hill)
 
 ambLight({ intensity: .6 })
-const sun = createSun({ position: [50, 150, 200] })
+const sun = createSun({ pos: [50, 150, 200] })
 scene.add(sun)
 
 const maze = new PolarMaze(rows, recursiveBacktracker, cellSize)
