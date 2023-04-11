@@ -8,7 +8,7 @@ import { SorceressPlayer } from '/utils/actor/child/fantasy/Sorceress.js'
 const sun = createSun()
 const sun2 = createSun({ addLight: false })
 const sun3 = createSun({ addLight: false })
-scene.add(sun, sun3, sun2)
+scene.add(sun, sun2, sun3)
 
 const floor = createGround()
 scene.add(floor)
@@ -32,8 +32,8 @@ void function loop() {
   const elapsed = clock.getElapsedTime()
 
   orbiting(sun, elapsed * .1, 50)
-  orbiting(sun2, elapsed * .1, 50, 1)
-  orbiting(sun3, elapsed * .1, 50, 2)
+  orbiting(sun2, elapsed * .11, 50, 1)
+  orbiting(sun3, elapsed * .12, 50, 2)
 
   player.update(delta)
 
