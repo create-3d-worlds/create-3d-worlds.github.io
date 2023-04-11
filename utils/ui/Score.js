@@ -70,16 +70,16 @@ export default class Score {
     this.renderHeighScore()
   }
 
-  /* call it only when score changes, because of optimisation  */
-  renderPoints(point = 1, pointsLeft) {
+  /* call it only when score changes  */
+  renderPoints(point = 1, enemiesLeft) {
     this.points += point
 
     this.scoreDiv.innerHTML = `<h3>${this.title}: ${this.points}</h3>`
-    if (pointsLeft) this.scoreDiv.innerHTML += `<div class="blink">${this.subtitle}: ${pointsLeft}</div>`
+    if (enemiesLeft) this.scoreDiv.innerHTML += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
 
     this.renderMotivation()
 
-    if (pointsLeft === 0) this.renderVictory()
+    if (enemiesLeft === 0) this.renderVictory()
 
     if (this.points > this.highScore)
       localStorage.setItem(location.pathname, this.points)

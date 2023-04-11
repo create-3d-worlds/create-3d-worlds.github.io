@@ -13,6 +13,13 @@ npx live-server
 
 ### Scenes & examples
 
+- Lander
+  - reuse showStats
+    - show victory
+        if (!this.falling) html += (this.failure ? 'Landing failure!' : 'Nice landing!')
+  - merge space i moon-landing?
+  - solar-system, dreaming-of-jupiter?
+
 - Svemir / Balonko
   - hodanje po planeti, uzimati u obzir normals ili centar sfere i ispravljati igraca
   - da skace po malim planetama
