@@ -16,14 +16,13 @@ scene.add(moon)
 setBackground(0x000000)
 camera.position.z = 18
 
-const { mesh: landerMesh } = await loadModel({ file: 'space/lunar-module/model.fbx', size: 2.5 })
-scene.add(landerMesh)
-landerMesh.position.y = 5
-
 const platform = new Platform()
 scene.add(platform.mesh)
 
+const { mesh: landerMesh } = await loadModel({ file: 'space/lunar-module/model.fbx', size: 2.5 })
 const lander = new Lander(landerMesh)
+scene.add(lander.mesh)
+lander.mesh.position.y = 5
 
 const stars = new Stars()
 scene.add(stars.mesh)

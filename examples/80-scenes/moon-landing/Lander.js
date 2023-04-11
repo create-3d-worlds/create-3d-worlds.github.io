@@ -1,10 +1,11 @@
 import { Vector2 } from 'three'
 import input from '/utils/classes/Input.js'
 import { Flame } from '/utils/classes/Particles.js'
+import GameObject from '/utils/actor/GameObject.js'
 
-export default class Lander {
+export default class Lander extends GameObject {
   constructor(mesh) {
-    this.mesh = mesh
+    super ({ mesh })
     this.fuel = 250
     this.velocity = new Vector2()
     this.hasLanded = false
@@ -51,13 +52,13 @@ export default class Lander {
   }
 
   withinHeight(platform) {
-    return this.mesh.position.y <= platform.position.y + platform.height // -9
-      && this.mesh.position.y > platform.position.y // -10
+    return this.position.y <= platform.position.y + platform.height // -9
+      && this.position.y > platform.position.y // -10
   }
 
   withinWidth(platform) {
-    return this.mesh.position.x > platform.position.x - platform.width * .45
-      && this.mesh.position.x < platform.position.x + platform.width * .45
+    return this.position.x > platform.position.x - platform.width * .45
+      && this.position.x < platform.position.x + platform.width * .45
   }
 
   doFailure() {
@@ -98,8 +99,8 @@ export default class Lander {
   update(delta) {
     this.handleInput()
     if (!this.hasLanded) this.applyGravity(delta)
-    this.mesh.position.x += this.velocity.x * delta
-    this.mesh.position.y += this.velocity.y * delta
+    this.position.x += this.velocity.x * delta
+    this.position.y += this.velocity.y * delta
     this.updateFlame(delta)
   }
 }
