@@ -1,6 +1,5 @@
 import { scene, camera, renderer, clock, setBackground } from '/utils/scene.js'
 import { createMoon } from '/utils/light.js'
-import { loadModel } from '/utils/loaders.js'
 import { Stars } from '/utils/classes/Particles.js'
 import Score from '/utils/ui/Score.js'
 import Lander from './Lander.js'
@@ -19,10 +18,8 @@ camera.position.z = 18
 const platform = new Platform()
 scene.add(platform.mesh)
 
-const { mesh: landerMesh } = await loadModel({ file: 'space/lunar-module/model.fbx', size: 2.5 })
-const lander = new Lander(landerMesh)
+const lander = new Lander()
 scene.add(lander.mesh)
-lander.mesh.position.y = 5
 
 const stars = new Stars()
 scene.add(stars.mesh)

@@ -2,11 +2,15 @@ import { Vector2 } from 'three'
 import input from '/utils/classes/Input.js'
 import { Flame } from '/utils/classes/Particles.js'
 import GameObject from '/utils/actor/GameObject.js'
+import { loadModel } from '/utils/loaders.js'
+
+const { mesh } = await loadModel({ file: 'space/lunar-module/model.fbx', size: 2.5 })
 
 export default class Lander extends GameObject {
-  constructor(mesh) {
+  constructor() {
     super ({ mesh })
     this.fuel = 250
+    this.position.y = 5
     this.velocity = new Vector2()
     this.hasLanded = false
     this.failure = false
