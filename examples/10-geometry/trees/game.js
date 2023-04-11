@@ -1,9 +1,13 @@
-import { createWorldScene, renderer, camera, createOrbitControls } from '/utils/scene.js'
+import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { createTree, createFirTree, createFir, createSimpleFir } from '/utils/geometry/trees.js'
+import { createGround } from '/utils/ground.js'
+import { createSun } from '/utils/light.js'
 
-const scene = createWorldScene()
+scene.add(createGround())
+const sun = createSun()
+scene.add(sun)
+
 createOrbitControls()
-
 camera.position.z = 20
 camera.position.y = 10
 

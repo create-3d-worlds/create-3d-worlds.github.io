@@ -1,8 +1,14 @@
 import Avatar from '/utils/actor/Avatar.js'
-import { createWorldScene, renderer, camera, clock } from '/utils/scene.js'
+import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createFirTrees } from '/utils/geometry/trees.js'
 
-const scene = createWorldScene()
+import { createGround } from '/utils/ground.js'
+import { createSun } from '/utils/light.js'
+
+scene.add(createGround())
+const sun = createSun()
+scene.add(sun)
+
 const avatar = new Avatar()
 avatar.add(camera)
 scene.add(avatar.mesh)

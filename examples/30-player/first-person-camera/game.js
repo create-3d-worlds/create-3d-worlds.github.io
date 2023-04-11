@@ -1,8 +1,14 @@
 import { createTrees } from '/utils/geometry/trees.js'
-import { renderer, camera, clock, createWorldScene } from '/utils/scene.js'
+import { scene, renderer, camera, clock } from '/utils/scene.js'
 import Avatar from '/utils/actor/Avatar.js'
 
-const scene = createWorldScene({ file: 'terrain/ground.jpg' })
+import { createGround } from '/utils/ground.js'
+import { createSun } from '/utils/light.js'
+
+scene.add(createGround({ file: 'terrain/ground.jpg' }))
+const sun = createSun()
+scene.add(sun)
+
 const player = new Avatar()
 
 scene.add(player.mesh, createTrees())

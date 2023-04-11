@@ -2,30 +2,14 @@ import * as THREE from 'three'
 import { OutlineEffect } from '/node_modules/three/examples/jsm/effects/OutlineEffect.js'
 import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls.js'
 
-import { createSkySphere } from './geometry.js'
-import { createGround } from './ground.js'
-import { hemLight, createSun } from './light.js'
-
 export const clock = new THREE.Clock()
 
 // SCENE
 
 export const scene = new THREE.Scene()
 
-export function createWorldScene(groundParam, skyParam, lightParam, fogParam = {}) {
-  scene.add(createGround(groundParam))
-  scene.add(createSkySphere(skyParam))
-  const light = createSun(lightParam)
-  scene.add(light)
-  const { color = 0xffffff, near = 1, far = 5000 } = fogParam
-  scene.fog = new THREE.Fog(color, near, far)
-  hemLight({ scene, intensity: 0.5 })
-  return scene
-}
-
 export const setBackground = color => {
   scene.background = new THREE.Color(color)
-  // renderer.setClearColor(color)
 }
 
 // CAMERA

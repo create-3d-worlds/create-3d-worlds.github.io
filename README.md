@@ -11,7 +11,14 @@ npx live-server
 
 ## TODO
 
-- obrisati createWorldScene
+import { createGround } from '/utils/ground.js'
+import { createSun } from '/utils/light.js'
+
+scene.add(createGround())
+const sun = createSun()
+scene.add(sun)
+
+- samo kada je cameraFollow dozvoliti orbit odozdo
 - menjanje kamere: dodati i statičnu kameru koja gleda celu scenu
 
 ### Scenes & examples
