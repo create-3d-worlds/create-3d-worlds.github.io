@@ -6,11 +6,10 @@ import { getSize } from '/utils/helpers.js'
 export default class Lander extends Sprite {
   constructor(mesh) {
     super(mesh)
-    this.fuel = 2000
+    this.fuel = 250
     this.flame = new Flame()
     this.flame.mesh.rotateX(Math.PI * .5)
     this.flame.mesh.material.opacity = 0
-    this.mesh.add(this.flame.mesh)
     this.failure = false
   }
 
@@ -22,14 +21,6 @@ export default class Lander extends Sprite {
     if (!this.falling) return
 
     if (!input.keyPressed) this.clearThrust()
-
-    if (this.fuel < 1) return
-
-    if (input.down) {
-      this.resetFlame(0, [0, -1, 0])
-      this.addVector(Math.PI / 2, .09 * dt)
-      this.fuel--
-    }
 
     if (this.fuel < .5) return
 
@@ -44,9 +35,18 @@ export default class Lander extends Sprite {
       this.addVector(Math.PI, .1 * dt)
       this.fuel -= 0.5
     }
+
+    if (this.fuel < 1) return
+
+    if (input.down) {
+      this.resetFlame(0, [0, -1, 0])
+      this.addVector(Math.PI / 2, .09 * dt)
+      this.fuel--
+    }
   }
 
   resetFlame(angle, pos) {
+    this.mesh.add(this.flame.mesh)
     this.flame.reset({ pos, randomize: false })
     this.flame.mesh.rotation.y = angle
     this.shouldLoop = true
