@@ -11,6 +11,8 @@ npx live-server
 
 ## TODO
 
+probati platform.sync(avatar.mesh, dt)
+
 ### Scenes & examples
 
 - Lander

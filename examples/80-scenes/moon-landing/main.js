@@ -10,26 +10,26 @@ const stats = document.getElementById('stats')
 /* CLASSES */
 
 class Platform {
-  #step = 2
-
   constructor() {
+    this.step = 2
     this.range = 30
     this.mesh = createBox({ width: 5, height: 1, depth: 2.5 })
     this.mesh.position.y = -10
   }
 
-  get step() {
-    let step = this.#step
-    if (this.mesh.position.x >= this.range) step = -step
-    if (this.mesh.position.x <= -this.range) step = step
-    if (Math.random() > .997) step = -step
-    return step
+  updateStep() {
+    if (this.mesh.position.x >= this.range) this.step = -this.step
+    if (this.mesh.position.x <= -this.range) this.step = this.step
+    if (Math.random() > .997) this.step = -this.step
   }
 
-  move(dt, lander) {
-    const { step } = this
-    this.mesh.position.x += step * dt
-    if (lander) lander.mesh.position.x += step * dt
+  move(dt) {
+    this.updateStep()
+    this.mesh.position.x += this.step * dt
+  }
+
+  sync(mesh, dt) {
+    mesh.position.x += this.step * dt
   }
 }
 
@@ -59,7 +59,8 @@ void function loop() {
   requestAnimationFrame(loop)
   const dt = clock.getDelta()
 
-  platform.move(dt, lander.hasLanded ? lander : null)
+  platform.move(dt)
+  if (lander.hasLanded) platform.sync(lander.mesh, dt)
 
   lander.handleInput(dt)
   lander.checkLanding(platform.mesh, dt)
