@@ -16,11 +16,11 @@ probati platform.sync(avatar.mesh, dt)
 ### Scenes & examples
 
 - Lander
+  - refact: Platform extends GameObject, potom Actor
+  - pokušati sledanje na neki model svemirskog broda
   - dodati out of fuel msg
-  - napraviti klasu Platform
   - dodati arkology pozadinu
   - merge space i moon-landing?
-    - pokušati sledanje na meš
   - solar-system, dreaming-of-jupiter?
 
 - Svemir / Balonko

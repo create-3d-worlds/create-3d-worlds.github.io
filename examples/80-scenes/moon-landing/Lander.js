@@ -68,6 +68,11 @@ export default class Lander extends Sprite {
       && this.mesh.position.x < platform.position.x + platformWidth * .45
   }
 
+  renderFailure() {
+    this.mesh.rotation.z = Math.PI * .5
+    this.resetFlame(Math.PI * .5, [0, 1.25, 0])
+  }
+
   checkLanding(platform) {
     if (!this.isSameHeight(platform) || !this.isSameWidth(platform)) return
 
@@ -75,15 +80,15 @@ export default class Lander extends Sprite {
     if (this.velocity.y < -0.04) this.failure = true // must before stop()
     this.stop()
 
-    if (this.failure) {
-      this.mesh.rotation.z = Math.PI * .5
-      this.resetFlame(Math.PI * .5, [0, 1.25, 0])
-    } else
+    if (this.failure)
+      this.renderFailure()
+    else
       this.clearThrust()
   }
 
   update(delta) {
     super.update(delta)
+    this.handleInput(delta)
     this.flame.update({ delta, max: 3, loop: this.shouldLoop })
   }
 }
