@@ -14,7 +14,8 @@ export default class GameObject {
     if (color != undefined) getMesh(this.mesh).material.color.setHex(color)
     if (rotateY) this.mesh.rotateY(rotateY)
 
-    const { y, z } = getSize(this.mesh)
+    const { x, y, z } = getSize(this.mesh)
+    this.width = x
     this.height = y
     this.depth = z
   }

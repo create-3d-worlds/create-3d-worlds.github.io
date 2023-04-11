@@ -40,7 +40,7 @@ void function loop() {
     score.renderText(lander.failure ? 'Landing failure!' : 'Nice landing!')
   }
   lander.update(dt)
-  lander.checkLanding(platform.mesh, dt)
+  lander.checkLanding(platform, dt)
   score.renderPoints(0, null, lander.fuel)
 
   renderer.render(scene, camera)

@@ -1,15 +1,13 @@
 import { Vector2 } from 'three'
-
 import input from '/utils/classes/Input.js'
 import { Flame } from '/utils/classes/Particles.js'
-import { getSize } from '/utils/helpers.js'
 
 export default class Lander {
   constructor(mesh) {
     this.mesh = mesh
     this.fuel = 250
     this.velocity = new Vector2()
-    this.falling = true
+    this.hasLanded = false
     this.failure = false
 
     this.flame = new Flame()
@@ -17,34 +15,26 @@ export default class Lander {
     this.flame.mesh.material.opacity = 0
   }
 
-  get hasLanded() {
-    return !this.falling
-  }
+  handleInput() {
+    if (this.hasLanded) return
 
-  handleInput(dt) {
-    if (!this.falling) return
+    if (this.fuel >= .5) {
+      if (input.left) {
+        this.resetFlame(-Math.PI * .5, [-1.75, 1.5, 0])
+        this.applyForce(0, .1)
+        this.fuel -= 0.5
+      }
 
-    if (!input.keyPressed) this.clearThrust()
-
-    if (this.fuel < .5) return
-
-    if (input.left) {
-      this.resetFlame(-Math.PI * .5, [-1.75, 1.5, 0])
-      this.addVector(0, .1 * dt)
-      this.fuel -= 0.5
+      if (input.right) {
+        this.resetFlame(Math.PI * .5, [1.75, 1.5, 0])
+        this.applyForce(Math.PI, .1)
+        this.fuel -= 0.5
+      }
     }
 
-    if (input.right) {
-      this.resetFlame(Math.PI * .5, [1.75, 1.5, 0])
-      this.addVector(Math.PI, .1 * dt)
-      this.fuel -= 0.5
-    }
-
-    if (this.fuel < 1) return
-
-    if (input.down) {
+    if (this.fuel >= 1 && input.down) {
       this.resetFlame(0, [0, -1, 0])
-      this.addVector(Math.PI / 2, .09 * dt)
+      this.applyForce(Math.PI / 2, .09)
       this.fuel--
     }
   }
@@ -60,16 +50,14 @@ export default class Lander {
     this.shouldLoop = false
   }
 
-  isSameHeight(platform) {
-    const { y: platformHeight } = getSize(platform)
-    return this.mesh.position.y <= platform.position.y + platformHeight // -9
+  withinHeight(platform) {
+    return this.mesh.position.y <= platform.position.y + platform.height // -9
       && this.mesh.position.y > platform.position.y // -10
   }
 
-  isSameWidth(platform) {
-    const { x: platformWidth } = getSize(platform)
-    return this.mesh.position.x > platform.position.x - platformWidth * .45
-      && this.mesh.position.x < platform.position.x + platformWidth * .45
+  withinWidth(platform) {
+    return this.mesh.position.x > platform.position.x - platform.width * .45
+      && this.mesh.position.x < platform.position.x + platform.width * .45
   }
 
   doFailure() {
@@ -78,10 +66,10 @@ export default class Lander {
   }
 
   checkLanding(platform) {
-    if (!this.isSameHeight(platform) || !this.isSameWidth(platform)) return
+    if (!this.withinHeight(platform) || !this.withinWidth(platform)) return
 
-    this.falling = false
-    if (this.velocity.y < -0.04) this.failure = true // must before stop()
+    this.hasLanded = true
+    if (this.velocity.y < -2.4) this.failure = true // must before stop()
     this.stop()
 
     if (this.failure)
@@ -94,19 +82,24 @@ export default class Lander {
     this.velocity.set(0, 0)
   }
 
-  addVector(angle, thrust) {
+  applyForce(angle, thrust) {
     this.velocity.add({ x: thrust * Math.cos(angle), y: thrust * Math.sin(angle) })
   }
 
-  applyGravity(dt) {
-    this.addVector(-Math.PI / 2, .01625 * dt)
+  applyGravity() {
+    this.applyForce(-Math.PI / 2, .01625)
+  }
+
+  updateFlame(delta) {
+    if (!input.keyPressed) this.clearThrust()
+    this.flame.update({ delta, max: 3, loop: this.shouldLoop })
   }
 
   update(delta) {
-    if (this.falling) this.applyGravity(delta)
-    this.mesh.position.x += this.velocity.x
-    this.mesh.position.y += this.velocity.y
-    this.handleInput(delta)
-    this.flame.update({ delta, max: 3, loop: this.shouldLoop })
+    this.handleInput()
+    if (!this.hasLanded) this.applyGravity(delta)
+    this.mesh.position.x += this.velocity.x * delta
+    this.mesh.position.y += this.velocity.y * delta
+    this.updateFlame(delta)
   }
 }
