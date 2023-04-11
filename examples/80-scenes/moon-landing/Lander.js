@@ -14,8 +14,12 @@ export default class Lander extends Sprite {
     this.failure = false
   }
 
+  get hasLanded() {
+    return !this.falling
+  }
+
   handleInput(dt) {
-    if (this.hasLanded) return
+    if (!this.falling) return
 
     if (!input.keyPressed) this.clearThrust()
 
@@ -67,9 +71,9 @@ export default class Lander extends Sprite {
   checkLanding(platform, dt) {
     if (!this.isSameHeight(platform) || !this.isSameWidth(platform)) return
 
-    this.hasLanded = true
-    if (this.dy < -0.04) this.failure = true // must before setSpeed(0)
-    this.setSpeed(0)
+    this.falling = false
+    if (this.dy < -0.04) this.failure = true // must before stop()
+    this.stop()
 
     if (this.failure) {
       this.mesh.rotation.z = Math.PI * .5
@@ -80,7 +84,7 @@ export default class Lander extends Sprite {
 
   showStats(element) {
     let html = 'Fuel: ' + this.fuel + '<br />'
-    if (this.hasLanded) html += (this.failure ? 'Landing failure!' : 'Nice landing!')
+    if (!this.falling) html += (this.failure ? 'Landing failure!' : 'Nice landing!')
     element.innerHTML = html
   }
 
