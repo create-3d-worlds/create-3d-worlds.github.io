@@ -12,8 +12,8 @@ camera.position.z = 18
 
 const score = new Score({ subtitle: 'Fuel left', showHighScore: false })
 
-ambLight()
-// scene.add(createMoonLight({ pos: [30, 30, 30] }))
+ambLight({ intensity: .9 })
+scene.add(createMoonLight({ pos: [30, 30, 30], intensity: .1 }))
 const platform = new Platform()
 const lander = new Lander()
 const stars = new Stars({ minRadius: 150 })
@@ -43,11 +43,15 @@ void function loop() {
   const time = clock.getElapsedTime()
 
   platform.move(dt)
+
   if (lander.hasLanded) {
     platform.sync(lander.mesh, dt)
     if (!lander.failure) score.points = lander.fuel
     score.renderText(lander.failure ? 'Landing failure!' : 'Nice landing!')
   }
+  if (!lander.fuel && lander.position.y < platform.position.y)
+    score.renderText('Out of fuel, landing failure!')
+
   lander.update(dt)
   lander.checkLanding(platform, dt)
 

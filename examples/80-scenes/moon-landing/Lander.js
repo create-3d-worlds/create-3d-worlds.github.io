@@ -9,7 +9,7 @@ const { mesh } = await loadModel({ file: 'space/lunar-module/model.fbx', size: 2
 export default class Lander extends GameObject {
   constructor() {
     super ({ mesh })
-    this.fuel = 250
+    this.fuel = 2500
     this.position.y = 5
     this.velocity = new Vector2()
     this.hasLanded = false

@@ -16,8 +16,7 @@ npx live-server
 
 ### Scenes & examples
 
-- Lander
-  - ako je ispod platforme ili ispod ekrana, bez goriva, dodati poruku
+- Lander 
   - partija da traje koliko puta uspe uzastopno da sleti
   - solar-system, dreaming-of-jupiter?
 

@@ -3,7 +3,7 @@ import GameObject from '/utils/actor/GameObject.js'
 
 export default class Platform extends GameObject {
   constructor() {
-    super({ mesh: createBox({ width: 5, height: 1, depth: 2.5 }) })
+    super({ mesh: createBox({ width: 5, height: 1, depth: 2.5, file: 'metal/platform.png' }) })
     this.velocityY = 2
     this.range = 30
     this.position.y = -10
