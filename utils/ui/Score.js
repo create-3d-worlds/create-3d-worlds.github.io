@@ -47,7 +47,7 @@ const defaultDict = {
 const isNumber = num => typeof num == 'number'
 
 export default class Score {
-  constructor({ title = 'Score', points = 0, subtitle, totalPoints, color = 'yellow', stroke = '#000', messageDict = defaultDict } = {}) {
+  constructor({ title = 'Score', points = 0, subtitle, totalPoints, color = 'yellow', stroke = '#000', messageDict = defaultDict, showHighScore = true } = {}) {
     this.points = points
     this.title = title
     this.subtitle = subtitle
@@ -69,7 +69,7 @@ export default class Score {
     this.highScore = +localStorage.getItem(location.pathname)
 
     this.update(points, totalPoints)
-    this.renderHeighScore()
+    if (showHighScore) this.renderHeighScore()
   }
 
   clear() {
@@ -102,13 +102,12 @@ export default class Score {
   /* should call it once to add new points */
   update(newPoints = 1, enemiesLeft, energyLeft) {
     this.points += newPoints
-    console.log(this.points)
+
     let html = ''
     if (isNumber(newPoints)) html += `<h3>${this.title}: ${this.points}</h3>`
     if (isNumber(enemiesLeft)) html += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
     if (isNumber(energyLeft)) html += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
     if (this.scoreDiv.innerHTML === html) return
-
     this.scoreDiv.innerHTML = html
 
     this.renderMotivation()
