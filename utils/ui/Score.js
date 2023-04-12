@@ -99,8 +99,8 @@ export default class Score {
     this.points += point
 
     let html = `<h3>${this.title}: ${this.points}</h3>`
-    if (enemiesLeft) html += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
-    if (energyLeft) html += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
+    if (Number.isInteger(enemiesLeft)) html += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
+    if (Number.isInteger(energyLeft)) html += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
     if (this.scoreDiv.innerHTML === html) return
 
     this.scoreDiv.innerHTML = html
