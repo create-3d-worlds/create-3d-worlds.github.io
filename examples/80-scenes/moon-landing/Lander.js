@@ -9,8 +9,12 @@ const { mesh } = await loadModel({ file: 'space/lunar-module/model.fbx', size: 2
 const message = {
   fail: 'Landing failure!',
   success: 'Nice landing!',
-  outOfFuel: 'Out of fuel, lost in space!',
+  outOfFuel: 'Out of fuel, platform missed!',
+  lost: 'Lost in space!',
 }
+
+const platformY = -10
+const lowerBound = -30
 
 export default class Lander extends GameObject {
   constructor() {
@@ -22,8 +26,11 @@ export default class Lander extends GameObject {
     if (this.hasLanded)
       return this.failure ? message.fail : message.success
 
-    if (!this.fuel && this.position.y < -10)
+    if (!this.fuel && this.position.y < platformY)
       return message.outOfFuel
+
+    if (this.position.y < lowerBound)
+      return message.lost
 
     return ''
   }

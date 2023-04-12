@@ -4,9 +4,9 @@ import GameObject from '/utils/actor/GameObject.js'
 export default class Platform extends GameObject {
   constructor() {
     super({ mesh: createBox({ width: 5, height: 1, depth: 2.5, file: 'metal/platform.png' }) })
-    this.velocityY = 2
-    this.range = 30
     this.position.y = -10
+    this.velocityY = 2
+    this.range = 29
   }
 
   checkBounds() {
@@ -14,13 +14,13 @@ export default class Platform extends GameObject {
     if (this.position.x <= -this.range) this.velocityY = this.velocityY
   }
 
-  checkRandom() {
+  addRandom() {
     if (Math.random() > .997) this.velocityY = -this.velocityY
   }
 
   move(dt) {
     this.checkBounds()
-    this.checkRandom()
+    this.addRandom()
     this.position.x += this.velocityY * dt
   }
 
