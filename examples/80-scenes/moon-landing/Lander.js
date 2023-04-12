@@ -12,37 +12,54 @@ const message = {
   outOfFuel: 'Out of fuel, platform missed!',
   lost: 'Lost in space!',
 }
-
-const platformY = -10
 const lowerBound = -30
 
 export default class Lander extends GameObject {
-  constructor() {
+  constructor({ platform }) {
     super ({ mesh })
+    this.platform = platform
     this.reset()
   }
 
+  /* GETTERS */
+
+  get onGround() {
+    const { platform } = this
+    return this.withinHeight(platform) && this.withinWidth(platform)
+  }
+
+  get hasLanded() {
+    return this.onGround && !this.failure
+  }
+
+  get broken() {
+    return this.onGround && this.failure
+  }
+
+  get outOfFuel() {
+    return !this.fuel && this.position.y < this.platform.position.y
+  }
+
+  get lost() {
+    return this.position.y < lowerBound
+  }
+
   get statusText() {
-    if (this.onGround)
-      return this.failure ? message.fail : message.success
-
-    if (!this.fuel && this.position.y < platformY)
-      return message.outOfFuel
-
-    if (this.position.y < lowerBound)
-      return message.lost
-
+    if (this.hasLanded) return message.success
+    if (this.broken) return message.fail
+    if (this.outOfFuel) return message.outOfFuel
+    if (this.lost) return message.lost
     return ''
   }
+
+  /* METHODS */
 
   reset() {
     this.fuel = 300
     this.position.set(0, 5, 0)
     this.mesh.rotation.z = 0
     this.velocity = new Vector2()
-    this.onGround = false
     this.failure = false
-
     this.flame = new Flame()
     this.flame.mesh.rotateX(Math.PI * .5)
   }
@@ -81,14 +98,14 @@ export default class Lander extends GameObject {
     this.shouldLoop = false
   }
 
-  withinHeight(platform) {
-    return this.position.y <= platform.position.y + platform.height // -9
-      && this.position.y > platform.position.y // -10
+  withinHeight(gameObject) {
+    return this.position.y <= gameObject.position.y + gameObject.height // -9
+      && this.position.y > gameObject.position.y // -10
   }
 
-  withinWidth(platform) {
-    return this.position.x > platform.position.x - platform.width * .45
-      && this.position.x < platform.position.x + platform.width * .45
+  withinWidth(gameObject) {
+    return this.position.x > gameObject.position.x - gameObject.width * .45
+      && this.position.x < gameObject.position.x + gameObject.width * .45
   }
 
   doFailure() {
@@ -97,10 +114,8 @@ export default class Lander extends GameObject {
     this.resetFlame(Math.PI * .5, [0, 1.25, 0])
   }
 
-  checkLanding(platform) {
-    if (!this.withinHeight(platform) || !this.withinWidth(platform)) return
-
-    this.onGround = true
+  checkLanding() {
+    if (!this.onGround) return
 
     if (this.velocity.y < -2.4)
       this.doFailure()
@@ -113,6 +128,8 @@ export default class Lander extends GameObject {
   applyForce(angle, thrust) {
     this.velocity.add({ x: thrust * Math.cos(angle), y: thrust * Math.sin(angle) })
   }
+
+  /* UPDATES */
 
   applyGravity() {
     this.applyForce(-Math.PI / 2, .01625)

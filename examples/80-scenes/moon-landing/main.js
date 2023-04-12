@@ -16,7 +16,7 @@ scene.add(createMoonLight({ pos: [30, 30, 30], intensity: .1 }))
 const score = new Score({ subtitle: 'Fuel left', showHighScore: false })
 
 const platform = new Platform()
-const lander = new Lander()
+const lander = new Lander({ platform })
 const stars = new Stars({ minRadius: 150 })
 
 const { mesh: arcology } = await loadModel({ file: 'space/arcology-ring/model.fbx', scale: .5, shouldCenter: true })
@@ -41,19 +41,11 @@ void function loop() {
 
   platform.move(dt)
   lander.update(dt)
-  lander.checkLanding(platform, dt)
+  lander.checkLanding()
 
-  if (lander.onGround) {
-    platform.sync(lander.mesh, dt)
-    /**
-     * PROBLEM:
-     * = gazi prethodne poene
-     * += dodaje u petlji
-     * TREBA:
-     * dodati jednokratno po izmeni statusa (kad sleti)
-     */
-    if (!lander.failure) score.points = lander.fuel
-  }
+  if (lander.onGround) platform.sync(lander.mesh, dt)
+  // TODO: dodati poene jednokratno kad sleti
+  if (lander.hasLanded) score.points = lander.fuel
 
   stars.update({ delta: dt * .005 })
   arcology.rotateY(dt * .02)
