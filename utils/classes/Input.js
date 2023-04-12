@@ -3,10 +3,9 @@
 * (joystick can be optionally attached)
 * key codes: keycode.info
 */
-
 const preventSome = e => {
-  // prevent shake and random btn click on enter
-  if (e.code == 'Space' || e.code == 'Enter' || e.code.startsWith('Arrow')) e.preventDefault()
+  // prevent shake, btn click on enter, etc.
+  if (['Space', 'Enter', 'PageUp', 'PageDown'].includes(e.code) || e.code.startsWith('Arrow')) e.preventDefault()
 }
 
 class Input {
@@ -14,13 +13,7 @@ class Input {
   constructor(listen = true) {
     this.pressed = {}
     this.capsLock = false
-
-    this.SwipeX = 0
-    this.SwipeY = 0
-
-    this.startX = null
-    this.startY = null
-    this.swipeThreshold = 5
+    this.pause = false
 
     if (!listen) return
 
@@ -29,6 +22,7 @@ class Input {
     document.addEventListener('keydown', e => {
       preventSome(e)
       this.pressed[e.code] = true
+      if (e.code == 'KeyP') this.pause = !this.pause
     })
     document.addEventListener('keyup', e => {
       this.pressed[e.code] = false
@@ -50,8 +44,6 @@ class Input {
       this.pressed.mouse = true
     if (e.button === 2)
       this.pressed.mouse2 = true
-    this.startX = e.pageX
-    this.startY = e.pageY
   }
 
   handleMouseUp(e) {

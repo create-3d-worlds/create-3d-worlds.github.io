@@ -86,7 +86,6 @@ document.addEventListener('keydown', event => {
     case 'KeyP': pause = !pause; break
     case 'Digit1': speed = 1; break
     case 'Digit2': speed = 2; break
-    case 'Digit3': speed = 10; break
   }
 })
 
@@ -97,6 +96,5 @@ const commands = {
   P: 'pause',
   1: 'speed 1',
   2: 'speed 2',
-  3: 'speed 3',
 }
 addUIControls({ commands })

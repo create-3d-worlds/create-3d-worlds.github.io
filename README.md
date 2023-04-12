@@ -18,6 +18,7 @@ npx live-server
 
 - Lander 
   - sabirati poene uspešnih sletanja
+    - dodati poene jednokratno po izmeni statusa (kad sleti)
   - solar-system, dreaming-of-jupiter?
 
 - Svemir / Balonko
