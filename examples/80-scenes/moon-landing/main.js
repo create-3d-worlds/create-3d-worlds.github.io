@@ -8,7 +8,7 @@ import Platform from './Platform.js'
 setBackground(0x000000)
 camera.position.z = 18
 
-const score = new Score({ subtitle: 'Fuel' })
+const score = new Score({ subtitle: 'Fuel left' })
 
 const moon = createMoon({ pos: [30, 0, 30] })
 const platform = new Platform()

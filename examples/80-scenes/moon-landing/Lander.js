@@ -28,7 +28,6 @@ export default class Lander extends GameObject {
         this.applyForce(0, .1)
         this.fuel -= 0.5
       }
-
       if (input.right) {
         this.resetFlame(Math.PI * .5, [1.75, 1.5, 0])
         this.applyForce(Math.PI, .1)
@@ -73,16 +72,13 @@ export default class Lander extends GameObject {
     if (!this.withinHeight(platform) || !this.withinWidth(platform)) return
 
     this.hasLanded = true
-    if (this.velocity.y < -2.4) this.failure = true // must before stop()
-    this.stop()
+    this.failure = this.velocity.y < -2.4
 
     if (this.failure)
       this.doFailure()
     else
       this.clearThrust()
-  }
 
-  stop() {
     this.velocity.set(0, 0)
   }
 
