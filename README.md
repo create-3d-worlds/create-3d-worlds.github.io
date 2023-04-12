@@ -16,9 +16,8 @@ npx live-server
 ### Scenes & examples
 
 - Lander
-  - dodati planete?
   - ako je ispod platforme ili ispod ekrana, bez goriva, dodati poruku
-  - merge space i moon-landing?
+  - partija da traje koliko puta uspe uzastopno da sleti
   - solar-system, dreaming-of-jupiter?
 
 - Svemir / Balonko
