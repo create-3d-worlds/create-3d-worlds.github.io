@@ -16,9 +16,8 @@ npx live-server
 ### Scenes & examples
 
 - Lander
-  - pokušati sledanje na neki model svemirskog broda
-  - dodati out of fuel msg
   - dodati arkology pozadinu
+  - ako je ispod platforme ili ispod ekrana, bez goriva, dodati poruku
   - merge space i moon-landing?
   - solar-system, dreaming-of-jupiter?
 

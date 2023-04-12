@@ -81,7 +81,9 @@ export default class Score {
   }
 
   renderText(text) {
-    this.centralDiv.innerHTML = `<h3>${text}</h3>`
+    const html = `<h3>${text}</h3>`
+    if (this.centralDiv.innerHTML === html) return
+    this.centralDiv.innerHTML = html
   }
 
   renderMotivation() {
@@ -103,7 +105,7 @@ export default class Score {
     let html = ''
     if (isNumber(point)) html += `<h3>${this.title}: ${this.points}</h3>`
     if (isNumber(enemiesLeft)) html += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
-    if (isNumber(energyLeft)) html += `<div>${this.subtitle}: ${energyLeft}</div>`
+    if (isNumber(energyLeft)) html += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
     if (this.scoreDiv.innerHTML === html) return
 
     this.scoreDiv.innerHTML = html
