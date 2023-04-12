@@ -16,7 +16,6 @@ npx live-server
 ### Scenes & examples
 
 - Lander
-  - ukloniti Score: 0
   - Platform extends Actor
   - Lander extends Actor
   - pomerati zvezde bar malo
