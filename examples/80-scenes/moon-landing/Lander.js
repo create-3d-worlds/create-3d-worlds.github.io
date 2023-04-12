@@ -9,7 +9,7 @@ const { mesh } = await loadModel({ file: 'space/lunar-module/model.fbx', size: 2
 export default class Lander extends GameObject {
   constructor() {
     super ({ mesh })
-    this.fuel = 2500
+    this.fuel = 300
     this.position.y = 5
     this.velocity = new Vector2()
     this.hasLanded = false
@@ -17,6 +17,16 @@ export default class Lander extends GameObject {
 
     this.flame = new Flame()
     this.flame.mesh.rotateX(Math.PI * .5)
+  }
+
+  get status() {
+    if (this.hasLanded)
+      return this.failure ? 'Landing failure!' : 'Nice landing!'
+
+    if (!this.fuel && this.position.y < -10)
+      return 'Out of fuel, landing failure!'
+
+    return ''
   }
 
   handleInput() {

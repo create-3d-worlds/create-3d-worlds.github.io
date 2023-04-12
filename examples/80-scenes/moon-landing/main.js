@@ -10,30 +10,27 @@ import { createJupiter, createSaturn, createMoon, orbitAround } from '/utils/geo
 setBackground(0x000000)
 camera.position.z = 18
 
-const score = new Score({ subtitle: 'Fuel left', showHighScore: false })
-
 ambLight({ intensity: .9 })
 scene.add(createMoonLight({ pos: [30, 30, 30], intensity: .1 }))
+
+const score = new Score({ subtitle: 'Fuel left', showHighScore: false })
+
 const platform = new Platform()
 const lander = new Lander()
 const stars = new Stars({ minRadius: 150 })
 
-scene.add(platform.mesh, lander.mesh, stars.mesh)
-
 const { mesh: arcology } = await loadModel({ file: 'space/arcology-ring/model.fbx', scale: .5, shouldCenter: true })
 arcology.position.z = -100
-scene.add(arcology)
 
 const jupiter = createJupiter({ r: 5 })
 jupiter.position.set(-125, 25, -80)
-scene.add(jupiter)
 
 const moon = createMoon({ r: 1.5 })
-scene.add(moon)
 
 const saturn = createSaturn({ r: 3 })
 saturn.position.set(85, 20, -50)
-scene.add(saturn)
+
+scene.add(platform.mesh, lander.mesh, stars.mesh, arcology, jupiter, moon, saturn)
 
 /* LOOP */
 
@@ -43,26 +40,21 @@ void function loop() {
   const time = clock.getElapsedTime()
 
   platform.move(dt)
+  lander.update(dt)
+  lander.checkLanding(platform, dt)
 
   if (lander.hasLanded) {
     platform.sync(lander.mesh, dt)
     if (!lander.failure) score.points = lander.fuel
-    score.renderText(lander.failure ? 'Landing failure!' : 'Nice landing!')
   }
-  if (!lander.fuel && lander.position.y < platform.position.y)
-    score.renderText('Out of fuel, landing failure!')
-
-  lander.update(dt)
-  lander.checkLanding(platform, dt)
 
   stars.update({ delta: dt * .003 })
   arcology.rotateY(dt * .02)
   jupiter.rotateY(dt * .2)
-  saturn.rotateY(dt * -.2)
   moon.rotateY(dt)
-
-  orbitAround({ moon, planet: jupiter, time: time * .5, radiusX: 10, radiusZ: 12 })
+  orbitAround({ moon, planet: jupiter, time: time * .5 })
 
   score.update(0, null, lander.fuel)
+  score.renderText(lander.status)
   renderer.render(scene, camera)
 }()
