@@ -16,7 +16,6 @@ npx live-server
 ### Scenes & examples
 
 - Lander
-  - Platform extends Actor
   - Lander extends Actor
   - pokušati sledanje na neki model svemirskog broda
   - dodati out of fuel msg

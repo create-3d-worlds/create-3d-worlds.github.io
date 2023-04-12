@@ -17,7 +17,6 @@ export default class Lander extends GameObject {
 
     this.flame = new Flame()
     this.flame.mesh.rotateX(Math.PI * .5)
-    this.flame.mesh.material.opacity = 0
   }
 
   handleInput() {

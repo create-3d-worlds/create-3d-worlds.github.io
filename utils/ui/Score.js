@@ -44,6 +44,8 @@ const defaultDict = {
   75: 'You smell victory in the air...',
 }
 
+const isNumber = num => typeof num == 'number'
+
 export default class Score {
   constructor({ title = 'Score', points = 0, subtitle, totalPoints, color = 'yellow', stroke = '#000', messageDict = defaultDict } = {}) {
     this.points = points
@@ -99,9 +101,9 @@ export default class Score {
     this.points += point
 
     let html = ''
-    if (Number.isInteger(point)) html += `<h3>${this.title}: ${this.points}</h3>`
-    if (Number.isInteger(enemiesLeft)) html += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
-    if (Number.isInteger(energyLeft)) html += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
+    if (isNumber(point)) html += `<h3>${this.title}: ${this.points}</h3>`
+    if (isNumber(enemiesLeft)) html += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
+    if (isNumber(energyLeft)) html += `<div>${this.subtitle}: ${energyLeft}</div>`
     if (this.scoreDiv.innerHTML === html) return
 
     this.scoreDiv.innerHTML = html
