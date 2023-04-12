@@ -43,7 +43,7 @@ void function loop() {
   lander.update(dt)
   lander.checkLanding(platform, dt)
 
-  if (lander.hasLanded) {
+  if (lander.onGround) {
     platform.sync(lander.mesh, dt)
     /**
      * PROBLEM:
@@ -62,7 +62,7 @@ void function loop() {
   orbitAround({ moon, planet: jupiter, time: time * .5 })
 
   score.render(score.points, null, lander.fuel)
-  score.renderText(lander.status ? lander.status + '<br><br><small>press R to play again</small>' : '')
+  score.renderText(lander.statusText ? lander.statusText + '<br><br><small>press R to play again</small>' : '')
 
   renderer.render(scene, camera)
 }()

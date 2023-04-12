@@ -22,8 +22,8 @@ export default class Lander extends GameObject {
     this.reset()
   }
 
-  get status() {
-    if (this.hasLanded)
+  get statusText() {
+    if (this.onGround)
       return this.failure ? message.fail : message.success
 
     if (!this.fuel && this.position.y < platformY)
@@ -40,7 +40,7 @@ export default class Lander extends GameObject {
     this.position.set(0, 5, 0)
     this.mesh.rotation.z = 0
     this.velocity = new Vector2()
-    this.hasLanded = false
+    this.onGround = false
     this.failure = false
 
     this.flame = new Flame()
@@ -48,7 +48,7 @@ export default class Lander extends GameObject {
   }
 
   handleInput() {
-    if (this.hasLanded) return
+    if (this.onGround) return
 
     if (this.fuel >= .5) {
       if (input.left) {
@@ -100,7 +100,7 @@ export default class Lander extends GameObject {
   checkLanding(platform) {
     if (!this.withinHeight(platform) || !this.withinWidth(platform)) return
 
-    this.hasLanded = true
+    this.onGround = true
 
     if (this.velocity.y < -2.4)
       this.doFailure()
@@ -125,12 +125,12 @@ export default class Lander extends GameObject {
 
   update(delta) {
     this.handleInput()
-    if (!this.hasLanded) this.applyGravity(delta)
+    if (!this.onGround) this.applyGravity(delta)
     this.position.x += this.velocity.x * delta
     this.position.y += this.velocity.y * delta
     this.updateFlame(delta)
 
-    if (this.status && input.pressed.KeyR)
+    if (this.statusText && input.pressed.KeyR)
       this.reset()
   }
 }
