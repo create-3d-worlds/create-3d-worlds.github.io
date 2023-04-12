@@ -35,8 +35,10 @@ export default class GameObject {
   }
 
   set position(pos) {
-    if (Array.isArray(pos)) this.mesh.position.set(...pos)
-    else this.mesh.position.copy(pos)
+    if (Array.isArray(pos))
+      this.mesh.position.set(...pos)
+    else
+      this.mesh.position.copy(pos)
   }
 
   get scene() {
@@ -57,11 +59,5 @@ export default class GameObject {
 
   distanceTo(mesh) {
     return this.position.distanceTo(mesh.position)
-  }
-
-  fadeOut(mesh = this.mesh) {
-    mesh.material.transparent = true
-    mesh.material.opacity -= 0.01
-    console.log('fade')
   }
 }

@@ -16,7 +16,6 @@ npx live-server
 ### Scenes & examples
 
 - Lander
-  - Lander extends Actor
   - pokušati sledanje na neki model svemirskog broda
   - dodati out of fuel msg
   - dodati arkology pozadinu

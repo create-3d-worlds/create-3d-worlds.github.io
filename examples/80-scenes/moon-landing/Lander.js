@@ -64,6 +64,7 @@ export default class Lander extends GameObject {
   }
 
   doFailure() {
+    this.failure = true
     this.mesh.rotation.z = Math.PI * .5
     this.resetFlame(Math.PI * .5, [0, 1.25, 0])
   }
@@ -72,9 +73,8 @@ export default class Lander extends GameObject {
     if (!this.withinHeight(platform) || !this.withinWidth(platform)) return
 
     this.hasLanded = true
-    this.failure = this.velocity.y < -2.4
 
-    if (this.failure)
+    if (this.velocity.y < -2.4)
       this.doFailure()
     else
       this.clearThrust()
