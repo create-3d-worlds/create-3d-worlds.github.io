@@ -32,5 +32,7 @@ void function loop() {
   lander.checkLanding(platform, dt)
 
   score.render(null, null, lander.fuel)
+  stars.update({ delta: dt * .001 })
+
   renderer.render(scene, camera)
 }()

@@ -18,7 +18,6 @@ npx live-server
 - Lander
   - Platform extends Actor
   - Lander extends Actor
-  - pomerati zvezde bar malo
   - pokušati sledanje na neki model svemirskog broda
   - dodati out of fuel msg
   - dodati arkology pozadinu
