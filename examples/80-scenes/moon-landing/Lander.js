@@ -6,27 +6,38 @@ import { loadModel } from '/utils/loaders.js'
 
 const { mesh } = await loadModel({ file: 'space/lunar-module/model.fbx', size: 2.5 })
 
+const message = {
+  fail: 'Landing failure!',
+  success: 'Nice landing!',
+  outOfFuel: 'Out of fuel, lost in space!',
+}
+
 export default class Lander extends GameObject {
   constructor() {
     super ({ mesh })
+    this.reset()
+  }
+
+  get status() {
+    if (this.hasLanded)
+      return this.failure ? message.fail : message.success
+
+    if (!this.fuel && this.position.y < -10)
+      return message.outOfFuel
+
+    return ''
+  }
+
+  reset() {
     this.fuel = 300
-    this.position.y = 5
+    this.position.set(0, 5, 0)
+    this.mesh.rotation.z = 0
     this.velocity = new Vector2()
     this.hasLanded = false
     this.failure = false
 
     this.flame = new Flame()
     this.flame.mesh.rotateX(Math.PI * .5)
-  }
-
-  get status() {
-    if (this.hasLanded)
-      return this.failure ? 'Landing failure!' : 'Nice landing!'
-
-    if (!this.fuel && this.position.y < -10)
-      return 'Out of fuel, landing failure!'
-
-    return ''
   }
 
   handleInput() {
@@ -101,7 +112,7 @@ export default class Lander extends GameObject {
   }
 
   updateFlame(delta) {
-    if (!input.keyPressed) this.clearThrust()
+    if (!input.keyPressed || !this.fuel) this.clearThrust()
     this.flame.update({ delta, max: 3, loop: this.shouldLoop })
   }
 
@@ -111,5 +122,8 @@ export default class Lander extends GameObject {
     this.position.x += this.velocity.x * delta
     this.position.y += this.velocity.y * delta
     this.updateFlame(delta)
+
+    if (this.status && input.pressed.KeyR)
+      this.reset()
   }
 }

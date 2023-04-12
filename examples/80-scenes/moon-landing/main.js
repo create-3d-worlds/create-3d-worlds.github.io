@@ -48,13 +48,14 @@ void function loop() {
     if (!lander.failure) score.points = lander.fuel
   }
 
-  stars.update({ delta: dt * .003 })
+  stars.update({ delta: dt * .005 })
   arcology.rotateY(dt * .02)
   jupiter.rotateY(dt * .2)
   moon.rotateY(dt)
   orbitAround({ moon, planet: jupiter, time: time * .5 })
 
   score.update(0, null, lander.fuel)
-  score.renderText(lander.status)
+  score.renderText(lander.status ? lander.status + '<br><br><small>press R to play again</small>' : '')
+
   renderer.render(scene, camera)
 }()

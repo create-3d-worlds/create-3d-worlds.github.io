@@ -17,6 +17,7 @@ npx live-server
 ### Scenes & examples
 
 - Lander 
+  - sabirati poene iz sesija?
   - partija da traje koliko puta uspe uzastopno da sleti
   - solar-system, dreaming-of-jupiter?
 
