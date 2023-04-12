@@ -1,5 +1,5 @@
 import { scene, camera, renderer, clock, setBackground } from '/utils/scene.js'
-import { ambLight } from '/utils/light.js'
+import { ambLight, createMoon as createMoonLight } from '/utils/light.js'
 import { Stars } from '/utils/classes/Particles.js'
 import Score from '/utils/ui/Score.js'
 import Lander from './Lander.js'
@@ -8,11 +8,12 @@ import { loadModel } from '/utils/loaders.js'
 import { createJupiter, createSaturn, createMoon, orbitAround } from '/utils/geometry/planets.js'
 
 setBackground(0x000000)
-camera.position.z = 19
+camera.position.z = 18
 
 const score = new Score({ subtitle: 'Fuel left', showHighScore: false })
 
 ambLight()
+// scene.add(createMoonLight({ pos: [30, 30, 30] }))
 const platform = new Platform()
 const lander = new Lander()
 const stars = new Stars({ minRadius: 150 })

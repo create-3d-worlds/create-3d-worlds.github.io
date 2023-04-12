@@ -12,6 +12,7 @@ npx live-server
 ## TODO
 
 - refact loadModel to return mesh
+- merge createMoon from light and planets?
 
 ### Scenes & examples
 
