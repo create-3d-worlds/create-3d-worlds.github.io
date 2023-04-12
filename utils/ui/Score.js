@@ -99,16 +99,18 @@ export default class Score {
     this.clearLatter(3000)
   }
 
-  /* should call it once to add new points */
-  update(newPoints = 1, enemiesLeft, energyLeft) {
-    this.points += newPoints
-
+  render(points, enemiesLeft, energyLeft) {
     let html = ''
-    if (isNumber(newPoints)) html += `<h3>${this.title}: ${this.points}</h3>`
+    if (isNumber(points)) html += `<h3>${this.title}: ${this.points}</h3>`
     if (isNumber(enemiesLeft)) html += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
     if (isNumber(energyLeft)) html += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
     if (this.scoreDiv.innerHTML === html) return
     this.scoreDiv.innerHTML = html
+  }
+
+  update(newPoints = 1, enemiesLeft, energyLeft) {
+    this.points += newPoints
+    this.render(this.points, enemiesLeft, energyLeft)
 
     this.renderMotivation()
 

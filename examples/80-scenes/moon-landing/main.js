@@ -45,6 +45,13 @@ void function loop() {
 
   if (lander.hasLanded) {
     platform.sync(lander.mesh, dt)
+    /**
+     * PROBLEM:
+     * = gazi prethodne poene
+     * += dodaje u petlji
+     * TREBA:
+     * dodati jednokratno po izmeni statusa (kad sleti)
+     */
     if (!lander.failure) score.points = lander.fuel
   }
 
@@ -54,7 +61,7 @@ void function loop() {
   moon.rotateY(dt)
   orbitAround({ moon, planet: jupiter, time: time * .5 })
 
-  score.update(0, null, lander.fuel)
+  score.render(score.points, null, lander.fuel)
   score.renderText(lander.status ? lander.status + '<br><br><small>press R to play again</small>' : '')
 
   renderer.render(scene, camera)

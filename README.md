@@ -17,8 +17,7 @@ npx live-server
 ### Scenes & examples
 
 - Lander 
-  - sabirati poene iz sesija?
-  - partija da traje koliko puta uspe uzastopno da sleti
+  - sabirati poene uspešnih sletanja
   - solar-system, dreaming-of-jupiter?
 
 - Svemir / Balonko
@@ -30,7 +29,10 @@ npx live-server
   - dodati karakter čarobnjaka i još neke detalje
 
 - Spomenici
-  - napraviti scenu sa jugoslovenskim spomenicima
+  - brdo (ili pravi teren sa mape)
+  - spomenici NOB
+  - zastave vijore
+  - Savo šeta?
 
 - Zeppelin
   - umesto createChaseCamera koristiti 3rd person?
