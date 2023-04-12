@@ -101,7 +101,7 @@ function addTreeOrTwo() {
 
 const hit = tree => {
   explosion.reset({ pos: { x: player.position.x, y: 2, z: 4.8 }, unitAngle: 0.2 })
-  score.render(1)
+  score.update(1)
   tree.visible = false
   setTimeout(() => {
     tree.visible = true

@@ -68,7 +68,7 @@ export default class Score {
 
     this.highScore = +localStorage.getItem(location.pathname)
 
-    this.render(points, totalPoints)
+    this.update(points, totalPoints)
     this.renderHeighScore()
   }
 
@@ -99,11 +99,12 @@ export default class Score {
     this.clearLatter(3000)
   }
 
-  render(point = 1, enemiesLeft, energyLeft) {
-    this.points += point
-
+  /* should call it once to add new points */
+  update(newPoints = 1, enemiesLeft, energyLeft) {
+    this.points += newPoints
+    console.log(this.points)
     let html = ''
-    if (isNumber(point)) html += `<h3>${this.title}: ${this.points}</h3>`
+    if (isNumber(newPoints)) html += `<h3>${this.title}: ${this.points}</h3>`
     if (isNumber(enemiesLeft)) html += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
     if (isNumber(energyLeft)) html += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
     if (this.scoreDiv.innerHTML === html) return

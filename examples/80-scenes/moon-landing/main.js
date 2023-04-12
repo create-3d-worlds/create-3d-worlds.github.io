@@ -26,13 +26,14 @@ void function loop() {
   platform.move(dt)
   if (lander.hasLanded) {
     platform.sync(lander.mesh, dt)
+    if (!lander.failure) score.points = lander.fuel
     score.renderText(lander.failure ? 'Landing failure!' : 'Nice landing!')
   }
   lander.update(dt)
   lander.checkLanding(platform, dt)
 
-  score.render(null, null, lander.fuel)
-  stars.update({ delta: dt * .001 })
+  stars.update({ delta: dt * .003 })
+  score.update(0, null, lander.fuel)
 
   renderer.render(scene, camera)
 }()
