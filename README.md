@@ -16,7 +16,7 @@ npx live-server
 ### Scenes & examples
 
 - Lander
-  - dodati arkology pozadinu
+  - dodati planete?
   - ako je ispod platforme ili ispod ekrana, bez goriva, dodati poruku
   - merge space i moon-landing?
   - solar-system, dreaming-of-jupiter?

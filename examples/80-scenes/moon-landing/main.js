@@ -14,13 +14,13 @@ const score = new Score({ subtitle: 'Fuel left', showHighScore: false })
 const moon = createMoon({ pos: [30, 0, 30] })
 const platform = new Platform()
 const lander = new Lander()
-const stars = new Stars()
+const stars = new Stars({ minRadius: 150 })
 
 scene.add(moon, platform.mesh, lander.mesh, stars.mesh)
 
 const { mesh: arcology } = await loadModel({ file: 'space/arcology-ring/model.fbx', scale: .5, shouldCenter: true })
-scene.add(arcology)
 arcology.position.z = -100
+scene.add(arcology)
 
 /* LOOP */
 
