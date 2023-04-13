@@ -16,12 +16,8 @@ npx live-server
 
 ### Scenes & examples
 
-- Lander 
-  - sabirati poene uspešnih sletanja
-    - dodati poene jednokratno po izmeni statusa (kad sleti)
-  - solar-system, dreaming-of-jupiter?
-
 - Svemir / Balonko
+  - merge dreaming-of-jupiter
   - probati balonko skače na platformu - platform.sync(avatar.mesh)
   - hodanje po planeti, uzimati u obzir normals ili centar sfere i ispravljati igraca
   - da skace po malim planetama

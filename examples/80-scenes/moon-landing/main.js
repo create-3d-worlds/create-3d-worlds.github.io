@@ -49,7 +49,7 @@ void function loop() {
   lander.checkLanding()
 
   if (lander.onGround) platform.sync(lander.mesh, dt)
-  // if (lander.hasLanded) score.points = lander.fuel
+  score.points = lander.hasLanded ? lander.fuel : 0
 
   stars.update({ delta: dt * .005 })
   arcology.rotateY(dt * .02)

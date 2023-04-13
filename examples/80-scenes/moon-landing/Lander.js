@@ -18,6 +18,8 @@ export default class Lander extends GameObject {
   constructor({ platform }) {
     super ({ mesh })
     this.platform = platform
+    this.flame = new Flame()
+    this.flame.mesh.rotateX(Math.PI * .5)
     this.reset()
   }
 
@@ -60,8 +62,6 @@ export default class Lander extends GameObject {
     this.mesh.rotation.z = 0
     this.velocity = new Vector2()
     this.failure = false
-    this.flame = new Flame()
-    this.flame.mesh.rotateX(Math.PI * .5)
   }
 
   handleInput() {
