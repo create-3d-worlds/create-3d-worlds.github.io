@@ -13,9 +13,9 @@ npx live-server
 
 ### Scenes & examples
 
-- Svemir / Balonko
-  - merge dreaming-of-jupiter
-  - probati balonko skače na platformu - platform.sync(avatar.mesh)
+- Avatar / Planete (dreaming-of-jupiter)
+  - ažurirati visinu tla i kad stoji
+  - probati naskok na platformu - platform.sync(avatar.mesh)
   - hodanje po planeti, uzimati u obzir normals ili centar sfere i ispravljati igraca
   - da skace po malim planetama
 
