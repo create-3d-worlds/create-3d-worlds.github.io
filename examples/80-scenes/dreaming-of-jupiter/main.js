@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { camera, scene, renderer } from '/utils/scene.js'
 import { createMoon, createJupiter, orbiting } from '/utils/geometry/planets.js'
-import { createTerrain, wave } from '/utils/ground.js'
+import { createTerrain, shake } from '/utils/ground.js'
 import { Stars } from '/utils/classes/Particles.js'
 
 scene.background = new THREE.Color(0x000000)
@@ -37,7 +37,7 @@ void function loop() {
   moon.rotation.y -= 0.007
   orbiting(moon, t, 15, 0, 20)
 
-  wave({ geometry: terrain.geometry, time: t }) // shake
+  shake({ geometry: terrain.geometry, time: t }) // shake
   stars.update()
 
   t += 0.015

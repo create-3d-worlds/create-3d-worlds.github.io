@@ -256,12 +256,12 @@ export function wave({ geometry, time, amplitude = 1, frequency = 1, passage }) 
   position.needsUpdate = true
 }
 
-export function shake(geometry, t) {
+export function shake({ geometry, time }) {
   if (!geometry.attributes.initialHeight) setInitialHeight(geometry)
 
   const { position, initialHeight } = geometry.attributes
   for (let i = 0, l = position.count; i < l; i++) {
-    const y = Math.sin(i + t) * initialHeight.array[i] * 0.5
+    const y = Math.sin(i + time) * initialHeight.array[i] * 0.5
     position.setY(i, y)
   }
   position.needsUpdate = true
