@@ -32,8 +32,9 @@ export function dirLight({
   return light
 }
 
-export function pointLight({ scene = defaultScene, color = 0xffffff, intensity = 1, mapSize = 512, } = {}) {
+export function pointLight({ scene = defaultScene, color = 0xffffff, intensity = 1, mapSize = 512, pos = [0, 30, 30] } = {}) {
   const light = new THREE.PointLight(color, intensity)
+  light.position.set(...pos)
   light.castShadow = true
   light.shadow.mapSize.width = light.shadow.mapSize.height = mapSize
   if (scene) scene.add(light)
