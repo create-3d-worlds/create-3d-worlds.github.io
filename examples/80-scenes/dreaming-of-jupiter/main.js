@@ -1,33 +1,53 @@
+import * as THREE from 'three'
+
 import { camera, scene, renderer, clock, setBackground } from '/utils/scene.js'
-import { createJupiter, createEarth, createSaturn, orbitAround } from '/utils/geometry/planets.js'
+import { createSphere } from '/utils/geometry.js'
+
+import { createEarth, createSaturn, orbitAround, addRings } from '/utils/geometry/planets.js'
 import { createTerrain, shake } from '/utils/ground.js'
 import { Stars } from '/utils/classes/Particles.js'
 import { createMoon } from '/utils/light.js'
 import Avatar from '/utils/actor/Avatar.js'
+import { sample, getShuffledCoords } from '/utils/helpers.js'
 
-const solids = []
+const { randInt } = THREE.MathUtils
 
 setBackground(0x000000)
 
+const mapSize = 400
+const numPlanets = 30
+
+const solids = []
+const textures = ['jupiter.jpg', 'moon.jpg', 'saturn.jpg', 'venus.jpg', 'mars.jpg']
+
+const coords = getShuffledCoords({ mapSize: mapSize / 2, emptyCenter: 30 })
+
+for (let i = 0; i < numPlanets; i++) {
+  const file = `planets/${sample(textures)}`
+  const r = randInt(1.5, 3)
+  const planet = createSphere({ file, r })
+  const pos = coords.pop()
+  pos.y = r * 2
+  planet.position.copy(pos)
+  solids.push(planet)
+}
+
 const earth = createEarth()
-earth.position.set(60, 10, -30)
+earth.position.set(0, 10, -20)
 
 const saturn = createSaturn({ r: 5 })
 saturn.position.set(-50, 3, -30)
 
-const jupiter = createJupiter()
-jupiter.position.set(0, 8, -20)
-
 const moon = createMoon({ file: 'planets/moon.jpg', r: 2 })
 scene.add(moon)
 
-const terrain = createTerrain() // { colorParam: 'purple' }
+const terrain = createTerrain({ size: mapSize }) // { colorParam: 'purple' }
 terrain.material.wireframe = true
 
 const stars = new Stars({ num: 1000 })
 scene.add(stars.mesh)
 
-solids.push(earth, saturn, jupiter, terrain)
+solids.push(earth, saturn, terrain)
 scene.add(...solids)
 
 const player = new Avatar({ solids, camera, skin: 'DISCO' })
@@ -41,10 +61,10 @@ void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
 
-  jupiter.rotation.y += 0.002
+  earth.rotation.y += 0.002
   moon.rotateY(-delta)
 
-  orbitAround({ moon, planet: jupiter, time, radiusX: 15, radiusZ: 20 })
+  orbitAround({ moon, planet: earth, time, radiusX: 15, radiusZ: 20 })
 
   shake({ geometry: terrain.geometry, time })
   stars.update()

@@ -14,9 +14,7 @@ const createMaterial = skin => {
     map: new THREE.TextureLoader().load('/assets/textures/terrain/snow.jpg')
   })
   if (skin == LAVA) return material
-  return new THREE.MeshNormalMaterial({
-    flatShading: THREE.FlatShading
-  })
+  return new THREE.MeshNormalMaterial()
 }
 
 const chooseGeometry = skin => {

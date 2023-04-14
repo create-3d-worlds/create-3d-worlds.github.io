@@ -58,10 +58,11 @@ export function createSphere({
   r = 1, segments = 32, color = null, castShadow = true, receiveShadow = false, file, bumpFile } = {}
 ) {
   const geometry = new THREE.SphereGeometry(r, segments, segments)
-  const material = new THREE.MeshStandardMaterial({ color })
-  if (file) material.map = textureLoader.load(`/assets/textures/${file}`)
-  if (bumpFile) material.bumpMap = textureLoader.load(`/assets/textures/${bumpFile}`)
-
+  const material = new THREE.MeshStandardMaterial({
+    color,
+    map: file ? textureLoader.load(`/assets/textures/${file}`) : null,
+    bumpMap: bumpFile ? textureLoader.load(`/assets/textures/${bumpFile}`) : null,
+  })
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = receiveShadow
   mesh.castShadow = castShadow
