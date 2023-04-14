@@ -11,6 +11,7 @@ import { sample, getShuffledCoords } from '/utils/helpers.js'
 
 import { material as fireMaterial, uniforms as fireUniforms } from '/utils/shaders/fireball.js'
 import { material as fractalMaterial, uniforms as fractalUniforms } from '/utils/shaders/fractal-planet.js'
+import { material as lavaMaterial, uniforms as lavaUniforms } from '/utils/shaders/lava.js'
 
 const { randInt } = THREE.MathUtils
 
@@ -18,7 +19,7 @@ setBackground(0x000000)
 scene.add(createMoonLight())
 
 const textures = ['jupiter.jpg', 'saturn.jpg', 'venus.jpg', 'mars.jpg']
-const materials = [fractalMaterial, fireMaterial]
+const materials = [fractalMaterial, fireMaterial, lavaMaterial]
 const mapSize = 400
 const numPlanets = 20
 
@@ -77,6 +78,7 @@ void function loop() {
 
   fractalUniforms.time.value = time
   fireUniforms.time.value = time
+  lavaUniforms.time.value = time
 
   renderer.render(scene, camera)
 }()

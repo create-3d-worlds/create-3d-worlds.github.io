@@ -13,6 +13,8 @@ scene.add(mesh)
 
 void function loop() {
   requestAnimationFrame(loop)
-  uniforms.time.value += 0.8 * clock.getDelta()
+  const time = clock.getElapsedTime()
+
+  uniforms.time.value = time
   renderer.render(scene, camera)
 }()
