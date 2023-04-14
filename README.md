@@ -15,7 +15,6 @@ npx live-server
 
 - Avatar / Planete (dreaming-of-jupiter)
   - dodati nasumično orbitAround
-  - dodati ih u niz i ažurirati svima rotaciju nasumično
   - ažurirati visinu tla i kad stoji
   - probati neki šejder
   - probati naskok na platformu - platform.sync(avatar.mesh)
