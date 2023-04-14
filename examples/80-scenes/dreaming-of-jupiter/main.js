@@ -1,29 +1,22 @@
-import * as THREE from 'three'
-
 import { camera, scene, renderer, clock, setBackground } from '/utils/scene.js'
 import { createPlanet } from '/utils/geometry/planets.js'
 import { createTerrain, shake } from '/utils/ground.js'
 import { Stars } from '/utils/classes/Particles.js'
 import { createMoon as createMoonLight } from '/utils/light.js'
-import Avatar from '/utils/actor/Avatar.js'
 import { getShuffledCoords } from '/utils/helpers.js'
-
-const { randFloat } = THREE.MathUtils
+import Avatar from '/utils/actor/Avatar.js'
 
 setBackground(0x000000)
 scene.add(createMoonLight())
 
+const planets = []
 const mapSize = 400
 const numPlanets = 20
-
-const planets = []
-
 const coords = getShuffledCoords({ mapSize: mapSize / 2, fieldSize: 30 })
 
 for (let i = 0; i < numPlanets; i++) {
   const pos = coords.pop()
-  const r = randFloat(2, 5)
-  pos.y = r * randFloat(1.5, 5)
+  pos.y = Math.random() * 10 + 5
   const planet = createPlanet({ pos, i })
   planets.push(planet)
 }
@@ -34,10 +27,10 @@ scene.add(terrain)
 const stars = new Stars({ num: 10000 })
 scene.add(stars.mesh)
 
-scene.add(...planets)
-
 const player = new Avatar({ solids: [...planets, terrain], camera, skin: 'DISCO' })
 scene.add(player.mesh)
+
+scene.add(...planets)
 
 /* LOOP */
 
@@ -47,16 +40,16 @@ void function loop() {
   const time = clock.getElapsedTime()
 
   planets.forEach(planet => {
-    planet.rotateY(planet.userData.angleSpeed * delta)
-    if (planet.material.uniforms?.time)
+    const { angleSpeed, moon } = planet.userData
+    planet.rotateY(angleSpeed * delta)
+    if (moon) moon.rotateY(angleSpeed * delta)
+    if (planet.material.uniforms)
       planet.material.uniforms.time.value = time
-    if (planet.userData.moon)
-      planet.userData.moon.rotateY(planet.userData.angleSpeed * delta)
   })
 
   shake({ geometry: terrain.geometry, time })
   stars.update({ delta: delta * .1 })
-  player.update(delta)
+  player.update()
 
   renderer.render(scene, camera)
 }()

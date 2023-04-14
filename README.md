@@ -16,7 +16,6 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Planete (dreaming-of-jupiter)
-  - reuse code
   - probati naskok na platformu - platform.sync(avatar.mesh)
 
 - Parting the sea
