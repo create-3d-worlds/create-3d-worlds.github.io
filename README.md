@@ -14,7 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Planete (dreaming-of-jupiter)
-  - dodati nasumično orbitAround
+  - dodati ili prsten ili mesec
   - ažurirati visinu tla i kad stoji
   - probati neki šejder
   - probati naskok na platformu - platform.sync(avatar.mesh)
