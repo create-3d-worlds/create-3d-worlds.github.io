@@ -33,7 +33,7 @@ function createRing(radius, tube, color) {
   return ring
 }
 
-export function addRings({ planet }) {
+export function createRings(planet) {
   const r = planet.geometry.parameters.radius
   const group = new THREE.Group()
   group.add(planet)
@@ -45,7 +45,7 @@ export function addRings({ planet }) {
 
 export function createSaturn({ r = 1 } = {}) {
   const planet = createSphere({ r, file: 'planets/saturn.jpg' }) // color: 0xDDBC77
-  return addRings({ r, planet })
+  return createRings(planet)
 }
 
 /* JUPITER */

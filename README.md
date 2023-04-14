@@ -14,9 +14,10 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Planete (dreaming-of-jupiter)
-  - dodati nasumično addRings i orbitAround
+  - dodati nasumično orbitAround
   - dodati ih u niz i ažurirati svima rotaciju nasumično
   - ažurirati visinu tla i kad stoji
+  - probati neki šejder
   - probati naskok na platformu - platform.sync(avatar.mesh)
   - hodanje po planeti, uzimati u obzir normals ili centar sfere i ispravljati igraca
   - da skace po malim planetama

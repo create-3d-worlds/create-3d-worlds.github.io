@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { camera, scene, renderer, clock, setBackground } from '/utils/scene.js'
 import { createSphere } from '/utils/geometry.js'
 
-import { createEarth, createSaturn, orbitAround, addRings } from '/utils/geometry/planets.js'
+import { createEarth, createSaturn, orbitAround, createRings } from '/utils/geometry/planets.js'
 import { createTerrain, shake } from '/utils/ground.js'
 import { Stars } from '/utils/classes/Particles.js'
 import { createMoon } from '/utils/light.js'
@@ -25,9 +25,9 @@ const coords = getShuffledCoords({ mapSize: mapSize / 2, emptyCenter: 30 })
 for (let i = 0; i < numPlanets; i++) {
   const file = `planets/${sample(textures)}`
   const r = randInt(1.5, 3)
-  const planet = createSphere({ file, r })
+  const planet = Math.random() > .75 ? createRings(createSphere({ file, r })) : createSphere({ file, r })
   const pos = coords.pop()
-  pos.y = r * 2
+  pos.y = r * randInt(1.5, 3)
   planet.position.copy(pos)
   solids.push(planet)
 }
@@ -41,8 +41,7 @@ saturn.position.set(-50, 3, -30)
 const moon = createMoon({ file: 'planets/moon.jpg', r: 2 })
 scene.add(moon)
 
-const terrain = createTerrain({ size: mapSize }) // { colorParam: 'purple' }
-terrain.material.wireframe = true
+const terrain = createTerrain({ size: mapSize, wireframe: true })
 
 const stars = new Stars({ num: 1000 })
 scene.add(stars.mesh)
