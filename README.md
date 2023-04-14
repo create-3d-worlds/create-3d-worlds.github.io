@@ -11,12 +11,12 @@ npx live-server
 
 ## TODO
 
-- use shaders/golden-flow
 - ubaci dupčeša negde
 
 ### Scenes & examples
 
 - Avatar / Planete (dreaming-of-jupiter)
+  - reuse code
   - probati naskok na platformu - platform.sync(avatar.mesh)
 
 - Parting the sea

@@ -2,8 +2,17 @@ import * as THREE from 'three'
 import { createSphere } from '/utils/geometry.js'
 import { sample, similarColor } from '/utils/helpers.js'
 
+import { material as fireMaterial } from '/utils/shaders/fireball.js'
+import { material as fractalMaterial } from '/utils/shaders/fractal-planet.js'
+import { material as lavaMaterial } from '/utils/shaders/lava.js'
+
+const { randFloat } = THREE.MathUtils
+
 const textureLoader = new THREE.TextureLoader()
 textureLoader.setPath('/assets/textures/planets/')
+
+const textures = ['jupiter.jpg', 'saturn.jpg', 'venus.jpg', 'mars.jpg']
+const materials = [fractalMaterial, fireMaterial, lavaMaterial]
 
 /* EARTH */
 
@@ -53,6 +62,31 @@ export function createSaturn({ r = 1 } = {}) {
 
 export const createJupiter = ({ r = 10, segments = 32 } = {}) =>
   createSphere({ r, segments, file: 'planets/jupiter.jpg' })
+
+/* RANDOM PLANET */
+
+function addMoon(planet, r) {
+  const moon = createMoon({ r: r * .33 })
+  moon.translateX(r * 2.5)
+  planet.userData.moon = moon
+  planet.add(moon)
+}
+
+export function createPlanet({ r = randFloat(2, 5), pos, i }) {
+  const file = `planets/${textures[i % textures.length]}`
+  const planet = createSphere({ file, r })
+  if (pos) planet.position.copy(pos)
+  planet.userData.angleSpeed = randFloat(-1, 1)
+
+  if (i < materials.length)
+    planet.material = materials[i]
+  else if (r > 3 && Math.abs(planet.userData.angleSpeed) > .5)
+    addMoon(planet, r)
+  else if (Math.random() > .75)
+    addRings(planet)
+
+  return planet
+}
 
 /* MOVE */
 
