@@ -35,7 +35,6 @@ function createRing(radius, tube, color) {
 
 export function addRings(planet) {
   const r = planet.geometry.parameters.radius
-  planet.add(planet)
   planet.add(createRing(r * 1.4, r * .2, 0x665E4E))
   planet.add(createRing(r * 1.9, r * .2, 0x7C776B))
   planet.add(createRing(r * 2.4, r * .2, 0x645F52))

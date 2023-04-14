@@ -16,12 +16,12 @@ scene.add(createMoonLight())
 
 const textures = ['jupiter.jpg', 'saturn.jpg', 'venus.jpg', 'mars.jpg']
 const mapSize = 400
-const numPlanets = 30
+const numPlanets = 20
 
 const planets = []
 const orbits = []
 
-const coords = getShuffledCoords({ mapSize: mapSize / 2, fieldSize: 30 })
+const coords = getShuffledCoords({ mapSize: mapSize / 2, fieldSize: 20 })
 
 for (let i = 0; i < numPlanets; i++) {
   const file = `planets/${sample(textures)}`

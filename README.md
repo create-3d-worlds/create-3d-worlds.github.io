@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Planete (dreaming-of-jupiter)
-  - ažurirati visinu tla i kad stoji
   - probati neki šejder
   - probati naskok na platformu - platform.sync(avatar.mesh)
   - hodanje po planeti, uzimati u obzir normals ili centar sfere i ispravljati igraca
@@ -57,6 +56,10 @@ npx live-server
   - napraviti 2d scenu u 3d, ideja https://codepen.io/davekwiatkowski/pen/pWPVpX
   - junior general slike
   - borba (vidi slike partizana animaciju staru)
+
+- Nude victim
+  - beži dok je jure zombiji
+  - endless runner?
 
 - Groblje
   - nasumično zakriviti kamenove
