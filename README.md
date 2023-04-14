@@ -17,10 +17,7 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Planete (dreaming-of-jupiter)
-  - različite boje prstenja
   - probati naskok na platformu - platform.sync(avatar.mesh)
-  - hodanje po planeti, uzimati u obzir normals ili centar sfere i ispravljati igraca
-  - da skace po malim planetama
 
 - Parting the sea
   - dodati karakter čarobnjaka i još neke detalje

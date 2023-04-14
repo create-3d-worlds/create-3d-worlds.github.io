@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { createSphere } from '/utils/geometry.js'
+import { sample, similarColor } from '/utils/helpers.js'
 
 const textureLoader = new THREE.TextureLoader()
 textureLoader.setPath('/assets/textures/planets/')
@@ -35,9 +36,11 @@ function createRing(radius, tube, color) {
 
 export function addRings(planet) {
   const r = planet.geometry.parameters.radius
-  planet.add(createRing(r * 1.4, r * .24, 0x665E4E))
-  planet.add(createRing(r * 1.9, r * .24, 0x7C776B))
-  planet.add(createRing(r * 2.4, r * .24, 0x645F52))
+  const colors = [0xDDBC77, 0x665E4E, 0x7C776B]
+  const color = sample(colors)
+  planet.add(createRing(r * 1.4, r * .24, similarColor(color, .33)))
+  planet.add(createRing(r * 1.9, r * .24, similarColor(color, .33)))
+  planet.add(createRing(r * 2.4, r * .24, similarColor(color, .33)))
   return planet
 }
 

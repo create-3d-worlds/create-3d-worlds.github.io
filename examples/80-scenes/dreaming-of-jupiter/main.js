@@ -7,7 +7,7 @@ import { createTerrain, shake } from '/utils/ground.js'
 import { Stars } from '/utils/classes/Particles.js'
 import { createMoon as createMoonLight } from '/utils/light.js'
 import Avatar from '/utils/actor/Avatar.js'
-import { sample, getShuffledCoords } from '/utils/helpers.js'
+import { getShuffledCoords } from '/utils/helpers.js'
 
 import { material as fireMaterial, uniforms as fireUniforms } from '/utils/shaders/fireball.js'
 import { material as fractalMaterial, uniforms as fractalUniforms } from '/utils/shaders/fractal-planet.js'
@@ -28,14 +28,14 @@ const numPlanets = 20
 const planets = []
 const moons = []
 
-const coords = getShuffledCoords({ mapSize: mapSize / 2, fieldSize: 20 })
+const coords = getShuffledCoords({ mapSize: mapSize / 2, fieldSize: 30 })
 
 for (let i = 0; i < numPlanets; i++) {
   const r = randFloat(2, 5)
-  const file = `planets/${sample(textures)}`
+  const file = `planets/${textures[i % textures.length]}`
   const planet = createSphere({ file, r })
   const pos = coords.pop()
-  planet.position.set(pos.x, r * randFloat(1.5, 3), pos.z)
+  planet.position.set(pos.x, r * randFloat(1.5, 5), pos.z)
   planet.userData.angleSpeed = randFloat(-1, 1)
   planets.push(planet)
 
@@ -63,7 +63,7 @@ scene.add(player.mesh)
 function addMoon(planet, r) {
   const moon = createMoon({ r: r * .33 })
   moon.userData.angleSpeed = randFloat(-1, 1)
-  moon.translateX(10)
+  moon.translateX(r * 2.5)
   planet.add(moon)
   moons.push(moon)
 }
@@ -77,14 +77,13 @@ void function loop() {
   const delta = clock.getDelta()
   const time = clock.getElapsedTime()
 
-  bodies.forEach(body => body.rotateY(body.userData.angleSpeed * delta))
-
   uniforms.forEach(uniform => {
     uniform.time.value = time
   })
+  bodies.forEach(body => body.rotateY(body.userData.angleSpeed * delta))
 
   shake({ geometry: terrain.geometry, time })
-  stars.update({ delta: delta * .01 })
+  stars.update({ delta: delta * .1 })
   player.update(delta)
 
   renderer.render(scene, camera)
