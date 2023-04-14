@@ -17,7 +17,7 @@ const vertexShader = /* glsl */`
 
 const fragmentShader = /* glsl */`
   varying vec2 vUv;
-	uniform float u_time;
+	uniform float time;
 
 	float julia(vec2 z, vec2 c) {
 		for(float i = 0.0; i < 1e2; i++) {
@@ -42,7 +42,7 @@ const fragmentShader = /* glsl */`
 
 		coord = sqrt(0.1)*coord ;
 		vec2 c = vec2(-0.01, -0.1) ;
-		float cycle = mod(u_time/1000.,2.*pi) ;
+		float cycle = mod(time,2.*pi) ;
 		c = c + vec2(cos(cycle),sin(cycle))*.01 ;
 		float m = julia(coord, c);
 		vec3 rgb = 0.5 + 0.5 * cos(3.0 + 0.15 * m + vec3(0.0, 0.6, 2.));
@@ -52,7 +52,7 @@ const fragmentShader = /* glsl */`
 `
 
 export const uniforms = {
-  u_time: { type: 'f', value: 1.0 },
+  time: { type: 'f', value: 1.0 },
 }
 
 export const material = new THREE.ShaderMaterial({

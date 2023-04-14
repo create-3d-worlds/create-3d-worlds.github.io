@@ -17,6 +17,6 @@ scene.add(sphere)
 
 void function loop(time) {
   requestAnimationFrame(loop)
-  uniforms.iTime.value = time * 0.0005
+  uniforms.time.value = time * 0.0005
   renderer.render(scene, camera)
 }()

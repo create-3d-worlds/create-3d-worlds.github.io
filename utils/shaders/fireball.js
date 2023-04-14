@@ -3,7 +3,7 @@ import * as THREE from 'three'
 
 const fragmentShader = /* glsl */`
   uniform vec3 iResolution;
-  uniform float iTime;
+  uniform float time;
 
   float snoise(vec3 uv, float res)
   {
@@ -40,7 +40,7 @@ const fragmentShader = /* glsl */`
     for(int i = 1; i <= 7; i++)
     {
       float power = pow(2.0, float(i));
-      color += (1.5 / power) * snoise(coord + vec3(0.,-iTime*.05, iTime*.01), power*16.);
+      color += (1.5 / power) * snoise(coord + vec3(0.,-time*.05, time*.01), power*16.);
     }
     fragColor = vec4( color, pow(max(color,0.),2.)*0.4, pow(max(color,0.),3.)*0.15 , 1.0);
   }
@@ -61,7 +61,7 @@ const vertexShader = /* glsl */`
 `
 
 export const uniforms = {
-  iTime: { value: 0 },
+  time: { value: 0 },
   iResolution: { value: new THREE.Vector3(1, 1, 1) },
 }
 

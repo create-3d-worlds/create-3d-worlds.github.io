@@ -1,9 +1,8 @@
 import * as THREE from 'three'
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
+import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { material, uniforms } from '/utils/shaders/fractal-planet.js'
 
 createOrbitControls()
-const start = Date.now()
 
 const mesh = new THREE.Mesh(
   new THREE.SphereGeometry(2, 200, 100),
@@ -15,7 +14,8 @@ scene.add(mesh)
 
 void function render() {
   requestAnimationFrame(render)
+  const time = clock.getElapsedTime()
 
-  uniforms.u_time.value = Date.now() - start
+  uniforms.time.value = time
   renderer.render(scene, camera)
 }()

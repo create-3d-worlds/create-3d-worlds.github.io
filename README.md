@@ -11,10 +11,14 @@ npx live-server
 
 ## TODO
 
+- use shaders/golden-flow
+- ubaci dupčeša negde
+
 ### Scenes & examples
 
 - Avatar / Planete (dreaming-of-jupiter)
-  - probati neki šejder
+  - probati shadere
+  - različite boje prstenja
   - probati naskok na platformu - platform.sync(avatar.mesh)
   - hodanje po planeti, uzimati u obzir normals ili centar sfere i ispravljati igraca
   - da skace po malim planetama
