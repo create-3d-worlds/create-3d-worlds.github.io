@@ -31,7 +31,7 @@ scene.add(terrain)
 const stars = new Stars({ num: 10000 })
 scene.add(stars.mesh)
 
-const player = new Avatar({ solids: [...planets, terrain], camera, skin: 'DISCO' })
+const player = new Avatar({ solids: [...planets, terrain, platform.mesh], camera, skin: 'DISCO' })
 scene.add(player.mesh)
 
 scene.add(...planets)
@@ -54,7 +54,7 @@ void function loop() {
   shake({ geometry: terrain.geometry, time })
   stars.update({ delta: delta * .1 })
   player.update()
-  platform.move(delta)
+  platform.update(delta)
 
   renderer.render(scene, camera)
 }()

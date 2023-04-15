@@ -16,7 +16,7 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Planete (dreaming-of-jupiter)
-  - probati naskok na platformu - platform.sync(avatar.mesh)
+  - dodati više platformi, probati i kod random boxes
 
 - Parting the sea
   - dodati karakter čarobnjaka i još neke detalje

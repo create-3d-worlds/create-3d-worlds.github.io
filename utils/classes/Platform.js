@@ -36,18 +36,18 @@ export default class Platform extends GameObject {
     if (Math.random() > .997) this.velocityY = -this.velocityY
   }
 
-  move(dt) {
+  move(delta) {
     this.checkBounds()
     this.addRandom()
-    this.position.x += this.velocityY * dt
+    this.position.x += this.velocityY * delta
   }
 
-  sync(dt) {
-    this.player.position.x += this.velocityY * dt
+  sync(delta) {
+    this.player.position.x += this.velocityY * delta
   }
 
-  update(dt) {
-    this.move(dt)
-    if (this.playerOnPlatform) this.sync(dt)
+  update(delta) {
+    this.move(delta)
+    if (this.playerOnPlatform) this.sync(delta)
   }
 }
