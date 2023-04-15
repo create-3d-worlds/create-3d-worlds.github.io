@@ -5,24 +5,17 @@ import Score from '/utils/ui/Score.js'
 import Lander from './Lander.js'
 import Platform from './Platform.js'
 
-const score = new Score({ subtitle: 'Fuel' })
-
-/* INIT */
-
-const moon = createMoon()
-moon.position.set(30, 0, 30)
-scene.add(moon)
 setBackground(0x000000)
 camera.position.z = 18
 
+const score = new Score({ subtitle: 'Fuel' })
+
+const moon = createMoon({ pos: [30, 0, 30] })
 const platform = new Platform()
-scene.add(platform.mesh)
-
 const lander = new Lander()
-scene.add(lander.mesh)
-
 const stars = new Stars()
-scene.add(stars.mesh)
+
+scene.add(moon, platform.mesh, lander.mesh, stars.mesh)
 
 /* LOOP */
 
@@ -37,7 +30,7 @@ void function loop() {
   }
   lander.update(dt)
   lander.checkLanding(platform, dt)
-  score.renderPoints(0, null, lander.fuel)
 
+  score.render(0, null, lander.fuel)
   renderer.render(scene, camera)
 }()

@@ -66,7 +66,7 @@ export default class Score {
 
     this.highScore = +localStorage.getItem(location.pathname)
 
-    this.renderPoints(points, totalPoints)
+    this.render(points, totalPoints)
     this.renderHeighScore()
   }
 
@@ -95,13 +95,15 @@ export default class Score {
     this.clearLatter(3000)
   }
 
-  /* call it only when score changes  */
-  renderPoints(point = 1, enemiesLeft, energyLeft) {
+  render(point = 1, enemiesLeft, energyLeft) {
     this.points += point
 
-    this.scoreDiv.innerHTML = `<h3>${this.title}: ${this.points}</h3>`
-    if (enemiesLeft) this.scoreDiv.innerHTML += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
-    if (energyLeft) this.scoreDiv.innerHTML += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
+    let html = `<h3>${this.title}: ${this.points}</h3>`
+    if (enemiesLeft) html += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
+    if (energyLeft) html += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
+    if (this.scoreDiv.innerHTML === html) return
+
+    this.scoreDiv.innerHTML = html
 
     this.renderMotivation()
 
@@ -110,5 +112,4 @@ export default class Score {
     if (this.points > this.highScore)
       localStorage.setItem(location.pathname, this.points)
   }
-
 }

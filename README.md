@@ -11,11 +11,12 @@ npx live-server
 
 ## TODO
 
-probati platform.sync(avatar.mesh, dt)
+- refact loadModel to return mesh
 
 ### Scenes & examples
 
 - Lander
+  - ukloniti Score: 0
   - Platform extends Actor
   - Lander extends Actor
   - pomerati zvezde bar malo
@@ -26,6 +27,7 @@ probati platform.sync(avatar.mesh, dt)
   - solar-system, dreaming-of-jupiter?
 
 - Svemir / Balonko
+  - probati balonko skače na platformu - platform.sync(avatar.mesh)
   - hodanje po planeti, uzimati u obzir normals ili centar sfere i ispravljati igraca
   - da skace po malim planetama
 
