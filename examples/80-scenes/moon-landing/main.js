@@ -44,11 +44,9 @@ void function loop() {
   const dt = clock.getDelta()
   if (input.pause) return
 
-  platform.move(dt)
+  platform.update(dt)
   lander.update(dt)
-  lander.checkLanding()
 
-  if (lander.onPlatform) platform.sync(lander.mesh, dt)
   score.points = lander.hasLanded ? lander.fuel : 0
 
   stars.update({ delta: dt * .005 })

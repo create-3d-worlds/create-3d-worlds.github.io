@@ -17,6 +17,7 @@ const lowerBound = -30
 export default class Lander extends GameObject {
   constructor({ platform }) {
     super ({ mesh })
+    this.name = 'player'
     this.platform = platform
     this.flame = new Flame()
     this.flame.mesh.rotateX(Math.PI * .5)
@@ -25,20 +26,8 @@ export default class Lander extends GameObject {
 
   /* GETTERS */
 
-  get withinHeight() {
-    const { platform } = this
-    return this.position.y <= platform.position.y + platform.height // -9
-      && this.position.y > platform.position.y // -10
-  }
-
-  get withinWidth() {
-    const { platform } = this
-    return this.position.x > platform.position.x - platform.width * .45
-      && this.position.x < platform.position.x + platform.width * .45
-  }
-
   get onPlatform() {
-    return this.withinHeight && this.withinWidth
+    return this.platform.playerOnPlatform
   }
 
   get hasLanded() {
@@ -136,6 +125,11 @@ export default class Lander extends GameObject {
     this.applyForce(-Math.PI / 2, .01625)
   }
 
+  applyVelocity(delta) {
+    this.position.x += this.velocity.x * delta
+    this.position.y += this.velocity.y * delta
+  }
+
   updateFlame(delta) {
     if (!input.keyPressed || !this.fuel) this.clearThrust()
     this.flame.update({ delta, max: 3, loop: this.shouldLoop })
@@ -143,9 +137,10 @@ export default class Lander extends GameObject {
 
   update(delta) {
     this.handleInput()
+    this.checkLanding()
+
     if (!this.onPlatform) this.applyGravity(delta)
-    this.position.x += this.velocity.x * delta
-    this.position.y += this.velocity.y * delta
+    this.applyVelocity(delta)
     this.updateFlame(delta)
 
     if (this.statusText && input.pressed.KeyR)
