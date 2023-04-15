@@ -3,7 +3,7 @@ import { ambLight, createMoon as createMoonLight } from '/utils/light.js'
 import { Stars } from '/utils/classes/Particles.js'
 import Score from '/utils/ui/Score.js'
 import Lander from './Lander.js'
-import Platform from './Platform.js'
+import Platform from '/utils/classes/Platform.js'
 import { loadModel } from '/utils/loaders.js'
 import { createJupiter, createSaturn, createMoon, orbitAround } from '/utils/geometry/planets.js'
 import input from '/utils/classes/Input.js'
@@ -16,7 +16,7 @@ const moonLight = createMoonLight({ pos: [30, 30, 30], intensity: .1 })
 
 const score = new Score({ subtitle: 'Fuel left', showHighScore: false })
 
-const platform = new Platform()
+const platform = new Platform({ pos: [0, -10, 0] })
 const lander = new Lander({ platform })
 const stars = new Stars({ minRadius: 150 })
 

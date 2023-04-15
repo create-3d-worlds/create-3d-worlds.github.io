@@ -5,6 +5,7 @@ import { Stars } from '/utils/classes/Particles.js'
 import { createMoon as createMoonLight } from '/utils/light.js'
 import { getShuffledCoords } from '/utils/helpers.js'
 import Avatar from '/utils/actor/Avatar.js'
+import Platform from '/utils/classes/Platform.js'
 
 setBackground(0x000000)
 scene.add(createMoonLight())
@@ -13,6 +14,9 @@ const planets = []
 const mapSize = 400
 const numPlanets = 20
 const coords = getShuffledCoords({ mapSize: mapSize / 2, fieldSize: 30 })
+
+const platform = new Platform()
+scene.add(platform.mesh)
 
 for (let i = 0; i < numPlanets; i++) {
   const pos = coords.pop()
@@ -50,6 +54,7 @@ void function loop() {
   shake({ geometry: terrain.geometry, time })
   stars.update({ delta: delta * .1 })
   player.update()
+  platform.move(delta)
 
   renderer.render(scene, camera)
 }()
