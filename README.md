@@ -17,6 +17,8 @@ npx live-server
 
 - Avatar / Planete (dreaming-of-jupiter)
   - probati naskok na platformu - platform.sync(avatar.mesh)
+    - dodati metodu playerOnPlatform na Platform
+    - tražiti igrača na sceni i proveravati jel na platformi
 
 - Parting the sea
   - dodati karakter čarobnjaka i još neke detalje

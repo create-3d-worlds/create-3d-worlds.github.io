@@ -48,7 +48,7 @@ void function loop() {
   lander.update(dt)
   lander.checkLanding()
 
-  if (lander.onGround) platform.sync(lander.mesh, dt)
+  if (lander.onPlatform) platform.sync(lander.mesh, dt)
   score.points = lander.hasLanded ? lander.fuel : 0
 
   stars.update({ delta: dt * .005 })

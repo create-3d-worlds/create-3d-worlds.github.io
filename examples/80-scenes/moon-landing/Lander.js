@@ -25,17 +25,28 @@ export default class Lander extends GameObject {
 
   /* GETTERS */
 
-  get onGround() {
+  get withinHeight() {
     const { platform } = this
-    return this.withinHeight(platform) && this.withinWidth(platform)
+    return this.position.y <= platform.position.y + platform.height // -9
+      && this.position.y > platform.position.y // -10
+  }
+
+  get withinWidth() {
+    const { platform } = this
+    return this.position.x > platform.position.x - platform.width * .45
+      && this.position.x < platform.position.x + platform.width * .45
+  }
+
+  get onPlatform() {
+    return this.withinHeight && this.withinWidth
   }
 
   get hasLanded() {
-    return this.onGround && !this.failure
+    return this.onPlatform && !this.failure
   }
 
   get broken() {
-    return this.onGround && this.failure
+    return this.onPlatform && this.failure
   }
 
   get outOfFuel() {
@@ -65,7 +76,7 @@ export default class Lander extends GameObject {
   }
 
   handleInput() {
-    if (this.onGround) return
+    if (this.onPlatform) return
 
     if (this.fuel >= .5) {
       if (input.left) {
@@ -98,16 +109,6 @@ export default class Lander extends GameObject {
     this.shouldLoop = false
   }
 
-  withinHeight(gameObject) {
-    return this.position.y <= gameObject.position.y + gameObject.height // -9
-      && this.position.y > gameObject.position.y // -10
-  }
-
-  withinWidth(gameObject) {
-    return this.position.x > gameObject.position.x - gameObject.width * .45
-      && this.position.x < gameObject.position.x + gameObject.width * .45
-  }
-
   doFailure() {
     this.failure = true
     this.mesh.rotation.z = Math.PI * .5
@@ -115,7 +116,7 @@ export default class Lander extends GameObject {
   }
 
   checkLanding() {
-    if (!this.onGround) return
+    if (!this.onPlatform) return
 
     if (this.velocity.y < -2.4)
       this.doFailure()
@@ -142,7 +143,7 @@ export default class Lander extends GameObject {
 
   update(delta) {
     this.handleInput()
-    if (!this.onGround) this.applyGravity(delta)
+    if (!this.onPlatform) this.applyGravity(delta)
     this.position.x += this.velocity.x * delta
     this.position.y += this.velocity.y * delta
     this.updateFlame(delta)
