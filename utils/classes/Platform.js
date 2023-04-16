@@ -2,11 +2,18 @@ import { createBox } from '/utils/geometry.js'
 import GameObject from '/utils/actor/GameObject.js'
 
 export default class Platform extends GameObject {
-  constructor({ axis = 'x', range = 29, speed = 2, pos } = {}) {
+  constructor({
+    axis = Math.random() > .5 ? 'x' : 'z',
+    range = 29,
+    speed = 2,
+    randomDirChange = false,
+    pos,
+  } = {}) {
     super({ mesh: createBox({ width: 5, height: 1, depth: 2.5, file: 'metal/platform.png' }), pos })
     this.axis = axis
     this.range = range
     this.speed = speed
+    this.randomDirChange = randomDirChange
   }
 
   get player() {
@@ -33,13 +40,13 @@ export default class Platform extends GameObject {
     if (this.position[this.axis] <= -this.range) this.speed = this.speed
   }
 
-  addRandom() {
+  randomizeDir() {
     if (Math.random() > .997) this.speed = -this.speed
   }
 
   move(delta) {
     this.checkBounds()
-    this.addRandom()
+    if (this.randomDirChange) this.randomizeDir()
     this.position[this.axis] += this.speed * delta
   }
 

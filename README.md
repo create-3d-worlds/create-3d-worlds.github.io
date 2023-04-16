@@ -17,8 +17,7 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Planete (dreaming-of-jupiter)
-  - platforme da random određuju brzinu i osu
-  - da ne rade random promene pravca, osim u moon landing
+  - platforme da random određuju brzinu
   - dodati platforme kod random boxes
 
 - Parting the sea

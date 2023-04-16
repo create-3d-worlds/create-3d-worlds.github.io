@@ -16,7 +16,7 @@ const moonLight = createMoonLight({ pos: [30, 30, 30], intensity: .1 })
 
 const score = new Score({ subtitle: 'Fuel left', showHighScore: false })
 
-const platform = new Platform({ pos: [0, -10, 0] })
+const platform = new Platform({ pos: [0, -10, 0], axis: 'x', range: 29, randomDirChange: true })
 const lander = new Lander({ platform })
 const stars = new Stars({ minRadius: 150 })
 
