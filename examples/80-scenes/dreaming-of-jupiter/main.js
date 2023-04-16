@@ -15,14 +15,12 @@ const mapSize = 400
 const numPlanets = 20
 const coords = getShuffledCoords({ mapSize: mapSize / 2, fieldSize: 30 })
 
-const platform = new Platform()
-scene.add(platform.mesh)
-
 for (let i = 0; i < numPlanets; i++) {
   const pos = coords.pop()
   pos.y = Math.random() * 10 + 5
   const planet = createPlanet({ pos, i })
   planets.push(planet)
+  scene.add(planet)
 }
 
 const terrain = createTerrain({ size: mapSize, wireframe: true })
@@ -31,10 +29,12 @@ scene.add(terrain)
 const stars = new Stars({ num: 10000 })
 scene.add(stars.mesh)
 
+const platform = new Platform()
+scene.add(platform.mesh)
+platform.position.y = 3
+
 const player = new Avatar({ solids: [...planets, terrain, platform.mesh], camera, skin: 'DISCO' })
 scene.add(player.mesh)
-
-scene.add(...planets)
 
 /* LOOP */
 

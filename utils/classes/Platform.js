@@ -2,10 +2,10 @@ import { createBox } from '/utils/geometry.js'
 import GameObject from '/utils/actor/GameObject.js'
 
 export default class Platform extends GameObject {
-  constructor({ pos } = {}) {
+  constructor({ pos, range = 29, velocityX = 2 } = {}) {
     super({ mesh: createBox({ width: 5, height: 1, depth: 2.5, file: 'metal/platform.png' }), pos })
-    this.velocityY = 2
-    this.range = 29
+    this.velocityX = velocityX
+    this.range = range
   }
 
   get player() {
@@ -28,22 +28,22 @@ export default class Platform extends GameObject {
   }
 
   checkBounds() {
-    if (this.position.x >= this.range) this.velocityY = -this.velocityY
-    if (this.position.x <= -this.range) this.velocityY = this.velocityY
+    if (this.position.x >= this.range) this.velocityX = -this.velocityX
+    if (this.position.x <= -this.range) this.velocityX = this.velocityX
   }
 
   addRandom() {
-    if (Math.random() > .997) this.velocityY = -this.velocityY
+    if (Math.random() > .997) this.velocityX = -this.velocityX
   }
 
   move(delta) {
     this.checkBounds()
     this.addRandom()
-    this.position.x += this.velocityY * delta
+    this.position.x += this.velocityX * delta
   }
 
   sync(delta) {
-    this.player.position.x += this.velocityY * delta
+    this.player.position.x += this.velocityX * delta
   }
 
   update(delta) {
