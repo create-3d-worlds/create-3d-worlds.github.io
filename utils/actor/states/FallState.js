@@ -20,7 +20,7 @@ export default class FallState extends State {
     if (flyingJumps.includes(actor.jumpStyle) && this.input.space)
       actor.setState('jump')
 
-    if (!actor.inAir) {
+    if (actor.onGround) {
       actor.velocity.y = 0
       actor.setState('idle')
     }

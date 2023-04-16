@@ -13,7 +13,7 @@ export default class DoubleJumpState extends FlyState {
     if (this.jumpTime >= this.maxJumpTime && this.doubleJumpUsed)
       this.actor.setState('fall')
 
-    if (!actor.inAir) {
+    if (actor.onGround) {
       actor.velocity.y = 0
       actor.setState('idle')
     }

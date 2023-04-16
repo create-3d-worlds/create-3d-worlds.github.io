@@ -148,7 +148,13 @@ export default class Actor extends GameObject {
   get inAir() {
     if (!this.shouldRaycastGround) return false
 
-    return this.heightDifference > .001
+    return this.heightDifference > this.height * .25
+  }
+
+  get onGround() {
+    if (!this.shouldRaycastGround) return true
+
+    return this.heightDifference <= .001
   }
 
   get action() {

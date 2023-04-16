@@ -10,7 +10,7 @@ export default class AIFallState extends State {
 
     /* TRANSIT */
 
-    if (!actor.inAir)
+    if (actor.onGround)
       actor.setState(this.prevOrIdle)
   }
 }
