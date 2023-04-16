@@ -5,9 +5,11 @@ import { hemLight, createSun } from '/utils/light.js'
 import Avatar from '/utils/actor/Avatar.js'
 import Coin from '/utils/actor/child/Coin.js'
 import Score from '/utils/ui/Score.js'
+import Platform from '/utils/classes/Platform.js'
 
 const numBoxes = 400
 const numCoins = numBoxes / 4
+const platforms = []
 
 hemLight()
 scene.add(createSun({ intensity: .25 }))
@@ -19,13 +21,22 @@ scene.add(...boxes)
 
 const coins = []
 for (let i = 0; i < numCoins; i++) {
-  const coin = new Coin({ pos: boxes[i].position })
-  coin.mesh.translateZ(-6.15)
+  const pos = boxes[i].position.clone()
+  pos.y += 6.15
+
+  if (Math.random() > .5) {
+    const platform = new Platform({ pos })
+    platforms.push(platform)
+    scene.add(platform.mesh)
+  }
+
+  const coin = new Coin({ pos })
   coins.push(coin)
   scene.add(coin.mesh)
 }
 
-const player = new Avatar({ camera, solids: [floor, ...boxes], jumpStyle: 'DOUBLE_JUMP' })
+const solids = [floor, ...boxes, ...platforms.map(x => x.mesh)]
+const player = new Avatar({ camera, solids, jumpStyle: 'DOUBLE_JUMP' })
 player.cameraFollow.distance = 6
 scene.add(player.mesh)
 
@@ -50,5 +61,6 @@ void function loop() {
     coin.update(delta)
     checkCollision(coin)
   })
+  platforms.forEach(platform => platform.update(delta))
   renderer.render(scene, camera)
 }()

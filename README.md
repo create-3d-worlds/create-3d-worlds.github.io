@@ -17,6 +17,7 @@ npx live-server
 
 - Avatar / Planete (dreaming-of-jupiter)
   - dodati platforme kod random boxes
+  - pokušati sve tri ose
 
 - Parting the sea
   - dodati karakter čarobnjaka i još neke detalje
