@@ -14,6 +14,63 @@ textureLoader.setPath('/assets/textures/planets/')
 const textures = ['jupiter.jpg', 'saturn.jpg', 'venus.jpg', 'mars.jpg']
 const materials = [fractalMaterial, fireMaterial, lavaMaterial]
 
+/* MOON */
+
+export const createMoon = ({ r = 2, segments = 32 } = {}) =>
+  createSphere({ r, segments, file: 'planets/moon.jpg' })
+
+/* RANDOM PLANET */
+
+function addMoon(planet, r) {
+  const moon = createMoon({ r: r * .33 })
+  moon.translateX(r * 2.5)
+  planet.userData.moon = moon
+  planet.add(moon)
+}
+
+/**
+ * i = 0: fractal shader
+ * i = 1: fire shader
+ * i = 2: lava shader
+ * i > 2: random texture
+ */
+export function createPlanet({ r = randFloat(2, 5), pos, i = 0 } = {}) {
+  const file = `planets/${textures[i % textures.length]}`
+  const planet = createSphere({ file, r })
+  if (pos) planet.position.copy(pos)
+  planet.userData.angleSpeed = randFloat(-1, 1)
+
+  if (i < materials.length)
+    planet.material = materials[i]
+  else if (r > 3 && Math.abs(planet.userData.angleSpeed) > .5)
+    addMoon(planet, r)
+  else if (Math.random() > .75)
+    addRings(planet)
+
+  return planet
+}
+
+export class Planet {
+  constructor(params) {
+    this.mesh = createPlanet(params)
+    this.time = 0
+  }
+
+  update(delta) {
+    const { mesh } = this
+    const { angleSpeed, moon } = mesh.userData
+
+    mesh.rotateY(angleSpeed * delta)
+    if (moon)
+      moon.rotateY(angleSpeed * delta)
+
+    if (mesh.material.uniforms)
+      mesh.material.uniforms.time.value = this.time
+
+    this.time += delta
+  }
+}
+
 /* EARTH */
 
 export function createEarth({ r = 15, segments = 64 } = {}) {
@@ -27,11 +84,6 @@ export function createEarth({ r = 15, segments = 64 } = {}) {
   mesh.castShadow = mesh.receiveShadow = true
   return mesh
 }
-
-/* MOON */
-
-export const createMoon = ({ r = 2, segments = 32 } = {}) =>
-  createSphere({ r, segments, file: 'planets/moon.jpg' })
 
 /* SATURN */
 
@@ -62,59 +114,6 @@ export function createSaturn({ r = 1 } = {}) {
 
 export const createJupiter = ({ r = 10, segments = 32 } = {}) =>
   createSphere({ r, segments, file: 'planets/jupiter.jpg' })
-
-/* RANDOM PLANET */
-
-function addMoon(planet, r) {
-  const moon = createMoon({ r: r * .33 })
-  moon.translateX(r * 2.5)
-  planet.userData.moon = moon
-  planet.add(moon)
-}
-
-/**
- * i = 0: fractal
- * i = 1: fire
- * i = 2: lava
- * i > 2: random texture
- */
-export function createPlanet({ r = randFloat(2, 5), pos, i = 0 } = {}) {
-  const file = `planets/${textures[i % textures.length]}`
-  const planet = createSphere({ file, r })
-  if (pos) planet.position.copy(pos)
-  planet.userData.angleSpeed = randFloat(-1, 1)
-
-  if (i < materials.length)
-    planet.material = materials[i]
-  else if (r > 3 && Math.abs(planet.userData.angleSpeed) > .5)
-    addMoon(planet, r)
-  else if (Math.random() > .75)
-    addRings(planet)
-
-  return planet
-}
-
-export class Planet {
-  constructor(params) {
-    this.mesh = createPlanet(params)
-    this.time = 0
-  }
-
-  /* rotate planet and update shader animation */
-  update(delta) {
-    const { mesh } = this
-    const { angleSpeed, moon } = mesh.userData
-
-    mesh.rotateY(angleSpeed * delta)
-    if (moon)
-      moon.rotateY(angleSpeed * delta)
-
-    if (mesh.material.uniforms)
-      mesh.material.uniforms.time.value = this.time
-
-    this.time += delta
-  }
-}
 
 /* MOVE */
 
