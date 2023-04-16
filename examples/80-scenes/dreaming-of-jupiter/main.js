@@ -16,9 +16,7 @@ const coords = getShuffledCoords({ mapSize: mapSize / 2, fieldSize: 30 })
 
 coords.forEach((pos, i) => {
   pos.y = Math.random() * 10 + 5
-  const planet = Math.random() > .25
-    ? new Planet({ pos, i })
-    : new Platform({ pos })
+  const planet = Math.random() > .25 ? new Planet({ pos, i }) : new Platform({ pos })
   objects.push(planet)
   scene.add(planet.mesh)
 })
@@ -29,7 +27,7 @@ scene.add(terrain)
 const stars = new Stars({ num: 10000 })
 scene.add(stars.mesh)
 
-const player = new Avatar({ solids: [...objects.map(p => p.mesh), terrain], camera, skin: 'DISCO' })
+const player = new Avatar({ solids: [...objects.map(o => o.mesh), terrain], camera, skin: 'DISCO' })
 scene.add(player.mesh)
 
 /* LOOP */

@@ -11,13 +11,11 @@ npx live-server
 
 ## TODO
 
-- BUG: avatar-random-boxes ne skače
 - ubaci dupčeša negde
 
 ### Scenes & examples
 
 - Avatar / Planete (dreaming-of-jupiter)
-  - platforme da random određuju brzinu
   - dodati platforme kod random boxes
 
 - Parting the sea
