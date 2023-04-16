@@ -1,10 +1,11 @@
 import { createBox } from '/utils/geometry.js'
 import GameObject from '/utils/actor/GameObject.js'
+import { sample } from '/utils/helpers.js'
 
 export default class Platform extends GameObject {
   constructor({
-    axis = Math.random() > .5 ? 'x' : 'z',
-    range = 20,
+    axis = sample(['x', 'y', 'z']), // Math.random() > .5 ? 'x' : 'z',
+    range = 10,
     speed = 2,
     randomDirChange = false,
     file = 'metal/platform.png',
@@ -38,8 +39,9 @@ export default class Platform extends GameObject {
   }
 
   checkBounds() {
-    if (this.position[this.axis] >= this.initPosition[this.axis] + this.range) this.speed = -this.speed
-    if (this.position[this.axis] <= this.initPosition[this.axis] - this.range) this.speed = this.speed
+    if (this.position[this.axis] >= this.initPosition[this.axis] + this.range
+      || this.position[this.axis] <= this.initPosition[this.axis] - this.range)
+      this.speed = -this.speed
   }
 
   randomizeDir() {

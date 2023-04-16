@@ -12,6 +12,7 @@ npx live-server
 ## TODO
 
 - ubaci dupčeša negde
+- BUG: avatar secka kad ubrzava
 
 ### Scenes & examples
 
