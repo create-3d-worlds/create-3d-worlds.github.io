@@ -11,7 +11,6 @@ npx live-server
 
 ## TODO
 
-- BUG: fps-savo, bacač plamena puca
 - ubaci dupčeša negde
 
 ### Scenes & examples

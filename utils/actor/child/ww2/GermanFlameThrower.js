@@ -24,23 +24,23 @@ const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/flame-gun/mode
 const sharedProps = { mesh, animations, animDict, twoHandedWeapon, speed: 1.8, attackStyle: 'LOOP', attackDistance: 7, attackSound: 'fire-swoosh.mp3' }
 
 const adjustFlamePos = self => {
-  const { particles, mesh } = self
-  particles.mesh.position.copy(mesh.position)
-  particles.mesh.rotation.copy(mesh.rotation)
-  particles.mesh.rotateX(Math.PI)
-  particles.mesh.translateY(-1.2)
-  particles.mesh.translateZ(1.75)
+  const { flame, mesh } = self
+  flame.mesh.position.copy(mesh.position)
+  flame.mesh.rotation.copy(mesh.rotation)
+  flame.mesh.rotateX(Math.PI)
+  flame.mesh.translateY(-1.2)
+  flame.mesh.translateZ(1.75)
 }
 
 const constructor = self => {
-  const particles = new Flame()
-  particles.mesh.material.opacity = 0
-  self.particles = particles
+  const flame = new Flame()
+  flame.mesh.material.opacity = 0
+  self.flame = flame
 }
 
 const enterAttack = self => {
-  self.scene.add(self.particles.mesh)
-  self.particles.reset({ randomize: false })
+  self.scene.add(self.flame.mesh)
+  self.flame.reset({ randomize: false })
   adjustFlamePos(self)
   self.shouldLoop = true
 }
@@ -50,7 +50,7 @@ const exitAttack = self => {
 }
 
 const update = (self, delta) => {
-  self.particles.update({ delta, max: self.attackDistance, loop: self.shouldLoop })
+  self.flame.update({ delta, max: self.attackDistance, loop: self.shouldLoop })
 }
 
 export class GermanFlameThrowerPlayer extends Player {

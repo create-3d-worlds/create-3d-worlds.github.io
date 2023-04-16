@@ -75,8 +75,9 @@ export default class Particles {
     this.t = 0
     mesh.visible = true
     mesh.material.opacity = 1
-    if (Array.isArray(pos)) mesh.position.set(...pos)
-    else mesh.position.copy(pos)
+    if (pos)
+      if (Array.isArray(pos)) mesh.position.set(...pos)
+      else mesh.position.copy(pos)
 
     if (randomize) {
       const { position } = mesh.geometry.attributes
