@@ -2,8 +2,8 @@ import * as THREE from 'three'
 import { createSphere } from '/utils/geometry.js'
 import { sample, similarColor } from '/utils/helpers.js'
 
-import { material as fireMaterial } from '/utils/shaders/fireball.js'
 import { material as fractalMaterial } from '/utils/shaders/fractal-planet.js'
+import { material as fireMaterial } from '/utils/shaders/fireball.js'
 import { material as lavaMaterial } from '/utils/shaders/lava.js'
 
 const { randFloat } = THREE.MathUtils
@@ -72,6 +72,12 @@ function addMoon(planet, r) {
   planet.add(moon)
 }
 
+/**
+ * i = 0: fractal
+ * i = 1: fire
+ * i = 2: lava
+ * i > 2: random texture
+ */
 export function createPlanet({ r = randFloat(2, 5), pos, i = 0 } = {}) {
   const file = `planets/${textures[i % textures.length]}`
   const planet = createSphere({ file, r })
@@ -86,6 +92,28 @@ export function createPlanet({ r = randFloat(2, 5), pos, i = 0 } = {}) {
     addRings(planet)
 
   return planet
+}
+
+export class Planet {
+  constructor(params) {
+    this.mesh = createPlanet(params)
+    this.time = 0
+  }
+
+  /* rotate planet and update shader animation */
+  update(delta) {
+    const { mesh } = this
+    const { angleSpeed, moon } = mesh.userData
+
+    mesh.rotateY(angleSpeed * delta)
+    if (moon)
+      moon.rotateY(angleSpeed * delta)
+
+    if (mesh.material.uniforms)
+      mesh.material.uniforms.time.value = this.time
+
+    this.time += delta
+  }
 }
 
 /* MOVE */

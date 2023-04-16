@@ -1,5 +1,5 @@
 import { camera, scene, renderer, clock, setBackground } from '/utils/scene.js'
-import { createPlanet } from '/utils/geometry/planets.js'
+import { Planet } from '/utils/geometry/planets.js'
 import { createTerrain, shake } from '/utils/ground.js'
 import { Stars } from '/utils/classes/Particles.js'
 import { createMoon as createMoonLight } from '/utils/light.js'
@@ -10,18 +10,18 @@ import Platform from '/utils/classes/Platform.js'
 setBackground(0x000000)
 scene.add(createMoonLight())
 
-const planets = []
+const objects = []
 const mapSize = 400
-const numPlanets = 20
 const coords = getShuffledCoords({ mapSize: mapSize / 2, fieldSize: 30 })
 
-for (let i = 0; i < numPlanets; i++) {
-  const pos = coords.pop()
+coords.forEach((pos, i) => {
   pos.y = Math.random() * 10 + 5
-  const planet = createPlanet({ pos, i })
-  planets.push(planet)
-  scene.add(planet)
-}
+  const planet = Math.random() > .25
+    ? new Planet({ pos, i })
+    : new Platform({ pos })
+  objects.push(planet)
+  scene.add(planet.mesh)
+})
 
 const terrain = createTerrain({ size: mapSize, wireframe: true })
 scene.add(terrain)
@@ -29,11 +29,7 @@ scene.add(terrain)
 const stars = new Stars({ num: 10000 })
 scene.add(stars.mesh)
 
-const platform = new Platform()
-scene.add(platform.mesh)
-platform.position.y = 3
-
-const player = new Avatar({ solids: [...planets, terrain, platform.mesh], camera, skin: 'DISCO' })
+const player = new Avatar({ solids: [...objects.map(p => p.mesh), terrain], camera, skin: 'DISCO' })
 scene.add(player.mesh)
 
 /* LOOP */
@@ -43,18 +39,11 @@ void function loop() {
   const delta = clock.getDelta()
   const time = clock.getElapsedTime()
 
-  planets.forEach(planet => {
-    const { angleSpeed, moon } = planet.userData
-    planet.rotateY(angleSpeed * delta)
-    if (moon) moon.rotateY(angleSpeed * delta)
-    if (planet.material.uniforms)
-      planet.material.uniforms.time.value = time
-  })
+  objects.forEach(planet => planet.update(delta))
 
   shake({ geometry: terrain.geometry, time })
   stars.update({ delta: delta * .1 })
   player.update()
-  platform.update(delta)
 
   renderer.render(scene, camera)
 }()
