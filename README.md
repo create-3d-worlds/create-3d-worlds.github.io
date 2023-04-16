@@ -11,13 +11,10 @@ npx live-server
 
 ## TODO
 
+- BUG: fps-savo, bacač plamena puca
 - ubaci dupčeša negde
-- BUG: avatar secka kad ubrzava
 
 ### Scenes & examples
-
-- Avatar / Planete (dreaming-of-jupiter)
-  - da dole bude lava
 
 - Parting the sea
   - dodati karakter čarobnjaka i još neke detalje

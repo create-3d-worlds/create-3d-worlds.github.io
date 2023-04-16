@@ -32,11 +32,8 @@ export default class AIAttackLoopState extends State {
     }
   }
 
-  update(delta) {
+  update() {
     const { actor } = this
-
-    if (actor.distanceToTarget < actor.attackDistance / 2)
-      actor.mesh.translateZ(actor.speed * 5 * delta)
 
     if (actor.distanceToTarget > actor.attackDistance)
       this.shouldFinishAttack = true
