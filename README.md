@@ -17,8 +17,7 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / Planete (dreaming-of-jupiter)
-  - dodati platforme kod random boxes
-  - pokušati sve tri ose
+  - da dole bude lava
 
 - Parting the sea
   - dodati karakter čarobnjaka i još neke detalje

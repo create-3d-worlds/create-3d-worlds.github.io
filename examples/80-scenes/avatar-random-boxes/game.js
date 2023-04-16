@@ -25,7 +25,7 @@ for (let i = 0; i < numCoins; i++) {
   pos.y += 6.15
 
   if (Math.random() > .5) {
-    const platform = new Platform({ pos })
+    const platform = new Platform({ pos, file: null })
     platforms.push(platform)
     scene.add(platform.mesh)
   }
