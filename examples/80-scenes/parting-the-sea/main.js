@@ -1,21 +1,19 @@
-import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
+import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createWater, wave, createGround } from '/utils/ground.js'
 import { WizardPlayer } from '/utils/actor/child/fantasy/Wizard.js'
-
-createOrbitControls()
 
 scene.add(createSun())
 const ground = createGround({ file: 'terrain/ground.jpg' })
 scene.add(ground)
 
-const water = createWater({ file: null, size: 100, segments: 100 })
+const water = createWater({ file: 'water512.jpg', size: 100, segments: 100, opacity: 1 })
 water.position.z = -40
 water.position.y = 5
 water.rotateY(Math.PI * .5)
 scene.add(water)
 
-const player = new WizardPlayer()
+const player = new WizardPlayer({camera})
 scene.add(player.mesh)
 
 /* LOOP */

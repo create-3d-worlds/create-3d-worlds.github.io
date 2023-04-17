@@ -16,10 +16,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Parting the sea
-  - obojiti čarobnjaka
-  - dodati još neke detalje
-
 - Spomenici
   - brdo (ili pravi teren sa mape)
   - spomenici NOB
