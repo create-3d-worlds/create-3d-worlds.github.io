@@ -9,19 +9,19 @@ import { loadModel } from '/utils/loaders.js'
 scene.add(createSun(), createGround())
 createOrbitControls()
 
-const { mesh: ilirskaBistrica } = await loadModel({ file: 'building/monument/ilirska-bistrica.obj' })
+const { mesh: ilirskaBistrica } = await loadModel({ file: 'building/monument/ilirska-bistrica.fbx' })
 scene.add(ilirskaBistrica)
 
-const { mesh: kadinjaca } = await loadModel({ file: 'building/monument/kadinjaca.obj' })
+const { mesh: kadinjaca } = await loadModel({ file: 'building/monument/kadinjaca.fbx' })
 scene.add(kadinjaca)
 
-const { mesh: kosmaj } = await loadModel({ file: 'building/monument/kosmaj.obj' })
+const { mesh: kosmaj } = await loadModel({ file: 'building/monument/kosmaj.fbx' })
 scene.add(kosmaj)
 
-const { mesh: kosovskaMitrovica } = await loadModel({ file: 'building/monument/kosovska-mitrovica.obj' })
+const { mesh: kosovskaMitrovica } = await loadModel({ file: 'building/monument/kosovska-mitrovica.fbx' })
 scene.add(kosovskaMitrovica)
 
-const { mesh: podgaric } = await loadModel({ file: 'building/monument/podgaric.obj' })
+const { mesh: podgaric } = await loadModel({ file: 'building/monument/podgaric.fbx' })
 scene.add(podgaric)
 
 /* FUNCTIONS */

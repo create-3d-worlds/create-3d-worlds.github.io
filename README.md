@@ -18,7 +18,6 @@ npx live-server
 
 - Spomenici
   - spomenici NOB
-    - srediti u blenderu
     - probati teksture
   - brdo (ili pravi teren sa mape)
   - zastave vijore
