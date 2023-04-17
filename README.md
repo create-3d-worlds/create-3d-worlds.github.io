@@ -12,7 +12,7 @@ npx live-server
 ## TODO
 
 - ubaci dupčeša negde
-- reuse useFlame for flame thrower
+- reuse useFlame for flame thrower?
 
 ### Scenes & examples
 

@@ -3,7 +3,7 @@ import { createSun } from '/utils/light.js'
 import { createWater, wave, createGround } from '/utils/ground.js'
 import { WizardPlayer } from '/utils/actor/child/fantasy/Wizard.js'
 
-scene.add(createSun())
+scene.add(createSun({ pos: [-5, 30, -60] }))
 const ground = createGround({ file: 'terrain/ground.jpg' })
 scene.add(ground)
 
@@ -13,7 +13,7 @@ water.position.y = 5
 water.rotateY(Math.PI * .5)
 scene.add(water)
 
-const player = new WizardPlayer({camera})
+const player = new WizardPlayer({ camera })
 scene.add(player.mesh)
 
 /* LOOP */
