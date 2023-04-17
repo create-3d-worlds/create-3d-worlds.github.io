@@ -17,10 +17,9 @@ npx live-server
 ### Scenes & examples
 
 - Spomenici
-  - spomenici NOB
-    - probati teksture
-  - brdo (ili pravi teren sa mape)
-  - zastave vijore
+  - staviti spomenike na teren
+  - probati teksture
+  - probati zastave vijore (možda prostije zastave)
   - Savo šeta?
 
 - Zeppelin

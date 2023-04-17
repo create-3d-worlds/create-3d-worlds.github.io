@@ -3,11 +3,15 @@ import '/libs/modifiers.min.js'
 import * as THREE from 'three'
 import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
-import { createGround } from '/utils/ground.js'
 import { loadModel } from '/utils/loaders.js'
+import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
 
-scene.add(createSun(), createGround())
+scene.add(createSun())
 createOrbitControls()
+
+const terrain = await terrainFromHeightmap({ file: 'yu.png', scale: 3 })
+terrain.position.y = -10
+scene.add(terrain)
 
 const { mesh: ilirskaBistrica } = await loadModel({ file: 'building/monument/ilirska-bistrica.fbx' })
 scene.add(ilirskaBistrica)
