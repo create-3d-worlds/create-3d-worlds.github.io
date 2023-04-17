@@ -12,11 +12,12 @@ npx live-server
 ## TODO
 
 - ubaci dupčeša negde
+- reuse useFlame for flame thrower
 
 ### Scenes & examples
 
 - Parting the sea
-  - dodati čarobnjaka (mojsije)
+  - obojiti čarobnjaka
   - dodati još neke detalje
 
 - Spomenici
