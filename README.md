@@ -16,7 +16,8 @@ npx live-server
 ### Scenes & examples
 
 - Parting the sea
-  - dodati karakter čarobnjaka i još neke detalje
+  - dodati čarobnjaka (mojsije)
+  - dodati još neke detalje
 
 - Spomenici
   - brdo (ili pravi teren sa mape)
