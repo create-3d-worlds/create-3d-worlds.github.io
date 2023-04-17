@@ -4,9 +4,27 @@ import * as THREE from 'three'
 import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
+import { loadModel } from '/utils/loaders.js'
 
 scene.add(createSun(), createGround())
 createOrbitControls()
+
+const { mesh: ilirskaBistrica } = await loadModel({ file: 'building/monument/ilirska-bistrica.obj' })
+scene.add(ilirskaBistrica)
+
+const { mesh: kadinjaca } = await loadModel({ file: 'building/monument/kadinjaca.obj' })
+scene.add(kadinjaca)
+
+const { mesh: kosmaj } = await loadModel({ file: 'building/monument/kosmaj.obj' })
+scene.add(kosmaj)
+
+const { mesh: kosovskaMitrovica } = await loadModel({ file: 'building/monument/kosovska-mitrovica.obj' })
+scene.add(kosovskaMitrovica)
+
+const { mesh: podgaric } = await loadModel({ file: 'building/monument/podgaric.obj' })
+scene.add(podgaric)
+
+/* FUNCTIONS */
 
 function createFlag({ file = 'prva-proleterska.jpg', scale = .5 } = {}) {
   const flag = new THREE.Group()
@@ -40,11 +58,11 @@ function createFlag({ file = 'prva-proleterska.jpg', scale = .5 } = {}) {
   return { flag, modifier }
 }
 
-const { flag, modifier } = createFlag({ file: 'prva-proleterska.jpg'})
+const { flag, modifier } = createFlag({ file: 'prva-proleterska.jpg' })
 scene.add(flag)
 flag.position.x = -1
 
-const { flag: flag2, modifier: modifier2 } = createFlag({ file: 'sfrj.png'})
+const { flag: flag2, modifier: modifier2 } = createFlag({ file: 'sfrj.png' })
 scene.add(flag2)
 flag2.position.x = 1
 
