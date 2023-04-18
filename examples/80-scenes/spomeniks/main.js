@@ -6,11 +6,8 @@ import { putOnTerrain, findChild } from '/utils/helpers.js'
 import { createFlag } from '/utils/geometry.js'
 import { wave, createWater } from '/utils/ground.js'
 import { ResistanceFighterPlayer } from '/utils/actor/child/ww2/ResistanceFighter.js'
-import { PartisanPlayer } from '/utils/actor/child/ww2/Partisan.js'
 
 scene.add(createSun())
-// camera.position.y = 75
-createOrbitControls()
 
 const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', scale: 3, snow: false })
 // terrain.position.y = -4.5
@@ -69,14 +66,14 @@ putOnTerrain(flag2, terrain, offset)
 
 void function loop() {
   requestAnimationFrame(loop)
-  renderer.render(scene, camera)
-
-  const time = clock.getElapsedTime()
   const delta = clock.getDelta()
+  const time = clock.getElapsedTime()
 
   wave({ geometry: findChild(flag, 'plane').geometry, time: time * 2, amplitude: 2.5, frequency: 2 })
   wave({ geometry: findChild(flag2, 'plane').geometry, time: time * 2, amplitude: 2.5, frequency: 2 })
   wave({ geometry: water.geometry, time: time * .5, amplitude: .2, frequency: .2 })
 
   player.update(delta)
+
+  renderer.render(scene, camera)
 }()
