@@ -18,7 +18,7 @@ npx live-server
 ### Scenes & examples
 
 - Spomenici
-  - debug player
+  - podići igrača
   - probati teksture
   - pozicionirati zastave
   - probati drvece
@@ -170,20 +170,6 @@ body.applyImpulse(new Ammo.btVector3(10, 0, 0))
 
 // jump
 body.applyCentralImpulse(new Ammo.btVector3(0, mass * .5, 0))
-```
-
-## Known bugs
-
-ne radi:
-```
-const time = clock.getElapsedTime()
-const delta = clock.getDelta()
-```
-
-radi:
-```
-const delta = clock.getDelta()
-const time = clock.getElapsedTime()
 ```
 
 ## Sources

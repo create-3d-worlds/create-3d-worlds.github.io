@@ -327,7 +327,7 @@ export function createSimpleCastle({ rows = 8, brickInWall = 20, blockSize = 1 }
   return blocks
 }
 
-export function createFlag({ file = 'prva-proleterska.jpg', scale = .5 } = {}) {
+export function createFlag({ file = 'prva-proleterska.jpg', scale = 1 } = {}) {
   const group = new THREE.Group()
   group.rotateY(-Math.PI * .5)
 

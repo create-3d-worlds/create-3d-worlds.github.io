@@ -18,6 +18,7 @@ scene.add(water)
 
 const player = new ResistanceFighterPlayer({ solids: terrain, camera })
 scene.add(player.mesh)
+console.log(player.height)
 
 /* SPOMENIKS */
 
@@ -52,22 +53,24 @@ putOnTerrain(ilirskaBistrica, terrain, offset)
 
 /* FLAGS */
 
-const flag = createFlag({ file: 'prva-proleterska.jpg' })
+const flag = createFlag({ file: 'prva-proleterska.jpg', scale: '.5' })
 scene.add(flag)
 flag.position.x = -1
 putOnTerrain(flag, terrain, offset)
 
-const flag2 = createFlag({ file: 'sfrj.png' })
+const flag2 = createFlag({ file: 'sfrj.png', scale: '.5' })
 scene.add(flag2)
 flag2.position.x = 1
 putOnTerrain(flag2, terrain, offset)
 
 /* LOOP */
 
+let time = 0
+
 void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
-  const time = clock.getElapsedTime()
+  time += delta
 
   wave({ geometry: findChild(flag, 'plane').geometry, time: time * 2, amplitude: 2.5, frequency: 2 })
   wave({ geometry: findChild(flag2, 'plane').geometry, time: time * 2, amplitude: 2.5, frequency: 2 })
