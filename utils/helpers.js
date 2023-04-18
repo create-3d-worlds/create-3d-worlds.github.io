@@ -132,15 +132,6 @@ export const belongsTo = (object, name) => {
   return belongsTo(object.parent, name)
 }
 
-// TODO: merge
-export const findChild = (parent, name) => {
-  let found = null
-  parent.traverse(child => {
-    if (child.name === name) found = child
-  })
-  return found
-}
-
 export const findChildren = (parent, name) => {
   const found = []
   parent.traverse(child => {
@@ -148,6 +139,8 @@ export const findChildren = (parent, name) => {
   })
   return found
 }
+
+export const findChild = (parent, name) => findChildren(parent, name)[0]
 
 /* COLORS */
 

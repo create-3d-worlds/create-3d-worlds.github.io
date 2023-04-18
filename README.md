@@ -1,6 +1,6 @@
 # Create 3D worlds
 
-Create 3D worlds with Three.js.
+Library of reusable Three.js components to play with.
 
 ## Start
 
@@ -18,8 +18,9 @@ npx live-server
 
 - Spomenici
   - staviti spomenike na teren
+  - pozicionirati spomenike
   - probati teksture
-  - probati zastave vijore (možda prostije zastave)
+  - pozicionirati zastave vijore (možda prostije zastave)
   - Savo šeta?
 
 - Zeppelin
@@ -76,12 +77,9 @@ npx live-server
 - Barbarian
   - BUG: nakon skoka ostaje ukočena
 
-### Završno
-
-- puštati i restartovati scenu, probati intro i outro za scene
-
 ### Optimizacija
 
+- izbaciti TWEEN?
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
   - odrediti blizinu u lavirintu?
 - optimizovati statične modele https://github.com/donmccurdy/glTF-Transform
@@ -89,12 +87,12 @@ npx live-server
   - https://twitter.com/mrdoob/status/966609115140128768
   - https://attackingpixels.com/tips-tricks-optimizing-three-js-performance/
 - izmeriti statistike, ako je presporo izbacivati nevažno
-- izbaciti TWEEN?
 - smanjiti zavisnosti fajlova, obrisati neke helper funkcije ili prebaciti na klase
   - npr createCoin to Coin class, i ostale funkcije koje imaju matične klase
 
 ### Polishing
 
+- puštati i restartovati scenu, probati intro i outro za scene
 - popraviti HTML margine?
 DODATI:
   - toon-shader gde se slaže
@@ -114,6 +112,7 @@ DODATI:
 - po završetku partije upisivanje imena pored poena za top listu
 
 ### Publish
+- napraviti index.js za export svega postojećeg (vidi threejs)
 - srediti root-relativne linkove da rade u podfolderu
 - možda build proces, minifikacija, i sl.
 - sve dobro dokumentovati

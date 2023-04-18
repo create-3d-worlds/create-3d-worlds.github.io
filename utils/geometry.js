@@ -326,3 +326,28 @@ export function createSimpleCastle({ rows = 8, brickInWall = 20, blockSize = 1 }
   buildWalls(0)
   return blocks
 }
+
+export function createFlag({ file = 'prva-proleterska.jpg', scale = .5 } = {}) {
+  const group = new THREE.Group()
+  group.rotateY(-Math.PI * .5)
+
+  const texture = new THREE.TextureLoader().load(`/assets/images/${file}`)
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(600, 430, 20, 20, true),
+    new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide }))
+  plane.scale.set(.0025, .0025, .0025)
+  plane.position.set(.75, 3.5, 0)
+  plane.castShadow = true
+  plane.name = 'plane'
+  group.add(plane)
+
+  const geometry = new THREE.CylinderGeometry(.03, .03, 4, 32)
+  const material = new THREE.MeshPhongMaterial({ color: new THREE.Color(0x654321) })
+  const pole = new THREE.Mesh(geometry, material)
+  pole.translateY(2)
+  pole.castShadow = true
+  group.add(pole)
+
+  group.scale.set(scale, scale, scale)
+  return group
+}
