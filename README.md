@@ -11,17 +11,17 @@ npx live-server
 
 ## TODO
 
-- ubaci dupčeša negde
 - reuse useFlame for flame thrower?
+- ubaci dupčeša negde
+- merge createMoon
 
 ### Scenes & examples
 
 - Spomenici
-  - staviti spomenike na teren
-    - probati teksture
+  - dodati Partizana
+  - probati teksture
   - pozicionirati zastave
   - probati drvece
-  - Savo šeta?
 
 - Zeppelin
   - umesto createChaseCamera koristiti 3rd person?

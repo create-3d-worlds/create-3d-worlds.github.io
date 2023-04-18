@@ -5,17 +5,22 @@ import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
 import { putOnTerrain, findChild } from '/utils/helpers.js'
 import { createFlag } from '/utils/geometry.js'
 import { wave, createWater } from '/utils/ground.js'
+import { ResistanceFighterPlayer } from '/utils/actor/child/ww2/ResistanceFighter.js'
+import { PartisanPlayer } from '/utils/actor/child/ww2/Partisan.js'
 
 scene.add(createSun())
-camera.position.y = 75
+// camera.position.y = 75
 createOrbitControls()
 
 const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', scale: 3, snow: false })
-terrain.position.y = -4.5
+// terrain.position.y = -4.5
 scene.add(terrain)
 
 const water = createWater({ size: 256 }) // mozda izvaciti vodu?
 scene.add(water)
+
+const player = new ResistanceFighterPlayer({ solids: terrain, camera })
+scene.add(player.mesh)
 
 /* SPOMENIKS */
 
@@ -26,27 +31,27 @@ scene.add(kosmaj)
 kosmaj.position.set(-38, 0, -25.5)
 putOnTerrain(kosmaj, terrain, offset)
 
-const { mesh: kosovskaMitrovica } = await loadModel({ file: 'building/monument/kosovska-mitrovica.fbx', size: 5 })
+const { mesh: kosovskaMitrovica } = await loadModel({ file: 'building/monument/kosovska-mitrovica.fbx', size: 6 })
 scene.add(kosovskaMitrovica)
 kosovskaMitrovica.position.set(15, 0, -52)
 kosovskaMitrovica.rotateY(Math.PI * .5)
 putOnTerrain(kosovskaMitrovica, terrain, offset)
 
-const { mesh: podgaric } = await loadModel({ file: 'building/monument/podgaric.fbx', size: 5 })
+const { mesh: podgaric } = await loadModel({ file: 'building/monument/podgaric.fbx', size: 6 })
 scene.add(podgaric)
-podgaric.position.set(35, 0, -35)
+podgaric.position.set(50, 0, -20)
 podgaric.rotateY(Math.PI * .5)
 putOnTerrain(podgaric, terrain, offset)
 
-const { mesh: ilirskaBistrica } = await loadModel({ file: 'building/monument/ilirska-bistrica.fbx', size: 4 })
-scene.add(ilirskaBistrica)
-ilirskaBistrica.position.set(9, 0, -30)
-putOnTerrain(ilirskaBistrica, terrain, offset)
-
-const { mesh: kadinjaca } = await loadModel({ file: 'building/monument/kadinjaca.fbx', size: 5 })
+const { mesh: kadinjaca } = await loadModel({ file: 'building/monument/kadinjaca.fbx', size: 8 })
 scene.add(kadinjaca)
 kadinjaca.position.set(-2, 0, -3)
 putOnTerrain(kadinjaca, terrain, offset)
+
+const { mesh: ilirskaBistrica } = await loadModel({ file: 'building/monument/ilirska-bistrica.fbx', size: 4 })
+scene.add(ilirskaBistrica)
+ilirskaBistrica.position.set(40, 0, 20)
+putOnTerrain(ilirskaBistrica, terrain, offset)
 
 /* FLAGS */
 
@@ -64,11 +69,14 @@ putOnTerrain(flag2, terrain, offset)
 
 void function loop() {
   requestAnimationFrame(loop)
+  renderer.render(scene, camera)
 
   const time = clock.getElapsedTime()
+  const delta = clock.getDelta()
+
   wave({ geometry: findChild(flag, 'plane').geometry, time: time * 2, amplitude: 2.5, frequency: 2 })
   wave({ geometry: findChild(flag2, 'plane').geometry, time: time * 2, amplitude: 2.5, frequency: 2 })
   wave({ geometry: water.geometry, time: time * .5, amplitude: .2, frequency: .2 })
 
-  renderer.render(scene, camera)
+  player.update(delta)
 }()
