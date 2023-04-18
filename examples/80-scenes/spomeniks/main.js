@@ -4,21 +4,16 @@ import { loadModel } from '/utils/loaders.js'
 import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
 import { putOnTerrain, findChild } from '/utils/helpers.js'
 import { createFlag } from '/utils/geometry.js'
-import { wave, createWater } from '/utils/ground.js'
+import { wave } from '/utils/ground.js'
 import { ResistanceFighterPlayer } from '/utils/actor/child/ww2/ResistanceFighter.js'
 
 scene.add(createSun())
 
 const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', scale: 3, snow: false })
-// terrain.position.y = -4.5
 scene.add(terrain)
 
-const water = createWater({ size: 256 }) // mozda izvaciti vodu?
-scene.add(water)
-
-const player = new ResistanceFighterPlayer({ solids: terrain, camera })
+const player = new ResistanceFighterPlayer({ solids: terrain, camera, altitude: .5 })
 scene.add(player.mesh)
-console.log(player.height)
 
 /* SPOMENIKS */
 
@@ -53,12 +48,12 @@ putOnTerrain(ilirskaBistrica, terrain, offset)
 
 /* FLAGS */
 
-const flag = createFlag({ file: 'prva-proleterska.jpg', scale: '.5' })
+const flag = createFlag({ file: 'prva-proleterska.jpg', scale: .75 })
 scene.add(flag)
 flag.position.x = -1
 putOnTerrain(flag, terrain, offset)
 
-const flag2 = createFlag({ file: 'sfrj.png', scale: '.5' })
+const flag2 = createFlag({ file: 'sfrj.png', scale: .75 })
 scene.add(flag2)
 flag2.position.x = 1
 putOnTerrain(flag2, terrain, offset)
@@ -74,8 +69,6 @@ void function loop() {
 
   wave({ geometry: findChild(flag, 'plane').geometry, time: time * 2, amplitude: 2.5, frequency: 2 })
   wave({ geometry: findChild(flag2, 'plane').geometry, time: time * 2, amplitude: 2.5, frequency: 2 })
-  wave({ geometry: water.geometry, time: time * .5, amplitude: .2, frequency: .2 })
-
   player.update(delta)
 
   renderer.render(scene, camera)

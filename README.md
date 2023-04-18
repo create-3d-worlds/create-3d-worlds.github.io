@@ -18,7 +18,7 @@ npx live-server
 ### Scenes & examples
 
 - Spomenici
-  - podići igrača
+  - povećati brda
   - probati teksture
   - pozicionirati zastave
   - probati drvece
