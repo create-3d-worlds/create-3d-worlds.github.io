@@ -18,7 +18,6 @@ npx live-server
 
 - Spomenici
   - staviti spomenike na teren
-    - pozicionirati spomenike
     - probati teksture
   - pozicionirati zastave
   - probati drvece
