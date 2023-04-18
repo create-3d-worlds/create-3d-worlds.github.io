@@ -10,8 +10,8 @@ export async function terrainFromHeightmap({
   const { data, width, depth } = await getHeightData(`/assets/heightmaps/${file}`, scale)
 
   material.uniforms.heightmap.value = await textureLoader.loadAsync(`/assets/heightmaps/${file}`)
-  material.uniforms.seaLevel.value = seaLevel
-  material.uniforms.snow.value = snow
+  material.uniforms.seaLevel.value = seaLevel // for coloring
+  material.uniforms.snow.value = snow         // for coloring
 
   const geometry = geometryFromData({ data, width, depth })
   const mesh = new THREE.Mesh(geometry, material)
