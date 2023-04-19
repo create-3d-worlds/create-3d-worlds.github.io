@@ -6,7 +6,7 @@ import { createSun } from '/utils/light.js'
 import Zeppelin from '/utils/classes/aircrafts/Zeppelin.js'
 import { loadModel } from '/utils/loaders.js'
 
-scene.add(createSkySphere({ r: 5000 }))
+scene.add(await createSkySphere({ r: 5000 }))
 const light = createSun({ pos: [500, 2000, 100], far: 5000 })
 scene.add(light)
 

@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import { randomGray } from './helpers.js'
-import { material as skyMaterial } from '/utils/shaders/gradient-sky.js'
 
 const { randFloat, randFloatSpread } = THREE.MathUtils
 
@@ -111,11 +110,13 @@ export function createWorldSphere({ r = 26, widthSegments = 40, heightSegments =
 
 /* SKY SPHERE */
 
-export function createSkySphere({ r = 4000, color1 = 0x0077ff, color2 = 0xffffff } = {}) {
+export async function createSkySphere({ r = 4000, color1 = 0x0077ff, color2 = 0xffffff } = {}) {
   const geometry = new THREE.SphereGeometry(r, 32, 15)
-  skyMaterial.uniforms.color1.value = new THREE.Color(color1)
-  skyMaterial.uniforms.color2.value = new THREE.Color(color2)
-  return new THREE.Mesh(geometry, skyMaterial)
+  const { material } = await import('/utils/shaders/gradient-sky.js')
+
+  material.uniforms.color1.value = new THREE.Color(color1)
+  material.uniforms.color2.value = new THREE.Color(color2)
+  return new THREE.Mesh(geometry, material)
 }
 
 /* BARRELS */

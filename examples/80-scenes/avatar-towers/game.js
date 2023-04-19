@@ -7,7 +7,7 @@ import Avatar from '/utils/actor/Avatar.js'
 
 const mapSize = 1000
 
-scene.add(createSkySphere())
+scene.add(await createSkySphere())
 hemLight({ intensity: 1 }) // createSun pravi bug prilikom letenja
 dirLight({ intensity: .25 })
 

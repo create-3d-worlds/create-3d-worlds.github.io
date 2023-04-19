@@ -11,7 +11,8 @@ const terrain = createTerrain({ size: 8000, segments: 200 })
 const trees = createFirTrees({ n: 500, mapSize: 4000, size: 25 })
 
 scene.fog = new THREE.Fog(0xE5C5AB, 1, 5000)
-scene.add(createSkySphere(), createSun(), terrain, trees)
+const sky = await createSkySphere()
+scene.add(sky, createSun(), terrain, trees)
 
 const { mesh } = await loadModel({
   file: 'aircraft/biplane-sopwith/model.fbx',
