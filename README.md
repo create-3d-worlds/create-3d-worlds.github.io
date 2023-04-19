@@ -19,8 +19,7 @@ npx live-server
 
 - Spomenici
   - bug: igrač dugo pada na početku
-  - probati drvece
-    - createTreesOnTerrain ako baci zrak na nešto drugo osim teren da iskulira
+  - dodati promise all umesto puno awaita
 
 - Zeppelin
   - umesto createChaseCamera koristiti 3rd person?
