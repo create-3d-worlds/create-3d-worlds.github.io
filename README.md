@@ -18,7 +18,9 @@ npx live-server
 ### Scenes & examples
 
 - Spomenici
+  - bug: igrač dugo pada na početku
   - probati drvece
+    - createTreesOnTerrain ako baci zrak na nešto drugo osim teren da iskulira
 
 - Zeppelin
   - umesto createChaseCamera koristiti 3rd person?

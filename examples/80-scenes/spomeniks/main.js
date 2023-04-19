@@ -5,11 +5,15 @@ import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
 import { createFlag } from '/utils/geometry.js'
 import { wave } from '/utils/ground.js'
 import { ResistanceFighterPlayer } from '/utils/actor/child/ww2/ResistanceFighter.js'
+import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 
 const solids = []
 
 scene.add(createSun())
+
 const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', scale: 3, snow: false })
+
+const trees = createTreesOnTerrain({ terrain, mapSize: 200, size: 3.5, name: terrain.name })
 
 /* SPOMENIKS */
 
@@ -40,9 +44,9 @@ yuFlag.position.set(1.5, 11, 0)
 
 /* PLAYER */
 
-solids.push(terrain, kosmaj, kosovskaMitrovica, podgaric, kadinjaca, ilirskaBistrica, redFlag, yuFlag)
+solids.push(terrain, trees, kosmaj, kosovskaMitrovica, podgaric, kadinjaca, ilirskaBistrica, redFlag, yuFlag)
 
-const player = new ResistanceFighterPlayer({ solids: terrain, camera, altitude: .6 })
+const player = new ResistanceFighterPlayer({ solids, camera, altitude: .6 })
 player.position.z = 2
 
 scene.add(player.mesh, ...solids)
