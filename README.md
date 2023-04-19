@@ -21,7 +21,6 @@ npx live-server
   - BUG: igrač dugo pada na početku
     - problem je GameObject putOnTerrain
   - BUG: igrač se ne pomera nakon pritiska na enter ako nema attack animaciju
-  - BUG: učitava animacije iako prosledim novi animDict
   - optimizacija
     - promise all umesto puno awaita
     - dinamički import igrača?
