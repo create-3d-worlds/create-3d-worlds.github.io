@@ -8,7 +8,7 @@ import { hemLight } from '/utils/light.js'
 
 hemLight({ intensity: 1.2 })
 
-const terrain = createHillyTerrain()
+const terrain = await createHillyTerrain()
 scene.add(terrain)
 scene.add(createWater({ size: 400 }))
 scene.add(createTreesOnTerrain({ terrain, n: 100, mapSize: 400, size: 5 }))

@@ -7,7 +7,7 @@ scene.add(createSun())
 camera.position.set(0, 20, 20)
 createOrbitControls()
 
-const terrain = createDunes()
+const terrain = await createDunes()
 scene.add(terrain)
 
 /* LOOP */

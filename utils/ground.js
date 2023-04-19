@@ -1,9 +1,7 @@
 import * as THREE from 'three'
-import { SimplexNoise } from '/node_modules/three/examples/jsm/math/SimplexNoise.js'
 import { getTexture, similarColor } from '/utils/helpers.js'
 
 const { randFloat } = THREE.MathUtils
-const simplex = new SimplexNoise()
 
 export const groundColors = [0xA62A2A, 0x7a8a46, 0x228b22, 0xf0e68c]
 export const sandColors = [0xc2b280, 0xF2D16B, 0xf0e68c, 0xfffacd]
@@ -81,13 +79,15 @@ function randomDeform(geometry, max = 5, min = 0) {
   }
 }
 
-function cratersNoise(geometry) {
+async function cratersNoise(geometry) {
   const xZoom = 20
   const yZoom = 20
   const noiseStrength = 5
 
   const { position } = geometry.attributes
   const vertex = new THREE.Vector3()
+  const { SimplexNoise } = await import('/node_modules/three/examples/jsm/math/SimplexNoise.js')
+  const simplex = new SimplexNoise()
 
   for (let i = 0, l = position.count; i < l; i++) {
     vertex.fromBufferAttribute(position, i)
@@ -98,9 +98,11 @@ function cratersNoise(geometry) {
   }
 }
 
-function dunesNoise(geometry) {
+async function dunesNoise(geometry) {
   const { position } = geometry.attributes
   const vertex = new THREE.Vector3()
+  const { SimplexNoise } = await import('/node_modules/three/examples/jsm/math/SimplexNoise.js')
+  const simplex = new SimplexNoise()
 
   for (let i = 0, l = position.count; i < l; i++) {
     vertex.fromBufferAttribute(position, i)
@@ -109,9 +111,12 @@ function dunesNoise(geometry) {
   }
 }
 
-function hillyNoise(geometry, segments, factorX, factorY, factorZ, aboveSea) {
+async function hillyNoise(geometry, segments, factorX, factorY, factorZ, aboveSea) {
   const { position } = geometry.attributes
   const vertex = new THREE.Vector3()
+  const { SimplexNoise } = await import('/node_modules/three/examples/jsm/math/SimplexNoise.js')
+  const simplex = new SimplexNoise()
+
   for (let i = 0, l = position.count; i < l; i++) {
     vertex.fromBufferAttribute(position, i)
     const dist = simplex.noise(vertex.x / segments / factorX, vertex.z / segments / factorZ)
@@ -132,7 +137,8 @@ function randomShades(geometry, colorParam, range) { // h = .25, s = 0.5, l = 0.
 
 export async function heightColors({ geometry, maxY, minY = 0, domainColors = groundColors } = {}) {
   const { position } = geometry.attributes
-  const chroma = await import('/libs/chroma.js')
+  const obj = await import('/libs/chroma.js')
+  const chroma = obj.default
 
   const f = chroma.scale(domainColors).domain([minY, maxY])
   const colors = []
@@ -167,31 +173,31 @@ export function createTerrain({ size = 400, segments = 50, colorParam = 0x44aa44
 
 /* CRATERS */
 
-export function createCraters({ size = 100, segments = 100 } = {}) {
+export async function createCraters({ size = 100, segments = 100 } = {}) {
   const mesh = createTerrainMesh({ size, segments })
   cratersNoise(mesh.geometry)
-  heightColors({ geometry: mesh.geometry, minY: -2, maxY: 2, domainColors: cratersColors })
+  await heightColors({ geometry: mesh.geometry, minY: -2, maxY: 2, domainColors: cratersColors })
   return mesh
 }
 
 /* DUNES */
 
-export function createDunes({ size = 400, segments = 100 } = {}) {
+export async function createDunes({ size = 400, segments = 100 } = {}) {
   const mesh = createTerrainMesh({ size, segments })
   dunesNoise(mesh.geometry)
-  heightColors({ geometry: mesh.geometry, maxY: 2, minY: -1.75, domainColors: sandColors })
+  await heightColors({ geometry: mesh.geometry, maxY: 2, minY: -1.75, domainColors: sandColors })
 
   return mesh
 }
 
 /* HILLY TERRAIN */
 
-export const createHillyTerrain = (
+export const createHillyTerrain = async(
   { size = 400, segments = size / 20, factorX = size / 20, factorZ = size / 40, factorY = size / 10, aboveSea = .5 } = {}
 ) => {
   const mesh = createTerrainMesh({ size, segments })
-  hillyNoise(mesh.geometry, segments, factorX, factorY, factorZ, aboveSea)
-  heightColors({ geometry: mesh.geometry, maxY: factorY * 1.25, minY: -factorY * .25 })
+  await hillyNoise(mesh.geometry, segments, factorX, factorY, factorZ, aboveSea)
+  await heightColors({ geometry: mesh.geometry, maxY: factorY * 1.25, minY: -factorY * .25 })
   mesh.name = 'terrain' // for mini-rpg
   return mesh
 }

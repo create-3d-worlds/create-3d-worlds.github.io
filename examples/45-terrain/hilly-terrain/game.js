@@ -11,7 +11,7 @@ camera.position.y = 75
 camera.position.z = 50
 
 scene.add(createWater({ size: 400 }))
-const terrain = createHillyTerrain()
+const terrain = await createHillyTerrain()
 scene.add(terrain)
 
 scene.add(createTreesOnTerrain({ terrain }))

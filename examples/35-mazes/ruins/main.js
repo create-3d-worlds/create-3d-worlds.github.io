@@ -11,7 +11,7 @@ const maze = new Maze(10, 20, recursiveDivision, 10)
 const ruins = maze.toMesh()
 scene.add(ruins)
 
-const dunes = createDunes()
+const dunes = await createDunes()
 scene.add(dunes)
 
 const renderer = await createToonRenderer()

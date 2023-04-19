@@ -4,7 +4,7 @@ import { createCraters } from '/utils/ground.js'
 camera.position.set(0, 20, 20)
 createOrbitControls()
 
-const terrain = createCraters()
+const terrain = await createCraters()
 scene.add(terrain)
 
 /* LOOP */

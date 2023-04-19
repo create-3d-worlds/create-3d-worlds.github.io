@@ -8,7 +8,7 @@ import { ResistanceFighterPlayer } from '/utils/actor/child/ww2/ResistanceFighte
 const sun = createSun()
 scene.add(sun)
 
-const ground = createDunes({ size: 1000 })
+const ground = await createDunes({ size: 1000 })
 scene.add(ground)
 
 const maze = new PolarMaze(10, recursiveBacktracker, 10)
