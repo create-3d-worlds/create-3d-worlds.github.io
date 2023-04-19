@@ -14,7 +14,7 @@ export default class AIIdleState extends IdleState {
     const { actor } = this
     const { baseState, followDistance, targetInSightRange, targetInAttackRange, distanceToTarget } = actor
 
-    this.turnEvery(this.interval, Math.PI / 4)
+    actor.turnEvery(this.interval, Math.PI / 4)
 
     if (actor.mesh.userData.hitAmount)
       actor.lookAtTarget()

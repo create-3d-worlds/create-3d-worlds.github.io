@@ -14,7 +14,7 @@ export default class WanderState extends WalkState {
   update(delta) {
     const { actor } = this
 
-    this.turnEvery(this.interval)
+    actor.turnEvery(this.interval)
     actor.updateMove(delta)
 
     if (actor.mesh.userData.hitAmount)

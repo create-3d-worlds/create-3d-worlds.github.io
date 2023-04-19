@@ -1,8 +1,3 @@
-import * as THREE from 'three'
-import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
-
-const { randFloat } = THREE.MathUtils
-
 export default class State {
   constructor(actor, name) {
     this.actor = actor
@@ -71,16 +66,5 @@ export default class State {
       action.time = action.getClip().duration
     action.paused = false
     action.setEffectiveTimeScale(timescale)
-  }
-
-  /* AI HELPERS */
-
-  turnEvery(interval, angle = Math.PI / 2, duration = 1000) {
-    if (Date.now() - this.last >= interval) {
-      new TWEEN.Tween(this.actor.mesh.rotation)
-        .to({ y: randFloat(-angle, angle) }, duration)
-        .start()
-      this.last = Date.now()
-    }
   }
 }

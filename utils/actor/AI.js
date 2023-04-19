@@ -7,7 +7,7 @@ import { getAIState } from './states/ai/index.js'
 import { jumpStyles, attackStyles, baseStates } from '/utils/constants.js'
 import { belongsTo } from '/utils/helpers.js'
 
-const { randFloatSpread } = MathUtils
+const { randFloat, randFloatSpread } = MathUtils
 
 const walking = ['wander', 'follow', 'patrol']
 const running = ['pursue', 'flee']
@@ -45,6 +45,7 @@ export default class AI extends Actor {
     this.followDistance = followDistance
     this.sightDistance = sightDistance
     this.patrolDistance = patrolDistance
+    this.last = Date.now() // for ai intervals
 
     this.randomizeAction()
     this.mesh.rotateY(Math.random() * Math.PI * 2)
@@ -135,6 +136,15 @@ export default class AI extends Actor {
     new TWEEN.Tween(this.mesh.rotation)
       .to({ y: this.mesh.rotation.y + angle }, duration)
       .start()
+  }
+
+  turnEvery(interval, angle = Math.PI / 2, duration = 1000) {
+    if (Date.now() - this.last >= interval) {
+      new TWEEN.Tween(this.mesh.rotation)
+        .to({ y: randFloat(-angle, angle) }, duration)
+        .start()
+      this.last = Date.now()
+    }
   }
 
   /* COMBAT */
