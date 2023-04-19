@@ -18,9 +18,8 @@ npx live-server
 ### Scenes & examples
 
 - Spomenici
-  - probati teksture
-  - pozicionirati zastave
   - probati drvece
+  - dodati solids
 
 - Zeppelin
   - umesto createChaseCamera koristiti 3rd person?
