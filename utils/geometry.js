@@ -338,7 +338,7 @@ export function createFlag({ file = 'prva-proleterska.jpg', scale = 1 } = {}) {
   plane.scale.set(.0025, .0025, .0025)
   plane.position.set(.75, 3.5, 0)
   plane.castShadow = true
-  plane.name = 'plane'
+  plane.name = 'canvas'
   group.add(plane)
 
   const geometry = new THREE.CylinderGeometry(.03, .03, 4, 32)

@@ -19,7 +19,6 @@ npx live-server
 
 - Spomenici
   - probati drvece
-  - dodati solids
 
 - Zeppelin
   - umesto createChaseCamera koristiti 3rd person?
