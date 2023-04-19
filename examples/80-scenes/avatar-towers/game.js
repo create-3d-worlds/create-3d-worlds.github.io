@@ -17,7 +17,7 @@ scene.add(terrain)
 /* BUILDING */
 
 const babelTower = createBabelTower({ floors: 6 })
-const lava = createLava({ size: 50 })
+const lava = await createLava({ size: 50 })
 lava.translateY(4)
 
 const stairsLeft = createStairway({ floors: 5 })

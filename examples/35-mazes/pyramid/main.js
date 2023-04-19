@@ -5,7 +5,7 @@ import Avatar from '/utils/actor/Avatar.js'
 import { hemLight } from '/utils/light.js'
 import { createMarble } from '/utils/ground.js'
 
-scene.add(createMarble())
+scene.add(await createMarble())
 
 const cellSize = 3
 

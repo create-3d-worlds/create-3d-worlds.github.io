@@ -1,9 +1,6 @@
 import * as THREE from 'three'
 import { SimplexNoise } from '/node_modules/three/examples/jsm/math/SimplexNoise.js'
 import { getTexture, similarColor } from '/utils/helpers.js'
-import chroma from '/libs/chroma.js'
-import { material as lavaMaterial } from '/utils/shaders/lava.js'
-import { material as marble } from '/utils/shaders/marble.js'
 
 const { randFloat } = THREE.MathUtils
 const simplex = new SimplexNoise()
@@ -59,15 +56,17 @@ export function createFloor({ color = 0x808080, circle = false, ...rest } = {}) 
 
 /* SHADER MATERIALS */
 
-export function createLava({ size = 100 } = {}) {
+export async function createLava({ size = 100 } = {}) {
   const geometry = new THREE.CircleGeometry(size)
   geometry.rotateX(- Math.PI / 2)
-  return new THREE.Mesh(geometry, lavaMaterial)
+  const { material } = await import('/utils/shaders/lava.js')
+  return new THREE.Mesh(geometry, material)
 }
 
-export function createMarble({ size = 100 } = {}) {
+export async function createMarble({ size = 100 } = {}) {
   const geometry = new THREE.PlaneGeometry(size, size)
-  const mesh = new THREE.Mesh(geometry, marble)
+  const { material } = await import('/utils/shaders/marble.js')
+  const mesh = new THREE.Mesh(geometry, material)
   mesh.rotateX(-Math.PI * 0.5)
   return mesh
 }
@@ -131,8 +130,10 @@ function randomShades(geometry, colorParam, range) { // h = .25, s = 0.5, l = 0.
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
 }
 
-export function heightColors({ geometry, maxY, minY = 0, domainColors = groundColors } = {}) {
+export async function heightColors({ geometry, maxY, minY = 0, domainColors = groundColors } = {}) {
   const { position } = geometry.attributes
+  const chroma = await import('/libs/chroma.js')
+
   const f = chroma.scale(domainColors).domain([minY, maxY])
   const colors = []
   const vertex = new THREE.Vector3()
