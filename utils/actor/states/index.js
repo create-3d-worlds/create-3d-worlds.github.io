@@ -13,16 +13,6 @@ import AttackLoopState from './AttackLoopState.js'
 import AttackOnceState from './AttackOnceState.js'
 import SpecialState from './SpecialState.js'
 
-import AIIdleState from './ai/AIIdleState.js'
-import WanderState from './ai/WanderState.js'
-import PursueState from './ai/PursueState.js'
-import FollowState from './ai/FollowState.js'
-import FleeState from './ai/FleeState.js'
-import PatrolState from './ai/PatrolState.js'
-import AIAttackOnceState from './ai/AIAttackOnceState.js'
-import AIAttackLoopState from './ai/AIAttackLoopState.js'
-import AIFallState from './ai/AIFallState.js'
-
 const chooseJumpState = jumpStyle => {
   switch (jumpStyle) {
     case jumpStyles.FALSE_JUMP: return JumpState
@@ -44,24 +34,6 @@ export function getPlayerState(name, jumpStyle, attackStyle) {
     case 'attack2': {
       if (attackStyle === 'ONCE') return AttackOnceState
       if (attackStyle === 'LOOP') return AttackLoopState
-    }
-    default: return AnimOnceState
-  }
-}
-
-export function getAIState(name, jumpStyle, attackStyle) {
-  switch (name) {
-    case 'idle': return AIIdleState
-    case 'wander': return WanderState
-    case 'pursue': return PursueState
-    case 'flee': return FleeState
-    case 'patrol': return PatrolState
-    case 'follow': return FollowState
-    case 'fall': return AIFallState
-    case 'jump': return chooseJumpState(jumpStyle)
-    case 'attack': {
-      if (attackStyle === 'ONCE') return AIAttackOnceState
-      if (attackStyle === 'LOOP') return AIAttackLoopState
     }
     default: return AnimOnceState
   }

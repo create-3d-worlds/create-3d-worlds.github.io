@@ -25,7 +25,7 @@ player.cameraFollow.distance = 3
 scene.add(player.mesh)
 player.putInPolarMaze(maze)
 
-const renderer = createToonRenderer()
+const renderer = await createToonRenderer()
 
 /* LOOP */
 

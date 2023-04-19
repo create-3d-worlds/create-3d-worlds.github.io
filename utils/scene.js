@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { OutlineEffect } from '/node_modules/three/examples/jsm/effects/OutlineEffect.js'
 import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls.js'
 
 export const clock = new THREE.Clock()
@@ -23,6 +22,7 @@ export const renderer = new THREE.WebGLRenderer({
   alpha: true,
   antialias: true
 })
+
 document.body.style.margin = 0
 const container = document.getElementById('container') || document.body
 container.appendChild(renderer.domElement)
@@ -43,7 +43,8 @@ window.addEventListener('resize', () => {
 
 renderer.domElement.addEventListener('contextmenu', e => e.preventDefault())
 
-export function createToonRenderer({ defaultThickness = 0.003 } = {}) {
+export async function createToonRenderer({ defaultThickness = 0.003 } = {}) {
+  const { OutlineEffect } = await import('/node_modules/three/examples/jsm/effects/OutlineEffect.js')
   return new OutlineEffect(renderer, { defaultThickness })
 }
 

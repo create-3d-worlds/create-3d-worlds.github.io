@@ -3,7 +3,7 @@ import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js
 
 import Actor from './Actor.js'
 import { Input } from '/utils/classes/Input.js'
-import { getAIState } from './states/index.js'
+import { getAIState } from './states/ai/index.js'
 import { jumpStyles, attackStyles, baseStates } from '/utils/constants.js'
 import { belongsTo } from '/utils/helpers.js'
 

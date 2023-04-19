@@ -21,7 +21,7 @@ scene.add(player.mesh)
 
 /* LOOP */
 
-const renderer = createToonRenderer()
+const renderer = await createToonRenderer()
 
 void function loop() {
   requestAnimationFrame(loop)
