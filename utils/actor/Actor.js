@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
-import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
 
 import GameObject from '/utils/actor/GameObject.js'
 import { getGroundY, directionBlocked, getMesh, intersect, getParent, belongsTo } from '/utils/helpers.js'
@@ -467,7 +466,5 @@ export default class Actor extends GameObject {
 
     if (this.useRicochet) this.ricochet?.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
     if (this.useFlame) this.updateFlame(delta)
-
-    TWEEN.update()
   }
 }

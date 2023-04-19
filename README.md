@@ -82,7 +82,6 @@ npx live-server
 
 ### Optimizacija
 
-- izbaciti TWEEN ili ostaviti samo za AI
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
   - odrediti blizinu u lavirintu?
 - optimizovati statične modele https://github.com/donmccurdy/glTF-Transform

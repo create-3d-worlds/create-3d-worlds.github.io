@@ -170,5 +170,6 @@ export default class AI extends Actor {
   update(delta) {
     super.update(delta)
     this.checkTarget()
+    TWEEN.update()
   }
 }
