@@ -6,7 +6,6 @@ import GameObject from '/utils/actor/GameObject.js'
 import { getGroundY, directionBlocked, getMesh, intersect, getParent, belongsTo } from '/utils/helpers.js'
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
-import { shootDecals } from '/utils/decals.js'
 import config from '/config.js'
 
 const { randInt } = THREE.MathUtils
@@ -109,6 +108,13 @@ export default class Actor extends GameObject {
         const { Flame } = obj
         this.flame = new Flame({ num: 25, minRadius: 0, maxRadius: .5 })
         this.flame.mesh.material.opacity = 0
+      })
+    }
+
+    if (leaveDecals) {
+      const promise = import('/utils/decals.js')
+      promise.then(obj => {
+        this.shootDecals = obj.shootDecals
       })
     }
 
@@ -269,7 +275,7 @@ export default class Actor extends GameObject {
         if (this.useRicochet) this.explode(point, mesh.userData.hitColor)
       } else if (this.leaveDecals) { // if not hit enemy
         this.explode(point, 0xcccccc)
-        shootDecals(intersects[0], { scene: this.scene, color: 0x000000 })
+        this.shootDecals(intersects[0], { scene: this.scene, color: 0x000000 })
       }
     }, timeToHit)
   }
