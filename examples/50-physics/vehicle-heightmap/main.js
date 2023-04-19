@@ -14,7 +14,7 @@ const world = new PhysicsWorld()
 const cameraFollow = new VehicleCamera({ camera })
 
 const { data, width, depth } = await getHeightData('/assets/heightmaps/wiki.png', 3)
-const terrain = createTerrain({ data, width, depth })
+const terrain = await createTerrain({ data, width, depth })
 world.add(terrain)
 
 const tremplin = createBox({ width: 8, height: 4, depth: 15, color: 0xfffacd })

@@ -131,10 +131,10 @@ function createTerrainShape({ data, width, depth, mapWidth, mapDepth, minHeight,
   return shape
 }
 
-export function createTerrain({ data, width, depth, minHeight = 0, maxHeight = 24 } = {}) {
+export async function createTerrain({ data, width, depth, minHeight = 0, maxHeight = 24 } = {}) {
   const averageHeight = (maxHeight + minHeight) / 2
 
-  const mesh = meshFromData({ data, width, depth, minHeight, maxHeight })
+  const mesh = await meshFromData({ data, width, depth, minHeight, maxHeight })
   mesh.translateY(-averageHeight)
 
   const shape = createTerrainShape({ data, width, depth, mapWidth: width, mapDepth: depth, minHeight, maxHeight })
