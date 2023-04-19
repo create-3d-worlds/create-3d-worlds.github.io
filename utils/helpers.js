@@ -267,27 +267,6 @@ export const addTexture = ({ mesh, file = 'terrain/concrete.jpg', repeat = 1 } =
 
 /* CAMERA */
 
-export function shakeCamera(camera, range = .1, callback, recoil = false) {
-  const oldPosition = new THREE.Vector3().copy(camera.position)
-
-  const offset = recoil
-    ? new THREE.Vector3(0, 0, randFloat(range * .5, range))
-    : new THREE.Vector3(randFloat(-range, range), randFloat(-range, range), randFloat(-range, range))
-  camera.position.add(offset)
-
-  const duration = recoil ? range * 250 : range * 1000
-
-  const tween = new TWEEN.Tween(camera.position)
-    .to(oldPosition, duration)
-    .start()
-
-  tween.onComplete(() => {
-    if (callback) callback()
-  })
-}
-
-export const recoil = camera => shakeCamera(camera, .7, null, true)
-
 export function createChaseCamera(mesh, camera = defaultCamera) {
   const chaseCam = new THREE.Object3D()
   chaseCam.position.set(0, 0, 0)

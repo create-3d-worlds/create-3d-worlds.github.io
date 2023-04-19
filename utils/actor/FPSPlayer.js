@@ -1,7 +1,7 @@
 import Player from '/utils/actor/Player.js'
 import FPSRenderer from '/utils/actor/FPSRenderer.js'
 import { camera as defaultCamera } from '/utils/scene.js'
-import { getCameraIntersects, shakeCamera } from '/utils/helpers.js'
+import { getCameraIntersects } from '/utils/helpers.js'
 import { jumpStyles, attackStyles } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry.js'
 
@@ -111,9 +111,9 @@ export default class FPSPlayer extends Player {
 
   painEffect() {
     this.hurting = true
-    shakeCamera(this.camera, this.hitAmount * .009, () => {
+    setTimeout(() => {
       this.hurting = this.isDead // red screen if dead
-    })
+    }, 300)
   }
 
   checkHit() {

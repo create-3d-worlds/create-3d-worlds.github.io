@@ -1,7 +1,6 @@
 import { loadModel } from '/utils/loaders.js'
 import AI from '/utils/actor/AI.js'
 import Player from '/utils/actor/Player.js'
-import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import { animDict } from './Partisan.js'
 
 /* LOADING */
@@ -23,11 +22,5 @@ export class PartisanLowpolyPlayer extends Player {
 export class PartisanLowpolyAI extends AI {
   constructor(props = {}) {
     super({ ...sharedProps, attackDistance: 10, ...props })
-  }
-}
-
-export class PartisanLowpolyFPSPlayer extends FPSPlayer {
-  constructor(props = {}) {
-    super({ ...sharedProps, ...props })
   }
 }

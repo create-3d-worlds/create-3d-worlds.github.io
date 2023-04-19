@@ -1,7 +1,6 @@
 import { loadModel } from '/utils/loaders.js'
 import AI from '/utils/actor/AI.js'
 import Player from '/utils/actor/Player.js'
-import FPSPlayer from '/utils/actor/FPSPlayer.js'
 
 export const animDict = {
   idle: 'Rifle Aiming Idle',
@@ -31,11 +30,5 @@ export class PartisanAimAI extends AI {
 export class PartisanAimPlayer extends Player {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
-  }
-}
-
-export class PartisanAimFPSPlayer extends FPSPlayer {
-  constructor(props = {}) {
-    super({ ...sharedProps, usePointerLock: false, ...props })
   }
 }
