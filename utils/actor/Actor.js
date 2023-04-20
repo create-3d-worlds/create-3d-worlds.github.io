@@ -271,9 +271,9 @@ export default class Actor extends GameObject {
       if (belongsTo(object, name)) {
         const mesh = getParent(object, name)
         this.hit(mesh)
-        if (this.useRicochet) this.explode(point, mesh.userData.hitColor)
+        if (this.useRicochet) this.addRicochet(point, mesh.userData.hitColor)
       } else if (this.leaveDecals) { // if not hit enemy
-        this.explode(point, 0xcccccc)
+        this.addRicochet(point, 0xcccccc)
         this.shootDecals(intersects[0], { scene: this.scene, color: 0x000000 })
       }
     }, timeToHit)
@@ -281,7 +281,7 @@ export default class Actor extends GameObject {
 
   /* PARTICLES */
 
-  explode(pos, color) {
+  addRicochet(pos, color) {
     this.ricochet.reset({ pos, unitAngle: 0.2, color })
     this.scene.add(this.ricochet.mesh)
   }

@@ -9,7 +9,14 @@ import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 
 scene.add(createSun())
 
-const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', scale: 3, snow: false })
+const loaded = await Promise.all([
+  await terrainFromHeightmap({ file: 'yu-crop.png', scale: 3, snow: false }),
+  await loadModel({ file: 'building/monument/kosmaj.fbx', size: 30, texture: 'terrain/beton.gif' }),
+])
+
+console.log(loaded)
+
+const [terrain] = loaded
 
 const trees = createTreesOnTerrain({ terrain, mapSize: 200, size: 3.5, name: terrain.name })
 

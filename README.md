@@ -19,8 +19,8 @@ npx live-server
 
 - Spomenici
   - optimizacija
-    - prebaciti na Player leaveDecals i useRicochet
     - promise all za spomenike umesto puno awaita?
+      - loadModel da vraća mesh?
     - pomeriti učitavanje modela (i igrača) ispod petlje
 
 - Zeppelin
