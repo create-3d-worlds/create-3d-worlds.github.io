@@ -19,7 +19,6 @@ npx live-server
 
 - Spomenici
   - optimizacija
-    - loadModel više ne vraća mixer, ručno getMixer gde treba
     - promise all za spomenike umesto puno awaita?
     - pomeriti učitavanje modela (i igrača) ispod petlje
 

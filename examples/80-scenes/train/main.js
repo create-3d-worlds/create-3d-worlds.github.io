@@ -1,9 +1,17 @@
+import * as THREE from 'three'
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import { Smoke } from '/utils/classes/Particles.js'
 import { followPath, createEllipse, createRailroadTracks } from '/utils/path.js'
 import { loadModel } from '/utils/loaders.js'
+
+const createMixer = (mesh, animations, i = 0) => {
+  const mixer = new THREE.AnimationMixer(mesh)
+  const action = mixer.clipAction(animations[i])
+  action.play()
+  return mixer
+}
 
 createOrbitControls()
 camera.position.z = 20
@@ -23,6 +31,7 @@ const locomotive = await loadModel({
   file: 'vehicle/train/toy-locomotive/scene.gltf', angle: Math.PI, axis: [0, 1, 0]
 })
 scene.add(locomotive)
+const mixer = createMixer(locomotive, locomotive.userData.animations)
 
 const particles = new Smoke(true)
 particles.mesh.position.set(0, 1.5, 1.25)
@@ -41,7 +50,7 @@ void function loop() {
 
   followPath({ path, mesh: locomotive, elapsedTime, speed: .025, y: .75 })
   particles.update({ delta })
-  locomotive.userData.mixer.update(delta * 15)
+  mixer.update(delta * 15)
 
   renderer.render(scene, camera)
 }()

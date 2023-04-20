@@ -13,13 +13,6 @@ const getScale = (mesh, newHeight) => {
   return scale
 }
 
-const getMixer = (mesh, animations, i = 0) => {
-  const mixer = new THREE.AnimationMixer(mesh)
-  const action = mixer.clipAction(animations[i])
-  action.play()
-  return mixer
-}
-
 /* group preserves model orientation */
 const createGroup = model => {
   const group = new THREE.Group()
