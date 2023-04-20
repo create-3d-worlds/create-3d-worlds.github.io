@@ -40,8 +40,8 @@ export default class Actor extends GameObject {
     hitColor = 0x8a0303,
     energy = 100,
     runCoefficient = 2,
-    useRicochet = Boolean(twoHandedWeapon || rightHandWeapon),
-    leaveDecals = attackDistance > 5,
+    leaveDecals = attackDistance > 9,
+    useRicochet = attackDistance > 9,
     attackSound = '',
     altitude = 0, // for flying objects
     useFlame = false,

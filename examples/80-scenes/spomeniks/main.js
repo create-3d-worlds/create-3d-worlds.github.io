@@ -55,7 +55,7 @@ const { mesh, animations } = await loadModel({ file: 'resistance-fighter.fbx', a
 
 const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI })
 
-const player = new Player({ mesh, animations, animDict, twoHandedWeapon, attackDistance: 50, solids, camera, altitude: .6, leaveDecals: false, useRicochet: false })
+const player = new Player({ mesh, animations, animDict, twoHandedWeapon, solids, camera, altitude: .6, attackStyle: 'ONCE' })
 
 player.addSolids(problematicSolids)
 

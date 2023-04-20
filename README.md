@@ -18,8 +18,8 @@ npx live-server
 ### Scenes & examples
 
 - Spomenici
-  - BUG: igrač se ne pomera nakon pritiska na enter ako nema attack animaciju
   - optimizacija
+    - prebaciti na Player leaveDecals i useRicochet
     - promise all za spomenike umesto puno awaita?
     - pomeriti učitavanje modela (i igrača) ispod petlje
 
