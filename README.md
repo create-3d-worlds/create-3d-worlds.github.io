@@ -18,8 +18,9 @@ npx live-server
 ### Scenes & examples
 
 - Spomenici
-  - optimizacija
-    - pokušati pročitati visinu tačke iz terena
+  - dodati malo drveca
+    - pročitati visinu iz terena
+    - utvrditi teoriju http://danni-three.blogspot.com/2013/09/threejs-heightmaps.html
 
 - Zeppelin
   - umesto createChaseCamera koristiti 3rd person?

@@ -7,8 +7,8 @@ const raycaster = new THREE.Raycaster()
 
 /* MATH */
 
-export const mapRange = (number, inMin, inMax, outMin, outMax) =>
-  (number - inMin) * (outMax - outMin) / (inMax - inMin) + outMin
+export const mapRange = (value, inMin, inMax, outMin, outMax) =>
+  (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin
 
 /*
   @return shuffled coordinates for given mapSize
