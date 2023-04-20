@@ -18,9 +18,6 @@ npx live-server
 ### Scenes & examples
 
 - Spomenici
-  - BUG: igrač dugo pada na početku
-    - problem je GameObject putOnTerrain
-    - probati naknadno addSolids
   - BUG: igrač se ne pomera nakon pritiska na enter ako nema attack animaciju
   - optimizacija
     - promise all za spomenike umesto puno awaita?
