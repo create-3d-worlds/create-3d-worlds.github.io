@@ -8,11 +8,11 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'animal/elephant/Unity2Skfb.gltf', size: 8, angle: Math.PI })
+const mesh = await loadModel({ file: 'animal/elephant/Unity2Skfb.gltf', size: 8, angle: Math.PI })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, speed: 2, energy: 1000 }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict, speed: 2, energy: 1000 }
 
 export class ElephantPlayer extends Player {
   constructor(props = {}) {

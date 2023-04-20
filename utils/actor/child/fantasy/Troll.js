@@ -12,11 +12,11 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/troll/', fixColors: true, size: 3 })
+const mesh = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/troll/', fixColors: true, size: 3 })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict }
 
 export class TrollPlayer extends Player {
   constructor(props = {}) {

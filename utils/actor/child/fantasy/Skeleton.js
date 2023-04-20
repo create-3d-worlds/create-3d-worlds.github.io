@@ -12,11 +12,11 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'model.fbx', prefix: 'character/skeleton/', angle: Math.PI, animDict })
+const mesh = await loadModel({ file: 'model.fbx', prefix: 'character/skeleton/', angle: Math.PI, animDict })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, speed: 1.2 }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict, speed: 1.2 }
 
 export class SkeletonPlayer extends Player {
   constructor(props = {}) {

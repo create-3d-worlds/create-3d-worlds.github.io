@@ -14,13 +14,13 @@ export const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'nazi-officer.fbx', prefix: 'character/soldier/', animDict, angle: Math.PI + .3, fixColors: true, size: 2 })
+const mesh = await loadModel({ file: 'nazi-officer.fbx', prefix: 'character/soldier/', animDict, angle: Math.PI + .3, fixColors: true, size: 2 })
 
-const { mesh: rightHandWeapon } = await loadModel({ file: 'weapon/luger/model.fbx', scale: .18 })
+const rightHandWeapon = await loadModel({ file: 'weapon/luger/model.fbx', scale: .18 })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, rightHandWeapon, speed: 1.9, attackSound: 'rifle.mp3' }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict, rightHandWeapon, speed: 1.9, attackSound: 'rifle.mp3' }
 
 export class NaziOfficerPlayer extends Player {
   constructor(props = {}) {

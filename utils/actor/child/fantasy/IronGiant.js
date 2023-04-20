@@ -11,11 +11,11 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'model.fbx', prefix: 'character/iron-giant/', animDict, angle: Math.PI, size: 5, fixColors: true })
+const mesh = await loadModel({ file: 'model.fbx', prefix: 'character/iron-giant/', animDict, angle: Math.PI, size: 5, fixColors: true })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict }
 
 export class IronGiantPlayer extends Player {
   constructor(props = {}) {

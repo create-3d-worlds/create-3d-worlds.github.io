@@ -15,13 +15,13 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'german-machine-gunner.fbx', animDict, prefix: 'character/soldier/', angle: Math.PI, fixColors: true })
+const mesh = await loadModel({ file: 'german-machine-gunner.fbx', animDict, prefix: 'character/soldier/', angle: Math.PI, fixColors: true })
 
-const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/flame-gun/model.fbx', scale: .75 })
+const twoHandedWeapon = await loadModel({ file: 'weapon/flame-gun/model.fbx', scale: .75 })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, twoHandedWeapon, speed: 1.8, attackStyle: 'LOOP', attackDistance: 7, attackSound: 'fire-swoosh.mp3' }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict, twoHandedWeapon, speed: 1.8, attackStyle: 'LOOP', attackDistance: 7, attackSound: 'fire-swoosh.mp3' }
 
 const adjustFlamePos = self => {
   const { flame, mesh } = self

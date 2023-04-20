@@ -11,11 +11,11 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/goblin/', fixColors: true, size: 1.5 })
+const mesh = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/goblin/', fixColors: true, size: 1.5 })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict }
 
 export class GoblinPlayer extends Player {
   constructor(props = {}) {

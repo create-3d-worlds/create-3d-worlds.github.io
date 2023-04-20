@@ -14,7 +14,7 @@ scene.fog = new THREE.Fog(0xE5C5AB, 1, 5000)
 const sky = await createSkySphere()
 scene.add(sky, createSun(), terrain, trees)
 
-const { mesh } = await loadModel({
+const mesh = await loadModel({
   file: 'aircraft/biplane-sopwith/model.fbx',
   size: 2,
   angle: -Math.PI * .5,

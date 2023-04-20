@@ -4,7 +4,7 @@ import { Flame } from '/utils/classes/Particles.js'
 import GameObject from '/utils/actor/GameObject.js'
 import { loadModel } from '/utils/loaders.js'
 
-const { mesh } = await loadModel({ file: 'space/lunar-module/model.fbx', size: 2.5 })
+const mesh = await loadModel({ file: 'space/lunar-module/model.fbx', size: 2.5 })
 
 const message = {
   fail: 'Landing failure!',

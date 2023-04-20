@@ -14,11 +14,11 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'zombie-cop.fbx', prefix: 'character/zombie/', animDict, angle: Math.PI, fixColors: true })
+const mesh = await loadModel({ file: 'zombie-cop.fbx', prefix: 'character/zombie/', animDict, angle: Math.PI, fixColors: true })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, speed: .5, runCoefficient: 8, sightDistance: 15 }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict, speed: .5, runCoefficient: 8, sightDistance: 15 }
 
 export class ZombieCopPlayer extends Player {
   constructor(props = {}) {

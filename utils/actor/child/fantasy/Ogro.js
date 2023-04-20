@@ -16,11 +16,11 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'character/ogro/ogro.md2', texture: 'character/ogro/skins/arboshak.png', size: 2, angle: Math.PI * .5, shouldCenter: true, shouldAdjustHeight: true, fixColors: true })
+const mesh = await loadModel({ file: 'character/ogro/ogro.md2', texture: 'character/ogro/skins/arboshak.png', size: 2, angle: Math.PI * .5, shouldCenter: true, shouldAdjustHeight: true, fixColors: true })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict }
 
 export class OgroPlayer extends Player {
   constructor(props = {}) {

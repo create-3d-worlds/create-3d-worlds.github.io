@@ -17,13 +17,13 @@ const loadSovietPartisan = () => loadModel({ file: 'soviet-partisan.fbx', prefix
 
 /* LOADING */
 
-const { mesh, animations } = await loadSovietPartisan()
+const mesh = await loadSovietPartisan()
 
-const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/mg-42/model.fbx', scale: .4 })
+const twoHandedWeapon = await loadModel({ file: 'weapon/mg-42/model.fbx', scale: .4 })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, twoHandedWeapon, attackStyle: 'LOOP', attackSound: 'rifle.mp3' }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict, twoHandedWeapon, attackStyle: 'LOOP', attackSound: 'rifle.mp3' }
 
 export class SovietPartisanPlayer extends Player {
   constructor(props = {}) {

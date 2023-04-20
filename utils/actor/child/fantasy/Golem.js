@@ -13,11 +13,11 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/golem/', size: 2.5, fixColors: true })
+const mesh = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/golem/', size: 2.5, fixColors: true })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict }
 
 export class GolemPlayer extends Player {
   constructor(props = {}) {

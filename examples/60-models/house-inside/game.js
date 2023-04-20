@@ -14,7 +14,7 @@ scene.add(ground)
 
 scene.add(createSun())
 
-const { mesh } = await loadModel({ file: 'building/house/medieval/house1-02.obj', mtl: 'building/house/medieval/house1-02.mtl', size: 12 })
+const mesh = await loadModel({ file: 'building/house/medieval/house1-02.obj', mtl: 'building/house/medieval/house1-02.mtl', size: 12 })
 scene.add(mesh)
 
 addUIControls({ commands: {

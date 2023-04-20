@@ -26,7 +26,7 @@ world.add(ground, 0)
 
 createSideWall({ brickMass: 3, friction: 5, z: 7 }).forEach(mesh => world.add(mesh))
 
-const { mesh: chassisMesh } = await loadModel({ file: 'weapon/cannon/mortar/mortar.obj', mtl: 'weapon/cannon/mortar/mortar.mtl', size: 1, angle: Math.PI * .5 })
+const chassisMesh = await loadModel({ file: 'weapon/cannon/mortar/mortar.obj', mtl: 'weapon/cannon/mortar/mortar.mtl', size: 1, angle: Math.PI * .5 })
 
 const wheelFront = { x: .3, y: .12, z: .32 }
 const wheelBack = { x: .3, y: .18, z: -.56 }

@@ -32,8 +32,8 @@ createCrates({ z: -20 }).forEach(mesh => world.add(mesh, 10))
 
 /* VEHICLE */
 
-const { mesh: chassisMesh } = await loadModel({ file: 'vehicle/ready/lada/lada.obj', mtl: 'vehicle/ready/lada/lada.mtl' })
-const { mesh: wheelMesh } = await loadModel({ file: 'vehicle/ready/lada/ladaTire.obj', mtl: 'vehicle/ready/lada/ladaTire.mtl' })
+const chassisMesh = await loadModel({ file: 'vehicle/ready/lada/lada.obj', mtl: 'vehicle/ready/lada/lada.mtl' })
+const wheelMesh = await loadModel({ file: 'vehicle/ready/lada/ladaTire.obj', mtl: 'vehicle/ready/lada/ladaTire.mtl' })
 
 const wheelFront = { x: 1.15, y: .4, z: 1.55 }
 const wheelBack = { x: 1.15, y: .4, z: -1.8 }

@@ -16,7 +16,7 @@ scene.add(water)
 const ground = await createHillyTerrain({ size: 10000, y: 100, factorX: 5, factorZ: 2.5, factorY: 350, file: 'terrain/grass.jpg' })
 scene.add(ground)
 
-const { mesh } = await loadModel({
+const mesh = await loadModel({
   file: 'airship/zeppelin.fbx',
   size: 10,
 })

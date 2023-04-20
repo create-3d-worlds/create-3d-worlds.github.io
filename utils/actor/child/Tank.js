@@ -5,7 +5,7 @@ import { reactions } from '/utils/constants.js'
 
 /* LOADING */
 
-const { mesh } = await loadModel({ file: 'tank/renault-ft.fbx', texture: 'metal/metal01.jpg', size: 2.5 })
+const mesh = await loadModel({ file: 'tank/renault-ft.fbx', texture: 'metal/metal01.jpg', size: 2.5 })
 
 /* EXTENDED CLASSES */
 

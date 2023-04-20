@@ -13,7 +13,7 @@ const getScale = (mesh, newHeight) => {
   return scale
 }
 
-export const getMixer = (mesh, animations, i = 0) => {
+const getMixer = (mesh, animations, i = 0) => {
   const mixer = new THREE.AnimationMixer(mesh)
   const action = mixer.clipAction(animations[i])
   action.play()
@@ -46,9 +46,9 @@ const prepareMesh = async({ model, size = 2, texture, angle, axis = [0, 1, 0], a
 
   if (angle) model.rotateOnWorldAxis(new THREE.Vector3(...axis), angle)
 
-  const mixer = animations && animations.length ? getMixer(model, animations) : null
-
-  return { mesh: createGroup(model), animations, mixer }
+  const mesh = createGroup(model)
+  if (animations) mesh.userData.animations = animations
+  return mesh
 }
 
 /* OBJ */
@@ -135,8 +135,7 @@ export async function loadFbxAnimations(names, prefix = '') {
 
   const promises = uniques.map(name => loadFbx({ name, file: prefix + name + '.fbx' }))
   const responses = await Promise.all(promises)
-
-  return responses.map(res => res.animations[0])
+  return responses.map(res => res.children[0].animations[0])
 }
 
 /* MASTER LOADER */

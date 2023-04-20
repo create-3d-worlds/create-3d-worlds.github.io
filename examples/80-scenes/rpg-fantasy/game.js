@@ -24,7 +24,7 @@ scene.add(terrain)
 const trees = createTreesOnTerrain({ terrain })
 scene.add(trees)
 
-const { mesh: castle } = await loadModel({ file: 'building/castle/fortress.fbx', size: 40 })
+const castle = await loadModel({ file: 'building/castle/fortress.fbx', size: 40 })
 putOnTerrain(castle, terrain, -5)
 scene.add(castle)
 

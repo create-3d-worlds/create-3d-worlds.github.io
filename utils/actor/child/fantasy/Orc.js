@@ -15,11 +15,11 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'model.fbx', prefix: 'character/orc/', animDict, angle: Math.PI, fixColors: true })
+const mesh = await loadModel({ file: 'model.fbx', prefix: 'character/orc/', animDict, angle: Math.PI, fixColors: true })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict }
 
 export class OrcPlayer extends Player {
   constructor(props = {}) {

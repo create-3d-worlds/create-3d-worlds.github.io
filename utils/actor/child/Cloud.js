@@ -4,7 +4,7 @@ import { loadModel } from '/utils/loaders.js'
 
 /* LOADING */
 
-const { mesh } = await loadModel({ file: 'nature/cloud/lowpoly.gltf', size: 20, angle: Math.PI })
+const mesh = await loadModel({ file: 'nature/cloud/lowpoly.gltf', size: 20, angle: Math.PI })
 
 /* EXTENDED CLASSES */
 

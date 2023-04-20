@@ -8,11 +8,11 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'character/ghost/scene.gltf', angle: Math.PI })
+const mesh = await loadModel({ file: 'character/ghost/scene.gltf', angle: Math.PI })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict }
 
 export class GhostPlayer extends Player {
   constructor(props = {}) {

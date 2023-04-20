@@ -11,11 +11,11 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'model.fbx', prefix: 'character/nude-victim/', animDict, angle: Math.PI, fixColors: true })
+const mesh = await loadModel({ file: 'model.fbx', prefix: 'character/nude-victim/', animDict, angle: Math.PI, fixColors: true })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict }
 
 export class NudeVictimPlayer extends Player {
   constructor(props = {}) {

@@ -20,9 +20,9 @@ const controls = new OrbitControls(camera, renderer.domElement)
 
 const ground = createGround({ r: 3000, color: 0x91A566 })
 
-// const { mesh, mixer } = await loadModel({ file: '/aircraft_junkers_ju_87_stuka/scene.gltf', size: 30 })
+// const mesh = await loadModel({ file: '/aircraft_junkers_ju_87_stuka/scene.gltf', size: 30 })
 
-const { mesh, mixer } = await loadModel({ file: '/aircraft/messerschmitt-bf-109/scene.gltf', size: 20 })
+const mesh = await loadModel({ file: '/aircraft/messerschmitt-bf-109/scene.gltf', size: 20 })
 
 mesh.position.y = 100
 
@@ -37,7 +37,7 @@ void function update() {
   rotateGround(ground)
   updatePlane(mesh, delta)
   normalizePlane(mesh, delta)
-  if (mixer) mixer.update(0.016)
+  if (mesh.userData.mixer) mesh.userData.mixer.update(0.016)
   camera.lookAt(mesh.position)
   renderer.render(scene, camera)
 }()

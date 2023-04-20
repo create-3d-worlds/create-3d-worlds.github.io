@@ -7,11 +7,11 @@ let theta = 0
 
 dirLight({ color: 0xefefff, intensity: 1.5 })
 
-const { mesh, animations } = await loadModel({ file: 'animal/horse.glb', size: 2 })
+const mesh = await loadModel({ file: 'animal/horse.glb', size: 2 })
 scene.add(mesh)
 
 const mixer = new THREE.AnimationMixer(mesh)
-const action = mixer.clipAction(animations[0])
+const action = mixer.clipAction(mesh.userData.animations[0])
 action.play()
 
 // FUNCTIONS

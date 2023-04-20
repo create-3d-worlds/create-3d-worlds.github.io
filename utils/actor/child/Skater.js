@@ -1,15 +1,15 @@
 import Player from '/utils/actor/Player.js'
 import { loadModel } from '/utils/loaders.js'
 
-const skaterAnimations = {
+const animDict = {
   idle: 'Skateboarding',
   jump: 'Jumping',
 }
 
-const { mesh, animations, animDict } = await loadModel({ file: 'model.fbx', prefix: 'character/skater-girl/', animDict: skaterAnimations, angle: Math.PI, fixColors: true })
+const mesh = await loadModel({ file: 'model.fbx', prefix: 'character/skater-girl/', animDict, angle: Math.PI, fixColors: true })
 
 export class Skater extends Player {
   constructor() {
-    super({ mesh, animations, animDict })
+    super({ mesh, animations: mesh.userData.animations, animDict })
   }
 }

@@ -6,7 +6,7 @@ import { findChild } from '/utils/helpers.js'
 /* LOADING */
 
 // airship/airship-cargo/model.fbx
-const { mesh } = await loadModel({ file: 'airship/zeppelin.fbx', size: 20 })
+const mesh = await loadModel({ file: 'airship/zeppelin.fbx', size: 20 })
 
 /* EXTENDED CLASSES */
 

@@ -19,7 +19,7 @@ const outerLine = createEllipse({ xRadius: xRadius + .4, yRadius: yRadius + .4 }
 const innerLine = createEllipse({ xRadius: xRadius - .4, yRadius: yRadius - .4 })
 scene.add(outerLine, innerLine)
 
-const { mesh: locomotive, mixer } = await loadModel({
+const locomotive = await loadModel({
   file: 'vehicle/train/toy-locomotive/scene.gltf', angle: Math.PI, axis: [0, 1, 0]
 })
 scene.add(locomotive)
@@ -41,7 +41,7 @@ void function loop() {
 
   followPath({ path, mesh: locomotive, elapsedTime, speed: .025, y: .75 })
   particles.update({ delta })
-  mixer.update(delta * 15)
+  locomotive.userData.mixer.update(delta * 15)
 
   renderer.render(scene, camera)
 }()

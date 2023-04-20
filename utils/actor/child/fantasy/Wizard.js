@@ -10,13 +10,13 @@ const animDict = {
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/wizard/', size: 1.8, fixColors: true })
+const mesh = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/wizard/', size: 1.8, fixColors: true })
 
 addTexture({ mesh, file: 'lavacloud.png' })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, speed: 1 }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict, speed: 1 }
 
 export class WizardPlayer extends Player {
   constructor(props = {}) {

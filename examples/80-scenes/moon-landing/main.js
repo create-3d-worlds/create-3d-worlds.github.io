@@ -20,7 +20,7 @@ const platform = new Platform({ pos: [0, -10, 0], axis: 'x', range: 29, randomDi
 const lander = new Lander({ platform })
 const stars = new Stars({ minRadius: 150 })
 
-const { mesh: arcology } = await loadModel({ file: 'space/arcology-ring/model.fbx', scale: .5, shouldCenter: true })
+const arcology = await loadModel({ file: 'space/arcology-ring/model.fbx', scale: .5, shouldCenter: true })
 arcology.position.z = -100
 
 const jupiter = createJupiter({ r: 5 })

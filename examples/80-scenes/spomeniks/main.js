@@ -22,21 +22,21 @@ const trees = createTreesOnTerrain({ terrain, mapSize: 200, size: 3.5, name: ter
 
 /* SPOMENIKS */
 
-const { mesh: kosmaj } = await loadModel({ file: 'building/monument/kosmaj.fbx', size: 30, texture: 'terrain/beton.gif' })
+const kosmaj = await loadModel({ file: 'building/monument/kosmaj.fbx', size: 30, texture: 'terrain/beton.gif' })
 kosmaj.position.set(-46, 14.2, -20)
 
-const { mesh: kosovskaMitrovica } = await loadModel({ file: 'building/monument/kosovska-mitrovica.fbx', size: 19, texture: 'walls/concrete_wall_2b.jpg' })
+const kosovskaMitrovica = await loadModel({ file: 'building/monument/kosovska-mitrovica.fbx', size: 19, texture: 'walls/concrete_wall_2b.jpg' })
 kosovskaMitrovica.position.set(-50, 6, -100)
 kosovskaMitrovica.rotateY(-Math.PI * .125)
 
-const { mesh: podgaric } = await loadModel({ file: 'building/monument/podgaric.fbx', size: 10, texture: 'terrain/concrete.jpg' })
+const podgaric = await loadModel({ file: 'building/monument/podgaric.fbx', size: 10, texture: 'terrain/concrete.jpg' })
 podgaric.position.set(40, 10, -40)
 podgaric.rotateY(Math.PI * .75)
 
-const { mesh: kadinjaca } = await loadModel({ file: 'building/monument/kadinjaca.fbx', size: 15 })
+const kadinjaca = await loadModel({ file: 'building/monument/kadinjaca.fbx', size: 15 })
 kadinjaca.position.set(0, 11, -4)
 
-const { mesh: ilirskaBistrica } = await loadModel({ file: 'building/monument/ilirska-bistrica.fbx', size: 8, texture: 'terrain/beton.gif' })
+const ilirskaBistrica = await loadModel({ file: 'building/monument/ilirska-bistrica.fbx', size: 8, texture: 'terrain/beton.gif' })
 ilirskaBistrica.position.set(40, 10.6, 20)
 
 /* FLAGS */
@@ -58,11 +58,11 @@ export const animDict = {
   run: 'Rifle Run',
 }
 
-const { mesh, animations } = await loadModel({ file: 'resistance-fighter.fbx', angle: Math.PI, animDict, prefix: 'character/soldier/', fixColors: true, size: 1.8 })
+const mesh = await loadModel({ file: 'resistance-fighter.fbx', angle: Math.PI, animDict, prefix: 'character/soldier/', fixColors: true, size: 1.8 })
 
-const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI })
+const twoHandedWeapon = await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI })
 
-const player = new Player({ mesh, animations, animDict, twoHandedWeapon, solids, camera, altitude: .6, attackStyle: 'ONCE' })
+const player = new Player({ mesh, animations: mesh.userData.animations, animDict, twoHandedWeapon, solids, camera, altitude: .6, attackStyle: 'ONCE' })
 
 player.addSolids(problematicSolids)
 

@@ -6,11 +6,11 @@ const animDict = { walk: 'flamingo_flyA_' }
 
 /* LOADING */
 
-const { mesh, animations } = await loadModel({ file: 'animal/flamingo.glb', size: 20, angle: Math.PI })
+const mesh = await loadModel({ file: 'animal/flamingo.glb', size: 20, angle: Math.PI })
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations, animDict, speed: 8, shouldRaycastGround: false }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict, speed: 8, shouldRaycastGround: false }
 
 export class FlamingoPlayer extends Player {
   constructor(props = {}) {

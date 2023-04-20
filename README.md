@@ -19,8 +19,8 @@ npx live-server
 
 - Spomenici
   - optimizacija
+    - loadModel više ne vraća mixer, ručno getMixer gde treba
     - promise all za spomenike umesto puno awaita?
-      - loadModel da vraća mesh?
     - pomeriti učitavanje modela (i igrača) ispod petlje
 
 - Zeppelin
