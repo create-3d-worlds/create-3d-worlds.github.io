@@ -19,7 +19,6 @@ npx live-server
 
 - Spomenici
   - optimizacija
-    - promise all za spomenike umesto puno awaita?
     - pomeriti učitavanje modela (i igrača) ispod petlje
 
 - Zeppelin
