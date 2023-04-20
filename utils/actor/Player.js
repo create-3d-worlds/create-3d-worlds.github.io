@@ -48,6 +48,7 @@ export default class Player extends Actor {
   /* GETTERS & SETTERS */
 
   get enemies() {
+    if (!this.scene) return []
     return findChildren(this.scene, 'enemy')
   }
 
