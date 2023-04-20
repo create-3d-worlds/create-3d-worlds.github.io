@@ -44,7 +44,8 @@ yuFlag.position.set(1.5, 11, 0)
 
 /* PLAYER */
 
-solids.push(terrain, redFlag, yuFlag, trees, kosmaj, kosovskaMitrovica, podgaric, kadinjaca, ilirskaBistrica)
+solids.push(terrain, redFlag, yuFlag, trees, kadinjaca, kosmaj, kosovskaMitrovica)
+const solids2 = [podgaric, kosovskaMitrovica, ilirskaBistrica] // BUGFIX: player falling
 
 export const animDict = {
   idle: 'Rifle Idle',
@@ -58,10 +59,12 @@ const { mesh: twoHandedWeapon } = await loadModel({ file: 'weapon/rifle.fbx', sc
 
 const player = new Player({ mesh, animations, animDict, twoHandedWeapon, attackDistance: 50, solids, camera, altitude: .6, leaveDecals: false, useRicochet: false })
 
+player.addSolids(solids2)
+
 player.cameraFollow.distance = 1.5
 player.position.z = 2
 
-scene.add(player.mesh, ...solids)
+scene.add(player.mesh, ...solids, ...solids2)
 
 /* LOOP */
 
