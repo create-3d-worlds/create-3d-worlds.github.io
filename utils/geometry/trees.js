@@ -166,12 +166,11 @@ export function createTrees({ mapSize = 100, size = 4, n = maxItems(mapSize, siz
 
 export const createFirTrees = ({ mapSize = 100, size = 5, n = maxItems(mapSize, size) / 4, ...params } = {}) => createTrees({ mapSize, size, nFirTrees: n, n: 0, ...params })
 
-export const createTreesOnTerrain = ({ terrain, n = 100, mapSize = 400, size, coords = getShuffledCoords({ mapSize, fieldSize: size }), name } = {}) => {
+export const createTreesOnTerrain = ({ terrain, n = 100, mapSize = 400, size, coords = getShuffledCoords({ mapSize, fieldSize: size }) } = {}) => {
   const group = new THREE.Group()
 
   for (let i = 0; i < n && i < coords.length; i++) {
     const intersect = findGround({ solids: terrain, pos: coords.pop(), y: 200 })
-    if (name && intersect?.object?.name != name) continue
 
     const pos = intersect?.point?.y > 0 ? intersect.point : null
     if (pos) group.add(createFirTree({ ...pos, size }))

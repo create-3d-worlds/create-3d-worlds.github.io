@@ -19,7 +19,7 @@ npx live-server
 
 - Spomenici
   - optimizacija
-    - createTreesOnTerrain najviše usporava
+    - pokušati pročitati visinu tačke iz terena
 
 - Zeppelin
   - umesto createChaseCamera koristiti 3rd person?

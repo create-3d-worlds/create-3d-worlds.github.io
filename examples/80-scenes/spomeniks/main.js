@@ -5,15 +5,11 @@ import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
 import { createFlag } from '/utils/geometry.js'
 import { wave } from '/utils/ground.js'
 import Player from '/utils/actor/Player.js'
-import { createTreesOnTerrain } from '/utils/geometry/trees.js'
-
-const animDict = {
-  idle: 'Rifle Idle',
-  walk: 'Rifle Walk',
-  run: 'Rifle Run',
-}
 
 scene.add(createSun())
+
+const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', scale: 3, snow: false })
+scene.add(terrain)
 
 const redFlag = createFlag({ file: 'prva-proleterska.jpg' })
 redFlag.position.set(-1.5, 11.2, 0)
@@ -21,8 +17,13 @@ redFlag.position.set(-1.5, 11.2, 0)
 const yuFlag = createFlag({ file: 'sfrj.png' })
 yuFlag.position.set(1.5, 11, 0)
 
-const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', scale: 3, snow: false })
-scene.add(terrain)
+/* PLAYER */
+
+const animDict = {
+  idle: 'Rifle Idle',
+  walk: 'Rifle Walk',
+  run: 'Rifle Run',
+}
 
 const [mesh, twoHandedWeapon] = await Promise.all([
   await loadModel({ file: 'resistance-fighter.fbx', angle: Math.PI, animDict, prefix: 'character/soldier/', fixColors: true, size: 1.8 }),
@@ -52,7 +53,7 @@ void function loop() {
   renderer.render(scene, camera)
 }()
 
-/* LOADINGS */
+/* LAZY LOADING */
 
 const [kosmaj, kosovskaMitrovica, podgaric, kadinjaca, ilirskaBistrica] = await Promise.all([
   await loadModel({ file: 'building/monument/kosmaj.fbx', size: 30, texture: 'terrain/beton.gif' }),
@@ -61,8 +62,6 @@ const [kosmaj, kosovskaMitrovica, podgaric, kadinjaca, ilirskaBistrica] = await 
   await loadModel({ file: 'building/monument/kadinjaca.fbx', size: 15 }),
   await loadModel({ file: 'building/monument/ilirska-bistrica.fbx', size: 8, texture: 'terrain/beton.gif' }),
 ])
-
-const trees = createTreesOnTerrain({ terrain, mapSize: 200, size: 3.5, name: terrain.name })
 
 kosovskaMitrovica.position.set(-50, 6, -100)
 kosovskaMitrovica.rotateY(-Math.PI * .125)
@@ -74,8 +73,7 @@ kosmaj.position.set(-46, 14.2, -20)
 kadinjaca.position.set(0, 11, -4)
 ilirskaBistrica.position.set(40, 10.6, 20)
 
-const solids = [redFlag, yuFlag, trees, kadinjaca, kosmaj, kosovskaMitrovica, podgaric, kosovskaMitrovica, ilirskaBistrica]
+const solids = [redFlag, yuFlag, kadinjaca, kosmaj, kosovskaMitrovica, podgaric, kosovskaMitrovica, ilirskaBistrica]
 
 player.addSolids(solids)
-
 scene.add(player.mesh, ...solids)

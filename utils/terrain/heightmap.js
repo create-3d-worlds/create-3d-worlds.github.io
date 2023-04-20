@@ -20,7 +20,6 @@ export async function terrainFromHeightmap({
 
   const geometry = geometryFromData({ data, width, depth })
   const mesh = new THREE.Mesh(geometry, material)
-  mesh.name = 'terrain'
   return mesh
 }
 
