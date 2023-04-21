@@ -5,30 +5,12 @@ import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
 import { createFlag } from '/utils/geometry.js'
 import { wave } from '/utils/ground.js'
 import Player from '/utils/actor/Player.js'
+import { coordToHeight } from '/utils/helpers.js'
 
 scene.add(createSun())
 
 const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', scale: 3, snow: false })
 scene.add(terrain)
-
-/**
- * visinska mapa 256 x 256 tačaka = 65536 tačaka
- * svaka tačka ima 3 dimenzije, ukupno 196608 vrednosti
- *
- * u nizu su pozicije redno, od (-128,-128) do (128,128)
- * index pozicija od 0 do 65535
- * index vrednosti od 0 do 196607
- */
-
-const terrainSize = Math.sqrt(terrain.geometry.attributes.position.count)
-
-const toZeroBased = x => x + terrainSize / 2
-
-const coordToIndex = pos => toZeroBased(pos.x) * toZeroBased(pos.z)
-
-const coordToTerrainHeight = pos => terrain.geometry.attributes.position.getY(coordToIndex(pos))
-
-/* END TERRAIN */
 
 const redFlag = createFlag({ file: 'prva-proleterska.jpg' })
 redFlag.position.set(-1.5, 11.2, 0)
@@ -49,10 +31,11 @@ const [mesh, twoHandedWeapon] = await Promise.all([
   await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI }),
 ])
 
-const player = new Player({ mesh, animations: mesh.userData.animations, animDict, twoHandedWeapon, camera, altitude: .6, attackStyle: 'ONCE' })
+const player = new Player({ mesh, animations: mesh.userData.animations, animDict, twoHandedWeapon, camera, altitude: .7, attackStyle: 'ONCE' })
+
 player.cameraFollow.distance = 1.5
 player.position.z = 2
-player.position.y = coordToTerrainHeight(player.position)
+player.position.y = coordToHeight(terrain, player.position) + player.altitude
 
 /* LOOP */
 

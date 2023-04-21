@@ -14,13 +14,13 @@ npx live-server
 - reuse useFlame for flame thrower?
 - ubaci dupčeša negde
 - merge createMoon
+- Promise.all za igrače i puške
 
 ### Scenes & examples
 
 - Spomenici
   - dodati malo drveca
     - pročitati visinu iz terena
-    - utvrditi teoriju http://danni-three.blogspot.com/2013/09/threejs-heightmaps.html
 
 - Zeppelin
   - umesto createChaseCamera koristiti 3rd person?

@@ -277,7 +277,7 @@ export function createChaseCamera(mesh, camera = defaultCamera) {
 
   camera.position.copy(mesh.position)
 
-  return function() {
+  return function () {
     const v = new THREE.Vector3()
     camera.lookAt(mesh.position)
     pivot.getWorldPosition(v)
@@ -286,7 +286,17 @@ export function createChaseCamera(mesh, camera = defaultCamera) {
   }
 }
 
-/* JS HELPERS */
+/* TERRAIN */
+
+export const coordToHeight = (terrain, pos) => {
+  const { width } = terrain.geometry.parameters
+
+  const coordToIndex = ({ x, z }) => x + width / 2 * z + width / 2
+
+  return terrain.geometry.attributes.position.getY(coordToIndex(pos))
+}
+
+/* ARRAYS AND OBJECTS */
 
 export const isEmpty = obj => Object.keys(obj).length === 0
 
