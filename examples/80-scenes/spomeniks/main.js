@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
@@ -5,12 +6,22 @@ import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
 import { createFlag } from '/utils/geometry.js'
 import { wave } from '/utils/ground.js'
 import Player from '/utils/actor/Player.js'
-import { coordToHeight } from '/utils/helpers.js'
+import { putOnTerrain } from '/utils/helpers.js'
+import { createFirTree } from '/utils/geometry/trees.js'
+
+const { randInt } = THREE.MathUtils
 
 scene.add(createSun())
 
 const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', scale: 3, snow: false })
 scene.add(terrain)
+
+for (let i = 0; i < 20; i++) {
+  const tree = createFirTree({ size: 3.5 })
+  tree.position.set(randInt(-50, 50), 0, randInt(-50, 50))
+  putOnTerrain(tree, terrain)
+  scene.add(tree)
+}
 
 const redFlag = createFlag({ file: 'prva-proleterska.jpg' })
 redFlag.position.set(-1.5, 11.2, 0)
@@ -31,11 +42,11 @@ const [mesh, twoHandedWeapon] = await Promise.all([
   await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI }),
 ])
 
-const player = new Player({ mesh, animations: mesh.userData.animations, animDict, twoHandedWeapon, camera, altitude: .7, attackStyle: 'ONCE' })
+const player = new Player({ mesh, solids: terrain, animations: mesh.userData.animations, animDict, twoHandedWeapon, camera, altitude: .7, attackStyle: 'ONCE' })
 
 player.cameraFollow.distance = 1.5
 player.position.z = 2
-player.position.y = coordToHeight(terrain, player.position) + player.altitude
+putOnTerrain(player.mesh, terrain, player.altitude)
 
 /* LOOP */
 

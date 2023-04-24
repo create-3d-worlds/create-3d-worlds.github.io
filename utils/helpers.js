@@ -203,7 +203,7 @@ export function findGround({ solids, pos, y = 200 }) {
 
 export const getGroundY = ({ solids, pos, y }) => findGround({ solids, pos, y })?.point?.y || 0
 
-export const putOnTerrain = (mesh, solids, adjustment = 0) => {
+export const putOnSolids = (mesh, solids, adjustment = 0) => {
   mesh.position.y = getGroundY({ solids, pos: mesh.position }) + adjustment
 }
 
@@ -288,12 +288,17 @@ export function createChaseCamera(mesh, camera = defaultCamera) {
 
 /* TERRAIN */
 
+/* pos must be int not float */
 export const coordToHeight = (terrain, pos) => {
   const { width } = terrain.geometry.parameters
 
-  const coordToIndex = ({ x, z }) => x + width / 2 * z + width / 2
+  const coordToIndex = ({ x, z }) => Math.round(x + width / 2 * z + width / 2)
 
   return terrain.geometry.attributes.position.getY(coordToIndex(pos))
+}
+
+export function putOnTerrain(mesh, terrain, adjustment = 0) {
+  mesh.position.y = coordToHeight(terrain, mesh.position) + adjustment
 }
 
 /* ARRAYS AND OBJECTS */

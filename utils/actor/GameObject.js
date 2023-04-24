@@ -1,4 +1,4 @@
-import { getMesh, putOnTerrain, getSize, getScene } from '/utils/helpers.js'
+import { getMesh, putOnSolids, getSize, getScene } from '/utils/helpers.js'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 
 export default class GameObject {
@@ -8,7 +8,7 @@ export default class GameObject {
     this.name = name
 
     if (pos) this.position = pos
-    if (solids) putOnTerrain(this.mesh, solids)
+    if (solids) putOnSolids(this.mesh, solids)
 
     if (scale) this.mesh.scale.set(scale, scale, scale)
     if (color != undefined) getMesh(this.mesh).material.color.setHex(color)
