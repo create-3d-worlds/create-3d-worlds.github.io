@@ -14,15 +14,10 @@ textureLoader.setPath('/assets/textures/planets/')
 const textures = ['jupiter.jpg', 'saturn.jpg', 'venus.jpg', 'mars.jpg']
 const materials = [fractalMaterial, fireMaterial, lavaMaterial]
 
-/* MOON */
-
-export const createMoon = ({ r = 2, segments = 32 } = {}) =>
-  createSphere({ r, segments, file: 'planets/moon.jpg' })
-
 /* RANDOM PLANET */
 
 function addMoon(planet, r) {
-  const moon = createMoon({ r: r * .33 })
+  const moon = createSphere({ r: r * .33, file: 'planets/moon.jpg' })
   moon.translateX(r * 2.5)
   planet.userData.moon = moon
   planet.add(moon)

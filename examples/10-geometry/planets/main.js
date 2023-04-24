@@ -1,5 +1,6 @@
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
-import { createEarth, createSaturn, createMoon } from '/utils/geometry/planets.js'
+import { createSphere } from '/utils/geometry.js'
+import { createEarth, createSaturn } from '/utils/geometry/planets.js'
 import { dirLight } from '/utils/light.js'
 
 dirLight({ pos: [100, 10, -50] })
@@ -15,7 +16,7 @@ const saturn = createSaturn()
 saturn.translateX(10)
 scene.add(saturn)
 
-const moon = createMoon({ r: .5 })
+const moon = createSphere({ r: .5, file: 'planets/moon.jpg' })
 moon.position.set(-1.2, .5, 0)
 scene.add(moon)
 

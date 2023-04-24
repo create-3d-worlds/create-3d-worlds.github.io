@@ -12,7 +12,6 @@ npx live-server
 ## TODO
 
 - ubaci dupčeša negde
-- merge createMoon
 
 ### Scenes & examples
 

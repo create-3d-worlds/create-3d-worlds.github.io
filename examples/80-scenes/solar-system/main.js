@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { scene, renderer, addUIControls, createOrbitControls } from '/utils/scene.js'
-import { createEarth, createMoon, orbiting } from '/utils/geometry/planets.js'
+import { createSphere } from '/utils/geometry.js'
+import { createEarth, orbiting } from '/utils/geometry/planets.js'
 import { createSun } from '/utils/light.js'
 import { Stars } from '/utils/classes/Particles.js'
 
@@ -28,7 +29,7 @@ earth.position.set(250, 0, 0)
 const earthGroup = createEarthGroup(earth, earthToSunCamera)
 sun.add(earthGroup)
 
-const moon = createMoon({ r: 15 })
+const moon = createSphere({ r: 15, file: 'planets/moon.jpg' })
 moon.rotateZ(Math.PI / 2)
 moon.position.set(0, 100, 0)
 const moonGroup = createMoonGroup(moon, earthToMoonCamera)

@@ -1,7 +1,6 @@
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
-import { createCrate, createRustyBarrel, createWoodBarrel, createBox } from '/utils/geometry.js'
-import { createMoon } from '/utils/geometry/planets.js'
+import { createSphere, createCrate, createRustyBarrel, createWoodBarrel, createBox } from '/utils/geometry.js'
 import { createSun } from '/utils/light.js'
 
 createOrbitControls()
@@ -24,7 +23,7 @@ const barrel = createWoodBarrel({ r: .4, height: 1 })
 barrel.position.set(-2.4, 0, 0)
 scene.add(barrel)
 
-const moon = createMoon({ r: .5 })
+const moon = createSphere({ r: .5, file: 'planets/moon.jpg' })
 moon.position.set(-1.2, .5, 0)
 scene.add(moon)
 

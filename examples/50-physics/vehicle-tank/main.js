@@ -5,10 +5,9 @@ import Vehicle from '/utils/classes/Vehicle.js'
 import VehicleCamera from '/utils/classes/VehicleCamera.js'
 import { loadModel } from '/utils/loaders.js'
 import { createGround } from '/utils/ground.js'
-import { createJumpBoard, createCrates, createSimpleCastle, createCrate, createRustyBarrel } from '/utils/geometry.js'
+import { createSphere, createJumpBoard, createCrates, createSimpleCastle, createCrate, createRustyBarrel } from '/utils/geometry.js'
 import { createSun } from '/utils/light.js'
 import { addTexture, sample } from '/utils/helpers.js'
-import { createMoon } from '/utils/geometry/planets.js'
 import { createFirTrees } from '/utils/geometry/trees.js'
 
 const { randFloat } = THREE.MathUtils
@@ -35,7 +34,7 @@ createSimpleCastle({ rows: 6, brickInWall: 14 }).forEach(block => world.add(bloc
 
 const createDarkBarrel = () => createRustyBarrel({ file: 'barrel/metal-barrel-side.jpg', topFile: 'metal/metal01.jpg' })
 
-const methods = [() => createMoon({ r: .5 }), createCrate, createRustyBarrel, createDarkBarrel]
+const methods = [() => createSphere({ r: .5, file: 'planets/moon.jpg' }), createCrate, createRustyBarrel, createDarkBarrel]
 
 for (let i = 0; i < 10; i++) {
   const mesh = sample(methods)()

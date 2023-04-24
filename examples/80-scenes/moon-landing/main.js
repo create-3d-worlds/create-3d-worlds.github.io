@@ -1,18 +1,19 @@
 import { scene, camera, renderer, clock, setBackground } from '/utils/scene.js'
-import { ambLight, createMoon as createMoonLight } from '/utils/light.js'
+import { ambLight, createMoon } from '/utils/light.js'
 import { Stars } from '/utils/classes/Particles.js'
 import Score from '/utils/ui/Score.js'
 import Lander from './Lander.js'
 import Platform from '/utils/classes/Platform.js'
 import { loadModel } from '/utils/loaders.js'
-import { createJupiter, createSaturn, createMoon, orbitAround } from '/utils/geometry/planets.js'
+import { createSphere } from '/utils/geometry.js'
+import { createJupiter, createSaturn, orbitAround } from '/utils/geometry/planets.js'
 import input from '/utils/classes/Input.js'
 
 setBackground(0x000000)
 camera.position.z = 18
 
 ambLight({ intensity: .9 })
-const moonLight = createMoonLight({ pos: [30, 30, 30], intensity: .1 })
+const moonLight = createMoon({ pos: [30, 30, 30], intensity: .1 })
 
 const score = new Score({ subtitle: 'Fuel left', showHighScore: false })
 
@@ -26,7 +27,7 @@ arcology.position.z = -100
 const jupiter = createJupiter({ r: 5 })
 jupiter.position.set(-125, 25, -80)
 
-const moon = createMoon({ r: 1.5 })
+const moon = createSphere({ r: 1.5, file: 'planets/moon.jpg' })
 
 const saturn = createSaturn({ r: 3 })
 saturn.position.set(85, 20, -50)

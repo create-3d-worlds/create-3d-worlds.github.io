@@ -2,13 +2,13 @@ import { camera, scene, renderer, clock, setBackground } from '/utils/scene.js'
 import { Planet } from '/utils/geometry/planets.js'
 import { createTerrain, shake } from '/utils/ground.js'
 import { Stars } from '/utils/classes/Particles.js'
-import { createMoon as createMoonLight } from '/utils/light.js'
+import { createMoon } from '/utils/light.js'
 import { getShuffledCoords } from '/utils/helpers.js'
 import Avatar from '/utils/actor/Avatar.js'
 import Platform from '/utils/classes/Platform.js'
 
 setBackground(0x000000)
-scene.add(createMoonLight())
+scene.add(createMoon())
 
 const objects = []
 const mapSize = 400

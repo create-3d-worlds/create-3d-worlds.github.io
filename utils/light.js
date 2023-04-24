@@ -86,6 +86,8 @@ export const createMoon = ({
   pos = [50, 100, 50], color = 0xFFF8DE, planetColor = 0xF6F1D5, r = 4, ...rest
 } = {}) => createSun({ pos, color, planetColor, r, ...rest })
 
+/* EFFECTS */
+
 export function lightningStrike(light, scene = defaultScene) {
   if (!oldIntensity) oldIntensity = light.intensity
   if (!oldBackground) oldBackground = new THREE.Color(scene.background)
