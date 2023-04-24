@@ -14,7 +14,6 @@ npx live-server
 - reuse useFlame for flame thrower?
 - ubaci dupčeša negde
 - merge createMoon
-- Promise.all za igrače i puške
 
 ### Scenes & examples
 

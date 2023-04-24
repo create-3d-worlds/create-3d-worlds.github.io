@@ -13,9 +13,10 @@ export const animDict = {
 
 /* LOADING */
 
-const mesh = await loadModel({ file: 'partisan.fbx', angle: Math.PI, animDict, prefix: 'character/soldier/', fixColors: true, size: 1.8 })
-
-const twoHandedWeapon = await loadModel({ file: 'weapon/rifle-berthier/model.fbx', scale: .60, angle: Math.PI })
+const [mesh, twoHandedWeapon] = await Promise.all([
+  await loadModel({ file: 'partisan.fbx', angle: Math.PI, animDict, prefix: 'character/soldier/', fixColors: true, size: 1.8 }),
+  await loadModel({ file: 'weapon/rifle-berthier/model.fbx', scale: .60, angle: Math.PI }),
+])
 
 /* EXTENDED CLASSES */
 

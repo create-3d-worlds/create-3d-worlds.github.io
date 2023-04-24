@@ -17,9 +17,10 @@ const animDict = {
 
 /* LOADING */
 
-const mesh = await loadModel({ prefix: 'character/barbarian/', file: 'model.fbx', angle: Math.PI, fixColors: true, animDict, size: 1.78, runCoefficient: 4 })
-
-const rightHandWeapon = await loadModel({ file: 'weapon/axe-lowpoly/model.fbx', scale: .18 })
+const [mesh, rightHandWeapon] = await Promise.all([
+  await loadModel({ prefix: 'character/barbarian/', file: 'model.fbx', angle: Math.PI, fixColors: true, animDict, size: 1.78, runCoefficient: 4 }),
+  await loadModel({ file: 'weapon/axe-lowpoly/model.fbx', scale: .18 }),
+])
 
 /* EXTENDED CLASSES */
 

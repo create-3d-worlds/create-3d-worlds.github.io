@@ -5,9 +5,10 @@ import { animDict } from './Partisan.js'
 
 /* LOADING */
 
-const mesh = await loadModel({ file: 'partisan-lowpoly.fbx', angle: Math.PI, animDict, prefix: 'character/soldier/', fixColors: true, size: 1.8 })
-
-const twoHandedWeapon = await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI })
+const [mesh, twoHandedWeapon] = await Promise.all([
+  await loadModel({ file: 'partisan-lowpoly.fbx', angle: Math.PI, animDict, prefix: 'character/soldier/', fixColors: true, size: 1.8 }),
+  await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI }),
+])
 
 /* EXTENDED CLASSES */
 
