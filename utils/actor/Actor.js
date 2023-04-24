@@ -44,8 +44,8 @@ export default class Actor extends GameObject {
     useRicochet = attackDistance > 9,
     attackSound = '',
     altitude = 0, // for flying objects
-    useFlame = false,
-    turnWhileAttack = !useFlame,
+    flame = null,
+    turnWhileAttack = !flame,
   }) {
     super({ mesh, name, pos, solids })
     this.mesh.userData.hitAmount = 0
@@ -68,7 +68,6 @@ export default class Actor extends GameObject {
     this.attackDistance = this.depth > attackDistance ? Math.ceil(this.depth) : attackDistance
     this.attackSound = attackSound
     this.useRicochet = useRicochet
-    this.useFlame = useFlame
     this.leaveDecals = leaveDecals
     this.altitude = altitude
     this.turnWhileAttack = turnWhileAttack
@@ -101,7 +100,7 @@ export default class Actor extends GameObject {
       })
     }
 
-    if (useFlame) {
+    if (flame) {
       const promise = import('/utils/classes/Particles.js')
       promise.then(obj => {
         const { Flame } = obj
@@ -286,9 +285,9 @@ export default class Actor extends GameObject {
     this.scene.add(this.ricochet.mesh)
   }
 
-  resetFlame() {
+  resetFlame(randomize = true) {
     const { flame, mesh } = this
-    flame.reset({ pos: this.position })
+    flame.reset({ pos: this.position, randomize })
     flame.mesh.rotation.copy(mesh.rotation)
     flame.mesh.rotateX(Math.PI)
     flame.mesh.translateY(-1.2)
@@ -296,11 +295,11 @@ export default class Actor extends GameObject {
     this.shouldLoop = true
   }
 
-  startFlame(defer = 1000, someMethod) {
+  startFlame(defer = 1000, callback, randomize) {
     this.scene.add(this.flame.mesh)
     setTimeout(() => {
-      this.resetFlame()
-      if (someMethod) someMethod()
+      this.resetFlame(randomize)
+      if (callback) callback()
     }, defer)
   }
 
@@ -465,6 +464,6 @@ export default class Actor extends GameObject {
     if (this.outOfBounds) this.bounce()
 
     if (this.useRicochet) this.ricochet?.expand({ velocity: 1.2, maxRounds: 5, gravity: .02 })
-    if (this.useFlame) this.updateFlame(delta)
+    if (this.flame) this.updateFlame(delta)
   }
 }

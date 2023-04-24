@@ -11,7 +11,6 @@ npx live-server
 
 ## TODO
 
-- reuse useFlame for flame thrower?
 - ubaci dupčeša negde
 - merge createMoon
 
