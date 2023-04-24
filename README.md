@@ -18,10 +18,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Spomenici
-  - dodati malo drveca
-    - pročitati visinu iz terena
-
 - Zeppelin
   - umesto createChaseCamera koristiti 3rd person?
   - probati ZeppelinPlayer umesto trenutnog

@@ -286,21 +286,6 @@ export function createChaseCamera(mesh, camera = defaultCamera) {
   }
 }
 
-/* TERRAIN */
-
-/* pos must be int not float */
-export const coordToHeight = (terrain, pos) => {
-  const { width } = terrain.geometry.parameters
-
-  const coordToIndex = ({ x, z }) => Math.round(x + width / 2 * z + width / 2)
-
-  return terrain.geometry.attributes.position.getY(coordToIndex(pos))
-}
-
-export function putOnTerrain(mesh, terrain, adjustment = 0) {
-  mesh.position.y = coordToHeight(terrain, mesh.position) + adjustment
-}
-
 /* ARRAYS AND OBJECTS */
 
 export const isEmpty = obj => Object.keys(obj).length === 0
