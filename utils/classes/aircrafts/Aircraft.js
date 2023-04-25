@@ -83,9 +83,9 @@ export default class Aircraft {
     this.mesh.rotateZ(angle)
   }
 
-  moveForward() {
+  moveForward(delta) {
     // https://stackoverflow.com/questions/38052621/
-    this.mesh.position.add(this.direction.multiplyScalar(this.speed))
+    this.mesh.position.add(this.direction.multiplyScalar(this.speed * delta))
   }
 
   accelerate() {
@@ -148,12 +148,12 @@ export default class Aircraft {
     if (this.isTooNear() || this.isTooLow()) this.up()
   }
 
-  update() {
+  update(delta) {
     if (!this.mesh) return
     this.normalizeAngles()
     this.autopilot()
     this.handleInput()
-    this.moveForward()
+    this.moveForward(delta)
     this.stabilize()
 
     if (!this.mixer || !this.action) return

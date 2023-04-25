@@ -5,14 +5,14 @@ import { heightColors, desertPlanetColors } from '/utils/ground.js'
 const textureLoader = new THREE.TextureLoader()
 
 /**
- * @param scale: bad name for some scaling factor
+ * @param heightFactor: height scale factor
  * @param seaLevel number: coloring margin
  * @param snow boolean: add white on top
  */
 export async function terrainFromHeightmap({
-  file = 'wiki.png', scale = 1, seaLevel = 0.001, snow = true } = {}
+  file = 'wiki.png', heightFactor = 1, seaLevel = 0.001, snow = true } = {}
 ) {
-  const { data, width, depth } = await getHeightData(`/assets/heightmaps/${file}`, scale)
+  const { data, width, depth } = await getHeightData(`/assets/heightmaps/${file}`, heightFactor)
 
   material.uniforms.heightmap.value = await textureLoader.loadAsync(`/assets/heightmaps/${file}`)
   material.uniforms.seaLevel.value = seaLevel

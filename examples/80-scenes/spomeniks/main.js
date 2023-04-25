@@ -8,7 +8,7 @@ import Player from '/utils/actor/Player.js'
 
 scene.add(createSun())
 
-const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', scale: 3, snow: false })
+const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', heightFactor: 3, snow: false })
 scene.add(terrain)
 
 const redFlag = createFlag({ file: 'prva-proleterska.jpg' })

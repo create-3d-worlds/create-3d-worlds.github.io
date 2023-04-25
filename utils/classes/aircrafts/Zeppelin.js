@@ -47,7 +47,7 @@ export default class Zeppelin extends Aircraft {
   }
 
   update(delta) {
-    super.update()
+    super.update(delta)
     if (!this.isTouchingGround()) this.propeler?.rotateY(delta * -1)
   }
 }

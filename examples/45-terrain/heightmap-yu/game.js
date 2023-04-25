@@ -8,7 +8,7 @@ dirLight()
 const controls = createOrbitControls()
 camera.position.y = 200
 
-const terrain = await terrainFromHeightmap({ file: 'yu.png', scale: 1 })
+const terrain = await terrainFromHeightmap({ file: 'yu.png' })
 scene.add(terrain)
 
 /* LOOP */
