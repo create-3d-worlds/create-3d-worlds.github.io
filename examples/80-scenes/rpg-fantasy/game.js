@@ -9,7 +9,7 @@ import { OrcOgreAI } from '/utils/actor/child/fantasy/OrcOgre.js'
 import { FlamingoAI } from '/utils/actor/child/Flamingo.js'
 import { ElephantAI } from '/utils/actor/child/Elephant.js'
 import { CloudAI } from '/utils/actor/child/Cloud.js'
-import { ZappelinAI } from '/utils/actor/child/Zappelin.js'
+import { ZeppelinAI } from '/utils/actor/child/Zeppelin.js'
 import { loadModel } from '/utils/loaders.js'
 
 const mapSize = 400
@@ -32,7 +32,7 @@ const solids = [terrain, castle]
 
 /* ACTORS */
 
-const airship = new ZappelinAI({ mapSize, solids: terrain })
+const airship = new ZeppelinAI({ mapSize, solids: terrain })
 const elephant = new ElephantAI({ mapSize, pos: coords.pop(), solids, shouldRaycastGround: true })
 
 scene.add(airship.mesh, elephant.mesh)
