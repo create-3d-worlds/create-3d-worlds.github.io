@@ -71,6 +71,9 @@ Steam Punk
 - Barbarian
   - BUG: nakon skoka ostaje ukočena
 
+- Spomenici
+  - skalirati teren?
+
 ### Optimizacija
 
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
