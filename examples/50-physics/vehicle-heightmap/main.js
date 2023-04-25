@@ -11,7 +11,7 @@ import Vehicle from '/utils/classes/Vehicle.js'
 scene.add(createSun({ planetColor: 0xB0E0E6 }))
 
 const world = new PhysicsWorld()
-const cameraFollow = new VehicleCamera({ camera })
+const chaseCamera = new VehicleCamera({ camera })
 
 const { data, width, depth } = await getHeightData('/assets/heightmaps/wiki.png', 3)
 const terrain = await createTerrain({ data, width, depth })
@@ -43,7 +43,7 @@ scene.add(chassisMesh, ...tank.wheelMeshes)
 void function loop() {
   requestAnimationFrame(loop)
   tank.update()
-  cameraFollow.update(tank.chassisMesh)
+  chaseCamera.update(tank.chassisMesh)
   const dt = clock.getDelta()
   world.update(dt)
   renderer.render(scene, camera)

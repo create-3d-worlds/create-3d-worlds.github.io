@@ -16,7 +16,7 @@ const impulse = document.getElementById('impulse')
 const minImpulse = impulse.value = 15
 const maxImpulse = 25
 
-const cameraFollow = new VehicleCamera({ camera, offsetCamera: [0, 1, -3], lookatCamera: [0, 2, 4] })
+const chaseCamera = new VehicleCamera({ camera, offsetCamera: [0, 1, -3], lookatCamera: [0, 2, 4] })
 
 const sun = createSun({ pos: [-5, 10, 5] })
 scene.add(sun)
@@ -69,7 +69,7 @@ void function loop() {
   handleInput()
   cannon.update()
   cannon.break(.5)
-  cameraFollow.update(chassisMesh)
+  chaseCamera.update(chassisMesh)
   world.update(dt)
   renderer.render(scene, camera)
 }()

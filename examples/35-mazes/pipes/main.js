@@ -16,7 +16,7 @@ const pipes = maze.toPipes()
 scene.add(pipes)
 
 const player = new Avatar({ size: .4, camera, solids: pipes, jumpStyle: 'FLY_JUMP', maxJumpTime: 30 })
-player.cameraFollow.distance = 2.5
+player.chaseCamera.distance = 2.5
 scene.add(player.mesh)
 
 /* LOOP */

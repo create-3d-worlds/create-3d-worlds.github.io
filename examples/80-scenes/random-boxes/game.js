@@ -37,7 +37,7 @@ for (let i = 0; i < numCoins; i++) {
 
 const solids = [floor, ...boxes, ...platforms.map(x => x.mesh)]
 const player = new Avatar({ camera, solids, jumpStyle: 'DOUBLE_JUMP' })
-player.cameraFollow.distance = 6
+player.chaseCamera.distance = 6
 scene.add(player.mesh)
 
 const score = new Score({ title: 'POINTS', subtitle: 'coins left', totalPoints: coins.length })

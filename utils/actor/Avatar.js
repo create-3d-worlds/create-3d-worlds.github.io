@@ -18,9 +18,9 @@ export default class Avatar extends Player {
       this.mesh.getObjectByName('leftLeg'), this.mesh.getObjectByName('rightLeg')
     ]
     this.jumpForce = this.gravity * 1.8
-    if (this.cameraFollow) {
-      this.cameraFollow.speed = 4
-      this.cameraFollow.distance = 4
+    if (this.chaseCamera) {
+      this.chaseCamera.speed = 4
+      this.chaseCamera.distance = 4
     }
   }
 

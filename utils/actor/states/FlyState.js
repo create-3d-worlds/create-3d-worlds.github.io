@@ -21,9 +21,9 @@ export default class FlyState extends State {
 
     if (this.actor.input.down) this.reverseAction()
 
-    if (this.actor.cameraFollow) {
-      this.initCameraSpeed = this.actor.cameraFollow.speed
-      this.actor.cameraFollow.speed = this.initCameraSpeed * 3
+    if (this.actor.chaseCamera) {
+      this.initCameraSpeed = this.actor.chaseCamera.speed
+      this.actor.chaseCamera.speed = this.initCameraSpeed * 3
     }
   }
 
@@ -65,7 +65,7 @@ export default class FlyState extends State {
 
   exit() {
     this.action?.setEffectiveTimeScale(1)
-    if (this.actor.cameraFollow)
-      this.actor.cameraFollow.speed = this.initCameraSpeed
+    if (this.actor.chaseCamera)
+      this.actor.chaseCamera.speed = this.initCameraSpeed
   }
 }

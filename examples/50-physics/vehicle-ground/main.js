@@ -11,7 +11,7 @@ import { leaveDecals } from '/utils/decals.js'
 
 scene.add(createSun())
 
-const cameraFollow = new VehicleCamera({ camera })
+const chaseCamera = new VehicleCamera({ camera })
 const world = new PhysicsWorld()
 
 const ground = createGround()
@@ -49,7 +49,7 @@ void function loop() {
   requestAnimationFrame(loop)
   tank.update()
   leaveDecals({ ground, scene, vehicle: tank.vehicle, body: tank.body, wheelMeshes: tank.wheelMeshes })
-  cameraFollow.update(tank.chassisMesh)
+  chaseCamera.update(tank.chassisMesh)
   const dt = clock.getDelta()
   world.update(dt)
   renderer.render(scene, camera)

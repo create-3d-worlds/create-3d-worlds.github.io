@@ -15,7 +15,7 @@ const { randFloat } = THREE.MathUtils
 const tankX = -20
 
 const world = new PhysicsWorld()
-const cameraFollow = new VehicleCamera({ camera, offsetCamera: [0, 2, -6], lookatCamera: [0, 2, 4] })
+const chaseCamera = new VehicleCamera({ camera, offsetCamera: [0, 2, -6], lookatCamera: [0, 2, 4] })
 
 scene.add(createSun())
 
@@ -63,6 +63,6 @@ void function loop() {
   const dt = clock.getDelta()
   tank.update()
   world.update(dt)
-  cameraFollow.update(chassisMesh)
+  chaseCamera.update(chassisMesh)
   renderer.render(scene, camera)
 }()

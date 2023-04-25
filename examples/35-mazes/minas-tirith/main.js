@@ -21,7 +21,7 @@ const city = maze.toCity({ texture: 'terrain/snow.jpg' })
 scene.add(city)
 
 const player = new Avatar({ camera, solids: [city, hill] })
-player.cameraFollow.distance = 3
+player.chaseCamera.distance = 3
 scene.add(player.mesh)
 player.putInPolarMaze(maze)
 

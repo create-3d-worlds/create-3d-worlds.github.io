@@ -17,7 +17,7 @@ const sharedProps = { mesh, animations: mesh.userData.animations, animDict, twoH
 export class ResistanceFighterPlayer extends Player {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
-    if (this.cameraFollow) this.cameraFollow.distance = 1.5
+    if (this.chaseCamera) this.chaseCamera.distance = 1.5
   }
 }
 

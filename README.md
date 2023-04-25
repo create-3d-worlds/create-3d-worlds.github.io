@@ -11,8 +11,6 @@ npx live-server
 
 ## TODO
 
-- iskoristiti aerial-screw
-
 ### Scenes & examples
 
 - Zeppelin
@@ -46,6 +44,11 @@ npx live-server
 - Nude victim
   - beži dok je jure zombiji
   - endless runner?
+
+Steam Punk
+- dodati aerial-screw
+- dodati steampunk tank
+- dodati ostale steampunk stvari
 
 - Groblje
   - nasumično zakriviti kamenove

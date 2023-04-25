@@ -14,8 +14,7 @@ const speedFactor = state => {
 const THIRD_PERSON = 'THIRD_PERSON', BIRDS_EYE = 'BIRDS_EYE', ORBITAL = 'ORBITAL'
 const cameraStyles = [THIRD_PERSON, BIRDS_EYE, ORBITAL]
 
-// TODO: rename to ChaseCamera?
-export default class CameraFollow {
+export default class ChaseCamera {
   constructor({ camera, mesh, height = 2, speed = 2,
     offset = [0, height * .95, height * 1.5],
     lookAt = [0, height * .95, 0],

@@ -32,7 +32,7 @@ const [mesh, twoHandedWeapon] = await Promise.all([
 
 const player = new Player({ mesh, solids: terrain, animations: mesh.userData.animations, animDict, twoHandedWeapon, camera, altitude: .7, attackStyle: 'ONCE' })
 
-player.cameraFollow.distance = 1.5
+player.chaseCamera.distance = 1.5
 player.position.z = 2
 
 /* LOOP */

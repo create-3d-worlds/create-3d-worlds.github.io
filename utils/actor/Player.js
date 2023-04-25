@@ -5,7 +5,7 @@ import { jumpStyles, attackStyles, reactions } from '/utils/constants.js'
 import { getPlayerState } from './states/index.js'
 import { findChildren } from '/utils/helpers.js'
 import Actor from './Actor.js'
-import CameraFollow from '/utils/classes/CameraFollow.js'
+import ChaseCamera from '/utils/classes/ChaseCamera.js'
 
 export default class Player extends Actor {
   #enemiesAdded = false
@@ -33,7 +33,7 @@ export default class Player extends Actor {
 
     if (camera) {
       this.shouldAlignCamera = true
-      this.cameraFollow = new CameraFollow({ camera, mesh: this.mesh, height: this.height })
+      this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, height: this.height })
 
       const orbitPromise = import('/utils/scene.js')
       orbitPromise.then(obj => {
@@ -97,20 +97,20 @@ export default class Player extends Actor {
 
   updateCamera(delta) {
     const { x, y, z } = this.mesh.position
-    const { lookAt } = this.cameraFollow
+    const { lookAt } = this.chaseCamera
 
     if (this.input.pressed.mouse2)
       this.orbitControls.target = new THREE.Vector3(x, y + lookAt[1], z)
     else
-      this.cameraFollow.update(delta, this.state)
+      this.chaseCamera.update(delta, this.state)
   }
 
   update(delta = 1 / 60) {
     super.update(delta)
-    if (this.cameraFollow && this.shouldAlignCamera) {
-      this.cameraFollow.alignCamera()
+    if (this.chaseCamera && this.shouldAlignCamera) {
+      this.chaseCamera.alignCamera()
       this.shouldAlignCamera = false
     }
-    if (this.cameraFollow) this.updateCamera(delta)
+    if (this.chaseCamera) this.updateCamera(delta)
   }
 }

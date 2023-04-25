@@ -4,7 +4,7 @@ import { createSkySphere } from '/utils/geometry.js'
 import { createSun } from '/utils/light.js'
 import Zeppelin from '/utils/classes/aircrafts/Zeppelin.js'
 import { loadModel } from '/utils/loaders.js'
-import CameraFollow from '/utils/classes/CameraFollow.js'
+import ChaseCamera from '/utils/classes/ChaseCamera.js'
 
 scene.add(await createSkySphere({ r: 5000 }))
 const sun = createSun({ pos: [500, 2000, 100], far: 5000 })
@@ -20,7 +20,7 @@ const zeppelin = new Zeppelin({ mesh })
 scene.add(zeppelin.mesh)
 mesh.position.y = 256
 
-const cameraFollow = new CameraFollow({ camera, mesh, height: 10 })
+const chaseCamera = new ChaseCamera({ camera, mesh, height: 10 })
 
 /* LOOP */
 
@@ -28,7 +28,7 @@ void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
   zeppelin.update(delta)
-  cameraFollow.update(delta)
+  chaseCamera.update(delta)
   renderer.render(scene, camera)
 }()
 
