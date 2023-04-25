@@ -90,8 +90,8 @@ export default class ChaseCamera {
 
   getOffset(cameraStyle) {
     switch (cameraStyle) {
-      case BIRDS_EYE: return this.birdsEyeOffset
       case THIRD_PERSON: return this.thirdPersonOffset
+      case BIRDS_EYE: return this.birdsEyeOffset
       case ORBITAL: return this.orbitalOffset
       default: return this.thirdPersonOffset
     }
@@ -99,8 +99,8 @@ export default class ChaseCamera {
 
   getLookAt(cameraStyle) {
     switch (cameraStyle) {
-      case BIRDS_EYE: return this.birdsEyeLookAt
       case THIRD_PERSON: return this.thirdPersonLookAt
+      case BIRDS_EYE: return this.birdsEyeLookAt
       case ORBITAL: return this.birdsEyeLookAt
       default: return this.thirdPersonLookAt
     }
@@ -108,8 +108,8 @@ export default class ChaseCamera {
 
   getSpeed(cameraStyle) {
     switch (cameraStyle) {
-      case BIRDS_EYE: return this.thirdPersonSpeed * .75
       case THIRD_PERSON: return this.thirdPersonSpeed
+      case BIRDS_EYE: return this.thirdPersonSpeed * .75
       case ORBITAL: return this.thirdPersonSpeed * .25
       default: return this.thirdPersonSpeed
     }
@@ -128,9 +128,9 @@ export default class ChaseCamera {
     const idealPosition = calc(this.mesh, this.offset)
     const idealLookAt = calc(this.mesh, this.lookAt)
 
-    const t = this.speed * delta * speedFactor(stateName)
-    this.currentPosition.lerp(idealPosition, t)
-    this.currentLookat.lerp(idealLookAt, t)
+    const deltaSpeed = delta * this.speed * speedFactor(stateName)
+    this.currentPosition.lerp(idealPosition, deltaSpeed)
+    this.currentLookat.lerp(idealLookAt, deltaSpeed)
 
     this.camera.position.copy(this.currentPosition)
     this.camera.lookAt(this.currentLookat)
