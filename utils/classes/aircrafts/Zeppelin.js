@@ -13,15 +13,15 @@ export default class Zeppelin extends Aircraft {
     })
   }
 
-  up() {
+  up(delta) {
     if (this.isTouchingGround()) this.speed = this.maxSpeed * .5
-    this.mesh.translateY(this.speed * .5)
+    this.mesh.translateY(this.speed * 2.5 * delta)
     this.pitch(pitchAngle)
   }
 
-  down() {
+  down(delta) {
     if (this.isTouchingGround()) return this.slowDown()
-    this.mesh.translateY(-this.speed * .5)
+    this.mesh.translateY(-this.speed * 2.5 * delta)
     this.pitch(-pitchAngle)
   }
 
@@ -33,8 +33,8 @@ export default class Zeppelin extends Aircraft {
     this.yaw(-yawAngle)
   }
 
-  accelerate() {
-    if (this.isTouchingGround()) this.up()
+  accelerate(delta) {
+    if (this.isTouchingGround()) this.up(delta)
     super.accelerate()
   }
 

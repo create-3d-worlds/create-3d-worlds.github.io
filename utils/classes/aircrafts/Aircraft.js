@@ -31,18 +31,23 @@ export default class Aircraft {
     }
   }
 
+  get direction() {
+    if (!this.mesh) return { x: 0, y: 0, z: 0 }
+    return new THREE.Vector3(0, 0, -1).applyQuaternion(this.mesh.quaternion)
+  }
+
   addSolids(...newSolids) {
     addSolids(this.solids, ...newSolids)
   }
 
-  handleInput() {
+  handleInput(delta) {
     if (input.left) this.left()
     if (input.right) this.right()
 
-    if (input.up) this.up()
-    if (input.down) this.down()
+    if (input.up) this.up(delta)
+    if (input.down) this.down(delta)
 
-    if (input.pressed.PageUp || input.pressed.Space) this.accelerate()
+    if (input.pressed.PageUp || input.pressed.Space) this.accelerate(delta)
     if (input.pressed.PageDown) this.deaccelerate()
   }
 
@@ -104,11 +109,6 @@ export default class Aircraft {
     this.mesh.rotation.z %= Math.PI * 2
   }
 
-  get direction() {
-    if (!this.mesh) return { x: 0, y: 0, z: 0 }
-    return new THREE.Vector3(0, 0, -1).applyQuaternion(this.mesh.quaternion)
-  }
-
   stabilize() {
     if (input.keyPressed) return
     const unrollFactor = 0.04
@@ -142,17 +142,17 @@ export default class Aircraft {
     this.speed *= slowFactor
   }
 
-  autopilot() {
+  autopilot(delta) {
     if (input.down) return
     if (!this.isMoving()) return
-    if (this.isTooNear() || this.isTooLow()) this.up()
+    if (this.isTooNear() || this.isTooLow()) this.up(delta)
   }
 
-  update(delta) {
+  update(delta = 1 / 60) {
     if (!this.mesh) return
     this.normalizeAngles()
-    this.autopilot()
-    this.handleInput()
+    this.autopilot(delta)
+    this.handleInput(delta)
     this.moveForward(delta)
     this.stabilize()
 
