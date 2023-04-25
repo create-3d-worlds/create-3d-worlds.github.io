@@ -11,10 +11,11 @@ npx live-server
 
 ## TODO
 
+- iskoristiti aerial-screw
+
 ### Scenes & examples
 
 - Zeppelin
-  - umesto createChaseCamera koristiti 3rd person?
   - probati ZeppelinPlayer umesto trenutnog
 
 - Aircraft / 1943
