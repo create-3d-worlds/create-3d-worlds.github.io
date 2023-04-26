@@ -18,6 +18,7 @@ export default class ChaseCamera {
   constructor({ camera, mesh, height = 2, speed = 2,
     offset = [0, height * .95, height * 1.5],
     lookAt = [0, height * .95, 0],
+
     birdsEyeOffset = [0, height * 8, -height * 2.75],
     birdsEyeLookAt = [0, 0, -height * 3],
     orbitalOffset = [-height * 10, height * 10, height * 10]
@@ -47,6 +48,7 @@ export default class ChaseCamera {
     this.offset[2] = x
   }
 
+  // TODO: rename to birdsEyeHeight
   set height(x) {
     this.birdsEyeOffset[1] = x
   }

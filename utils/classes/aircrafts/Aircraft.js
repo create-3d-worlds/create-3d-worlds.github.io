@@ -1,19 +1,18 @@
 import * as THREE from 'three'
 import input from '/utils/classes/Input.js'
 import { addSolids, distanceDown, distanceFront } from '/utils/helpers.js'
-
-const clock = new THREE.Clock()
+import ChaseCamera from '/utils/classes/ChaseCamera.js'
 
 const angleSpeed = 2
 const maxRoll = Infinity
 
 /* Base class for Airplane and Zeppelin */
+// TODO: extends Entity
 export default class Aircraft {
   constructor({
-    mesh, speed = 1, maxSpeed = speed * 2, minSpeed = 0.1, minHeight = 5, minDistance = 120, maxPitch = Infinity, animations,
+    mesh, speed = 1, maxSpeed = speed * 2, minSpeed = 0.1, minHeight = 5, minDistance = 120, maxPitch = Infinity, animations, solids, camera
   } = {}) {
     this.mesh = mesh
-    this.animations = animations
     this.speed = speed
     this.speedFactor = speed * .01
     this.maxSpeed = maxSpeed
@@ -23,11 +22,20 @@ export default class Aircraft {
     this.maxPitch = maxPitch
     this.solids = []
     this.mixer = new THREE.AnimationMixer(mesh.type === 'Group' ? mesh.children[0] : mesh)
-    this.animations = animations
+
     if (animations) {
       const clip = this.animations[0]
       this.action = this.mixer.clipAction(clip)
       this.action.play()
+    }
+
+    if (solids)
+      this.addSolids(solids)
+
+    if (camera) {
+      this.chaseCamera = new ChaseCamera({ camera, mesh, height: 2, speed: this.speed * .5 })
+      this.chaseCamera.distance = 6
+      this.shouldAlignCamera = true
     }
   }
 
@@ -150,23 +158,30 @@ export default class Aircraft {
     if (input.pressed.PageDown) this.deaccelerate()
   }
 
-  autopilot(delta) {
+  autoHeight(delta) {
     if (!this.isMoving) return
     if (this.isTooNear || this.isTooLow) this.up(delta)
   }
 
   update(delta = 1 / 60) {
     if (!this.mesh) return
+
     this.normalizeAngles()
-    if (!input.down) this.autopilot(delta)
+    if (!input.down) this.autoHeight(delta)
     this.handleInput(delta)
     this.moveForward(delta)
     this.stabilize()
 
-    if (!this.mixer || !this.action) return
-    this.mixer.update(clock.getDelta())
+    if (this.shouldAlignCamera) {
+      this.chaseCamera.alignCamera()
+      this.shouldAlignCamera = false
+    }
+    this.chaseCamera?.update(delta)
 
-    if (this.isTouchingGround) this.action.stop()
-    else this.action.play()
+    if (this.mixer && this.action) {
+      this.mixer.update(delta)
+      if (this.isTouchingGround) this.action.stop()
+      else this.action.play()
+    }
   }
 }

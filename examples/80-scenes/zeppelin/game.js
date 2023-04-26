@@ -23,15 +23,13 @@ scene.add(terrain)
 const trees = createTreesOnTerrain({ mapSize, terrain, size: 3.5 })
 scene.add(trees)
 
-const mesh = await loadModel({ file: 'airship/dirigible/model.fbx', size: 4, shouldCenter: true, shouldAdjustHeight: true })
-const zeppelin = new Zeppelin({ mesh })
-mesh.position.y = 20
-zeppelin.addSolids(terrain)
-scene.add(zeppelin.mesh)
+// const screw = await loadModel({ file: 'airship/aerial-screw/model.fbx', size: 10, shouldCenter: true, shouldAdjustHeight: true })
+// screw.position.y = 30
+// scene.add(screw)
 
-const chaseCamera = new ChaseCamera({ camera, mesh, height: 2, speed: zeppelin.speed * .5 })
-chaseCamera.distance = 6
-chaseCamera.alignCamera()
+const mesh = await loadModel({ file: 'airship/dirigible/model.fbx', size: 4, shouldCenter: true, shouldAdjustHeight: true })
+const zeppelin = new Zeppelin({ mesh, camera, solids: terrain })
+scene.add(zeppelin.mesh)
 
 /* LOOP */
 
@@ -39,7 +37,6 @@ void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
   zeppelin.update(delta)
-  chaseCamera.update(delta)
   renderer.render(scene, camera)
 }()
 

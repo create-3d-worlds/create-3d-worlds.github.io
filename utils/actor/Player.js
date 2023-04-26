@@ -107,7 +107,7 @@ export default class Player extends Actor {
 
   update(delta = 1 / 60) {
     super.update(delta)
-    if (this.chaseCamera && this.shouldAlignCamera) {
+    if (this.shouldAlignCamera) {
       this.chaseCamera.alignCamera()
       this.shouldAlignCamera = false
     }
