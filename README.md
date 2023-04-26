@@ -14,7 +14,11 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
-  - probati ZeppelinPlayer umesto trenutnog
+  - bolje svetlo
+  - drveće
+  - aerial-screw
+  - oblake
+  - razne steampunk objekte
 
 - Aircraft / 1943
   - dodati izbor aviona
@@ -44,11 +48,6 @@ npx live-server
 - Nude victim
   - beži dok je jure zombiji
   - endless runner?
-
-Steam Punk
-- dodati aerial-screw
-- dodati steampunk tank
-- dodati ostale steampunk stvari
 
 - Groblje
   - nasumično zakriviti kamenove
