@@ -75,20 +75,20 @@ export default class Aircraft {
 
   up(delta) {
     if (this.mesh.position.y < this.minHeight) return
-    this.pitch(-angleSpeed * delta * .1)
+    this.pitch(-.2 * delta)
   }
 
   down(delta) {
-    this.pitch(angleSpeed * delta * .1)
+    this.pitch(.2 * delta)
   }
 
   left(delta) {
-    if (this.speed < 0.2) this.yaw(angleSpeed * delta * 0.3) // ako je sleteo
+    if (this.speed < 0.2) this.yaw(angleSpeed * 0.3 * delta) // ako je sleteo
     else this.roll(angleSpeed * delta)
   }
 
   right(delta) {
-    if (this.speed < 0.2) this.yaw(-angleSpeed * delta * 0.3)
+    if (this.speed < 0.2) this.yaw(-angleSpeed * 0.3 * delta)
     else this.roll(-angleSpeed * delta)
   }
 

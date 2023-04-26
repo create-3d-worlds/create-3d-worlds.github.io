@@ -15,13 +15,13 @@ export default class Zeppelin extends Aircraft {
 
   up(delta) {
     if (this.isTouchingGround) this.speed = this.maxSpeed * .5
-    this.mesh.translateY(this.speed * 2.5 * delta)
+    this.mesh.translateY(this.speed * delta)
     this.pitch(pitchAngle)
   }
 
   down(delta) {
     if (this.isTouchingGround) return this.slowDown()
-    this.mesh.translateY(-this.speed * 2.5 * delta)
+    this.mesh.translateY(-this.speed * delta)
     this.pitch(-pitchAngle)
   }
 
