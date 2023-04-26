@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
-  - drveće
   - aerial-screw
   - oblake
   - razne steampunk objekte

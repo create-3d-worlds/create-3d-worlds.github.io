@@ -6,6 +6,9 @@ import { loadModel } from '/utils/loaders.js'
 import ChaseCamera from '/utils/classes/ChaseCamera.js'
 import { createHillyTerrain } from '/utils/ground.js'
 import Zeppelin from '/utils/classes/aircrafts/Zeppelin.js'
+import { createTreesOnTerrain } from '/utils/geometry/trees.js'
+
+const mapSize = 800
 
 scene.add(await createSkySphere({ r: 5000 }))
 const sun = createSun({ pos: [250, 1000, 100], far: 5000 })
@@ -14,13 +17,15 @@ scene.add(sun)
 hemLight()
 scene.fog = new THREE.Fog(0xE5C5AB, 1, 5000)
 
-const terrain = await createHillyTerrain({ factorY: 30, size: 500 })
-terrain.scale.set(20, 20, 20)
+const terrain = await createHillyTerrain({ factorY: 30, size: mapSize })
 scene.add(terrain)
+
+const trees = createTreesOnTerrain({ mapSize, terrain })
+scene.add(trees)
 
 const mesh = await loadModel({ file: 'airship/dirigible/model.fbx', size: 4, shouldCenter: true, shouldAdjustHeight: true })
 const zeppelin = new Zeppelin({ mesh, speed: 4 })
-mesh.position.y = 400
+mesh.position.y = 20
 zeppelin.addSolids(terrain)
 scene.add(zeppelin.mesh)
 
