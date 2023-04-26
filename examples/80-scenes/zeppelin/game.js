@@ -20,7 +20,7 @@ scene.fog = new THREE.Fog(0xE5C5AB, 1, 5000)
 const terrain = await createHillyTerrain({ factorY: 30, size: mapSize })
 scene.add(terrain)
 
-const trees = createTreesOnTerrain({ mapSize, terrain })
+const trees = createTreesOnTerrain({ mapSize, terrain, size: 3.5 })
 scene.add(trees)
 
 const mesh = await loadModel({ file: 'airship/dirigible/model.fbx', size: 4, shouldCenter: true, shouldAdjustHeight: true })

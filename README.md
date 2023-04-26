@@ -14,7 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
-  - sam se diže?
+  - BUG: secka kad diže
   - aerial-screw
   - oblake
   - razne steampunk objekte

@@ -4,14 +4,13 @@ import { addSolids, distanceDown, distanceFront } from '/utils/helpers.js'
 
 const clock = new THREE.Clock()
 
-const angleSpeed = 0.03
+const angleSpeed = 2
 const maxRoll = Infinity
-const minDistance = 120
 
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft {
   constructor({
-    mesh, animations, minHeight = 5, speed = 1, maxSpeed = speed * 2, minSpeed = 0.1, maxPitch = Infinity,
+    mesh, speed = 1, maxSpeed = speed * 2, minSpeed = 0.1, minHeight = 5, minDistance = 120, maxPitch = Infinity, animations,
   } = {}) {
     this.mesh = mesh
     this.animations = animations
@@ -20,6 +19,7 @@ export default class Aircraft {
     this.maxSpeed = maxSpeed
     this.minSpeed = minSpeed
     this.minHeight = minHeight
+    this.minDistance = minDistance
     this.maxPitch = maxPitch
     this.solids = []
     this.mixer = new THREE.AnimationMixer(mesh.type === 'Group' ? mesh.children[0] : mesh)
@@ -52,7 +52,7 @@ export default class Aircraft {
 
   get isTooNear() {
     const distance = distanceFront({ mesh: this.mesh, solids: this.solids })
-    return distance < minDistance
+    return distance < this.minDistance
   }
 
   get isMoving() {
@@ -73,23 +73,23 @@ export default class Aircraft {
 
   /* CONTROLS */
 
-  up() {
+  up(delta) {
     if (this.mesh.position.y < this.minHeight) return
-    this.pitch(-angleSpeed / 10)
+    this.pitch(-angleSpeed * delta * .1)
   }
 
-  down() {
-    this.pitch(angleSpeed / 10)
+  down(delta) {
+    this.pitch(angleSpeed * delta * .1)
   }
 
-  left() {
-    if (this.speed < 0.2) this.yaw(angleSpeed * 0.3) // ako je sleteo
-    else this.roll(angleSpeed)
+  left(delta) {
+    if (this.speed < 0.2) this.yaw(angleSpeed * delta * 0.3) // ako je sleteo
+    else this.roll(angleSpeed * delta)
   }
 
-  right() {
-    if (this.speed < 0.2) this.yaw(-angleSpeed * 0.3)
-    else this.roll(-angleSpeed)
+  right(delta) {
+    if (this.speed < 0.2) this.yaw(-angleSpeed * delta * 0.3)
+    else this.roll(-angleSpeed * delta)
   }
 
   pitch(angle) {
@@ -140,8 +140,8 @@ export default class Aircraft {
   /* LOOP */
 
   handleInput(delta) {
-    if (input.left) this.left()
-    if (input.right) this.right()
+    if (input.left) this.left(delta)
+    if (input.right) this.right(delta)
 
     if (input.up) this.up(delta)
     if (input.down) this.down(delta)
