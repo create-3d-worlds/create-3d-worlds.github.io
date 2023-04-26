@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
-  - bolje svetlo
   - drveće
   - aerial-screw
   - oblake
