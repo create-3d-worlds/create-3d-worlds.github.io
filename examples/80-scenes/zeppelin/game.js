@@ -24,12 +24,12 @@ const trees = createTreesOnTerrain({ mapSize, terrain })
 scene.add(trees)
 
 const mesh = await loadModel({ file: 'airship/dirigible/model.fbx', size: 4, shouldCenter: true, shouldAdjustHeight: true })
-const zeppelin = new Zeppelin({ mesh, speed: 4 })
+const zeppelin = new Zeppelin({ mesh })
 mesh.position.y = 20
 zeppelin.addSolids(terrain)
 scene.add(zeppelin.mesh)
 
-const chaseCamera = new ChaseCamera({ camera, mesh, height: 2, speed: zeppelin.speed * .8 })
+const chaseCamera = new ChaseCamera({ camera, mesh, height: 2, speed: zeppelin.speed * .5 })
 chaseCamera.distance = 6
 chaseCamera.alignCamera()
 

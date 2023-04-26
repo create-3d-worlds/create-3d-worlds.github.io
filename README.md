@@ -14,6 +14,8 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
+  - dodati gettere
+  - sam se diže?
   - aerial-screw
   - oblake
   - razne steampunk objekte
