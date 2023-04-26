@@ -8,8 +8,12 @@ export default class Airplane extends Aircraft {
     this.mesh.position.y = 100
   }
 
+  get isLanding() {
+    return this.isTouchingGround && this.mesh.rotation.x < 0
+  }
+
   up() {
-    if (this.isTouchingGround()) return
+    if (this.isTouchingGround) return
     this.pitch(-angleSpeed / 10)
   }
 
@@ -27,12 +31,8 @@ export default class Airplane extends Aircraft {
     else this.roll(-angleSpeed)
   }
 
-  isLanding() {
-    return this.isTouchingGround() && this.mesh.rotation.x < 0
-  }
-
   checkLanding() {
-    if (this.isLanding()) {
+    if (this.isLanding) {
       this.pitch(Math.abs(this.mesh.rotation.x) * 0.1)
       this.slowDown(0.98)
     }

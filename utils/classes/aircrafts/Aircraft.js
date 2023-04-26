@@ -31,25 +31,47 @@ export default class Aircraft {
     }
   }
 
+  /* GETTERS */
+
   get direction() {
     if (!this.mesh) return { x: 0, y: 0, z: 0 }
     return new THREE.Vector3(0, 0, -1).applyQuaternion(this.mesh.quaternion)
   }
 
+  get isTouchingGround() {
+    const { mesh, solids } = this
+    const groundDistance = distanceDown({ pos: mesh.position, solids })
+    return groundDistance < this.minHeight
+  }
+
+  get isTooLow() {
+    const { mesh, solids } = this
+    const groundDistance = distanceDown({ pos: mesh.position, solids })
+    return groundDistance < this.minHeight * 2
+  }
+
+  get isTooNear() {
+    const distance = distanceFront({ mesh: this.mesh, solids: this.solids })
+    return distance < minDistance
+  }
+
+  get isMoving() {
+    return this.speed > this.minSpeed
+  }
+
+  /* UTILS */
+
   addSolids(...newSolids) {
     addSolids(this.solids, ...newSolids)
   }
 
-  handleInput(delta) {
-    if (input.left) this.left()
-    if (input.right) this.right()
-
-    if (input.up) this.up(delta)
-    if (input.down) this.down(delta)
-
-    if (input.pressed.PageUp || input.pressed.Space) this.accelerate(delta)
-    if (input.pressed.PageDown) this.deaccelerate()
+  normalizeAngles() {
+    this.mesh.rotation.x %= Math.PI * 2
+    this.mesh.rotation.y %= Math.PI * 2
+    this.mesh.rotation.z %= Math.PI * 2
   }
+
+  /* CONTROLS */
 
   up() {
     if (this.mesh.position.y < this.minHeight) return
@@ -103,12 +125,6 @@ export default class Aircraft {
       this.speed -= this.speedFactor
   }
 
-  normalizeAngles() {
-    this.mesh.rotation.x %= Math.PI * 2
-    this.mesh.rotation.y %= Math.PI * 2
-    this.mesh.rotation.z %= Math.PI * 2
-  }
-
   stabilize() {
     if (input.keyPressed) return
     const unrollFactor = 0.04
@@ -117,41 +133,32 @@ export default class Aircraft {
     if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
   }
 
-  isTouchingGround() {
-    const { mesh, solids } = this
-    const groundDistance = distanceDown({ pos: mesh.position, solids })
-    return groundDistance < this.minHeight
-  }
-
-  isTooLow() {
-    const { mesh, solids } = this
-    const groundDistance = distanceDown({ pos: mesh.position, solids })
-    return groundDistance < this.minHeight * 2
-  }
-
-  isTooNear() {
-    const distance = distanceFront({ mesh: this.mesh, solids: this.solids })
-    return distance < minDistance
-  }
-
-  isMoving() {
-    return this.speed > this.minSpeed
-  }
-
   slowDown(slowFactor = 0.5) {
     this.speed *= slowFactor
   }
 
+  /* LOOP */
+
+  handleInput(delta) {
+    if (input.left) this.left()
+    if (input.right) this.right()
+
+    if (input.up) this.up(delta)
+    if (input.down) this.down(delta)
+
+    if (input.pressed.PageUp || input.pressed.Space) this.accelerate(delta)
+    if (input.pressed.PageDown) this.deaccelerate()
+  }
+
   autopilot(delta) {
-    if (input.down) return
-    if (!this.isMoving()) return
-    if (this.isTooNear() || this.isTooLow()) this.up(delta)
+    if (!this.isMoving) return
+    if (this.isTooNear || this.isTooLow) this.up(delta)
   }
 
   update(delta = 1 / 60) {
     if (!this.mesh) return
     this.normalizeAngles()
-    this.autopilot(delta)
+    if (!input.down) this.autopilot(delta)
     this.handleInput(delta)
     this.moveForward(delta)
     this.stabilize()
@@ -159,7 +166,7 @@ export default class Aircraft {
     if (!this.mixer || !this.action) return
     this.mixer.update(clock.getDelta())
 
-    if (this.isTouchingGround()) this.action.stop()
+    if (this.isTouchingGround) this.action.stop()
     else this.action.play()
   }
 }
