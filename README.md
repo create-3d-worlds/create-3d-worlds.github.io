@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
-  - promeniti boje terena, barem crvenu
   - oblake?
 
 - Aircraft / 1943

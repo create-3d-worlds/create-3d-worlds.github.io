@@ -175,7 +175,7 @@ export function createTerrain({ size = 400, segments = 50, colorParam = 0x44aa44
 
 export async function createCraters({ size = 100, segments = 100 } = {}) {
   const mesh = createTerrainMesh({ size, segments })
-  cratersNoise(mesh.geometry)
+  await cratersNoise(mesh.geometry)
   await heightColors({ geometry: mesh.geometry, minY: -2, maxY: 2, domainColors: cratersColors })
   return mesh
 }
@@ -184,7 +184,7 @@ export async function createCraters({ size = 100, segments = 100 } = {}) {
 
 export async function createDunes({ size = 400, segments = 100 } = {}) {
   const mesh = createTerrainMesh({ size, segments })
-  dunesNoise(mesh.geometry)
+  await dunesNoise(mesh.geometry)
   await heightColors({ geometry: mesh.geometry, maxY: 2, minY: -1.75, domainColors: sandColors })
 
   return mesh
@@ -192,12 +192,12 @@ export async function createDunes({ size = 400, segments = 100 } = {}) {
 
 /* HILLY TERRAIN */
 
-export const createHillyTerrain = async(
-  { size = 400, segments = size / 20, factorX = size / 20, factorZ = size / 40, factorY = size / 10, aboveSea = .5 } = {}
+export const createHillyTerrain = async (
+  { size = 400, segments = size / 20, factorX = size / 20, factorZ = size / 40, factorY = size / 10, aboveSea = .5, domainColors = groundColors } = {}
 ) => {
   const mesh = createTerrainMesh({ size, segments })
   await hillyNoise(mesh.geometry, segments, factorX, factorY, factorZ, aboveSea)
-  await heightColors({ geometry: mesh.geometry, maxY: factorY * 1.25, minY: -factorY * .25 })
+  await heightColors({ geometry: mesh.geometry, maxY: factorY * 1.25, minY: -factorY * .25, domainColors })
   mesh.name = 'terrain' // for mini-rpg
   return mesh
 }

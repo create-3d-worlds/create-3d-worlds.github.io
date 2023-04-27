@@ -3,10 +3,12 @@ import { camera, scene, renderer, clock, addUIControls } from '/utils/scene.js'
 import { createSkySphere } from '/utils/geometry.js'
 import { createSun, hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
-import { createHillyTerrain } from '/utils/ground.js'
-import Dirigible from '/utils/classes/aircrafts/child/Dirigible.js'
+import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
+import Dirigible from '/utils/classes/aircrafts/child/Dirigible.js'
+
+export const domainColors = [0x5C4033, 0x228b22, 0xf0e68c]
 
 const mapSize = 800
 const coords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 40 })
@@ -18,8 +20,9 @@ const sun = createSun({ pos: [250, 1000, 100], far: 5000 })
 scene.add(sun)
 hemLight({ intensity: .5 })
 
-const terrain = await createHillyTerrain({ factorY: 30, size: mapSize })
+const terrain = await createHillyTerrain({ factorY: 30, size: mapSize, domainColors })
 scene.add(terrain)
+scene.add(createWater({ size: mapSize * 10 }))
 
 const trees = createTreesOnTerrain({ mapSize: mapSize * .5, terrain, n: 200, size: 4 })
 scene.add(trees)
