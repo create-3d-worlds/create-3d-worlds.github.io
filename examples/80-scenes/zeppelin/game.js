@@ -6,7 +6,7 @@ import { loadModel } from '/utils/loaders.js'
 import { createHillyTerrain } from '/utils/ground.js'
 import Dirigible from '/utils/classes/aircrafts/child/Dirigible.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
-import { getShuffledCoords, putOnSolids, addTexture } from '/utils/helpers.js'
+import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
 
 const mapSize = 800
 const coords = getShuffledCoords({ mapSize: 400, fieldSize: 20 })
@@ -35,11 +35,7 @@ for (let i = 0; i < 10; i++) {
   screws.push(mesh)
 }
 
-const house = await loadModel({ file: 'building/windmill/windmill-anim/mill.glb', size: 10 })
-addTexture({ mesh: house, file: 'material/Wood_Floor.jpg' })
-
-console.log(house.userData)
-
+const house = await loadModel({ file: 'building/house/hut/house5-03.obj', mtl: 'building/house/hut/house5-03.mtl', size: 6 })
 for (let i = 0; i < 10; i++) {
   const mesh = house.clone()
   const scale = Math.random() + 1

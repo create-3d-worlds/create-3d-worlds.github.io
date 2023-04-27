@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import input from '/utils/classes/Input.js'
-import { addSolids, distanceDown, distanceFront } from '/utils/helpers.js'
+import { addSolids, distanceDown, distanceFront, getMesh } from '/utils/helpers.js'
 import ChaseCamera from '/utils/classes/ChaseCamera.js'
 
 const angleSpeed = 2
@@ -21,7 +21,7 @@ export default class Aircraft {
     this.minDistance = minDistance
     this.maxPitch = maxPitch
     this.solids = []
-    this.mixer = new THREE.AnimationMixer(mesh.type === 'Group' ? mesh.children[0] : mesh)
+    this.mixer = new THREE.AnimationMixer(getMesh(this.mesh))
 
     if (animations) {
       const clip = this.animations[0]
