@@ -4,7 +4,7 @@ import { createSkySphere } from '/utils/geometry.js'
 import { createSun, hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { createHillyTerrain } from '/utils/ground.js'
-import Zeppelin from '/utils/classes/aircrafts/Zeppelin.js'
+import Dirigible from '/utils/classes/aircrafts/child/Dirigible.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 
 const mapSize = 800
@@ -27,20 +27,8 @@ const screw = await loadModel({ file: 'airship/air_screw/scene.gltf', size: 10 }
 screw.position.y = 20
 scene.add(screw)
 
-// airship/zeppelin.fbx
-const mesh = await loadModel({ file: 'airship/dirigible/model.fbx', size: 4, shouldCenter: true, shouldAdjustHeight: true })
-const zeppelin = new Zeppelin({ mesh, camera, solids: terrain })
+const zeppelin = new Dirigible({ camera, solids: terrain })
 scene.add(zeppelin.mesh)
-
-const propeler = await loadModel({ file: 'item/propeller/model.fbx', size: 1, angle: Math.PI })
-propeler.name = 'propeller'
-propeler.position.set(1.3, .6, .4)
-zeppelin.mesh.add(propeler)
-
-const propelerLeft = propeler.clone()
-propelerLeft.name = 'propeller'
-propelerLeft.position.set(-1.3, .6, .4)
-zeppelin.mesh.add(propelerLeft)
 
 /* LOOP */
 
