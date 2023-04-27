@@ -10,7 +10,7 @@ const maxRoll = Infinity
 // TODO: extends Entity
 export default class Aircraft {
   constructor({
-    mesh, speed = 1, maxSpeed = speed * 2, minSpeed = 0.1, minHeight = 5, minDistance = 120, maxPitch = Infinity, animations, solids, camera
+    mesh, speed = 1, maxSpeed = speed * 2.5, minSpeed = speed * .1, minHeight = 5, minDistance = 120, maxPitch = Infinity, animations, solids, camera
   } = {}) {
     this.mesh = mesh
     this.speed = speed

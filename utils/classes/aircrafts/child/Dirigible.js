@@ -9,6 +9,7 @@ const [mesh, propeler] = await Promise.all([
 export default class Dirigible extends Zeppelin {
   constructor(params = {}) {
     super({ mesh, ...params })
+    this.mesh.position.y = 25
 
     propeler.position.set(1.3, .63, .4)
     const propelerLeft = propeler.clone()
