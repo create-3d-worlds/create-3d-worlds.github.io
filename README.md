@@ -14,9 +14,9 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
-  - aerial-screw
-  - oblake
   - razne steampunk objekte
+  - oblake
+  - promeniti boje terena, barem crvenu
 
 - Aircraft / 1943
   - dodati izbor aviona
@@ -53,6 +53,7 @@ npx live-server
 
 - Savo
   - dodati intro na pisaćoj mašini
+  - dodati fabriku i ratne zgrade u neku ww2 scenu
 
 - RPG / Fantasy
   - napraviti scenu sa ravnim tlom
@@ -67,6 +68,7 @@ npx live-server
 
 - Barbarian
   - BUG: nakon skoka ostaje ukočena
+  - dodati spomenik viteza
 
 - Spomenici
   - skalirati teren?

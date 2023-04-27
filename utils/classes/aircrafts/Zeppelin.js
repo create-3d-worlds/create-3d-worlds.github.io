@@ -50,6 +50,6 @@ export default class Zeppelin extends Aircraft {
 
   update(delta) {
     super.update(delta)
-    if (!this.isTouchingGround) this.propelers.forEach(propeler => propeler.rotateZ(delta * -1))
+    if (!this.isTouchingGround) this.propelers.forEach(propeler => propeler.rotateZ(delta * -this.speed))
   }
 }
