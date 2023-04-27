@@ -32,7 +32,6 @@ export default class Actor extends GameObject {
     maxVelocityY = gravity * 20,
     drag = 0.5,
     getState,
-    shouldRaycastGround,
     twoHandedWeapon,
     rightHandWeapon,
     mapSize,
@@ -44,6 +43,7 @@ export default class Actor extends GameObject {
     useRicochet = attackDistance > 9,
     attackSound = '',
     altitude = 0, // for flying objects
+    shouldRaycastGround = Boolean(altitude),
     flame = null,
     turnWhileAttack = !flame,
   }) {
