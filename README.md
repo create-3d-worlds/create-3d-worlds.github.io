@@ -17,6 +17,7 @@ npx live-server
   - razne steampunk objekte
   - oblake
   - promeniti boje terena, barem crvenu
+  - ostaviti praznu sredinu sa zamkom
 
 - Aircraft / 1943
   - dodati izbor aviona
@@ -53,7 +54,7 @@ npx live-server
 
 - Savo
   - dodati intro na pisaćoj mašini
-  - dodati fabriku i ratne zgrade u neku ww2 scenu
+  - dodati fabriku, ratne zgrade, ww2 tower i slično u neku ww2 scenu
 
 - RPG / Fantasy
   - napraviti scenu sa ravnim tlom

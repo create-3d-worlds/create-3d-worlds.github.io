@@ -9,7 +9,7 @@ import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
 
 const mapSize = 800
-const coords = getShuffledCoords({ mapSize: 400, fieldSize: 30 })
+const coords = getShuffledCoords({ mapSize: 400, fieldSize: 20 })
 
 scene.add(await createSkySphere({ r: 5000 }))
 const sun = createSun({ pos: [250, 1000, 100], far: 5000 })
@@ -21,7 +21,7 @@ scene.fog = new THREE.Fog(0xE5C5AB, 1, 5000)
 const terrain = await createHillyTerrain({ factorY: 30, size: mapSize })
 scene.add(terrain)
 
-const trees = createTreesOnTerrain({ mapSize, terrain, size: 3.5, coords })
+const trees = createTreesOnTerrain({ mapSize, terrain, size: 4, coords })
 scene.add(trees)
 
 const screw = await loadModel({ file: 'airship/aerial-screw/model.fbx', size: 10, shouldCenter: true, fixColors: true })
@@ -35,15 +35,17 @@ for (let i = 0; i < 10; i++) {
   screws.push(mesh)
 }
 
-const house = await loadModel({ file: 'building/house/hut/house5-03.obj', mtl: 'building/house/hut/house5-03.mtl', size: 10 })
+const house = await loadModel({ file: 'building/house/hut/house5-03.obj', mtl: 'building/house/hut/house5-03.mtl', size: 6 })
 for (let i = 0; i < 10; i++) {
   const mesh = house.clone()
+  const scale = Math.random() + 1
+  mesh.scale.set(scale, scale, scale)
   mesh.position.copy(coords.pop())
   putOnSolids(mesh, terrain)
   scene.add(mesh)
 }
 
-const castle = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 60 })
+const castle = await loadModel({ file: 'building/tower/strange/tower.fbx', size: 80 })
 castle.position.copy(coords.pop())
 putOnSolids(castle, terrain)
 scene.add(castle)
