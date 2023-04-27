@@ -24,7 +24,7 @@ scene.add(terrain)
 const trees = createTreesOnTerrain({ mapSize, terrain, size: 3.5 })
 scene.add(trees)
 
-const screwMesh = await loadModel({ file: 'airship/air_screw/scene.gltf', size: 10, shouldCenter: true })
+const screwMesh = await loadModel({ file: 'airship/aerial-screw/model.fbx', size: 10, shouldCenter: true, fixColors: true })
 
 const screws = []
 for (let i = 0; i < 10; i++) {
