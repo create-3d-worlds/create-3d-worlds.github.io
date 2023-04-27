@@ -260,6 +260,7 @@ export const addTexture = ({ mesh, file = 'terrain/concrete.jpg', repeat = 1 } =
     if (child.isMesh) {
       child.material = new THREE.MeshLambertMaterial()
       child.material.map = texture
+      child.material.side = THREE.DoubleSide
     }
   })
 }
