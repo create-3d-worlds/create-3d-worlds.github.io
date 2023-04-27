@@ -14,7 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
-  - oblake?
+  - refact
 
 - Aircraft / 1943
   - dodati izbor aviona

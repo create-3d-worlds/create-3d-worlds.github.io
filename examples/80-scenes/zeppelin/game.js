@@ -7,6 +7,7 @@ import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
 import Dirigible from '/utils/classes/aircrafts/child/Dirigible.js'
+import { CloudAI } from '/utils/actor/child/Cloud.js'
 
 export const domainColors = [0x5C4033, 0x228b22, 0xf0e68c]
 
@@ -48,13 +49,20 @@ for (let i = 0; i < 5; i++) {
   scene.add(mesh)
 }
 
-const castle = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 80 })
+const castle = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 100 })
 castle.position.copy(coords.pop())
 putOnSolids(castle, terrain)
 scene.add(castle)
 
-const zeppelin = new Dirigible({ camera, solids: terrain })
+const zeppelin = new Dirigible({ camera, solids: [terrain, castle] })
 scene.add(zeppelin.mesh)
+
+const clouds = []
+for (let i = 0; i < 5; i++) {
+  const cloud = new CloudAI({ mapSize, pos: coords.pop() })
+  clouds.push(cloud)
+  scene.add(cloud.mesh)
+}
 
 /* LOOP */
 
@@ -63,6 +71,7 @@ void function loop() {
   const delta = clock.getDelta()
   zeppelin.update(delta)
   screws.forEach(screw => screw.rotateY(delta * screw.position.y * .02))
+  clouds.forEach(cloud => cloud.update(delta))
   renderer.render(scene, camera)
 }()
 
