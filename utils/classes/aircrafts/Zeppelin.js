@@ -9,8 +9,9 @@ export default class Zeppelin extends Aircraft {
     this.mesh.position.y = 20
     this.mesh.rotation.order = 'YZX' // fix controls (default is 'ZYX')
 
+    this.propelers = []
     this.mesh.traverse(child => {
-      if (child.name === 'propeler') this.propeler = child
+      if (child.name === 'propeler') this.propelers.push(child)
     })
   }
 
@@ -49,6 +50,6 @@ export default class Zeppelin extends Aircraft {
 
   update(delta) {
     super.update(delta)
-    if (!this.isTouchingGround) this.propeler?.rotateY(delta * -1)
+    if (!this.isTouchingGround) this.propelers.forEach(propeler => propeler.rotateY(delta * -1))
   }
 }

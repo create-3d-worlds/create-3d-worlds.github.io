@@ -3,7 +3,6 @@ import { camera, scene, renderer, clock, addUIControls } from '/utils/scene.js'
 import { createSkySphere } from '/utils/geometry.js'
 import { createSun, hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
-import ChaseCamera from '/utils/classes/ChaseCamera.js'
 import { createHillyTerrain } from '/utils/ground.js'
 import Zeppelin from '/utils/classes/aircrafts/Zeppelin.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
@@ -23,13 +22,25 @@ scene.add(terrain)
 const trees = createTreesOnTerrain({ mapSize, terrain, size: 3.5 })
 scene.add(trees)
 
-// const screw = await loadModel({ file: 'airship/aerial-screw/model.fbx', size: 10, shouldCenter: true, shouldAdjustHeight: true })
-// screw.position.y = 30
-// scene.add(screw)
+// airship/aerial-screw/model.fbx
+const screw = await loadModel({ file: 'airship/air_screw/scene.gltf', size: 10 })
+screw.position.y = 20
+scene.add(screw)
 
+// airship/zeppelin.fbx
 const mesh = await loadModel({ file: 'airship/dirigible/model.fbx', size: 4, shouldCenter: true, shouldAdjustHeight: true })
 const zeppelin = new Zeppelin({ mesh, camera, solids: terrain })
 scene.add(zeppelin.mesh)
+
+const propeler = await loadModel({ file: 'item/propeller/model.fbx', size: 1, angle: Math.PI })
+propeler.name = 'propeller'
+propeler.position.set(1.3, .6, .4)
+zeppelin.mesh.add(propeler)
+
+const propelerLeft = propeler.clone()
+propelerLeft.name = 'propeller'
+propelerLeft.position.set(-1.3, .6, .4)
+zeppelin.mesh.add(propelerLeft)
 
 /* LOOP */
 
