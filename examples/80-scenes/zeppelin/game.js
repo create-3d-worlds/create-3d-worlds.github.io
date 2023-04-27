@@ -30,12 +30,12 @@ const screws = []
 for (let i = 0; i < 10; i++) {
   const mesh = screw.clone()
   mesh.position.copy(coords.pop())
-  putOnSolids(mesh, terrain, 20)
+  putOnSolids(mesh, terrain, 25)
   scene.add(mesh)
   screws.push(mesh)
 }
 
-const house = await loadModel({ file: 'building/wizard-isle/model.fbx', mtl: 'building/house/hut/house5-03.mtl', size: 20 })
+const house = await loadModel({ file: 'building/wizard-isle/model.fbx', size: 20 })
 for (let i = 0; i < 5; i++) {
   const mesh = house.clone()
   const scale = Math.random() + 1
@@ -45,7 +45,7 @@ for (let i = 0; i < 5; i++) {
   scene.add(mesh)
 }
 
-const castle = await loadModel({ file: 'building/tower/strange/tower.fbx', size: 80 })
+const castle = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 80 })
 castle.position.copy(coords.pop())
 putOnSolids(castle, terrain)
 scene.add(castle)

@@ -14,10 +14,8 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
-  - razne steampunk objekte
-  - oblake
   - promeniti boje terena, barem crvenu
-  - ostaviti praznu sredinu sa zamkom
+  - oblake?
 
 - Aircraft / 1943
   - dodati izbor aviona
