@@ -7,6 +7,9 @@ import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
 import Dirigible from '/utils/classes/aircrafts/child/Dirigible.js'
 import { CloudAI } from '/utils/actor/child/Cloud.js'
+import AerialScrew from '/utils/actor/child/AerialScrew.js'
+
+const updatables = []
 
 const mapSize = 800
 const coords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 40 })
@@ -25,15 +28,10 @@ scene.add(trees)
 
 /* screws */
 
-const screw = await loadModel({ file: 'airship/aerial-screw/model.fbx', size: 10, shouldCenter: true, fixColors: true })
-
-const screws = []
 for (let i = 0; i < 10; i++) {
-  const mesh = screw.clone()
-  mesh.position.copy(coords.pop())
-  putOnSolids(mesh, terrain, 25)
-  scene.add(mesh)
-  screws.push(mesh)
+  const screw = new AerialScrew({ pos: coords.pop(), solids: terrain, altitude: 15 + 15 * Math.random() })
+  updatables.push(screw)
+  scene.add(screw.mesh)
 }
 
 /* wizard-isle */
@@ -57,10 +55,9 @@ scene.add(castle)
 
 /* clouds */
 
-const clouds = []
 for (let i = 0; i < 5; i++) {
   const cloud = new CloudAI({ mapSize, pos: coords.pop() })
-  clouds.push(cloud)
+  updatables.push(cloud)
   scene.add(cloud.mesh)
 }
 
@@ -73,8 +70,7 @@ void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
   zeppelin.update(delta)
-  screws.forEach(screw => screw.rotateY(delta * screw.position.y * .02))
-  clouds.forEach(cloud => cloud.update(delta))
+  updatables.forEach(screw => screw.update(delta))
   renderer.render(scene, camera)
 }()
 

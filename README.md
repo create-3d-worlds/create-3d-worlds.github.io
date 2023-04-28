@@ -14,6 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
+  - zamak na sred?
   - refact
 
 - Aircraft / 1943
