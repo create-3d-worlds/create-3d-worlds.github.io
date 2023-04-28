@@ -16,8 +16,7 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
-  - zamak na sred?
-    - mermer ili boje na zamak
+  - mermer ili boje na zamak
     - obojiti u blenderu?
   - BUG: CloudAI padaju, napraviti prost GameObject
 

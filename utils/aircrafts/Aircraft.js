@@ -2,16 +2,17 @@ import * as THREE from 'three'
 import input from '/utils/io/Input.js'
 import { addSolids, getMesh, getGroundY } from '/utils/helpers.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
+import GameObject from '/utils/actor/GameObject.js'
 
 const angleSpeed = 2
 const maxRoll = Infinity
 
 /* Base class for Airplane and Zeppelin */
-export default class Aircraft {
+export default class Aircraft extends GameObject {
   constructor({
-    mesh, speed = 1, maxSpeed = speed * 2.5, minSpeed = speed * .1, minHeight = 5, minDistance = 120, maxPitch = Infinity, animations, solids, camera
+    mesh, speed = 1, maxSpeed = speed * 2.5, minSpeed = speed * .1, minHeight = 5, minDistance = 120, maxPitch = Infinity, animations, solids, camera, pos, altitude = 0, name
   } = {}) {
-    this.mesh = mesh
+    super({ mesh, pos, solids, altitude, name })
     this.speed = speed
     this.speedFactor = speed * .01
     this.maxSpeed = maxSpeed

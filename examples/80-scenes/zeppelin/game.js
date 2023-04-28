@@ -13,22 +13,29 @@ import WizardIsle from '/utils/actor/child/WizardIsle.js'
 const updatables = []
 
 const mapSize = 800
-const coords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 40 })
 
 scene.add(await createSkySphere({ r: 5000 }))
 hemLight({ intensity: .5 })
 ambLight({ intensity: .75 })
 
-const terrain = await createHillyTerrain({ size: mapSize, factorY: 30, terrainColors: [0x5C4033, 0x228b22, 0xf0e68c] })
+const terrain = await createHillyTerrain({ size: mapSize, factorY: 30 })
 scene.add(terrain)
 
 const water = createWater({ size: mapSize * 10 })
 scene.add(water)
 
-const trees = createTreesOnTerrain({ mapSize: mapSize * .5, terrain, n: 200, size: 4 })
+const treesCoords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 4, emptyCenter: 50 })
+
+const trees = createTreesOnTerrain({ terrain, n: 200, size: 4, coords: treesCoords })
 scene.add(trees)
 
-/* game objects */
+/* GAME OBJECTS */
+
+const coords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 40, emptyCenter: 50 })
+
+const castle = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 100 })
+putOnSolids(castle, terrain)
+scene.add(castle)
 
 for (let i = 0; i < 10; i++) {
   const screw = new AerialScrew({ pos: coords.pop(), solids: terrain, altitude: 15 + 15 * Math.random() })
@@ -41,17 +48,13 @@ for (let i = 0; i < 5; i++) {
   updatables.push(isle)
 }
 
-const castle = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 100 })
-castle.position.copy(coords.pop())
-putOnSolids(castle, terrain)
-scene.add(castle)
-
 for (let i = 0; i < 5; i++) {
   const cloud = new CloudAI({ mapSize, pos: coords.pop() })
   updatables.push(cloud)
 }
 
 const zeppelin = new Dirigible({ camera, solids: terrain })
+zeppelin.position.z = 200
 updatables.push(zeppelin)
 
 updatables.forEach(gameObj => scene.add(gameObj.mesh))
