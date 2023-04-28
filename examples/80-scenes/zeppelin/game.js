@@ -28,40 +28,33 @@ scene.add(water)
 const trees = createTreesOnTerrain({ mapSize: mapSize * .5, terrain, n: 200, size: 4 })
 scene.add(trees)
 
-/* screws */
+/* game objects */
 
 for (let i = 0; i < 10; i++) {
   const screw = new AerialScrew({ pos: coords.pop(), solids: terrain, altitude: 15 + 15 * Math.random() })
   updatables.push(screw)
-  scene.add(screw.mesh)
 }
-
-/* wizard-isle */
 
 for (let i = 0; i < 5; i++) {
   const scale = Math.random() + 1
   const isle = new WizardIsle({ pos: coords.pop(), solids: terrain, scale, altitude: scale * 10 })
   updatables.push(isle)
-  scene.add(isle.mesh)
 }
-
-/* magic-castle */
 
 const castle = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 100 })
 castle.position.copy(coords.pop())
 putOnSolids(castle, terrain)
 scene.add(castle)
 
-/* clouds */
-
 for (let i = 0; i < 5; i++) {
   const cloud = new CloudAI({ mapSize, pos: coords.pop() })
   updatables.push(cloud)
-  scene.add(cloud.mesh)
 }
 
 const zeppelin = new Dirigible({ camera, solids: [terrain, castle] })
-scene.add(zeppelin.mesh)
+updatables.push(zeppelin)
+
+updatables.forEach(gameObj => scene.add(gameObj.mesh))
 
 /* LOOP */
 
@@ -71,9 +64,10 @@ void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
   time += delta
-  zeppelin.update(delta)
+
   updatables.forEach(screw => screw.update(delta))
   wave({ geometry: water.geometry, time })
+
   renderer.render(scene, camera)
 }()
 
