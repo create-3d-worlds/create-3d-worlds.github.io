@@ -40,6 +40,7 @@ for (let i = 0; i < 10; i++) {
 for (let i = 0; i < 5; i++) {
   const scale = Math.random() + 1
   const isle = new WizardIsle({ pos: coords.pop(), solids: terrain, scale, altitude: scale * 10 })
+  updatables.push(isle)
   scene.add(isle.mesh)
 }
 

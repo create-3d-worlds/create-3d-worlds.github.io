@@ -11,12 +11,15 @@ npx live-server
 
 ## TODO
 
+- organizovati GameObject-e u folder 
+- BUG: CloudAI padaju, možda napraviti prost GameObject
+
 ### Scenes & examples
 
 - Zeppelin
   - zamak na sred?
-  - mermer na zamak?
-  - refact
+    - mermer ili boje na zamak
+  - valove na vodu
 
 - Aircraft / 1943
   - dodati izbor aviona
