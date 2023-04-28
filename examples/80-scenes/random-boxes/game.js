@@ -4,7 +4,7 @@ import { createGround } from '/utils/ground.js'
 import { hemLight, createSun } from '/utils/light.js'
 import Avatar from '/utils/actor/Avatar.js'
 import Coin from '/utils/actor/child/Coin.js'
-import Score from '/utils/ui/Score.js'
+import Score from '/utils/io/Score.js'
 import Platform from '/utils/actor/child/Platform.js'
 
 const numBoxes = 400

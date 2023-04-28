@@ -3,9 +3,9 @@ import { camera, scene, renderer, clock } from '/utils/scene.js'
 import { createBall, createWorldSphere } from '/utils/geometry.js'
 import { createFir } from '/utils/geometry/trees.js'
 import { hemLight } from '/utils/light.js'
-import input from '/utils/classes/Input.js'
+import input from '/utils/io/Input.js'
 import Particles from '/utils/classes/Particles.js'
-import Score from '/utils/ui/Score.js'
+import Score from '/utils/io/Score.js'
 
 const { randFloat, randInt } = THREE.MathUtils
 const { random } = Math

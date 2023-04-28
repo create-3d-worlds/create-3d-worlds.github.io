@@ -1,11 +1,11 @@
 import * as THREE from 'three'
 
-import defaultKeyboard from '/utils/classes/Input.js'
+import defaultKeyboard from '/utils/io/Input.js'
 import { jumpStyles, attackStyles, reactions } from '/utils/constants.js'
 import { getPlayerState } from './states/index.js'
 import { findChildren } from '/utils/helpers.js'
 import Actor from './Actor.js'
-import ChaseCamera from '/utils/classes/ChaseCamera.js'
+import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 export default class Player extends Actor {
   #enemiesAdded = false
@@ -24,7 +24,7 @@ export default class Player extends Actor {
     super({ name: 'player', input, jumpStyle, getState, shouldRaycastGround, attackDistance, ...params })
 
     if (useJoystick) {
-      const promise = import('/utils/classes/JoyStick.js')
+      const promise = import('/utils/io/JoyStick.js')
       promise.then(obj => {
         const JoyStick = obj.default
         this.input.joystick = new JoyStick()

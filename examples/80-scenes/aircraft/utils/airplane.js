@@ -1,4 +1,4 @@
-import input from '/utils/classes/Input.js'
+import input from '/utils/io/Input.js'
 
 const speed = 100
 const rotationSpeed = .5

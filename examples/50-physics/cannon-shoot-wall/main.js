@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { Ammo } from '/utils/physics.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
-import input from '/utils/classes/Input.js'
+import input from '/utils/io/Input.js'
 import { createSun } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import PhysicsWorld from '/utils/classes/PhysicsWorld.js'

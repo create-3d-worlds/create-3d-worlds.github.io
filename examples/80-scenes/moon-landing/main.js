@@ -1,13 +1,13 @@
 import { scene, camera, renderer, clock, setBackground } from '/utils/scene.js'
 import { ambLight, createMoon } from '/utils/light.js'
 import { Stars } from '/utils/classes/Particles.js'
-import Score from '/utils/ui/Score.js'
+import Score from '/utils/io/Score.js'
 import Lander from './Lander.js'
 import Platform from '/utils/actor/child/Platform.js'
 import { loadModel } from '/utils/loaders.js'
 import { createSphere } from '/utils/geometry.js'
 import { createJupiter, createSaturn, orbitAround } from '/utils/geometry/planets.js'
-import input from '/utils/classes/Input.js'
+import input from '/utils/io/Input.js'
 
 setBackground(0x000000)
 camera.position.z = 18

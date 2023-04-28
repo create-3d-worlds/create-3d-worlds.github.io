@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
 import { Ammo, createRigidBody, updateMeshTransform } from '/utils/physics.js'
-import input from '/utils/classes/Input.js'
+import input from '/utils/io/Input.js'
 import { getSize } from '/utils/helpers.js'
 
 const FRONT_LEFT = 0

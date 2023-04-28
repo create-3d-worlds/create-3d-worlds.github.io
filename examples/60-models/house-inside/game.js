@@ -1,6 +1,6 @@
 import { scene, camera, renderer, createOrbitControls, addUIControls } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
-import input from '/utils/classes/Input.js'
+import input from '/utils/io/Input.js'
 import { loadModel } from '/utils/loaders.js'
 import { createSun } from '/utils/light.js'
 

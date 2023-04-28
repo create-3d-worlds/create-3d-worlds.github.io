@@ -15,6 +15,7 @@ npx live-server
 
 - Zeppelin
   - zamak na sred?
+  - mermer na zamak?
   - refact
 
 - Aircraft / 1943
