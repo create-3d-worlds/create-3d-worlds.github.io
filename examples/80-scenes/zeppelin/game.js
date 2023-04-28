@@ -4,7 +4,7 @@ import { hemLight, ambLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
-import { getShuffledCoords, putOnSolids, addTexture } from '/utils/helpers.js'
+import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
 import Dirigible from '/utils/aircrafts/child/Dirigible.js'
 import { CloudAI } from '/utils/actor/child/Cloud.js'
 import AerialScrew from '/utils/actor/child/AerialScrew.js'
@@ -34,11 +34,10 @@ scene.add(trees)
 const coords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 40, emptyCenter: 50 })
 
 const castle = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 100 })
-addTexture(castle, 'material/WhiteMarble.jpg', 4)
 putOnSolids(castle, terrain)
 scene.add(castle)
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 12; i++) {
   const screw = new AerialScrew({ pos: coords.pop(), solids: terrain, altitude: 15 + 15 * Math.random() })
   updatables.push(screw)
 }

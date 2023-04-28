@@ -16,8 +16,6 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
-  - mermer ili boje na zamak
-    - obojiti u blenderu?
   - BUG: CloudAI padaju, napraviti prost GameObject
 
 - Aircraft / 1943
