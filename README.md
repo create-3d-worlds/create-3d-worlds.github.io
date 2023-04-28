@@ -146,9 +146,11 @@ Ako je teren jednobojan, bez svetla, uraditi:
 geometry.computeVertexNormals()
 ```
 
-## Documentation
+Stats:
 
-All libraries in `/libs` folder are updated manually to support ES6 export.
+```js
+import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
+```
 
 ### Ammo Physics
 

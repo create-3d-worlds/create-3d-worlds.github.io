@@ -6,7 +6,6 @@ import ChaseCamera from '/utils/actor/ChaseCamera.js'
 const angleSpeed = 2
 const maxRoll = Infinity
 
-// TODO: extends GameObject?
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft {
   constructor({
@@ -23,6 +22,7 @@ export default class Aircraft {
     this.solids = []
     this.groundY = 0
     this.mixer = new THREE.AnimationMixer(getMesh(this.mesh))
+    this.t = 0
 
     if (animations) {
       const clip = this.animations[0]
@@ -34,7 +34,7 @@ export default class Aircraft {
       this.addSolids(solids)
 
     if (camera) {
-      this.chaseCamera = new ChaseCamera({ camera, mesh, height: 2, speed: this.speed * .5 })
+      this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, height: 2, speed: this.speed * .5 })
       this.chaseCamera.distance = 6
       this.shouldAlignCamera = true
     }
@@ -177,7 +177,8 @@ export default class Aircraft {
   update(delta = 1 / 60) {
     if (!this.mesh) return
 
-    this.updateGround()
+    if (this.t % 3 == 0)
+      this.updateGround()
     this.normalizeAngles()
     this.handleInput(delta)
     if (!input.down) this.autoHeight(delta)
@@ -191,5 +192,6 @@ export default class Aircraft {
     this.chaseCamera?.update(delta)
 
     this.updateMixer(delta)
+    this.t++
   }
 }

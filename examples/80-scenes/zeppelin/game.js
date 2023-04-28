@@ -2,7 +2,7 @@ import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
 
 import { camera, scene, renderer, clock, addUIControls } from '/utils/scene.js'
 import { createSkySphere } from '/utils/geometry.js'
-import { createSun, hemLight } from '/utils/light.js'
+import { hemLight, ambLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
@@ -21,8 +21,8 @@ const mapSize = 800
 const coords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 40 })
 
 scene.add(await createSkySphere({ r: 5000 }))
-scene.add(createSun({ pos: [250, 1000, 100], r: 10 }))
 hemLight({ intensity: .5 })
+ambLight({ intensity: .75 })
 
 const terrain = await createHillyTerrain({ size: mapSize, factorY: 30, terrainColors: [0x5C4033, 0x228b22, 0xf0e68c] })
 scene.add(terrain)
