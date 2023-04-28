@@ -5,7 +5,7 @@ import { loadModel } from '/utils/loaders.js'
 import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
-import Dirigible from '/utils/classes/aircrafts/child/Dirigible.js'
+import Dirigible from '/utils/aircrafts/child/Dirigible.js'
 import { CloudAI } from '/utils/actor/child/Cloud.js'
 import AerialScrew from '/utils/actor/child/AerialScrew.js'
 
@@ -37,12 +37,14 @@ for (let i = 0; i < 10; i++) {
 /* wizard-isle */
 
 const house = await loadModel({ file: 'building/wizard-isle/model.fbx', size: 20 })
+
 for (let i = 0; i < 5; i++) {
   const mesh = house.clone()
-  const scale = Math.random() + 1
-  mesh.scale.set(scale, scale, scale)
+  const rand = Math.random() + 1
+  mesh.scale.set(rand, rand, rand)
   mesh.position.copy(coords.pop())
-  putOnSolids(mesh, terrain, scale * 10)
+  mesh.rotateY(rand)
+  putOnSolids(mesh, terrain, rand * 10)
   scene.add(mesh)
 }
 

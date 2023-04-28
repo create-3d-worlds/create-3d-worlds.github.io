@@ -5,7 +5,7 @@ import { hemLight, createSun } from '/utils/light.js'
 import Avatar from '/utils/actor/Avatar.js'
 import Coin from '/utils/actor/child/Coin.js'
 import Score from '/utils/ui/Score.js'
-import Platform from '/utils/classes/Platform.js'
+import Platform from '/utils/actor/child/Platform.js'
 
 const numBoxes = 400
 const numCoins = numBoxes / 4
