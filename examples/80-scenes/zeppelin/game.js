@@ -12,13 +12,12 @@ const mapSize = 800
 const coords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 40 })
 
 scene.add(await createSkySphere({ r: 5000 }))
-
-const sun = createSun({ pos: [250, 1000, 100], far: 5000 })
-scene.add(sun)
+scene.add(createSun({ pos: [250, 1000, 100], r: 10 }))
 hemLight({ intensity: .5 })
 
-const terrain = await createHillyTerrain({ size: mapSize, factorY: 30, domainColors: [0x5C4033, 0x228b22, 0xf0e68c] })
+const terrain = await createHillyTerrain({ size: mapSize, factorY: 30, terrainColors: [0x5C4033, 0x228b22, 0xf0e68c] })
 scene.add(terrain)
+
 scene.add(createWater({ size: mapSize * 10 }))
 
 const trees = createTreesOnTerrain({ mapSize: mapSize * .5, terrain, n: 200, size: 4 })

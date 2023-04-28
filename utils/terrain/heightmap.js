@@ -28,7 +28,7 @@ export function meshFromData({ data, width, depth, minHeight, maxHeight }) {
   const material = new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide })
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
-  heightColors({ geometry, minY: minHeight, maxY: maxHeight, domainColors: desertPlanetColors })
+  heightColors({ geometry, minY: minHeight, maxY: maxHeight, terrainColors: desertPlanetColors })
   return mesh
 }
 

@@ -135,12 +135,12 @@ function randomShades(geometry, colorParam, range) { // h = .25, s = 0.5, l = 0.
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
 }
 
-export async function heightColors({ geometry, maxY, minY = 0, domainColors = groundColors } = {}) {
+export async function heightColors({ geometry, maxY, minY = 0, terrainColors = groundColors } = {}) {
   const { position } = geometry.attributes
   const obj = await import('/libs/chroma.js')
   const chroma = obj.default
 
-  const f = chroma.scale(domainColors).domain([minY, maxY])
+  const f = chroma.scale(terrainColors).domain([minY, maxY])
   const colors = []
   const vertex = new THREE.Vector3()
 
@@ -176,7 +176,7 @@ export function createTerrain({ size = 400, segments = 50, colorParam = 0x44aa44
 export async function createCraters({ size = 100, segments = 100 } = {}) {
   const mesh = createTerrainMesh({ size, segments })
   await cratersNoise(mesh.geometry)
-  await heightColors({ geometry: mesh.geometry, minY: -2, maxY: 2, domainColors: cratersColors })
+  await heightColors({ geometry: mesh.geometry, minY: -2, maxY: 2, terrainColors: cratersColors })
   return mesh
 }
 
@@ -185,7 +185,7 @@ export async function createCraters({ size = 100, segments = 100 } = {}) {
 export async function createDunes({ size = 400, segments = 100 } = {}) {
   const mesh = createTerrainMesh({ size, segments })
   await dunesNoise(mesh.geometry)
-  await heightColors({ geometry: mesh.geometry, maxY: 2, minY: -1.75, domainColors: sandColors })
+  await heightColors({ geometry: mesh.geometry, maxY: 2, minY: -1.75, terrainColors: sandColors })
 
   return mesh
 }
@@ -193,11 +193,11 @@ export async function createDunes({ size = 400, segments = 100 } = {}) {
 /* HILLY TERRAIN */
 
 export const createHillyTerrain = async (
-  { size = 400, segments = size / 20, factorX = size / 20, factorZ = size / 40, factorY = size / 10, aboveSea = .5, domainColors = groundColors } = {}
+  { size = 400, segments = size / 20, factorX = size / 20, factorZ = size / 40, factorY = size / 10, aboveSea = .5, terrainColors = groundColors } = {}
 ) => {
   const mesh = createTerrainMesh({ size, segments })
   await hillyNoise(mesh.geometry, segments, factorX, factorY, factorZ, aboveSea)
-  await heightColors({ geometry: mesh.geometry, maxY: factorY * 1.25, minY: -factorY * .25, domainColors })
+  await heightColors({ geometry: mesh.geometry, maxY: factorY * 1.25, minY: -factorY * .25, terrainColors })
   mesh.name = 'terrain' // for mini-rpg
   return mesh
 }
