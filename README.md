@@ -19,7 +19,8 @@ npx live-server
 - Zeppelin
   - zamak na sred?
     - mermer ili boje na zamak
-  - valove na vodu
+    - obojiti u blenderu?
+  - izmeriti koliko usporava sunce
 
 - Aircraft / 1943
   - dodati izbor aviona

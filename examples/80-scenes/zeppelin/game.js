@@ -2,7 +2,7 @@ import { camera, scene, renderer, clock, addUIControls } from '/utils/scene.js'
 import { createSkySphere } from '/utils/geometry.js'
 import { createSun, hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
-import { createHillyTerrain, createWater } from '/utils/ground.js'
+import { createHillyTerrain, createWater, wave } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
 import Dirigible from '/utils/aircrafts/child/Dirigible.js'
@@ -22,7 +22,8 @@ hemLight({ intensity: .5 })
 const terrain = await createHillyTerrain({ size: mapSize, factorY: 30, terrainColors: [0x5C4033, 0x228b22, 0xf0e68c] })
 scene.add(terrain)
 
-scene.add(createWater({ size: mapSize * 10 }))
+const water = createWater({ size: mapSize * 10 })
+scene.add(water)
 
 const trees = createTreesOnTerrain({ mapSize: mapSize * .5, terrain, n: 200, size: 4 })
 scene.add(trees)
@@ -64,11 +65,15 @@ scene.add(zeppelin.mesh)
 
 /* LOOP */
 
+let time = 0
+
 void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
+  time += delta
   zeppelin.update(delta)
   updatables.forEach(screw => screw.update(delta))
+  wave({ geometry: water.geometry, time })
   renderer.render(scene, camera)
 }()
 
