@@ -16,8 +16,6 @@ npx live-server
 ### Scenes & examples
 
 - Zeppelin
-  - zeppelin solids mnogo usporava, optimizovati nekako
-    - bacati zrak svaki drugi frejm?
   - zamak na sred?
     - mermer ili boje na zamak
     - obojiti u blenderu?

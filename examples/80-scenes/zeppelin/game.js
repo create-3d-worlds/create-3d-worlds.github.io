@@ -1,5 +1,3 @@
-import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
-
 import { camera, scene, renderer, clock, addUIControls } from '/utils/scene.js'
 import { createSkySphere } from '/utils/geometry.js'
 import { hemLight, ambLight } from '/utils/light.js'
@@ -11,9 +9,6 @@ import Dirigible from '/utils/aircrafts/child/Dirigible.js'
 import { CloudAI } from '/utils/actor/child/Cloud.js'
 import AerialScrew from '/utils/actor/child/AerialScrew.js'
 import WizardIsle from '/utils/actor/child/WizardIsle.js'
-
-const stats = new Stats()
-document.body.appendChild(stats.dom)
 
 const updatables = []
 
@@ -69,7 +64,6 @@ void function loop() {
 
   updatables.forEach(screw => screw.update(delta))
 
-  stats.update()
   renderer.render(scene, camera)
 }()
 
