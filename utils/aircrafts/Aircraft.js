@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import input from '/utils/io/Input.js'
 import { addSolids, getMesh, getGroundY } from '/utils/helpers.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
-import GameObject from '/utils/actor/GameObject.js'
+import GameObject from '/utils/objects/GameObject.js'
 
 const angleSpeed = 2
 const maxRoll = Infinity

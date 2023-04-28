@@ -3,9 +3,9 @@ import { createRandomBoxes } from '/utils/geometry.js'
 import { createGround } from '/utils/ground.js'
 import { hemLight, createSun } from '/utils/light.js'
 import Avatar from '/utils/actor/Avatar.js'
-import Coin from '/utils/actor/child/Coin.js'
+import Coin from '/utils/objects/Coin.js'
 import Score from '/utils/io/Score.js'
-import Platform from '/utils/actor/child/Platform.js'
+import Platform from '/utils/objects/Platform.js'
 
 const numBoxes = 400
 const numCoins = numBoxes / 4

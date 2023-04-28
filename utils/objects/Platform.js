@@ -1,5 +1,5 @@
 import { createBox } from '/utils/geometry.js'
-import GameObject from '/utils/actor/GameObject.js'
+import GameObject from '/utils/objects/GameObject.js'
 import { sample } from '/utils/helpers.js'
 
 export default class Platform extends GameObject {

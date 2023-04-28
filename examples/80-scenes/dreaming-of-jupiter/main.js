@@ -5,7 +5,7 @@ import { Stars } from '/utils/classes/Particles.js'
 import { createMoon } from '/utils/light.js'
 import { getShuffledCoords } from '/utils/helpers.js'
 import Avatar from '/utils/actor/Avatar.js'
-import Platform from '/utils/actor/child/Platform.js'
+import Platform from '/utils/objects/Platform.js'
 
 setBackground(0x000000)
 scene.add(createMoon())

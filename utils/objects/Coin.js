@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-import GameObject from '/utils/actor/GameObject.js'
+import GameObject from '/utils/objects/GameObject.js'
 import config from '/config.js'
 
 const material = new THREE.MeshPhongMaterial({ color: 0xffd700 })

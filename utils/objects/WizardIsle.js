@@ -1,4 +1,4 @@
-import GameObject from '/utils/actor/GameObject.js'
+import GameObject from '/utils/objects/GameObject.js'
 import { loadModel } from '/utils/loaders.js'
 
 const mesh = await loadModel({ file: 'building/wizard-isle/model.fbx', size: 20 })

@@ -11,8 +11,6 @@ npx live-server
 
 ## TODO
 
-- organizovati GameObject-e u folder 
-
 ### Scenes & examples
 
 - Zeppelin

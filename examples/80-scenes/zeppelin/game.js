@@ -8,8 +8,8 @@ import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
 import Dirigible from '/utils/aircrafts/child/Dirigible.js'
 import { CloudAI } from '/utils/actor/child/Cloud.js'
-import AerialScrew from '/utils/actor/child/AerialScrew.js'
-import WizardIsle from '/utils/actor/child/WizardIsle.js'
+import AerialScrew from '/utils/objects/AerialScrew.js'
+import WizardIsle from '/utils/objects/WizardIsle.js'
 
 const updatables = []
 const stats = new Stats()

@@ -6,7 +6,7 @@ import { createTombstone } from '/utils/geometry/shapes.js'
 import { GhostAI } from '/utils/actor/child/horror/Ghost.js'
 import { ResistanceFighterPlayer } from '/utils/actor/child/ww2/ResistanceFighter.js'
 import { Smoke } from '/utils/classes/Particles.js'
-import DeadTree from '/utils/actor/child/DeadTree.js'
+import DeadTree from '/utils/objects/DeadTree.js'
 
 const mapSize = 100
 const npcs = []
