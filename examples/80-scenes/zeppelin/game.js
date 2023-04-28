@@ -1,3 +1,4 @@
+import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
 import { camera, scene, renderer, clock, addUIControls } from '/utils/scene.js'
 import { createSkySphere } from '/utils/geometry.js'
 import { hemLight, ambLight } from '/utils/light.js'
@@ -11,12 +12,14 @@ import AerialScrew from '/utils/actor/child/AerialScrew.js'
 import WizardIsle from '/utils/actor/child/WizardIsle.js'
 
 const updatables = []
+const stats = new Stats()
+document.body.appendChild(stats.dom)
 
 const mapSize = 800
 
 scene.add(await createSkySphere({ r: 5000 }))
-hemLight({ intensity: .5 })
-ambLight({ intensity: .75 })
+hemLight({ intensity: .75 })
+ambLight({ intensity: .5 })
 
 const terrain = await createHillyTerrain({ size: mapSize, factorY: 30 })
 scene.add(terrain)
@@ -24,6 +27,7 @@ scene.add(terrain)
 const water = createWater({ size: mapSize * 10 })
 scene.add(water)
 
+const coords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 40, emptyCenter: 50 })
 const treesCoords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 4, emptyCenter: 50 })
 
 const trees = createTreesOnTerrain({ terrain, n: 200, size: 4, coords: treesCoords })
@@ -31,18 +35,16 @@ scene.add(trees)
 
 /* GAME OBJECTS */
 
-const coords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 40, emptyCenter: 50 })
-
 const castle = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 100 })
 putOnSolids(castle, terrain)
 scene.add(castle)
 
-for (let i = 0; i < 12; i++) {
+for (let i = 0; i < 10; i++) {
   const screw = new AerialScrew({ pos: coords.pop(), solids: terrain, altitude: 15 + 15 * Math.random() })
   updatables.push(screw)
 }
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 3; i++) {
   const scale = Math.random() + 1
   const isle = new WizardIsle({ pos: coords.pop(), solids: terrain, scale, altitude: scale * 10 })
   updatables.push(isle)
@@ -66,7 +68,7 @@ void function loop() {
   const delta = clock.getDelta()
 
   updatables.forEach(screw => screw.update(delta))
-
+  stats.update()
   renderer.render(scene, camera)
 }()
 
