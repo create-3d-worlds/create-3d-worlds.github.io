@@ -8,6 +8,7 @@ import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
 import Dirigible from '/utils/aircrafts/child/Dirigible.js'
 import { CloudAI } from '/utils/actor/child/Cloud.js'
 import AerialScrew from '/utils/actor/child/AerialScrew.js'
+import WizardIsle from '/utils/actor/child/WizardIsle.js'
 
 const updatables = []
 
@@ -36,16 +37,10 @@ for (let i = 0; i < 10; i++) {
 
 /* wizard-isle */
 
-const house = await loadModel({ file: 'building/wizard-isle/model.fbx', size: 20 })
-
 for (let i = 0; i < 5; i++) {
-  const mesh = house.clone()
-  const rand = Math.random() + 1
-  mesh.scale.set(rand, rand, rand)
-  mesh.position.copy(coords.pop())
-  mesh.rotateY(rand)
-  putOnSolids(mesh, terrain, rand * 10)
-  scene.add(mesh)
+  const scale = Math.random() + 1
+  const isle = new WizardIsle({ pos: coords.pop(), solids: terrain, scale, altitude: scale * 10 })
+  scene.add(isle.mesh)
 }
 
 /* magic-castle */
