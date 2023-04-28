@@ -12,7 +12,7 @@ const animDict = {
 
 const mesh = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/wizard/', size: 1.8, fixColors: true })
 
-addTexture({ mesh, file: 'lavacloud.png' })
+addTexture(mesh, 'lavacloud.png')
 
 /* EXTENDED CLASSES */
 

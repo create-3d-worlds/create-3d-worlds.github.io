@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import * as BufferGeometryUtils from '/node_modules/three/examples/jsm/utils/BufferGeometryUtils.js'
-import { centerGeometry, getTexture } from '/utils/helpers.js'
+import { centerGeometry, createTexture } from '/utils/helpers.js'
 import { createBuildingTexture, createBuildingGeometry } from '/utils/city.js'
 import chroma from '/libs/chroma.js'
 
@@ -164,7 +164,7 @@ export function meshFromMaze({ maze, cellSize = 10, connect = createWall, color 
   centerGeometry(geometry)
   const material = new THREE.MeshLambertMaterial({
     color,
-    map: texture ? getTexture({ file: texture }) : null
+    map: texture ? createTexture({ file: texture }) : null
   })
   const mesh = new THREE.Mesh(geometry, material)
   return mesh
@@ -219,7 +219,7 @@ export function meshFromPolarMaze({ maze, cellSize = 10, connect = createPipe, c
   geometry.translate(0, .5, 0)
   const material = new THREE.MeshLambertMaterial({
     color,
-    map: texture ? getTexture({ file: texture }) : null
+    map: texture ? createTexture({ file: texture }) : null
   })
   const mesh = new THREE.Mesh(geometry, material)
   return mesh

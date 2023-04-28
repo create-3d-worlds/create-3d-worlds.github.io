@@ -10,7 +10,7 @@ const maxRoll = Infinity
 /* Base class for Airplane and Zeppelin */
 export default class Aircraft extends GameObject {
   constructor({
-    mesh, speed = 1, maxSpeed = speed * 2.5, minSpeed = speed * .1, minHeight = 5, minDistance = 120, maxPitch = Infinity, animations, solids, camera, pos, altitude = 0, name
+    mesh, speed = 1, maxSpeed = speed * 2.5, minSpeed = speed * .1, minHeight = 5, minDistance = 120, maxPitch = Infinity, animations, solids, camera, pos, altitude = minHeight * 3, name
   } = {}) {
     super({ mesh, pos, solids, altitude, name })
     this.speed = speed

@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { getTexture, similarColor } from '/utils/helpers.js'
+import { createTexture, similarColor } from '/utils/helpers.js'
 
 const { randFloat } = THREE.MathUtils
 
@@ -24,7 +24,7 @@ export function createGroundMaterial({ color = 0x509f53, file, repeat } = {}) {
   const material = file
     ? new THREE.MeshBasicMaterial({
       ...params,
-      map: getTexture({ file, repeat }),
+      map: createTexture({ file, repeat }),
     })
     : new THREE.MeshToonMaterial({ ...params, color })
   return material
@@ -210,7 +210,7 @@ export const createWater = ({ size = 1200, segments = 20, opacity = .6, file = '
     opacity,
     transparent: true,
     vertexColors: true,
-    map: file ? getTexture({ file, repeat: 5 }) : null
+    map: file ? createTexture({ file, repeat: 5 }) : null
   })
   const geometry = new THREE.PlaneGeometry(size, size, segments, segments)
   geometry.rotateX(-Math.PI / 2)

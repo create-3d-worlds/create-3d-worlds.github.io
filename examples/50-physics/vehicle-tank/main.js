@@ -49,7 +49,7 @@ createFirTrees({ n: 20, mapSize: 200 }).children.forEach(t => world.add(t, 0))
 const wheelFront = { x: .75, y: .1, z: 1.25 }
 const wheelBack = { x: .75, y: .1, z: -1.25 }
 const chassisMesh = await loadModel({ file: 'tank/t-50/model.fbx' })
-addTexture({ mesh: chassisMesh, file: 'metal/metal01.jpg' })
+addTexture(chassisMesh, 'metal/metal01.jpg')
 
 chassisMesh.position.set(tankX, 2, -20)
 const tank = new Vehicle({ physicsWorld: world.physicsWorld, chassisMesh, wheelFront, wheelBack, maxEngineForce: 1000 })

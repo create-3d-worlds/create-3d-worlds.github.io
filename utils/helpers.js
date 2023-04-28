@@ -229,7 +229,7 @@ export function getCameraIntersects(camera, target) {
 
 /* TEXTURES */
 
-export const getTexture = ({ file, repeat = 1 } = {}) => {
+export const createTexture = ({ file, repeat = 1 } = {}) => {
   const texture = new THREE.TextureLoader().load(`/assets/textures/${file}`)
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping
   texture.magFilter = THREE.NearestFilter
@@ -238,8 +238,8 @@ export const getTexture = ({ file, repeat = 1 } = {}) => {
   return texture
 }
 
-export const addTexture = ({ mesh, file = 'terrain/concrete.jpg', repeat = 1 } = {}) => {
-  const texture = getTexture({ file, repeat })
+export const addTexture = (mesh, file = 'terrain/concrete.jpg', repeat = 1) => {
+  const texture = createTexture({ file, repeat })
   mesh.traverse(child => {
     if (child.isMesh) {
       child.material = new THREE.MeshLambertMaterial()

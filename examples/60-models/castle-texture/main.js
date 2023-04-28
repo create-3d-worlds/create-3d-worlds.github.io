@@ -22,7 +22,7 @@ scene.add(directLight)
 
 const mesh = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 50 })
 mesh.translateY(20)
-addTexture({ mesh, file: 'terrain/concrete.jpg' })
+addTexture(mesh, 'terrain/concrete.jpg')
 scene.add(mesh)
 
 /** FUNKCIJE **/

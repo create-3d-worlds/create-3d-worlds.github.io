@@ -262,7 +262,7 @@ export function createTexturedBuilding({ width, height, depth = width, color = 0
   const geometry = createBuildingGeometry({ width, height, depth, ...rest })
   const { width: buildingWidth, height: buildingHeight } = geometry.parameters // could be random values
 
-  const getTexture = half => defaultFile
+  const createTexture = half => defaultFile
     ? loadTexture(path + defaultFile, half)
     : Math.random() < graffitiChance
       ? createGraffitiTexture({ background: color, buildingWidth, buildingHeight })
@@ -274,12 +274,12 @@ export function createTexturedBuilding({ width, height, depth = width, color = 0
   )
 
   const materials = [
-    new THREE.MeshPhongMaterial({ map: textures[0] || getTexture(halfOnSides) }),  // 0: right
-    new THREE.MeshPhongMaterial({ map: textures[1] || getTexture(halfOnSides) }),  // 1: left
+    new THREE.MeshPhongMaterial({ map: textures[0] || createTexture(halfOnSides) }),  // 0: right
+    new THREE.MeshPhongMaterial({ map: textures[1] || createTexture(halfOnSides) }),  // 1: left
     new THREE.MeshPhongMaterial({ map: textures[2] || null, color }),              // 2: top
     new THREE.MeshBasicMaterial({ color }),                                        // no bottom
-    new THREE.MeshPhongMaterial({ map: textures[3] || getTexture() }),             // 3: front
-    new THREE.MeshPhongMaterial({ map: textures[4] || getTexture() }),             // 4: back
+    new THREE.MeshPhongMaterial({ map: textures[3] || createTexture() }),             // 3: front
+    new THREE.MeshPhongMaterial({ map: textures[4] || createTexture() }),             // 4: back
   ]
 
   const mesh = new THREE.Mesh(geometry, materials)
