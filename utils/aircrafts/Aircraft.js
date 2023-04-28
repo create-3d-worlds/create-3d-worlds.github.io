@@ -1,13 +1,13 @@
 import * as THREE from 'three'
 import input from '/utils/io/Input.js'
-import { addSolids, distanceDown, distanceFront, getMesh } from '/utils/helpers.js'
+import { addSolids, getMesh, getGroundY } from '/utils/helpers.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 const angleSpeed = 2
 const maxRoll = Infinity
 
+// TODO: extends GameObject?
 /* Base class for Airplane and Zeppelin */
-// TODO: extends Entity
 export default class Aircraft {
   constructor({
     mesh, speed = 1, maxSpeed = speed * 2.5, minSpeed = speed * .1, minHeight = 5, minDistance = 120, maxPitch = Infinity, animations, solids, camera
@@ -21,6 +21,7 @@ export default class Aircraft {
     this.minDistance = minDistance
     this.maxPitch = maxPitch
     this.solids = []
+    this.groundY = 0
     this.mixer = new THREE.AnimationMixer(getMesh(this.mesh))
 
     if (animations) {
@@ -46,21 +47,16 @@ export default class Aircraft {
     return new THREE.Vector3(0, 0, -1).applyQuaternion(this.mesh.quaternion)
   }
 
+  get groundDistance() {
+    return this.mesh.position.y - this.groundY
+  }
+
   get isTouchingGround() {
-    const { mesh, solids } = this
-    const groundDistance = distanceDown({ pos: mesh.position, solids })
-    return groundDistance < this.minHeight
+    return this.groundDistance < this.minHeight
   }
 
   get isTooLow() {
-    const { mesh, solids } = this
-    const groundDistance = distanceDown({ pos: mesh.position, solids })
-    return groundDistance < this.minHeight * 2
-  }
-
-  get isTooNear() {
-    const distance = distanceFront({ mesh: this.mesh, solids: this.solids })
-    return distance < this.minDistance
+    return this.groundDistance < this.minHeight * 2
   }
 
   get isMoving() {
@@ -71,6 +67,13 @@ export default class Aircraft {
 
   addSolids(...newSolids) {
     addSolids(this.solids, ...newSolids)
+  }
+
+  updateGround() {
+    const { solids } = this
+    if (!solids) return
+
+    this.groundY = getGroundY({ pos: this.mesh.position, solids })
   }
 
   normalizeAngles() {
@@ -133,19 +136,11 @@ export default class Aircraft {
       this.speed -= this.speedFactor
   }
 
-  stabilize() {
-    if (input.keyPressed) return
-    const unrollFactor = 0.04
-    const rollAngle = Math.abs(this.mesh.rotation.z)
-    if (this.mesh.rotation.z > 0) this.roll(-rollAngle * unrollFactor)
-    if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
-  }
-
   slowDown(slowFactor = 0.5) {
     this.speed *= slowFactor
   }
 
-  /* LOOP */
+  /* UPDATES */
 
   handleInput(delta) {
     if (input.left) this.left(delta)
@@ -160,15 +155,32 @@ export default class Aircraft {
 
   autoHeight(delta) {
     if (!this.isMoving) return
-    if (this.isTooNear || this.isTooLow) this.up(delta)
+    if (this.isTooLow) this.up(delta)
+  }
+
+  stabilize() {
+    if (input.keyPressed) return
+    const unrollFactor = 0.04
+    const rollAngle = Math.abs(this.mesh.rotation.z)
+    if (this.mesh.rotation.z > 0) this.roll(-rollAngle * unrollFactor)
+    if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
+  }
+
+  updateMixer(delta) {
+    if (!this.mixer || !this.action) return
+
+    this.mixer.update(delta)
+    if (this.isTouchingGround) this.action.stop()
+    else this.action.play()
   }
 
   update(delta = 1 / 60) {
     if (!this.mesh) return
 
+    this.updateGround()
     this.normalizeAngles()
-    if (!input.down) this.autoHeight(delta)
     this.handleInput(delta)
+    if (!input.down) this.autoHeight(delta)
     this.moveForward(delta)
     this.stabilize()
 
@@ -178,10 +190,6 @@ export default class Aircraft {
     }
     this.chaseCamera?.update(delta)
 
-    if (this.mixer && this.action) {
-      this.mixer.update(delta)
-      if (this.isTouchingGround) this.action.stop()
-      else this.action.play()
-    }
+    this.updateMixer(delta)
   }
 }

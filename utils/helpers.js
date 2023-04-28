@@ -178,22 +178,6 @@ export const getIntersects = (raycaster, target = defaultScene) => (
     : raycaster.intersectObject(target)
 ).filter(x => x.object.type != 'Points') // ignore particles
 
-const distanceTo = ({ pos, solids }, direction) => {
-  if (!pos || !solids.length) return Infinity
-  raycaster.set(pos, direction)
-  const intersects = getIntersects(raycaster, solids)
-
-  const point = intersects[0]?.point
-  return point ? pos.distanceTo(point) : Infinity
-}
-
-export const distanceFront = ({ mesh, solids }) => {
-  const direction = dir.forward.applyQuaternion(mesh.quaternion)
-  return distanceTo({ pos: mesh.position, solids }, direction)
-}
-
-export const distanceDown = ({ pos, solids }) => distanceTo({ pos, solids }, dir.down)
-
 export function findGround({ solids, pos, y = 200 }) {
   const origin = { x: pos.x, y: pos.y + y, z: pos.z }
   raycaster.set(origin, dir.down)

@@ -12,15 +12,16 @@ npx live-server
 ## TODO
 
 - organizovati GameObject-e u folder 
-- BUG: CloudAI padaju, možda napraviti prost GameObject
 
 ### Scenes & examples
 
 - Zeppelin
+  - zeppelin solids mnogo usporava, optimizovati nekako
+    - bacati zrak svaki drugi frejm?
   - zamak na sred?
     - mermer ili boje na zamak
     - obojiti u blenderu?
-  - izmeriti koliko usporava sunce
+  - BUG: CloudAI padaju, napraviti prost GameObject
 
 - Aircraft / 1943
   - dodati izbor aviona

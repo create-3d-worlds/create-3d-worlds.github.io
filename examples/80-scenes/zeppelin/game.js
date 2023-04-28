@@ -1,14 +1,19 @@
+import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
+
 import { camera, scene, renderer, clock, addUIControls } from '/utils/scene.js'
 import { createSkySphere } from '/utils/geometry.js'
 import { createSun, hemLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
-import { createHillyTerrain, createWater, wave } from '/utils/ground.js'
+import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
 import Dirigible from '/utils/aircrafts/child/Dirigible.js'
 import { CloudAI } from '/utils/actor/child/Cloud.js'
 import AerialScrew from '/utils/actor/child/AerialScrew.js'
 import WizardIsle from '/utils/actor/child/WizardIsle.js'
+
+const stats = new Stats()
+document.body.appendChild(stats.dom)
 
 const updatables = []
 
@@ -51,23 +56,20 @@ for (let i = 0; i < 5; i++) {
   updatables.push(cloud)
 }
 
-const zeppelin = new Dirigible({ camera, solids: [terrain, castle] })
+const zeppelin = new Dirigible({ camera, solids: terrain })
 updatables.push(zeppelin)
 
 updatables.forEach(gameObj => scene.add(gameObj.mesh))
 
 /* LOOP */
 
-let time = 0
-
 void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
-  time += delta
 
   updatables.forEach(screw => screw.update(delta))
-  wave({ geometry: water.geometry, time })
 
+  stats.update()
   renderer.render(scene, camera)
 }()
 
