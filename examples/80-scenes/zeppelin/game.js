@@ -7,9 +7,9 @@ import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
 import Dirigible from '/utils/aircrafts/child/Dirigible.js'
-import { CloudAI } from '/utils/actor/child/Cloud.js'
 import AerialScrew from '/utils/objects/AerialScrew.js'
 import WizardIsle from '/utils/objects/WizardIsle.js'
+import Cloud from '/utils/objects/Cloud.js'
 
 const updatables = []
 const stats = new Stats()
@@ -51,7 +51,7 @@ for (let i = 0; i < 3; i++) {
 }
 
 for (let i = 0; i < 5; i++) {
-  const cloud = new CloudAI({ mapSize, pos: coords.pop() })
+  const cloud = new Cloud({ mapSize, pos: coords.pop() })
   updatables.push(cloud)
 }
 
