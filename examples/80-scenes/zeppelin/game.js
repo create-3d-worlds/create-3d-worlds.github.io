@@ -1,4 +1,3 @@
-import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
 import { camera, scene, renderer, clock, addUIControls } from '/utils/scene.js'
 import { createSkySphere } from '/utils/geometry.js'
 import { hemLight, ambLight } from '/utils/light.js'
@@ -12,14 +11,13 @@ import WizardIsle from '/utils/objects/WizardIsle.js'
 import Cloud from '/utils/objects/Cloud.js'
 
 const updatables = []
-const stats = new Stats()
-document.body.appendChild(stats.dom)
 
 const mapSize = 800
 
-scene.add(await createSkySphere({ r: 5000 }))
 hemLight({ intensity: .75 })
 ambLight({ intensity: .5 })
+
+scene.add(await createSkySphere({ r: 5000 }))
 
 const terrain = await createHillyTerrain({ size: mapSize, factorY: 30 })
 scene.add(terrain)
@@ -27,13 +25,13 @@ scene.add(terrain)
 const water = createWater({ size: mapSize * 10 })
 scene.add(water)
 
-const coords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 40, emptyCenter: 50 })
 const treesCoords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 4, emptyCenter: 50 })
-
 const trees = createTreesOnTerrain({ terrain, n: 200, size: 4, coords: treesCoords })
 scene.add(trees)
 
 /* GAME OBJECTS */
+
+const coords = getShuffledCoords({ mapSize: mapSize * .75, fieldSize: 40, emptyCenter: 50 })
 
 const castle = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 100 })
 putOnSolids(castle, terrain)
@@ -44,14 +42,14 @@ for (let i = 0; i < 10; i++) {
   updatables.push(screw)
 }
 
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 4; i++) {
   const scale = Math.random() + 1
   const isle = new WizardIsle({ pos: coords.pop(), solids: terrain, scale, altitude: scale * 10 })
   updatables.push(isle)
 }
 
-for (let i = 0; i < 5; i++) {
-  const cloud = new Cloud({ mapSize, pos: coords.pop() })
+for (let i = 0; i < 10; i++) {
+  const cloud = new Cloud({ mapSize: mapSize * 2, pos: coords.pop() })
   updatables.push(cloud)
 }
 
@@ -68,7 +66,6 @@ void function loop() {
   const delta = clock.getDelta()
 
   updatables.forEach(screw => screw.update(delta))
-  stats.update()
   renderer.render(scene, camera)
 }()
 

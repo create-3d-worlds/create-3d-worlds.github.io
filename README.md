@@ -143,6 +143,8 @@ Stats:
 
 ```js
 import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
+const stats = new Stats()
+document.body.appendChild(stats.dom)
 ```
 
 ### Ammo Physics
