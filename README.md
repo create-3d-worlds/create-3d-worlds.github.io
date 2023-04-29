@@ -13,9 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Zeppelin
-  - BUG: CloudAI padaju, napraviti prost GameObject
-
 - Aircraft / 1943
   - dodati izbor aviona
   - dodati drveće

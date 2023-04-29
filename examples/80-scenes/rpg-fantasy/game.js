@@ -8,9 +8,9 @@ import { OrcAI } from '/utils/actor/child/fantasy/Orc.js'
 import { OrcOgreAI } from '/utils/actor/child/fantasy/OrcOgre.js'
 import { FlamingoAI } from '/utils/actor/child/Flamingo.js'
 import { ElephantAI } from '/utils/actor/child/Elephant.js'
-import { CloudAI } from '/utils/actor/child/Cloud.js'
 import { ZeppelinAI } from '/utils/actor/child/Zeppelin.js'
 import { loadModel } from '/utils/loaders.js'
+import Cloud from '/utils/objects/Cloud.js'
 
 const mapSize = 400
 const npcs = []
@@ -57,7 +57,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 for (let i = 0; i < 5; i++) {
-  const cloud = new CloudAI({ mapSize, pos: coords.pop() })
+  const cloud = new Cloud({ mapSize, pos: coords.pop() })
   npcs.push(cloud)
   scene.add(cloud.mesh)
 }
