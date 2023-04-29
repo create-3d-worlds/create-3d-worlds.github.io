@@ -1,7 +1,10 @@
 import input from '/utils/io/Input.js'
+import { loadModel } from '/utils/loaders.js'
 
-export default class Aircraft {
-  constructor({ mesh }) {
+const mesh = await loadModel({ file: '/aircraft/messerschmitt-bf-109/scene.gltf', size: 20 })
+
+export default class Warplane {
+  constructor() {
     this.mesh = mesh
     mesh.position.y = 100
     this.speed = 100

@@ -1,9 +1,8 @@
 import * as THREE from 'three'
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
-import { loadModel } from '/utils/loaders.js'
 import { createGround, rotateGround } from '/utils/terrain/cylinder-ground.js'
-import Aircraft from './Aircraft.js'
+import Warplane from './Warplane.js'
 
 camera.position.set(-68, 143, -90)
 
@@ -12,9 +11,7 @@ scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
 scene.add(createSun({ pos: [50, 250, 50] }))
 
 const ground = createGround({ r: 3000, color: 0x91A566 })
-
-const mesh = await loadModel({ file: '/aircraft/messerschmitt-bf-109/scene.gltf', size: 20 })
-const aircraft = new Aircraft({ mesh })
+const aircraft = new Warplane()
 
 scene.add(aircraft.mesh, ground)
 
@@ -26,7 +23,7 @@ void function update() {
 
   rotateGround(ground)
   aircraft.update(delta)
-  camera.lookAt(mesh.position)
+  camera.lookAt(aircraft.mesh.position)
 
   renderer.render(scene, camera)
 }()
