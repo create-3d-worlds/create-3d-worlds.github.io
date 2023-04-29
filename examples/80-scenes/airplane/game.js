@@ -1,6 +1,4 @@
-import * as THREE from 'three'
-import { scene, renderer, camera } from '/utils/scene.js'
-import { createSkySphere } from '/utils/geometry.js'
+import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
 import { createFirTrees } from '/utils/geometry/trees.js'
 import Airplane from '/utils/aircrafts/Airplane.js'
@@ -8,30 +6,27 @@ import { loadModel } from '/utils/loaders.js'
 import { createSun } from '/utils/light.js'
 
 const terrain = createTerrain({ size: 8000, segments: 200 })
-const trees = createFirTrees({ n: 500, mapSize: 4000, size: 25 })
+const trees = createFirTrees({ n: 500, mapSize: 4000, size: 15 })
+const sun = createSun()
 
-scene.fog = new THREE.Fog(0xE5C5AB, 1, 5000)
-const sky = await createSkySphere()
-scene.add(sky, createSun(), terrain, trees)
+scene.add(sun, terrain, trees)
 
-const mesh = await loadModel({
-  file: 'aircraft/biplane-sopwith/model.fbx',
-  size: 2,
-  angle: -Math.PI * .5,
+const mesh = await loadModel({ file: 'aircraft/biplane-sopwith/model.fbx', size: 2, angle: -Math.PI * .5,
   // fixColors: true
 })
 
-const avion = new Airplane({ mesh })
+const avion = new Airplane({ mesh, solids: terrain })
 scene.add(avion.mesh)
 
-camera.position.set(0, 3, 20)
+camera.position.set(0, 3, 10)
 avion.mesh.add(camera)
-avion.addSolids(terrain)
 
 /* UPDATE */
 
 void function loop() {
   requestAnimationFrame(loop)
-  avion.update()
+  const delta = clock.getDelta()
+
+  avion.update(delta)
   renderer.render(scene, camera)
 }()

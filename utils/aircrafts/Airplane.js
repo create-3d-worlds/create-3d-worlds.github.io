@@ -3,8 +3,8 @@ import Aircraft from './Aircraft.js'
 const angleSpeed = 0.03
 
 export default class Airplane extends Aircraft {
-  constructor({ speed = 2, minSpeed = 0.5, maxSpeed = 3, minHeight = 15, ...params } = {}) {
-    super({ speed, minSpeed, maxSpeed, minHeight, ...params })
+  constructor({ speed = 20, minSpeed = 0.5, minHeight = 15, ...params } = {}) {
+    super({ speed, minSpeed, minHeight, ...params })
     this.mesh.position.y = 100
   }
 

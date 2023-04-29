@@ -13,12 +13,16 @@ npx live-server
 
 ### Scenes & examples
 
-- Aircraft / 1943
+- Warplane / 1943
   - dodati izbor aviona
   - dodati drveće
   - dodati objekte
   - pucanje i eksplozije
   - spojiti sa airplane?
+
+- Airplane
+  - sunce da prati avion
+  - da leti iznad yu mape (ako nije presporo)
 
 - Tenk
   - koristiti TankPlayer
