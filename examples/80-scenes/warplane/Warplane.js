@@ -1,16 +1,20 @@
 import input from '/utils/io/Input.js'
 import { loadModel } from '/utils/loaders.js'
 
-const mesh = await loadModel({ file: '/aircraft/messerschmitt-bf-109/scene.gltf', size: 20 })
+const mesh = await loadModel({ file: '/aircraft/messerschmitt-bf-109/scene.gltf', size: 10 })
 
 export default class Warplane {
   constructor() {
     this.mesh = mesh
-    mesh.position.y = 100
-    this.speed = 100
+    mesh.position.y = 50
+    this.speed = 50
     this.rotationSpeed = .5
-    this.minHeight = 50
+    this.minHeight = mesh.position.y / 2
     this.maxRoll = Math.PI / 3
+  }
+
+  get position() {
+    return this.mesh.position
   }
 
   handleInput(delta) {

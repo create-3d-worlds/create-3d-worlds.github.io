@@ -14,10 +14,11 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - dodati izbor aviona
   - dodati drveće
   - dodati objekte
+  - dodati izbor aviona
   - pucanje i eksplozije
+    - ispaljivanje rakete (prateće?)
   - spojiti sa airplane?
 
 - Airplane
