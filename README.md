@@ -14,7 +14,9 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
+  - možda ravan teren?
   - dodati drveće
+    - dodati ga malo ispred, ukloniti čim prođe iz kamere
   - dodati objekte
   - dodati izbor aviona
   - pucanje i eksplozije

@@ -1,7 +1,7 @@
 import input from '/utils/io/Input.js'
 import { loadModel } from '/utils/loaders.js'
 
-const mesh = await loadModel({ file: '/aircraft/messerschmitt-bf-109/scene.gltf', size: 10 })
+const mesh = await loadModel({ file: '/aircraft/messerschmitt-bf-109/scene.gltf', size: 10, angle: Math.PI })
 
 export default class Warplane {
   constructor() {
@@ -20,12 +20,12 @@ export default class Warplane {
   handleInput(delta) {
     const { mesh } = this
 
-    if (input.left) {
+    if (input.right) {
       mesh.position.x += this.speed * delta
       if (mesh.rotation.z > -this.maxRoll) mesh.rotation.z -= this.rotationSpeed * delta
     }
 
-    if (input.right) {
+    if (input.left) {
       mesh.position.x -= this.speed * delta
       if (mesh.rotation.z < this.maxRoll) mesh.rotation.z += this.rotationSpeed * delta
     }
