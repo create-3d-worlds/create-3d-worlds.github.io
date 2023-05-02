@@ -23,7 +23,7 @@ camera.position.set(0, worldRadius * .75, worldRadius * .75)
 /* INIT */
 
 const earth = createWorldSphere({ r: worldRadius, segments: 100, color: 0x91A566, distort: 10 })
-earth.position.set(0, -24, 2)
+earth.position.set(0, -24, 2) // ??
 scene.add(earth)
 
 for (let i = 0; i < treesInPool; i++)
@@ -43,13 +43,11 @@ function addTree(tree, spherical) {
 function addLaneTree() {
   if (treesPool.length == 0) return
 
-  const lane = randInt(0, 2)
-  const pathAngleValues = [1.52, 1.57, 1.62]
   const spherical = new THREE.Spherical()
   const tree = treesPool.pop()
   tree.visible = true
   activeTrees.push(tree)
-  spherical.set(worldRadius - 0.3, pathAngleValues[lane], -earth.rotation.x + 4)
+  spherical.set(worldRadius - 0.3, randFloat(1.5, 1.7), -earth.rotation.x + 4)
   addTree(tree, spherical)
 }
 
