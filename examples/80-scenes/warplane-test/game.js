@@ -4,14 +4,11 @@ import { createWorldSphere } from '/utils/geometry.js'
 import { createFir } from '/utils/geometry/trees.js'
 import { hemLight } from '/utils/light.js'
 
-const { randFloat, randInt } = THREE.MathUtils
+const { randFloat } = THREE.MathUtils
 
 const worldRadius = 1000
 const treeInterval = 500
-const treesInPool = 100
-
-const treesPool = []
-const activeTrees = []
+const trees = []
 
 /* LIGHT & CAMERA */
 
@@ -26,9 +23,6 @@ const earth = createWorldSphere({ r: worldRadius, segments: 100, color: 0x91A566
 earth.position.set(0, -24, 2) // ??
 scene.add(earth)
 
-for (let i = 0; i < treesInPool; i++)
-  treesPool.push(createFir())
-
 /* FUNCTIONS */
 
 function addTree(tree, spherical) {
@@ -41,26 +35,20 @@ function addTree(tree, spherical) {
 }
 
 function addLaneTree() {
-  if (treesPool.length == 0) return
-
   const spherical = new THREE.Spherical()
-  const tree = treesPool.pop()
-  tree.visible = true
-  activeTrees.push(tree)
+  const tree = createFir()
+  trees.push(tree)
   spherical.set(worldRadius - 0.3, randFloat(1.5, 1.7), -earth.rotation.x + 4)
   addTree(tree, spherical)
 }
 
 function updateTrees() {
   const treePos = new THREE.Vector3()
-  activeTrees.forEach(tree => {
-    if (!tree.visible) return
-
+  trees.forEach(tree => {
     treePos.setFromMatrixPosition(tree.matrixWorld)
     if (treePos.z > camera.position.z) { // gone out of view
-      activeTrees.splice(activeTrees.indexOf(tree), 1)
-      treesPool.push(tree)
-      tree.visible = false
+      trees.splice(trees.indexOf(tree), 1)
+      scene.remove(tree)
     }
   })
 }
@@ -74,12 +62,11 @@ void function update() {
   const delta = clock.getDelta()
 
   earth.rotation.x += .2 * delta
-
   if (Date.now() - last >= treeInterval) {
     addLaneTree()
     last = Date.now()
   }
-
   updateTrees()
+
   renderer.render(scene, camera)
 }()
