@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createTerrain } from '/utils/ground.js'
-import Warplane from './Warplane.js'
+import Warplane from '/utils/aircrafts/Warplane.js'
 import { createTree } from '/utils/geometry/trees.js'
 import { putOnSolids } from '/utils/helpers.js'
 
@@ -15,6 +15,7 @@ const trees = []
 camera.position.set(30, 100, 50)
 
 scene.fog = new THREE.Fog(0xE5C5AB, 200, 950)
+
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
 scene.add(createSun({ pos: [50, 250, 50] }))
 
