@@ -9,6 +9,7 @@ const { randFloat } = THREE.MathUtils
 const worldRadius = 1000
 const treeInterval = 500
 const trees = []
+const pos = new THREE.Vector3()
 
 /* LIGHT & CAMERA */
 
@@ -25,28 +26,23 @@ scene.add(earth)
 
 /* FUNCTIONS */
 
-function addTree(tree, spherical) {
+function addTree() {
+  const tree = createFir()
+  const spherical = new THREE.Spherical(worldRadius - .3, randFloat(1.5, 1.7), -earth.rotation.x + 5)
   tree.position.setFromSpherical(spherical)
-  const worldVector = earth.position.clone().normalize()
-  const treeVector = tree.position.clone().normalize()
-  tree.quaternion.setFromUnitVectors(treeVector, worldVector)
-  tree.rotation.x += randFloat(-Math.PI / 10, Math.PI / 10)
+  tree.quaternion.setFromUnitVectors(
+    tree.position.clone().normalize(),
+    earth.position.clone().normalize()
+  )
+  tree.rotateX(randFloat(-Math.PI / 10, Math.PI / 10))
+  trees.push(tree)
   earth.add(tree)
 }
 
-function addLaneTree() {
-  const spherical = new THREE.Spherical()
-  const tree = createFir()
-  trees.push(tree)
-  spherical.set(worldRadius - 0.3, randFloat(1.5, 1.7), -earth.rotation.x + 4)
-  addTree(tree, spherical)
-}
-
 function updateTrees() {
-  const treePos = new THREE.Vector3()
   trees.forEach(tree => {
-    treePos.setFromMatrixPosition(tree.matrixWorld)
-    if (treePos.z > camera.position.z) { // gone out of view
+    pos.setFromMatrixPosition(tree.matrixWorld)
+    if (pos.z > camera.position.z) {
       trees.splice(trees.indexOf(tree), 1)
       scene.remove(tree)
     }
@@ -63,7 +59,7 @@ void function update() {
 
   earth.rotation.x += .2 * delta
   if (Date.now() - last >= treeInterval) {
-    addLaneTree()
+    addTree()
     last = Date.now()
   }
   updateTrees()
