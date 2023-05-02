@@ -8,11 +8,11 @@ const { randFloat, randInt } = THREE.MathUtils
 
 const worldSpeed = 0.007
 const worldRadius = 30
-const treeReleaseInterval = 0.5
+const treeInterval = 500
 const treesInPool = 10
 
 const treesPool = []
-const laneTrees = []
+const activeTrees = []
 
 /* LIGHT & CAMERA */
 
@@ -45,41 +45,43 @@ function addTree(tree, spherical) {
 
 function addLaneTree() {
   if (treesPool.length == 0) return
+
   const lane = randInt(0, 2)
   const pathAngleValues = [1.52, 1.57, 1.62]
   const spherical = new THREE.Spherical()
   const tree = treesPool.pop()
   tree.visible = true
-  laneTrees.push(tree)
+  activeTrees.push(tree)
   spherical.set(worldRadius - 0.3, pathAngleValues[lane], -earth.rotation.x + 4)
   addTree(tree, spherical)
 }
 
 function updateTrees() {
   const treePos = new THREE.Vector3()
-  const distantTrees = []
-  laneTrees.forEach(tree => {
+  activeTrees.forEach(tree => {
     if (!tree.visible) return
+
     treePos.setFromMatrixPosition(tree.matrixWorld)
-    if (treePos.z > 6) // gone out of view
-      distantTrees.push(tree)
-  })
-  distantTrees.forEach(tree => {
-    laneTrees.splice(laneTrees.indexOf(tree), 1)
-    treesPool.push(tree)
-    tree.visible = false
+    if (treePos.z > 6) { // gone out of view
+      activeTrees.splice(activeTrees.indexOf(tree), 1)
+      treesPool.push(tree)
+      tree.visible = false
+    }
   })
 }
 
 /* LOOP */
 
+let last = Date.now()
+
 void function update() {
   requestAnimationFrame(update)
 
   earth.rotation.x += worldSpeed
-  if (clock.getElapsedTime() > treeReleaseInterval) {
-    clock.start()
+
+  if (Date.now() - last >= treeInterval) {
     addLaneTree()
+    last = Date.now()
   }
 
   updateTrees()
