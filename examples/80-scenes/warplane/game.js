@@ -6,21 +6,21 @@ import { createTree } from '/utils/geometry/trees.js'
 import { putOnSolids } from '/utils/helpers.js'
 import { createWorldSphere } from '/utils/geometry.js'
 
-const r = 1000
+const r = 500
 
 createOrbitControls()
-camera.position.set(30, 100, 50)
+camera.position.set(30, r + 50, 50)
 
 // scene.fog = new THREE.Fog(0xE5C5AB, 10, 450)
 
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
 scene.add(createSun({ pos: [50, 250, 50] }))
 
-const earth = createWorldSphere({ r, segments: 100, color: 0x91A566, distort: 15 })
-earth.position.set(0, -990, 2)
+const earth = createWorldSphere({ r, segments: 100, color: 0x91A566, distort: 15, rotateZ: false })
 scene.add(earth)
 
 const aircraft = new Warplane()
+aircraft.position.y = r + 20
 
 scene.add(aircraft.mesh)
 
@@ -29,7 +29,7 @@ scene.add(aircraft.mesh)
 function addTree() {
   const tree = createTree({ size: 10 })
   // putOnSolids(tree, earth)
-  // tree.position.y += 1000
+  tree.position.y += r
   earth.add(tree)
 }
 

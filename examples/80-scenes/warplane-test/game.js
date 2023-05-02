@@ -7,7 +7,7 @@ import { hemLight } from '/utils/light.js'
 const { randFloat, randInt } = THREE.MathUtils
 
 const worldSpeed = 0.007
-const worldRadius = 26
+const worldRadius = 30
 const treeReleaseInterval = 0.5
 const treesInPool = 10
 
@@ -20,12 +20,12 @@ hemLight({ skyColor: 0xfffafa, groundColor: 0x000000, intensity: .9 })
 
 scene.fog = new THREE.FogExp2(0xf0fff0, 0.1)
 
-camera.position.set(0, 3, 6.5)
+camera.position.set(0, 10, 10)
 clock.start()
 
 /* INIT */
 
-const earth = createWorldSphere({ r: worldRadius })
+const earth = createWorldSphere({ r: worldRadius, segments: 100, color: 0x91A566 }) // distort: 15
 earth.position.set(0, -24, 2)
 scene.add(earth)
 
