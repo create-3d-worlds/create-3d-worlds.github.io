@@ -6,10 +6,9 @@ import { hemLight } from '/utils/light.js'
 
 const { randFloat, randInt } = THREE.MathUtils
 
-const worldSpeed = 0.007
-const worldRadius = 100
+const worldRadius = 1000
 const treeInterval = 500
-const treesInPool = 10
+const treesInPool = 100
 
 const treesPool = []
 const activeTrees = []
@@ -17,20 +16,18 @@ const activeTrees = []
 /* LIGHT & CAMERA */
 
 hemLight({ skyColor: 0xfffafa, groundColor: 0x000000, intensity: .9 })
+scene.fog = new THREE.FogExp2(0xE5C5AB, .0025)
 
-scene.fog = new THREE.FogExp2(0xE5C5AB, .025)
-
-camera.position.set(0, worldRadius * .66, worldRadius * .66)
-clock.start()
+camera.position.set(0, worldRadius * .75, worldRadius * .75)
 
 /* INIT */
 
-const earth = createWorldSphere({ r: worldRadius, segments: 100, color: 0x91A566, distort: 2 })
+const earth = createWorldSphere({ r: worldRadius, segments: 100, color: 0x91A566, distort: 10 })
 earth.position.set(0, -24, 2)
 scene.add(earth)
 
 for (let i = 0; i < treesInPool; i++)
-  treesPool.push(createFir({ size: 1 }))
+  treesPool.push(createFir())
 
 /* FUNCTIONS */
 
@@ -76,8 +73,9 @@ let last = Date.now()
 
 void function update() {
   requestAnimationFrame(update)
+  const delta = clock.getDelta()
 
-  earth.rotation.x += worldSpeed
+  earth.rotation.x += .2 * delta
 
   if (Date.now() - last >= treeInterval) {
     addLaneTree()
