@@ -7,7 +7,7 @@ import { hemLight } from '/utils/light.js'
 const { randFloat, randInt } = THREE.MathUtils
 
 const worldSpeed = 0.007
-const worldRadius = 30
+const worldRadius = 100
 const treeInterval = 500
 const treesInPool = 10
 
@@ -18,14 +18,14 @@ const activeTrees = []
 
 hemLight({ skyColor: 0xfffafa, groundColor: 0x000000, intensity: .9 })
 
-scene.fog = new THREE.FogExp2(0xf0fff0, 0.1)
+scene.fog = new THREE.FogExp2(0xE5C5AB, .025)
 
-camera.position.set(0, 10, 10)
+camera.position.set(0, worldRadius * .66, worldRadius * .66)
 clock.start()
 
 /* INIT */
 
-const earth = createWorldSphere({ r: worldRadius, segments: 100, color: 0x91A566 }) // distort: 15
+const earth = createWorldSphere({ r: worldRadius, segments: 100, color: 0x91A566, distort: 2 })
 earth.position.set(0, -24, 2)
 scene.add(earth)
 
@@ -62,7 +62,7 @@ function updateTrees() {
     if (!tree.visible) return
 
     treePos.setFromMatrixPosition(tree.matrixWorld)
-    if (treePos.z > 6) { // gone out of view
+    if (treePos.z > camera.position.z) { // gone out of view
       activeTrees.splice(activeTrees.indexOf(tree), 1)
       treesPool.push(tree)
       tree.visible = false

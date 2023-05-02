@@ -14,8 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - previše problema sa valjkom
-    - probati sferu
+  - sakriti rupu u zemlji (dodati manju sferu unutra)
   - dodati drveće
     - dodati ga malo ispred, ukloniti čim prođe iz kamere
   - dodati objekte
