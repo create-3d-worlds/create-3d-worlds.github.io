@@ -86,7 +86,7 @@ export const createBullet = ({ color = 0x333333, r = .1, widthSegments = 6 } = {
 /* WORLD SPHERE */
 
 export function createWorldSphere({ r = 26, segments = 40, widthSegments = segments, heightSegments = segments, distort = .5, color = 0xfffafa } = {}) {
-  const geometry = new THREE.SphereBufferGeometry(r, widthSegments, heightSegments)
+  const geometry = new THREE.SphereGeometry(r, widthSegments, heightSegments)
 
   const { position } = geometry.attributes
   const vertex = new THREE.Vector3()
