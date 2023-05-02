@@ -30,10 +30,10 @@ export function createGroundMaterial({ color = 0x509f53, file, repeat } = {}) {
   return material
 }
 
-export function crateGroundGeometry({ size, circle = true, segments = circle ? 32 : 1 }) {
+export function crateGroundGeometry({ size, width = size, height = size, circle = true, segments = circle ? 32 : 1 }) {
   const geometry = circle
     ? new THREE.CircleGeometry(size, segments)
-    : new THREE.PlaneGeometry(size, size, segments, segments)
+    : new THREE.PlaneGeometry(width, height, segments, segments)
 
   geometry.rotateX(-Math.PI * 0.5)
   return geometry
@@ -154,8 +154,8 @@ export async function heightColors({ geometry, maxY, minY = 0, terrainColors = g
 
 /* TERRAIN */
 
-function createTerrainMesh({ size = 400, segments = 100 } = {}) {
-  const geometry = crateGroundGeometry({ size, segments, circle: false })
+function createTerrainMesh({ size = 400, width = size, height = size, segments = 100 } = {}) {
+  const geometry = crateGroundGeometry({ size, width, height, segments, circle: false })
 
   const material = new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide })
   const mesh = new THREE.Mesh(geometry, material)
@@ -163,10 +163,10 @@ function createTerrainMesh({ size = 400, segments = 100 } = {}) {
   return mesh
 }
 
-export function createTerrain({ size = 400, segments = 50, colorParam = 0x44aa44, factor = 7, wireframe = false } = {}) {
-  const mesh = createTerrainMesh({ size, segments })
+export function createTerrain({ size = 400, width, height, segments = 50, colorParam = 0x44aa44, factor = 7, wireframe = false } = {}) {
+  const mesh = createTerrainMesh({ size, width, height, segments })
   randomDeform(mesh.geometry, factor, -1)
-  randomShades(mesh.geometry, colorParam)
+  randomShades(mesh.geometry, colorParam, .15)
   if (wireframe) mesh.material.wireframe = true
   return mesh
 }
