@@ -81,6 +81,10 @@ export function createFirTree({ x = 0, y = 0, z = 0, size = 5 } = {}) {
   const scale = size / 10
   group.scale.set(scale, randFloat(scale / 2, scale), scale)
   group.position.set(x, y, z)
+
+  group.rotateZ(randFloat(-0.15, 0.15))
+  group.rotateX(randFloat(-0.15, 0.15))
+
   return group
 }
 

@@ -177,6 +177,8 @@ export function createTerrain({ size = 400, width, height, segments = 50, colorP
   return mesh
 }
 
+export const createTerrain2 = ({ size = 2000 } = {}) => createTerrain({ size, segments: 100, max: 12, min: 3, color: 0x91A566, colorRange: .05 })
+
 /* CRATERS */
 
 export async function createCraters({ size = 100, segments = 100 } = {}) {

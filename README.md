@@ -14,8 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - dodavati drveće
-    - malo zakriviti drveće
   - dodati objekte
   - dodati izbor aviona
   - pucanje i eksplozije

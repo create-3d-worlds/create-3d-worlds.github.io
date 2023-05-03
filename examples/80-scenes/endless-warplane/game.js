@@ -35,7 +35,6 @@ function addTree() {
   tree.quaternion.setFromUnitVectors(
     tree.position.clone().normalize(), earth.position.clone().normalize()
   )
-  tree.rotateZ(randFloat(-Math.PI / 10, Math.PI / 10))
   earth.add(tree)
   trees.push(tree)
 }
