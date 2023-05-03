@@ -13,7 +13,7 @@ const trees = []
 const pos = new THREE.Vector3()
 const spherical = new THREE.Spherical()
 
-camera.position.set(0, r * .75, r * .75)
+camera.position.set(0, r * .78, r * .76)
 
 hemLight({ skyColor: 0xfffafa, groundColor: 0x000000, intensity: .9 })
 scene.fog = new THREE.FogExp2(0xE5C5AB, .0025)
@@ -23,7 +23,7 @@ earth.position.set(0, -24, 2) // ??
 scene.add(earth)
 
 const aircraft = new Warplane()
-aircraft.position.set(0, r * .72, r * .68)
+aircraft.position.set(0, r * .74, r * .67)
 scene.add(aircraft.mesh)
 
 /* FUNCTIONS */
@@ -60,7 +60,6 @@ void function update() {
 
   earth.rotateY(.2 * delta)
   aircraft.update(delta)
-  // camera.lookAt(aircraft.mesh.position)
 
   if (Date.now() - last >= treeInterval) {
     addTree()
