@@ -16,7 +16,7 @@ const spaceTower = createRingTower()
 baradDur.position.x = 200
 spaceTower.position.z = -200
 
-const terrain = createTerrain({ size: 500, factor: 1 })
+const terrain = createTerrain({ size: 500, max: 1 })
 
 scene.add(terrain, babelTower, baradDur, spaceTower)
 

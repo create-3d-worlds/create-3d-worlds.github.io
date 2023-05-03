@@ -71,14 +71,6 @@ export async function createMarble({ size = 100 } = {}) {
 
 /* NOISE HELPERS */
 
-function randomDeform(geometry, max = 5, min = 0) {
-  const { position } = geometry.attributes
-  for (let i = 0, l = position.count; i < l; i++) {
-    const y = randFloat(min, max) * Math.random()
-    position.setY(i, y)
-  }
-}
-
 async function cratersNoise(geometry) {
   const xZoom = 20
   const yZoom = 20
@@ -163,9 +155,23 @@ function createTerrainMesh({ size = 400, width = size, height = size, segments =
   return mesh
 }
 
-export function createTerrain({ size = 400, width, height, segments = 50, colorParam = 0x44aa44, factor = 7, wireframe = false, colorRange = .15 } = {}) {
+const deform = (mesh, max = 7, min = 0) => {
+  const vertex = new THREE.Vector3()
+  const { position } = mesh.geometry.attributes
+
+  for (let i = 0, l = position.count; i < l; i ++) {
+    vertex.fromBufferAttribute(position, i)
+    const angle = Math.random() * Math.PI * 2
+    const amp = randFloat(min, max)
+    vertex.z += Math.cos(angle) * amp
+    vertex.y += Math.sin(angle) * amp
+    position.setXYZ(i, vertex.x, vertex.y, vertex.z)
+  }
+}
+
+export function createTerrain({ size = 400, width, height, segments = 50, colorParam = 0x44aa44, max, min, wireframe = false, colorRange = .15 } = {}) {
   const mesh = createTerrainMesh({ size, width, height, segments })
-  randomDeform(mesh.geometry, factor, -1)
+  deform(mesh, max, min)
   randomShades(mesh.geometry, colorParam, colorRange)
   if (wireframe) mesh.material.wireframe = true
   return mesh
@@ -192,7 +198,7 @@ export async function createDunes({ size = 400, segments = 100 } = {}) {
 
 /* HILLY TERRAIN */
 
-export const createHillyTerrain = async (
+export const createHillyTerrain = async(
   { size = 400, segments = size / 20, factorX = size / 20, factorZ = size / 40, factorY = size / 10, aboveSea = .5, terrainColors = groundColors } = {}
 ) => {
   const mesh = createTerrainMesh({ size, segments })

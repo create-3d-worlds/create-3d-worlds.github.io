@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
-import { createSun, hemLight } from '/utils/light.js'
+import { createSun } from '/utils/light.js'
 import { createTerrain } from '/utils/ground.js'
 import Warplane from '/utils/aircrafts/Warplane.js'
 import { createTree } from '/utils/geometry/trees.js'
@@ -8,6 +8,7 @@ import { putOnSolids } from '/utils/helpers.js'
 
 const mapSize = 2000
 const startZ = -mapSize * .99
+const speed = 125
 
 createOrbitControls()
 
@@ -22,7 +23,7 @@ scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
 scene.add(createSun({ pos: [50, 250, 50] }))
 
 const createGround = () =>
-  new createTerrain({ size: mapSize, segments: 100, factor: 7, color: 0x91A566, colorRange: .05 })
+  new createTerrain({ size: mapSize, segments: 100, max: 12, min: 3, color: 0x91A566, colorRange: .05 })
 
 const ground = createGround()
 const ground2 = createGround()
@@ -40,7 +41,6 @@ function addTree() {
   const range = 200
   const tree = createTree({ size: 10 })
   tree.position.x = Math.random() * range - range / 2
-  distance += 100
   tree.position.z = -distance
   putOnSolids(tree, ground)
   ground.add(tree)
@@ -53,11 +53,13 @@ void function update() {
   requestAnimationFrame(update)
   const delta = clock.getDelta()
 
-  // if (trees.length < 20)
-  //   addTree()
+  if (trees.length < 200)
+    addTree();
 
-  ;[ground, ground2].forEach(g => {
-    g.translateZ(125 * delta)
+  [ground, ground2].forEach(g => {
+    const deltaSpeed = speed * delta
+    g.translateZ(deltaSpeed)
+    distance += deltaSpeed
     if (g.position.z >= mapSize * .75) g.position.z = startZ
   })
 
@@ -66,9 +68,3 @@ void function update() {
 
   renderer.render(scene, camera)
 }()
-
-/* LOOP */
-
-document.addEventListener('click', () => {
-  addTree()
-})

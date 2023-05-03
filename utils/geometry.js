@@ -85,9 +85,7 @@ export const createBullet = ({ color = 0x333333, r = .1, widthSegments = 6 } = {
 
 /* WORLD SPHERE */
 
-export function createWorldSphere({ r = 26, segments = 40, widthSegments = segments, heightSegments = segments, distort = .5, color = 0xfffafa, rotateZ = true } = {}) {
-  const geometry = new THREE.SphereGeometry(r, widthSegments, heightSegments)
-
+const deform = (geometry, distort = .5) => {
   const { position } = geometry.attributes
   const vertex = new THREE.Vector3()
   for (let i = 0, l = position.count; i < l; i++) {
@@ -96,7 +94,11 @@ export function createWorldSphere({ r = 26, segments = 40, widthSegments = segme
     vertex.z += randFloat(-distort, distort)
     position.setXYZ(i, vertex.x, vertex.y, vertex.z)
   }
+}
 
+export function createWorldSphere({ r = 26, segments = 40, widthSegments = segments, heightSegments = segments, distort, color = 0xfffafa, rotateZ = true } = {}) {
+  const geometry = new THREE.SphereGeometry(r, widthSegments, heightSegments)
+  deform(geometry, distort)
   const material = new THREE.MeshStandardMaterial({
     color,
     flatShading: true
