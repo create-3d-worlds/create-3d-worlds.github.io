@@ -14,9 +14,8 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - pokušati bolji teren (videti valjak i loptu)
-  - dodati drveće
-    - dodati ga malo ispred, ukloniti čim prođe iz kamere
+  - dodavati drveće
+    - malo zakriviti drveće
   - dodati objekte
   - dodati izbor aviona
   - pucanje i eksplozije
