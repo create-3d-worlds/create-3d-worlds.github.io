@@ -14,7 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - sakriti rupu u zemlji (dodati manju sferu unutra)
+  - pokušati bolji teren (videti valjak i loptu)
   - dodati drveće
     - dodati ga malo ispred, ukloniti čim prođe iz kamere
   - dodati objekte
