@@ -21,7 +21,6 @@ scene.add(earth)
 
 const aircraft = new Warplane()
 aircraft.position.y = r + 20
-
 scene.add(aircraft.mesh)
 
 /* FUNCTIONS */
