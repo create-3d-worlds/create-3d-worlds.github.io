@@ -7,7 +7,7 @@ export default class Warplane {
   constructor() {
     this.mesh = mesh
     mesh.position.y = 50
-    this.speed = 20
+    this.speed = 16
     this.rotationSpeed = .5
     this.minHeight = mesh.position.y / 2
     this.maxRoll = Math.PI / 3

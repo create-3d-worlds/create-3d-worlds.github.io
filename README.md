@@ -15,11 +15,15 @@ npx live-server
 
 - Warplane / 1943
   - dodati objekte
-  - promena objekata koji dolaze
-  - nivo sa šumom i sa betonom
-  - dodati izbor aviona
+  - optimizacija
+    - dodavati objekte u grupu, pomerati grupu
+    - pamtiti redosled dodavanja i nakon nekog vremena ih uklanjati
+  - menjati ambijent i objekte koji dolaze
+    - smena šume i gradova
+  - dodati vozila, tenkove i topove
   - pucanje i eksplozije
     - ispaljivanje rakete (prateće?)
+  - dodati izbor aviona
   - spojiti sa airplane?
 
 - Airplane

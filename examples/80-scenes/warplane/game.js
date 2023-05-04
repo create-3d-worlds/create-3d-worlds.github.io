@@ -5,7 +5,7 @@ import { createSun } from '/utils/light.js'
 import { createTerrain2 } from '/utils/ground.js'
 import Warplane from '/utils/aircrafts/Warplane.js'
 import { createFirTree } from '/utils/geometry/trees.js'
-import { sample } from '/utils/helpers.js'
+import { sample, putOnSolids } from '/utils/helpers.js'
 import { loadModel } from '/utils/loaders.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 
@@ -39,6 +39,7 @@ scene.add(ground, ground2, aircraft.mesh)
 /* FUNCTIONS */
 
 const factory = await loadModel({ file: 'building/factory/model.fbx', size: 28 })
+const tower = await loadModel({ file: 'building/tower/ww2/D85VT1X9UHDSYASVUM1UY02HA.obj', mtl: 'building/tower/ww2/D85VT1X9UHDSYASVUM1UY02HA.mtl', size: 30 })
 const warehouse = createWarehouse()
 const warehouse2 = createWarehouse2()
 const warRuin = createWarRuin()
@@ -49,12 +50,14 @@ const getPos = () => ({ x: randFloatSpread(mapSize / 2), y: 0, z: -distance })
 
 const addObject = (mesh = createFirTree()) => {
   mesh.position.copy(getPos())
+  putOnSolids(mesh, ground)
+  console.log(mesh.position.y)
   scene.add(mesh)
   objects.push(mesh)
 }
 
 const addBuilding = () => {
-  const mesh = (clone(sample([warehouse, warehouse2, warRuin, airport, ruin, factory])))
+  const mesh = (clone(sample([tower, warehouse, warehouse2, warRuin, airport, ruin, factory])))
   addObject(mesh)
 }
 
