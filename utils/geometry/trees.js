@@ -60,7 +60,7 @@ export function createTree({ x = 0, y = 0, z = 0, size = 5, trunkColor, crownCol
 
 export function createFirTree({ x = 0, y = 0, z = 0, size = 5 } = {}) {
   const trunk = new THREE.Mesh(
-    new THREE.CylinderGeometry(2, 2, 12, 6, 1, true),
+    new THREE.CylinderGeometry(1.5, 1.5, 12, 6, 1, true),
     new THREE.MeshLambertMaterial({ color: similarColor(browns[1]) })
   )
   const greenMaterial = new THREE.MeshLambertMaterial({ color: randomNuance() })
@@ -83,7 +83,6 @@ export function createFirTree({ x = 0, y = 0, z = 0, size = 5 } = {}) {
   group.position.set(x, y, z)
 
   group.rotateZ(randFloat(-0.15, 0.15))
-  group.rotateX(randFloat(-0.15, 0.15))
 
   return group
 }
@@ -122,6 +121,7 @@ export function createFir({ x = 0, y = 0, z = 0, size = 5 } = {}) {
   mesh.add(createFirTop())
   mesh.position.set(x, y, z)
   mesh.scale.set(size * 2, size * 2, size * 2) // other fir parts are much smaller
+  mesh.rotateZ(randFloat(-0.15, 0.15))
   return mesh
 }
 

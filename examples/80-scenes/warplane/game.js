@@ -1,12 +1,12 @@
 import * as THREE from 'three'
-import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
+import { scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createTerrain2 } from '/utils/ground.js'
 import Warplane from '/utils/aircrafts/Warplane.js'
-import { createFir } from '/utils/geometry/trees.js'
+import { createFirTree } from '/utils/geometry/trees.js'
 import { putOnSolids } from '/utils/helpers.js'
 
-const { randFloat, randFloatSpread } = THREE.MathUtils
+const { randFloatSpread } = THREE.MathUtils
 
 let distance = -100
 const mapSize = 2000
@@ -18,9 +18,8 @@ createOrbitControls()
 
 const trees = []
 
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 500)
 camera.position.set(30, 100, 50)
-camera.far = 500
-camera.updateProjectionMatrix()
 
 scene.fog = new THREE.Fog(0xE5C5AB, 200, 600)
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
@@ -36,10 +35,10 @@ scene.add(ground, ground2, aircraft.mesh)
 
 /* FUNCTIONS */
 
-function addTree(range = mapSize / 2) {
-  const tree = createFir({ size: 10 })
-  tree.position.x = randFloatSpread(range)
-  tree.position.z = distance
+const getPos = () => ({ x: randFloatSpread(mapSize / 2), y: 0, z: distance })
+
+function addTree() {
+  const tree = createFirTree({ size: 10, ...getPos() })
   putOnSolids(tree, ground)
   scene.add(tree)
   trees.push(tree)
@@ -57,7 +56,7 @@ function updateTrees(deltaSpeed) {
 
 /* LOOP */
 
-let last = Date.now()
+const last = Date.now()
 
 void function update() {
   requestAnimationFrame(update)
