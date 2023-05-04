@@ -15,6 +15,9 @@ npx live-server
 
 - Warplane / 1943
   - dodati objekte
+    - dodati ih sve u grupu, i onda grupu pomerati
+  - promena objekata koji dolaze
+  - nivo sa šumom i sa betonom
   - dodati izbor aviona
   - pucanje i eksplozije
     - ispaljivanje rakete (prateće?)
