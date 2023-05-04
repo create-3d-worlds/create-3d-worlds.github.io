@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
-
 import { scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createTerrain2 } from '/utils/ground.js'
@@ -8,7 +7,7 @@ import Warplane from '/utils/aircrafts/Warplane.js'
 import { createFirTree } from '/utils/geometry/trees.js'
 import { sample } from '/utils/helpers.js'
 import { loadModel } from '/utils/loaders.js'
-import { createTexturedBuilding } from '/utils/city.js'
+import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 
 const { randFloatSpread } = THREE.MathUtils
 
@@ -39,25 +38,20 @@ scene.add(ground, ground2, aircraft.mesh)
 
 /* FUNCTIONS */
 
-const getPos = () => ({ x: randFloatSpread(mapSize / 2), y: 0, z: -distance })
-
 const factory = await loadModel({ file: 'building/factory/model.fbx', size: 28 })
+const warehouse = createWarehouse()
+const warehouse2 = createWarehouse2()
+const warRuin = createWarRuin()
+const airport = createAirport()
+const ruin = createRuin()
+
+const getPos = () => ({ x: randFloatSpread(mapSize / 2), y: 0, z: -distance })
 
 const addObject = (mesh = createFirTree()) => {
   mesh.position.copy(getPos())
   scene.add(mesh)
   objects.push(mesh)
 }
-
-const warehouse = createTexturedBuilding({ width: 20, height: 10, depth: 10, defaultFile: 'buildings/warehouse.jpg', files: [null, null, 'terrain/concrete.jpg'], halfOnSides: true })
-
-const warehouse2 = createTexturedBuilding({ width: 20, height: 10, depth: 20, defaultFile: 'buildings/warehouse.jpg', files: [null, null, 'terrain/concrete.jpg'] })
-
-const warRuin = createTexturedBuilding({ width: 12, height: 10, depth: 10, defaultFile: 'buildings/ruin-01.jpg', files: [null, null, 'terrain/beton-krater.jpg'], halfOnSides: true })
-
-const airport = createTexturedBuilding({ width: 20, height: 10, depth: 10, defaultFile: 'buildings/airport.png', files: [null, null, 'terrain/beton.gif'], halfOnSides: true })
-
-const ruin = createTexturedBuilding({ width: 15, height: 10, depth: 10, defaultFile: 'buildings/ruin-front.jpg', halfOnSides: true })
 
 const addBuilding = () => {
   const mesh = (clone(sample([warehouse, warehouse2, warRuin, airport, ruin, factory])))
