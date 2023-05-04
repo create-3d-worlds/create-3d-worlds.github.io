@@ -11,8 +11,6 @@ npx live-server
 
 ## TODO
 
-- createFir i createFirTree?
-
 ### Scenes & examples
 
 - Warplane / 1943

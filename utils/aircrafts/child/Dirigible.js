@@ -2,7 +2,7 @@ import Zeppelin from '../Zeppelin.js'
 import { loadModel } from '/utils/loaders.js'
 
 const [mesh, propeler] = await Promise.all([
-  await loadModel({ file: 'airship/dirigible/model.fbx', size: 4, shouldCenter: true, shouldAdjustHeight: true }),
+  await loadModel({ file: 'aircraft/airship/dirigible/model.fbx', size: 4, shouldCenter: true, shouldAdjustHeight: true }),
   await loadModel({ file: 'item/propeller/model.fbx', size: 1, angle: Math.PI }),
 ])
 

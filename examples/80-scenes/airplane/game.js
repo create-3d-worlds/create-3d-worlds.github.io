@@ -11,7 +11,7 @@ const sun = createSun()
 
 scene.add(sun, terrain, trees)
 
-const mesh = await loadModel({ file: 'aircraft/biplane-sopwith/model.fbx', size: 2, angle: -Math.PI * .5,
+const mesh = await loadModel({ file: 'aircraft/airplane/biplane-sopwith/model.fbx', size: 2, angle: -Math.PI * .5,
   // fixColors: true
 })
 

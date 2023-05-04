@@ -1,7 +1,7 @@
 import GameObject from '/utils/objects/GameObject.js'
 import { loadModel } from '/utils/loaders.js'
 
-const mesh = await loadModel({ file: 'airship/aerial-screw/model.fbx', size: 10, shouldCenter: true, fixColors: true })
+const mesh = await loadModel({ file: 'aircraft/airship/aerial-screw/model.fbx', size: 10, shouldCenter: true, fixColors: true })
 
 export default class AerialScrew extends GameObject {
   constructor(param = {}) {
