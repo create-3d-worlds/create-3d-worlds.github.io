@@ -14,12 +14,9 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - dodati objekte
-  - optimizacija
-    - dodavati objekte u grupu, pomerati grupu
-    - pamtiti redosled dodavanja i nakon nekog vremena ih uklanjati
   - menjati ambijent i objekte koji dolaze
     - smena šume i gradova
+    - možda ukinuti teren zbog optimizacije
   - dodati vozila, tenkove i topove
   - pucanje i eksplozije
     - ispaljivanje rakete (prateće?)
