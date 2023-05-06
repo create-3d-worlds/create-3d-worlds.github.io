@@ -5,7 +5,7 @@ import { createSun } from '/utils/light.js'
 import { createTerrain } from '/utils/ground.js'
 import Warplane from '/utils/aircrafts/Warplane.js'
 import { createFirTree } from '/utils/geometry/trees.js'
-import { sample, putOnSolids } from '/utils/helpers.js'
+import { sample } from '/utils/helpers.js'
 import { loadModel } from '/utils/loaders.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
@@ -15,14 +15,14 @@ document.body.appendChild(stats.dom)
 
 const { randFloatSpread } = THREE.MathUtils
 
-let last = Date.now()
 let i = 0
+let last = Date.now()
 
 const objects = []
 const mapSize = 1000
 const distance = mapSize / 2
 const speed = 60
-const treeInterval = 500
+const interval = 500
 const groundZ = -mapSize * .99
 
 createOrbitControls()
@@ -41,51 +41,37 @@ const aircraft = new Warplane()
 
 scene.add(ground, ground2, aircraft.mesh)
 
-/* FUNCTIONS */
+/* OBJECTS */
 
 const factory = await loadModel({ file: 'building/factory/model.fbx', size: 28 })
 const tower = await loadModel({ file: 'building/tower/ww2/D85VT1X9UHDSYASVUM1UY02HA.obj', mtl: 'building/tower/ww2/D85VT1X9UHDSYASVUM1UY02HA.mtl', size: 20, shouldAdjustHeight: true })
-const warehouse = createWarehouse()
-const warehouse2 = createWarehouse2()
-const warRuin = createWarRuin()
-const airport = createAirport()
-const ruin = createRuin()
 
-const getPos = () => ({ x: randFloatSpread(mapSize / 2), y: 0, z: -distance })
+const buildings = [createWarehouse(), createWarehouse2(), createWarRuin(), createRuin(), createAirport(), tower, factory]
 
 const addObject = (mesh = createFirTree()) => {
-  mesh.position.copy(getPos())
-  putOnSolids(mesh, ground)
-  console.log(mesh.position.y)
+  mesh.position.copy({ x: randFloatSpread(mapSize / 2), y: 0, z: -distance })
   scene.add(mesh)
   objects.push(mesh)
 }
 
-const addBuilding = () => {
-  const mesh = (clone(sample([tower, warehouse, warehouse2, warRuin, airport, ruin, factory])))
-  addObject(mesh)
-}
+const addBuilding = () => addObject(clone(sample(buildings)))
 
 const addTree = () => addObject(createFirTree())
 
-/* LOOP */
+/* UPDATES */
 
-const updateObjects = deltaSpeed => {
-  objects.forEach(mesh => {
-    mesh.translateZ(deltaSpeed)
-    if (mesh.position.z > camera.position.z + 200) {
-      objects.splice(objects.indexOf(mesh), 1)
-      scene.remove(mesh)
-    }
-  })
-}
+const updateGround = deltaSpeed => [ground, ground2].forEach(g => {
+  g.translateZ(deltaSpeed)
+  if (g.position.z >= mapSize * .75) g.position.z = groundZ
+})
 
-const updateGround = deltaSpeed => {
-  [ground, ground2].forEach(g => {
-    g.translateZ(deltaSpeed)
-    if (g.position.z >= mapSize * .75) g.position.z = groundZ
-  })
-}
+const updateObjects = deltaSpeed => objects.forEach(mesh => {
+  mesh.translateZ(deltaSpeed)
+  if (mesh.position.z > camera.position.z + 200) {
+    objects.splice(objects.indexOf(mesh), 1)
+    scene.remove(mesh)
+  }
+})
 
 void function update() {
   requestAnimationFrame(update)
@@ -97,10 +83,9 @@ void function update() {
   camera.lookAt(aircraft.mesh.position)
   updateObjects(deltaSpeed)
 
-  if (i % 5 === 0)
-    addTree()
+  if (i % 5 === 0) addTree()
 
-  if (Date.now() - last >= treeInterval) {
+  if (Date.now() - last >= interval) {
     addBuilding()
     last = Date.now()
   }

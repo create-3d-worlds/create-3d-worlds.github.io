@@ -14,12 +14,10 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - menjati ambijent i objekte koji dolaze
-    - smena šume i gradova
-    - možda ukinuti teren zbog optimizacije
+  - kula puca na avion
+  - avion ispaljuje raketu
+    - raketa eksplodira kada pogodi objekat
   - dodati vozila, tenkove i topove
-  - pucanje i eksplozije
-    - ispaljivanje rakete (prateće?)
   - dodati izbor aviona
   - spojiti sa airplane?
 
