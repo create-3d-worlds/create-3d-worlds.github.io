@@ -14,7 +14,7 @@ import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
 const stats = new Stats()
 document.body.appendChild(stats.dom)
 
-const { randFloatSpread } = THREE.MathUtils
+const { randInt, randFloatSpread } = THREE.MathUtils
 
 let i = 0
 let last = Date.now()
@@ -53,14 +53,22 @@ const addObject = (mesh = createFirTree()) => {
   layer.push(mesh)
 }
 
-const addBuilding = () => {
-  // TODO: da ne pravi ako ne treba, možda switch
-  const tower = new Tower()
-  updatables.push(tower)
-
-  const buildings = [createWarehouse(), createWarehouse2(), createWarRuin(), createRuin(), createAirport(), tower.mesh, clone(factory)]
-  addObject(sample(buildings))
+const createBuilding = () => {
+  switch (randInt(1, 7)) {
+    case 1:
+      const tower = new Tower()
+      updatables.push(tower)
+      return tower.mesh
+    case 2: return clone(factory)
+    case 3: return createWarehouse2()
+    case 4: return createWarRuin()
+    case 5: return createRuin()
+    case 6: return createAirport()
+    case 7: return createWarehouse()
+  }
 }
+
+const addBuilding = () => addObject(createBuilding())
 
 const addTree = () => addObject(createFirTree())
 
