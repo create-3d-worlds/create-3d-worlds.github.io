@@ -8,6 +8,7 @@ import { createFirTree } from '/utils/geometry/trees.js'
 import { sample } from '/utils/helpers.js'
 import { loadModel } from '/utils/loaders.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
+import Tower from '/utils/objects/Tower.js'
 import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
 
 const stats = new Stats()
@@ -44,9 +45,9 @@ scene.add(ground, ground2, aircraft.mesh)
 /* OBJECTS */
 
 const factory = await loadModel({ file: 'building/factory/model.fbx', size: 28 })
-const tower = await loadModel({ file: 'building/tower/ww2/D85VT1X9UHDSYASVUM1UY02HA.obj', mtl: 'building/tower/ww2/D85VT1X9UHDSYASVUM1UY02HA.mtl', size: 20, shouldAdjustHeight: true })
+const tower = new Tower()
 
-const buildings = [createWarehouse(), createWarehouse2(), createWarRuin(), createRuin(), createAirport(), tower, factory]
+const buildings = [createWarehouse(), createWarehouse2(), createWarRuin(), createRuin(), createAirport(), tower.mesh, factory]
 
 const addObject = (mesh = createFirTree()) => {
   mesh.position.copy({ x: randFloatSpread(mapSize / 2), y: 0, z: -distance })

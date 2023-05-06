@@ -14,7 +14,8 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - kula puca na avion
+  - kula puca na avion (igrača)
+    - da ispaljuje metke malo ispred njega
   - avion ispaljuje raketu
     - raketa eksplodira kada pogodi objekat
   - dodati vozila, tenkove i topove
