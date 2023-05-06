@@ -45,6 +45,10 @@ export default class GameObject {
     return getScene(this.mesh)
   }
 
+  get player() {
+    return this.scene?.getObjectByName('player')
+  }
+
   /* UTILS */
 
   add(obj) {

@@ -19,10 +19,6 @@ export default class Platform extends GameObject {
     this.initPosition = this.position.clone()
   }
 
-  get player() {
-    return this.scene?.getObjectByName('player')
-  }
-
   get playerOnPlatform() {
     if (!this.player) return false
     return this.withinHeight && this.withinWidth

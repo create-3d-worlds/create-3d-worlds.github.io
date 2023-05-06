@@ -7,4 +7,8 @@ export default class Tower extends GameObject {
   constructor(params = {}) {
     super({ mesh, ...params })
   }
+
+  update(delta) {
+    console.log(this.player)
+  }
 }
