@@ -7,10 +7,11 @@ const sphereGeo = new THREE.SphereGeometry(.5)
 const sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
 
 class Bullet extends GameObject {
-  constructor(params = {}) {
-    super({ mesh: sphere, ...params })
+  constructor({ pos } = {}) {
+    super({ mesh: sphere, pos })
     this.speed = .1
     this.maxRange = 1000
+    this.initPosition = pos.clone()
   }
 
   addTarget() {
@@ -26,7 +27,7 @@ class Bullet extends GameObject {
 
     this.position.lerp(this.target, this.speed * delta)
 
-    if (this.position.distanceTo(this.target) >= this.maxRange) this.dispose()
+    if (this.position.distanceTo(this.initPosition) >= this.maxRange / 2) this.dispose()
   }
 }
 
