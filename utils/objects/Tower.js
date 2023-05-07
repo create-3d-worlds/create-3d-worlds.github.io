@@ -9,15 +9,24 @@ const sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
 class Bullet extends GameObject {
   constructor(params = {}) {
     super({ mesh: sphere, ...params })
-    this.speed = 10
+    this.speed = .1
+    this.maxRange = 1000
+  }
+
+  addTarget() {
+    const direction = new THREE.Vector3()
+    direction.subVectors(this.player.position, this.position).normalize()
+
+    this.target = new THREE.Vector3()
+    this.target.addVectors(this.position, direction.multiplyScalar(this.maxRange))
   }
 
   update(delta) {
-    if (!this.target) this.target = this.player.position.clone()
+    if (!this.target) this.addTarget()
 
     this.position.lerp(this.target, this.speed * delta)
 
-    if (this.position.distanceTo(this.target) < 1) this.dispose()
+    if (this.position.distanceTo(this.target) >= this.maxRange) this.dispose()
   }
 }
 
