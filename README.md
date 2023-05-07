@@ -11,14 +11,9 @@ npx live-server
 
 ## TODO
 
-- https://threejs.org/examples/?q=fps#games_fps 
-- https://github.com/skolakoda/ucimo-threejs/blob/master/90-primeri/80-nemesis/main.js
-
 ### Scenes & examples
 
 - Warplane / 1943
-  - kula puca na avion
-    - da metak nastavi u istom pravcu
   - avion ispaljuje raketu
     - raketa eksplodira kada pogodi objekat
   - dodati vozila, tenkove i topove
