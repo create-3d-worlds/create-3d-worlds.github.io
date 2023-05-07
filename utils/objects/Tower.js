@@ -15,7 +15,8 @@ class Bullet extends GameObject {
   }
 
   update(delta) {
-    this.position.lerp(this.player.position, this.speed * delta)
+    if (!this.target) this.target = this.player.position.clone()
+    this.position.lerp(this.target, this.speed * delta)
   }
 }
 
@@ -24,6 +25,8 @@ export default class Tower extends GameObject {
     super({ mesh, ...params })
     this.range = 200
     this.bullets = []
+    this.last = Date.now()
+    this.interval = 500
   }
 
   addBullet() {
@@ -33,9 +36,10 @@ export default class Tower extends GameObject {
   }
 
   update(delta) {
-    if (this.distanceTo(this.player) < this.range)
+    if (this.distanceTo(this.player) < this.range && Date.now() - this.last >= this.interval) {
       this.addBullet()
-    // praviti pauzu
+      this.last = Date.now()
+    }
 
     this.bullets.forEach(bullet => bullet.update(delta))
   }
