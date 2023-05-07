@@ -15,7 +15,9 @@ npx live-server
 
 - Warplane / 1943
   - kula puca na avion
-    - videti primere pucanja (fps, nemesis?)
+    - videti primere pucanja
+      - https://threejs.org/examples/?q=fps#games_fps 
+      - https://github.com/skolakoda/ucimo-threejs/blob/master/90-primeri/80-nemesis/main.js
     - da ispaljuje metke malo ispred aviona
   - avion ispaljuje raketu
     - raketa eksplodira kada pogodi objekat

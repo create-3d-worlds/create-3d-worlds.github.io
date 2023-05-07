@@ -62,6 +62,7 @@ export default class GameObject {
   }
 
   distanceTo(mesh) {
+    if (!mesh) return Infinity
     return this.position.distanceTo(mesh.position)
   }
 }
