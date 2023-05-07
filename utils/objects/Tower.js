@@ -9,13 +9,15 @@ const sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
 class Bullet extends GameObject {
   constructor(params = {}) {
     super({ mesh: sphere, ...params })
-    this.speed = 1
+    this.speed = 10
   }
 
   update(delta) {
-    if (!this.target)
-      this.target = this.player.position.clone()
+    if (!this.target) this.target = this.player.position.clone()
+
     this.position.lerp(this.target, this.speed * delta)
+
+    if (this.position.distanceTo(this.target) < 1) this.dispose()
   }
 }
 
@@ -38,12 +40,19 @@ export default class Tower extends GameObject {
     this.bullets.push(bullet)
   }
 
+  removeBullet(bullet) {
+    this.bullets.splice(this.bullets.indexOf(bullet), 1)
+  }
+
   update(delta) {
     if (this.distanceTo(this.player) < this.range && Date.now() - this.last >= this.interval) {
       this.addBullet()
       this.last = Date.now()
     }
 
-    this.bullets.forEach(bullet => bullet.update(delta))
+    this.bullets.forEach(bullet => {
+      if (!bullet.mesh) this.removeBullet(bullet)
+      bullet.update(delta)
+    })
   }
 }
