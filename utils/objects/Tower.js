@@ -15,11 +15,8 @@ class Bullet extends GameObject {
   }
 
   addTarget() {
-    const direction = new THREE.Vector3()
-    direction.subVectors(this.player.position, this.position).normalize()
-
-    this.target = new THREE.Vector3()
-    this.target.addVectors(this.position, direction.multiplyScalar(this.maxRange))
+    const direction = new THREE.Vector3().subVectors(this.player.position, this.position).normalize()
+    this.target = new THREE.Vector3().addVectors(this.position, direction.multiplyScalar(this.maxRange))
   }
 
   update(delta) {

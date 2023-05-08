@@ -7,6 +7,7 @@ import { findChildren } from '/utils/helpers.js'
 const material = new THREE.MeshBasicMaterial({ color: 0x333333 })
 const geometry = new THREE.CylinderGeometry(.5, .5, 2)
 const cylinder = new THREE.Mesh(geometry, material)
+cylinder.rotateX(Math.PI * .5)
 
 class Missile extends GameObject {
   constructor({ pos } = {}) {
@@ -29,12 +30,10 @@ class Missile extends GameObject {
     return target
   }
 
-  addTarget(mesh) {
-    const direction = new THREE.Vector3()
-    direction.subVectors(mesh.position, this.position).normalize()
-
-    this.target = new THREE.Vector3()
-    this.target.addVectors(this.position, direction.multiplyScalar(this.maxRange))
+  addTarget() {
+    const position = { x: this.position.x, y: this.position.y * .25, z: this.position.z - 100 }
+    const direction = new THREE.Vector3().subVectors(position, this.position).normalize()
+    this.target = new THREE.Vector3().addVectors(this.position, direction.multiplyScalar(this.maxRange))
   }
 
   update(delta) {
