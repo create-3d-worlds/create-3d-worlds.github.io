@@ -41,6 +41,7 @@ const mesh = await loadModel({
 export default class Tower extends GameObject {
   constructor(params = {}) {
     super({ mesh, ...params })
+    this.name = 'tower'
     this.range = 200
     this.bullets = []
     this.last = Date.now()

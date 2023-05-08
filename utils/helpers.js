@@ -139,8 +139,6 @@ export const findChildren = (parent, name) => {
   return found
 }
 
-export const findChild = (parent, name) => findChildren(parent, name)[0]
-
 /* COLORS */
 
 export const randomColor = () => new THREE.Color(Math.random() * 0xffffff)

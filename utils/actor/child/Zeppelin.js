@@ -1,7 +1,6 @@
 import Player from '/utils/actor/Player.js'
 import AI from '/utils/actor/AI.js'
 import { loadModel } from '/utils/loaders.js'
-import { findChild } from '/utils/helpers.js'
 
 /* LOADING */
 
@@ -16,7 +15,7 @@ export class ZeppelinPlayer extends Player {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
     this.mesh.position.y = 60
-    this.propeler = findChild(this.mesh, 'propeler')
+    this.propeler = this.mesh.getObjectByName('propeler')
   }
 
   update(delta) {
@@ -29,7 +28,7 @@ export class ZeppelinAI extends AI {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
     this.mesh.position.y = 60
-    this.propeler = findChild(this.mesh, 'propeler')
+    this.propeler = this.mesh.getObjectByName('propeler')
   }
 
   update(delta) {
