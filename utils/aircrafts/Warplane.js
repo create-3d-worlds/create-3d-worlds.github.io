@@ -2,7 +2,6 @@ import * as THREE from 'three'
 import input from '/utils/io/Input.js'
 import { loadModel } from '/utils/loaders.js'
 import GameObject from '/utils/objects/GameObject.js'
-import { findChildren } from '/utils/helpers.js'
 
 const material = new THREE.MeshBasicMaterial({ color: 0x333333 })
 const geometry = new THREE.CylinderGeometry(.5, .5, 2)
@@ -13,32 +12,17 @@ class Missile extends GameObject {
   constructor({ pos } = {}) {
     super({ mesh: cylinder, pos })
     this.speed = .2
-    this.maxRange = 1000
+    this.maxRange = 500
     this.initPosition = pos.clone()
   }
 
-  get nearestTarget() {
-    let min = Infinity
-    let target = null
-    findChildren(this.scene, 'tower').forEach(mesh => {
-      const distance = this.position.distanceTo(mesh.position)
-      if (distance < min) {
-        min = distance
-        target = mesh
-      }
-    })
-    return target
-  }
-
-  addTarget() {
-    const position = { x: this.position.x, y: this.position.y * .25, z: this.position.z - 100 }
+  get target() {
+    const position = new THREE.Vector3().addVectors(this.position, { x: 0, y: -50, z: -100 })
     const direction = new THREE.Vector3().subVectors(position, this.position).normalize()
-    this.target = new THREE.Vector3().addVectors(this.position, direction.multiplyScalar(this.maxRange))
+    return new THREE.Vector3().addVectors(this.position, direction.multiplyScalar(this.maxRange))
   }
 
   update(delta) {
-    if (!this.target) this.addTarget(this.nearestTarget)
-
     this.position.lerp(this.target, this.speed * delta)
 
     if (this.position.distanceTo(this.initPosition) >= this.maxRange / 2) this.dispose()

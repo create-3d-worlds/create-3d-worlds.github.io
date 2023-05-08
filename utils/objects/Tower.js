@@ -10,7 +10,7 @@ class Bullet extends GameObject {
   constructor({ pos } = {}) {
     super({ mesh: sphere, pos })
     this.speed = .2
-    this.maxRange = 1000
+    this.maxRange = 600
     this.initPosition = pos.clone()
   }
 
