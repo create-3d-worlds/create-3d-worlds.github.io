@@ -202,15 +202,10 @@ export const intersect = (mesh, solids, dir, height = getHeight(mesh) * .5) => {
   return getIntersects(raycaster, solids)
 }
 
-export const intersectDir = (mesh, solids, currDir) => {
-  if (!mesh || !solids.length || !currDir) return false
-  return intersect(mesh, solids, currDir)
-}
-
 const defaultLength = (currDir, mesh) => currDir == dir.forward ? getSize(mesh, 'z') : getSize(mesh, 'y')
 
 export const directionBlocked = (mesh, solids, currDir, rayLength = defaultLength(currDir, mesh)) => {
-  const intersects = intersectDir(mesh, solids, currDir)
+  const intersects = intersect(mesh, solids, currDir)
   return intersects.length && intersects[0].distance < rayLength
 }
 
