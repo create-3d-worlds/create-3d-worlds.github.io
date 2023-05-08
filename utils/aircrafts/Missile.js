@@ -14,15 +14,24 @@ export default class Missile extends GameObject {
     this.initPosition = pos.clone()
   }
 
-  get target() {
+  get direction() {
     const position = new THREE.Vector3().addVectors(this.position, { x: 0, y: -50, z: -100 })
-    const direction = new THREE.Vector3().subVectors(position, this.position).normalize()
-    return new THREE.Vector3().addVectors(this.position, direction.multiplyScalar(this.maxRange))
+    return new THREE.Vector3().subVectors(position, this.position).normalize()
+  }
+
+  get target() {
+    return new THREE.Vector3().addVectors(this.position, this.direction.multiplyScalar(this.maxRange))
   }
 
   update(delta) {
     this.position.lerp(this.target, this.speed * delta)
 
-    if (this.position.y < 0) this.dispose()
+    // TODO: dispose on collision
+    if (this.position.y < 0) return this.dispose()
+
+    const raycaster = new THREE.Raycaster(this.position, this.direction, 0, 1)
+    const intersects = raycaster.intersectObject(this.scene)
+    // TODO: explosion at point
+    console.log(intersects[0]?.object, intersects[0]?.point)
   }
 }
