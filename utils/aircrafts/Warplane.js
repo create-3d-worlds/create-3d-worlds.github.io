@@ -16,7 +16,6 @@ class Missile extends GameObject {
     this.initPosition = pos.clone()
   }
 
-  // TODO: if no target, shoot ahead
   get nearestTarget() {
     let min = Infinity
     let target = null
