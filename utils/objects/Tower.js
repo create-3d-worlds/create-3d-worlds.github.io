@@ -1,32 +1,6 @@
-import * as THREE from 'three'
 import GameObject from '/utils/objects/GameObject.js'
 import { loadModel } from '/utils/loaders.js'
-
-const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x333333 })
-const sphereGeo = new THREE.SphereGeometry(.2)
-const sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
-
-class Bullet extends GameObject {
-  constructor({ pos } = {}) {
-    super({ mesh: sphere, pos })
-    this.speed = .2
-    this.maxRange = 500
-    this.initPosition = pos.clone()
-  }
-
-  addTarget() {
-    const direction = new THREE.Vector3().subVectors(this.player.position, this.position).normalize()
-    this.target = new THREE.Vector3().addVectors(this.position, direction.multiplyScalar(this.maxRange))
-  }
-
-  update(delta) {
-    if (!this.target) this.addTarget()
-
-    this.position.lerp(this.target, this.speed * delta)
-
-    if (this.position.distanceTo(this.initPosition) >= this.maxRange) this.dispose()
-  }
-}
+import Bullet from './Bullet.js'
 
 const mesh = await loadModel({
   file: 'building/tower/ww2/D85VT1X9UHDSYASVUM1UY02HA.obj',
