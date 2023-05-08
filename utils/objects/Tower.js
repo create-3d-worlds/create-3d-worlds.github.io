@@ -3,7 +3,7 @@ import GameObject from '/utils/objects/GameObject.js'
 import { loadModel } from '/utils/loaders.js'
 
 const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x333333 })
-const sphereGeo = new THREE.SphereGeometry(.5)
+const sphereGeo = new THREE.SphereGeometry(.2)
 const sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
 
 class Bullet extends GameObject {

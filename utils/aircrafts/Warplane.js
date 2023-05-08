@@ -51,15 +51,15 @@ export default class Warplane extends GameObject {
     return Date.now() - this.last >= this.interval
   }
 
-  addBullet() {
+  addMissile() {
     const pos = this.position.clone()
-    const bullet = new Missile({ pos })
-    this.scene.add(bullet.mesh)
-    this.bullets.push(bullet)
+    const missile = new Missile({ pos })
+    this.scene.add(missile.mesh)
+    this.bullets.push(missile)
   }
 
-  removeBullet(bullet) {
-    this.bullets.splice(this.bullets.indexOf(bullet), 1)
+  removeMissile(missile) {
+    this.bullets.splice(this.bullets.indexOf(missile), 1)
   }
 
   handleInput(delta) {
@@ -96,13 +96,13 @@ export default class Warplane extends GameObject {
     this.normalizePlane(delta)
 
     if (input.attack && this.timeToShoot) {
-      this.addBullet()
+      this.addMissile()
       this.last = Date.now()
     }
 
-    this.bullets.forEach(bullet => {
-      if (!bullet.mesh.parent) this.removeBullet(bullet)
-      bullet.update(delta)
+    this.bullets.forEach(missile => {
+      if (!missile.mesh.parent) this.removeMissile(missile)
+      missile.update(delta)
     })
   }
 }

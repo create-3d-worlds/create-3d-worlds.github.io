@@ -14,11 +14,13 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - merge Missile and Bullet?
-  - reuse Tower and Warplane methods?
-  - avion ispaljuje raketu
-    - raketa eksplodira kada pogodi objekat
-  - kula kad pogodi avion nanosi štetu avionu
+  - avion puca
+    - detekcija kolizije
+    - raketa eksplodira kada pogodi nešto
+    - kad pogodi kulu uništava je
+  - kula puca
+    - detekcija kolizije
+    - kad pogodi avion nanosi štetu
   - dodati vozila, tenkove i topove
   - dodati izbor aviona
   - spojiti sa airplane?
