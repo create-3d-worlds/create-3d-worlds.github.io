@@ -14,7 +14,8 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - Tower, Warplane: refactor target to mesh instead position
+  - merge Missile and Bullet?
+  - reuse Tower and Warplane methods?
   - avion ispaljuje raketu
     - raketa eksplodira kada pogodi objekat
   - kula kad pogodi avion nanosi štetu avionu

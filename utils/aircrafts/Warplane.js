@@ -12,7 +12,7 @@ class Missile extends GameObject {
   constructor({ pos } = {}) {
     super({ mesh: cylinder, pos })
     this.speed = .2
-    this.maxRange = 500
+    this.maxRange = 300
     this.initPosition = pos.clone()
   }
 
@@ -25,7 +25,7 @@ class Missile extends GameObject {
   update(delta) {
     this.position.lerp(this.target, this.speed * delta)
 
-    if (this.position.distanceTo(this.initPosition) >= this.maxRange / 2) this.dispose()
+    if (this.position.y < 0) this.dispose()
   }
 }
 
@@ -101,9 +101,8 @@ export default class Warplane extends GameObject {
     }
 
     this.bullets.forEach(bullet => {
-      if (!bullet.mesh) this.removeBullet(bullet)
+      if (!bullet.mesh.parent) this.removeBullet(bullet)
       bullet.update(delta)
     })
-
   }
 }

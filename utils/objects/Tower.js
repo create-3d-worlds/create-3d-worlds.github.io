@@ -10,7 +10,7 @@ class Bullet extends GameObject {
   constructor({ pos } = {}) {
     super({ mesh: sphere, pos })
     this.speed = .2
-    this.maxRange = 600
+    this.maxRange = 500
     this.initPosition = pos.clone()
   }
 
@@ -24,7 +24,7 @@ class Bullet extends GameObject {
 
     this.position.lerp(this.target, this.speed * delta)
 
-    if (this.position.distanceTo(this.initPosition) >= this.maxRange / 2) this.dispose()
+    if (this.position.distanceTo(this.initPosition) >= this.maxRange) this.dispose()
   }
 }
 
@@ -79,7 +79,7 @@ export default class Tower extends GameObject {
     if (!this.targetInRange) this.removeBullets()
 
     this.bullets.forEach(bullet => {
-      if (!bullet.mesh) this.removeBullet(bullet)
+      if (!bullet.mesh.parent) this.removeBullet(bullet)
       bullet.update(delta)
     })
   }
