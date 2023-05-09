@@ -83,6 +83,6 @@ export default class Warplane extends GameObject {
       missile.update(delta)
     })
 
-    this.explosion.expand({ velocity: 1.1 })
+    this.explosion.expand({ velocity: 1.1, maxRounds: 30 })
   }
 }
