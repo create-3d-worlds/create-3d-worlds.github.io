@@ -3,15 +3,16 @@ import { loadModel } from '/utils/loaders.js'
 import GameObject from '/utils/objects/GameObject.js'
 import Missile from './Missile.js'
 import { Explosion } from '/utils/classes/Particles.js'
+import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 const mesh = await loadModel({ file: '/aircraft/airplane/messerschmitt-bf-109/scene.gltf', size: 3, angle: Math.PI })
 
 export default class Warplane extends GameObject {
-  constructor() {
+  constructor({ camera } = {}) {
     super({ mesh })
     this.name = 'player'
     this.position.y = 50
-    this.speed = 30
+    this.speed = 35
     this.rotationSpeed = .5
     this.minHeight = this.position.y / 2
     this.maxRoll = Math.PI / 3
@@ -20,6 +21,12 @@ export default class Warplane extends GameObject {
     this.last = Date.now()
     this.interval = 500
     this.explosion = new Explosion({ size: 4 })
+
+    if (camera) {
+      this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, height: 2, speed: this.speed * .5 })
+      this.chaseCamera.distance = 6
+      this.shouldAlignCamera = true
+    }
   }
 
   get timeToShoot() {
@@ -82,6 +89,12 @@ export default class Warplane extends GameObject {
       if (missile.dead) this.removeMissile(missile)
       missile.update(delta)
     })
+
+    if (this.shouldAlignCamera) {
+      this.chaseCamera.alignCamera()
+      this.shouldAlignCamera = false
+    }
+    this.chaseCamera?.update(delta)
 
     this.explosion.expand({ velocity: 1.1, maxRounds: 30 })
   }

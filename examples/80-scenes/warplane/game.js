@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
-import { scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
+import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createTerrain } from '/utils/ground.js'
 import Warplane from '/utils/aircraft/Warplane.js'
@@ -26,8 +26,6 @@ const interval = 2000
 const groundZ = -mapSize * .99
 
 createOrbitControls()
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, mapSize * .6)
-// camera.position.set(10, 56, 16)
 
 scene.fog = new THREE.Fog(0xE5C5AB, 200, distance)
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
@@ -37,9 +35,7 @@ const ground = createTerrain({ size: mapSize, color: 0x91A566, colorRange: .1 })
 const ground2 = createTerrain({ size: mapSize, color: 0x91A566, colorRange: .1 })
 ground2.position.z = groundZ
 
-const aircraft = new Warplane()
-aircraft.add(camera)
-camera.position.z = 20
+const aircraft = new Warplane({ camera })
 
 scene.add(ground, ground2, aircraft.mesh)
 const updatables = [aircraft, stats]
@@ -96,7 +92,6 @@ void function update() {
   updateGround(deltaSpeed)
   updateLayer(deltaSpeed)
   updatables.forEach(element => element.update(delta))
-  camera.lookAt(aircraft.mesh.position)
 
   if (i % 5 === 0) addTree()
 
