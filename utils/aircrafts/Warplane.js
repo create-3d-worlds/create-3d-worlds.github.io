@@ -16,8 +16,7 @@ export default class Warplane extends GameObject {
     this.minHeight = this.position.y / 2
     this.maxRoll = Math.PI / 3
 
-    this.range = 200
-    this.bullets = []
+    this.missiles = []
     this.last = Date.now()
     this.interval = 500
     this.explosion = new Explosion({ size: 4 })
@@ -32,12 +31,13 @@ export default class Warplane extends GameObject {
     pos.y -= this.height * .5
     const missile = new Missile({ pos, explosion: this.explosion })
     this.scene.add(missile.mesh)
-    this.bullets.push(missile)
+    this.missiles.push(missile)
     this.scene.add(this.explosion.mesh)
   }
 
   removeMissile(missile) {
-    this.bullets.splice(this.bullets.indexOf(missile), 1)
+    this.scene.remove(missile.mesh)
+    this.missiles.splice(this.missiles.indexOf(missile), 1)
   }
 
   handleInput(delta) {
@@ -78,8 +78,8 @@ export default class Warplane extends GameObject {
       this.last = Date.now()
     }
 
-    this.bullets.forEach(missile => {
-      if (!missile.mesh.parent) this.removeMissile(missile)
+    this.missiles.forEach(missile => {
+      if (missile.explode) this.removeMissile(missile)
       missile.update(delta)
     })
 
