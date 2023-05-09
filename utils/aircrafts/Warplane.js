@@ -2,6 +2,7 @@ import input from '/utils/io/Input.js'
 import { loadModel } from '/utils/loaders.js'
 import GameObject from '/utils/objects/GameObject.js'
 import Missile from './Missile.js'
+import { Explosion } from '/utils/classes/Particles.js'
 
 const mesh = await loadModel({ file: '/aircraft/airplane/messerschmitt-bf-109/scene.gltf', size: 3, angle: Math.PI })
 
@@ -19,6 +20,7 @@ export default class Warplane extends GameObject {
     this.bullets = []
     this.last = Date.now()
     this.interval = 500
+    this.explosion = new Explosion({ size: 4 })
   }
 
   get timeToShoot() {
@@ -28,9 +30,10 @@ export default class Warplane extends GameObject {
   addMissile() {
     const pos = this.position.clone()
     pos.y -= this.height * .5
-    const missile = new Missile({ pos })
+    const missile = new Missile({ pos, explosion: this.explosion })
     this.scene.add(missile.mesh)
     this.bullets.push(missile)
+    this.scene.add(this.explosion.mesh)
   }
 
   removeMissile(missile) {
@@ -79,5 +82,7 @@ export default class Warplane extends GameObject {
       if (!missile.mesh.parent) this.removeMissile(missile)
       missile.update(delta)
     })
+
+    this.explosion.expand({ velocity: 1.1 })
   }
 }

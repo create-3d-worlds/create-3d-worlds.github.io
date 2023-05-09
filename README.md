@@ -15,7 +15,6 @@ npx live-server
 
 - Warplane / 1943
   - avion puca
-    - detekcija kolizije (raycast?)
     - raketa eksplodira kada pogodi nešto
     - kad pogodi kulu uništava je
   - kula puca
