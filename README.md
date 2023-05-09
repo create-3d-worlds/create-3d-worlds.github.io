@@ -14,9 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - avion puca
-    - ako je kula pogođena, gori i prestaje da puca
-      - optimizovati vatru
+  - probati razne kamere
   - kula puca
     - detekcija kolizije (distance?)
     - kad pogodi avion nanosi štetu

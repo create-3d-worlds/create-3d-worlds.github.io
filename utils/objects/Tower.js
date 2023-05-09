@@ -17,14 +17,15 @@ export default class Tower extends GameObject {
     this.bullets = []
     this.last = Date.now()
     this.interval = 500
+    this.dead = false
   }
 
   get targetInRange() {
     return this.distanceTo(this.player) < this.range
   }
 
-  get timeToShoot() {
-    return Date.now() - this.last >= this.interval
+  get ableToShoot() {
+    return !this.dead && Date.now() - this.last >= this.interval
   }
 
   addBullet() {
@@ -46,7 +47,8 @@ export default class Tower extends GameObject {
 
   checkHit() {
     if (!this.mesh.userData.hitAmount) return
-    console.log('hit')
+
+    this.dead = true
 
     const promise = import('/utils/classes/Particles.js')
     promise.then(obj => {
@@ -59,9 +61,9 @@ export default class Tower extends GameObject {
 
   update(delta) {
     this.checkHit()
-    this.fire?.update({ minVelocity: .05, maxVelocity: .15 })
+    this.fire?.update({ delta, minVelocity: .05, maxVelocity: .15 })
 
-    if (this.targetInRange && this.timeToShoot) {
+    if (this.targetInRange && this.ableToShoot) {
       this.addBullet()
       this.last = Date.now()
     }

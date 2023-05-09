@@ -13,7 +13,7 @@ export default class Missile extends GameObject {
     this.range = 300
     this.initPosition = pos.clone()
     this.explosion = explosion
-    this.explode = false
+    this.dead = false
   }
 
   get direction() {
@@ -30,7 +30,7 @@ export default class Missile extends GameObject {
   }
 
   update(delta) {
-    if (this.explode) return
+    if (this.dead) return
     this.position.lerp(this.target, this.speed * delta)
 
     const raycaster = new THREE.Raycaster(this.position, this.direction, 0, 1)
@@ -44,7 +44,7 @@ export default class Missile extends GameObject {
     if (intersects.length) {
       const { point } = intersects[0]
       this.explosion.reset({ pos: point, unitAngle: 0.2 })
-      this.explode = true
+      this.dead = true
     }
   }
 }

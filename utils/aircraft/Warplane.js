@@ -79,7 +79,7 @@ export default class Warplane extends GameObject {
     }
 
     this.missiles.forEach(missile => {
-      if (missile.explode) this.removeMissile(missile)
+      if (missile.dead) this.removeMissile(missile)
       missile.update(delta)
     })
 

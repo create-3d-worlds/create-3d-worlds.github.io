@@ -55,7 +55,7 @@ const addObject = (mesh = createFirTree()) => {
 }
 
 const createBuilding = () => {
-  switch (randInt(1, 1)) {
+  switch (randInt(1, 7)) {
     case 1:
       const tower = new Tower()
       updatables.push(tower)
