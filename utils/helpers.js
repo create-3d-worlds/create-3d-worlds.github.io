@@ -131,14 +131,6 @@ export const belongsTo = (object, name) => {
   return belongsTo(object.parent, name)
 }
 
-export const findChildren = (parent, name) => {
-  const found = []
-  parent.traverse(child => {
-    if (child.name === name) found.push(child)
-  })
-  return found
-}
-
 /* COLORS */
 
 export const randomColor = () => new THREE.Color(Math.random() * 0xffffff)

@@ -25,6 +25,10 @@ export default class Missile extends GameObject {
     return new THREE.Vector3().addVectors(this.position, this.direction.multiplyScalar(this.range))
   }
 
+  get enemies() {
+    return this.scene.getObjectsByProperty('name', 'tower')
+  }
+
   update(delta) {
     if (this.explode) return
     this.position.lerp(this.target, this.speed * delta)
@@ -32,11 +36,15 @@ export default class Missile extends GameObject {
     const raycaster = new THREE.Raycaster(this.position, this.direction, 0, 1)
     const intersects = raycaster.intersectObject(this.scene)
 
+    this.enemies.forEach(mesh => {
+      if (this.distanceTo(mesh) < 10)
+        mesh.userData.hitAmount = 1000
+    })
+
     if (intersects.length) {
-      const { point, object } = intersects[0]
+      const { point } = intersects[0]
       this.explosion.reset({ pos: point, unitAngle: 0.2 })
       this.explode = true
-      if (object.isMesh) object.hitAmount = 1000
     }
   }
 }

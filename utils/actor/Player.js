@@ -3,7 +3,6 @@ import * as THREE from 'three'
 import defaultKeyboard from '/utils/io/Input.js'
 import { jumpStyles, attackStyles, reactions } from '/utils/constants.js'
 import { getPlayerState } from './states/index.js'
-import { findChildren } from '/utils/helpers.js'
 import Actor from './Actor.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
@@ -48,8 +47,7 @@ export default class Player extends Actor {
   /* GETTERS & SETTERS */
 
   get enemies() {
-    if (!this.scene) return []
-    return findChildren(this.scene, 'enemy')
+    return this.scene.getObjectsByProperty('name', 'enemy')
   }
 
   get solids() {

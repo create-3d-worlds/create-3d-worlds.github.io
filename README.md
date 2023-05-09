@@ -16,6 +16,7 @@ npx live-server
 - Warplane / 1943
   - avion puca
     - ako je kula pogođena, gori i prestaje da puca
+      - optimizovati vatru
   - kula puca
     - detekcija kolizije (distance?)
     - kad pogodi avion nanosi štetu

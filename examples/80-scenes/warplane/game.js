@@ -21,8 +21,8 @@ let last = Date.now()
 const layer = []
 const mapSize = 800
 const distance = mapSize / 2
-const speed = 40
-const interval = 1000
+const speed = 20
+const interval = 2000
 const groundZ = -mapSize * .99
 
 createOrbitControls()
@@ -55,7 +55,7 @@ const addObject = (mesh = createFirTree()) => {
 }
 
 const createBuilding = () => {
-  switch (randInt(1, 7)) {
+  switch (randInt(1, 1)) {
     case 1:
       const tower = new Tower()
       updatables.push(tower)

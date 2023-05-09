@@ -188,14 +188,15 @@ export class Explosion extends Particles {
   }
 }
 
-export class Fire extends Rain {
-  constructor({ file = 'fire.png', size = 30, num = 100, minRadius = 1.5, maxRadius = 3, color = 0xffffff, ...rest } = {}) {
-    super({ file, size, num, minRadius, maxRadius, color, ...rest })
+export class Fire extends Particles {
+  constructor({ file = 'fire.png', num = 100, size = 30, opacity = .7, minRadius = 1.5, maxRadius = 3, color = 0xffffff } = {}) {
+    super({ file, num, size, opacity, minRadius, maxRadius, color, blending: THREE.NormalBlending })
     this.mesh.rotateX(Math.PI)
   }
 
   update({ rotateY = .009, min = -8, max = 4, minVelocity = 1.5, maxVelocity = 5, ...rest } = {}) {
-    super.update({ rotateY, min, max, minVelocity, maxVelocity, ...rest })
+    super.update({ axis: 1, rotateY, min, max, minVelocity, maxVelocity, ...rest })
+
   }
 }
 

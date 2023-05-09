@@ -51,14 +51,15 @@ export default class Tower extends GameObject {
     const promise = import('/utils/classes/Particles.js')
     promise.then(obj => {
       const { Fire } = obj
-      this.fire = new Fire()
+      this.fire = new Fire({ num: 5 })
       this.add(this.fire.mesh)
+      this.fire.mesh.position.y += 5
     })
   }
 
   update(delta) {
     this.checkHit()
-    this.fire?.update()
+    this.fire?.update({ minVelocity: .05, maxVelocity: .15 })
 
     if (this.targetInRange && this.timeToShoot) {
       this.addBullet()
