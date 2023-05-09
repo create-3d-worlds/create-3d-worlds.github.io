@@ -19,14 +19,14 @@ let i = 0
 let last = Date.now()
 
 const layer = []
-const mapSize = 1000
+const mapSize = 800
 const distance = mapSize / 2
 const speed = 40
-const interval = 500
+const interval = 1000
 const groundZ = -mapSize * .99
 
 createOrbitControls()
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 600)
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, mapSize * .6)
 camera.position.set(10, 56, 16)
 
 scene.fog = new THREE.Fog(0xE5C5AB, 200, distance)

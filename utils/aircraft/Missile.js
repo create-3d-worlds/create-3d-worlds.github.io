@@ -34,9 +34,9 @@ export default class Missile extends GameObject {
 
     if (intersects.length) {
       const { point, object } = intersects[0]
-      console.log(object)
       this.explosion.reset({ pos: point, unitAngle: 0.2 })
       this.explode = true
+      if (object.isMesh) object.hitAmount = 1000
     }
   }
 }

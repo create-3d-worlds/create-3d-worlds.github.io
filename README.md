@@ -14,15 +14,15 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - gađaj fabrike, izbegavaj zgrade, uništavaj kule
   - avion puca
-    - raketa pogodi kulu uništava je
+    - ako je kula pogođena, gori i prestaje da puca
   - kula puca
     - detekcija kolizije (distance?)
     - kad pogodi avion nanosi štetu
   - dodati vozila, tenkove i topove
   - dodati izbor aviona
   - spojiti sa airplane?
+  - cilj: gađaj fabrike, ne gađaj zgrade
 
 - Airplane
   - sunce da prati avion
