@@ -3,7 +3,7 @@ import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import { scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createTerrain } from '/utils/ground.js'
-import Warplane from '/utils/aircrafts/Warplane.js'
+import Warplane from '/utils/aircraft/Warplane.js'
 import { createFirTree } from '/utils/geometry/trees.js'
 import { loadModel } from '/utils/loaders.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
@@ -21,7 +21,7 @@ let last = Date.now()
 const layer = []
 const mapSize = 1000
 const distance = mapSize / 2
-const speed = 60
+const speed = 40
 const interval = 500
 const groundZ = -mapSize * .99
 

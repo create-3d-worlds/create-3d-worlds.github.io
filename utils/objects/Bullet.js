@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import GameObject from '/utils/objects/GameObject.js'
 
 const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x333333 })
-const sphereGeo = new THREE.SphereGeometry(.2)
+const sphereGeo = new THREE.SphereGeometry(.3)
 const sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
 
 export default class Bullet extends GameObject {

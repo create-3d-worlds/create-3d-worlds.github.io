@@ -1,7 +1,7 @@
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
 import { createFirTrees } from '/utils/geometry/trees.js'
-import Airplane from '/utils/aircrafts/Airplane.js'
+import Airplane from '/utils/aircraft/Airplane.js'
 import { loadModel } from '/utils/loaders.js'
 import { createSun } from '/utils/light.js'
 

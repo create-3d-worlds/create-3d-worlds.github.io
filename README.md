@@ -14,9 +14,9 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
+  - gađaj fabrike, izbegavaj zgrade, uništavaj kule
   - avion puca
-    - raketa eksplodira kada pogodi nešto
-    - kad pogodi kulu uništava je
+    - raketa pogodi kulu uništava je
   - kula puca
     - detekcija kolizije (distance?)
     - kad pogodi avion nanosi štetu
