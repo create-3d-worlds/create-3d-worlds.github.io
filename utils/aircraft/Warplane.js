@@ -11,7 +11,7 @@ export default class Warplane extends GameObject {
     super({ mesh })
     this.name = 'player'
     this.position.y = 50
-    this.speed = 16
+    this.speed = 30
     this.rotationSpeed = .5
     this.minHeight = this.position.y / 2
     this.maxRoll = Math.PI / 3
@@ -61,7 +61,7 @@ export default class Warplane extends GameObject {
   }
 
   normalizePlane(delta) {
-    if (input.keyPressed) return
+    if (input.controlsPressed) return
     const { mesh } = this
 
     const roll = Math.abs(mesh.rotation.z)

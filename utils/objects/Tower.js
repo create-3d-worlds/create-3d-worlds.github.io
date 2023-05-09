@@ -44,7 +44,22 @@ export default class Tower extends GameObject {
     this.bullets = []
   }
 
+  checkHit() {
+    if (!this.mesh.userData.hitAmount) return
+    console.log('hit')
+
+    const promise = import('/utils/classes/Particles.js')
+    promise.then(obj => {
+      const { Fire } = obj
+      this.fire = new Fire()
+      this.add(this.fire.mesh)
+    })
+  }
+
   update(delta) {
+    this.checkHit()
+    this.fire?.update()
+
     if (this.targetInRange && this.timeToShoot) {
       this.addBullet()
       this.last = Date.now()

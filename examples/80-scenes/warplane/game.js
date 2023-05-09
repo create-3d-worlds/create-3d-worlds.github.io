@@ -27,7 +27,7 @@ const groundZ = -mapSize * .99
 
 createOrbitControls()
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, mapSize * .6)
-camera.position.set(10, 56, 16)
+// camera.position.set(10, 56, 16)
 
 scene.fog = new THREE.Fog(0xE5C5AB, 200, distance)
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
@@ -38,6 +38,8 @@ const ground2 = createTerrain({ size: mapSize, color: 0x91A566, colorRange: .1 }
 ground2.position.z = groundZ
 
 const aircraft = new Warplane()
+aircraft.add(camera)
+camera.position.z = 20
 
 scene.add(ground, ground2, aircraft.mesh)
 const updatables = [aircraft, stats]
