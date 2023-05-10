@@ -23,6 +23,9 @@ export default class Bullet extends GameObject {
 
     this.position.lerp(this.target, this.speed * delta)
 
+    if (this.distanceTo(this.player) < 20)
+      this.player.userData.hitAmount = 100
+
     if (this.position.distanceTo(this.initPosition) >= this.maxRange) this.dispose()
   }
 }

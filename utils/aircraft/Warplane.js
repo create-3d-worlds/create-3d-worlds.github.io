@@ -71,6 +71,11 @@ export default class Warplane extends GameObject {
 
     if (input.down)
       if (mesh.position.y > this.minHeight) mesh.position.y -= this.speed * 0.5 * delta
+
+    if (input.attack && this.timeToShoot) {
+      this.addMissile()
+      this.last = Date.now()
+    }
   }
 
   normalizePlane(delta) {
@@ -82,26 +87,31 @@ export default class Warplane extends GameObject {
     if (mesh.rotation.z < 0) mesh.rotation.z += roll * delta * 2
   }
 
+  checkHit() {
+    if (!this.mesh.userData.hitAmount) return
+    console.log('hit')
+    const promise = import('/utils/classes/Particles.js')
+    promise.then(obj => {
+      const { Smoke } = obj
+      this.fire = new Smoke({ num: 5 })
+      this.add(this.fire.mesh)
+      this.fire.mesh.position.y += 5
+    })
+  }
+
   update(delta) {
     this.handleInput(delta)
     this.normalizePlane(delta)
 
-    if (input.attack && this.timeToShoot) {
-      this.addMissile()
-      this.last = Date.now()
-    }
+    this.checkHit()
+    this.fire?.update({ delta, minVelocity: .05, maxVelocity: .15 })
 
     this.missiles.forEach(missile => {
       if (missile.dead) this.removeMissile(missile)
       missile.update(delta)
     })
 
-    if (this.shouldAlignCamera) {
-      this.chaseCamera.alignCamera()
-      this.shouldAlignCamera = false
-    }
     this.chaseCamera?.update(delta)
-
     this.explosion.expand({ velocity: 1.1, maxRounds: 30 })
   }
 }

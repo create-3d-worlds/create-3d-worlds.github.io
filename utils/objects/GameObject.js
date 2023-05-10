@@ -55,14 +55,14 @@ export default class GameObject {
     this.mesh.add(obj)
   }
 
+  distanceTo(mesh) {
+    if (!mesh) return Infinity
+    return this.position.distanceTo(mesh.position)
+  }
+
   dispose(mesh = this.mesh) {
     mesh.geometry.dispose()
     mesh.material.dispose()
     this.scene?.remove(mesh)
-  }
-
-  distanceTo(mesh) {
-    if (!mesh) return Infinity
-    return this.position.distanceTo(mesh.position)
   }
 }

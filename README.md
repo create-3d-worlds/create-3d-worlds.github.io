@@ -16,9 +16,8 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - kula puca
-    - detekcija kolizije (distance?)
-    - kad pogodi avion nanosi štetu
+  - pogođen avion ispušta dim
+    - sve više dima i nakon par pogodaka pada
   - ako udari u fabrički dimnjak gine?
   - posle nekog vremena učestati kule
   - dodati vozila, tenkove i topove
