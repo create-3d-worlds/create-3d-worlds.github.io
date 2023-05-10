@@ -17,6 +17,8 @@ npx live-server
 
 - Warplane / 1943
   - pogođen avion ispušta dim
+    - metak da se uništi nakon pogotka (ovako šteti više krugova)
+    - smanjiti distancu pogotka
     - sve više dima i nakon par pogodaka pada
   - ako udari u fabrički dimnjak gine?
   - posle nekog vremena učestati kule

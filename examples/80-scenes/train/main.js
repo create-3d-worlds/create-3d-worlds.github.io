@@ -33,7 +33,7 @@ const locomotive = await loadModel({
 scene.add(locomotive)
 const mixer = createMixer(locomotive, locomotive.userData.animations)
 
-const particles = new Smoke(true)
+const particles = new Smoke({ num: 10, maxRadius: .1, })
 particles.mesh.position.set(0, 1.5, 1.25)
 particles.mesh.rotateX(-.2)
 locomotive.add(particles.mesh)

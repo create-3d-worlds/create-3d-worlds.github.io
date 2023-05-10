@@ -89,13 +89,16 @@ export default class Warplane extends GameObject {
 
   checkHit() {
     if (!this.mesh.userData.hitAmount) return
+    this.mesh.userData.hitAmount = 0
     console.log('hit')
+    if (this.fire) return
+    
     const promise = import('/utils/classes/Particles.js')
     promise.then(obj => {
       const { Smoke } = obj
-      this.fire = new Smoke({ num: 5 })
+      this.fire = new Smoke()
       this.add(this.fire.mesh)
-      this.fire.mesh.position.y += 5
+      this.fire.mesh.position.z += 7
     })
   }
 
@@ -104,7 +107,7 @@ export default class Warplane extends GameObject {
     this.normalizePlane(delta)
 
     this.checkHit()
-    this.fire?.update({ delta, minVelocity: .05, maxVelocity: .15 })
+    this.fire?.update({ delta })
 
     this.missiles.forEach(missile => {
       if (missile.dead) this.removeMissile(missile)
