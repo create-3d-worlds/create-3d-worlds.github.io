@@ -8,12 +8,12 @@ import ChaseCamera from '/utils/actor/ChaseCamera.js'
 const mesh = await loadModel({ file: '/aircraft/airplane/messerschmitt-bf-109/scene.gltf', size: 3, angle: Math.PI })
 
 export default class Warplane extends GameObject {
-  constructor({ camera } = {}) {
+  constructor({ camera, speed = 35 } = {}) {
     super({ mesh })
     this.name = 'player'
-    this.position.y = 50
-    this.speed = 35
+    this.speed = speed
     this.rotationSpeed = .5
+    this.position.y = 50
     this.minHeight = this.position.y / 2
     this.maxRoll = Math.PI / 3
 
@@ -23,9 +23,9 @@ export default class Warplane extends GameObject {
     this.explosion = new Explosion({ size: 4 })
 
     if (camera) {
-      this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, height: 2, speed: this.speed * .5 })
-      this.chaseCamera.distance = 6
-      this.shouldAlignCamera = true
+      this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, speed: speed * .5, rotate: false })
+      this.chaseCamera.birdsEyeOffset = [0, 16, 11]
+      this.chaseCamera.distance = 16
     }
   }
 

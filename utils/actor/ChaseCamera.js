@@ -1,9 +1,12 @@
 /* credit to simon dev */
 import * as THREE from 'three'
 
-const calc = (mesh, pos) => new THREE.Vector3(...pos)
-  .applyQuaternion(mesh.quaternion)
-  .add(mesh.position)
+const calc = (mesh, pos, rotate) => {
+  const cameraPos = new THREE.Vector3(...pos)
+  if (rotate) cameraPos.applyQuaternion(mesh.quaternion)
+  cameraPos.add(mesh.position)
+  return cameraPos
+}
 
 const speedFactor = state => {
   if (state == 'fall') return 4
@@ -21,10 +24,13 @@ export default class ChaseCamera {
 
     birdsEyeOffset = [0, height * 8, -height * 2.75],
     birdsEyeLookAt = [0, 0, -height * 3],
-    orbitalOffset = [-height * 10, height * 10, height * 10]
+    orbitalOffset = [-height * 10, height * 10, height * 10],
+
+    rotate = true,
   }) {
     this.mesh = mesh
     this.camera = camera
+    this.rotate = rotate
 
     this.thirdPersonSpeed = this.speed = speed
     this.thirdPersonOffset = this.offset = offset
@@ -38,8 +44,8 @@ export default class ChaseCamera {
     this.currentLookat = new THREE.Vector3()
     this.cameraIndex = 0
 
-    this.camera.position.copy(calc(mesh, offset))
-    this.camera.lookAt(calc(mesh, lookAt))
+    this.camera.position.copy(calc(mesh, offset, rotate))
+    this.camera.lookAt(calc(mesh, lookAt, rotate))
 
     this.addButton()
   }
@@ -59,8 +65,8 @@ export default class ChaseCamera {
   }
 
   alignCamera() {
-    this.currentPosition = calc(this.mesh, this.offset)
-    this.currentLookat = calc(this.mesh, this.lookAt)
+    this.currentPosition = calc(this.mesh, this.offset, this.rotate)
+    this.currentLookat = calc(this.mesh, this.lookAt, this.rotate)
 
     this.camera.position.copy(this.currentPosition)
     this.camera.lookAt(this.currentLookat)
@@ -127,8 +133,8 @@ export default class ChaseCamera {
   update(delta, stateName) {
     this.currentPosition.copy(this.camera.position)
 
-    const idealPosition = calc(this.mesh, this.offset)
-    const idealLookAt = calc(this.mesh, this.lookAt)
+    const idealPosition = calc(this.mesh, this.offset, this.rotate)
+    const idealLookAt = calc(this.mesh, this.lookAt, this.rotate)
 
     const deltaSpeed = delta * this.speed * speedFactor(stateName)
     this.currentPosition.lerp(idealPosition, deltaSpeed)
