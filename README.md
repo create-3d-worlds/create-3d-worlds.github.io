@@ -15,6 +15,7 @@ npx live-server
 
 - Warplane / 1943
   - probati razne kamere
+  - BUG: prateća kamera se trese
   - kula puca
     - detekcija kolizije (distance?)
     - kad pogodi avion nanosi štetu
