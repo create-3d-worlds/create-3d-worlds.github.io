@@ -20,7 +20,7 @@ let last = Date.now()
 
 const layer = []
 const mapSize = 800
-const distance = mapSize / 2
+const distance = mapSize * .4
 const speed = 20
 const interval = 2000
 const groundZ = -mapSize * .99

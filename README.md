@@ -16,7 +16,6 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - BUG: prateća kamera se trese
   - kula puca
     - detekcija kolizije (distance?)
     - kad pogodi avion nanosi štetu

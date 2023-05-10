@@ -23,14 +23,16 @@ export default class Warplane extends GameObject {
     this.interval = 500
     this.explosion = new Explosion({ size: 4 })
 
-    if (camera)
+    if (camera) {
       this.chaseCamera = new ChaseCamera({
-        camera, mesh: this.mesh, speed: speed * .5, rotate: false,
-        offset: [0, -this.height * .25, this.height * 5],
-        lookAt: [0, -this.height * 1.5, 0],
+        camera, mesh: this.mesh, speed: 5, rotate: false,
+        offset: [0, this.height * .25, this.height * 5.5],
+        lookAt: [0, -this.height * 1.75, 0],
         birdsEyeOffset: [0, this.height * 12, 0],
         birdsEyeLookAt: [0, 0, -this.height * 5],
       })
+      this.chaseCamera.alignCamera()
+    }
   }
 
   get timeToShoot() {
