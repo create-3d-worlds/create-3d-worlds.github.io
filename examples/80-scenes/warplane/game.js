@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
-import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
+import { scene, renderer, clock, camera, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createTerrain } from '/utils/ground.js'
 import Warplane from '/utils/aircraft/Warplane.js'
@@ -36,6 +36,7 @@ const ground2 = createTerrain({ size: mapSize, color: 0x91A566, colorRange: .1 }
 ground2.position.z = groundZ
 
 const aircraft = new Warplane({ camera })
+aircraft.chaseCamera.far = mapSize * .6
 
 scene.add(ground, ground2, aircraft.mesh)
 const updatables = [aircraft, stats]

@@ -54,13 +54,13 @@ export default class ChaseCamera {
     this.offset[2] = x
   }
 
-  // TODO: rename to birdsEyeHeight
-  set height(x) {
-    this.birdsEyeOffset[1] = x
-  }
-
   set near(x) {
     this.camera.near = x
+    this.camera.updateProjectionMatrix()
+  }
+
+  set far(x) {
+    this.camera.far = x
     this.camera.updateProjectionMatrix()
   }
 

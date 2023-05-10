@@ -8,13 +8,14 @@ import ChaseCamera from '/utils/actor/ChaseCamera.js'
 const mesh = await loadModel({ file: '/aircraft/airplane/messerschmitt-bf-109/scene.gltf', size: 3, angle: Math.PI })
 
 export default class Warplane extends GameObject {
-  constructor({ camera, speed = 35 } = {}) {
+  constructor({ camera, speed = 30 } = {}) {
     super({ mesh })
     this.name = 'player'
     this.speed = speed
     this.rotationSpeed = .5
-    this.position.y = 50
+    this.position.y = 40
     this.minHeight = this.position.y / 2
+    this.maxHeight = this.position.y * 2
     this.maxRoll = Math.PI / 3
 
     this.missiles = []
@@ -22,10 +23,13 @@ export default class Warplane extends GameObject {
     this.interval = 500
     this.explosion = new Explosion({ size: 4 })
 
-    if (camera) {
-      this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, speed: speed * .5, rotate: false, birdsEyeOffset: [0, this.height * 6, this.height * 3] })
-      this.chaseCamera.distance = 16
-    }
+    if (camera)
+      this.chaseCamera = new ChaseCamera({
+        camera, mesh: this.mesh, speed: speed * .5, rotate: false,
+        offset: [0, this.height, this.height * 5],
+        lookAt: [0, -this.height, 0],
+        birdsEyeOffset: [0, this.height * 6, this.height * 3],
+      })
   }
 
   get timeToShoot() {
@@ -60,7 +64,7 @@ export default class Warplane extends GameObject {
     }
 
     if (input.up)
-      mesh.position.y += this.speed * 0.5 * delta
+      if (mesh.position.y < this.maxHeight) mesh.position.y += this.speed * 0.5 * delta
 
     if (input.down)
       if (mesh.position.y > this.minHeight) mesh.position.y -= this.speed * 0.5 * delta

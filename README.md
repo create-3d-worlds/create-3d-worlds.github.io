@@ -11,14 +11,17 @@ npx live-server
 
 ## TODO
 
+- pamtiti izabranu kameru u localStorage
+
 ### Scenes & examples
 
 - Warplane / 1943
-  - probati razne kamere
   - BUG: prateća kamera se trese
   - kula puca
     - detekcija kolizije (distance?)
     - kad pogodi avion nanosi štetu
+  - ako udari u fabrički dimnjak gine?
+  - posle nekog vremena učestati kule
   - dodati vozila, tenkove i topove
   - dodati izbor aviona
   - spojiti sa airplane?
