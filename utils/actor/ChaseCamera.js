@@ -41,7 +41,7 @@ export default class ChaseCamera {
     this.orbitalOffset = orbitalOffset
 
     this.currentPosition = new THREE.Vector3()
-    this.currentLookat = new THREE.Vector3()
+    this.currentLookAt = new THREE.Vector3()
     this.cameraIndex = 0
 
     this.camera.position.copy(calc(mesh, offset, rotate))
@@ -66,10 +66,10 @@ export default class ChaseCamera {
 
   alignCamera() {
     this.currentPosition = calc(this.mesh, this.offset, this.rotate)
-    this.currentLookat = calc(this.mesh, this.lookAt, this.rotate)
+    this.currentLookAt = calc(this.mesh, this.lookAt, this.rotate)
 
     this.camera.position.copy(this.currentPosition)
-    this.camera.lookAt(this.currentLookat)
+    this.camera.lookAt(this.currentLookAt)
   }
 
   addButton() {
@@ -138,9 +138,9 @@ export default class ChaseCamera {
 
     const deltaSpeed = delta * this.speed * speedFactor(stateName)
     this.currentPosition.lerp(idealPosition, deltaSpeed)
-    this.currentLookat.lerp(idealLookAt, deltaSpeed)
+    this.currentLookAt.lerp(idealLookAt, deltaSpeed)
 
     this.camera.position.copy(this.currentPosition)
-    this.camera.lookAt(this.currentLookat)
+    this.camera.lookAt(this.currentLookAt)
   }
 }
