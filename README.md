@@ -18,7 +18,6 @@ npx live-server
 
 - Warplane / 1943
   - pogođen avion ispušta dim
-    - sve više dima
     - nakon par pogodaka pada
   - ako udari u fabrički dimnjak gine?
   - posle nekog vremena učestati kule
