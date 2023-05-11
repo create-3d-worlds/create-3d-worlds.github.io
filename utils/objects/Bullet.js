@@ -11,6 +11,11 @@ export default class Bullet extends GameObject {
     this.speed = .2
     this.maxRange = 500
     this.initPosition = pos.clone()
+    this.dead = false
+  }
+
+  get outOfRange() {
+    return this.position.distanceTo(this.initPosition) >= this.maxRange
   }
 
   addTarget() {
@@ -19,13 +24,16 @@ export default class Bullet extends GameObject {
   }
 
   update(delta) {
+    if (this.dead) return
     if (!this.target) this.addTarget()
 
     this.position.lerp(this.target, this.speed * delta)
 
-    if (this.distanceTo(this.player) < 20)
+    if (this.distanceTo(this.player) < 2) {
       this.player.userData.hitAmount = 100
+      this.dead = true
+    }
 
-    if (this.position.distanceTo(this.initPosition) >= this.maxRange) this.dispose()
+    if (this.outOfRange) this.dead = true
   }
 }

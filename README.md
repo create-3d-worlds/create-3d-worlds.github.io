@@ -12,14 +12,14 @@ npx live-server
 ## TODO
 
 - pamtiti izabranu kameru u localStorage
+- ukloniti dispose
 
 ### Scenes & examples
 
 - Warplane / 1943
   - pogođen avion ispušta dim
-    - metak da se uništi nakon pogotka (ovako šteti više krugova)
-    - smanjiti distancu pogotka
-    - sve više dima i nakon par pogodaka pada
+    - sve više dima
+    - nakon par pogodaka pada
   - ako udari u fabrički dimnjak gine?
   - posle nekog vremena učestati kule
   - dodati vozila, tenkove i topove

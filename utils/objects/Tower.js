@@ -37,11 +37,12 @@ export default class Tower extends GameObject {
   }
 
   removeBullet(bullet) {
+    this.scene.remove(bullet.mesh)
     this.bullets.splice(this.bullets.indexOf(bullet), 1)
   }
 
   removeBullets() {
-    this.bullets.forEach(bullet => bullet.dispose())
+    this.bullets.forEach(bullet => this.scene.remove(bullet.mesh))
     this.bullets = []
   }
 
@@ -71,7 +72,7 @@ export default class Tower extends GameObject {
     if (!this.targetInRange) this.removeBullets()
 
     this.bullets.forEach(bullet => {
-      if (!bullet.mesh.parent) this.removeBullet(bullet)
+      if (bullet.dead) this.removeBullet(bullet)
       bullet.update(delta)
     })
   }

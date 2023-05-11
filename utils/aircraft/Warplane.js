@@ -17,7 +17,7 @@ export default class Warplane extends GameObject {
     this.minHeight = this.position.y / 2
     this.maxHeight = this.position.y * 2
     this.maxRoll = Math.PI / 3
-
+    this.energy = 500
     this.missiles = []
     this.last = Date.now()
     this.interval = 500
@@ -90,9 +90,9 @@ export default class Warplane extends GameObject {
   checkHit() {
     if (!this.mesh.userData.hitAmount) return
     this.mesh.userData.hitAmount = 0
-    console.log('hit')
+
     if (this.fire) return
-    
+
     const promise = import('/utils/classes/Particles.js')
     promise.then(obj => {
       const { Smoke } = obj
