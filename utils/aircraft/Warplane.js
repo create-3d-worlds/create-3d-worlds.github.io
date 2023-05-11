@@ -22,6 +22,7 @@ export default class Warplane extends GameObject {
     this.interval = 500
     this.explosion = new Explosion({ size: 4 })
     this.blows = 0
+    this.dead = false
 
     if (camera) {
       this.chaseCamera = new ChaseCamera({
@@ -37,6 +38,14 @@ export default class Warplane extends GameObject {
 
   get timeToShoot() {
     return Date.now() - this.last >= this.interval
+  }
+
+  get dead() {
+    return this.mesh.userData.dead
+  }
+
+  set dead(bool) {
+    this.mesh.userData.dead = bool
   }
 
   addMissile() {
@@ -91,9 +100,9 @@ export default class Warplane extends GameObject {
     if (!this.mesh.userData.hitAmount) return
     this.mesh.userData.hitAmount = 0
     this.blows ++
+    if (this.blows >= 5) this.dead = true
 
     if (this.smoke) return
-
     const promise = import('/utils/classes/Particles.js')
     promise.then(obj => {
       const { Smoke } = obj
@@ -103,19 +112,31 @@ export default class Warplane extends GameObject {
     })
   }
 
-  update(delta) {
-    this.handleInput(delta)
-    this.normalizePlane(delta)
+  die(delta) {
+    const { mesh } = this
+    if (mesh.position.y <= 2) return
+    mesh.position.y -= this.speed * 0.5 * delta
+    // mesh.position.x += this.speed * delta
+    mesh.rotation.z -= this.rotationSpeed * .5 * delta
+  }
 
-    this.checkHit()
+  update(delta) {
     this.smoke?.update({ delta, min: -this.blows, })
+
+    this.chaseCamera?.update(delta)
 
     this.missiles.forEach(missile => {
       if (missile.dead) this.removeMissile(missile)
       missile.update(delta)
     })
 
-    this.chaseCamera?.update(delta)
     this.explosion.expand({ velocity: 1.1, maxRounds: 30 })
+
+    if (this.dead) return this.die(delta)
+
+    this.handleInput(delta)
+    this.normalizePlane(delta)
+
+    this.checkHit()
   }
 }

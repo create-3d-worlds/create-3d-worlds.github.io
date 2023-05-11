@@ -21,7 +21,8 @@ export default class Tower extends GameObject {
   }
 
   get targetInRange() {
-    return this.distanceTo(this.player) < this.range
+    if (!this.player) return false
+    return !this.player.userData.dead && this.distanceTo(this.player) < this.range
   }
 
   get ableToShoot() {
