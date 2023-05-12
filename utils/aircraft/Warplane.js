@@ -114,10 +114,11 @@ export default class Warplane extends GameObject {
 
   die(delta) {
     const { mesh } = this
-    if (mesh.position.y <= 2) return
-    mesh.position.y -= this.speed * 0.5 * delta
-    // mesh.position.x += this.speed * delta
-    mesh.rotation.z -= this.rotationSpeed * .5 * delta
+    if (mesh.position.y > 2) {
+      mesh.position.y -= this.speed * 0.5 * delta
+      mesh.rotation.z -= this.rotationSpeed * .5 * delta
+    } else if (this.speed > 0)
+      this.speed -= .1
   }
 
   update(delta) {

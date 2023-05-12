@@ -17,8 +17,6 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - pogođen avion ispušta dim
-    - nakon par pogodaka pada
   - ako udari u fabrički dimnjak gine?
   - posle nekog vremena učestati kule
   - dodati vozila, tenkove i topove

@@ -21,7 +21,6 @@ let last = Date.now()
 const layer = []
 const mapSize = 800
 const distance = mapSize * .4
-const speed = 20
 const interval = 2000
 const groundZ = -mapSize * .99
 
@@ -35,11 +34,11 @@ const ground = createTerrain({ size: mapSize, color: 0x91A566, colorRange: .1 })
 const ground2 = createTerrain({ size: mapSize, color: 0x91A566, colorRange: .1 })
 ground2.position.z = groundZ
 
-const aircraft = new Warplane({ camera })
-aircraft.chaseCamera.far = mapSize * .6
+const warplane = new Warplane({ camera })
+warplane.chaseCamera.far = mapSize * .6
 
-scene.add(ground, ground2, aircraft.mesh)
-const updatables = [aircraft, stats]
+scene.add(ground, ground2, warplane.mesh)
+const updatables = [warplane, stats]
 
 /* OBJECTS */
 
@@ -89,7 +88,7 @@ const updateLayer = deltaSpeed => layer.forEach(mesh => {
 void function update() {
   requestAnimationFrame(update)
   const delta = clock.getDelta()
-  const deltaSpeed = speed * delta
+  const deltaSpeed = warplane.speed * .66 * delta
 
   updateGround(deltaSpeed)
   updateLayer(deltaSpeed)
