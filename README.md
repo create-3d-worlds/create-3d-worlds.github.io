@@ -17,12 +17,10 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - ako udari u fabrički dimnjak gine?
-  - posle nekog vremena učestati kule
   - dodati vozila, tenkove i topove
   - dodati izbor aviona
   - spojiti sa airplane?
-  - cilj: gađaj fabrike, ne gađaj zgrade
+  - cilj: gađaj fabrike, ne gađaj civilne zgrade
 
 - Airplane
   - sunce da prati avion

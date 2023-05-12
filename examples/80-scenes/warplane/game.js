@@ -17,6 +17,7 @@ const { randInt, randFloatSpread } = THREE.MathUtils
 
 let i = 0
 let last = Date.now()
+let elapsedTime = 0
 
 const layer = []
 const mapSize = 800
@@ -50,23 +51,23 @@ const addObject = (mesh = createFirTree()) => {
   layer.push(mesh)
 }
 
-const createBuilding = () => {
-  switch (randInt(1, 8)) {
-    case 1:
-    case 8:
+const createBuilding = elapsedTime => {
+  const minutes = Math.floor(elapsedTime / 60)
+  switch (randInt(1, 7 + minutes)) {
+    case 1: return clone(factory)
+    case 2: return createWarehouse2()
+    case 3: return createWarRuin()
+    case 4: return createRuin()
+    case 5: return createAirport()
+    case 6: return createWarehouse()
+    default:
       const tower = new Tower()
       updatables.push(tower)
       return tower.mesh
-    case 2: return clone(factory)
-    case 3: return createWarehouse2()
-    case 4: return createWarRuin()
-    case 5: return createRuin()
-    case 6: return createAirport()
-    case 7: return createWarehouse()
   }
 }
 
-const addBuilding = () => addObject(createBuilding())
+const addBuilding = elapsedTime => addObject(createBuilding(elapsedTime))
 
 const addTree = () => addObject(createFirTree())
 
@@ -97,10 +98,11 @@ void function update() {
   if (i % 5 === 0) addTree()
 
   if (Date.now() - last >= interval) {
-    addBuilding()
+    addBuilding(elapsedTime)
     last = Date.now()
   }
 
   i++
+  elapsedTime += delta
   renderer.render(scene, camera)
 }()
