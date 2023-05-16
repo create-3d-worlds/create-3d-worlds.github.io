@@ -6,34 +6,14 @@ import Missile from './Missile.js'
 import { Explosion } from '/utils/classes/Particles.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 // aircraft/airplane/messerschmitt-bf-109/scene.gltf
-// aircraft/airplane/triplane-sopwith/triplane.fbx
+// aircraft/airplane/messerschmitt-bf-109-pilot/scene.gltf
 // aircraft/airplane/spitfire-animated/model.fbx
-
-/**
- * aircraft/airplane/av-8/CK2QVW083JBVUYZDHDQJNSVGF.obj
- * aircraft/airplane/av-8/CK2QVW083JBVUYZDHDQJNSVGF.mtl
- *
- * aircraft/airplane/biplane-bristol-f2b/model.fbx
- * aircraft/airplane/biplane-sopwith/model.fbx
- * aircraft/airplane/bomber-lancaster/scene.gltf
- *
- * aircraft/airplane/dornier-do-217/WXSUTGFGGAETK9J6AYCJWA8OO.obj
- * aircraft/airplane/dornier-do-217/WXSUTGFGGAETK9J6AYCJWA8OO.mtl
- *
- * aircraft/airplane/f5/scene.gltf
- * aircraft/airplane/f18/scene.gltf
- * aircraft/airplane/heinkel-he-111/model.fbx
- *
- * aircraft/airplane/junkers-ju-87-stuka/B6L6UIB83ZKUE6YOCT94DAHM3.obj
- * aircraft/airplane/junkers-ju-87-stuka/B6L6UIB83ZKUE6YOCT94DAHM3.mtl
- *
- * aircraft/airplane/messerschmitt-bf-109-pilot/scene.gltf
- * aircraft/airplane/messerschmitt-me-262_10/scene.gltf
- *
- * aircraft/airplane/scifi/NOJ3DF0LP5BRJL8Y6THRU64OT.obj
- * aircraft/airplane/scifi/NOJ3DF0LP5BRJL8Y6THRU64OT.mtl
- */
-const mesh = await loadModel({ file: 'aircraft/airplane/spitfire-animated/model.fbx', size: 3, angle: Math.PI })
+// aircraft/airplane/f18/scene.gltf dodati potisak
+// aircraft/airplane/biplane-sopwith/model.fbx dodati propeler
+// aircraft/airplane/biplane-bristol-f2b/model.fbx dodati propeler
+// aircraft/airplane/triplane-sopwith/triplane.fbx
+// aircraft/airplane/bomber-lancaster/scene.gltf
+const mesh = await loadModel({ file: 'aircraft/airplane/messerschmitt-bf-109/scene.gltf', size: 3, angle: Math.PI })
 
 mesh.traverse(x => console.log(x.name))
 
@@ -57,15 +37,15 @@ export default class Warplane extends GameObject {
     if (camera) {
       this.chaseCamera = new ChaseCamera({
         camera, mesh: this.mesh, speed: 5, rotate: false,
-        offset: [0, this.height * .25, this.height * 5.5],
-        lookAt: [0, -this.height * 1.75, 0],
+        offset: [0, this.height * .25, this.height * 4.5],
+        lookAt: [0, -this.height * .75, 0],
         birdsEyeOffset: [0, this.height * 12, 0],
         birdsEyeLookAt: [0, 0, -this.height * 5],
       })
       this.chaseCamera.alignCamera()
     }
 
-    if (mesh.userData.animations) {
+    if (mesh.userData.animations?.length) {
       this.mixer = new THREE.AnimationMixer(mesh)
       const action = this.mixer.clipAction(mesh.userData.animations[0])
       action.play()

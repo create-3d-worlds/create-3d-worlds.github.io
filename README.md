@@ -18,6 +18,7 @@ npx live-server
 - Warplane / 1943
   - dodati izbor aviona
   - poeni za uništene fabrike, penali za civilne zgrade
+  - sletanje na kraju misije?
   - spojiti sa airplane?
 
 - Airplane
@@ -53,6 +54,7 @@ npx live-server
 - Savo
   - dodati intro na pisaćoj mašini
   - dodati fabriku, ratne zgrade, ww2 tower i slično u neku ww2 scenu
+  - napad na aerodrom rajlovac (poređani nemački avioni na pisti, pucaju kule i vojnici)
 
 - RPG / Fantasy
   - napraviti scenu sa ravnim tlom
