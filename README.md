@@ -11,7 +11,6 @@ npx live-server
 
 ## TODO
 
-- pamtiti izabranu kameru u localStorage
 - ukloniti dispose
 
 ### Scenes & examples

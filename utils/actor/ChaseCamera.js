@@ -42,7 +42,8 @@ export default class ChaseCamera {
 
     this.currentPosition = new THREE.Vector3()
     this.currentLookAt = new THREE.Vector3()
-    this.cameraIndex = 0
+    this.cameraIndex = Number(localStorage.getItem('cameraIndex'))
+    this.setCamera(this.cameraIndex)
 
     this.camera.position.copy(calc(mesh, offset, rotate))
     this.camera.lookAt(calc(mesh, lookAt, rotate))
@@ -123,11 +124,17 @@ export default class ChaseCamera {
     }
   }
 
-  toggleCamera() {
-    const cameraStyle = cameraStyles[++this.cameraIndex % cameraStyles.length]
+  setCamera(i) {
+    const cameraStyle = cameraStyles[i]
     this.offset = this.getOffset(cameraStyle)
     this.lookAt = this.getLookAt(cameraStyle)
     this.speed = this.getSpeed(cameraStyle)
+  }
+
+  toggleCamera() {
+    const i = (Number(localStorage.getItem('cameraIndex')) + 1) % cameraStyles.length
+    this.setCamera(i)
+    localStorage.setItem('cameraIndex', i)
   }
 
   update(delta, stateName) {
