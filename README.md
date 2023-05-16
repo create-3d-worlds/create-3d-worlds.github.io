@@ -19,8 +19,8 @@ npx live-server
 - Warplane / 1943
   - dodati vozila, tenkove i topove
   - dodati izbor aviona
+  - poeni za uništene fabrike, penali za civilne zgrade
   - spojiti sa airplane?
-  - cilj: gađaj fabrike, ne gađaj civilne zgrade
 
 - Airplane
   - sunce da prati avion

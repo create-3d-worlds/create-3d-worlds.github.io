@@ -99,7 +99,7 @@ export default class Warplane extends GameObject {
   checkHit() {
     if (!this.mesh.userData.hitAmount) return
     this.mesh.userData.hitAmount = 0
-    this.blows ++
+    this.blows++
     if (this.blows >= 5) this.dead = true
 
     if (this.smoke) return
@@ -119,6 +119,8 @@ export default class Warplane extends GameObject {
       mesh.rotation.z -= this.rotationSpeed * .5 * delta
     } else if (this.speed > 0)
       this.speed -= .1
+
+    this.chaseCamera.offset[1] = this.height * 2
   }
 
   update(delta) {
