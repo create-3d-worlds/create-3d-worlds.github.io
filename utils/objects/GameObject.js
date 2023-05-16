@@ -3,8 +3,8 @@ import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 
 export default class GameObject {
 
-  constructor({ mesh, name, pos, color, solids, scale, rotateY, altitude = 0 } = {}) {
-    this.mesh = clone(mesh)
+  constructor({ mesh, name, pos, color, solids, scale, rotateY, altitude = 0, shouldClone = true } = {}) {
+    this.mesh = shouldClone ? clone(mesh) : mesh
     this.name = name
 
     if (pos) this.position = pos
