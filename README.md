@@ -16,7 +16,6 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - dodati vozila, tenkove i topove
   - dodati izbor aviona
   - poeni za uništene fabrike, penali za civilne zgrade
   - spojiti sa airplane?

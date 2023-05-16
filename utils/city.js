@@ -298,15 +298,15 @@ const getFiles = () => {
 
 export const createArtBuilding = param => createGraffitiBuilding({ files: getFiles(), ...param })
 
-export const createWarehouse = () => createTexturedBuilding({ width: 30, height: 15, depth: 15, defaultFile: 'buildings/warehouse.jpg', files: [null, null, 'terrain/concrete.jpg'], halfOnSides: true })
+export const createWarehouse = () => createTexturedBuilding({ width: 20, height: 10, depth: 10, defaultFile: 'buildings/warehouse.jpg', files: [null, null, 'terrain/concrete.jpg'], halfOnSides: true })
 
 export const createWarehouse2 = () => createTexturedBuilding({ width: 20, height: 10, depth: 20, defaultFile: 'buildings/warehouse.jpg', files: [null, null, 'terrain/concrete.jpg'] })
 
-export const createWarRuin = () => createTexturedBuilding({ width: 18, height: 15, depth: 15, defaultFile: 'buildings/ruin-01.jpg', files: [null, null, 'terrain/beton-krater.jpg'], halfOnSides: true })
+export const createWarRuin = () => createTexturedBuilding({ width: 12, height: 10, depth: 10, defaultFile: 'buildings/ruin-01.jpg', files: [null, null, 'terrain/beton-krater.jpg'], halfOnSides: true })
 
-export const createRuin = () => createTexturedBuilding({ width: 18, height: 15, depth: 15, defaultFile: 'buildings/ruin-front.jpg', halfOnSides: true })
+export const createRuin = () => createTexturedBuilding({ width: 12, height: 10, depth: 10, defaultFile: 'buildings/ruin-front.jpg', halfOnSides: true })
 
-export const createAirport = () => createTexturedBuilding({ width: 30, height: 15, depth: 15, defaultFile: 'buildings/airport.png', files: [null, null, 'terrain/beton.gif'], halfOnSides: true })
+export const createAirport = () => createTexturedBuilding({ width: 20, height: 10, depth: 10, defaultFile: 'buildings/airport.png', files: [null, null, 'terrain/beton.gif'], halfOnSides: true })
 
 /* CITY */
 

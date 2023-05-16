@@ -58,7 +58,7 @@ export function createTree({ x = 0, y = 0, z = 0, size = 5, trunkColor, crownCol
 
 /* FIR TREE */
 
-export function createFirTree({ x = 0, y = 0, z = 0, size = 5 } = {}) {
+export function createFirTree({ x = 0, y = 0, z = 0, size = 3.5 } = {}) {
   const trunk = new THREE.Mesh(
     new THREE.CylinderGeometry(1.5, 1.5, 12, 6, 1, true),
     new THREE.MeshLambertMaterial({ color: similarColor(browns[1]) })

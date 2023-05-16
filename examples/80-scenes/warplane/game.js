@@ -43,9 +43,9 @@ const updatables = [warplane, stats]
 
 /* OBJECTS */
 
-const factory = await loadModel({ file: 'building/factory/model.fbx', size: 28 })
+const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 })
 
-const addObject = (mesh = createFirTree()) => {
+const addObject = mesh => {
   mesh.position.copy({ x: randFloatSpread(mapSize / 2), y: 0, z: -distance })
   scene.add(mesh)
   layer.push(mesh)

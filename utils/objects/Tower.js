@@ -5,7 +5,7 @@ import Bullet from './Bullet.js'
 const mesh = await loadModel({
   file: 'building/tower/ww2/D85VT1X9UHDSYASVUM1UY02HA.obj',
   mtl: 'building/tower/ww2/D85VT1X9UHDSYASVUM1UY02HA.mtl',
-  size: 20,
+  size: 18,
   shouldAdjustHeight: true
 })
 
