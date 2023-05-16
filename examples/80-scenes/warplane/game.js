@@ -19,7 +19,7 @@ let i = 0
 let last = Date.now()
 let elapsedTime = 0
 
-const layer = []
+const objects = []
 const mapSize = 800
 const distance = mapSize * .4
 const interval = 2000
@@ -48,7 +48,7 @@ const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 }
 const addObject = mesh => {
   mesh.position.copy({ x: randFloatSpread(mapSize / 2), y: 0, z: -distance })
   scene.add(mesh)
-  layer.push(mesh)
+  objects.push(mesh)
 }
 
 const createBuilding = elapsedTime => {
@@ -78,10 +78,10 @@ const updateGround = deltaSpeed => [ground, ground2].forEach(g => {
   if (g.position.z >= mapSize * .75) g.position.z = groundZ
 })
 
-const updateLayer = deltaSpeed => layer.forEach(mesh => {
+const updateLayer = deltaSpeed => objects.forEach(mesh => {
   mesh.translateZ(deltaSpeed)
   if (mesh.position.z > camera.position.z + 200) {
-    layer.splice(layer.indexOf(mesh), 1)
+    objects.splice(objects.indexOf(mesh), 1)
     scene.remove(mesh)
   }
 })

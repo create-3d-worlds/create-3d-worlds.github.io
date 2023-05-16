@@ -43,7 +43,7 @@ export default class Tower extends GameObject {
   }
 
   removeBullets() {
-    this.bullets.forEach(bullet => this.scene.remove(bullet.mesh))
+    this.bullets.forEach(bullet => this.scene?.remove(bullet.mesh))
     this.bullets = []
   }
 
