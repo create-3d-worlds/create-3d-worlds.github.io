@@ -33,7 +33,7 @@ export default class Warplane extends GameObject {
         offset: [0, this.height * .25, this.depth],
         lookAt: [0, -this.height * .75, 0],
         birdsEyeOffset: [0, this.height * 12, 0],
-        birdsEyeLookAt: [0, 0, -this.height * 5],
+        birdsEyeLookAt: [0, 0, -this.depth],
       })
       this.chaseCamera.alignCamera()
     }
