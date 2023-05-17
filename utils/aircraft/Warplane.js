@@ -5,17 +5,18 @@ import GameObject from '/utils/objects/GameObject.js'
 import Missile from './Missile.js'
 import { Explosion } from '/utils/classes/Particles.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
-// aircraft/airplane/messerschmitt-bf-109/scene.gltf
-// aircraft/airplane/messerschmitt-bf-109-pilot/scene.gltf
-// aircraft/airplane/spitfire-animated/model.fbx
-// aircraft/airplane/f18/scene.gltf dodati potisak
+/**
+ * aircraft/airplane/spitfire-animated/model.fbx
+ * aircraft/airplane/f18/model.fbx dodati potisak
+ * aircraft/airplane/messerschmitt-bf-109/model.fbx
+ * aircraft/airplane/messerschmitt-bf-109-pilot/model.glb
+ */
+
 // aircraft/airplane/biplane-sopwith/model.fbx dodati propeler
 // aircraft/airplane/biplane-bristol-f2b/model.fbx dodati propeler
 // aircraft/airplane/triplane-sopwith/triplane.fbx
 // aircraft/airplane/bomber-lancaster/scene.gltf
-const mesh = await loadModel({ file: 'aircraft/airplane/messerschmitt-bf-109/scene.gltf', size: 3, angle: Math.PI })
-
-mesh.traverse(x => console.log(x.name))
+const mesh = await loadModel({ file: 'aircraft/airplane/biplane-sopwith/model.fbx', size: 3 })
 
 export default class Warplane extends GameObject {
   constructor({ camera, speed = 30 } = {}) {
