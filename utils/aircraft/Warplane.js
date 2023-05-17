@@ -18,8 +18,7 @@ const mesh = await loadModel({ file: 'aircraft/airplane/bomber-lancaster/model.g
 
 export default class Warplane extends GameObject {
   constructor({ camera, speed = 30 } = {}) {
-    super({ mesh, shouldClone: false })
-    this.name = 'player'
+    super({ mesh, shouldClone: false, name: 'player' })
     this.speed = speed
     this.rotationSpeed = .5
     this.position.y = 35
@@ -32,6 +31,7 @@ export default class Warplane extends GameObject {
     this.explosion = new Explosion({ size: 4 })
     this.blows = 0
     this.dead = false
+    this.time = 0
 
     if (camera) {
       this.chaseCamera = new ChaseCamera({
@@ -103,6 +103,8 @@ export default class Warplane extends GameObject {
     const roll = Math.abs(mesh.rotation.z)
     if (mesh.rotation.z > 0) mesh.rotation.z -= roll * delta * 2
     if (mesh.rotation.z < 0) mesh.rotation.z += roll * delta * 2
+
+    this.mesh.rotateZ(Math.sin(this.time) * .001)
   }
 
   checkHit() {
@@ -133,8 +135,6 @@ export default class Warplane extends GameObject {
   }
 
   update(delta) {
-    this.smoke?.update({ delta, min: -this.blows, })
-
     this.chaseCamera?.update(delta)
 
     this.missiles.forEach(missile => {
@@ -142,13 +142,16 @@ export default class Warplane extends GameObject {
       missile.update(delta)
     })
 
+    this.smoke?.update({ delta, min: -this.blows, })
     this.explosion.expand({ velocity: 1.1, maxRounds: 30 })
 
-    if (this.dead) return this.die(delta)
+    if (this.dead)
+      return this.die(delta)
 
     this.handleInput(delta)
     this.normalizePlane(delta)
 
     this.checkHit()
+    this.time += delta * 15
   }
 }
