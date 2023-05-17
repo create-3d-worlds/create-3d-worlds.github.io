@@ -17,6 +17,7 @@ npx live-server
 
 - Warplane / 1943
   - dodati izbor aviona
+  - malo tresti avion
   - poeni za uništene fabrike, penali za civilne zgrade
   - sletanje na kraju misije?
   - spojiti sa airplane?

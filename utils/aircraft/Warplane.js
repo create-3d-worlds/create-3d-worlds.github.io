@@ -12,10 +12,9 @@ import ChaseCamera from '/utils/actor/ChaseCamera.js'
  * aircraft/airplane/f18/model.fbx dodati potisak
  * aircraft/airplane/biplane-sopwith/model.fbx dodati propeler
  * aircraft/airplane/biplane-bristol-f2b/model.fbx dodati propeler
+ * aircraft/airplane/triplane-sopwith/triplane.fbx dodati propeler
  */
-// aircraft/airplane/triplane-sopwith/triplane.fbx
-// aircraft/airplane/bomber-lancaster/scene.gltf
-const mesh = await loadModel({ file: 'aircraft/airplane/triplane-sopwith/triplane.fbx', size: 3 })
+const mesh = await loadModel({ file: 'aircraft/airplane/bomber-lancaster/model.glb', size: 3 })
 
 export default class Warplane extends GameObject {
   constructor({ camera, speed = 30 } = {}) {
