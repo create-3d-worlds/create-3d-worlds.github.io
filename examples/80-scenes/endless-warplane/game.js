@@ -3,7 +3,7 @@ import { camera, scene, renderer, clock, createOrbitControls } from '/utils/scen
 import { createWorldSphere } from '/utils/geometry.js'
 import { createFir } from '/utils/geometry/trees.js'
 import { hemLight } from '/utils/light.js'
-import Warplane from '/utils/aircraft/Warplane.js'
+import Warplane from '/utils/aircraft/derived/Messerschmitt.js'
 
 const { randFloat } = THREE.MathUtils
 

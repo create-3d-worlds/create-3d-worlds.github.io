@@ -17,8 +17,9 @@ npx live-server
 
 - Warplane / 1943
   - dodati izbor aviona
-    - napraviti klase za razne avione
+    - napraviti klase za razne avione, podesiti kamere, brzine, visine i slično
     - dodati propelere gde treba
+  - rešiti endless-warplane
   - poeni za uništene fabrike, penali za civilne zgrade
   - sletanje na kraju misije?
   - spojiti sa airplane?

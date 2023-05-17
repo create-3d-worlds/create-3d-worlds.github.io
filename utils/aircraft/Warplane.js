@@ -1,5 +1,4 @@
 import input from '/utils/io/Input.js'
-import { loadModel } from '/utils/loaders.js'
 import GameObject from '/utils/objects/GameObject.js'
 import Missile from './Missile.js'
 import { Explosion } from '/utils/classes/Particles.js'
@@ -7,15 +6,14 @@ import ChaseCamera from '/utils/actor/ChaseCamera.js'
 /**
  * aircraft/airplane/messerschmitt-bf-109/model.fbx
  * aircraft/airplane/messerschmitt-bf-109-pilot/model.glb
+ * aircraft/airplane/bomber-lancaster/model.glb
  * aircraft/airplane/f18/model.fbx dodati potisak
  * aircraft/airplane/biplane-sopwith/model.fbx dodati propeler
  * aircraft/airplane/biplane-bristol-f2b/model.fbx dodati propeler
  * aircraft/airplane/triplane-sopwith/triplane.fbx dodati propeler
  */
-const mesh = await loadModel({ file: 'aircraft/airplane/bomber-lancaster/model.glb', size: 3 })
-
 export default class Warplane extends GameObject {
-  constructor({ camera, speed = 30 } = {}) {
+  constructor({ mesh, camera, speed = 30 } = {}) {
     super({ mesh, shouldClone: false, name: 'player' })
     this.speed = speed
     this.rotationSpeed = .5
