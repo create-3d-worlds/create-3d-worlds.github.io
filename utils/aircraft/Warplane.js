@@ -4,8 +4,6 @@ import Missile from './Missile.js'
 import { Explosion } from '/utils/classes/Particles.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 /**
- * aircraft/airplane/messerschmitt-bf-109/model.fbx
- * aircraft/airplane/messerschmitt-bf-109-pilot/model.glb
  * aircraft/airplane/bomber-lancaster/model.glb
  * aircraft/airplane/f18/model.fbx dodati potisak
  * aircraft/airplane/biplane-sopwith/model.fbx dodati propeler
@@ -32,7 +30,7 @@ export default class Warplane extends GameObject {
     if (camera) {
       this.chaseCamera = new ChaseCamera({
         camera, mesh: this.mesh, speed: 5, rotate: false,
-        offset: [0, this.height * .25, this.height * 4.5],
+        offset: [0, this.height * .25, this.depth],
         lookAt: [0, -this.height * .75, 0],
         birdsEyeOffset: [0, this.height * 12, 0],
         birdsEyeLookAt: [0, 0, -this.height * 5],
