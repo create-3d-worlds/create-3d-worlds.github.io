@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { camera, scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
+import { camera, scene, renderer, clock } from '/utils/scene.js'
 import { createWorldSphere } from '/utils/geometry.js'
 import { createFir } from '/utils/geometry/trees.js'
 import { hemLight } from '/utils/light.js'
@@ -7,23 +7,22 @@ import Warplane from '/utils/aircraft/derived/Messerschmitt.js'
 
 const { randFloat } = THREE.MathUtils
 
+let last = Date.now()
+
 const r = 1000
 const treeInterval = 200
 const trees = []
 const pos = new THREE.Vector3()
 const spherical = new THREE.Spherical()
 
-camera.position.set(0, r * .78, r * .76)
-
 hemLight({ skyColor: 0xfffafa, groundColor: 0x000000, intensity: .9 })
 scene.fog = new THREE.FogExp2(0xE5C5AB, .0025)
 
 const earth = createWorldSphere({ r, segments: 100, color: 0x91A566, distort: 10 })
-earth.position.set(0, -24, 2) // ??
+earth.position.set(0, -r, 0)
 scene.add(earth)
 
-const aircraft = new Warplane()
-aircraft.position.set(0, r * .74, r * .67)
+const aircraft = new Warplane({ camera })
 scene.add(aircraft.mesh)
 
 /* FUNCTIONS */
@@ -50,8 +49,6 @@ function updateTrees() {
 }
 
 /* LOOP */
-
-let last = Date.now()
 
 void function update() {
   requestAnimationFrame(update)
