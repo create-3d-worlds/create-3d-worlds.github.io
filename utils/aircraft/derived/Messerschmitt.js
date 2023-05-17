@@ -1,10 +1,8 @@
 import { loadModel } from '/utils/loaders.js'
 import Warplane from '../Warplane.js'
 
-/**
- * TODO:
- * dodati propeler
- */
+// dodati propeler
+
 const mesh = await loadModel({ file: 'aircraft/airplane/messerschmitt-bf-109/model.fbx', size: 3 })
 
 export default class Messerschmitt extends Warplane {
