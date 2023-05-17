@@ -1,4 +1,3 @@
-import * as THREE from 'three'
 import input from '/utils/io/Input.js'
 import { loadModel } from '/utils/loaders.js'
 import GameObject from '/utils/objects/GameObject.js'
@@ -6,7 +5,6 @@ import Missile from './Missile.js'
 import { Explosion } from '/utils/classes/Particles.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 /**
- * aircraft/airplane/spitfire-animated/model.fbx
  * aircraft/airplane/messerschmitt-bf-109/model.fbx
  * aircraft/airplane/messerschmitt-bf-109-pilot/model.glb
  * aircraft/airplane/f18/model.fbx dodati potisak

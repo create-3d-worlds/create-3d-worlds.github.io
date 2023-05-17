@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { NaziOfficerPlayer } from '/utils/actor/child/ww2/NaziOfficer.js'
+import { NaziOfficerPlayer } from '/utils/actor/derived/ww2/NaziOfficer.js'
 
 scene.add(createSun())
 scene.add(createGround({ size: 100 }))

@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { TrollPlayer } from '/utils/actor/child/fantasy/Troll.js'
+import { TrollPlayer } from '/utils/actor/derived/fantasy/Troll.js'
 
 createOrbitControls()
 

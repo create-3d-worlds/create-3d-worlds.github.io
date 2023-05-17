@@ -1,7 +1,7 @@
 import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { GothGirlPlayer } from '/utils/actor/child/horror/GothGirl.js'
+import { GothGirlPlayer } from '/utils/actor/derived/horror/GothGirl.js'
 
 createOrbitControls()
 

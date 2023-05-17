@@ -3,7 +3,7 @@ import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import { createStoneCircles, createStairway } from '/utils/geometry/towers.js'
 import { orbiting } from '/utils/geometry/planets.js'
-import { SorceressPlayer } from '/utils/actor/child/fantasy/Sorceress.js'
+import { SorceressPlayer } from '/utils/actor/derived/fantasy/Sorceress.js'
 
 const sun = createSun()
 sun.position.y = 10

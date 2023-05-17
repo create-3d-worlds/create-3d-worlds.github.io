@@ -3,8 +3,8 @@ import { createGround } from '/utils/ground.js'
 import { createMoon } from '/utils/light.js'
 import { getShuffledCoords, sample } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
-import { GhostAI } from '/utils/actor/child/horror/Ghost.js'
-import { ResistanceFighterPlayer } from '/utils/actor/child/ww2/ResistanceFighter.js'
+import { GhostAI } from '/utils/actor/derived/horror/Ghost.js'
+import { ResistanceFighterPlayer } from '/utils/actor/derived/ww2/ResistanceFighter.js'
 import { Smoke } from '/utils/classes/Particles.js'
 import DeadTree from '/utils/objects/DeadTree.js'
 
@@ -54,7 +54,7 @@ async function spawnZombie(interval) {
     last = Date.now()
 
     const name = sample(zombies)
-    const obj = await import(`/utils/actor/child/horror/${name}.js`)
+    const obj = await import(`/utils/actor/derived/horror/${name}.js`)
     const ZombieClass = obj[name + 'AI']
     const pos = sample(coords)
     const zombie = new ZombieClass({ mapSize, target: player.mesh, solids, pos })

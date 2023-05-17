@@ -1,7 +1,7 @@
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createWater, wave, createGround } from '/utils/ground.js'
-import { WizardPlayer } from '/utils/actor/child/fantasy/Wizard.js'
+import { WizardPlayer } from '/utils/actor/derived/fantasy/Wizard.js'
 
 scene.add(createSun({ pos: [-5, 30, -60] }))
 const ground = createGround({ file: 'terrain/ground.jpg' })

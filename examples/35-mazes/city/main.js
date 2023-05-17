@@ -2,7 +2,7 @@ import { scene, renderer, camera } from '/utils/scene.js'
 import { createCityLights } from '/utils/city.js'
 import { createFloor } from '/utils/ground.js'
 import { hemLight } from '/utils/light.js'
-import { PartisanPlayer } from '/utils/actor/child/ww2/Partisan.js'
+import { PartisanPlayer } from '/utils/actor/derived/ww2/Partisan.js'
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
 
