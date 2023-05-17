@@ -3,13 +3,7 @@ import GameObject from '/utils/objects/GameObject.js'
 import Missile from './Missile.js'
 import { Explosion } from '/utils/classes/Particles.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
-/**
- * aircraft/airplane/bomber-lancaster/model.glb
- * aircraft/airplane/f18/model.fbx dodati potisak
- * aircraft/airplane/biplane-sopwith/model.fbx dodati propeler
- * aircraft/airplane/biplane-bristol-f2b/model.fbx dodati propeler
- * aircraft/airplane/triplane-sopwith/triplane.fbx dodati propeler
- */
+
 export default class Warplane extends GameObject {
   constructor({ mesh, camera, speed = 30 } = {}) {
     super({ mesh, shouldClone: false, name: 'player' })
@@ -29,7 +23,7 @@ export default class Warplane extends GameObject {
 
     if (camera) {
       this.chaseCamera = new ChaseCamera({
-        camera, mesh: this.mesh, speed: 5, rotate: false,
+        camera, mesh: this.mesh, speed: 4, rotate: false,
         offset: [0, this.height * .25, this.depth],
         lookAt: [0, -this.height * .75, 0],
         birdsEyeOffset: [0, this.height * 12, 0],
