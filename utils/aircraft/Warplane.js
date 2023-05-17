@@ -7,16 +7,15 @@ import { Explosion } from '/utils/classes/Particles.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 /**
  * aircraft/airplane/spitfire-animated/model.fbx
- * aircraft/airplane/f18/model.fbx dodati potisak
  * aircraft/airplane/messerschmitt-bf-109/model.fbx
  * aircraft/airplane/messerschmitt-bf-109-pilot/model.glb
+ * aircraft/airplane/f18/model.fbx dodati potisak
+ * aircraft/airplane/biplane-sopwith/model.fbx dodati propeler
+ * aircraft/airplane/biplane-bristol-f2b/model.fbx dodati propeler
  */
-
-// aircraft/airplane/biplane-sopwith/model.fbx dodati propeler
-// aircraft/airplane/biplane-bristol-f2b/model.fbx dodati propeler
 // aircraft/airplane/triplane-sopwith/triplane.fbx
 // aircraft/airplane/bomber-lancaster/scene.gltf
-const mesh = await loadModel({ file: 'aircraft/airplane/biplane-sopwith/model.fbx', size: 3 })
+const mesh = await loadModel({ file: 'aircraft/airplane/triplane-sopwith/triplane.fbx', size: 3 })
 
 export default class Warplane extends GameObject {
   constructor({ camera, speed = 30 } = {}) {
@@ -24,7 +23,7 @@ export default class Warplane extends GameObject {
     this.name = 'player'
     this.speed = speed
     this.rotationSpeed = .5
-    this.position.y = 36
+    this.position.y = 35
     this.minHeight = this.position.y / 2
     this.maxHeight = this.position.y * 2
     this.maxRoll = Math.PI / 3
@@ -44,12 +43,6 @@ export default class Warplane extends GameObject {
         birdsEyeLookAt: [0, 0, -this.height * 5],
       })
       this.chaseCamera.alignCamera()
-    }
-
-    if (mesh.userData.animations?.length) {
-      this.mixer = new THREE.AnimationMixer(mesh)
-      const action = this.mixer.clipAction(mesh.userData.animations[0])
-      action.play()
     }
   }
 
@@ -141,7 +134,6 @@ export default class Warplane extends GameObject {
   }
 
   update(delta) {
-    this.mixer?.update(delta)
     this.smoke?.update({ delta, min: -this.blows, })
 
     this.chaseCamera?.update(delta)
