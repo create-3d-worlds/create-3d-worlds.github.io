@@ -108,7 +108,7 @@ export default class Warplane extends GameObject {
       const { Smoke } = obj
       this.smoke = new Smoke()
       this.add(this.smoke.mesh)
-      this.smoke.mesh.position.z += 7
+      this.smoke.mesh.position.z += this.depth * .4
     })
   }
 
@@ -133,6 +133,7 @@ export default class Warplane extends GameObject {
 
     this.smoke?.update({ delta, min: -this.blows, })
     this.explosion.expand({ velocity: 1.1, maxRounds: 30 })
+    this.propellers.forEach(propeller => propeller.rotateZ(delta * -this.speed))
 
     if (this.dead)
       return this.die(delta)
@@ -141,7 +142,6 @@ export default class Warplane extends GameObject {
     this.normalizePlane(delta)
 
     this.checkHit()
-    this.propellers.forEach(propeller => propeller.rotateZ(delta * -this.speed))
 
     this.time += delta * 15
   }
