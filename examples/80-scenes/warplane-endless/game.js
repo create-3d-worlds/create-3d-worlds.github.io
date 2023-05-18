@@ -22,7 +22,7 @@ const spherical = new THREE.Spherical()
 
 scene.fog = new THREE.FogExp2(0xE5C5AB, .005)
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
-scene.add(createSun({ pos: [50, 200, 50] }))
+scene.add(createSun({ pos: [50, 200, 50], intensity: .9 }))
 
 const earth = createWorldSphere({ r, segments: 100, color: 0x91A566, distort: 10 })
 earth.position.y = -r
@@ -30,6 +30,7 @@ scene.add(earth)
 
 const warplane = new Warplane({ camera, speed: 50, y: 25 })
 warplane.chaseCamera.far = r * .5
+warplane.chaseCamera.speed = 30
 scene.add(warplane.mesh)
 
 /* OBJECTS */

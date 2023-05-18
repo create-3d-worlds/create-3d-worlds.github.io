@@ -17,6 +17,7 @@ npx live-server
 
 - Warplane / 1943
   - endless-warplane
+    - bombe da padaju pod drugačijim uglom (kraće da lete)
     - bombe da padaju nadole, ne na stranu, kad skreće
   - dodati izbor aviona
     - podesiti: kamere, brzinu, visinu...
