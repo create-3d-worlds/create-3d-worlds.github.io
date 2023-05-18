@@ -19,7 +19,7 @@ let i = 0
 let last = Date.now()
 let elapsedTime = 0
 
-const speed = 50
+const speed = 2
 const objects = []
 const mapSize = 800
 const distance = mapSize * .4
@@ -32,12 +32,13 @@ scene.fog = new THREE.Fog(0xE5C5AB, 200, distance)
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
 scene.add(createSun({ pos: [50, 200, 50] }))
 
-const ground = createTerrain({ size: mapSize, color: 0x91A566, colorRange: .1 })
-const ground2 = createTerrain({ size: mapSize, color: 0x91A566, colorRange: .1 })
+const groundParams = { size: mapSize, color: 0x91A566, colorRange: .1, segments: 50, min: 0, max: 15 }
+const ground = createTerrain(groundParams)
+const ground2 = createTerrain(groundParams)
 ground2.position.z = groundZ
 
 const warplane = new Warplane({ camera })
-warplane.chaseCamera.far = mapSize * .6
+warplane.chaseCamera.far = mapSize * .5
 
 scene.add(ground, ground2, warplane.mesh)
 const updatables = [warplane, stats]
@@ -90,7 +91,7 @@ const updateObjects = deltaSpeed => objects.forEach(mesh => {
 void function update() {
   requestAnimationFrame(update)
   const delta = clock.getDelta()
-  const deltaSpeed = speed * delta
+  const deltaSpeed = warplane.speed * speed * delta
 
   updateGround(deltaSpeed)
   updateObjects(deltaSpeed)

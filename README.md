@@ -12,6 +12,7 @@ npx live-server
 ## TODO
 
 - ukloniti dispose
+- ukloniti createFir
 
 ### Scenes & examples
 
@@ -19,8 +20,8 @@ npx live-server
   - bombe da padaju pod drugačijim uglom (kraće da lete), mozda samo nadole?
   - dodati izbor aviona
     - podesiti: kamere, brzinu, visinu...
-  - neravniji teren
   - ograničiti levo-desno
+  - odaljiti kameru kad skreće levo-desno
   - poeni za uništene fabrike, penali za civilne zgrade
   - sletanje na kraju misije?
   - spojiti sa airplane?
