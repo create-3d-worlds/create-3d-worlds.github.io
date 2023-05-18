@@ -19,7 +19,7 @@ let i = 0
 let last = Date.now()
 let elapsedTime = 0
 
-const speed = 1.5
+const speed = 1.25
 const objects = []
 const mapSize = 800
 const distance = mapSize * .4
