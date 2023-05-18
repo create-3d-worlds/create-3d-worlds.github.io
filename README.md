@@ -17,7 +17,6 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - bombe da padaju pod drugačijim uglom (kraće da lete), mozda samo nadole?
   - dodati izbor aviona
     - podesiti: kamere, brzinu, visinu...
   - ograničiti levo-desno
