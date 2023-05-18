@@ -5,9 +5,10 @@ import { Explosion } from '/utils/classes/Particles.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 export default class Warplane extends GameObject {
-  constructor({ mesh, camera, speed = 30, y = 25 } = {}) {
+  constructor({ mesh, camera, limit, speed = 30, y = 25 } = {}) {
     super({ mesh, name: 'player' })
     this.speed = speed
+    this.limit = limit
     this.rotationSpeed = .75
     this.position.y = y
     this.minHeight = y / 2
@@ -71,12 +72,12 @@ export default class Warplane extends GameObject {
     const { mesh } = this
 
     if (input.right) {
-      mesh.position.x += this.speed * delta
+      if (mesh.position.x < this.limit) mesh.position.x += this.speed * delta
       if (mesh.rotation.z > -this.maxRoll) mesh.rotation.z -= this.rotationSpeed * delta
     }
 
     if (input.left) {
-      mesh.position.x -= this.speed * delta
+      if (mesh.position.x > -this.limit) mesh.position.x -= this.speed * delta
       if (mesh.rotation.z < this.maxRoll) mesh.rotation.z += this.rotationSpeed * delta
     }
 

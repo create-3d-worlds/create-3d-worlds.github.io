@@ -37,7 +37,7 @@ const ground = createTerrain(groundParams)
 const ground2 = createTerrain(groundParams)
 ground2.position.z = groundZ
 
-const warplane = new Warplane({ camera })
+const warplane = new Warplane({ camera, limit: mapSize * .25 })
 warplane.chaseCamera.far = mapSize * .45
 
 scene.add(ground, ground2, warplane.mesh)
@@ -47,8 +47,8 @@ const updatables = [warplane, stats]
 
 const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 })
 
-const addObject = mesh => {
-  mesh.position.copy({ x: randFloatSpread(mapSize * .33), y: 0, z: -distance })
+const addObject = (mesh, spread = .33) => {
+  mesh.position.copy({ x: randFloatSpread(mapSize * spread), y: 0, z: -distance })
   scene.add(mesh)
   objects.push(mesh)
 }
@@ -71,7 +71,7 @@ const createBuilding = elapsedTime => {
 
 const addBuilding = elapsedTime => addObject(createBuilding(elapsedTime))
 
-const addTree = () => addObject(createFirTree())
+const addTree = () => addObject(createFirTree(), .4)
 
 /* UPDATES */
 
