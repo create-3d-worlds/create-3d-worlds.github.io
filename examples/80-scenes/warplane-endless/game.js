@@ -27,21 +27,24 @@ scene.add(aircraft.mesh)
 
 /* FUNCTIONS */
 
-function addTree() {
-  const tree = createFir()
+function addObject(mesh) {
   const radius = r - .3
   const phi = randFloat(Math.PI * .45, Math.PI * .55) // left, right
   const theta = -earth.rotation.x + 3.33 * Math.PI
   spherical.set(radius, phi, theta)
-  tree.position.setFromSpherical(spherical)
-  tree.quaternion.setFromUnitVectors(
-    tree.position.clone().normalize(), earth.position.clone().normalize()
+  mesh.position.setFromSpherical(spherical)
+  mesh.quaternion.setFromUnitVectors(
+    mesh.position.clone().normalize(), earth.position.clone().normalize()
   )
-  earth.add(tree)
-  objects.push(tree)
+  earth.add(mesh)
+  objects.push(mesh)
 }
 
-function updateTrees() {
+const addTree = () => addObject(createFir())
+
+/* UPDATES */
+
+function updateObjects() {
   objects.forEach(tree => {
     pos.setFromMatrixPosition(tree.matrixWorld)
     if (pos.z > camera.position.z) {
@@ -50,8 +53,6 @@ function updateTrees() {
     }
   })
 }
-
-/* LOOP */
 
 void function update() {
   requestAnimationFrame(update)
@@ -64,7 +65,7 @@ void function update() {
     addTree()
     last = Date.now()
   }
-  updateTrees()
+  updateObjects()
 
   renderer.render(scene, camera)
 }()

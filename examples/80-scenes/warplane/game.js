@@ -78,7 +78,7 @@ const updateGround = deltaSpeed => [ground, ground2].forEach(g => {
   if (g.position.z >= mapSize * .75) g.position.z = groundZ
 })
 
-const updateLayer = deltaSpeed => objects.forEach(mesh => {
+const updateObjects = deltaSpeed => objects.forEach(mesh => {
   mesh.translateZ(deltaSpeed)
   if (mesh.position.z > camera.position.z + 200) {
     objects.splice(objects.indexOf(mesh), 1)
@@ -92,7 +92,7 @@ void function update() {
   const deltaSpeed = warplane.speed * .66 * delta
 
   updateGround(deltaSpeed)
-  updateLayer(deltaSpeed)
+  updateObjects(deltaSpeed)
   updatables.forEach(element => element.update(delta))
 
   if (i % 5 === 0) addTree()
