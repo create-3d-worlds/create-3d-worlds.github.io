@@ -17,6 +17,7 @@ npx live-server
 
 - Warplane / 1943
   - rešiti endless-warplane
+    - postaviti drveće ranije
   - dodati izbor aviona
     - podesiti: kamere, brzinu, visinu...
   - poeni za uništene fabrike, penali za civilne zgrade

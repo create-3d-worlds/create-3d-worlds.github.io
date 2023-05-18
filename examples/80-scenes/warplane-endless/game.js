@@ -29,7 +29,10 @@ scene.add(aircraft.mesh)
 
 function addTree() {
   const tree = createFir()
-  spherical.set(r - .3, randFloat(Math.PI * .45, Math.PI * .55), -earth.rotation.x + 5)
+  const radius = r - .3
+  const phi = randFloat(Math.PI * .45, Math.PI * .55) // left, right
+  const theta = -earth.rotation.x + 3.33 * Math.PI
+  spherical.set(radius, phi, theta)
   tree.position.setFromSpherical(spherical)
   tree.quaternion.setFromUnitVectors(
     tree.position.clone().normalize(), earth.position.clone().normalize()
