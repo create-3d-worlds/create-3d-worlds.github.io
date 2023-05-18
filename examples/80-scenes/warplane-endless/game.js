@@ -10,16 +10,16 @@ const { randFloat } = THREE.MathUtils
 let last = Date.now()
 
 const r = 1000
-const treeInterval = 200
-const trees = []
+const interval = 200
+const objects = []
 const pos = new THREE.Vector3()
 const spherical = new THREE.Spherical()
 
 hemLight({ skyColor: 0xfffafa, groundColor: 0x000000, intensity: .9 })
-scene.fog = new THREE.FogExp2(0xE5C5AB, .0025)
+scene.fog = new THREE.FogExp2(0xE5C5AB, .005)
 
 const earth = createWorldSphere({ r, segments: 100, color: 0x91A566, distort: 10 })
-earth.position.set(0, -r, 0)
+earth.position.y = -r
 scene.add(earth)
 
 const aircraft = new Warplane({ camera })
@@ -38,14 +38,14 @@ function addTree() {
     tree.position.clone().normalize(), earth.position.clone().normalize()
   )
   earth.add(tree)
-  trees.push(tree)
+  objects.push(tree)
 }
 
 function updateTrees() {
-  trees.forEach(tree => {
+  objects.forEach(tree => {
     pos.setFromMatrixPosition(tree.matrixWorld)
     if (pos.z > camera.position.z) {
-      trees.splice(trees.indexOf(tree), 1)
+      objects.splice(objects.indexOf(tree), 1)
       scene.remove(tree)
     }
   })
@@ -60,7 +60,7 @@ void function update() {
   earth.rotateY(.2 * delta)
   aircraft.update(delta)
 
-  if (Date.now() - last >= treeInterval) {
+  if (Date.now() - last >= interval) {
     addTree()
     last = Date.now()
   }

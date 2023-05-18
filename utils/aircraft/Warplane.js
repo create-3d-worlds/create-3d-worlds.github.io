@@ -6,7 +6,7 @@ import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 export default class Warplane extends GameObject {
   constructor({ mesh, camera, speed = 30, y = 35 } = {}) {
-    super({ mesh, shouldClone: false, name: 'player' })
+    super({ mesh, name: 'player' })
     this.speed = speed
     this.rotationSpeed = .5
     this.position.y = y
