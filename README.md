@@ -16,9 +16,9 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
+  - rešiti endless-warplane
   - dodati izbor aviona
     - podesiti: kamere, brzinu, visinu...
-  - rešiti endless-warplane
   - poeni za uništene fabrike, penali za civilne zgrade
   - sletanje na kraju misije?
   - spojiti sa airplane?
