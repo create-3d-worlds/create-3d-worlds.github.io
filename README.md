@@ -16,12 +16,11 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - dodati propelere
   - podesiti: 
+      dim
       kamere, 
       brzinu, 
       visinu, 
-      dim
   - dodati izbor aviona
   - rešiti endless-warplane
   - poeni za uništene fabrike, penali za civilne zgrade

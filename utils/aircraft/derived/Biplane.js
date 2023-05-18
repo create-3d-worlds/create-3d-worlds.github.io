@@ -12,8 +12,6 @@ const [mesh, propeller] = await Promise.all([
 export default class Biplane extends Warplane {
   constructor(params = {}) {
     super({ mesh, ...params })
-    propeller.position.set(0, .63, -3)
-    this.mesh.add(propeller)
-    this.propellers.push(propeller)
+    this.propeller = propeller
   }
 }

@@ -46,6 +46,12 @@ export default class Warplane extends GameObject {
     this.mesh.userData.dead = bool
   }
 
+  set propeller(propeller) {
+    propeller.position.set(0, .63, -this.depth * .5)
+    this.mesh.add(propeller)
+    this.propellers.push(propeller)
+  }
+
   addMissile() {
     const pos = this.position.clone()
     pos.y -= this.height * .5
@@ -108,6 +114,7 @@ export default class Warplane extends GameObject {
       const { Smoke } = obj
       this.smoke = new Smoke()
       this.add(this.smoke.mesh)
+      this.smoke.mesh.position.y += this.height * .4
       this.smoke.mesh.position.z += this.depth * .4
     })
   }
