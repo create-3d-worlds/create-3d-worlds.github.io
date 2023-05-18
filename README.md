@@ -16,8 +16,8 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - rešiti endless-warplane
-    - postaviti drveće ranije
+  - endless-warplane
+    - bombe da padaju nadole, ne na stranu, kad skreće
   - dodati izbor aviona
     - podesiti: kamere, brzinu, visinu...
   - poeni za uništene fabrike, penali za civilne zgrade

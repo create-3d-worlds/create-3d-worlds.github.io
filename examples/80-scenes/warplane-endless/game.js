@@ -3,7 +3,7 @@ import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import { camera, scene, renderer, clock } from '/utils/scene.js'
 import { createWorldSphere } from '/utils/geometry.js'
 import { createFir } from '/utils/geometry/trees.js'
-import { hemLight } from '/utils/light.js'
+import { createSun } from '/utils/light.js'
 import Warplane from '/utils/aircraft/derived/Messerschmitt.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import { loadModel } from '/utils/loaders.js'
@@ -14,19 +14,22 @@ let last = Date.now()
 let i = 0
 
 const r = 1000
+const speed = .1
 const interval = 200
 const objects = []
 const pos = new THREE.Vector3()
 const spherical = new THREE.Spherical()
 
-hemLight({ skyColor: 0xfffafa, groundColor: 0x000000, intensity: .9 })
 scene.fog = new THREE.FogExp2(0xE5C5AB, .005)
+scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
+scene.add(createSun({ pos: [50, 200, 50] }))
 
 const earth = createWorldSphere({ r, segments: 100, color: 0x91A566, distort: 10 })
 earth.position.y = -r
 scene.add(earth)
 
 const warplane = new Warplane({ camera, speed: 50, y: 25 })
+warplane.chaseCamera.far = r * .5
 scene.add(warplane.mesh)
 
 /* OBJECTS */
@@ -81,7 +84,7 @@ void function update() {
   requestAnimationFrame(update)
   const delta = clock.getDelta()
 
-  earth.rotateY(.15 * delta)
+  earth.rotateY(speed * delta)
   warplane.update(delta)
 
   if (i % 10 === 0) addTree()
