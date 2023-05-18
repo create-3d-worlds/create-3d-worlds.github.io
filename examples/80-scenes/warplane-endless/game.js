@@ -1,13 +1,17 @@
 import * as THREE from 'three'
+import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import { camera, scene, renderer, clock } from '/utils/scene.js'
 import { createWorldSphere } from '/utils/geometry.js'
 import { createFir } from '/utils/geometry/trees.js'
 import { hemLight } from '/utils/light.js'
 import Warplane from '/utils/aircraft/derived/Messerschmitt.js'
+import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
+import { loadModel } from '/utils/loaders.js'
 
-const { randFloat } = THREE.MathUtils
+const { randFloat, randInt } = THREE.MathUtils
 
 let last = Date.now()
+let i = 0
 
 const r = 1000
 const interval = 200
@@ -22,10 +26,12 @@ const earth = createWorldSphere({ r, segments: 100, color: 0x91A566, distort: 10
 earth.position.y = -r
 scene.add(earth)
 
-const aircraft = new Warplane({ camera })
-scene.add(aircraft.mesh)
+const warplane = new Warplane({ camera, speed: 50, y: 25 })
+scene.add(warplane.mesh)
 
-/* FUNCTIONS */
+/* OBJECTS */
+
+const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 })
 
 function addObject(mesh) {
   const radius = r - .3
@@ -39,6 +45,23 @@ function addObject(mesh) {
   earth.add(mesh)
   objects.push(mesh)
 }
+
+const createBuilding = () => {
+  switch (randInt(1, 6)) {
+    case 1: return clone(factory)
+    case 2: return createWarehouse2()
+    case 3: return createWarRuin()
+    case 4: return createRuin()
+    case 5: return createAirport()
+    case 6: return createWarehouse()
+    // default:
+    //   const tower = new Tower()
+    //   updatables.push(tower)
+    //   return tower.mesh
+  }
+}
+
+const addBuilding = () => addObject(createBuilding())
 
 const addTree = () => addObject(createFir())
 
@@ -58,14 +81,17 @@ void function update() {
   requestAnimationFrame(update)
   const delta = clock.getDelta()
 
-  earth.rotateY(.2 * delta)
-  aircraft.update(delta)
+  earth.rotateY(.15 * delta)
+  warplane.update(delta)
+
+  if (i % 10 === 0) addTree()
 
   if (Date.now() - last >= interval) {
-    addTree()
+    addBuilding()
     last = Date.now()
   }
   updateObjects()
 
+  i++
   renderer.render(scene, camera)
 }()
