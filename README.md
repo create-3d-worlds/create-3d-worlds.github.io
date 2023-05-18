@@ -16,11 +16,11 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - endless-warplane
-    - bombe da padaju pod drugačijim uglom (kraće da lete)
-    - bombe da padaju nadole, ne na stranu, kad skreće
+  - bombe da padaju pod drugačijim uglom (kraće da lete), mozda samo nadole?
   - dodati izbor aviona
     - podesiti: kamere, brzinu, visinu...
+  - neravniji teren
+  - ograničiti levo-desno
   - poeni za uništene fabrike, penali za civilne zgrade
   - sletanje na kraju misije?
   - spojiti sa airplane?

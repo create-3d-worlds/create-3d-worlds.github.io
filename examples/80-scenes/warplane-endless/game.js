@@ -4,9 +4,10 @@ import { camera, scene, renderer, clock } from '/utils/scene.js'
 import { createWorldSphere } from '/utils/geometry.js'
 import { createFir } from '/utils/geometry/trees.js'
 import { createSun } from '/utils/light.js'
+import { loadModel } from '/utils/loaders.js'
 import Warplane from '/utils/aircraft/derived/Messerschmitt.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
-import { loadModel } from '/utils/loaders.js'
+import Tower from '/utils/objects/Tower.js'
 
 const { randFloat, randInt } = THREE.MathUtils
 
@@ -14,7 +15,7 @@ let last = Date.now()
 let i = 0
 
 const r = 1000
-const speed = .1
+const speed = .05
 const interval = 200
 const objects = []
 const pos = new THREE.Vector3()
@@ -32,6 +33,8 @@ const warplane = new Warplane({ camera, speed: 50, y: 25 })
 warplane.chaseCamera.far = r * .5
 warplane.chaseCamera.speed = 30
 scene.add(warplane.mesh)
+
+const updatables = [warplane]
 
 /* OBJECTS */
 
@@ -51,17 +54,17 @@ function addObject(mesh) {
 }
 
 const createBuilding = () => {
-  switch (randInt(1, 6)) {
+  switch (randInt(1, 7)) {
     case 1: return clone(factory)
     case 2: return createWarehouse2()
     case 3: return createWarRuin()
     case 4: return createRuin()
     case 5: return createAirport()
     case 6: return createWarehouse()
-    // default:
-    //   const tower = new Tower()
-    //   updatables.push(tower)
-    //   return tower.mesh
+    default:
+      const tower = new Tower()
+      updatables.push(tower)
+      return tower.mesh
   }
 }
 
@@ -86,7 +89,8 @@ void function update() {
   const delta = clock.getDelta()
 
   earth.rotateY(speed * delta)
-  warplane.update(delta)
+  // warplane.update(delta)
+  updatables.forEach(element => element.update(delta))
 
   if (i % 10 === 0) addTree()
 

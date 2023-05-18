@@ -19,6 +19,7 @@ let i = 0
 let last = Date.now()
 let elapsedTime = 0
 
+const speed = 50
 const objects = []
 const mapSize = 800
 const distance = mapSize * .4
@@ -46,7 +47,7 @@ const updatables = [warplane, stats]
 const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 })
 
 const addObject = mesh => {
-  mesh.position.copy({ x: randFloatSpread(mapSize / 2), y: 0, z: -distance })
+  mesh.position.copy({ x: randFloatSpread(mapSize * .33), y: 0, z: -distance })
   scene.add(mesh)
   objects.push(mesh)
 }
@@ -89,7 +90,7 @@ const updateObjects = deltaSpeed => objects.forEach(mesh => {
 void function update() {
   requestAnimationFrame(update)
   const delta = clock.getDelta()
-  const deltaSpeed = warplane.speed * .66 * delta
+  const deltaSpeed = speed * delta
 
   updateGround(deltaSpeed)
   updateObjects(deltaSpeed)
