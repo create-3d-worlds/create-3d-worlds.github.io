@@ -54,7 +54,7 @@ export default class Warplane extends GameObject {
 
   addMissile() {
     const pos = this.position.clone()
-    pos.y -= this.height * .5
+    pos.y -= this.height * .33
     const missile = new Missile({ pos, explosion: this.explosion })
     this.scene.add(missile.mesh)
     this.missiles.push(missile)

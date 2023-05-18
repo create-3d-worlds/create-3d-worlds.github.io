@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import GameObject from '/utils/objects/GameObject.js'
 
 const material = new THREE.MeshBasicMaterial({ color: 0x333333 })
-const geometry = new THREE.CylinderGeometry(.5, .5, 2)
+const geometry = new THREE.CylinderGeometry(.4, .4, 2)
 const mesh = new THREE.Mesh(geometry, material)
 mesh.rotateX(Math.PI * .5)
 

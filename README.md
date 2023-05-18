@@ -17,7 +17,6 @@ npx live-server
 
 - Warplane / 1943
   - podesiti: 
-      dim
       kamere, 
       brzinu, 
       visinu, 
