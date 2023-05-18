@@ -20,10 +20,11 @@ export default class Warplane extends GameObject {
     this.blows = 0
     this.dead = false
     this.time = 0
+    this.propellers = []
 
     if (camera) {
       this.chaseCamera = new ChaseCamera({
-        camera, mesh: this.mesh, speed: 4, rotate: false,
+        camera, mesh: this.mesh, speed: 6, rotate: false,
         offset: [0, this.height * .25, this.depth],
         lookAt: [0, -this.height * .75, 0],
         birdsEyeOffset: [0, this.height * 12, 0],
@@ -140,6 +141,8 @@ export default class Warplane extends GameObject {
     this.normalizePlane(delta)
 
     this.checkHit()
+    this.propellers.forEach(propeller => propeller.rotateZ(delta * -this.speed))
+
     this.time += delta * 15
   }
 }

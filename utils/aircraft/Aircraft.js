@@ -20,10 +20,11 @@ export default class Aircraft extends GameObject {
     this.minHeight = minHeight
     this.minDistance = minDistance
     this.maxPitch = maxPitch
-    this.solids = []
     this.groundY = 0
-    this.mixer = new THREE.AnimationMixer(getMesh(this.mesh))
     this.t = 0
+    this.solids = []
+    this.propellers = []
+    this.mixer = new THREE.AnimationMixer(getMesh(this.mesh))
 
     if (animations) {
       const clip = this.animations[0]
@@ -193,6 +194,9 @@ export default class Aircraft extends GameObject {
     this.chaseCamera?.update(delta)
 
     this.updateMixer(delta)
+    if (!this.isTouchingGround)
+      this.propellers.forEach(propeller => propeller.rotateZ(delta * -this.speed))
+
     this.t++
   }
 }

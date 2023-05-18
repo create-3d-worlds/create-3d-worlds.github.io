@@ -15,12 +15,12 @@ export class ZeppelinPlayer extends Player {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
     this.mesh.position.y = 60
-    this.propeler = this.mesh.getObjectByName('propeler')
+    this.propeller = this.mesh.getObjectByName('propeler')
   }
 
   update(delta) {
     super.update(delta)
-    this.propeler?.rotateY(delta * -1)
+    this.propeller?.rotateY(delta * -1)
   }
 }
 
@@ -28,11 +28,11 @@ export class ZeppelinAI extends AI {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
     this.mesh.position.y = 60
-    this.propeler = this.mesh.getObjectByName('propeler')
+    this.propeller = this.mesh.getObjectByName('propeler')
   }
 
   update(delta) {
     super.update(delta)
-    this.propeler?.rotateY(delta * -1)
+    this.propeller?.rotateY(delta * -1)
   }
 }
