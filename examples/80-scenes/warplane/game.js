@@ -19,7 +19,7 @@ let i = 0
 let last = Date.now()
 let elapsedTime = 0
 
-const speed = 2
+const speed = 1.5
 const objects = []
 const mapSize = 800
 const distance = mapSize * .4
@@ -28,7 +28,7 @@ const groundZ = -mapSize * .99
 
 createOrbitControls()
 
-scene.fog = new THREE.Fog(0xE5C5AB, 200, distance)
+scene.fog = new THREE.Fog(0xE5C5AB, mapSize * .25, distance)
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
 scene.add(createSun({ pos: [50, 200, 50] }))
 
@@ -38,7 +38,7 @@ const ground2 = createTerrain(groundParams)
 ground2.position.z = groundZ
 
 const warplane = new Warplane({ camera })
-warplane.chaseCamera.far = mapSize * .5
+warplane.chaseCamera.far = mapSize * .45
 
 scene.add(ground, ground2, warplane.mesh)
 const updatables = [warplane, stats]

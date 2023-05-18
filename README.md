@@ -17,10 +17,9 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
+  - ograničiti levo-desno
   - dodati izbor aviona
     - podesiti: kamere, brzinu, visinu...
-  - ograničiti levo-desno
-  - odaljiti kameru kad skreće levo-desno
   - poeni za uništene fabrike, penali za civilne zgrade
   - sletanje na kraju misije?
   - spojiti sa airplane?
