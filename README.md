@@ -17,7 +17,6 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - srediti kameru
   - dodati izbor aviona
     - podesiti: kamere, brzinu, visinu...
   - probati ai partizane pucaju na avion
