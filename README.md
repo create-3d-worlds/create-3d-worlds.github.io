@@ -18,8 +18,9 @@ npx live-server
 
 - Warplane / 1943
   - dodati izbor aviona
-    - podesiti: kamere, brzinu, visinu...
-  - probati ai partizane pucaju na avion
+    - da scena bude pauzirana
+    - da kreće na klik
+    - dodati slike aviona
   - poeni za uništene fabrike, penali za civilne zgrade
   - sletanje na kraju misije?
   - spojiti sa airplane?

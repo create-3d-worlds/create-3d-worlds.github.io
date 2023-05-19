@@ -27,7 +27,7 @@ export default class Warplane extends GameObject {
       this.chaseCamera = new ChaseCamera({
         camera, mesh: this.mesh, rotate: false,
         speed: this.speed * .5,
-        offset: [0, this.height * 1.35, this.depth],
+        offset: [0, 0, this.depth],
         lookAt: [0, 0, 0],
         birdsEyeOffset: [0, this.height * 12, 0],
         birdsEyeLookAt: [0, 0, -this.depth],

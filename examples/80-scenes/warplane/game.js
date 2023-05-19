@@ -71,7 +71,7 @@ const createBuilding = elapsedTime => {
 
 const addBuilding = elapsedTime => addObject(createBuilding(elapsedTime))
 
-const addTree = () => addObject(createFirTree(), .4)
+const addTree = () => addObject(createFirTree())
 
 /* UPDATES */
 
