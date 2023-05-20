@@ -18,8 +18,7 @@ npx live-server
 
 - Warplane / 1943
   - dodati izbor aviona
-    - da scena bude pauzirana
-    - da kreće na klik
+    - da scena kreće na klik
     - dodati slike aviona
   - poeni za uništene fabrike, penali za civilne zgrade
   - sletanje na kraju misije?

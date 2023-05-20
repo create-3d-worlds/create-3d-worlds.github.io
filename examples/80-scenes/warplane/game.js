@@ -90,7 +90,10 @@ const updateObjects = deltaSpeed => objects.forEach(mesh => {
 
 void function update() {
   requestAnimationFrame(update)
+  renderer.render(scene, camera)
   const delta = clock.getDelta()
+  if (warplane.input.pause) return
+
   const deltaSpeed = warplane.speed * speed * delta
 
   updateGround(deltaSpeed)
@@ -106,5 +109,4 @@ void function update() {
 
   i++
   elapsedTime += delta
-  renderer.render(scene, camera)
 }()
