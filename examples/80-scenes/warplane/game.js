@@ -3,7 +3,6 @@ import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import { scene, renderer, clock, camera, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createTerrain } from '/utils/ground.js'
-import Warplane from '/utils/aircraft/derived/Messerschmitt.js'
 import { createFirTree } from '/utils/geometry/trees.js'
 import { loadModel } from '/utils/loaders.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
@@ -17,9 +16,11 @@ let i = 0
 let last = Date.now()
 let elapsedTime = 0
 let pause = true
+let warplane
 
 const speed = 1.25
 const objects = []
+const updatables = []
 const mapSize = 800
 const distance = mapSize * .4
 const interval = 2000
@@ -35,11 +36,7 @@ const groundParams = { size: mapSize, color: 0x91A566, colorRange: .1, segments:
 const ground = createTerrain(groundParams)
 const ground2 = createTerrain(groundParams)
 ground2.position.z = groundZ
-
-const warplane = new Warplane({ camera, limit: mapSize * .25 })
-
-scene.add(ground, ground2, warplane.mesh)
-const updatables = [warplane]
+scene.add(ground, ground2)
 
 /* OBJECTS */
 
@@ -113,9 +110,12 @@ void function update() {
 
 startScreen.addEventListener('click', e => {
   if (e.target.tagName != 'BUTTON') return
-
-  console.log(e.target.innerText)
   startScreen.style.display = 'none'
-  // TODO: pustiti pauzu nakon učitavanja
-  pause = false
+  const promise = import(`/utils/aircraft/derived/${e.target.innerText}.js`)
+  promise.then(obj => {
+    pause = false
+    warplane = new obj.default({ camera, limit: mapSize * .25 })
+    scene.add(warplane.mesh)
+    updatables.push(warplane)
+  })
 })

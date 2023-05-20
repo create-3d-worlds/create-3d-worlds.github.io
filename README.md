@@ -18,7 +18,6 @@ npx live-server
 
 - Warplane / 1943
   - dodati izbor aviona
-    - importovati avion nakon izbora
     - dodati slike aviona
   - poeni za uništene fabrike, penali za civilne zgrade
   - sletanje na kraju misije?
