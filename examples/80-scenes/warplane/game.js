@@ -37,7 +37,6 @@ const ground2 = createTerrain(groundParams)
 ground2.position.z = groundZ
 
 const warplane = new Warplane({ camera, limit: mapSize * .25 })
-warplane.chaseCamera.far = mapSize * .45
 
 scene.add(ground, ground2, warplane.mesh)
 const updatables = [warplane]
@@ -70,7 +69,7 @@ const createBuilding = elapsedTime => {
 
 const addBuilding = elapsedTime => addObject(createBuilding(elapsedTime))
 
-const addTree = () => addObject(createFirTree())
+const addTree = () => addObject(createFirTree(), .4)
 
 /* UPDATES */
 

@@ -33,6 +33,7 @@ export default class Warplane extends GameObject {
         birdsEyeLookAt: [0, 0, -this.depth],
       })
       this.chaseCamera.alignCamera()
+      this.chaseCamera.far = limit * 2
     }
   }
 
