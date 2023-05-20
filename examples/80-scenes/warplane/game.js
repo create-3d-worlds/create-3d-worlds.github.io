@@ -8,16 +8,15 @@ import { createFirTree } from '/utils/geometry/trees.js'
 import { loadModel } from '/utils/loaders.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import Tower from '/utils/objects/Tower.js'
-import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
 
-const stats = new Stats()
-document.body.appendChild(stats.dom)
+const startScreen = document.getElementById('start-screen')
 
 const { randInt, randFloatSpread } = THREE.MathUtils
 
 let i = 0
 let last = Date.now()
 let elapsedTime = 0
+let pause = true
 
 const speed = 1.25
 const objects = []
@@ -41,7 +40,7 @@ const warplane = new Warplane({ camera, limit: mapSize * .25 })
 warplane.chaseCamera.far = mapSize * .45
 
 scene.add(ground, ground2, warplane.mesh)
-const updatables = [warplane, stats]
+const updatables = [warplane]
 
 /* OBJECTS */
 
@@ -92,7 +91,7 @@ void function update() {
   requestAnimationFrame(update)
   renderer.render(scene, camera)
   const delta = clock.getDelta()
-  if (warplane.input.pause) return
+  if (pause) return
 
   const deltaSpeed = warplane.speed * speed * delta
 
@@ -110,3 +109,14 @@ void function update() {
   i++
   elapsedTime += delta
 }()
+
+/* EVENTS */
+
+startScreen.addEventListener('click', e => {
+  if (e.target.tagName != 'BUTTON') return
+
+  console.log(e.target.innerText)
+  startScreen.style.display = 'none'
+  // TODO: pustiti pauzu nakon učitavanja
+  pause = false
+})

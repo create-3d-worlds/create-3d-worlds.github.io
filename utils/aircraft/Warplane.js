@@ -22,7 +22,6 @@ export default class Warplane extends GameObject {
     this.dead = false
     this.time = 0
     this.propellers = []
-    this.input = input
 
     if (camera) {
       this.chaseCamera = new ChaseCamera({
