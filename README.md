@@ -17,8 +17,6 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - dodati izbor aviona
-    - dodati slike aviona
   - poeni za uništene fabrike, penali za civilne zgrade
   - sletanje na kraju misije?
   - spojiti sa airplane?

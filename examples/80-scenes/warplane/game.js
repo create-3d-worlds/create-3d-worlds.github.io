@@ -109,9 +109,9 @@ void function update() {
 /* EVENTS */
 
 startScreen.addEventListener('click', e => {
-  if (e.target.tagName != 'BUTTON') return
+  if (e.target.tagName != 'INPUT') return
   startScreen.style.display = 'none'
-  const promise = import(`/utils/aircraft/derived/${e.target.innerText}.js`)
+  const promise = import(`/utils/aircraft/derived/${e.target.id}.js`)
   promise.then(obj => {
     pause = false
     warplane = new obj.default({ camera, limit: mapSize * .25 })
