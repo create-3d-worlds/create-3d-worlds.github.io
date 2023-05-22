@@ -3,7 +3,7 @@ import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import { scene, renderer, clock, camera, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createTerrain } from '/utils/ground.js'
-import { createFirTree } from '/utils/geometry/trees.js'
+import { createFirTree } from '/utils/geometry/trees.js' // createSimpleFir
 import { loadModel } from '/utils/loaders.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import Tower from '/utils/objects/Tower.js'

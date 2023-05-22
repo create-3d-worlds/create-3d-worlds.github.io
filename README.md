@@ -12,7 +12,6 @@ npx live-server
 ## TODO
 
 - ukloniti dispose
-- ukloniti createFir
 - merge Aircraft i Zeppelin u Airship
 
 ### Scenes & examples

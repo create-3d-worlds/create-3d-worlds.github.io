@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { camera, scene, renderer, clock } from '/utils/scene.js'
 import { createWorldSphere } from '/utils/geometry.js'
-import { createFir } from '/utils/geometry/trees.js'
+import { createSimpleFir } from '/utils/geometry/trees.js'
 import { hemLight } from '/utils/light.js'
 import Particles from '/utils/classes/Particles.js'
 import Score from '/utils/io/Score.js'
@@ -40,14 +40,9 @@ const explosion = new Particles({ num: 50, size: 0.07, unitAngle: 0.1 })
 scene.add(explosion.mesh)
 
 for (let i = 0; i < treesInPool; i++)
-  treesPool.push(createFir({ size: 1 }))
+  treesPool.push(createSimpleFir({ size: 1 }))
 
-const numTrees = 64
-const gap = 6.28 / numTrees
-for (let i = 0; i < numTrees; i++)
-  addSideTree(i * gap, i % 2)
-
-const score = new Score({ title: 'Pogotaka' })
+const score = new Score({ title: 'Pogodaka' })
 
 /* FUNCTIONS */
 
@@ -59,14 +54,6 @@ function addLaneTree(lane) {
   tree.visible = true
   laneTrees.push(tree)
   spherical.set(worldRadius - 0.3, pathAngleValues[lane], -earth.rotation.x + 4)
-  addTree(tree, spherical)
-}
-
-function addSideTree(theta, isLeft) {
-  const spherical = new THREE.Spherical()
-  const tree = createFir({ size: 5 })
-  const forestAreaAngle = isLeft ? (1.68 + random() * .1) : (1.46 - random() * .1)
-  spherical.set(worldRadius - 0.3, forestAreaAngle, theta)
   addTree(tree, spherical)
 }
 

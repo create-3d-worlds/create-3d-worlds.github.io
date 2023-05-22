@@ -1,5 +1,5 @@
 import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
-import { createTree, createFirTree, createFir, createSimpleFir } from '/utils/geometry/trees.js'
+import { createTree, createFirTree, createSimpleFir } from '/utils/geometry/trees.js'
 import { createGround } from '/utils/ground.js'
 import { createSun } from '/utils/light.js'
 
@@ -12,10 +12,9 @@ camera.position.z = 20
 camera.position.y = 10
 
 scene.add(
-  createSimpleFir({ x: -30 }),
-  createTree({ x: -15 }),
+  createSimpleFir({ x: -15 }),
+  createTree(),
   createFirTree({ x: 15 }),
-  createFir({ x: 30 }),
 )
 
 /* LOOP */

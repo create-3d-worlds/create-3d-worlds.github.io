@@ -89,43 +89,6 @@ export function createFirTree({ x = 0, y = 0, z = 0, size = 3.5 } = {}) {
 
 /* SIMPLE FIR TREE */
 
-function createFirTop({ radius = .5, height = 1, radialSegments = 8, heightSegments = 6 } = {}) {
-  const geometry = new THREE.ConeGeometry(radius, height, radialSegments, heightSegments)
-  const material = new THREE.MeshStandardMaterial({
-    color: similarColor(greens[3]),
-    flatShading: true
-  })
-
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.castShadow = true
-  mesh.receiveShadow = false
-  mesh.position.y = 0.9
-  mesh.rotation.y = (Math.random() * (Math.PI))
-  return mesh
-}
-
-function createFirTrunk({ radiusTop = .1, radiusBottom = .1, height = .5 } = {}) {
-  const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height)
-  const material = new THREE.MeshStandardMaterial({
-    color: randomBrown(),
-    flatShading: true
-  })
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.y = height * .5
-  return mesh
-}
-
-export function createFir({ x = 0, y = 0, z = 0, size = 5 } = {}) {
-  const mesh = new THREE.Object3D()
-  mesh.add(createFirTrunk())
-  mesh.add(createFirTop())
-  mesh.position.set(x, y, z)
-  mesh.scale.set(size * 2, size * 2, size * 2) // other fir parts are much smaller
-  mesh.rotateZ(randFloat(-0.15, 0.15))
-  return mesh
-}
-
-// size = full height
 export function createSimpleFir({ size = 12, x = 0, y = 0, z = 0 } = {}) {
   size = size * randFloat(0.6, 1.4) // eslint-disable-line
   const treeData = {
