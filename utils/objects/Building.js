@@ -17,7 +17,7 @@ export default class Building extends GameObject {
       const { Fire } = obj
       this.fire = new Fire({ num: 5 })
       this.add(this.fire.mesh)
-      this.fire.mesh.position.y += 5
+      this.fire.mesh.position.y += this.height * .5
     })
   }
 

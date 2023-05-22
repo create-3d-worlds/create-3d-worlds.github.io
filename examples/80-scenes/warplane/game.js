@@ -7,6 +7,7 @@ import { createFirTree } from '/utils/geometry/trees.js' // createSimpleFir
 import { loadModel } from '/utils/loaders.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import Tower from '/utils/objects/Tower.js'
+import Factory from '/utils/objects/Factory.js'
 
 const startScreen = document.getElementById('start-screen')
 
@@ -40,9 +41,6 @@ scene.add(ground, ground2)
 
 /* OBJECTS */
 
-const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 })
-factory.name = 'factory'
-
 const addObject = (mesh, spread = .33) => {
   mesh.position.copy({ x: randFloatSpread(mapSize * spread), y: 0, z: -distance })
   scene.add(mesh)
@@ -52,7 +50,10 @@ const addObject = (mesh, spread = .33) => {
 const createBuilding = elapsedTime => {
   const minutes = Math.floor(elapsedTime / 60)
   switch (randInt(1, 7 + minutes)) {
-    case 1: return clone(factory)
+    case 1:
+      const factory = new Factory()
+      updatables.push(factory)
+      return factory.mesh
     case 2: return createWarehouse2()
     case 3: return createWarRuin()
     case 4: return createRuin()

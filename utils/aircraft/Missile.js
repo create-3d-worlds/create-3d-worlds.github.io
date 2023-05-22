@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import GameObject from '/utils/objects/GameObject.js'
+import { getSize } from '/utils/helpers.js'
 
 const material = new THREE.MeshBasicMaterial({ color: 0x333333 })
 const geometry = new THREE.CylinderGeometry(.4, .4, 2)
@@ -17,7 +18,7 @@ export default class Missile extends GameObject {
   }
 
   get direction() {
-    const position = new THREE.Vector3().addVectors(this.position, { x: 0, y: -50, z: -75 })
+    const position = new THREE.Vector3().addVectors(this.position, { x: 0, y: -50, z: -90 })
     return new THREE.Vector3().subVectors(position, this.position).normalize()
   }
 
@@ -37,7 +38,8 @@ export default class Missile extends GameObject {
     const intersects = raycaster.intersectObject(this.scene)
 
     this.enemies.forEach(mesh => {
-      if (this.distanceTo(mesh) < 10)
+      const width = getSize(mesh, 'x')
+      if (this.distanceTo(mesh) < width)
         mesh.userData.hitAmount = 1000
     })
 
