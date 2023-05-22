@@ -129,20 +129,8 @@ export default class Actor extends GameObject {
     this.mesh.userData.energy = energy
   }
 
-  get hitAmount() {
-    return this.mesh.userData.hitAmount
-  }
-
-  set hitAmount(hitAmount) {
-    this.mesh.userData.hitAmount = hitAmount
-  }
-
   get dead() {
     return this.energy <= 0
-  }
-
-  get alive() {
-    return !this.dead
   }
 
   get heightDifference() {

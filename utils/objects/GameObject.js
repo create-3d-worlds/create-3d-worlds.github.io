@@ -34,6 +34,14 @@ export default class GameObject {
     this.mesh.name = name
   }
 
+  get hitAmount() {
+    return this.mesh.userData.hitAmount
+  }
+
+  set hitAmount(hitAmount) {
+    this.mesh.userData.hitAmount = hitAmount
+  }
+
   get dead() {
     return this.mesh.userData.dead
   }

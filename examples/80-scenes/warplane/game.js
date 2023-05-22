@@ -18,7 +18,6 @@ let elapsedTime = 0
 let pause = true
 let warplane
 
-const speed = 1.25
 const objects = []
 const updatables = []
 const mapSize = 800
@@ -88,7 +87,7 @@ void function update() {
   const delta = clock.getDelta()
   if (pause) return
 
-  const deltaSpeed = warplane.speed * speed * delta
+  const deltaSpeed = warplane.speed * delta
 
   updateGround(deltaSpeed)
   updateObjects(deltaSpeed)

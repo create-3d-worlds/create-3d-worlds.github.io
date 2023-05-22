@@ -5,7 +5,7 @@ import { Explosion } from '/utils/classes/Particles.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 export default class Warplane extends GameObject {
-  constructor({ mesh, camera, limit, speed = 40, y = 29 } = {}) {
+  constructor({ mesh, camera, limit, speed = 45, y = 29 } = {}) {
     super({ mesh, name: 'player' })
     this.speed = speed
     this.limit = limit
