@@ -3,7 +3,8 @@ import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 
 export default class GameObject {
 
-  constructor({ mesh, name, pos, color, solids, scale, rotateY, altitude = 0 } = {}) {
+  constructor({ mesh, name, pos, color, solids, scale, rotateY, altitude = 0, energy = 100
+  } = {}) {
     if (mesh.userData.animations)
       this.mesh = clone(mesh)
     else
@@ -11,6 +12,7 @@ export default class GameObject {
 
     this.name = name
     this.hitAmount = 0
+    this.energy = energy
 
     if (pos) this.position = pos
     if (solids) putOnSolids(this.mesh, solids, altitude)
@@ -33,6 +35,14 @@ export default class GameObject {
 
   set name(name) {
     this.mesh.name = name
+  }
+
+  get energy() {
+    return this.mesh.userData.energy
+  }
+
+  set energy(energy) {
+    this.mesh.userData.energy = energy
   }
 
   get hitAmount() {

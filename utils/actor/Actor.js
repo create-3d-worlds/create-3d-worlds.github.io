@@ -33,7 +33,6 @@ export default class Actor extends GameObject {
     mapSize,
     attackDistance,
     hitColor = 0x8a0303,
-    energy = 100,
     runCoefficient = 2,
     leaveDecals = attackDistance > 9,
     useRicochet = attackDistance > 9,
@@ -45,7 +44,6 @@ export default class Actor extends GameObject {
     ...rest
   }) {
     super({ solids, altitude, ...rest })
-    this.mesh.userData.energy = energy
     this.mesh.userData.hitColor = hitColor
     this.speed = speed
     this.groundY = 0
@@ -116,14 +114,6 @@ export default class Actor extends GameObject {
   }
 
   /* GETTERS & SETTERS */
-
-  get energy() {
-    return this.mesh.userData.energy
-  }
-
-  set energy(energy) {
-    this.mesh.userData.energy = energy
-  }
 
   get dead() {
     return this.energy <= 0

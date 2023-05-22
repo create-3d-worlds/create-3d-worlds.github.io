@@ -18,7 +18,7 @@ let elapsedTime = 0
 let pause = true
 let warplane
 
-const objects = []
+const meshes = []
 const updatables = []
 const mapSize = 800
 const distance = mapSize * .4
@@ -39,10 +39,10 @@ scene.add(ground, ground2)
 
 const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 })
 
-const addObject = (mesh, spread = .33) => {
+const addMesh = (mesh, spread = .33) => {
   mesh.position.copy({ x: randFloatSpread(mapSize * spread), y: 0, z: -distance })
   scene.add(mesh)
-  objects.push(mesh)
+  meshes.push(mesh)
 }
 
 const createBuilding = elapsedTime => {
@@ -61,10 +61,10 @@ const createBuilding = elapsedTime => {
 const addBuilding = elapsedTime => {
   const building = createBuilding(elapsedTime)
   updatables.push(building)
-  addObject(building.mesh)
+  addMesh(building.mesh)
 }
 
-const addTree = () => addObject(createFirTree(), .4)
+const addTree = () => addMesh(createFirTree(), .4)
 
 /* UPDATES */
 
@@ -73,10 +73,10 @@ const updateGround = deltaSpeed => [ground, ground2].forEach(g => {
   if (g.position.z >= mapSize * .75) g.position.z = startGroundZ
 })
 
-const updateObjects = deltaSpeed => objects.forEach(mesh => {
+const updateMeshes = deltaSpeed => meshes.forEach(mesh => {
   mesh.translateZ(deltaSpeed)
   if (mesh.position.z > camera.position.z + 200) {
-    objects.splice(objects.indexOf(mesh), 1)
+    meshes.splice(meshes.indexOf(mesh), 1)
     scene.remove(mesh)
   }
 })
@@ -90,8 +90,11 @@ void function update() {
   const deltaSpeed = warplane.speed * delta
 
   updateGround(deltaSpeed)
-  updateObjects(deltaSpeed)
-  updatables.forEach(instance => instance.update(delta))
+  updateMeshes(deltaSpeed)
+  updatables.forEach(instance => {
+    console.log(instance.hitAmount)
+    instance.update(delta)
+  })
 
   if (i % 5 === 0) addTree()
 
