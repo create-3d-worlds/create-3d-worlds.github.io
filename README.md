@@ -14,10 +14,10 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - poeni za uništene fabrike (penali za civilne zgrade?)
-    - dodati zgradama default energiju i regulisati smrt oduzimanjem hitAmount
-    - istovremeno sa oduzimanjem hitAmount, računati poene
+  - poeni za uništene fabrike
     - beležiti poene u Missile, u Building ili možda može u game?
+    - istovremeno sa oduzimanjem hitAmount, računati poene
+  - penali za civilne zgrade?
   - sletanje na kraju misije?
     - posle nekog vremena prestaju objekti i drveće
     - možda i ravno tlo

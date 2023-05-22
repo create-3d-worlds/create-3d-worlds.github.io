@@ -11,8 +11,8 @@ export default class GameObject {
       this.mesh = mesh.clone()
 
     this.name = name
-    this.hitAmount = 0
     this.energy = energy
+    this.hitAmount = 0
 
     if (pos) this.position = pos
     if (solids) putOnSolids(this.mesh, solids, altitude)
@@ -42,7 +42,7 @@ export default class GameObject {
   }
 
   set energy(energy) {
-    this.mesh.userData.energy = energy
+    this.mesh.userData.energy = energy > 0 ? energy : 0
   }
 
   get hitAmount() {
