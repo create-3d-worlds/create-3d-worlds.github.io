@@ -8,7 +8,7 @@ export default class Building extends GameObject {
   checkHit() {
     if (!this.hitAmount) return
 
-    this.dead = true
+    this.energy = 0
 
     const promise = import('/utils/classes/Particles.js')
     promise.then(obj => {

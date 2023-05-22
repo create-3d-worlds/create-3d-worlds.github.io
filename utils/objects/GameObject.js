@@ -54,11 +54,7 @@ export default class GameObject {
   }
 
   get dead() {
-    return this.mesh.userData.dead
-  }
-
-  set dead(bool) {
-    this.mesh.userData.dead = bool
+    return this.energy <= 0
   }
 
   get position() {

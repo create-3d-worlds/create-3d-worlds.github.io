@@ -30,9 +30,9 @@ export default class Bullet extends GameObject {
 
     if (this.distanceTo(this.player) < 2) {
       this.player.userData.hitAmount = 100
-      this.dead = true
+      this.energy = 0
     }
 
-    if (this.outOfRange) this.dead = true
+    if (this.outOfRange) this.energy = 0
   }
 }

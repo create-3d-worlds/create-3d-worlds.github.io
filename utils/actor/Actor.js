@@ -115,10 +115,6 @@ export default class Actor extends GameObject {
 
   /* GETTERS & SETTERS */
 
-  get dead() {
-    return this.energy <= 0
-  }
-
   get heightDifference() {
     return this.mesh.position.y - this.groundY
   }

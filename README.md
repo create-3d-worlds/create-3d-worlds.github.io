@@ -15,7 +15,6 @@ npx live-server
 
 - Warplane / 1943
   - poeni za uništene fabrike (penali za civilne zgrade?)
-    - prebaciti get dead na GameObject
     - dodati zgradama default energiju i regulisati smrt oduzimanjem hitAmount
     - istovremeno sa oduzimanjem hitAmount, računati poene
     - beležiti poene u Missile, u Building ili možda može u game?

@@ -14,7 +14,6 @@ export default class Missile extends GameObject {
     this.range = 300
     this.initPosition = pos.clone()
     this.explosion = explosion
-    this.dead = false
   }
 
   get direction() {
@@ -44,7 +43,7 @@ export default class Missile extends GameObject {
 
     this.enemies.forEach(mesh => {
       if (this.distanceTo(mesh) < getSize(mesh, 'x')) {
-        if (mesh.userData.dead) return
+        if (mesh.userData.energy <= 0) return
         mesh.userData.hitAmount = 1000
       }
     })
@@ -52,7 +51,7 @@ export default class Missile extends GameObject {
     if (intersects.length) {
       const { point } = intersects[0]
       this.explosion.reset({ pos: point, unitAngle: 0.2 })
-      this.dead = true
+      this.energy = 0
     }
   }
 }

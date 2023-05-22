@@ -5,8 +5,8 @@ import { Explosion } from '/utils/classes/Particles.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 export default class Warplane extends GameObject {
-  constructor({ mesh, camera, limit, speed = 45, y = 29 } = {}) {
-    super({ mesh, name: 'player' })
+  constructor({ camera, limit, speed = 45, y = 29, ...rest } = {}) {
+    super({ name: 'player', energy: 500, ...rest })
     this.speed = speed
     this.limit = limit
     this.rotationSpeed = .75
@@ -18,7 +18,6 @@ export default class Warplane extends GameObject {
     this.last = Date.now()
     this.interval = 500
     this.explosion = new Explosion({ size: 4 })
-    this.blows = 0
     this.time = 0
     this.propellers = []
 
@@ -98,9 +97,8 @@ export default class Warplane extends GameObject {
 
   checkHit() {
     if (!this.hitAmount) return
+    this.energy -= this.hitAmount
     this.hitAmount = 0
-    this.blows++
-    if (this.blows >= 5) this.dead = true
 
     if (this.smoke) return
     const promise = import('/utils/classes/Particles.js')
@@ -132,7 +130,7 @@ export default class Warplane extends GameObject {
       missile.update(delta)
     })
 
-    this.smoke?.update({ delta, min: -this.blows, })
+    this.smoke?.update({ delta, min: (this.energy / 100) - 5 })
     this.explosion.expand({ velocity: 1.1, maxRounds: 30 })
     this.propellers.forEach(propeller => propeller.rotateZ(delta * -this.speed))
 
