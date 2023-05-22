@@ -1,13 +1,12 @@
 import * as THREE from 'three'
-import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
-import { scene, renderer, clock, camera, createOrbitControls } from '/utils/scene.js'
+import { scene, renderer, clock, camera } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createTerrain } from '/utils/ground.js'
 import { createFirTree } from '/utils/geometry/trees.js' // createSimpleFir
-import { loadModel } from '/utils/loaders.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import Tower from '/utils/objects/Tower.js'
-import Factory from '/utils/objects/Factory.js'
+import Building from '/utils/objects/Building.js'
+import { loadModel } from '/utils/loaders.js'
 
 const startScreen = document.getElementById('start-screen')
 
@@ -25,9 +24,7 @@ const updatables = []
 const mapSize = 800
 const distance = mapSize * .4
 const interval = 2000
-const groundZ = -mapSize * .99
-
-createOrbitControls()
+const startGroundZ = -mapSize * .99
 
 scene.fog = new THREE.Fog(0xE5C5AB, mapSize * .25, distance)
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
@@ -36,10 +33,12 @@ scene.add(createSun({ pos: [50, 200, 50] }))
 const groundParams = { size: mapSize, color: 0x91A566, colorRange: .1, segments: 50, min: 0, max: 15 }
 const ground = createTerrain(groundParams)
 const ground2 = createTerrain(groundParams)
-ground2.position.z = groundZ
+ground2.position.z = startGroundZ
 scene.add(ground, ground2)
 
 /* OBJECTS */
+
+const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 })
 
 const addObject = (mesh, spread = .33) => {
   mesh.position.copy({ x: randFloatSpread(mapSize * spread), y: 0, z: -distance })
@@ -50,23 +49,21 @@ const addObject = (mesh, spread = .33) => {
 const createBuilding = elapsedTime => {
   const minutes = Math.floor(elapsedTime / 60)
   switch (randInt(1, 7 + minutes)) {
-    case 1:
-      const factory = new Factory()
-      updatables.push(factory)
-      return factory.mesh
-    case 2: return createWarehouse2()
-    case 3: return createWarRuin()
-    case 4: return createRuin()
-    case 5: return createAirport()
-    case 6: return createWarehouse()
-    default:
-      const tower = new Tower()
-      updatables.push(tower)
-      return tower.mesh
+    case 1: return new Building({ mesh: factory })
+    case 2: return new Building({ mesh: createWarehouse2() })
+    case 3: return new Building({ mesh: createWarRuin() })
+    case 4: return new Building({ mesh: createRuin() })
+    case 5: return new Building({ mesh: createAirport() })
+    case 6: return new Building({ mesh: createWarehouse() })
+    default: return new Tower()
   }
 }
 
-const addBuilding = elapsedTime => addObject(createBuilding(elapsedTime))
+const addBuilding = elapsedTime => {
+  const building = createBuilding(elapsedTime)
+  updatables.push(building)
+  addObject(building.mesh)
+}
 
 const addTree = () => addObject(createFirTree(), .4)
 
@@ -74,7 +71,7 @@ const addTree = () => addObject(createFirTree(), .4)
 
 const updateGround = deltaSpeed => [ground, ground2].forEach(g => {
   g.translateZ(deltaSpeed)
-  if (g.position.z >= mapSize * .75) g.position.z = groundZ
+  if (g.position.z >= mapSize * .75) g.position.z = startGroundZ
 })
 
 const updateObjects = deltaSpeed => objects.forEach(mesh => {
