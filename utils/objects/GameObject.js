@@ -63,10 +63,4 @@ export default class GameObject {
     if (!mesh) return Infinity
     return this.position.distanceTo(mesh.position)
   }
-
-  dispose(mesh = this.mesh) {
-    mesh.geometry.dispose()
-    mesh.material.dispose()
-    this.scene?.remove(mesh)
-  }
 }

@@ -27,11 +27,6 @@ export default class Coin extends GameObject {
     this.audio.play()
   }
 
-  dispose() {
-    super.dispose()
-    this.playSound()
-  }
-
   update(delta) {
     this.mesh.rotateZ(2 * delta)
   }

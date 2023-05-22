@@ -47,7 +47,7 @@ const score = new Score({ title: 'POINTS', subtitle: 'coins left', totalPoints: 
 function checkCollision(coin) {
   if (player.distanceTo(coin.mesh) > 1.4) return
   coins.splice(coins.findIndex(c => c === coin), 1)
-  coin.dispose()
+  scene.remove(coin.mesh)
   score.update(1, coins.length)
 }
 
