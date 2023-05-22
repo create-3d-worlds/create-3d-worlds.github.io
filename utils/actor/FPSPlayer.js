@@ -89,7 +89,7 @@ export default class FPSPlayer extends Player {
   }
 
   moveCursor(e) {
-    if (this.hurting || this.isDead || !document.pointerLockElement) return
+    if (this.hurting || this.dead || !document.pointerLockElement) return
 
     this.mesh.rotateY(-e.movementX * this.mouseSensitivity)
     this.camera.rotateX(-e.movementY * this.mouseSensitivity)
@@ -112,7 +112,7 @@ export default class FPSPlayer extends Player {
   painEffect() {
     this.hurting = true
     setTimeout(() => {
-      this.hurting = this.isDead // red screen if dead
+      this.hurting = this.dead // red screen if dead
     }, 300)
   }
 
@@ -133,7 +133,7 @@ export default class FPSPlayer extends Player {
 
     super.update(delta)
 
-    if (this.isAlive) {
+    if (this.alive) {
       this.time += (input.run ? delta * this.runCoefficient : delta)
       if (this.mixer)
         this.fpsRenderer.renderTarget(this.time)
@@ -141,7 +141,7 @@ export default class FPSPlayer extends Player {
         this.fpsRenderer.render(this.time)
     }
 
-    if (this.isDead) this.fpsRenderer.clear()
+    if (this.dead) this.fpsRenderer.clear()
 
     if (this.hurting) this.fpsRenderer.drawPain()
 

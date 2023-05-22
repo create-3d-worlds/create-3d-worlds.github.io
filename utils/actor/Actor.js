@@ -137,12 +137,12 @@ export default class Actor extends GameObject {
     this.mesh.userData.hitAmount = hitAmount
   }
 
-  get isDead() {
+  get dead() {
     return this.energy <= 0
   }
 
-  get isAlive() {
-    return !this.isDead
+  get alive() {
+    return !this.dead
   }
 
   get heightDifference() {
@@ -376,7 +376,7 @@ export default class Actor extends GameObject {
     this.energy = newAmount > 0 ? newAmount : 0
     userData.hitAmount = 0
 
-    if (this.isDead)
+    if (this.dead)
       this.setState('death')
     else
       this.setState('pain')

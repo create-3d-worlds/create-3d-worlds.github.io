@@ -35,7 +35,7 @@ export class GhostAI extends AI {
 
   checkHit() {
     super.checkHit()
-    if (this.isDead) {
+    if (this.dead) {
       this.mesh.rotateY(.15)
       this.mesh.translateY(.03)
     }

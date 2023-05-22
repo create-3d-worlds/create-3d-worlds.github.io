@@ -10,7 +10,6 @@ export default class GameObject {
       this.mesh = mesh.clone()
 
     this.name = name
-    this.dead = false
 
     if (pos) this.position = pos
     if (solids) putOnSolids(this.mesh, solids, altitude)
