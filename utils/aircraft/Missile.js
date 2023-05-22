@@ -37,11 +37,16 @@ export default class Missile extends GameObject {
     const raycaster = new THREE.Raycaster(this.position, this.direction, 0, 1)
     const intersects = raycaster.intersectObject(this.scene)
 
+    let willBurn = false
+
     this.enemies.forEach(mesh => {
-      const width = getSize(mesh, 'x')
-      if (this.distanceTo(mesh) < width)
+      if (this.distanceTo(mesh) < getSize(mesh, 'x')) {
         mesh.userData.hitAmount = 1000
+        willBurn = true
+      }
     })
+
+    if (willBurn) return
 
     if (intersects.length) {
       const { point } = intersects[0]
