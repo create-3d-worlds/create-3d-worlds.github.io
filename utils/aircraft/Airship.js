@@ -4,13 +4,13 @@ import { addSolids, getMesh, getGroundY } from '/utils/helpers.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 import GameObject from '/utils/objects/GameObject.js'
 
-const angleSpeed = 2
+const yawAngle = .01
+const pitchAngle = yawAngle / 5
 const maxRoll = Infinity
 
-/* Base class for Airplane and Zeppelin */
-export default class Aircraft extends GameObject {
+export default class Airship extends GameObject {
   constructor({
-    mesh, speed = 1, maxSpeed = speed * 2.5, minSpeed = speed * .1, minHeight = 5, minDistance = 120, maxPitch = Infinity, animations, solids, camera, pos, altitude = minHeight * 3, name
+    mesh, speed = 1, maxSpeed = speed * 2.5, minSpeed = speed * .1, minHeight = 2, minDistance = 10, maxPitch = .1, animations, solids, camera, pos, altitude = minHeight * 3, name
   } = {}) {
     super({ mesh, pos, solids, altitude, name })
     this.speed = speed
@@ -25,6 +25,7 @@ export default class Aircraft extends GameObject {
     this.solids = []
     this.propellers = []
     this.mixer = new THREE.AnimationMixer(getMesh(this.mesh))
+    this.mesh.rotation.order = 'YZX' // fix controls (default is 'ZYX')
 
     if (animations) {
       const clip = this.animations[0]
@@ -87,22 +88,23 @@ export default class Aircraft extends GameObject {
   /* CONTROLS */
 
   up(delta) {
-    if (this.mesh.position.y < this.minHeight) return
-    this.pitch(-.2 * delta)
+    if (this.isTouchingGround) this.speed = this.maxSpeed * .5
+    this.mesh.translateY(this.speed * delta)
+    this.pitch(pitchAngle)
   }
 
   down(delta) {
-    this.pitch(.2 * delta)
+    if (this.isTouchingGround) return this.slowDown()
+    this.mesh.translateY(-this.speed * delta)
+    this.pitch(-pitchAngle)
   }
 
-  left(delta) {
-    if (this.speed < 0.2) this.yaw(angleSpeed * 0.3 * delta) // ako je sleteo
-    else this.roll(angleSpeed * delta)
+  left() {
+    this.yaw(yawAngle)
   }
 
-  right(delta) {
-    if (this.speed < 0.2) this.yaw(-angleSpeed * 0.3 * delta)
-    else this.roll(-angleSpeed * delta)
+  right() {
+    this.yaw(-yawAngle)
   }
 
   pitch(angle) {
@@ -128,7 +130,8 @@ export default class Aircraft extends GameObject {
     this.mesh.position.add(this.direction.multiplyScalar(this.speed * delta))
   }
 
-  accelerate() {
+  accelerate(delta) {
+    if (this.isTouchingGround) this.up(delta)
     if (this.speed < this.maxSpeed)
       this.speed += this.speedFactor
   }
@@ -166,6 +169,11 @@ export default class Aircraft extends GameObject {
     const rollAngle = Math.abs(this.mesh.rotation.z)
     if (this.mesh.rotation.z > 0) this.roll(-rollAngle * unrollFactor)
     if (this.mesh.rotation.z < 0) this.roll(rollAngle * unrollFactor)
+
+    const unpitchFactor = 0.01
+    const pitchAngle = Math.abs(this.mesh.rotation.x)
+    if (this.mesh.rotation.x > 0) this.pitch(-pitchAngle * unpitchFactor)
+    if (this.mesh.rotation.x < 0) this.pitch(pitchAngle * unpitchFactor)
   }
 
   updateMixer(delta) {

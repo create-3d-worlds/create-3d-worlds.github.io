@@ -103,7 +103,7 @@ export const centerGeometry = geometry => {
 
 export const adjustHeight = mesh => mesh.translateY(getHeight(mesh) / 2)
 
-// TODO: move to Aircraft
+// TODO: move to Airship
 export const addSolids = (oldSolids, ...newSolids) => {
   const pushUnique = obj => {
     if (!oldSolids.includes(obj)) oldSolids.push(obj)

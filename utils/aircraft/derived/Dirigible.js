@@ -1,4 +1,4 @@
-import Zeppelin from '../Zeppelin.js'
+import Airship from '../Airship.js'
 import { loadModel } from '/utils/loaders.js'
 
 const [mesh, propeller] = await Promise.all([
@@ -6,7 +6,7 @@ const [mesh, propeller] = await Promise.all([
   await loadModel({ file: 'item/propeller/model.fbx', size: 1, angle: Math.PI }),
 ])
 
-export default class Dirigible extends Zeppelin {
+export default class Dirigible extends Airship {
   constructor({ altitude = 20, name = 'player', ...rest } = {}) {
     super({ mesh, altitude, name, ...rest })
 

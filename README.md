@@ -11,8 +11,6 @@ npx live-server
 
 ## TODO
 
-- merge Aircraft i Zeppelin u Airship
-
 ### Scenes & examples
 
 - Warplane / 1943
