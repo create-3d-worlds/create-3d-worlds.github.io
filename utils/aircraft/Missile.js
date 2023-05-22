@@ -18,7 +18,7 @@ export default class Missile extends GameObject {
   }
 
   get direction() {
-    const position = new THREE.Vector3().addVectors(this.position, { x: 0, y: -50, z: -90 })
+    const position = new THREE.Vector3().addVectors(this.position, { x: 0, y: -50, z: -80 })
     return new THREE.Vector3().subVectors(position, this.position).normalize()
   }
 
@@ -27,7 +27,12 @@ export default class Missile extends GameObject {
   }
 
   get enemies() {
-    return this.scene.getObjectsByProperty('name', 'building')
+    return [
+      ...this.scene.getObjectsByProperty('name', 'building'),
+      ...this.scene.getObjectsByProperty('name', 'factory'),
+      ...this.scene.getObjectsByProperty('name', 'civil'),
+      ...this.scene.getObjectsByProperty('name', 'tower'),
+    ]
   }
 
   update(delta) {

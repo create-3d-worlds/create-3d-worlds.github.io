@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - dodati paljenje drugih zgrada?
   - poeni za uništene fabrike (penali za civilne zgrade?)
   - sletanje na kraju misije?
     - posle nekog vremena prestaju objekti i drveće

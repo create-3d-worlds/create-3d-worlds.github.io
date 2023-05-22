@@ -49,12 +49,12 @@ const addObject = (mesh, spread = .33) => {
 const createBuilding = elapsedTime => {
   const minutes = Math.floor(elapsedTime / 60)
   switch (randInt(1, 7 + minutes)) {
-    case 1: return new Building({ mesh: factory })
-    case 2: return new Building({ mesh: createWarehouse2() })
-    case 3: return new Building({ mesh: createWarRuin() })
-    case 4: return new Building({ mesh: createRuin() })
-    case 5: return new Building({ mesh: createAirport() })
-    case 6: return new Building({ mesh: createWarehouse() })
+    case 1: return new Building({ mesh: factory, name: 'factory' })
+    case 2: return new Building({ mesh: createAirport() })
+    case 3: return new Building({ mesh: createWarRuin(), name: 'civil' })
+    case 4: return new Building({ mesh: createRuin(), name: 'civil' })
+    case 5: return new Building({ mesh: createWarehouse() })
+    case 6: return new Building({ mesh: createWarehouse2() })
     default: return new Tower()
   }
 }
@@ -92,7 +92,7 @@ void function update() {
 
   updateGround(deltaSpeed)
   updateObjects(deltaSpeed)
-  updatables.forEach(element => element.update(delta))
+  updatables.forEach(instance => instance.update(delta))
 
   if (i % 5 === 0) addTree()
 

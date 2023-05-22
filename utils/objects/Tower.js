@@ -11,7 +11,7 @@ const mesh = await loadModel({
 
 export default class Tower extends Building {
   constructor(params = {}) {
-    super({ mesh, ...params })
+    super({ mesh, name: 'tower', ...params })
     this.range = 200
     this.bullets = []
     this.last = Date.now()
