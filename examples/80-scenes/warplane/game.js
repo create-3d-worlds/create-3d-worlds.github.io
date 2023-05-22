@@ -41,6 +41,7 @@ scene.add(ground, ground2)
 /* OBJECTS */
 
 const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 })
+factory.name = 'factory'
 
 const addObject = (mesh, spread = .33) => {
   mesh.position.copy({ x: randFloatSpread(mapSize * spread), y: 0, z: -distance })

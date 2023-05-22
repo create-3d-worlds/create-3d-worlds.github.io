@@ -16,6 +16,7 @@ npx live-server
 - Warplane / 1943
   - poeni za uništene fabrike (penali za civilne zgrade?)
     - dodati paljenje fabrika (i drugih zgrada?)
+      - Factory extends Building
   - sletanje na kraju misije?
   - dodati potisak na f18
 

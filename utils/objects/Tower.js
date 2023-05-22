@@ -1,6 +1,6 @@
-import GameObject from '/utils/objects/GameObject.js'
 import { loadModel } from '/utils/loaders.js'
 import Bullet from './Bullet.js'
+import Building from './Building.js'
 
 const mesh = await loadModel({
   file: 'building/tower/ww2/D85VT1X9UHDSYASVUM1UY02HA.obj',
@@ -9,15 +9,13 @@ const mesh = await loadModel({
   shouldAdjustHeight: true
 })
 
-export default class Tower extends GameObject {
+export default class Tower extends Building {
   constructor(params = {}) {
     super({ mesh, ...params })
-    this.name = 'tower'
     this.range = 200
     this.bullets = []
     this.last = Date.now()
     this.interval = 500
-    this.dead = false
   }
 
   get targetInRange() {
@@ -47,23 +45,8 @@ export default class Tower extends GameObject {
     this.bullets = []
   }
 
-  checkHit() {
-    if (!this.mesh.userData.hitAmount) return
-
-    this.dead = true
-
-    const promise = import('/utils/classes/Particles.js')
-    promise.then(obj => {
-      const { Fire } = obj
-      this.fire = new Fire({ num: 5 })
-      this.add(this.fire.mesh)
-      this.fire.mesh.position.y += 5
-    })
-  }
-
   update(delta) {
-    this.checkHit()
-    this.fire?.update({ delta, minVelocity: .05, maxVelocity: .15 })
+    super.update(delta)
 
     if (this.targetInRange && this.ableToShoot) {
       this.addBullet()
