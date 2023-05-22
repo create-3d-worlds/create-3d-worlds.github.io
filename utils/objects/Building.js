@@ -6,7 +6,7 @@ export default class Building extends GameObject {
   }
 
   checkHit() {
-    if (!this.mesh.userData.hitAmount) return
+    if (!this.hitAmount) return
 
     this.dead = true
 

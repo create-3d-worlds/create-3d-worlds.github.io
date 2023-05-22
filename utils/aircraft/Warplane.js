@@ -97,8 +97,8 @@ export default class Warplane extends GameObject {
   }
 
   checkHit() {
-    if (!this.mesh.userData.hitAmount) return
-    this.mesh.userData.hitAmount = 0
+    if (!this.hitAmount) return
+    this.hitAmount = 0
     this.blows++
     if (this.blows >= 5) this.dead = true
 

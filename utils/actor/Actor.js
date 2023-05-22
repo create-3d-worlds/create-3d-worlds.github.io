@@ -48,7 +48,6 @@ export default class Actor extends GameObject {
     turnWhileAttack = !flame,
   }) {
     super({ mesh, name, pos, solids, altitude })
-    this.mesh.userData.hitAmount = 0
     this.mesh.userData.energy = energy
     this.mesh.userData.hitColor = hitColor
     this.speed = speed
