@@ -4,7 +4,6 @@ import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 import GameObject from '/utils/objects/GameObject.js'
 import { getGroundY, directionBlocked, getMesh, intersect, getParent, belongsTo } from '/utils/helpers.js'
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
-import { createPlayerBox } from '/utils/geometry.js'
 import config from '/config.js'
 
 const { randInt } = THREE.MathUtils
@@ -17,9 +16,6 @@ export default class Actor extends GameObject {
   #solids = []
 
   constructor({
-    mesh = createPlayerBox(),
-    name,
-    pos,
     solids,
     animations,
     animDict,
@@ -46,8 +42,9 @@ export default class Actor extends GameObject {
     shouldRaycastGround = Boolean(altitude),
     flame = null,
     turnWhileAttack = !flame,
+    ...rest
   }) {
-    super({ mesh, name, pos, solids, altitude })
+    super({ solids, altitude, ...rest })
     this.mesh.userData.energy = energy
     this.mesh.userData.hitColor = hitColor
     this.speed = speed
