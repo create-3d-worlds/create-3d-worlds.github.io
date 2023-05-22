@@ -13,7 +13,7 @@ export default class Warplane extends GameObject {
     this.position.y = y
     this.minHeight = y / 2
     this.maxHeight = y * 2
-    this.maxRoll = Math.PI / 3
+    this.maxRoll = Math.PI * .4
     this.missiles = []
     this.last = Date.now()
     this.interval = 500
@@ -26,7 +26,7 @@ export default class Warplane extends GameObject {
     if (camera) {
       this.chaseCamera = new ChaseCamera({
         camera, mesh: this.mesh, rotate: false,
-        speed: this.speed * .5,
+        speed: this.speed * .75,
         offset: [0, 0, this.depth],
         lookAt: [0, 0, 0],
         birdsEyeOffset: [0, this.height * 12, 0],

@@ -13,17 +13,15 @@ npx live-server
 
 - ukloniti dispose
 - ukloniti createFir
+- merge Aircraft i Zeppelin u Airship
 
 ### Scenes & examples
 
 - Warplane / 1943
-  - poeni za uništene fabrike, penali za civilne zgrade
+  - poeni za uništene fabrike (penali za civilne zgrade?)
+    - dodati paljenje fabrika (i drugih zgrada?)
   - sletanje na kraju misije?
-  - spojiti sa airplane?
-
-- Airplane
-  - sunce da prati avion
-  - da leti iznad yu mape (ako nije presporo)
+  - dodati potisak na f18
 
 - Tenk
   - koristiti TankPlayer
