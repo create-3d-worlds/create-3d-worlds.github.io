@@ -1,10 +1,8 @@
 import GameObject from '/utils/objects/GameObject.js'
 
 export default class Building extends GameObject {
-  constructor(params = {}) {
-    super(params)
-    this.name = 'building'
-    this.dead = false
+  constructor({ name = 'building', ...rest } = {}) {
+    super({ name, ...rest })
   }
 
   checkHit() {

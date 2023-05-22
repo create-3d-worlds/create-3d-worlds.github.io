@@ -11,7 +11,6 @@ export default class Bullet extends GameObject {
     this.speed = .2
     this.maxRange = 500
     this.initPosition = pos.clone()
-    this.dead = false
   }
 
   get outOfRange() {

@@ -19,7 +19,6 @@ export default class Warplane extends GameObject {
     this.interval = 500
     this.explosion = new Explosion({ size: 4 })
     this.blows = 0
-    this.dead = false
     this.time = 0
     this.propellers = []
 
@@ -39,14 +38,6 @@ export default class Warplane extends GameObject {
 
   get timeToShoot() {
     return Date.now() - this.last >= this.interval
-  }
-
-  get dead() {
-    return this.mesh.userData.dead
-  }
-
-  set dead(bool) {
-    this.mesh.userData.dead = bool
   }
 
   set propeller(propeller) {

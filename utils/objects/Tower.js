@@ -20,7 +20,7 @@ export default class Tower extends Building {
 
   get targetInRange() {
     if (!this.player) return false
-    return !this.player.userData.dead && this.distanceTo(this.player) < this.range
+    return !this.player.dead && this.distanceTo(this.player) < this.range
   }
 
   get ableToShoot() {
