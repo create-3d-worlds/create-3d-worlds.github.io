@@ -48,7 +48,7 @@ export default class Warplane extends GameObject {
   }
 
   get inAir() {
-    return this.position.y > this.height
+    return this.position.y > this.height * 2 / 3
   }
 
   /* METHODS */
@@ -129,6 +129,7 @@ export default class Warplane extends GameObject {
       if (broken) mesh.rotation.z -= this.rotationSpeed * .5 * delta
     } else {
       this.chaseCamera.offset[1] = this.height
+      this.chaseCamera.offset[2] = this.depth * 2
       if (this.speed > 0) this.speed -= .1
     }
   }
