@@ -86,4 +86,9 @@ export default class GameObject {
     if (!mesh) return Infinity
     return this.position.distanceTo(mesh.position)
   }
+
+  applyDamage() {
+    this.energy -= this.hitAmount
+    this.hitAmount = 0
+  }
 }

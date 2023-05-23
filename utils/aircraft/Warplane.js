@@ -95,12 +95,7 @@ export default class Warplane extends GameObject {
     this.mesh.rotateZ(Math.sin(this.time) * .001)
   }
 
-  checkHit() {
-    if (!this.hitAmount) return
-    this.energy -= this.hitAmount
-    this.hitAmount = 0
-
-    if (this.smoke) return
+  addSmoke() {
     const promise = import('/utils/classes/Particles.js')
     promise.then(obj => {
       const { Smoke } = obj
@@ -109,6 +104,14 @@ export default class Warplane extends GameObject {
       this.smoke.mesh.position.y += this.height * .4
       this.smoke.mesh.position.z += this.depth * .4
     })
+  }
+
+  checkHit() {
+    if (!this.hitAmount) return
+
+    this.applyDamage()
+
+    if (!this.smoke) this.addSmoke()
   }
 
   die(delta) {

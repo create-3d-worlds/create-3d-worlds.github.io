@@ -15,8 +15,6 @@ npx live-server
 
 - Warplane / 1943
   - poeni za uništene fabrike
-    - beležiti poene u Missile, u Building ili možda može u game?
-    - istovremeno sa oduzimanjem hitAmount, računati poene
   - penali za civilne zgrade?
   - sletanje na kraju misije?
     - posle nekog vremena prestaju objekti i drveće
@@ -50,6 +48,7 @@ npx live-server
   - dodati neku staru kuću
 
 - Savo
+  - BUG: kretanje presporo, kao da koči, izmeriti stats
   - dodati intro na pisaćoj mašini
   - dodati fabriku, ratne zgrade, ww2 tower i slično u neku ww2 scenu
   - napad na aerodrom rajlovac (poređani nemački avioni na pisti, pucaju kule i vojnici)

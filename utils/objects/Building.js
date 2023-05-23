@@ -5,18 +5,21 @@ export default class Building extends GameObject {
     super({ name, ...rest })
   }
 
-  checkHit() {
-    if (!this.hitAmount) return
-
-    this.energy -= this.hitAmount
-    this.hitAmount = 0
-
+  addFire() {
     const promise = import('/utils/classes/Particles.js')
     promise.then(obj => {
       this.fire = new obj.Fire()
       this.add(this.fire.mesh)
       this.fire.mesh.position.y += this.height * .5
     })
+  }
+
+  checkHit() {
+    if (!this.hitAmount) return
+
+    this.applyDamage()
+
+    if (!this.fire) this.addFire()
   }
 
   update(delta) {

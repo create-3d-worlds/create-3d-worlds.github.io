@@ -339,12 +339,9 @@ export default class Actor extends GameObject {
   }
 
   checkHit() {
-    const { userData } = this.mesh
-    if (!userData.hitAmount) return
+    if (!this.hitAmount) return
 
-    const newAmount = this.energy - userData.hitAmount
-    this.energy = newAmount > 0 ? newAmount : 0
-    userData.hitAmount = 0
+    this.applyDamage()
 
     if (this.dead)
       this.setState('death')
