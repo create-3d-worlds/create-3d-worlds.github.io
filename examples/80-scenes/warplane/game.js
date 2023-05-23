@@ -7,10 +7,12 @@ import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAir
 import Tower from '/utils/objects/Tower.js'
 import Building from '/utils/objects/Building.js'
 import { loadModel } from '/utils/loaders.js'
-
-const startScreen = document.getElementById('start-screen')
+import Score from '/utils/io/Score.js'
 
 const { randInt, randFloatSpread } = THREE.MathUtils
+
+const startScreen = document.getElementById('start-screen')
+const score = new Score()
 
 let i = 0
 let last = Date.now()
@@ -93,7 +95,10 @@ void function update() {
   updateMeshes(deltaSpeed)
   updatables.forEach(instance => {
     // check hit before update!
-    if (instance.hitAmount) console.log(instance.name, instance.hitAmount)
+    if (instance.hitAmount)
+      if (instance.name == 'factory')
+        score.update(1)
+
     instance.update(delta)
   })
 
