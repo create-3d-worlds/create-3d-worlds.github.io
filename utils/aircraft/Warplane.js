@@ -35,6 +35,8 @@ export default class Warplane extends GameObject {
     }
   }
 
+  /* GETTERS AND SETTERS */
+
   get timeToShoot() {
     return Date.now() - this.last >= this.interval
   }
@@ -44,6 +46,12 @@ export default class Warplane extends GameObject {
     this.mesh.add(propeller)
     this.propellers.push(propeller)
   }
+
+  get inAir() {
+    return this.position.y > this.height
+  }
+
+  /* METHODS */
 
   addMissile() {
     const pos = this.position.clone()
@@ -92,7 +100,7 @@ export default class Warplane extends GameObject {
     if (mesh.rotation.z > 0) mesh.rotation.z -= roll * delta * 2
     if (mesh.rotation.z < 0) mesh.rotation.z += roll * delta * 2
 
-    this.mesh.rotateZ(Math.sin(this.time) * .001)
+    if (this.inAir) this.mesh.rotateZ(Math.sin(this.time) * .001)
   }
 
   addSmoke() {
@@ -114,15 +122,19 @@ export default class Warplane extends GameObject {
     if (!this.smoke) this.addSmoke()
   }
 
-  die(delta) {
+  land(delta, broken = false) {
     const { mesh } = this
-    if (mesh.position.y > 2) {
+    if (this.inAir) {
       mesh.position.y -= this.speed * 0.5 * delta
-      mesh.rotation.z -= this.rotationSpeed * .5 * delta
-    } else if (this.speed > 0)
-      this.speed -= .1
+      if (broken) mesh.rotation.z -= this.rotationSpeed * .5 * delta
+    } else {
+      this.chaseCamera.offset[1] = this.height
+      if (this.speed > 0) this.speed -= .1
+    }
+  }
 
-    this.chaseCamera.offset[1] = this.height * 2
+  die(delta) {
+    this.land(delta, true)
   }
 
   update(delta) {

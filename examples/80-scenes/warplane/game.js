@@ -113,6 +113,7 @@ void function update() {
   }
 
   score.update(0, totalTime - Math.floor(time))
+  // warplane.land(delta)
 
   i++
   time += delta

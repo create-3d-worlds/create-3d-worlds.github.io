@@ -72,7 +72,7 @@ export default class GameObject {
     return getScene(this.mesh)
   }
 
-  get player() {
+  get playerMesh() {
     return this.scene?.getObjectByName('player')
   }
 

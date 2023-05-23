@@ -20,18 +20,18 @@ export default class Platform extends GameObject {
   }
 
   get playerOnPlatform() {
-    if (!this.player) return false
+    if (!this.playerMesh) return false
     return this.withinHeight && this.withinWidth
   }
 
   get withinHeight() {
-    return this.player.position.y <= this.position.y + this.height // -9
-      && this.player.position.y > this.position.y // -10
+    return this.playerMesh.position.y <= this.position.y + this.height // -9
+      && this.playerMesh.position.y > this.position.y // -10
   }
 
   get withinWidth() {
-    return this.player.position.x > this.position.x - this.width * .45
-      && this.player.position.x < this.position.x + this.width * .45
+    return this.playerMesh.position.x > this.position.x - this.width * .45
+      && this.playerMesh.position.x < this.position.x + this.width * .45
   }
 
   checkBounds() {
@@ -51,7 +51,7 @@ export default class Platform extends GameObject {
   }
 
   sync(delta) {
-    this.player.position[this.axis] += this.speed * delta
+    this.playerMesh.position[this.axis] += this.speed * delta
   }
 
   update(delta) {

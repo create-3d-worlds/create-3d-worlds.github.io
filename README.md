@@ -14,9 +14,11 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
+  - bug: toranj puca u oboren avion
   - dodati završetak misije (vreme, poeni?)
+    - da se igra dok ne pogine? onda više nivoa (sletanja i uzletanja)
   - sletanje na kraju misije?
-    - posle nekog vremena prestaju objekti i drveće
+    - pred kraj prestaju objekti i drveće
     - možda i ravno tlo
   - dodati potisak na f18
 

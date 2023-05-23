@@ -18,7 +18,7 @@ export default class Bullet extends GameObject {
   }
 
   addTarget() {
-    const direction = new THREE.Vector3().subVectors(this.player.position, this.position).normalize()
+    const direction = new THREE.Vector3().subVectors(this.playerMesh.position, this.position).normalize()
     this.target = new THREE.Vector3().addVectors(this.position, direction.multiplyScalar(this.maxRange))
   }
 
@@ -28,8 +28,8 @@ export default class Bullet extends GameObject {
 
     this.position.lerp(this.target, this.speed * delta)
 
-    if (this.distanceTo(this.player) < 2) {
-      this.player.userData.hitAmount = 100
+    if (this.distanceTo(this.playerMesh) < 2) {
+      this.playerMesh.userData.hitAmount = 100
       this.energy = 0
     }
 
