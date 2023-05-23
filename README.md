@@ -14,8 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - penali za civilne zgrade
-    - poruka: gađanje civilnih zgrada je ratni zločin!
+  - srediti još malo poruke
   - sletanje na kraju misije?
     - posle nekog vremena prestaju objekti i drveće
     - možda i ravno tlo

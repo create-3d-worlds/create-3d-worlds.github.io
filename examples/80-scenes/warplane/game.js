@@ -94,11 +94,14 @@ void function update() {
   updateGround(deltaSpeed)
   updateMeshes(deltaSpeed)
   updatables.forEach(instance => {
-    // check hit before update!
-    if (instance.hitAmount)
+    if (instance.hitAmount) {
       if (instance.name == 'factory')
         score.update(1)
-
+      if (instance.name == 'civil') {
+        score.renderTempText('No! Destruction of civilian buildings is a war crime.')
+        score.update(-1)
+      }
+    }
     instance.update(delta)
   })
 
@@ -119,6 +122,7 @@ startScreen.addEventListener('click', e => {
   if (e.target.tagName != 'INPUT') return
   startScreen.style.display = 'none'
   score.renderTempText('Destroy enemy factories, do not target civilian buildings', 2000)
+
   const promise = import(`/utils/aircraft/derived/${e.target.id}.js`)
   promise.then(obj => {
     pause = false
