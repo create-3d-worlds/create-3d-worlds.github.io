@@ -118,6 +118,7 @@ void function update() {
 startScreen.addEventListener('click', e => {
   if (e.target.tagName != 'INPUT') return
   startScreen.style.display = 'none'
+  score.renderTempText('Destroy enemy factories, do not target civilian buildings', 2000)
   const promise = import(`/utils/aircraft/derived/${e.target.id}.js`)
   promise.then(obj => {
     pause = false

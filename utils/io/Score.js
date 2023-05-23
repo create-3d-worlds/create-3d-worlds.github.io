@@ -47,7 +47,7 @@ const defaultDict = {
 const isNumber = num => typeof num == 'number'
 
 export default class Score {
-  constructor({ title = 'Score', points = 0, subtitle, totalPoints, color = 'yellow', stroke = '#000', messageDict = defaultDict, showHighScore = true } = {}) {
+  constructor({ title = 'Score', points = 0, subtitle, totalPoints, color = 'yellow', stroke = '#000', messageDict = defaultDict, showHighScore = false } = {}) {
     this.points = points
     this.title = title
     this.subtitle = subtitle
@@ -76,8 +76,8 @@ export default class Score {
     this.centralDiv.innerHTML = ''
   }
 
-  clearLatter(miliseconds = 1500) {
-    setTimeout(() => this.clear(), miliseconds)
+  clearSoon(milliseconds = 1500) {
+    setTimeout(() => this.clear(), milliseconds)
   }
 
   renderText(text) {
@@ -86,17 +86,20 @@ export default class Score {
     this.centralDiv.innerHTML = html
   }
 
+  renderTempText(message, milliseconds) {
+    this.renderText(message)
+    this.clearSoon(milliseconds)
+  }
+
   renderMotivation() {
     const message = this.messageDict[this.points]
-    if (!message) return
-    this.centralDiv.innerHTML = `<h3>${message}</h3>`
-    this.clearLatter()
+    if (message) this.renderTempText(message)
   }
 
   renderHeighScore() {
     if (this.highScore < 2) return
     this.centralDiv.innerHTML = `<h3>The current high score is ${this.highScore} points. Beat it!</h3>`
-    this.clearLatter(3000)
+    this.clearSoon(3000)
   }
 
   render(points, enemiesLeft, energyLeft) {

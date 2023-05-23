@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - Uvodna poruka: Uništi neprijateljske fabrike, ne gađaj civilne zgrade
   - penali za civilne zgrade
     - poruka: gađanje civilnih zgrada je ratni zločin!
   - sletanje na kraju misije?
