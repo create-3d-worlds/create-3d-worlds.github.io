@@ -24,7 +24,7 @@ const mapSize = 800
 const distance = mapSize * .4
 const interval = 2000
 const startGroundZ = -mapSize * .99
-const totalTime = 100
+const totalTime = 10
 
 const score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.' })
 
@@ -91,6 +91,7 @@ void function update() {
 
   const delta = clock.getDelta()
   const deltaSpeed = warplane.speed * delta
+  time += delta
 
   updateGround(deltaSpeed)
   updateMeshes(deltaSpeed)
@@ -105,18 +106,16 @@ void function update() {
     object.update(delta)
   })
 
-  if (i % 5 === 0) addTree()
+  score.update(0, totalTime - Math.floor(time))
+  if (time >= totalTime)
+    return warplane.land(delta)
+
+  if (i++ % 5 === 0) addTree()
 
   if (Date.now() - last >= interval) {
     addBuilding(time)
     last = Date.now()
   }
-
-  score.update(0, totalTime - Math.floor(time))
-  // warplane.land(delta)
-
-  i++
-  time += delta
 }()
 
 /* EVENTS */

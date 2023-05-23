@@ -14,11 +14,12 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - dodati završetak misije (vreme, poeni?)
-    - da se igra dok ne pogine? onda više nivoa (sletanja i uzletanja)
+  - dodati završetak misije (isteklo vreme)
   - sletanje na kraju misije?
     - pred kraj prestaju objekti i drveće
+    - da ne pucaju kule dok sleće
     - možda i ravno tlo
+  - izgubiti ako je isteklo vreme ili nema energije
   - dodati potisak na f18
 
 - Tenk

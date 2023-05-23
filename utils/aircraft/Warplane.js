@@ -68,6 +68,7 @@ export default class Warplane extends GameObject {
   }
 
   handleInput(delta) {
+    if (this.landing) return
     const { mesh } = this
 
     if (input.right) {
@@ -93,7 +94,7 @@ export default class Warplane extends GameObject {
   }
 
   normalizePlane(delta) {
-    if (input.controlsPressed) return
+    if (this.dead || input.controlsPressed) return
     const { mesh } = this
 
     const roll = Math.abs(mesh.rotation.z)
@@ -123,13 +124,13 @@ export default class Warplane extends GameObject {
   }
 
   land(delta, broken = false) {
-    const { mesh } = this
+    this.landing = true
     if (this.inAir) {
-      mesh.position.y -= this.speed * 0.5 * delta
-      if (broken) mesh.rotation.z -= this.rotationSpeed * .5 * delta
+      this.position.y -= this.speed * 0.5 * delta
+      if (broken) this.mesh.rotation.z -= this.rotationSpeed * .5 * delta
     } else {
       this.chaseCamera.offset[1] = this.height
-      this.chaseCamera.offset[2] = this.depth * 2
+      this.chaseCamera.offset[2] = this.depth * 1.5
       if (this.speed > 0) this.speed -= .1
     }
   }
@@ -150,13 +151,11 @@ export default class Warplane extends GameObject {
     this.explosion.expand({ velocity: 1.1, maxRounds: 30 })
     this.propellers.forEach(propeller => propeller.rotateZ(delta * -this.speed))
 
-    if (this.dead)
-      return this.die(delta)
+    if (this.dead) this.die(delta)
 
-    this.handleInput(delta)
     this.normalizePlane(delta)
-
     this.checkHit()
+    this.handleInput(delta)
 
     this.time += delta * 15
   }
