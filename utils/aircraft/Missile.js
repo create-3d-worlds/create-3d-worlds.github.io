@@ -17,7 +17,7 @@ export default class Missile extends GameObject {
   }
 
   get direction() {
-    const position = new THREE.Vector3().addVectors(this.position, { x: 0, y: -50, z: -80 })
+    const position = new THREE.Vector3().addVectors(this.position, { x: 0, y: -50, z: -75 })
     return new THREE.Vector3().subVectors(position, this.position).normalize()
   }
 

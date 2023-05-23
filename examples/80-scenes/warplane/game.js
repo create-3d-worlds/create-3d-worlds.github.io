@@ -92,7 +92,8 @@ void function update() {
   updateGround(deltaSpeed)
   updateMeshes(deltaSpeed)
   updatables.forEach(instance => {
-    console.log(instance.hitAmount)
+    // check hit before update!
+    if (instance.hitAmount) console.log(instance.name, instance.hitAmount)
     instance.update(delta)
   })
 
