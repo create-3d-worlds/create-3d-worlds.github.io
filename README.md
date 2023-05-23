@@ -14,10 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - dodati završetak misije (isteklo vreme)
-  - sletanje na kraju misije?
-    - pred kraj prestaju objekti i drveće
-    - da ne pucaju kule dok sleće
+  - dodati završetak misije
     - možda i ravno tlo
   - izgubiti ako je isteklo vreme ili nema energije
   - dodati potisak na f18

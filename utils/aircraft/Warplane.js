@@ -129,7 +129,7 @@ export default class Warplane extends GameObject {
       this.position.y -= this.speed * 0.5 * delta
       if (broken) this.mesh.rotation.z -= this.rotationSpeed * .5 * delta
     } else {
-      this.chaseCamera.offset[1] = this.height
+      this.chaseCamera.offset[1] = this.height * 1.5
       this.chaseCamera.offset[2] = this.depth * 1.5
       if (this.speed > 0) this.speed -= .1
     }

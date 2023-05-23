@@ -18,13 +18,13 @@ let last = Date.now()
 let pause = true
 let warplane
 
-const meshes = []
-const updatables = []
+const totalTime = 15
 const mapSize = 800
-const distance = mapSize * .4
 const interval = 2000
+const distance = mapSize * .4
 const startGroundZ = -mapSize * .99
-const totalTime = 10
+const updatables = []
+const meshes = []
 
 const score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.' })
 
@@ -93,6 +93,9 @@ void function update() {
   const deltaSpeed = warplane.speed * delta
   time += delta
 
+  let timeLeft = totalTime - Math.floor(time)
+  if (timeLeft <= 0) timeLeft = 0
+
   updateGround(deltaSpeed)
   updateMeshes(deltaSpeed)
   updatables.forEach(object => {
@@ -106,9 +109,12 @@ void function update() {
     object.update(delta)
   })
 
-  score.update(0, totalTime - Math.floor(time))
+  score.update(0, timeLeft)
+
   if (time >= totalTime)
     return warplane.land(delta)
+
+  if (time >= totalTime - 10) return
 
   if (i++ % 5 === 0) addTree()
 
