@@ -10,13 +10,11 @@ import { loadModel } from '/utils/loaders.js'
 import Score from '/utils/io/Score.js'
 
 const { randInt, randFloatSpread } = THREE.MathUtils
-
 const startScreen = document.getElementById('start-screen')
-const score = new Score()
 
 let i = 0
+let time = 0
 let last = Date.now()
-let elapsedTime = 0
 let pause = true
 let warplane
 
@@ -26,6 +24,9 @@ const mapSize = 800
 const distance = mapSize * .4
 const interval = 2000
 const startGroundZ = -mapSize * .99
+const totalTime = 100
+
+const score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.' })
 
 scene.fog = new THREE.Fog(0xE5C5AB, mapSize * .25, distance)
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
@@ -47,8 +48,8 @@ const addMesh = (mesh, spread = .33) => {
   meshes.push(mesh)
 }
 
-const createBuilding = elapsedTime => {
-  const minutes = Math.floor(elapsedTime / 60)
+const createBuilding = time => {
+  const minutes = Math.floor(time / 60)
   switch (randInt(1, 7 + minutes)) {
     case 1: return new Building({ mesh: factory, name: 'factory' })
     case 2: return new Building({ mesh: createAirport() })
@@ -60,8 +61,8 @@ const createBuilding = elapsedTime => {
   }
 }
 
-const addBuilding = elapsedTime => {
-  const building = createBuilding(elapsedTime)
+const addBuilding = time => {
+  const building = createBuilding(time)
   updatables.push(building)
   addMesh(building.mesh)
 }
@@ -86,34 +87,35 @@ const updateMeshes = deltaSpeed => meshes.forEach(mesh => {
 void function update() {
   requestAnimationFrame(update)
   renderer.render(scene, camera)
-  const delta = clock.getDelta()
   if (pause) return
 
+  const delta = clock.getDelta()
   const deltaSpeed = warplane.speed * delta
 
   updateGround(deltaSpeed)
   updateMeshes(deltaSpeed)
-  updatables.forEach(instance => {
-    if (instance.hitAmount) {
-      if (instance.name == 'factory')
-        score.update(1)
-      if (instance.name == 'civil') {
+  updatables.forEach(object => {
+    if (object.hitAmount) {
+      if (object.name == 'factory') score.update(1)
+      if (object.name == 'civil') {
         score.renderTempText('No! Destruction of civilian buildings is a war crime.')
         score.update(-1)
       }
     }
-    instance.update(delta)
+    object.update(delta)
   })
 
   if (i % 5 === 0) addTree()
 
   if (Date.now() - last >= interval) {
-    addBuilding(elapsedTime)
+    addBuilding(time)
     last = Date.now()
   }
 
+  score.update(0, totalTime - Math.floor(time))
+
   i++
-  elapsedTime += delta
+  time += delta
 }()
 
 /* EVENTS */

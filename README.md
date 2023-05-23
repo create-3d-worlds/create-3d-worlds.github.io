@@ -14,7 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - srediti još malo poruke
+  - dodati završetak misije (vreme, poeni?)
   - sletanje na kraju misije?
     - posle nekog vremena prestaju objekti i drveće
     - možda i ravno tlo

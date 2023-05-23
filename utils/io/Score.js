@@ -47,12 +47,23 @@ const defaultDict = {
 const isNumber = num => typeof num == 'number'
 
 export default class Score {
-  constructor({ title = 'Score', points = 0, subtitle, totalPoints, color = 'yellow', stroke = '#000', messageDict = defaultDict, showHighScore = false } = {}) {
+  constructor({
+    title = 'Score',
+    points = 0,
+    subtitle = 'left',
+    total,
+    endText = 'The end!<br>Nothing left',
+    color = 'yellow',
+    stroke = '#000',
+    messageDict = defaultDict,
+    showHighScore = false,
+  } = {}) {
     this.points = points
     this.title = title
     this.subtitle = subtitle
-    this.totalPoints = totalPoints
+    this.total = total
     this.messageDict = messageDict
+    this.endText = endText
 
     this.scoreDiv = document.createElement('div')
     this.scoreDiv.className = 'score'
@@ -68,7 +79,7 @@ export default class Score {
 
     this.highScore = +localStorage.getItem(location.pathname)
 
-    this.update(points, totalPoints)
+    this.update(points, total)
     if (showHighScore) this.renderHeighScore()
   }
 
@@ -111,13 +122,13 @@ export default class Score {
     this.scoreDiv.innerHTML = html
   }
 
-  update(newPoints = 1, enemiesLeft, energyLeft) {
-    this.points += newPoints
-    this.render(this.points, enemiesLeft, energyLeft)
+  update(change = 1, left, energyLeft) {
+    this.points += change
+    this.render(this.points, left, energyLeft)
 
     this.renderMotivation()
 
-    if (enemiesLeft === 0) this.renderText('BRAVO!<br>You have collected all coins')
+    if (left === 0) this.renderText(this.endText)
 
     if (this.points > this.highScore)
       localStorage.setItem(location.pathname, this.points)
