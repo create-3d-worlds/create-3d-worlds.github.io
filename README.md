@@ -16,7 +16,6 @@ npx live-server
 - Warplane / 1943
   - dodati završetak misije
     - možda i ravno tlo
-  - izgubiti ako je isteklo vreme ili nema energije
   - dodati potisak na f18
 
 - Tenk

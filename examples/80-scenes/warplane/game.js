@@ -18,7 +18,7 @@ let last = Date.now()
 let pause = true
 let warplane
 
-const totalTime = 15
+const totalTime = 150
 const mapSize = 800
 const interval = 2000
 const distance = mapSize * .4
@@ -93,9 +93,6 @@ void function update() {
   const deltaSpeed = warplane.speed * delta
   time += delta
 
-  let timeLeft = totalTime - Math.floor(time)
-  if (timeLeft <= 0) timeLeft = 0
-
   updateGround(deltaSpeed)
   updateMeshes(deltaSpeed)
   updatables.forEach(object => {
@@ -108,6 +105,12 @@ void function update() {
     }
     object.update(delta)
   })
+
+  if (warplane.dead)
+    return setTimeout(() => score.renderText('You have failed.'), 2500)
+
+  let timeLeft = totalTime - Math.floor(time)
+  if (timeLeft <= 0) timeLeft = 0
 
   score.update(0, timeLeft)
 
