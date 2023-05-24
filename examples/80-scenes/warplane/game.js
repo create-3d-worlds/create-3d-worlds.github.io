@@ -18,7 +18,7 @@ let last = Date.now()
 let pause = true
 let warplane
 
-const totalTime = 300
+const totalTime = 150
 const mapSize = 800
 const buildingInterval = 2000
 const buildingDistance = mapSize * .4
@@ -85,16 +85,16 @@ const moveGround = deltaSpeed => [ground, ground2].forEach(g => {
   if (g.position.z >= mapSize * .75) g.position.z = -groundDistance
 })
 
-const moveMesh = (mesh, deltaSpeed) => {
+const moveMeshes = deltaSpeed => objects.forEach(mesh => {
   mesh.translateZ(deltaSpeed)
   if (mesh.position.z > camera.position.z + 200) {
     objects.splice(objects.indexOf(mesh), 1)
     scene.remove(mesh)
   }
-}
+})
 
-const updateObjects = (delta, deltaSpeed) => updatables.forEach(object => {
-  if (object.name != 'player') moveMesh(object.mesh, deltaSpeed)
+const updateObjects = delta => updatables.forEach(object => {
+  if (!object.scene) updatables.splice(updatables.indexOf(object), 1)
   if (object.hitAmount) {
     if (object.name == 'factory') score.update(1)
     if (object.name == 'civil') {
@@ -115,7 +115,8 @@ void function update() {
   time += delta
 
   moveGround(deltaSpeed)
-  updateObjects(delta, deltaSpeed)
+  moveMeshes(deltaSpeed)
+  updateObjects(delta)
 
   if (warplane.dead)
     return setTimeout(() => score.renderText('You have failed.'), 2500)
@@ -126,7 +127,6 @@ void function update() {
   score.update(0, timeLeft)
 
   if (time < totalTime - 10) spawnObjects()
-
   if (time >= totalTime) warplane.land(delta)
 }()
 
