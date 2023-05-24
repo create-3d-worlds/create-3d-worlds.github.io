@@ -14,9 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Warplane / 1943
-  - dodati završetak misije
-    - možda i ravno tlo
-  - dodati potisak na f18
+  - dodati ravno tlo za sletanje
 
 - Tenk
   - koristiti TankPlayer

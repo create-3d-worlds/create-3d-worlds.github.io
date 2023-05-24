@@ -20,22 +20,22 @@ let warplane
 
 const totalTime = 150
 const mapSize = 800
-const interval = 2000
-const distance = mapSize * .4
-const startGroundZ = -mapSize * .99
+const buildingInterval = 2000
+const buildingDistance = mapSize * .4
+const groundDistance = mapSize * .99
 const updatables = []
 const meshes = []
 
 const score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.' })
 
-scene.fog = new THREE.Fog(0xE5C5AB, mapSize * .25, distance)
+scene.fog = new THREE.Fog(0xE5C5AB, mapSize * .25, buildingDistance)
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
 scene.add(createSun({ pos: [50, 200, 50] }))
 
 const groundParams = { size: mapSize, color: 0x91A566, colorRange: .1, segments: 50, min: 0, max: 15 }
 const ground = createTerrain(groundParams)
 const ground2 = createTerrain(groundParams)
-ground2.position.z = startGroundZ
+ground2.position.z = -groundDistance
 scene.add(ground, ground2)
 
 /* OBJECTS */
@@ -43,7 +43,7 @@ scene.add(ground, ground2)
 const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 })
 
 const addMesh = (mesh, spread = .33) => {
-  mesh.position.copy({ x: randFloatSpread(mapSize * spread), y: 0, z: -distance })
+  mesh.position.copy({ x: randFloatSpread(mapSize * spread), y: 0, z: -buildingDistance })
   scene.add(mesh)
   meshes.push(mesh)
 }
@@ -73,7 +73,7 @@ const addTree = () => addMesh(createFirTree(), .4)
 
 const updateGround = deltaSpeed => [ground, ground2].forEach(g => {
   g.translateZ(deltaSpeed)
-  if (g.position.z >= mapSize * .75) g.position.z = startGroundZ
+  if (g.position.z >= mapSize * .75) g.position.z = -groundDistance
 })
 
 const updateMeshes = deltaSpeed => meshes.forEach(mesh => {
@@ -121,7 +121,7 @@ void function update() {
 
   if (i++ % 5 === 0) addTree()
 
-  if (Date.now() - last >= interval) {
+  if (Date.now() - last >= buildingInterval) {
     addBuilding(time)
     last = Date.now()
   }
