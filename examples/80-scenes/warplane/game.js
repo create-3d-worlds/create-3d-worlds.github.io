@@ -18,7 +18,7 @@ let last = Date.now()
 let pause = true
 let warplane
 
-const totalTime = 150
+const totalTime = 300
 const mapSize = 800
 const buildingInterval = 2000
 const buildingDistance = mapSize * .4
@@ -69,6 +69,15 @@ const addBuilding = time => {
 
 const addTree = () => addMesh(createFirTree(), .4)
 
+const spawnObjects = () => {
+  if (i++ % 5 === 0) addTree()
+
+  if (Date.now() - last >= buildingInterval) {
+    addBuilding(time)
+    last = Date.now()
+  }
+}
+
 /* UPDATES */
 
 const moveGround = deltaSpeed => [ground, ground2].forEach(g => {
@@ -78,7 +87,7 @@ const moveGround = deltaSpeed => [ground, ground2].forEach(g => {
 
 const moveMesh = (mesh, deltaSpeed) => {
   mesh.translateZ(deltaSpeed)
-  if (mesh.position.z > camera.position.z) {
+  if (mesh.position.z > camera.position.z + 200) {
     objects.splice(objects.indexOf(mesh), 1)
     scene.remove(mesh)
   }
@@ -116,17 +125,9 @@ void function update() {
 
   score.update(0, timeLeft)
 
-  if (time >= totalTime)
-    return warplane.land(delta)
+  if (time < totalTime - 10) spawnObjects()
 
-  if (time >= totalTime - 10) return
-
-  if (i++ % 5 === 0) addTree()
-
-  if (Date.now() - last >= buildingInterval) {
-    addBuilding(time)
-    last = Date.now()
-  }
+  if (time >= totalTime) warplane.land(delta)
 }()
 
 /* EVENTS */
