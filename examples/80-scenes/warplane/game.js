@@ -24,7 +24,7 @@ const buildingInterval = 2000
 const buildingDistance = mapSize * .4
 const groundDistance = mapSize * .99
 const updatables = []
-const meshes = []
+const objects = []
 
 const score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.' })
 
@@ -45,7 +45,7 @@ const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 }
 const addMesh = (mesh, spread = .33) => {
   mesh.position.copy({ x: randFloatSpread(mapSize * spread), y: 0, z: -buildingDistance })
   scene.add(mesh)
-  meshes.push(mesh)
+  objects.push(mesh)
 }
 
 const createBuilding = time => {
@@ -71,17 +71,29 @@ const addTree = () => addMesh(createFirTree(), .4)
 
 /* UPDATES */
 
-const updateGround = deltaSpeed => [ground, ground2].forEach(g => {
+const moveGround = deltaSpeed => [ground, ground2].forEach(g => {
   g.translateZ(deltaSpeed)
   if (g.position.z >= mapSize * .75) g.position.z = -groundDistance
 })
 
-const updateMeshes = deltaSpeed => meshes.forEach(mesh => {
+const moveMesh = (mesh, deltaSpeed) => {
   mesh.translateZ(deltaSpeed)
-  if (mesh.position.z > camera.position.z + 200) {
-    meshes.splice(meshes.indexOf(mesh), 1)
+  if (mesh.position.z > camera.position.z) {
+    objects.splice(objects.indexOf(mesh), 1)
     scene.remove(mesh)
   }
+}
+
+const updateObjects = (delta, deltaSpeed) => updatables.forEach(object => {
+  if (object.name != 'player') moveMesh(object.mesh, deltaSpeed)
+  if (object.hitAmount) {
+    if (object.name == 'factory') score.update(1)
+    if (object.name == 'civil') {
+      score.renderTempText('No! Destruction of civilian buildings is a war crime.')
+      score.update(-1)
+    }
+  }
+  object.update(delta)
 })
 
 void function update() {
@@ -93,18 +105,8 @@ void function update() {
   const deltaSpeed = warplane.speed * delta
   time += delta
 
-  updateGround(deltaSpeed)
-  updateMeshes(deltaSpeed)
-  updatables.forEach(object => {
-    if (object.hitAmount) {
-      if (object.name == 'factory') score.update(1)
-      if (object.name == 'civil') {
-        score.renderTempText('No! Destruction of civilian buildings is a war crime.')
-        score.update(-1)
-      }
-    }
-    object.update(delta)
-  })
+  moveGround(deltaSpeed)
+  updateObjects(delta, deltaSpeed)
 
   if (warplane.dead)
     return setTimeout(() => score.renderText('You have failed.'), 2500)
