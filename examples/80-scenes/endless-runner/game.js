@@ -12,7 +12,7 @@ const { random } = Math
 
 const worldSpeed = 0.007
 const worldRadius = 26
-const treeReleaseInterval = 0.5
+const treeInterval = 0.5
 const treesInPool = 10
 
 const treesPool = []
@@ -42,7 +42,7 @@ scene.add(explosion.mesh)
 for (let i = 0; i < treesInPool; i++)
   treesPool.push(createSimpleFir({ size: 1 }))
 
-const score = new Score({ title: 'Pogodaka' })
+const score = new Score()
 
 /* FUNCTIONS */
 
@@ -113,7 +113,7 @@ void function update() {
   earth.rotation.x += worldSpeed
   player.update(delta)
 
-  if (clock.getElapsedTime() > treeReleaseInterval) {
+  if (clock.getElapsedTime() > treeInterval) {
     clock.start()
     addTreeOrTwo()
   }

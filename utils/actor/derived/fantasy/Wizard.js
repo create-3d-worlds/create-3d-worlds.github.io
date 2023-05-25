@@ -16,7 +16,7 @@ addTexture(mesh, 'lavacloud.png')
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations: mesh.userData.animations, animDict, speed: 1 }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict, speed: .75 }
 
 export class WizardPlayer extends Player {
   constructor(props = {}) {

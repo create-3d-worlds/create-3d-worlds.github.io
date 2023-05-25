@@ -13,9 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Warplane / 1943
-  - dodati ravno tlo za sletanje
-
 - Tenk
   - koristiti TankPlayer
   - tenk da se trese kada ide
@@ -65,6 +62,9 @@ npx live-server
 
 - Spomenici
   - skalirati teren?
+
+- Warplane / 1943
+  - dodati ravno tlo za sletanje
 
 ### Optimizacija
 

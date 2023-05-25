@@ -24,7 +24,7 @@ void function update() {
   const time = clock.getElapsedTime()
 
   wave({ geometry: water.geometry, time, passage: { start: 4000, end: 6000 } })
-  player.update(delta)
+  player.update(delta * .15)
 
   player.update(delta)
   renderer.render(scene, camera)

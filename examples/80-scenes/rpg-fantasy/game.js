@@ -7,7 +7,6 @@ import { BarbarianPlayer } from '/utils/actor/derived/fantasy/Barbarian.js'
 import { OrcAI } from '/utils/actor/derived/fantasy/Orc.js'
 import { OrcOgreAI } from '/utils/actor/derived/fantasy/OrcOgre.js'
 import { FlamingoAI } from '/utils/actor/derived/Flamingo.js'
-import { ElephantAI } from '/utils/actor/derived/Elephant.js'
 import { ZeppelinAI } from '/utils/actor/derived/Zeppelin.js'
 import { loadModel } from '/utils/loaders.js'
 import Cloud from '/utils/objects/Cloud.js'
@@ -33,12 +32,9 @@ const solids = [terrain, castle]
 /* ACTORS */
 
 const airship = new ZeppelinAI({ mapSize, solids: terrain })
-const elephant = new ElephantAI({ mapSize, pos: coords.pop(), solids, shouldRaycastGround: true })
 
-scene.add(airship.mesh, elephant.mesh)
-npcs.push(airship, elephant)
-
-solids.push(elephant.mesh)
+scene.add(airship.mesh)
+npcs.push(airship)
 
 const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera })
 scene.add(player.mesh)
