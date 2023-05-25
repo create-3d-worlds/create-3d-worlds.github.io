@@ -20,7 +20,7 @@ scene.add(createSun({ pos: [10, 50, 20] }))
 const ground = createGround()
 world.add(ground, 0)
 
-const box = createBox({ size: 10 })
+const box = createBox({ size: 10, translateHeight: false })
 box.position.set(40, 5, 5)
 box.userData.body = createRigidBody({ mesh: box, mass: 1, friction: 4, kinematic: true })
 world.add(box)

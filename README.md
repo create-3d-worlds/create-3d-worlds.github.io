@@ -13,9 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Fizika
-  - odvojiti scene
-
 - Tenk
   - koristiti TankPlayer
   - tenk da se trese kada ide
@@ -24,6 +21,9 @@ npx live-server
 - Vozilo
   - vozilo da se okreću točkovi kada ide
   - ispitati modele, jel moguće upravljati točkovima, kupolom ili nečim
+
+- Top
+  - videti šta još može
 
 - Endless runner
   - probati skejtera
