@@ -69,6 +69,10 @@ export default class Vehicle {
     this.vehicleSteering = 0
   }
 
+  get speed() {
+    return this.vehicle.getCurrentSpeedKmHour()
+  }
+
   addWheelMeshes(wheelMesh) {
     this.wheelMeshes = []
     for (let i = 0; i < 4; i++) {
@@ -124,32 +128,16 @@ export default class Vehicle {
     updateMeshTransform(this.mesh, vehicle.getChassisWorldTransform())
   }
 
-  updatePhysics() {
-    const { vehicle } = this
-    vehicle.applyEngineForce(this.engineForce, BACK_LEFT)
-    vehicle.applyEngineForce(this.engineForce, BACK_RIGHT)
-
-    vehicle.setBrake(this.breakingForce / 2, FRONT_LEFT)
-    vehicle.setBrake(this.breakingForce / 2, FRONT_RIGHT)
-    vehicle.setBrake(this.breakingForce, BACK_LEFT)
-    vehicle.setBrake(this.breakingForce, BACK_RIGHT)
-
-    vehicle.setSteeringValue(this.vehicleSteering, FRONT_LEFT)
-    vehicle.setSteeringValue(this.vehicleSteering, FRONT_RIGHT)
-  }
-
   forward() {
     this.engineForce = this.breakingForce = 0
-    const speed = this.vehicle.getCurrentSpeedKmHour()
-    if (speed < -1)
+    if (this.speed < -1)
       this.breakingForce = this.maxBreakingForce
     else this.engineForce = this.maxEngineForce
   }
 
   backward(multiplier = .5) {
     this.engineForce = this.breakingForce = 0
-    const speed = this.vehicle.getCurrentSpeedKmHour()
-    if (speed > 1)
+    if (this.speed > 1)
       this.breakingForce = this.maxBreakingForce
     else this.engineForce = -this.maxEngineForce * multiplier
   }
@@ -159,7 +147,7 @@ export default class Vehicle {
     this.engineForce = 0.0
   }
 
-  update(dt) {
+  handleInput() {
     if (input.up) this.forward()
     if (input.down) this.backward()
 
@@ -177,7 +165,25 @@ export default class Vehicle {
       this.vehicleSteering = 0
 
     if (input.space) this.break()
+  }
 
+  updatePhysics() {
+    const { vehicle } = this
+    vehicle.applyEngineForce(this.engineForce, BACK_LEFT)
+    vehicle.applyEngineForce(this.engineForce, BACK_RIGHT)
+
+    vehicle.setBrake(this.breakingForce / 2, FRONT_LEFT)
+    vehicle.setBrake(this.breakingForce / 2, FRONT_RIGHT)
+    vehicle.setBrake(this.breakingForce, BACK_LEFT)
+    vehicle.setBrake(this.breakingForce, BACK_RIGHT)
+
+    vehicle.setSteeringValue(this.vehicleSteering, FRONT_LEFT)
+    vehicle.setSteeringValue(this.vehicleSteering, FRONT_RIGHT)
+  }
+
+  update(dt) {
+    this.break(.5)
+    this.handleInput()
     this.updatePhysics()
     this.updateMeshes()
     this.chaseCamera?.update(dt)

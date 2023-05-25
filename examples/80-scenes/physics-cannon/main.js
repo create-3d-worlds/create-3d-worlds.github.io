@@ -68,7 +68,6 @@ void function loop() {
   const dt = clock.getDelta()
   handleInput()
   cannon.update(dt)
-  cannon.break(.5)
   world.update(dt)
   renderer.render(scene, camera)
 }()

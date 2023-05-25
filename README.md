@@ -14,9 +14,11 @@ npx live-server
 ### Scenes & examples
 
 - Tenk
-  - class Tank extends Vehicle
-  - tenk da se trese kada ide
+  - dodati ograničenje brzine
+  - ispušta dim (dva manja bela dima nazad), zavisno od brzine
   - ide kroz ratnu scenu (spaljene zgrade) i ruši stvari
+  - povećati trenje, usporavati tenk
+  - zvuk motora?
 
 - Vozilo
   - vozilo da se okreću točkovi kada ide
