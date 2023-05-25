@@ -47,11 +47,11 @@ export default class Player extends Actor {
   /* GETTERS & SETTERS */
 
   get enemies() {
-    return this.scene.getObjectsByProperty('name', 'enemy')
+    return this.scene?.getObjectsByProperty('name', 'enemy')
   }
 
   get solids() {
-    if (!this.#enemiesAdded) {
+    if (!this.#enemiesAdded && this.enemies) {
       this.addSolids(this.enemies)
       this.#enemiesAdded = true
     }
