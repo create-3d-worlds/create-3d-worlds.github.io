@@ -23,19 +23,19 @@ function createWheelMesh(radius, width) {
 export default class Vehicle {
   constructor({
     physicsWorld,
-    chassisMesh,
+    mesh,
     defaultRadius = .4,
     wheelMesh = createWheelMesh(defaultRadius, defaultRadius * .5),
     wheelFront = { x: 1.1, y: .4, z: 1.55 },
     wheelBack = { x: 1.1, y: .4, z: -1.8 },
-    position,
+    pos,
     quaternion,
     mass = 800,
     maxEngineForce = 2000,
     maxBreakingForce = maxEngineForce * .01,
     camera,
   }) {
-    this.chassisMesh = chassisMesh
+    this.mesh = mesh
     this.wheelMesh = wheelMesh
     this.wheelFront = wheelFront
     this.wheelBack = wheelBack
@@ -44,16 +44,16 @@ export default class Vehicle {
     this.engineForce = 0
     this.breakingForce = 0
 
-    if (position) chassisMesh.position.copy(position)
-    if (quaternion) chassisMesh.quaternion.copy(quaternion)
+    if (pos) mesh.position.copy(pos)
+    if (quaternion) mesh.quaternion.copy(quaternion)
 
     if (camera)
-      this.chaseCamera = new ChaseCamera({ camera, mesh: chassisMesh, offset: [0, 2, -6], lookAt: [0, 2, 4] })
+      this.chaseCamera = new ChaseCamera({ camera, mesh, offset: [0, 2, -6], lookAt: [0, 2, 4] })
 
     // body
-    const { x: width, y: height, z: length } = getSize(chassisMesh)
+    const { x: width, y: height, z: length } = getSize(mesh)
     const shape = new Ammo.btBoxShape(new Ammo.btVector3(width * .5, height * .25, length * .5))
-    this.body = createRigidBody({ mesh: chassisMesh, mass, shape })
+    this.body = createRigidBody({ mesh, mass, shape })
     physicsWorld.addRigidBody(this.body)
 
     // vehicle
@@ -121,7 +121,7 @@ export default class Vehicle {
       vehicle.updateWheelTransform(i, true)
       updateMeshTransform(wheelMeshes[i], vehicle.getWheelTransformWS(i))
     }
-    updateMeshTransform(this.chassisMesh, vehicle.getChassisWorldTransform())
+    updateMeshTransform(this.mesh, vehicle.getChassisWorldTransform())
   }
 
   updatePhysics() {

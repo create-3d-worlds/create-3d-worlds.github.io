@@ -23,27 +23,27 @@ world.add(ground, 0)
 
 createSideWall({ brickMass: 3, friction: 5, z: 7 }).forEach(mesh => world.add(mesh))
 
-const chassisMesh = await loadModel({ file: 'weapon/cannon/mortar/mortar.obj', mtl: 'weapon/cannon/mortar/mortar.mtl', size: 1, angle: Math.PI * .5 })
+const mesh = await loadModel({ file: 'weapon/cannon/mortar/mortar.obj', mtl: 'weapon/cannon/mortar/mortar.mtl', size: 1, angle: Math.PI * .5 })
 
 const wheelFront = { x: .3, y: .12, z: .32 }
 const wheelBack = { x: .3, y: .18, z: -.56 }
-const cannon = new Vehicle({ physicsWorld: world.physicsWorld, chassisMesh, defaultRadius: .18, wheelFront, wheelBack, maxEngineForce: 20, mass: 100, camera })
+const cannon = new Vehicle({ physicsWorld: world.physicsWorld, mesh, defaultRadius: .18, wheelFront, wheelBack, maxEngineForce: 20, mass: 100, camera })
 cannon.chaseCamera.offset = [0, 1, -3]
 cannon.chaseCamera.lookAt = [0, 2, 4]
 
-scene.add(chassisMesh, ...cannon.wheelMeshes)
+scene.add(mesh, ...cannon.wheelMeshes)
 
 /* FUNCTIONS */
 
 function shoot() {
-  const angle = chassisMesh.rotation.y // + Math.PI * .5
+  const angle = mesh.rotation.y // + Math.PI * .5
   const x = impulse.value * Math.sin(angle)
   const z = impulse.value * Math.cos(angle)
 
   const distance = .7
   const cannonTop = new THREE.Vector3(distance * Math.sin(angle), 0, distance * Math.cos(angle))
 
-  const pos = chassisMesh.position.clone()
+  const pos = mesh.position.clone()
   pos.y += 0.9
   pos.add(cannonTop)
 

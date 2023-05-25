@@ -29,13 +29,13 @@ for (let i = 0; i < 3; i++) {
 
 /* VEHICLE */
 
-const chassisMesh = await loadModel({ file: 'vehicle/ready/humvee/hummer.obj', mtl: 'vehicle/ready/humvee/hummer.mtl' })
+const mesh = await loadModel({ file: 'vehicle/ready/humvee/hummer.obj', mtl: 'vehicle/ready/humvee/hummer.mtl' })
 const wheelMesh = await loadModel({ file: 'vehicle/ready/humvee/hummerTire.obj', mtl: 'vehicle/ready/humvee/hummerTire.mtl' })
 
 const wheelFront = { x: 1.15, y: .15, z: 1.55 }
 const wheelBack = { x: 1.15, y: .15, z: -1.8 }
-const tank = new Vehicle({ camera, physicsWorld: world.physicsWorld, chassisMesh, wheelMesh, wheelFront, wheelBack })
-scene.add(chassisMesh, ...tank.wheelMeshes)
+const tank = new Vehicle({ camera, physicsWorld: world.physicsWorld, mesh, wheelMesh, wheelFront, wheelBack })
+scene.add(mesh, ...tank.wheelMeshes)
 
 /* LOOP */
 
