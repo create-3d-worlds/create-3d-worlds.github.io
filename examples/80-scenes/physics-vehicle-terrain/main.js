@@ -5,8 +5,8 @@ import { getHeightData } from '/utils/terrain/heightmap.js'
 import { createTerrain } from '/utils/physics/index.js'
 import { createSphere, createBox } from '/utils/geometry.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
-import PhysicsWorld from '/utils/classes/PhysicsWorld.js'
-import Vehicle from '/utils/classes/Vehicle.js'
+import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
+import Vehicle from '/utils/physics/Vehicle.js'
 
 scene.add(createSun({ planetColor: 0xB0E0E6 }))
 
@@ -37,7 +37,7 @@ const wheelBack = { x: 1.15, y: .15, z: -1.8 }
 const tank = new Vehicle({ physicsWorld: world.physicsWorld, chassisMesh, wheelMesh, wheelFront, wheelBack })
 scene.add(chassisMesh, ...tank.wheelMeshes)
 
-const chaseCamera = new ChaseCamera({ camera, mesh: chassisMesh })
+const chaseCamera = new ChaseCamera({ camera, mesh: chassisMesh, offset: [0, 2, -6], lookAt: [0, 2, 4] })
 
 /* LOOP */
 

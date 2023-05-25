@@ -4,10 +4,10 @@ import { scene, camera, renderer, clock } from '/utils/scene.js'
 import input from '/utils/io/Input.js'
 import { createSun } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
-import PhysicsWorld from '/utils/classes/PhysicsWorld.js'
+import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import { createGround } from '/utils/ground.js'
 import { createSphere, createSideWall } from '/utils/geometry.js'
-import Vehicle from '/utils/classes/Vehicle.js'
+import Vehicle from '/utils/physics/Vehicle.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 const world = new PhysicsWorld()

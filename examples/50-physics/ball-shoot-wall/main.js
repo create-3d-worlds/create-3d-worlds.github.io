@@ -4,7 +4,7 @@ import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scen
 import { createSun } from '/utils/light.js'
 import { normalizeMouse } from '/utils/helpers.js'
 import input from '/utils/io/Input.js'
-import PhysicsWorld from '/utils/classes/PhysicsWorld.js'
+import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import { createGround } from '/utils/ground.js'
 import { createSphere, create4Walls } from '/utils/geometry.js'
 
