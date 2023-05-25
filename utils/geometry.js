@@ -146,7 +146,7 @@ export function createRustyBarrel({ r = .4, height = 1, segments = 32, file = 'm
   return mesh
 }
 
-export const createMetalBarrel = () => createRustyBarrel({ file: 'barrel/metal-barrel-side.jpg', topFile: 'metal/metal01.jpg' })
+export const createMetalBarrel = param => createRustyBarrel({ file: 'barrel/metal-barrel-side.jpg', topFile: 'metal/metal01.jpg', ...param })
 
 export function createWoodBarrel({ r = .4, R = .5, h = 1 } = {}) {
   const geometry = new THREE.CylinderGeometry(1, 1, 2, 24, 32)
@@ -299,7 +299,7 @@ export function createSimpleCastle({ rows = 8, brickInWall = 20, blockSize = 1 }
   const isEven = y => Math.floor(y / brickSize) % 2 == 0
 
   function addBlock(x, y, z) {
-    const block = createBox({ width: blockSize, depth: blockSize, height: blockSize })
+    const block = createBox({ width: blockSize, depth: blockSize, height: blockSize, translateHeight: false })
     block.position.set(x, y, z)
     blocks.push(block)
   }

@@ -11,6 +11,8 @@ npx live-server
 
 ## TODO
 
+- organizovati fizika folder
+
 ### Scenes & examples
 
 - Tenk

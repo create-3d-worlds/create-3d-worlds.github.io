@@ -5,7 +5,7 @@ import Vehicle from '/utils/classes/Vehicle.js'
 import VehicleCamera from '/utils/classes/VehicleCamera.js'
 import { loadModel } from '/utils/loaders.js'
 import { createGround } from '/utils/ground.js'
-import { createSphere, createTremplin, createCrates, createSimpleCastle, createCrate, createRustyBarrel } from '/utils/geometry.js'
+import { createSphere, createTremplin, createCrates, createSimpleCastle, createCrate, createRustyBarrel, createMetalBarrel } from '/utils/geometry.js'
 import { createSun } from '/utils/light.js'
 import { addTexture, sample } from '/utils/helpers.js'
 import { createFirTrees } from '/utils/geometry/trees.js'
@@ -22,6 +22,8 @@ scene.add(createSun())
 const ground = createGround({ color: 0x509f53 })
 world.add(ground, 0)
 
+/* OBJECTS */
+
 const tremplin = createTremplin()
 tremplin.position.x = tankX
 world.add(tremplin, 0)
@@ -30,19 +32,17 @@ createCrates({ x: tankX, z: 10 }).forEach(mesh => world.add(mesh))
 
 createSimpleCastle({ rows: 6, brickInWall: 14 }).forEach(block => world.add(block, 5))
 
-/* GEOMETRIES */
+const createMoon = () => createSphere({ r: .5, file: 'planets/moon.jpg' })
 
-const createDarkBarrel = () => createRustyBarrel({ file: 'barrel/metal-barrel-side.jpg', topFile: 'metal/metal01.jpg', translateHeight: false })
-
-const methods = [() => createSphere({ r: .5, file: 'planets/moon.jpg' }), createCrate, createRustyBarrel, createDarkBarrel]
+const methods = [createMoon, createCrate, createRustyBarrel, createMetalBarrel]
 
 for (let i = 0; i < 10; i++) {
   const mesh = sample(methods)({ translateHeight: false })
-  mesh.position.set(randFloat(-10, -50), 1.5, randFloat(-20, 20))
+  mesh.position.set(randFloat(-10, -50), 0, randFloat(-20, 20))
   world.add(mesh, 10)
 }
 
-createFirTrees({ n: 20, mapSize: 200 }).children.forEach(t => world.add(t, 0))
+createFirTrees({ n: 20, mapSize: 200 }).children.forEach(tree => world.add(tree, 0))
 
 /* VEHICLE */
 
