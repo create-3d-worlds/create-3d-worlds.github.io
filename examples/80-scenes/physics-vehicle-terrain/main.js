@@ -2,16 +2,15 @@ import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { getHeightData } from '/utils/terrain/heightmap.js'
-import { createTerrain } from '/utils/physics.js'
+import { createTerrain } from '/utils/physics/index.js'
 import { createSphere, createBox } from '/utils/geometry.js'
-import VehicleCamera from '/utils/classes/VehicleCamera.js'
+import ChaseCamera from '/utils/actor/ChaseCamera.js'
 import PhysicsWorld from '/utils/classes/PhysicsWorld.js'
 import Vehicle from '/utils/classes/Vehicle.js'
 
 scene.add(createSun({ planetColor: 0xB0E0E6 }))
 
 const world = new PhysicsWorld()
-const chaseCamera = new VehicleCamera({ camera })
 
 const { data, width, depth } = await getHeightData('/assets/heightmaps/wiki.png', 3)
 const terrain = await createTerrain({ data, width, depth })
@@ -38,13 +37,15 @@ const wheelBack = { x: 1.15, y: .15, z: -1.8 }
 const tank = new Vehicle({ physicsWorld: world.physicsWorld, chassisMesh, wheelMesh, wheelFront, wheelBack })
 scene.add(chassisMesh, ...tank.wheelMeshes)
 
+const chaseCamera = new ChaseCamera({ camera, mesh: chassisMesh })
+
 /* LOOP */
 
 void function loop() {
   requestAnimationFrame(loop)
-  tank.update()
-  chaseCamera.update(tank.chassisMesh)
   const dt = clock.getDelta()
+  tank.update()
+  chaseCamera.update(dt)
   world.update(dt)
   renderer.render(scene, camera)
 }()

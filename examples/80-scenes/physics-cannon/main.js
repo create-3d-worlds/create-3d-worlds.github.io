@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { Ammo } from '/utils/physics.js'
+import { Ammo } from '/utils/physics/index.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import input from '/utils/io/Input.js'
 import { createSun } from '/utils/light.js'
@@ -8,15 +8,13 @@ import PhysicsWorld from '/utils/classes/PhysicsWorld.js'
 import { createGround } from '/utils/ground.js'
 import { createSphere, createSideWall } from '/utils/geometry.js'
 import Vehicle from '/utils/classes/Vehicle.js'
-import VehicleCamera from '/utils/classes/VehicleCamera.js'
+import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 const world = new PhysicsWorld()
 
 const impulse = document.getElementById('impulse')
 const minImpulse = impulse.value = 15
 const maxImpulse = 25
-
-const chaseCamera = new VehicleCamera({ camera, offsetCamera: [0, 1, -3], lookatCamera: [0, 2, 4] })
 
 const sun = createSun({ pos: [-5, 10, 5] })
 scene.add(sun)
@@ -32,6 +30,8 @@ const wheelFront = { x: .3, y: .12, z: .32 }
 const wheelBack = { x: .3, y: .18, z: -.56 }
 const cannon = new Vehicle({ physicsWorld: world.physicsWorld, chassisMesh, defaultRadius: .18, wheelFront, wheelBack, maxEngineForce: 20, mass: 100 })
 scene.add(chassisMesh, ...cannon.wheelMeshes)
+
+const chaseCamera = new ChaseCamera({ camera, mesh: chassisMesh, offset: [0, 1, -3], lookAt: [0, 2, 4] })
 
 /* FUNCTIONS */
 
@@ -69,7 +69,7 @@ void function loop() {
   handleInput()
   cannon.update()
   cannon.break(.5)
-  chaseCamera.update(chassisMesh)
+  chaseCamera.update(dt)
   world.update(dt)
   renderer.render(scene, camera)
 }()

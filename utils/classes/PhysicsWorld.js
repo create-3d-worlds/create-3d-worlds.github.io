@@ -1,5 +1,5 @@
 import { scene as defaultScene } from '/utils/scene.js'
-import { createPhysicsWorld, createRigidBody, updateMesh } from '/utils/physics.js'
+import { createPhysicsWorld, createRigidBody, updateMesh } from '/utils/physics/index.js'
 
 export default class PhysicsWorld {
   constructor({ scene = defaultScene, maxSteps = 10 } = {}) {

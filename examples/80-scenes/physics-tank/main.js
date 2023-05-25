@@ -2,20 +2,19 @@ import * as THREE from 'three'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import PhysicsWorld from '/utils/classes/PhysicsWorld.js'
 import Vehicle from '/utils/classes/Vehicle.js'
-import VehicleCamera from '/utils/classes/VehicleCamera.js'
 import { loadModel } from '/utils/loaders.js'
 import { createGround } from '/utils/ground.js'
 import { createSphere, createTremplin, createCrates, createSimpleCastle, createCrate, createRustyBarrel, createMetalBarrel } from '/utils/geometry.js'
 import { createSun } from '/utils/light.js'
 import { addTexture, sample } from '/utils/helpers.js'
 import { createFirTrees } from '/utils/geometry/trees.js'
+import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 const { randFloat } = THREE.MathUtils
 
 const tankX = -20
 
 const world = new PhysicsWorld()
-const chaseCamera = new VehicleCamera({ camera, offsetCamera: [0, 2, -6], lookatCamera: [0, 2, 4] })
 
 scene.add(createSun())
 
@@ -56,6 +55,8 @@ const tank = new Vehicle({ physicsWorld: world.physicsWorld, chassisMesh, wheelF
 
 scene.add(chassisMesh)
 
+const chaseCamera = new ChaseCamera({ camera, mesh: chassisMesh, offset: [0, 2, -6], lookAt: [0, 2, 4] })
+
 /* LOOP */
 
 void function loop() {
@@ -63,6 +64,6 @@ void function loop() {
   const dt = clock.getDelta()
   tank.update()
   world.update(dt)
-  chaseCamera.update(chassisMesh)
+  chaseCamera.update(dt)
   renderer.render(scene, camera)
 }()

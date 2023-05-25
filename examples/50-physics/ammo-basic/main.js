@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-import { Ammo, createRigidBody } from '/utils/physics.js'
+import { Ammo, createRigidBody } from '/utils/physics/index.js'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import input from '/utils/io/Input.js'

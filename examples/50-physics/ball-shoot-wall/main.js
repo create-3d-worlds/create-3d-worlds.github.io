@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { Ammo, } from '/utils/physics.js'
+import { Ammo, } from '/utils/physics/index.js'
 import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { normalizeMouse } from '/utils/helpers.js'

@@ -16,7 +16,6 @@ npx live-server
 ### Scenes & examples
 
 - Tenk
-  - koristiti TankPlayer
   - tenk da se trese kada ide
   - ide kroz ratnu scenu (spaljene zgrade) i ruši stvari
 
