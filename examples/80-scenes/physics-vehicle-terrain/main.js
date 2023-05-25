@@ -34,18 +34,15 @@ const wheelMesh = await loadModel({ file: 'vehicle/ready/humvee/hummerTire.obj',
 
 const wheelFront = { x: 1.15, y: .15, z: 1.55 }
 const wheelBack = { x: 1.15, y: .15, z: -1.8 }
-const tank = new Vehicle({ physicsWorld: world.physicsWorld, chassisMesh, wheelMesh, wheelFront, wheelBack })
+const tank = new Vehicle({ camera, physicsWorld: world.physicsWorld, chassisMesh, wheelMesh, wheelFront, wheelBack })
 scene.add(chassisMesh, ...tank.wheelMeshes)
-
-const chaseCamera = new ChaseCamera({ camera, mesh: chassisMesh, offset: [0, 2, -6], lookAt: [0, 2, 4] })
 
 /* LOOP */
 
 void function loop() {
   requestAnimationFrame(loop)
   const dt = clock.getDelta()
-  tank.update()
-  chaseCamera.update(dt)
+  tank.update(dt)
   world.update(dt)
   renderer.render(scene, camera)
 }()

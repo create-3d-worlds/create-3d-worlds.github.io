@@ -8,7 +8,6 @@ import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import { createGround } from '/utils/ground.js'
 import { createSphere, createSideWall } from '/utils/geometry.js'
 import Vehicle from '/utils/physics/Vehicle.js'
-import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 const world = new PhysicsWorld()
 
@@ -28,10 +27,11 @@ const chassisMesh = await loadModel({ file: 'weapon/cannon/mortar/mortar.obj', m
 
 const wheelFront = { x: .3, y: .12, z: .32 }
 const wheelBack = { x: .3, y: .18, z: -.56 }
-const cannon = new Vehicle({ physicsWorld: world.physicsWorld, chassisMesh, defaultRadius: .18, wheelFront, wheelBack, maxEngineForce: 20, mass: 100 })
-scene.add(chassisMesh, ...cannon.wheelMeshes)
+const cannon = new Vehicle({ physicsWorld: world.physicsWorld, chassisMesh, defaultRadius: .18, wheelFront, wheelBack, maxEngineForce: 20, mass: 100, camera })
+cannon.chaseCamera.offset = [0, 1, -3]
+cannon.chaseCamera.lookAt = [0, 2, 4]
 
-const chaseCamera = new ChaseCamera({ camera, mesh: chassisMesh, offset: [0, 1, -3], lookAt: [0, 2, 4] })
+scene.add(chassisMesh, ...cannon.wheelMeshes)
 
 /* FUNCTIONS */
 
@@ -67,9 +67,8 @@ void function loop() {
   requestAnimationFrame(loop)
   const dt = clock.getDelta()
   handleInput()
-  cannon.update()
+  cannon.update(dt)
   cannon.break(.5)
-  chaseCamera.update(dt)
   world.update(dt)
   renderer.render(scene, camera)
 }()

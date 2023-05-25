@@ -11,11 +11,10 @@ npx live-server
 
 ## TODO
 
-- organizovati fizika folder
-
 ### Scenes & examples
 
 - Tenk
+  - class Tank extends Vehicle
   - tenk da se trese kada ide
   - ide kroz ratnu scenu (spaljene zgrade) i ruši stvari
 

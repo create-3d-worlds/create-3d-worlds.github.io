@@ -1,8 +1,9 @@
 import * as THREE from 'three'
 
-import { Ammo, createRigidBody, updateMeshTransform } from '/utils/physics/index.js'
 import input from '/utils/io/Input.js'
 import { getSize } from '/utils/helpers.js'
+import { Ammo, createRigidBody, updateMeshTransform } from '/utils/physics/index.js'
+import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 const FRONT_LEFT = 0
 const FRONT_RIGHT = 1
@@ -32,6 +33,7 @@ export default class Vehicle {
     mass = 800,
     maxEngineForce = 2000,
     maxBreakingForce = maxEngineForce * .01,
+    camera,
   }) {
     this.chassisMesh = chassisMesh
     this.wheelMesh = wheelMesh
@@ -44,6 +46,9 @@ export default class Vehicle {
 
     if (position) chassisMesh.position.copy(position)
     if (quaternion) chassisMesh.quaternion.copy(quaternion)
+
+    if (camera)
+      this.chaseCamera = new ChaseCamera({ camera, mesh: chassisMesh, offset: [0, 2, -6], lookAt: [0, 2, 4] })
 
     // body
     const { x: width, y: height, z: length } = getSize(chassisMesh)
@@ -154,7 +159,7 @@ export default class Vehicle {
     this.engineForce = 0.0
   }
 
-  update() {
+  update(dt) {
     if (input.up) this.forward()
     if (input.down) this.backward()
 
@@ -175,5 +180,6 @@ export default class Vehicle {
 
     this.updatePhysics()
     this.updateMeshes()
+    this.chaseCamera?.update(dt)
   }
 }

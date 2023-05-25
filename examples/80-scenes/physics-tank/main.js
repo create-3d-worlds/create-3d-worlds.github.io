@@ -8,7 +8,6 @@ import { createSphere, createTremplin, createCrates, createSimpleCastle, createC
 import { createSun } from '/utils/light.js'
 import { addTexture, sample } from '/utils/helpers.js'
 import { createFirTrees } from '/utils/geometry/trees.js'
-import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 const { randFloat } = THREE.MathUtils
 
@@ -51,19 +50,16 @@ const chassisMesh = await loadModel({ file: 'tank/t-50/model.fbx' })
 addTexture(chassisMesh, 'metal/metal01.jpg')
 
 chassisMesh.position.set(tankX, 2, -20)
-const tank = new Vehicle({ physicsWorld: world.physicsWorld, chassisMesh, wheelFront, wheelBack, maxEngineForce: 1000 })
+const tank = new Vehicle({ physicsWorld: world.physicsWorld, chassisMesh, wheelFront, wheelBack, maxEngineForce: 1000, camera })
 
 scene.add(chassisMesh)
-
-const chaseCamera = new ChaseCamera({ camera, mesh: chassisMesh, offset: [0, 2, -6], lookAt: [0, 2, 4] })
 
 /* LOOP */
 
 void function loop() {
   requestAnimationFrame(loop)
   const dt = clock.getDelta()
-  tank.update()
+  tank.update(dt)
   world.update(dt)
-  chaseCamera.update(dt)
   renderer.render(scene, camera)
 }()
