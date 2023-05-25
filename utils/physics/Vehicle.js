@@ -28,11 +28,12 @@ export default class Vehicle {
     wheelMesh = createWheelMesh(defaultRadius, defaultRadius * .5),
     wheelFront = { x: 1.1, y: .4, z: 1.55 },
     wheelBack = { x: 1.1, y: .4, z: -1.8 },
-    pos,
-    quaternion,
     mass = 800,
     maxEngineForce = 2000,
     maxBreakingForce = maxEngineForce * .01,
+    maxSpeed = 80,
+    pos,
+    quaternion,
     camera,
   }) {
     this.mesh = mesh
@@ -43,6 +44,7 @@ export default class Vehicle {
     this.maxBreakingForce = maxBreakingForce
     this.engineForce = 0
     this.breakingForce = 0
+    this.maxSpeed = maxSpeed
 
     if (pos) mesh.position.copy(pos)
     if (quaternion) mesh.quaternion.copy(quaternion)
@@ -108,7 +110,7 @@ export default class Vehicle {
   createWheels(tuning) {
     const { y } = getSize(this.wheelMesh)
     const { wheelFront, wheelBack } = this
-    const wheelRadiusFront = y * .5, wheelRadiusBack = y * .5 // y * .5 = defaultRadius
+    const wheelRadiusFront = y * .5, wheelRadiusBack = y * .5
 
     this.createWheel(true, new Ammo.btVector3(wheelFront.x, wheelFront.y, wheelFront.z), wheelRadiusFront, tuning)
     this.createWheel(true, new Ammo.btVector3(-wheelFront.x, wheelFront.y, wheelFront.z), wheelRadiusFront, tuning)
@@ -129,10 +131,13 @@ export default class Vehicle {
   }
 
   forward() {
+    if (this.speed > this.maxSpeed) return
     this.engineForce = this.breakingForce = 0
+
     if (this.speed < -1)
       this.breakingForce = this.maxBreakingForce
-    else this.engineForce = this.maxEngineForce
+    else
+      this.engineForce = this.maxEngineForce
   }
 
   backward(multiplier = .5) {

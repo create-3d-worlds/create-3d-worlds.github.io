@@ -11,6 +11,6 @@ addTexture(mesh, 'metal/metal01.jpg')
 
 export default class Tank extends Vehicle {
   constructor(param = {}) {
-    super({ mesh, wheelFront, wheelBack, maxEngineForce: 1000, ...param })
+    super({ mesh, wheelFront, wheelBack, maxSpeed: 40, maxEngineForce: 500, ...param })
   }
 }

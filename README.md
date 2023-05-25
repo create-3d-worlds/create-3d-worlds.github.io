@@ -14,10 +14,9 @@ npx live-server
 ### Scenes & examples
 
 - Tenk
-  - dodati ograničenje brzine
   - ispušta dim (dva manja bela dima nazad), zavisno od brzine
   - ide kroz ratnu scenu (spaljene zgrade) i ruši stvari
-  - povećati trenje, usporavati tenk
+  - izmeriti stats, smanjiti broj blokova
   - zvuk motora?
 
 - Vozilo
