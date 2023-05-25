@@ -1,6 +1,6 @@
 import { scene, camera, renderer, clock, setBackground } from '/utils/scene.js'
 import { ambLight, createMoon } from '/utils/light.js'
-import { Stars } from '/utils/classes/Particles.js'
+import { Stars } from '/utils/Particles.js'
 import Score from '/utils/io/Score.js'
 import Lander from './Lander.js'
 import Platform from '/utils/objects/Platform.js'

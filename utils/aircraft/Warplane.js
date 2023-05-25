@@ -1,7 +1,7 @@
 import input from '/utils/io/Input.js'
 import GameObject from '/utils/objects/GameObject.js'
 import Missile from './Missile.js'
-import { Explosion } from '/utils/classes/Particles.js'
+import { Explosion } from '/utils/Particles.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 export default class Warplane extends GameObject {
@@ -105,7 +105,7 @@ export default class Warplane extends GameObject {
   }
 
   addSmoke() {
-    const promise = import('/utils/classes/Particles.js')
+    const promise = import('/utils/Particles.js')
     promise.then(obj => {
       const { Smoke } = obj
       this.smoke = new Smoke()

@@ -87,7 +87,7 @@ export default class Actor extends GameObject {
     }
 
     if (useRicochet) {
-      const promise = import('/utils/classes/Particles.js')
+      const promise = import('/utils/Particles.js')
       promise.then(obj => {
         const Particles = obj.default
         this.ricochet = new Particles({ num: 100, size: .05, unitAngle: 0.2 })
@@ -95,7 +95,7 @@ export default class Actor extends GameObject {
     }
 
     if (flame) {
-      const promise = import('/utils/classes/Particles.js')
+      const promise = import('/utils/Particles.js')
       promise.then(obj => {
         const { Flame } = obj
         this.flame = new Flame({ num: 25, minRadius: 0, maxRadius: .5 })

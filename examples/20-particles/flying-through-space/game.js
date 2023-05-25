@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { scene, camera, renderer } from '/utils/scene.js'
-import { Stars } from '/utils/classes/Particles.js'
+import { Stars } from '/utils/Particles.js'
 
 scene.background = new THREE.Color(0x000000)
 

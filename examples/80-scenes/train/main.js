@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
-import { Smoke } from '/utils/classes/Particles.js'
+import { Smoke } from '/utils/Particles.js'
 import { followPath, createEllipse, createRailroadTracks } from '/utils/path.js'
 import { loadModel } from '/utils/loaders.js'
 

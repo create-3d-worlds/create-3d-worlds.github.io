@@ -1,6 +1,6 @@
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { hemLight } from '/utils/light.js'
-import { Smoke } from '/utils/classes/Particles.js'
+import { Smoke } from '/utils/Particles.js'
 
 createOrbitControls()
 hemLight()

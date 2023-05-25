@@ -1,7 +1,7 @@
 import { camera, scene, renderer, clock, setBackground } from '/utils/scene.js'
 import { Planet } from '/utils/geometry/planets.js'
 import { createTerrain, shake } from '/utils/ground.js'
-import { Stars } from '/utils/classes/Particles.js'
+import { Stars } from '/utils/Particles.js'
 import { createMoon } from '/utils/light.js'
 import { getShuffledCoords } from '/utils/helpers.js'
 import Avatar from '/utils/actor/Avatar.js'

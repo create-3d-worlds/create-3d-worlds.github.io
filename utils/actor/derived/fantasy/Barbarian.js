@@ -1,7 +1,7 @@
 import Player from '/utils/actor/Player.js'
 import AI from '/utils/actor/AI.js'
 import { loadModel } from '/utils/loaders.js'
-import { RedFlame } from '/utils/classes/Particles.js'
+import { RedFlame } from '/utils/Particles.js'
 
 const animDict = {
   idle: 'Idle',

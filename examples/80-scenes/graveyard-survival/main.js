@@ -5,7 +5,7 @@ import { getShuffledCoords, sample } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
 import { GhostAI } from '/utils/actor/derived/horror/Ghost.js'
 import { ResistanceFighterPlayer } from '/utils/actor/derived/ww2/ResistanceFighter.js'
-import { Smoke } from '/utils/classes/Particles.js'
+import { Smoke } from '/utils/Particles.js'
 import DeadTree from '/utils/objects/DeadTree.js'
 
 const mapSize = 100

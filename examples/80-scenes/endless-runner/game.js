@@ -3,7 +3,7 @@ import { camera, scene, renderer, clock } from '/utils/scene.js'
 import { createWorldSphere } from '/utils/geometry.js'
 import { createSimpleFir } from '/utils/geometry/trees.js'
 import { hemLight } from '/utils/light.js'
-import Particles from '/utils/classes/Particles.js'
+import Particles from '/utils/Particles.js'
 import Score from '/utils/io/Score.js'
 import PlayerBall from './PlayerBall.js'
 

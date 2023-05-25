@@ -3,7 +3,7 @@ import { scene, renderer, addUIControls, createOrbitControls } from '/utils/scen
 import { createSphere } from '/utils/geometry.js'
 import { createEarth, orbiting } from '/utils/geometry/planets.js'
 import { createSun } from '/utils/light.js'
-import { Stars } from '/utils/classes/Particles.js'
+import { Stars } from '/utils/Particles.js'
 
 createOrbitControls()
 renderer.setClearColor(0x000000)

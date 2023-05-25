@@ -1,5 +1,5 @@
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import Particles from '/utils/classes/Particles.js'
+import Particles from '/utils/Particles.js'
 
 renderer.setClearColor(0x000000)
 createOrbitControls()

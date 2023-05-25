@@ -6,7 +6,7 @@ export default class Building extends GameObject {
   }
 
   addFire() {
-    const promise = import('/utils/classes/Particles.js')
+    const promise = import('/utils/Particles.js')
     promise.then(obj => {
       this.fire = new obj.Fire()
       this.add(this.fire.mesh)

@@ -1,6 +1,6 @@
 import { scene, camera, renderer } from '/utils/scene.js'
 import { mouseToWorld } from '/utils/helpers.js'
-import { Explosion } from '/utils/classes/Particles.js'
+import { Explosion } from '/utils/Particles.js'
 
 renderer.setClearColor(0x000000)
 
