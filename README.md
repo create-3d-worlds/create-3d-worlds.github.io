@@ -13,6 +13,9 @@ npx live-server
 
 ### Scenes & examples
 
+- Fizika
+  - odvojiti scene
+
 - Tenk
   - koristiti TankPlayer
   - tenk da se trese kada ide

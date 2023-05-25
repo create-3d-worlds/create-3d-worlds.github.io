@@ -13,7 +13,7 @@ const translateY = (mesh, y) => {
 
 /* BOXES */
 
-export function createBox({ size = 1, width = size, height = size, depth = size, file, bumpFile, normalFile, color = randomGray(), castShadow = true, receiveShadow = true, updateHeight = true, pos, quat } = {}) {
+export function createBox({ size = 1, width = size, height = size, depth = size, file, bumpFile, normalFile, color = randomGray(), castShadow = true, receiveShadow = true, translateHeight = true, pos, quat } = {}) {
   const geometry = new THREE.BoxGeometry(width, height, depth)
   const options = {
     map: file ? textureLoader.load(`/assets/textures/${file}`) : null,
@@ -24,7 +24,7 @@ export function createBox({ size = 1, width = size, height = size, depth = size,
   const material = new THREE.MeshPhongMaterial(options)
   const mesh = new THREE.Mesh(geometry, material)
 
-  if (updateHeight) translateY(mesh, height / 2)
+  if (translateHeight) translateY(mesh, height / 2)
   else mesh.translateY(height / 2)
 
   if (pos) mesh.position.copy(pos)
@@ -41,13 +41,13 @@ export const createPlayerBox = ({ visible = true, ...params } = {}) => {
   return mesh
 }
 
-export const createCrate = ({ file = 'crate.gif', updateHeight = true, ...params } = {}) =>
-  createBox({ file, updateHeight, ...params })
+export const createCrate = ({ file = 'crate.gif', ...params } = {}) =>
+  createBox({ file, ...params })
 
-export function createJumpBoard({ width = 8, height = 4, depth = 10, y = -1.5 } = {}) {
-  const jumpBoard = createBox({ width, height, depth })
+export function createTremplin({ width = 8, height = 4, depth = 10, y = -1.5 } = {}) {
+  const jumpBoard = createBox({ width, height, depth, translateHeight: false })
   jumpBoard.position.y = y
-  jumpBoard.rotateX(-Math.PI / 18)
+  jumpBoard.rotateX(-Math.PI / 15)
   return jumpBoard
 }
 
@@ -123,7 +123,7 @@ export async function createSkySphere({ r = 4000, color1 = 0x0077ff, color2 = 0x
 
 /* BARRELS */
 
-export function createRustyBarrel({ r = .4, height = 1, segments = 32, file = 'metal/rust.jpg', topFile = 'barrel/rust-top.jpg' } = {}) {
+export function createRustyBarrel({ r = .4, height = 1, segments = 32, file = 'metal/rust.jpg', topFile = 'barrel/rust-top.jpg', translateHeight = true } = {}) {
   const geometry = new THREE.CylinderGeometry(r, r, height, segments)
   const sideMaterial = new THREE.MeshPhongMaterial({
     map: textureLoader.load(`/assets/textures/${file}`),
@@ -141,7 +141,7 @@ export function createRustyBarrel({ r = .4, height = 1, segments = 32, file = 'm
     topMaterial, // bottom
   ]
   const mesh = new THREE.Mesh(geometry, materials)
-  translateY(mesh, height / 2)
+  if (translateHeight) translateY(mesh, height / 2)
   mesh.castShadow = mesh.receiveShadow = true
   return mesh
 }
@@ -200,7 +200,7 @@ export function createRandomBoxes({ n = 100, size = 5, mapSize = 100 } = {}) {
 }
 
 export function createCrates({ width = 8, height = 6, depth = 2, size = 1, x = 0, z = 0 } = {}) {
-  const box = createCrate({ size })
+  const box = createCrate({ size, translateHeight: false })
   const boxes = []
   for (let w = 0; w < width; w++)
     for (let h = 0; h < height; h++)
@@ -236,7 +236,7 @@ export function createWall({ brickWidth = 0.6, brickDepth = 1, rows = 8, columns
       const firstOrLast = oddRow && (i == 0 || i == nRow - 1)
       const depth = firstOrLast ? brickDepth * .5 : brickDepth
       const mass = firstOrLast ? brickMass * .5 : brickMass
-      const brick = createBox({ width: brickWidth, height: brickHeight, depth, mass, pos, friction })
+      const brick = createBox({ width: brickWidth, height: brickHeight, depth, mass, pos, friction, translateHeight: false })
 
       bricks.push(brick)
 
@@ -267,7 +267,7 @@ export function createSideWall({ brickWidth = 0.6, brickDepth = 1, rows = 8, col
       const firstOrLast = oddRow && (i == 0 || i == nRow - 1)
       const depth = firstOrLast ? brickDepth * .5 : brickDepth
       const mass = firstOrLast ? brickMass * .5 : brickMass
-      const brick = createBox({ width: depth, height: brickHeight, depth: brickWidth, mass, pos, friction })
+      const brick = createBox({ width: depth, height: brickHeight, depth: brickWidth, mass, pos, friction, translateHeight: false })
 
       bricks.push(brick)
 
