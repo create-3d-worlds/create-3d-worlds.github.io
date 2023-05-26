@@ -45,6 +45,7 @@ export default class Vehicle {
     this.engineForce = 0
     this.breakingForce = 0
     this.maxSpeed = maxSpeed
+    this.input = input
 
     if (pos) mesh.position.copy(pos)
     if (quaternion) mesh.quaternion.copy(quaternion)
