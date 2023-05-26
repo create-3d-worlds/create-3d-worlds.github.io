@@ -46,16 +46,19 @@ export default class Vehicle {
     this.breakingForce = 0
     this.maxSpeed = maxSpeed
     this.input = input
+    const { x, y, z } = getSize(mesh)
+    this.width = x
+    this.height = y
+    this.depth = z
 
     if (pos) mesh.position.copy(pos)
     if (quaternion) mesh.quaternion.copy(quaternion)
 
     if (camera)
-      this.chaseCamera = new ChaseCamera({ camera, mesh, offset: [0, 2, -6], lookAt: [0, 2, 4] })
+      this.chaseCamera = new ChaseCamera({ camera, mesh, offset: [0, this.height, -this.depth], lookAt: [0, this.height, this.depth], speed: 4 })
 
     // body
-    const { x: width, y: height, z: length } = getSize(mesh)
-    const shape = new Ammo.btBoxShape(new Ammo.btVector3(width * .5, height * .25, length * .5))
+    const shape = new Ammo.btBoxShape(new Ammo.btVector3(this.width * .5, this.height * .25, this.depth * .5))
     this.body = createRigidBody({ mesh, mass, shape })
     physicsWorld.addRigidBody(this.body)
 

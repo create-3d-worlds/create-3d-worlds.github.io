@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Tenk
-  - brža prateća kamera
   - ide kroz ratnu scenu (spaljene zgrade) i ruši stvari
   - izmeriti stats, smanjiti broj blokova
   - zvuk motora?

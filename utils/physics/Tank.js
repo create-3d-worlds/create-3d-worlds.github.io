@@ -9,7 +9,7 @@ const wheelBack = { x: .75, y: .1, z: -1.25 }
 const mesh = await loadModel({ file: 'tank/t-50/model.fbx' })
 addTexture(mesh, 'metal/metal01.jpg')
 
-const smokeParam = { size: .5, num: 25, maxRadius: .2, color: 0xffffff, opacity: .5 }
+const smokeParam = { size: .5, num: 25, maxRadius: .22, color: 0xffffff, opacity: .5 }
 
 export default class Tank extends Vehicle {
   constructor(param = {}) {
