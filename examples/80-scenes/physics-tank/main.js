@@ -3,14 +3,13 @@ import { scene, camera, renderer, clock } from '/utils/scene.js'
 import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import Tank from '/utils/physics/Tank.js'
 import { createGround } from '/utils/ground.js'
-import { createSphere, createTremplin, createCrates, createSimpleCastle, createCrate, createRustyBarrel, createMetalBarrel } from '/utils/geometry.js'
+import { createMoonSphere, createTremplin, createCrates, createCrate, createRustyBarrel, createMetalBarrel } from '/utils/geometry.js'
 import { createSun } from '/utils/light.js'
 import { sample } from '/utils/helpers.js'
-import { createFirTrees } from '/utils/geometry/trees.js'
+import { createFirTree } from '/utils/geometry/trees.js'
+import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 
 const { randFloat } = THREE.MathUtils
-
-const tankX = -20
 
 const world = new PhysicsWorld()
 
@@ -22,28 +21,36 @@ world.add(ground, 0)
 /* OBJECTS */
 
 const tremplin = createTremplin()
-tremplin.position.x = tankX
 world.add(tremplin, 0)
 
-createCrates({ x: tankX, z: 10 }).forEach(mesh => world.add(mesh))
+createCrates({ z: 10 }).forEach(mesh => world.add(mesh, 20))
 
-createSimpleCastle({ rows: 6, brickInWall: 14 }).forEach(block => world.add(block, 5))
+const createObject = [createCrate, createRustyBarrel, createMetalBarrel, createMoonSphere]
 
-const createMoon = () => createSphere({ r: .5, file: 'planets/moon.jpg' })
+for (let i = 0; i < 20; i++) {
+  const mesh = createFirTree()
+  mesh.position.set(randFloat(10, 50), 0, randFloat(-50, 50))
+  world.add(mesh)
+}
 
-const methods = [createMoon, createCrate, createRustyBarrel, createMetalBarrel]
-
-for (let i = 0; i < 10; i++) {
-  const mesh = sample(methods)({ translateHeight: false })
-  mesh.position.set(randFloat(-10, -50), 0, randFloat(-20, 20))
+for (let i = 0; i < 30; i++) {
+  const mesh = sample(createObject)({ translateHeight: false })
+  mesh.position.set(randFloat(-10, -50), 0, randFloat(-30, 30))
   world.add(mesh, 10)
 }
 
-createFirTrees({ n: 20, mapSize: 200 }).children.forEach(tree => world.add(tree, 0))
+const createBuilding = [createRuin, createWarehouse, createWarehouse2, createWarRuin, createAirport]
+
+for (let i = -1; i < 5; i++)
+  for (let j = 0; j < 3; j++) {
+    const warehouse = sample(createBuilding)()
+    warehouse.position.set(-i * 30, 0, j * 30 + 60)
+    world.add(warehouse)
+  }
 
 /* VEHICLE */
 
-const tank = new Tank({ physicsWorld: world.physicsWorld, camera, pos: { x: tankX, y: 2, z: -20 } })
+const tank = new Tank({ physicsWorld: world.physicsWorld, camera, pos: { x: 0, y: 0, z: -20 } })
 
 scene.add(tank.mesh)
 

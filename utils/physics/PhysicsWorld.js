@@ -10,7 +10,9 @@ export default class PhysicsWorld {
   }
 
   add(mesh, mass, friction) {
-    if (!mesh.userData.body) mesh.userData.body = createRigidBody({ mesh, mass, friction })
+    if (!mesh.userData.body)
+      mesh.userData.body = createRigidBody({ mesh, mass, friction })
+
     this.physicsWorld.addRigidBody(mesh.userData.body)
     this.rigidBodies.push(mesh)
     if (this.scene) this.scene.add(mesh)

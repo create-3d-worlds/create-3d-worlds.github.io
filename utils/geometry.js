@@ -83,6 +83,8 @@ export function createBall({ r = 1, color = 0xe5f2f2 } = {}) {
 export const createBullet = ({ color = 0x333333, r = .1, widthSegments = 6 } = {}) =>
   createSphere({ r, color, widthSegments, castShadow: true, receiveShadow: false })
 
+export const createMoonSphere = () => createSphere({ r: .5, file: 'planets/moon.jpg' })
+
 /* WORLD SPHERE */
 
 const deform = (geometry, distort = .5) => {

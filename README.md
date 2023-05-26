@@ -14,8 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Tenk
-  - ide kroz ratnu scenu (spaljene zgrade) i ruši stvari
-  - izmeriti stats, smanjiti broj blokova
+  - izmeriti stats, odrediti broj blokova
   - zvuk motora?
 
 - Vozilo
@@ -23,6 +22,7 @@ npx live-server
   - ispitati modele, jel moguće upravljati točkovima, kupolom ili nečim
 
 - Top
+  - createSimpleCastle
   - videti šta još može
 
 - Endless runner
