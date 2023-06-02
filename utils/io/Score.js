@@ -52,7 +52,7 @@ export default class Score {
     points = 0,
     subtitle = 'left',
     total,
-    endText = 'The end!<br>Nothing left',
+    endText = 'Bravo!<br>Nothing left',
     color = 'yellow',
     stroke = '#000',
     messageDict = defaultDict,

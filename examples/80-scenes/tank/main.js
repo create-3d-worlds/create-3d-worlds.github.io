@@ -20,8 +20,6 @@ scene.add(createSun())
 const ground = createGround({ color: 0x509f53 })
 world.add(ground, 0)
 
-/* OBJECTS */
-
 const tremplin = createTremplin()
 world.add(tremplin, 0)
 
@@ -29,7 +27,7 @@ const crates = createCrates({ z: 10 })
 crates.forEach(mesh => world.add(mesh, 20))
 const boxes = crates.filter(mesh => mesh.position.y > .5)
 
-const score = new Score({ title: 'POINTS', subtitle: 'crates left', total: boxes.length })
+const score = new Score({ title: 'POINTS', subtitle: 'crates left', total: boxes.length, messageDict: {} })
 
 const createObject = [createCrate, createRustyBarrel, createMetalBarrel, createMoonSphere]
 
