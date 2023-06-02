@@ -14,10 +14,10 @@ npx live-server
 ### Scenes & examples
 
 - Vozilo
-  - vozilo da se okreću točkovi kada ide
-  - ispitati modele, jel moguće upravljati točkovima, kupolom ili nečim
+  - class Humvee extends Vehicle
+  - poravnati malo teren
 
-- Top
+- Cannon
   - createSimpleCastle
   - videti šta još može
 

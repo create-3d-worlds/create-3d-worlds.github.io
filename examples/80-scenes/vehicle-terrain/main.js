@@ -3,8 +3,7 @@ import { createSun } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { getHeightData } from '/utils/terrain/heightmap.js'
 import { createTerrain } from '/utils/physics/index.js'
-import { createSphere, createBox } from '/utils/geometry.js'
-import ChaseCamera from '/utils/actor/ChaseCamera.js'
+import { createSphere, createTremplin } from '/utils/geometry.js'
 import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import Vehicle from '/utils/physics/Vehicle.js'
 
@@ -16,15 +15,14 @@ const { data, width, depth } = await getHeightData('/assets/heightmaps/wiki.png'
 const terrain = await createTerrain({ data, width, depth })
 world.add(terrain)
 
-const tremplin = createBox({ width: 8, height: 4, depth: 15, color: 0xfffacd })
-tremplin.rotateX(-Math.PI / 15)
+const tremplin = createTremplin({ color: 0xfffacd })
 tremplin.position.set(-10, -7.5, 20)
 world.add(tremplin, 0)
 
 for (let i = 0; i < 3; i++) {
   const ball = createSphere({ color: 0xfffacd })
   ball.position.set(5 * Math.random(), 0, -20 * Math.random())
-  world.add(ball, 3000)
+  world.add(ball, 1000)
 }
 
 /* VEHICLE */

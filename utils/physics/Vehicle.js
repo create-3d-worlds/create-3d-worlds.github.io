@@ -31,7 +31,7 @@ export default class Vehicle {
     mass = 800,
     maxEngineForce = 2000,
     maxBreakingForce = maxEngineForce * .01,
-    maxSpeed = 80,
+    maxSpeed = 60,
     pos,
     quaternion,
     camera,

@@ -44,8 +44,8 @@ export const createPlayerBox = ({ visible = true, ...params } = {}) => {
 export const createCrate = ({ file = 'crate.gif', ...params } = {}) =>
   createBox({ file, ...params })
 
-export function createTremplin({ width = 8, height = 4, depth = 10, y = -1.5 } = {}) {
-  const jumpBoard = createBox({ width, height, depth, translateHeight: false })
+export function createTremplin({ width = 8, height = 4, depth = 12, y = -1.5, color } = {}) {
+  const jumpBoard = createBox({ width, height, depth, translateHeight: false, color })
   jumpBoard.position.y = y
   jumpBoard.rotateX(-Math.PI / 15)
   return jumpBoard
