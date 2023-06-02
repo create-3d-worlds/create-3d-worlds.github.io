@@ -13,10 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Tenk
-  - izmeriti stats, odrediti broj blokova
-  - zvuk motora?
-
 - Vozilo
   - vozilo da se okreću točkovi kada ide
   - ispitati modele, jel moguće upravljati točkovima, kupolom ili nečim
