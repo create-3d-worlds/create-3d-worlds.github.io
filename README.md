@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Vozilo
-  - dodati dim?
   - dodati još neke predmete?
   - igra: izgurati lopte van terena?
 

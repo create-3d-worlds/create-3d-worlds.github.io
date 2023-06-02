@@ -70,11 +70,11 @@ export default class Particles {
     return new THREE.Points(geometry, material)
   }
 
-  reset({ pos, unitAngle = this.unitAngle, color, randomize = true } = {}) {
+  reset({ pos, unitAngle = this.unitAngle, color, randomize = true, opacity = 1 } = {}) {
     const { mesh } = this
     this.t = 0
     mesh.visible = true
-    mesh.material.opacity = 1
+    mesh.material.opacity = opacity
     if (pos)
       if (Array.isArray(pos)) mesh.position.set(...pos)
       else mesh.position.copy(pos)

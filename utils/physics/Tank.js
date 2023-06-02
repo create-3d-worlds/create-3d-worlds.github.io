@@ -39,9 +39,9 @@ export default class Tank extends Vehicle {
     this.smokeLeft.update(param)
     this.smokeRight.update(param)
 
-    if (!this.input.keyPressed) {
-      this.smokeLeft.reset({ randomize: false })
-      this.smokeRight.reset({ randomize: false })
+    if (!this.input.controlsPressed) {
+      this.smokeLeft.reset({ randomize: false, opacity: smokeParam.opacity })
+      this.smokeRight.reset({ randomize: false, opacity: smokeParam.opacity })
     }
   }
 }
