@@ -8,10 +8,12 @@ import { createSun } from '/utils/light.js'
 import { sample } from '/utils/helpers.js'
 import { createFirTree } from '/utils/geometry/trees.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
+import Score from '/utils/io/Score.js'
 
 const { randFloat } = THREE.MathUtils
 
 const world = new PhysicsWorld()
+let i = 0
 
 scene.add(createSun())
 
@@ -23,7 +25,11 @@ world.add(ground, 0)
 const tremplin = createTremplin()
 world.add(tremplin, 0)
 
-createCrates({ z: 10 }).forEach(mesh => world.add(mesh, 20))
+const crates = createCrates({ z: 10 })
+crates.forEach(mesh => world.add(mesh, 20))
+const boxes = crates.filter(mesh => mesh.position.y > .5)
+
+const score = new Score({ title: 'POINTS', subtitle: 'crates left', total: boxes.length })
 
 const createObject = [createCrate, createRustyBarrel, createMetalBarrel, createMoonSphere]
 
@@ -61,5 +67,14 @@ void function loop() {
   const dt = clock.getDelta()
   tank.update(dt)
   world.update(dt)
+
+  if (i++ % 3 === 0)
+    boxes.forEach(mesh => {
+      if (mesh.position.y <= 0.5) {
+        boxes.splice(boxes.findIndex(c => c === mesh), 1)
+        score.update(1, boxes.length)
+      }
+    })
+
   renderer.render(scene, camera)
 }()
