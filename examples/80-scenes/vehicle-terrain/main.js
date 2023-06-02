@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { getHeightData } from '/utils/terrain/heightmap.js'
@@ -5,6 +6,8 @@ import { createTerrain } from '/utils/physics/index.js'
 import { createSphere, createTremplin } from '/utils/geometry.js'
 import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import Humvee from '/utils/physics/Humvee.js'
+
+const { randFloatSpread } = THREE.MathUtils
 
 scene.add(createSun({ planetColor: 0xB0E0E6 }))
 
@@ -18,10 +21,10 @@ const tremplin = createTremplin({ color: 0xfffacd })
 tremplin.position.set(-10, -4.5, 20)
 world.add(tremplin, 0)
 
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 5; i++) {
   const ball = createSphere({ color: 0xfffacd })
-  ball.position.set(5 * Math.random(), 0, -20 * Math.random())
-  world.add(ball, 1000)
+  ball.position.set(randFloatSpread(40), 0, randFloatSpread(40))
+  world.add(ball, 800)
 }
 
 /* VEHICLE */

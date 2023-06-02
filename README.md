@@ -14,7 +14,13 @@ npx live-server
 ### Scenes & examples
 
 - Vozilo
-  - dodati još neke predmete
+  - dodati dim?
+  - dodati još neke predmete?
+  - igra: izgurati lopte van terena?
+
+- Tank
+  - poeni za svaki sanduk srušen na zemlju
+  - ostavljati tragove?
 
 - Cannon
   - createSimpleCastle
