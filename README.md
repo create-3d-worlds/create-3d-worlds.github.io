@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Vozilo
-  - poravnati malo teren
   - class Humvee extends Vehicle
 
 - Cannon

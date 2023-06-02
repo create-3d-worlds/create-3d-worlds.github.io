@@ -16,7 +16,7 @@ const terrain = await createTerrain({ data, width, depth, minHeight: -2, maxHeig
 world.add(terrain)
 
 const tremplin = createTremplin({ color: 0xfffacd })
-tremplin.position.set(-10, -8.5, 20)
+tremplin.position.set(-10, -4.5, 20)
 world.add(tremplin, 0)
 
 for (let i = 0; i < 3; i++) {

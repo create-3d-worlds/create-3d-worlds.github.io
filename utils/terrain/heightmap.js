@@ -4,6 +4,17 @@ import { heightColors, desertPlanetColors } from '/utils/ground.js'
 
 const textureLoader = new THREE.TextureLoader()
 
+const geometryFromData = ({ data, width, depth }) => {
+  const geometry = new THREE.PlaneGeometry(width, depth, width - 1, depth - 1)
+  geometry.rotateX(-Math.PI * .5)
+
+  const { position } = geometry.attributes
+  for (let i = 0, l = position.count; i < l; i++)
+    position.setY(i, data[i])
+
+  return geometry
+}
+
 /**
  * @param heightFactor: height scale factor
  * @param seaLevel number: coloring margin
@@ -32,17 +43,6 @@ export function meshFromData({ data, width, depth, minHeight, maxHeight }) {
   return mesh
 }
 
-export function geometryFromData({ data, width, depth }) {
-  const geometry = new THREE.PlaneGeometry(width, depth, width - 1, depth - 1)
-  geometry.rotateX(-Math.PI * .5)
-
-  const { position } = geometry.attributes
-  for (let i = 0, l = position.count; i < l; i++)
-    position.setY(i, data[i])
-
-  return geometry
-}
-
 /* FUNCTIONS */
 
 function loadImage(url) {
@@ -64,13 +64,12 @@ export async function getHeightData(url, scale = 1) {
   canvas.height = img.height
   const context = canvas.getContext('2d')
 
-  const size = img.width * img.height
-  const data = new Float32Array(size)
+  const data = new Float32Array(img.width * img.height)
 
   context.drawImage(img, 0, 0)
 
-  const imgd = context.getImageData(0, 0, img.width, img.height)
-  const pix = imgd.data
+  const imageData = context.getImageData(0, 0, img.width, img.height)
+  const pix = imageData.data
 
   let j = 0
   for (let i = 0; i < pix.length; i += 4) {
