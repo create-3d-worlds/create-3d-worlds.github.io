@@ -26,15 +26,15 @@ for (let i = 0; i < 3; i++) {
 
 /* VEHICLE */
 
-const tank = new Humvee({ camera, physicsWorld: world.physicsWorld })
-scene.add(tank.mesh, ...tank.wheelMeshes)
+const vehicle = new Humvee({ camera, physicsWorld: world.physicsWorld })
+scene.add(vehicle.mesh, ...vehicle.wheelMeshes)
 
 /* LOOP */
 
 void function loop() {
   requestAnimationFrame(loop)
   const dt = clock.getDelta()
-  tank.update(dt)
+  vehicle.update(dt)
   world.update(dt)
   renderer.render(scene, camera)
 }()

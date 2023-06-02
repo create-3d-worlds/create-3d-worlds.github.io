@@ -9,6 +9,6 @@ const wheelBack = { x: 1.15, y: .15, z: -1.8 }
 
 export default class Humvee extends Vehicle {
   constructor(param = {}) {
-    super({ mesh, wheelFront, wheelBack, wheelMesh, ...param })
+    super({ mesh, wheelFront, wheelBack, wheelMesh, mass: 1200, ...param })
   }
 }
