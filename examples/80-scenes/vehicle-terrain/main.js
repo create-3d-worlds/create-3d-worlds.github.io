@@ -11,12 +11,12 @@ scene.add(createSun({ planetColor: 0xB0E0E6 }))
 
 const world = new PhysicsWorld()
 
-const { data, width, depth } = await getHeightData('/assets/heightmaps/wiki.png', 3)
-const terrain = await createTerrain({ data, width, depth })
+const { data, width, depth } = await getHeightData('/assets/heightmaps/wiki.png', 5)
+const terrain = await createTerrain({ data, width, depth, minHeight: -2, maxHeight: 16 })
 world.add(terrain)
 
 const tremplin = createTremplin({ color: 0xfffacd })
-tremplin.position.set(-10, -7.5, 20)
+tremplin.position.set(-10, -8.5, 20)
 world.add(tremplin, 0)
 
 for (let i = 0; i < 3; i++) {

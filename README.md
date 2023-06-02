@@ -14,8 +14,8 @@ npx live-server
 ### Scenes & examples
 
 - Vozilo
-  - class Humvee extends Vehicle
   - poravnati malo teren
+  - class Humvee extends Vehicle
 
 - Cannon
   - createSimpleCastle

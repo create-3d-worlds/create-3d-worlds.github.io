@@ -29,7 +29,7 @@ export default class Vehicle {
     wheelFront = { x: 1.1, y: .4, z: 1.55 },
     wheelBack = { x: 1.1, y: .4, z: -1.8 },
     mass = 800,
-    maxEngineForce = 2000,
+    maxEngineForce = 1800,
     maxBreakingForce = maxEngineForce * .01,
     maxSpeed = 60,
     pos,
