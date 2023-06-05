@@ -4,12 +4,8 @@ const ctx = canvas.getContext('2d')
 
 const randSpread = range => range * (Math.random() - Math.random())
 
-const SENSITIVITY = 0.04
-const sprites = []
-const cameraPos = { x: 0, y: -1.4, z: -2 }
-
-const ELEMENTS = {
-  trees: {
+const elements = [
+  {
     number: 50,
     range: { x: 10, y: 0, z: 10 },
     origin: { x: 0, y: 0, z: 0 },
@@ -19,27 +15,26 @@ const ELEMENTS = {
       'images/Totally_Normal_Tree.png',
       'images/Boulder_Flintless.png',
     ],
-    images: []
   },
-  clouds: {
+  {
     number: 30,
     range: { x: 10, y: 0.5, z: 10 },
     origin: { x: 0, y: 2, z: 0 },
     urls: [
       'images/Gnat_Swarm.png'
     ],
-    images: []
   },
-}
+]
+
+const totalImages = elements.reduce((acc, el) => acc + el.urls.length, 0)
+const sprites = []
+const sensitivity = 0.04
+const cameraPos = { x: 0, y: -1.4, z: -2 }
 
 let width, height
 let worldRot = 0
 let dWorldRot = 0
 let loadedImages = 0
-
-let totalImages = 0
-for (const key in ELEMENTS)
-  totalImages += ELEMENTS[key].urls.length
 
 /* CLASSES */
 
@@ -51,12 +46,12 @@ class Vector {
   }
 
   rotate(ang) {
-    const COS = Math.cos(ang)
-    const SIN = Math.sin(ang)
-    const X = this.x
-    const Z = this.z
-    this.x = X * COS - Z * SIN
-    this.z = X * SIN + Z * COS
+    const cos = Math.cos(ang)
+    const sin = Math.sin(ang)
+    const { x } = this
+    const { z } = this
+    this.x = x * cos - z * sin
+    this.z = x * sin + z * cos
   }
 }
 
@@ -64,14 +59,17 @@ const camera = new Vector(cameraPos.x, cameraPos.y, cameraPos.z)
 
 class Sprite {
   constructor(el) {
-    const X = el.origin.x + randSpread(el.range.x)
-    const Y = el.origin.y + randSpread(el.range.y)
-    const Z = el.origin.z + randSpread(el.range.z)
-    this.v = new Vector(X, Y, Z)
-    this.sz = 2
-    this.image = el.images[(Math.random() * el.images.length) | 0]
-    this.xl = this.image.naturalWidth * this.sz
-    this.yl = this.image.naturalHeight * this.sz
+    const x = el.origin.x + randSpread(el.range.x)
+    const y = el.origin.y + randSpread(el.range.y)
+    const z = el.origin.z + randSpread(el.range.z)
+    this.v = new Vector(x, y, z)
+
+    this.image = new Image()
+    this.image.src = el.urls[(Math.random() * el.urls.length) | 0]
+
+    this.size = 2
+    this.xl = this.image.naturalWidth * this.size
+    this.yl = this.image.naturalHeight * this.size
   }
 
   rotate(ang) {
@@ -142,7 +140,7 @@ const resize = () => {
 }
 
 const init = () => {
-  for (const key in ELEMENTS) createSprites(ELEMENTS[key])
+  elements.forEach(createSprites)
   loop()
 }
 
@@ -153,28 +151,20 @@ const preload = obj => {
     img.addEventListener('load', () => {
       if (++loadedImages === totalImages) init()
     })
-    obj.images.push(img)
   }
-}
-
-const preloadImages = () => {
-  for (const key in ELEMENTS)
-    preload(ELEMENTS[key])
 }
 
 /* INIT */
 
 resize()
 updateBg()
-preloadImages()
-
-/* LOOP */
+elements.forEach(preload)
 
 /* EVENTS */
 
 document.addEventListener('mousemove', e => {
   const MOUSE_X = e.clientX - width / 2
-  dWorldRot = (-MOUSE_X / width) * SENSITIVITY
+  dWorldRot = (-MOUSE_X / width) * sensitivity
 })
 
 window.onresize = resize
