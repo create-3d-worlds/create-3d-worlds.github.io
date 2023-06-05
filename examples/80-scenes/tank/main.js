@@ -64,19 +64,26 @@ scene.add(tank.mesh)
 void function loop() {
   requestAnimationFrame(loop)
   const dt = clock.getDelta()
-  time += dt
+  const newTime = Math.floor(time + dt)
 
   tank.update(dt)
   world.update(dt)
-  score.update(0, Math.floor(time))
+
+  if (Math.floor(time) != newTime)
+    score.update(0, newTime)
 
   if (i++ % 3 === 0)
     boxes.forEach(mesh => {
       if (mesh.position.y <= 0.5) {
         boxes.splice(boxes.findIndex(c => c === mesh), 1)
-        score.update(-1, Math.floor(time))
+        score.update(-1, newTime)
       }
     })
+
+  if (boxes.length)
+    time += dt
+  else
+    score.renderText(`Bravo!<br>You demolished everything in ${newTime} seconds.`)
 
   renderer.render(scene, camera)
 }()

@@ -14,8 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Tank
-  - zaustaviti vreme kad ponestane kutija
-  - prikazati završnu poruku
+  - negativni high score (min vreme)
   - ostavljati tragove?
 
 - Cannon
