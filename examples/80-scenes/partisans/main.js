@@ -106,30 +106,16 @@ class Sprite {
 
 /* FUNCTIONS */
 
-const renderSprites = () => {
-  sprites.sort((a, b) => b.v.z - a.v.z)
-  for (const s of sprites) {
-    s.rotate(dWorldRot)
-    s.render()
-  }
-}
-
-const updateBg = () => {
-  mountains.style.backgroundPosition = -((worldRot / Math.PI) * 2) * 100 + '%'
-}
-
-const loop = () => {
-  worldRot += dWorldRot
-  ctx.clearRect(0, 0, width, height)
-  updateBg()
-  renderSprites()
-  requestAnimationFrame(loop)
-}
-
 const createSprites = el => {
   for (let i = 0; i < el.number; ++i)
     sprites.push(new Sprite(el))
 }
+
+const loadImages = el => el.urls.forEach(url => {
+  const img = new Image()
+  img.src = url
+  img.addEventListener('load', () => loadedImages++)
+})
 
 const resize = () => {
   width = window.innerWidth
@@ -139,26 +125,28 @@ const resize = () => {
   ctx.scale(devicePixelRatio, devicePixelRatio)
 }
 
-const init = () => {
-  elements.forEach(createSprites)
-  loop()
-}
-
-const preload = obj => {
-  for (let i = 0; i < obj.urls.length; ++i) {
-    const img = new Image()
-    img.src = obj.urls[i]
-    img.addEventListener('load', () => {
-      if (++loadedImages === totalImages) init()
-    })
-  }
-}
-
 /* INIT */
 
 resize()
-updateBg()
-elements.forEach(preload)
+elements.forEach(loadImages)
+elements.forEach(createSprites)
+
+/* LOOP */
+
+void function loop() {
+  requestAnimationFrame(loop)
+  if (loadedImages != totalImages) return
+
+  ctx.clearRect(0, 0, width, height)
+  worldRot += dWorldRot
+
+  mountains.style.backgroundPosition = -((worldRot / Math.PI) * 2) * 100 + '%'
+
+  sprites.sort((a, b) => b.v.z - a.v.z).forEach(s => {
+    s.rotate(dWorldRot)
+    s.render()
+  })
+}()
 
 /* EVENTS */
 
