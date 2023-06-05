@@ -50,7 +50,7 @@ export function shootDecals(intersect, { scene, color } = {}) {
 const oldCarPos = new THREE.Vector3(0, 0, 0)
 const oldCarPos2 = new THREE.Vector3(0, 0, 0)
 
-let decals = []
+let tracks = []
 let decRot = 0
 
 const trackMaterial = new THREE.MeshPhongMaterial({
@@ -72,8 +72,9 @@ function fixAngleRad(a) {
   return a
 }
 
-export function leaveDecals({ ground, vehicle, body, wheelMeshes, scene }) {
-  if (!input.left && !input.right || vehicle.getCurrentSpeedKmHour() < 30) return
+export function leaveTracks({ ground, scene, vehicle }) {
+  const { speed, body, wheelMeshes } = vehicle
+  if (!input.left && !input.right || speed < 30) return
 
   const groundMesh = getMesh(ground)
   const velocity = new THREE.Vector3(0, 0, 0)
@@ -88,7 +89,7 @@ export function leaveDecals({ ground, vehicle, body, wheelMeshes, scene }) {
   const wheelRot = body.getWorldTransform().getBasis()
 
   // left track
-  dec.setValue(-.2, 0, .2)
+  dec.setValue(-.05, 0, .05)
   dec2.setValue(
     wheelRot.getRow(0).x() * dec.x() + wheelRot.getRow(0).y() * dec.y() + wheelRot.getRow(0).z() * dec.z(),
     wheelRot.getRow(1).x() * dec.x() + wheelRot.getRow(1).y() * dec.y() + wheelRot.getRow(1).z() * dec.z(),
@@ -122,7 +123,7 @@ export function leaveDecals({ ground, vehicle, body, wheelMeshes, scene }) {
   const material = trackMaterial.clone()
 
   let track = new THREE.Mesh(new DecalGeometry(groundMesh, position, orientation, size), material)
-  decals.push(track)
+  tracks.push(track)
   scene.add(track)
 
   // right track
@@ -156,16 +157,16 @@ export function leaveDecals({ ground, vehicle, body, wheelMeshes, scene }) {
   size.set(1, 1, velocity.length())
 
   track = new THREE.Mesh(new DecalGeometry(groundMesh, position, orientation, size), material)
-  decals.push(track)
+  tracks.push(track)
   scene.add(track)
 
-  fadeDecals(scene)
+  fadeTracks(scene)
 }
 
-export function fadeDecals(scene) {
-  decals.forEach(decal => {
+export function fadeTracks(scene) {
+  tracks.forEach(decal => {
     decal.material.opacity -= .001
     if (decal.material.opacity <= 0) scene.remove(decal)
   })
-  decals = decals.filter(decal => decal.material.opacity > 0)
+  tracks = tracks.filter(decal => decal.material.opacity > 0)
 }

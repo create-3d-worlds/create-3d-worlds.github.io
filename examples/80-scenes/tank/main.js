@@ -9,6 +9,7 @@ import { sample } from '/utils/helpers.js'
 import { createFirTree } from '/utils/geometry/trees.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import Score from '/utils/io/Score.js'
+import { leaveTracks } from '/utils/decals.js'
 
 const { randFloat } = THREE.MathUtils
 
@@ -67,6 +68,7 @@ void function loop() {
   const newTime = Math.floor(time + dt)
 
   tank.update(dt)
+  leaveTracks({ vehicle: tank, ground, scene })
   world.update(dt)
 
   if (Math.floor(time) != newTime)

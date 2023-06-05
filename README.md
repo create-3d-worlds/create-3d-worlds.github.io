@@ -13,10 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Tank
-  - negativni high score (min vreme)
-  - ostavljati tragove?
-
 - Cannon
   - createSimpleCastle
   - videti šta još može
