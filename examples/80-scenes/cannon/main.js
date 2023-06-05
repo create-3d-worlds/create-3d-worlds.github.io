@@ -18,18 +18,16 @@ const maxImpulse = 25
 const sun = createSun({ pos: [-5, 10, 5] })
 scene.add(sun)
 
-const ground = createGround({ size: 40, color: 0x509f53 })
-world.add(ground, 0)
+const ground = createGround({ size: 40 })
+world.add(ground)
 
 createSideWall({ brickMass: 3, friction: 5, z: 7 }).forEach(mesh => world.add(mesh, -1))
 
 const mesh = await loadModel({ file: 'weapon/cannon/mortar/mortar.obj', mtl: 'weapon/cannon/mortar/mortar.mtl', size: 1, angle: Math.PI * .5 })
 
-const wheelFront = { x: .3, y: .12, z: .32 }
-const wheelBack = { x: .3, y: .18, z: -.56 }
-const cannon = new Vehicle({ physicsWorld: world.physicsWorld, mesh, defaultRadius: .18, wheelFront, wheelBack, maxEngineForce: 20, mass: 100, camera })
-cannon.chaseCamera.offset = [0, 1, -3]
-cannon.chaseCamera.lookAt = [0, 2, 4]
+const cannon = new Vehicle({ physicsWorld: world.physicsWorld, mesh, defaultRadius: .18, wheelFront: { x: .3, y: .12, z: .32 }, wheelBack: { x: .3, y: .18, z: -.56 }, maxEngineForce: 20, mass: 100, camera })
+cannon.chaseCamera.offset = [0, 1, -2.5]
+cannon.chaseCamera.lookAt = [0, 1, 0]
 
 scene.add(mesh, ...cannon.wheelMeshes)
 
@@ -44,10 +42,10 @@ function shoot() {
   const cannonTop = new THREE.Vector3(distance * Math.sin(angle), 0, distance * Math.cos(angle))
 
   const pos = mesh.position.clone()
-  pos.y += 0.9
+  pos.y += 0.5
   pos.add(cannonTop)
 
-  const ball = createSphere({ r: .22, color: 0x202020 })
+  const ball = createSphere({ r: .2, color: 0x202020 })
   ball.position.copy(pos)
   world.add(ball, 4)
 

@@ -14,7 +14,6 @@ npx live-server
 ### Scenes & examples
 
 - Cannon
-  - srediti kameru
   - videti šta još može
 
 - Endless runner
