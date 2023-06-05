@@ -1,0 +1,40 @@
+html, body, canvas, .gradient, .sky-box {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  content-zooming: none;
+}
+
+body {
+  background-color: #403;
+}
+
+.gradient {
+  background-color: #fa0;
+  z-index: 2;
+  opacity: 0.3;
+}
+
+.sky-box {
+  z-index: -1;
+  background: url(https://i.pinimg.com/originals/7e/5e/37/7e5e377ede379dbd6c0e42dd58d977f6.png) 0% 0% fixed repeat-x;
+  background-size: 200% 40%;
+}
+
+.ground {
+  z-index: -1;
+  content: "";
+  position: fixed;
+  height: 50%;
+  left: -100%;
+  bottom: -8%;
+  width: 300%;
+  border-radius: 100%;
+  background-color: #030;
+}
