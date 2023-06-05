@@ -52,10 +52,11 @@ export default class Score {
     points = 0,
     subtitle = 'left',
     total,
-    endText = 'Bravo!<br>Nothing left',
     color = 'yellow',
     stroke = '#000',
     messageDict = defaultDict,
+    endText = 'Bravo!<br>Nothing left',
+    showMessages = true,
     showHighScore = false,
   } = {}) {
     this.points = points
@@ -63,6 +64,7 @@ export default class Score {
     this.subtitle = subtitle
     this.total = total
     this.messageDict = messageDict
+    this.showMessages = showMessages
     this.endText = endText
 
     this.scoreDiv = document.createElement('div')
@@ -79,7 +81,7 @@ export default class Score {
 
     this.highScore = +localStorage.getItem(location.pathname)
 
-    this.update(points, total)
+    this.update(0, total)
     if (showHighScore) this.renderHeighScore()
   }
 
@@ -102,9 +104,10 @@ export default class Score {
     this.clearSoon(milliseconds)
   }
 
-  renderMotivation() {
+  renderMessage(left) {
     const message = this.messageDict[this.points]
     if (message) this.renderTempText(message)
+    if (left === 0) this.renderText(this.endText)
   }
 
   renderHeighScore() {
@@ -126,9 +129,7 @@ export default class Score {
     this.points += change
     this.render(this.points, left, energyLeft)
 
-    this.renderMotivation()
-
-    if (left === 0) this.renderText(this.endText)
+    if (this.showMessages) this.renderMessage(left)
 
     if (this.points > this.highScore)
       localStorage.setItem(location.pathname, this.points)

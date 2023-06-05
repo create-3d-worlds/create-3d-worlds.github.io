@@ -14,6 +14,7 @@ const { randFloat } = THREE.MathUtils
 
 const world = new PhysicsWorld()
 let i = 0
+let time = 0
 
 scene.add(createSun())
 
@@ -27,7 +28,7 @@ const crates = createCrates({ z: 10 })
 crates.forEach(mesh => world.add(mesh, 20))
 const boxes = crates.filter(mesh => mesh.position.y > .5)
 
-const score = new Score({ title: 'POINTS', subtitle: 'crates left', total: boxes.length, messageDict: {} })
+const score = new Score({ title: 'Crates left', points: boxes.length, subtitle: 'Seconds', total: time, showMessages: false })
 
 const createObject = [createCrate, createRustyBarrel, createMetalBarrel, createMoonSphere]
 
@@ -63,14 +64,17 @@ scene.add(tank.mesh)
 void function loop() {
   requestAnimationFrame(loop)
   const dt = clock.getDelta()
+  time += dt
+
   tank.update(dt)
   world.update(dt)
+  score.update(0, Math.floor(time))
 
   if (i++ % 3 === 0)
     boxes.forEach(mesh => {
       if (mesh.position.y <= 0.5) {
         boxes.splice(boxes.findIndex(c => c === mesh), 1)
-        score.update(1, boxes.length)
+        score.update(-1, Math.floor(time))
       }
     })
 

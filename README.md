@@ -14,7 +14,8 @@ npx live-server
 ### Scenes & examples
 
 - Tank
-  - poeni za svaki sanduk srušen na zemlju
+  - zaustaviti vreme kad ponestane kutija
+  - prikazati završnu poruku
   - ostavljati tragove?
 
 - Cannon
