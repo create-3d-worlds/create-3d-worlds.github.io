@@ -13,25 +13,24 @@ import { leaveTracks } from '/utils/decals.js'
 
 const { randFloat } = THREE.MathUtils
 
-const world = new PhysicsWorld()
 let i = 0
 let time = 0
+
+const world = new PhysicsWorld()
 
 scene.add(createSun())
 
 const ground = createGround({ color: 0x509f53 })
 world.add(ground, 0)
 
+/* OBJECTS */
+
 const tremplin = createTremplin()
 world.add(tremplin, 0)
 
 const crates = createCrates({ z: 10 })
 crates.forEach(mesh => world.add(mesh, 20))
-const boxes = crates.filter(mesh => mesh.position.y > .5)
-
-const score = new Score({ title: 'Crates left', points: boxes.length, subtitle: 'Seconds', total: time, showMessages: false })
-
-const createObject = [createCrate, createRustyBarrel, createMetalBarrel, createMoonSphere]
+const countableCrates = crates.filter(mesh => mesh.position.y > .5)
 
 for (let i = 0; i < 20; i++) {
   const mesh = createFirTree()
@@ -39,6 +38,7 @@ for (let i = 0; i < 20; i++) {
   world.add(mesh)
 }
 
+const createObject = [createCrate, createRustyBarrel, createMetalBarrel, createMoonSphere]
 for (let i = 0; i < 30; i++) {
   const mesh = sample(createObject)({ translateHeight: false })
   mesh.position.set(randFloat(-10, -50), 0, randFloat(-30, 30))
@@ -46,7 +46,6 @@ for (let i = 0; i < 30; i++) {
 }
 
 const createBuilding = [createRuin, createWarehouse, createWarehouse2, createWarRuin, createAirport]
-
 for (let i = -1; i < 5; i++)
   for (let j = 0; j < 3; j++) {
     const warehouse = sample(createBuilding)()
@@ -59,6 +58,8 @@ for (let i = -1; i < 5; i++)
 const tank = new Tank({ physicsWorld: world.physicsWorld, camera, pos: { x: 0, y: 0, z: -20 } })
 
 scene.add(tank.mesh)
+
+const score = new Score({ title: 'Crates left', points: countableCrates.length, subtitle: 'Seconds', total: time, showMessages: false })
 
 /* LOOP */
 
@@ -75,14 +76,14 @@ void function loop() {
     score.update(0, newTime)
 
   if (i++ % 3 === 0)
-    boxes.forEach(mesh => {
+    countableCrates.forEach(mesh => {
       if (mesh.position.y <= 0.5) {
-        boxes.splice(boxes.findIndex(c => c === mesh), 1)
+        countableCrates.splice(countableCrates.findIndex(c => c === mesh), 1)
         score.update(-1, newTime)
       }
     })
 
-  if (boxes.length)
+  if (countableCrates.length)
     time += dt
   else
     score.renderText(`Bravo!<br>You demolished everything in ${newTime} seconds.`)
