@@ -13,59 +13,40 @@ const CAMERA_INIT = {
 const ELEMENTS = {
   trees: {
     number: 50,
-    range: {
-      x: 10,
-      y: 0,
-      z: 10
-    },
-    origin: {
-      x: 0,
-      y: 0,
-      z: 0
-    },
+    range: { x: 10, y: 0, z: 10 },
+    origin: { x: 0, y: 0, z: 0 },
     urls: [
-      'https://vignette.wikia.nocookie.net/dont-starve-game/images/5/57/Evergreen.png/revision/latest/scale-to-width-down/340?cb=20140420093544',
-      'https://vignette.wikia.nocookie.net/dont-starve-game/images/1/13/A_Lumpy_Evergreen.png/revision/latest/top-crop/width/360/height/450?cb=20130906135949',
-      'https://vignette.wikia.nocookie.net/dont-starve-game/images/3/30/Totally_Normal_Tree.png/revision/latest?cb=20131017151301',
+      'images/evergreen.png',
+      'images/A_Lumpy_Evergreen.png',
+      'images/Totally_Normal_Tree.png',
     ]
   },
   clouds: {
     number: 30,
-    range: {
-      x: 10,
-      y: 0.5,
-      z: 10
-    },
-    origin: {
-      x: 0,
-      y: 2,
-      z: 0
-    },
+    range: { x: 10, y: 0.5, z: 10 },
+    origin: { x: 0, y: 2, z: 0 },
     urls: [
-      'https://vignette.wikia.nocookie.net/dont-starve-game/images/b/bc/Gnat_Swarm.png/revision/latest?cb=20181028232026'
+      'images/Gnat_Swarm.png'
     ]
   },
   groundItems: {
     number: 20,
-    range: {
-      x: 10,
-      y: 0,
-      z: 10
-    },
-    origin: {
-      x: 0,
-      y: 0,
-      z: 0
-    },
+    range: { x: 10, y: 0, z: 10 },
+    origin: { x: 0, y: 0, z: 0 },
     urls: [
-      'https://vignette.wikia.nocookie.net/dont-starve-game/images/f/f1/Boulder_Flintless.png/revision/latest?cb=20130420195447',
+      'images/Boulder_Flintless.png',
     ]
   }
 }
-let width, height, camera, imagesToLoad
+
+let width, height, camera
 let worldRot = 0
 let dWorldRot = 0
 let loadedImages = 0
+
+let imagesToLoad = 0
+for (const key in ELEMENTS)
+  imagesToLoad += ELEMENTS[key].urls.length
 
 /* CLASSES */
 
@@ -121,13 +102,10 @@ class Sprite {
 
 /* FUNCTIONS */
 
-function outOfBounds(z, x, y, xl, yl) {
-  return z <= camera.z || x < 0 || y < 0 || x >= width - xl || y >= height - yl
-}
+const outOfBounds = (z, x, y, xl, yl) =>
+  z <= camera.z || x < 0 || y < 0 || x >= width - xl || y >= height - yl
 
-function signedRandom(n) {
-  return n * (Math.random() - Math.random())
-}
+const signedRandom = n => n * (Math.random() - Math.random())
 
 const renderSprites = () => {
   SPRITES.sort((a, b) => b.v.z - a.v.z)
@@ -157,11 +135,13 @@ const create = e => {
     SPRITES.push(new Sprite(new Vector(X, Y, Z), e.images))
   }
 }
+
 const go = () => {
   camera = new Vector(CAMERA_INIT.x, CAMERA_INIT.y, CAMERA_INIT.z)
   for (const key in ELEMENTS) create(ELEMENTS[key])
   loop()
 }
+
 const setDim = () => {
   width = window.innerWidth
   height = window.innerHeight
@@ -169,10 +149,11 @@ const setDim = () => {
   CANVAS.height = height * devicePixelRatio | 0
   CTX.scale(devicePixelRatio, devicePixelRatio)
 }
+
 const handleLoadImage = () => {
-  ++loadedImages
-  if (loadedImages === imagesToLoad) go()
+  if (++loadedImages === imagesToLoad) go()
 }
+
 const preload = function(o) {
   o.images = []
   for (let i = 0; i < o.urls.length; ++i) {
@@ -181,20 +162,10 @@ const preload = function(o) {
     o.images[o.images.length - 1].addEventListener('load', handleLoadImage)
   }
 }
+
 const preloadImages = () => {
-  imagesToLoad = (() => {
-    let total = 0
-    for (const key in ELEMENTS)
-      total += ELEMENTS[key].urls.length
-    return total
-  })()
   for (const key in ELEMENTS)
     preload(ELEMENTS[key])
-}
-
-const handleMouseMove = e => {
-  const MOUSE_X = event.clientX - width / 2
-  dWorldRot = (-MOUSE_X / width) * SENSITIVITY
 }
 
 /* INIT */
@@ -207,5 +178,9 @@ preloadImages()
 
 /* EVENTS */
 
-document.addEventListener('mousemove', handleMouseMove, false)
+document.addEventListener('mousemove', e => {
+  const MOUSE_X = e.clientX - width / 2
+  dWorldRot = (-MOUSE_X / width) * SENSITIVITY
+})
+
 window.onresize = setDim
