@@ -14,7 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Cannon
-  - createSimpleCastle
+  - srediti kameru
   - videti šta još može
 
 - Endless runner

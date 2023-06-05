@@ -21,7 +21,7 @@ scene.add(sun)
 const ground = createGround({ size: 40, color: 0x509f53 })
 world.add(ground, 0)
 
-createSideWall({ brickMass: 3, friction: 5, z: 7 }).forEach(mesh => world.add(mesh))
+createSideWall({ brickMass: 3, friction: 5, z: 7 }).forEach(mesh => world.add(mesh, -1))
 
 const mesh = await loadModel({ file: 'weapon/cannon/mortar/mortar.obj', mtl: 'weapon/cannon/mortar/mortar.mtl', size: 1, angle: Math.PI * .5 })
 

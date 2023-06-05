@@ -292,46 +292,6 @@ export function create4Walls({ rows = 10, columns = 6, brickMass = 5, friction =
   return [...frontWall, ...backWall, ...leftWall, ...rightWall]
 }
 
-export function createSimpleCastle({ rows = 8, brickInWall = 20, blockSize = 1 } = {}) {
-  const spacing = .02
-  const brickSize = blockSize + spacing
-  const wallWidth = brickSize * brickInWall
-  const blocks = []
-
-  const isEven = y => Math.floor(y / brickSize) % 2 == 0
-
-  function addBlock(x, y, z) {
-    const block = createBox({ width: blockSize, depth: blockSize, height: blockSize, translateHeight: false })
-    block.position.set(x, y, z)
-    blocks.push(block)
-  }
-
-  function addFourBlocks(x, y) {
-    addBlock(x, y, 0)
-    addBlock(x, y, wallWidth)
-    addBlock(0, y, x)
-    addBlock(wallWidth, y, x)
-  }
-
-  function buildRow(y, x) {
-    if (x > wallWidth + 1) return
-    if (y < brickSize * (rows - 1))
-      addFourBlocks(x, y)
-    else if (isEven(x)) addFourBlocks(x, y)
-    buildRow(y, x + brickSize)
-  }
-
-  function buildWalls(y) {
-    if (y > brickSize * rows) return
-    const x = isEven(y) ? 0 : brickSize / 2
-    buildRow(y, x)
-    buildWalls(y + brickSize)
-  }
-
-  buildWalls(0)
-  return blocks
-}
-
 export function createFlag({ file = 'prva-proleterska.jpg', scale = 1 } = {}) {
   const group = new THREE.Group()
   group.rotateY(-Math.PI * .5)
