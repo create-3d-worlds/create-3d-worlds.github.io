@@ -1,16 +1,12 @@
-const CANVAS = document.getElementsByTagName('canvas')[0]
-const SKY_BOX = document.getElementsByClassName('sky-box')[0]
-const CTX = CANVAS.getContext('2d')
+const mountains = document.getElementsByClassName('sky-box')[0]
+const canvas = document.getElementsByTagName('canvas')[0]
+const ctx = canvas.getContext('2d')
 
 const randSpread = range => range * (Math.random() - Math.random())
 
 const SENSITIVITY = 0.04
-const SPRITES = []
-const CAMERA_INIT = {
-  x: 0,
-  y: -1.4,
-  z: -2
-}
+const sprites = []
+const cameraPos = { x: 0, y: -1.4, z: -2 }
 
 const ELEMENTS = {
   trees: {
@@ -64,7 +60,7 @@ class Vector {
   }
 }
 
-const camera = new Vector(CAMERA_INIT.x, CAMERA_INIT.y, CAMERA_INIT.z)
+const camera = new Vector(cameraPos.x, cameraPos.y, cameraPos.z)
 
 class Sprite {
   constructor(el) {
@@ -104,49 +100,49 @@ class Sprite {
     const X_OFFS = this.xl / 6
     if (this.outOfBounds(P.z, P.x + X_OFFS, P.y, this.xl * SZ, this.yl * SZ)) return
 
-    CTX.beginPath()
-    CTX.drawImage(this.image, P.x + X_OFFS, P.y, this.xl * SZ, this.yl * SZ)
-    CTX.closePath()
+    ctx.beginPath()
+    ctx.drawImage(this.image, P.x + X_OFFS, P.y, this.xl * SZ, this.yl * SZ)
+    ctx.closePath()
   }
 }
 
 /* FUNCTIONS */
 
 const renderSprites = () => {
-  SPRITES.sort((a, b) => b.v.z - a.v.z)
-  for (const s of SPRITES) {
+  sprites.sort((a, b) => b.v.z - a.v.z)
+  for (const s of sprites) {
     s.rotate(dWorldRot)
     s.render()
   }
 }
 
-const updateSkyBox = () => {
-  SKY_BOX.style.backgroundPosition = -((worldRot / Math.PI) * 2) * 100 + '%'
+const updateBg = () => {
+  mountains.style.backgroundPosition = -((worldRot / Math.PI) * 2) * 100 + '%'
 }
 
 const loop = () => {
   worldRot += dWorldRot
-  CTX.clearRect(0, 0, width, height)
-  updateSkyBox()
+  ctx.clearRect(0, 0, width, height)
+  updateBg()
   renderSprites()
   requestAnimationFrame(loop)
 }
 
-const create = el => {
+const createSprites = el => {
   for (let i = 0; i < el.number; ++i)
-    SPRITES.push(new Sprite(el))
+    sprites.push(new Sprite(el))
 }
 
-const setDim = () => {
+const resize = () => {
   width = window.innerWidth
   height = window.innerHeight
-  CANVAS.width = width * devicePixelRatio | 0
-  CANVAS.height = height * devicePixelRatio | 0
-  CTX.scale(devicePixelRatio, devicePixelRatio)
+  canvas.width = width * devicePixelRatio | 0
+  canvas.height = height * devicePixelRatio | 0
+  ctx.scale(devicePixelRatio, devicePixelRatio)
 }
 
 const init = () => {
-  for (const key in ELEMENTS) create(ELEMENTS[key])
+  for (const key in ELEMENTS) createSprites(ELEMENTS[key])
   loop()
 }
 
@@ -168,8 +164,8 @@ const preloadImages = () => {
 
 /* INIT */
 
-setDim()
-updateSkyBox()
+resize()
+updateBg()
 preloadImages()
 
 /* LOOP */
@@ -181,4 +177,4 @@ document.addEventListener('mousemove', e => {
   dWorldRot = (-MOUSE_X / width) * SENSITIVITY
 })
 
-window.onresize = setDim
+window.onresize = resize
