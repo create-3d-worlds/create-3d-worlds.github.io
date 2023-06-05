@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { scene, renderer, clock, camera } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { createTerrain } from '/utils/ground.js'
-import { createFirTree } from '/utils/geometry/trees.js' // createSimpleFir
+import { createFirTree } from '/utils/geometry/trees.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import Tower from '/utils/objects/Tower.js'
 import Building from '/utils/objects/Building.js'

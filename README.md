@@ -13,13 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Cannon
-  - videti šta još može
-
-- Endless runner
-  - probati skejtera
-  - probati konja ili dabra
-
 - Partizani 2D
   - napraviti 2d scenu u 3d, ideja https://codepen.io/davekwiatkowski/pen/pWPVpX
   - junior general slike

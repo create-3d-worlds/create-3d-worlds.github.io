@@ -68,49 +68,10 @@ export function createSphere({
   return mesh
 }
 
-export function createBall({ r = 1, color = 0xe5f2f2 } = {}) {
-  const geometry = new THREE.DodecahedronGeometry(r, 1)
-  const material = new THREE.MeshStandardMaterial({
-    color,
-    flatShading: true
-  })
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.receiveShadow = false
-  mesh.castShadow = true
-  return mesh
-}
-
 export const createBullet = ({ color = 0x333333, r = .1, widthSegments = 6 } = {}) =>
   createSphere({ r, color, widthSegments, castShadow: true, receiveShadow: false })
 
 export const createMoonSphere = () => createSphere({ r: .5, file: 'planets/moon.jpg' })
-
-/* WORLD SPHERE */
-
-const deform = (geometry, distort = .5) => {
-  const { position } = geometry.attributes
-  const vertex = new THREE.Vector3()
-  for (let i = 0, l = position.count; i < l; i++) {
-    vertex.fromBufferAttribute(position, i)
-    vertex.x += randFloat(-distort, distort)
-    vertex.z += randFloat(-distort, distort)
-    position.setXYZ(i, vertex.x, vertex.y, vertex.z)
-  }
-}
-
-export function createWorldSphere({ r = 26, segments = 40, widthSegments = segments, heightSegments = segments, distort, color = 0xfffafa, rotateZ = true } = {}) {
-  const geometry = new THREE.SphereGeometry(r, widthSegments, heightSegments)
-  deform(geometry, distort)
-  const material = new THREE.MeshStandardMaterial({
-    color,
-    flatShading: true
-  })
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.receiveShadow = true
-  mesh.castShadow = false
-  if (rotateZ) mesh.rotation.z = -Math.PI / 2
-  return mesh
-}
 
 /* SKY SPHERE */
 
