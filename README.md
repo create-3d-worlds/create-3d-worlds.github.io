@@ -13,13 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Partizani 2D
-  - dodati junior general vojnike i objekte
-  - prebaciti u threejs?
-  - borba animacija 
-    - vidi slike partizana animaciju staru
-    - vidi junior general animaciju https://youtu.be/s1L49syujAw
-
 - Nude victim
   - beži dok je jure zombiji
   - endless runner?
