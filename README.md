@@ -14,9 +14,11 @@ npx live-server
 ### Scenes & examples
 
 - Partizani 2D
-  - napraviti 2d scenu u 3d, ideja https://codepen.io/davekwiatkowski/pen/pWPVpX
-  - junior general slike
-  - borba (vidi slike partizana animaciju staru)
+  - dodati junior general vojnike i objekte
+  - prebaciti u threejs?
+  - borba animacija 
+    - vidi slike partizana animaciju staru
+    - vidi junior general animaciju https://youtu.be/s1L49syujAw
 
 - Nude victim
   - beži dok je jure zombiji
