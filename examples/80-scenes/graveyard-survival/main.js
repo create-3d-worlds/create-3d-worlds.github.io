@@ -7,6 +7,7 @@ import { GhostAI } from '/utils/actor/derived/horror/Ghost.js'
 import { ResistanceFighterPlayer } from '/utils/actor/derived/ww2/ResistanceFighter.js'
 import { Smoke } from '/utils/Particles.js'
 import DeadTree from '/utils/objects/DeadTree.js'
+import Score from '/utils/io/Score.js'
 
 const mapSize = 100
 const npcs = []
@@ -14,6 +15,8 @@ const solids = []
 const coords = getShuffledCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
 
 let last = Date.now()
+
+const score = new Score()
 
 /* INIT */
 
@@ -72,6 +75,10 @@ void function loop() {
   const delta = clock.getDelta()
 
   player.update(delta)
+
+  const kills = player.enemies.filter(mesh => mesh.userData.energy <= 0)
+  score.render(kills.length)
+
   npcs.forEach(npc => npc.update(delta))
   particles.update({ delta, min: -1, max: 0, minVelocity: .2, maxVelocity: .5, loop: false })
   spawnZombie(10000)

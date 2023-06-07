@@ -15,7 +15,7 @@ camera.position.z = 18
 ambLight({ intensity: .9 })
 const moonLight = createMoon({ pos: [30, 30, 30], intensity: .1 })
 
-const score = new Score({ subtitle: 'Fuel left', showHighScore: false })
+const score = new Score({ subtitle: 'Fuel left' })
 
 const platform = new Platform({ pos: [0, -10, 0], axis: 'x', range: 29, randomDirChange: true })
 const lander = new Lander({ platform })

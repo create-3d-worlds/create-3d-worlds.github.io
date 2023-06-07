@@ -14,7 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Groblje
-  - dodati cilj i poene (možda izdržati do jutra?)
+  - dodati cilj (možda izdržati do jutra?)
 
 - Savo
   - BUG: kretanje presporo, kao da koči, izmeriti stats

@@ -118,7 +118,7 @@ export default class Score {
 
   render(points, enemiesLeft, energyLeft) {
     let html = ''
-    if (isNumber(points)) html += `<h3>${this.title}: ${this.points}</h3>`
+    if (isNumber(points)) html += `<h3>${this.title}: ${points}</h3>`
     if (isNumber(enemiesLeft)) html += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
     if (isNumber(energyLeft)) html += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
     if (this.scoreDiv.innerHTML === html) return
