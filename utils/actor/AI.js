@@ -11,7 +11,7 @@ const { randFloat, randFloatSpread } = MathUtils
 
 const walking = ['wander', 'follow', 'patrol']
 const running = ['pursue', 'flee']
-const pursuingFrom = [baseStates.idle, baseStates.patrol, baseStates.wander]
+const pursueStates = [baseStates.idle, baseStates.patrol, baseStates.wander]
 
 export default class AI extends Actor {
   constructor({
@@ -56,7 +56,7 @@ export default class AI extends Actor {
   /* GETTERS */
 
   get inPursueState() {
-    return pursuingFrom.includes(this.baseState)
+    return pursueStates.includes(this.baseState)
   }
 
   get distanceToTarget() {
@@ -99,6 +99,8 @@ export default class AI extends Actor {
 
     if (this.targetNear) this.lookAtTarget()
     const intersects = this.intersect()
+    // BUG: intersect ne radi??
+    if (intersects.length) console.log(intersects)
     if (!intersects.length) return false
 
     const { object } = intersects[0]

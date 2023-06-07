@@ -14,8 +14,9 @@ npx live-server
 ### Scenes & examples
 
 - Nude victim
+  - BUG: zombi ne menja stanje iz wander u pursue
+    - intersect ne radi u AI targetSpotted?
   - beži dok je jure zombiji
-  - endless runner?
 
 - Groblje
   - nasumično zakriviti kamenove
