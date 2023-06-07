@@ -16,7 +16,7 @@ const coords = getShuffledCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
 
 let last = Date.now()
 
-const score = new Score()
+const score = new Score({ subtitle: 'Time' })
 
 /* INIT */
 
@@ -70,14 +70,17 @@ async function spawnZombie(interval) {
 
 /* LOOP */
 
+let time = 0
+
 void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
+  time += delta
 
   player.update(delta)
 
   const kills = player.enemies.filter(mesh => mesh.userData.energy <= 0)
-  score.render(kills.length)
+  score.render(kills.length, Math.floor(time))
 
   npcs.forEach(npc => npc.update(delta))
   particles.update({ delta, min: -1, max: 0, minVelocity: .2, maxVelocity: .5, loop: false })
