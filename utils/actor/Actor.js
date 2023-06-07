@@ -229,6 +229,7 @@ export default class Actor extends GameObject {
     const timeToHit = this.action ? (this.action.getClip().duration * 1000 * .5) : 200
 
     setTimeout(() => {
+      if (this.dead) return
       if (this.attackSound) this.playAttackSound()
 
       const intersects = this.intersect(height)

@@ -11,8 +11,6 @@ npx live-server
 
 ## TODO
 
-- BUG: neprijatelj ostavlja damage nakon što umre (graveyard, rpg)
-
 ### Scenes & examples
 
 - Groblje
