@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { createBox } from '/utils/geometry.js'
+import { createBox } from '/utils/geometry/index.js'
 
 export const simpleCurve = new THREE.SplineCurve([
   new THREE.Vector2(-12, 0),

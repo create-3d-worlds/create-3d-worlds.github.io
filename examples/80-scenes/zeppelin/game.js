@@ -1,5 +1,5 @@
 import { camera, scene, renderer, clock, addUIControls } from '/utils/scene.js'
-import { createSkySphere } from '/utils/geometry.js'
+import { createSkySphere } from '/utils/geometry/index.js'
 import { hemLight, ambLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { createHillyTerrain, createWater } from '/utils/ground.js'

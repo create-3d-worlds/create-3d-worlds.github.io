@@ -1,5 +1,5 @@
 import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { createSkySphere } from '/utils/geometry.js'
+import { createSkySphere } from '/utils/geometry/index.js'
 import { createStairway, createBabelTower, createBaradDur, createRingTower } from '/utils/geometry/towers.js'
 import { createTerrain, createLava, createGround } from '/utils/ground.js'
 import { hemLight, dirLight } from '/utils/light.js'

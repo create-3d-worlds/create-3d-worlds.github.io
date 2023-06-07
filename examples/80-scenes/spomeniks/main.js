@@ -2,7 +2,7 @@ import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
-import { createFlag } from '/utils/geometry.js'
+import { createFlag } from '/utils/geometry/index.js'
 import { wave } from '/utils/ground.js'
 import Player from '/utils/actor/Player.js'
 

@@ -3,7 +3,7 @@ import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { getHeightData } from '/utils/terrain/heightmap.js'
 import { createTerrain } from '/utils/physics/index.js'
-import { createSphere, createTremplin } from '/utils/geometry.js'
+import { createSphere, createTremplin } from '/utils/geometry/index.js'
 import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import Humvee from '/utils/physics/Humvee.js'
 

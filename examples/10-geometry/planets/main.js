@@ -1,5 +1,5 @@
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
-import { createSphere } from '/utils/geometry.js'
+import { createSphere } from '/utils/geometry/index.js'
 import { createEarth, createSaturn } from '/utils/geometry/planets.js'
 import { dirLight } from '/utils/light.js'
 

@@ -1,4 +1,4 @@
-import { createBox } from '/utils/geometry.js'
+import { createBox } from '/utils/geometry/index.js'
 import GameObject from '/utils/objects/GameObject.js'
 import { sample } from '/utils/helpers.js'
 

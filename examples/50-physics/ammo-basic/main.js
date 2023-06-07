@@ -6,7 +6,7 @@ import { createSun } from '/utils/light.js'
 import input from '/utils/io/Input.js'
 import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import { createGround } from '/utils/ground.js'
-import { createSphere, createBox } from '/utils/geometry.js'
+import { createSphere, createBox } from '/utils/geometry/index.js'
 import { normalizeMouse } from '/utils/helpers.js'
 
 const { pressed } = input

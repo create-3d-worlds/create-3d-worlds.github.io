@@ -6,7 +6,7 @@ import { normalizeMouse } from '/utils/helpers.js'
 import input from '/utils/io/Input.js'
 import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import { createGround } from '/utils/ground.js'
-import { createSphere, create4Walls } from '/utils/geometry.js'
+import { createSphere, create4Walls } from '/utils/geometry/index.js'
 
 const world = new PhysicsWorld()
 const raycaster = new THREE.Raycaster()

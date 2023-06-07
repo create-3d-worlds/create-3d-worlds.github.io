@@ -1,5 +1,5 @@
 import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { createRandomBoxes } from '/utils/geometry.js'
+import { createRandomBoxes } from '/utils/geometry/index.js'
 import { createGround } from '/utils/ground.js'
 import { hemLight, createSun } from '/utils/light.js'
 import Avatar from '/utils/actor/Avatar.js'

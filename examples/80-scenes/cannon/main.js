@@ -6,7 +6,7 @@ import { createSun } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import { createGround } from '/utils/ground.js'
-import { createSphere, createSideWall } from '/utils/geometry.js'
+import { createSphere, createSideWall } from '/utils/geometry/index.js'
 import Vehicle from '/utils/physics/Vehicle.js'
 
 const world = new PhysicsWorld()

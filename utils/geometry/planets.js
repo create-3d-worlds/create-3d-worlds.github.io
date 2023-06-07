@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { createSphere } from '/utils/geometry.js'
+import { createSphere } from '/utils/geometry/index.js'
 import { sample, similarColor } from '/utils/helpers.js'
 
 import { material as fractalMaterial } from '/utils/shaders/fractal-planet.js'

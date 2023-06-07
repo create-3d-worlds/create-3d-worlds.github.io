@@ -99,8 +99,6 @@ export default class AI extends Actor {
 
     if (this.targetNear) this.lookAtTarget()
     const intersects = this.intersect()
-    // BUG: intersect ne radi??
-    if (intersects.length) console.log(intersects)
     if (!intersects.length) return false
 
     const { object } = intersects[0]

@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { randomGray } from './helpers.js'
+import { randomGray } from '../helpers.js'
 
 const { randFloat, randFloatSpread } = THREE.MathUtils
 

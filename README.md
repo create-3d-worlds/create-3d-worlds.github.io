@@ -11,15 +11,11 @@ npx live-server
 
 ## TODO
 
-- ikonica kamere se ne vidi na tamnoj pozadini (graveyard)
-- geometry.js to geometry/index.js
 - BUG: neprijatelj ostavlja damage nakon što umre (graveyard, rpg)
 
 ### Scenes & examples
 
 - Groblje
-  - probati texturu
-  - dodati neku staru kuću
   - dodati cilj i poene (možda izdržati do jutra?)
 
 - Savo
