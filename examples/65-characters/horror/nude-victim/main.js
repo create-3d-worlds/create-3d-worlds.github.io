@@ -3,7 +3,6 @@ import { createMoon } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import { NudeVictimPlayer } from '/utils/actor/derived/horror/NudeVictim.js'
 import { ZombieCopAI } from '/utils/actor/derived/horror/ZombieCop.js'
-// const zombies = ['GothGirl', 'ZombieBarefoot', 'ZombieCop', 'ZombieDoctor', 'ZombieGuard']
 
 createOrbitControls()
 setBackground(0)

@@ -1,6 +1,8 @@
 import * as THREE from 'three'
 import { RIGHT_ANGLE } from '/utils/constants.js'
-import { centerMesh, adjustHeight, randomGray } from '/utils/helpers.js'
+import { centerMesh, adjustHeight, randomGray, getHeight } from '/utils/helpers.js'
+
+const { randFloatSpread } = THREE.MathUtils
 
 /*  LOCOMOTIVE */
 
@@ -175,16 +177,6 @@ export function createTank({ tankWidth = 4, tankHeight = 1.2, tankLength = 8 } =
 
 /* TOMB */
 
-function createExtruded({ shape, pos, color = randomGray(), scale = Math.random() * .01 + .02 }) {
-  const params = { depth: 8, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1 }
-  const geometry = new THREE.ExtrudeGeometry(shape, params)
-  const mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ color }))
-  mesh.position.copy(pos)
-  mesh.scale.set(scale, scale, scale)
-  mesh.castShadow = mesh.receiveShadow = true
-  return mesh
-}
-
 const createTombShape = () => new THREE.Shape()
   .moveTo(40, 40)
   .lineTo(40, 100)
@@ -192,7 +184,16 @@ const createTombShape = () => new THREE.Shape()
   .lineTo(80, 40)
   .absarc(60, 40, 20, 2 * Math.PI, Math.PI, true)
 
-export const createTombstone = ({ shape = createTombShape(), pos, scale = Math.random() * .01 + .02 } = {}) => {
-  pos.y -= 1
-  return createExtruded({ shape, pos, scale })
+export const createTombstone = ({ shape = createTombShape(), color = randomGray(), pos, scale = Math.random() * .01 + .02 } = {}) => {
+  const params = { depth: 8, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1 }
+  const geometry = new THREE.ExtrudeGeometry(shape, params)
+  const mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ color }))
+  mesh.castShadow = mesh.receiveShadow = true
+  mesh.scale.set(scale, scale, scale)
+  const height = getHeight(mesh)
+  pos.y -= height * .5
+  mesh.position.copy(pos)
+  mesh.rotateX(randFloatSpread(.2))
+  mesh.rotateZ(randFloatSpread(.3))
+  return mesh
 }

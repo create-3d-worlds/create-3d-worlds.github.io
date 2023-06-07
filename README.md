@@ -11,16 +11,16 @@ npx live-server
 
 ## TODO
 
+- ikonica kamere se ne vidi na tamnoj pozadini (graveyard)
+- geometry.js to geometry/index.js
+- BUG: neprijatelj ostavlja damage nakon što umre (graveyard, rpg)
+
 ### Scenes & examples
 
-- Nude victim
-  - BUG: zombi ne menja stanje iz wander u pursue
-    - intersect ne radi u AI targetSpotted?
-  - beži dok je jure zombiji
-
 - Groblje
-  - nasumično zakriviti kamenove
+  - probati texturu
   - dodati neku staru kuću
+  - dodati cilj i poene (možda izdržati do jutra?)
 
 - Savo
   - BUG: kretanje presporo, kao da koči, izmeriti stats
