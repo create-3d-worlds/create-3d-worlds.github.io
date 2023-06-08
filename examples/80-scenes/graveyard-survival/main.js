@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 import { camera, scene, renderer, setBackground, clock } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { createMoon, createSun } from '/utils/light.js'
@@ -80,11 +81,15 @@ void function loop() {
   time += delta
 
   const miliTime = time * .1
-  const moonTime = miliTime < .75
+  const isNight = miliTime < .75
+
+  const moonTime = isNight
     ? .66 - miliTime
     : miliTime - .75
-
   orbiting(moon, moonTime, 150, 1)
+
+  if (!isNight)
+    scene.background.lerp(new THREE.Color(0x7ec0ee), delta * .2)
 
   player.update(delta)
 
