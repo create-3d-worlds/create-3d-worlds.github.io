@@ -88,8 +88,11 @@ void function loop() {
     : miliTime - .75
   orbiting(moon, moonTime, 150, 1)
 
-  if (!isNight)
+  if (!isNight) {
+    moon.material.color = new THREE.Color(0xFCE570)
+    moon.scale.set(2, 2, 2)
     scene.background.lerp(new THREE.Color(0x7ec0ee), delta * .2)
+  }
 
   player.update(delta)
 

@@ -14,8 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Groblje
-  - cilj izdržati do jutra
-    - izlazi sunce 
+  - cilj izdržati do jutra 
     - duhovi odleću
     - pobeda
 
