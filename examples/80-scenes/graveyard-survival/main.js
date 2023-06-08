@@ -1,6 +1,6 @@
 import { camera, scene, renderer, setBackground, clock } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
-import { createMoon } from '/utils/light.js'
+import { createMoon, createSun } from '/utils/light.js'
 import { getShuffledCoords, sample } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
 import { GhostAI } from '/utils/actor/derived/horror/Ghost.js'
@@ -8,6 +8,7 @@ import { ResistanceFighterPlayer } from '/utils/actor/derived/ww2/ResistanceFigh
 import { Smoke } from '/utils/Particles.js'
 import DeadTree from '/utils/objects/DeadTree.js'
 import Score from '/utils/io/Score.js'
+import { orbiting } from '/utils/geometry/planets.js'
 
 const mapSize = 100
 const npcs = []
@@ -25,7 +26,8 @@ scene.add(particles.mesh)
 
 setBackground(0x070b34)
 
-scene.add(createMoon({ intensity: .5, pos: [15, 25, -30] }))
+const moon = createMoon({ intensity: .5, pos: [15, 25, -30] })
+scene.add(moon)
 scene.add(createGround({ size: mapSize }))
 
 for (let i = 0; i < 60; i++) {
@@ -76,6 +78,13 @@ void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
   time += delta
+
+  const miliTime = time * .1
+  const moonTime = miliTime < .75
+    ? .66 - miliTime
+    : miliTime - .75
+
+  orbiting(moon, moonTime, 150, 1)
 
   player.update(delta)
 
