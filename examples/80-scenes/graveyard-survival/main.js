@@ -15,6 +15,7 @@ const mapSize = 100
 const npcs = []
 const solids = []
 const coords = getShuffledCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
+const moonSpeed = .001
 
 let last = Date.now()
 
@@ -75,28 +76,31 @@ async function spawnZombie(interval) {
 
 let time = 0
 
+score.renderTempText('Survive until morning!', 2500)
+
 void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
   time += delta
 
-  const miliTime = time * .1
-  const isNight = miliTime < .75
+  const timeSpeed = time * moonSpeed
+  const isNight = timeSpeed < .75
 
   const moonTime = isNight
-    ? .66 - miliTime
-    : miliTime - .75
+    ? .66 - timeSpeed
+    : timeSpeed - .75
   orbiting(moon, moonTime, 150, 1)
 
   if (isNight) {
     spawnZombie(10000)
     const kills = player.enemies.filter(mesh => mesh.userData.energy <= 0)
-    score.render(kills.length, Math.floor(time))
+    if (!player.dead) score.render(kills.length, Math.floor(time))
+    if (player.dead) score.renderText('You have been killed at the cursed graveyard.')
   } else {
     moon.material.color = new THREE.Color(0xFCE570)
     moon.scale.set(2, 2, 2)
     scene.background.lerp(new THREE.Color(0x7ec0ee), delta * .2)
-    score.renderText('Victory!<br>You met the morning at the cursed graveyard.')
+    if (!player.dead) score.renderText('Victory!<br>You met the morning at the cursed graveyard.')
   }
 
   player.update(delta)

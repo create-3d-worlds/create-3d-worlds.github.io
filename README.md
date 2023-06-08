@@ -14,8 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Groblje
-  - cilj izdržati do jutra 
-    - srediti vreme
+  - prikazivati preostalo vreme
 
 - Savo
   - BUG: kretanje presporo, kao da koči, izmeriti stats
