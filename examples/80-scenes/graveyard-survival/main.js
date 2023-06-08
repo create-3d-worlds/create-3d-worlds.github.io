@@ -88,19 +88,18 @@ void function loop() {
     : miliTime - .75
   orbiting(moon, moonTime, 150, 1)
 
-  if (isNight)
+  if (isNight) {
     spawnZombie(10000)
-  else {
+    const kills = player.enemies.filter(mesh => mesh.userData.energy <= 0)
+    score.render(kills.length, Math.floor(time))
+  } else {
     moon.material.color = new THREE.Color(0xFCE570)
     moon.scale.set(2, 2, 2)
     scene.background.lerp(new THREE.Color(0x7ec0ee), delta * .2)
+    score.renderText('Victory!<br>You met the morning at the cursed graveyard.')
   }
 
   player.update(delta)
-
-  const kills = player.enemies.filter(mesh => mesh.userData.energy <= 0)
-  score.render(kills.length, Math.floor(time))
-
   npcs.forEach(npc => {
     npc.update(delta)
     if (!isNight) npc.hitAmount = 100

@@ -15,7 +15,7 @@ npx live-server
 
 - Groblje
   - cilj izdržati do jutra 
-    - objaviti pobedu
+    - srediti vreme
 
 - Savo
   - BUG: kretanje presporo, kao da koči, izmeriti stats
