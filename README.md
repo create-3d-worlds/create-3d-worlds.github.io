@@ -15,7 +15,7 @@ npx live-server
 
 - Groblje
   - cilj izdržati do jutra 
-    - duhovi odleću
+    - zombiji prestaju (i umiru?)
     - pobeda
 
 - Savo

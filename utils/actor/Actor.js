@@ -423,7 +423,7 @@ export default class Actor extends GameObject {
     this.updateGround()
     this.currentState.update(delta)
     this.mixer?.update(delta)
-    if (!['jump', 'fall'].includes(this.state))
+    if (!this.dead && !['jump', 'fall'].includes(this.state))
       this.handleTerrain(2 * delta)
 
     this.checkHit()

@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { camera, scene, renderer, setBackground, clock } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
-import { createMoon, createSun } from '/utils/light.js'
+import { createMoon } from '/utils/light.js'
 import { getShuffledCoords, sample } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
 import { GhostAI } from '/utils/actor/derived/horror/Ghost.js'
@@ -41,9 +41,11 @@ for (let i = 0; i < 10; i++) {
   solids.push(tree.mesh)
 }
 
+const ghosts = []
 for (let i = 0; i < 30; i++) {
   const ghost = new GhostAI({ pos: coords.pop(), mapSize })
   npcs.push(ghost)
+  ghosts.push(ghost)
   scene.add(ghost.mesh)
 }
 
@@ -92,6 +94,9 @@ void function loop() {
     moon.material.color = new THREE.Color(0xFCE570)
     moon.scale.set(2, 2, 2)
     scene.background.lerp(new THREE.Color(0x7ec0ee), delta * .2)
+    ghosts.forEach(ghost => {
+      ghost.hitAmount = 100
+    })
   }
 
   player.update(delta)
