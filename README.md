@@ -15,8 +15,7 @@ npx live-server
 
 - Groblje
   - cilj izdržati do jutra 
-    - zombiji prestaju (i umiru?)
-    - pobeda
+    - objaviti pobedu
 
 - Savo
   - BUG: kretanje presporo, kao da koči, izmeriti stats
@@ -67,13 +66,13 @@ DODATI:
     https://summer-afternoon.vlucendo.com/
   - cilj i poene?
   - indikator energije?
-  - UI komande
+  - UI komande (desni miš rotiranje kamere, i sl)
   - dodati game UI https://ronenness.github.io/RPGUI ?
   - komande za dodirne ekrane (strelice i dugmiće)
   - reload button (kad igrač umre)
   - full screen btn
   - mute btn
-  - preloader po potrebi
+  - preloader po potrebi (ili standardni svuda?)
 - probati VR https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
 - pauzirati scenu na tab unfocus
 - po završetku partije upisivanje imena pored poena za top listu

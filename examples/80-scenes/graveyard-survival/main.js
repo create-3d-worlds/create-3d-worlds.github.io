@@ -41,11 +41,9 @@ for (let i = 0; i < 10; i++) {
   solids.push(tree.mesh)
 }
 
-const ghosts = []
 for (let i = 0; i < 30; i++) {
   const ghost = new GhostAI({ pos: coords.pop(), mapSize })
   npcs.push(ghost)
-  ghosts.push(ghost)
   scene.add(ghost.mesh)
 }
 
@@ -90,13 +88,12 @@ void function loop() {
     : miliTime - .75
   orbiting(moon, moonTime, 150, 1)
 
-  if (!isNight) {
+  if (isNight)
+    spawnZombie(10000)
+  else {
     moon.material.color = new THREE.Color(0xFCE570)
     moon.scale.set(2, 2, 2)
     scene.background.lerp(new THREE.Color(0x7ec0ee), delta * .2)
-    ghosts.forEach(ghost => {
-      ghost.hitAmount = 100
-    })
   }
 
   player.update(delta)
@@ -104,9 +101,11 @@ void function loop() {
   const kills = player.enemies.filter(mesh => mesh.userData.energy <= 0)
   score.render(kills.length, Math.floor(time))
 
-  npcs.forEach(npc => npc.update(delta))
+  npcs.forEach(npc => {
+    npc.update(delta)
+    if (!isNight) npc.hitAmount = 100
+  })
   particles.update({ delta, min: -1, max: 0, minVelocity: .2, maxVelocity: .5, loop: false })
-  spawnZombie(10000)
 
   renderer.render(scene, camera)
 }()
