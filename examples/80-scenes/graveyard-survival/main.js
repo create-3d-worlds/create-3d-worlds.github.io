@@ -11,17 +11,24 @@ import DeadTree from '/utils/objects/DeadTree.js'
 import Score from '/utils/io/Score.js'
 import { orbiting } from '/utils/geometry/planets.js'
 
+/**
+ possible configs:
+ moonSpeed = .001, totalTime = 750
+ moonSpeed = .01, totalTime = 75
+ moonSpeed = .1, totalTime = 7
+*/
+const moonSpeed = .001
+const totalTime = 750
 const mapSize = 100
 const npcs = []
 const solids = []
-const coords = getShuffledCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
-const moonSpeed = .001
 
 let last = Date.now()
 
-const score = new Score({ subtitle: 'Time' })
-
 /* INIT */
+
+const score = new Score({ subtitle: 'Time left' })
+const coords = getShuffledCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
 
 const particles = new Smoke({ size: 1, num: 100, minRadius: 0, maxRadius: .5 })
 scene.add(particles.mesh)
@@ -76,7 +83,7 @@ async function spawnZombie(interval) {
 
 let time = 0
 
-score.renderTempText('Survive until morning!', 2500)
+score.renderTempText('Survive until morning!', 3000)
 
 void function loop() {
   requestAnimationFrame(loop)
@@ -84,7 +91,8 @@ void function loop() {
   time += delta
 
   const timeSpeed = time * moonSpeed
-  const isNight = timeSpeed < .75
+  const timeLeft = Math.floor(totalTime - time)
+  const isNight = timeLeft >= 0
 
   const moonTime = isNight
     ? .66 - timeSpeed
@@ -94,7 +102,7 @@ void function loop() {
   if (isNight) {
     spawnZombie(10000)
     const kills = player.enemies.filter(mesh => mesh.userData.energy <= 0)
-    if (!player.dead) score.render(kills.length, Math.floor(time))
+    if (!player.dead) score.render(kills.length, timeLeft)
     if (player.dead) score.renderText('You have been killed at the cursed graveyard.')
   } else {
     moon.material.color = new THREE.Color(0xFCE570)

@@ -13,9 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Groblje
-  - prikazivati preostalo vreme
-
 - Savo
   - BUG: kretanje presporo, kao da koči, izmeriti stats
   - dodati intro na pisaćoj mašini
