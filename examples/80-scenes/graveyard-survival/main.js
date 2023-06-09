@@ -11,14 +11,8 @@ import DeadTree from '/utils/objects/DeadTree.js'
 import Score from '/utils/io/Score.js'
 import { orbiting } from '/utils/geometry/planets.js'
 
-/**
- possible configs:
- moonSpeed = .001, totalTime = 750
- moonSpeed = .01, totalTime = 75
- moonSpeed = .1, totalTime = 7
-*/
-const moonSpeed = .001
-const totalTime = 750
+const moonSpeed = .005
+const totalTime = 300
 const mapSize = 100
 const npcs = []
 const solids = []
@@ -90,13 +84,10 @@ void function loop() {
   const delta = clock.getDelta()
   time += delta
 
-  const timeSpeed = time * moonSpeed
   const timeLeft = Math.floor(totalTime - time)
   const isNight = timeLeft >= 0
 
-  const moonTime = isNight
-    ? .66 - timeSpeed
-    : timeSpeed - .75
+  const moonTime = isNight ? time * moonSpeed : (time - totalTime) * moonSpeed
   orbiting(moon, moonTime, 150, 1)
 
   if (isNight) {
