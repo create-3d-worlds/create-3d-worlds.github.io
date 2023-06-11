@@ -16,10 +16,12 @@ npx live-server
 ### Scenes & examples
 
 - Savo
-  - izbaciti kišu?
   - dodati fabriku, ratne zgrade, ww2 tower i slično u neku ww2 scenu
   - napad na aerodrom rajlovac (poređani nemački avioni na pisti, pucaju kule i vojnici)
   - dodati intro na pisaćoj mašini
+  - dodati cilj
+    - naći izlaz iz lavirinta
+    - bonus: ubiti sve neprijatelje
 
 - RPG / Fantasy
   - napraviti scenu sa ravnim tlom

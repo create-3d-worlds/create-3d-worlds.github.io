@@ -3,7 +3,6 @@ import { createGround } from '/utils/ground.js'
 import { sample } from '/utils/helpers.js'
 import { hemLight, lightningStrike } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
-import { Rain } from '/utils/Particles.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import { GermanMachineGunnerAI } from '/utils/actor/derived/ww2/GermanMachineGunner.js'
 import { SSSoldierAI } from '/utils/actor/derived/ww2/SSSoldier.js'
@@ -20,9 +19,6 @@ document.body.appendChild(stats.dom)
 const light = hemLight({ intensity: .75 })
 setBackground(0x070b34)
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
-
-const rain = new Rain()
-scene.add(rain.mesh)
 
 const maze = new Maze(8, 8, truePrims, 10)
 const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
@@ -67,6 +63,5 @@ renderer.setAnimationLoop(() => {
 
   player.update(delta)
   enemies.forEach(enemy => enemy.update(delta))
-  rain.update({ delta, pos: player.position })
   if (Math.random() > .997) lightningStrike(light)
 })
