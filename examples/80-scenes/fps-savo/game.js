@@ -26,7 +26,7 @@ const solids = [walls]
 
 const enemyClasses = [GermanFlameThrowerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, SSSoldierAI, SSSoldierAI, SSSoldierAI, NaziOfficerAI]
 
-const player = new FPSPlayer({ camera, pos: coords.pop() })
+const player = new FPSPlayer({ camera, pos: coords.pop(), goal: 'Find a way out of the maze' })
 player.putInMaze(maze)
 scene.add(player.mesh)
 

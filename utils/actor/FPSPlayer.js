@@ -11,6 +11,7 @@ export default class FPSPlayer extends Player {
     mouseSensitivity = .002,
     attackSound = 'rifle.mp3',
     usePointerLock = true,
+    goal = '',
     ...rest
   } = {}) {
     super({
@@ -24,6 +25,7 @@ export default class FPSPlayer extends Player {
     })
     this.mouseSensitivity = mouseSensitivity
     this.usePointerLock = usePointerLock
+    this.goal = goal
     this.time = 0
     this.energy = 100
     this.hurting = false
@@ -55,6 +57,7 @@ export default class FPSPlayer extends Player {
   addPointerLock() {
     const html = /* html */`
     <div>
+      ${this.goal ? `<h3>${this.goal}<h3>` : ''}
       <h1>Click to start</h1>
 
       Shoot: MOUSE<br />
