@@ -11,13 +11,15 @@ npx live-server
 
 ## TODO
 
+- prikazivati energiju igrača?
+
 ### Scenes & examples
 
 - Savo
-  - BUG: kretanje presporo, kao da koči, izmeriti stats
-  - dodati intro na pisaćoj mašini
+  - izbaciti kišu?
   - dodati fabriku, ratne zgrade, ww2 tower i slično u neku ww2 scenu
   - napad na aerodrom rajlovac (poređani nemački avioni na pisti, pucaju kule i vojnici)
+  - dodati intro na pisaćoj mašini
 
 - RPG / Fantasy
   - napraviti scenu sa ravnim tlom
