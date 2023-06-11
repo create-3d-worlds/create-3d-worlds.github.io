@@ -15,13 +15,16 @@ npx live-server
 
 ### Scenes & examples
 
-- Savo
-  - dodati fabriku, ratne zgrade, ww2 tower i slično u neku ww2 scenu
-  - napad na aerodrom rajlovac (poređani nemački avioni na pisti, pucaju kule i vojnici)
-  - dodati intro na pisaćoj mašini
+- Savo / Beg iz lavirinta
   - dodati cilj
     - naći izlaz iz lavirinta
     - bonus: ubiti sve neprijatelje
+  - dodati intro na pisaćoj mašini
+
+- Savo / Napad na aerodrom
+  - poređani nemački avioni na pisti 
+  - pucaju kule i vojnici
+  - dodati fabriku, ratne zgrade, tenk, bunker i slično
 
 - RPG / Fantasy
   - napraviti scenu sa ravnim tlom

@@ -8,13 +8,9 @@ import { GermanMachineGunnerAI } from '/utils/actor/derived/ww2/GermanMachineGun
 import { SSSoldierAI } from '/utils/actor/derived/ww2/SSSoldier.js'
 import { NaziOfficerAI } from '/utils/actor/derived/ww2/NaziOfficer.js'
 import { GermanFlameThrowerAI } from '/utils/actor/derived/ww2/GermanFlameThrower.js'
-
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
-
-import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
-const stats = new Stats()
-document.body.appendChild(stats.dom)
+import Score from '/utils/io/Score.js'
 
 const light = hemLight({ intensity: .75 })
 setBackground(0x070b34)
@@ -36,7 +32,6 @@ scene.add(player.mesh)
 
 const enemies = []
 for (let i = 0; i < 10; i++) {
-  // možda dinamički import?
   const EnemyClass = sample(enemyClasses)
   const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh })
   enemies.push(enemy)
@@ -52,6 +47,8 @@ enemies.forEach(enemy => enemy.addSolids(solids))
 
 scene.add(...solids)
 
+const score = new Score({ subtitle: 'Enemy left', total: enemies.length })
+
 /* LOOP */
 
 renderer.setAnimationLoop(() => {
@@ -59,9 +56,11 @@ renderer.setAnimationLoop(() => {
   if (!document.pointerLockElement) return
   const delta = clock.getDelta()
 
-  stats.update()
-
   player.update(delta)
   enemies.forEach(enemy => enemy.update(delta))
+
+  const killed = enemies.filter(enemy => enemy.energy <= 0)
+  if (!player.dead) score.render(killed.length, enemies.length - killed.length)
+
   if (Math.random() > .997) lightningStrike(light)
 })
