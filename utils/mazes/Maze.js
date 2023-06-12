@@ -86,9 +86,8 @@ export default class Maze {
     return tilemap
   }
 
-  get lastCellPosition() {
-    const { row, column } = this.last_cell
-    return this.cellPosition(row, column)
+  get exitPosition() {
+    return this.tilePosition(this.tilemap.length - 1, this.tilemap.length - 2)
   }
 
   cell(row, column) {

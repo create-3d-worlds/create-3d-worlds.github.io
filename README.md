@@ -16,7 +16,6 @@ npx live-server
 ### Scenes & examples
 
 - Savo / Beg iz lavirinta
-  - dodati Maze get exitPosition
   - dodati cilj
     - naći izlaz iz lavirinta
     - bonus: ubiti sve neprijatelje
