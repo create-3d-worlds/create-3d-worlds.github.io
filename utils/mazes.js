@@ -12,8 +12,8 @@ const textureLoader = new THREE.TextureLoader()
 /* HELPERS */
 
 export const tileToPosition = (tilemap, [row, column], cellSize = 1) => {
-  const x = column * cellSize - tilemap[0].length / 2 * cellSize + cellSize / 2
-  const z = row * cellSize - tilemap.length / 2 * cellSize + cellSize / 2
+  const x = column * cellSize + cellSize / 2 - tilemap[0].length / 2 * cellSize
+  const z = row * cellSize + cellSize / 2 - tilemap.length / 2 * cellSize
   return { x, y: 0, z }
 }
 
