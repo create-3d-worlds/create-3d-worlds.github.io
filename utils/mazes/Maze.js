@@ -88,7 +88,7 @@ export default class Maze {
 
   get lastCellPosition() {
     const { row, column } = this.last_cell
-    return this.tilePosition(row, column)
+    return this.cellPosition(row, column)
   }
 
   cell(row, column) {

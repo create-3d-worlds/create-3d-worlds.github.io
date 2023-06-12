@@ -18,8 +18,14 @@ scene.add(createGround({ file: 'terrain/ground.jpg' }))
 
 const maze = new Maze(8, 8, truePrims, 10)
 
-console.log(maze.lastCellPosition)
-// player.position: 70, 75
+const tileToPosition = (tilemap, [row, column], cellSize = 1) => {
+  const x = column * cellSize + cellSize / 2 - tilemap[0].length / 2 * cellSize
+  const z = row * cellSize + cellSize / 2 - tilemap.length / 2 * cellSize
+  return { x, y: 0, z }
+}
+
+console.log(tileToPosition(maze.tilemap, [maze.tilemap.length - 1, maze.tilemap.length - 2], maze.cellSize))
+// player.position: 70, 80, log: {x: 70, y: 0, z: 80}
 
 const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
 const coords = maze.getEmptyCoords(true)
