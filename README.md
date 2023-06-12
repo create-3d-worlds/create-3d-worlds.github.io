@@ -16,6 +16,8 @@ npx live-server
 ### Scenes & examples
 
 - Savo / Beg iz lavirinta
+  - BUG: tileToPosition kad izbacim pomeranje origin radi zadnji cell u rpg-savo, ne radi prvi u pathfind?
+    - uporediti način pravljenja maze mesh
   - dodati cilj
     - naći izlaz iz lavirinta
     - bonus: ubiti sve neprijatelje

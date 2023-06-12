@@ -86,17 +86,15 @@ export default class Maze {
     return tilemap
   }
 
+  get lastCellPosition() {
+    const { row, column } = this.last_cell
+    return this.tilePosition(row, column)
+  }
+
   cell(row, column) {
     if (row < 0 || row > this.rows - 1) return null
     if (column < 0 || column > this.grid[row].length - 1) return null
     return this.grid[row][column]
-  }
-
-  // not precise because of walls
-  cellPosition(row, column) {
-    const grid = Array(this.rows) // grid != tilemap (tilemap including walls)
-    grid[0] = Array(this.columns)
-    return tileToPosition(grid, [row, column], this.cellSize)
   }
 
   tilePosition(row, column) {

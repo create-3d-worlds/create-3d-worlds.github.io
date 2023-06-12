@@ -17,9 +17,12 @@ setBackground(0x070b34)
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
 
 const maze = new Maze(8, 8, truePrims, 10)
+
+console.log(maze.lastCellPosition)
+// player.position: 70, 75
+
 const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
 const coords = maze.getEmptyCoords(true)
-
 const solids = [walls]
 
 /* ACTORS */
