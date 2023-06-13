@@ -23,15 +23,17 @@ const solids = [walls]
 
 /* ACTORS */
 
-const enemyClasses = [GermanFlameThrowerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, SSSoldierAI, SSSoldierAI, SSSoldierAI, NaziOfficerAI]
-
 const player = new FPSPlayer({ camera, pos: coords.pop(), goal: 'Find a way out.<br>Bonus: Kill all enemies.' })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
 const enemies = []
+
+const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer', 'GermanFlameThrower']
 for (let i = 0; i < 10; i++) {
-  const EnemyClass = sample(enemyClasses)
+  const name = sample(soldiers)
+  const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
+  const EnemyClass = obj[name + 'AI']
   const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh })
   enemies.push(enemy)
   solids.push(enemy.mesh)
