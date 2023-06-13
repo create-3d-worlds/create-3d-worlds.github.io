@@ -15,7 +15,7 @@ const light = hemLight({ intensity: .75 })
 setBackground(0x070b34)
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
 
-const maze = new Maze(8, 8, truePrims, 10)
+const maze = new Maze(8, 8, truePrims, 5)
 
 const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
 const coords = maze.getEmptyCoords(true)
@@ -25,7 +25,7 @@ const solids = [walls]
 
 const enemyClasses = [GermanFlameThrowerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, SSSoldierAI, SSSoldierAI, SSSoldierAI, NaziOfficerAI]
 
-const player = new FPSPlayer({ camera, pos: coords.pop(), goal: 'Find a way out of the maze' })
+const player = new FPSPlayer({ camera, pos: coords.pop(), goal: 'Find a way out' })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
