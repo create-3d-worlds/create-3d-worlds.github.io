@@ -7,8 +7,6 @@ import Actor from './Actor.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 export default class Player extends Actor {
-  #enemiesAdded = false
-
   constructor({
     input = defaultKeyboard,
     useJoystick,
@@ -51,11 +49,7 @@ export default class Player extends Actor {
   }
 
   get solids() {
-    if (!this.#enemiesAdded && this.enemies) {
-      this.addSolids(this.enemies)
-      this.#enemiesAdded = true
-    }
-    return super.solids
+    return [...super.solids, ...this.enemies]
   }
 
   /* COMBAT */

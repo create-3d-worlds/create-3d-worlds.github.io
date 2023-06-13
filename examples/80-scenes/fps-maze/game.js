@@ -24,16 +24,6 @@ scene.add(player.mesh)
 
 const enemies = []
 
-const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer', 'GermanFlameThrower']
-for (let i = 0; i < 10; i++) {
-  const name = sample(soldiers)
-  const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
-  const EnemyClass = obj[name + 'AI']
-  const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh, solids: walls })
-  enemies.push(enemy)
-  scene.add(enemy.mesh)
-}
-
 const score = new Score({ subtitle: 'Enemy left', total: enemies.length })
 
 /* LOOP */
@@ -57,3 +47,15 @@ renderer.setAnimationLoop(() => {
 
   if (Math.random() > .997) lightningStrike(light)
 })
+
+/* LAZY LOAD */
+
+const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer', 'GermanFlameThrower']
+for (let i = 0; i < 10; i++) {
+  const name = sample(soldiers)
+  const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
+  const EnemyClass = obj[name + 'AI']
+  const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh, solids: walls })
+  enemies.push(enemy)
+  scene.add(enemy.mesh)
+}
