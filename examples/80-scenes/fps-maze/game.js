@@ -12,9 +12,9 @@ setBackground(0x070b34)
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
 
 const maze = new Maze(8, 8, truePrims, 5)
-const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
 const coords = maze.getEmptyCoords(true)
-const solids = [walls]
+const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' }) 
+scene.add(walls)
 
 /* ACTORS */
 
@@ -31,10 +31,8 @@ for (let i = 0; i < 10; i++) {
   const EnemyClass = obj[name + 'AI']
   const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh, solids: walls })
   enemies.push(enemy)
-  solids.push(enemy.mesh)
+  scene.add(enemy.mesh)
 }
-
-scene.add(...solids)
 
 const score = new Score({ subtitle: 'Enemy left', total: enemies.length })
 
