@@ -17,7 +17,6 @@ npx live-server
 
 - Savo / Beg iz lavirinta
   - dodati cilj
-    - naći izlaz iz lavirinta
     - bonus: ubiti sve neprijatelje
   - dodati intro na pisaćoj mašini
 

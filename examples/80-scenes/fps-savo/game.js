@@ -2,7 +2,6 @@ import { scene, renderer, camera, clock, setBackground } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { sample } from '/utils/helpers.js'
 import { hemLight, lightningStrike } from '/utils/light.js'
-import { loadModel } from '/utils/loaders.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import { GermanMachineGunnerAI } from '/utils/actor/derived/ww2/GermanMachineGunner.js'
 import { SSSoldierAI } from '/utils/actor/derived/ww2/SSSoldier.js'
@@ -17,7 +16,6 @@ setBackground(0x070b34)
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
 
 const maze = new Maze(8, 8, truePrims, 10)
-console.log(maze.exitPosition)
 
 const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
 const coords = maze.getEmptyCoords(true)
@@ -39,10 +37,6 @@ for (let i = 0; i < 10; i++) {
   solids.push(enemy.mesh)
 }
 
-const bunker = await loadModel({ file: 'building/bunker.fbx', texture: 'terrain/concrete.jpg', size: 2.5 })
-bunker.position.copy(coords.pop())
-solids.push(bunker)
-
 player.addSolids(solids)
 enemies.forEach(enemy => enemy.addSolids(solids))
 
@@ -58,6 +52,9 @@ renderer.setAnimationLoop(() => {
   const delta = clock.getDelta()
 
   player.update(delta)
+  if (player.position.distanceTo(maze.exitPosition) < 5)
+    score.renderText('You found a way out')
+
   enemies.forEach(enemy => enemy.update(delta))
 
   const killed = enemies.filter(enemy => enemy.energy <= 0)
