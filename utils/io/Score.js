@@ -56,7 +56,7 @@ export default class Score {
     stroke = '#000',
     messageDict = defaultDict,
     endText = 'Bravo!<br>Nothing left',
-    showMessages = true,
+    showMessages = false,
     showHighScore = false,
   } = {}) {
     this.points = points

@@ -15,7 +15,7 @@ npx live-server
 
 ### Scenes & examples
 
-- Savo / Napad na aerodrom
+- FPS / Airport
   - poređani nemački avioni na pisti 
   - pucaju kule i vojnici
   - dodati fabriku, ratne zgrade, tenk, bunker i slično
