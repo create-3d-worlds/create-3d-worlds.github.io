@@ -3,10 +3,6 @@ import { createGround } from '/utils/ground.js'
 import { sample } from '/utils/helpers.js'
 import { hemLight, lightningStrike } from '/utils/light.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
-import { GermanMachineGunnerAI } from '/utils/actor/derived/ww2/GermanMachineGunner.js'
-import { SSSoldierAI } from '/utils/actor/derived/ww2/SSSoldier.js'
-import { NaziOfficerAI } from '/utils/actor/derived/ww2/NaziOfficer.js'
-import { GermanFlameThrowerAI } from '/utils/actor/derived/ww2/GermanFlameThrower.js'
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
 import Score from '/utils/io/Score.js'
@@ -16,14 +12,13 @@ setBackground(0x070b34)
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
 
 const maze = new Maze(8, 8, truePrims, 5)
-
 const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
 const coords = maze.getEmptyCoords(true)
 const solids = [walls]
 
 /* ACTORS */
 
-const player = new FPSPlayer({ camera, pos: coords.pop(), goal: 'Find a way out.<br>Bonus: Kill all enemies.' })
+const player = new FPSPlayer({ camera, goal: 'Find a way out.<br>Bonus: Kill all enemies.', solids: walls })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
@@ -34,13 +29,10 @@ for (let i = 0; i < 10; i++) {
   const name = sample(soldiers)
   const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
   const EnemyClass = obj[name + 'AI']
-  const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh })
+  const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh, solids: walls })
   enemies.push(enemy)
   solids.push(enemy.mesh)
 }
-
-player.addSolids(solids)
-enemies.forEach(enemy => enemy.addSolids(solids))
 
 scene.add(...solids)
 
