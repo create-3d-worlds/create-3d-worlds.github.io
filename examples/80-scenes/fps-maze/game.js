@@ -28,12 +28,9 @@ const score = new Score({ subtitle: 'Enemy left', total: enemies.length })
 
 /* LOOP */
 
-let firstDraw = false
-
 renderer.setAnimationLoop(() => {
   renderer.render(scene, camera)
-  if (!document.pointerLockElement && firstDraw) return
-  firstDraw = true
+  if (!document.pointerLockElement) return
   const delta = clock.getDelta()
 
   const killed = enemies.filter(enemy => enemy.energy <= 0)
