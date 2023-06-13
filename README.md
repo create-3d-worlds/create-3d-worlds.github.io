@@ -17,7 +17,6 @@ npx live-server
 
 - Savo / Beg iz lavirinta
   - dodavati različite lavirinte
-  - dodati intro na pisaćoj mašini
 
 - Savo / Napad na aerodrom
   - poređani nemački avioni na pisti 
