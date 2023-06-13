@@ -15,9 +15,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Savo / Beg iz lavirinta
-  - dodavati različite lavirinte
-
 - Savo / Napad na aerodrom
   - poređani nemački avioni na pisti 
   - pucaju kule i vojnici

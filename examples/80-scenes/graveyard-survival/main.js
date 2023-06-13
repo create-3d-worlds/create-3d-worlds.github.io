@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { camera, scene, renderer, setBackground, clock } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { createMoon } from '/utils/light.js'
-import { getShuffledCoords, sample } from '/utils/helpers.js'
+import { getEmptyCoords, sample } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
 import { GhostAI } from '/utils/actor/derived/horror/Ghost.js'
 import { ResistanceFighterPlayer } from '/utils/actor/derived/ww2/ResistanceFighter.js'
@@ -22,7 +22,7 @@ let last = Date.now()
 /* INIT */
 
 const score = new Score({ subtitle: 'Time left' })
-const coords = getShuffledCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
+const coords = getEmptyCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
 
 const particles = new Smoke({ size: 1, num: 100, minRadius: 0, maxRadius: .5 })
 scene.add(particles.mesh)

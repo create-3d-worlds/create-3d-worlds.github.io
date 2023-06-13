@@ -4,7 +4,7 @@ import { hemLight, ambLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
-import { getShuffledCoords, putOnSolids } from '/utils/helpers.js'
+import { getEmptyCoords, putOnSolids } from '/utils/helpers.js'
 import Dirigible from '/utils/aircraft/derived/Dirigible.js'
 import AerialScrew from '/utils/objects/AerialScrew.js'
 import WizardIsle from '/utils/objects/WizardIsle.js'
@@ -25,13 +25,13 @@ scene.add(terrain)
 const water = createWater({ size: mapSize * 10 })
 scene.add(water)
 
-const treesCoords = getShuffledCoords({ mapSize: mapSize * .5, fieldSize: 4, emptyCenter: 50 })
+const treesCoords = getEmptyCoords({ mapSize: mapSize * .5, fieldSize: 4, emptyCenter: 50 })
 const trees = createTreesOnTerrain({ terrain, n: 200, size: 4, coords: treesCoords })
 scene.add(trees)
 
 /* GAME OBJECTS */
 
-const coords = getShuffledCoords({ mapSize: mapSize * .75, fieldSize: 40, emptyCenter: 50 })
+const coords = getEmptyCoords({ mapSize: mapSize * .75, fieldSize: 40, emptyCenter: 50 })
 
 const castle = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 100 })
 putOnSolids(castle, terrain)

@@ -3,10 +3,10 @@ import { createFloor } from '/utils/ground.js'
 import { ambLight } from '/utils/light.js'
 import { SorceressPlayer } from '/utils/actor/derived/fantasy/Sorceress.js'
 import { GolemAI } from '/utils/actor/derived/fantasy/Golem.js'
-import { getShuffledCoords } from '/utils/helpers.js'
+import { getEmptyCoords } from '/utils/helpers.js'
 
 const mapSize = 100
-const coords = getShuffledCoords({ mapSize })
+const coords = getEmptyCoords({ mapSize })
 
 ambLight()
 camera.position.set(0, 10, 15)

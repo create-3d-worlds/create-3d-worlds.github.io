@@ -13,7 +13,7 @@ export const mapRange = (value, inMin, inMax, outMin, outMax) =>
 /*
   @return shuffled coordinates for given mapSize
 */
-export function getShuffledCoords({
+export function getEmptyCoords({
   mapSize = 400, fieldSize = 20, offSet = fieldSize * .5, emptyCenter = 0
 } = {}) {
   const halfSize = mapSize * .5

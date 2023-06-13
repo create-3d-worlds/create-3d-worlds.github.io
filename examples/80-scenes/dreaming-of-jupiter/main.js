@@ -3,7 +3,7 @@ import { Planet } from '/utils/geometry/planets.js'
 import { createTerrain, shake } from '/utils/ground.js'
 import { Stars } from '/utils/Particles.js'
 import { createMoon } from '/utils/light.js'
-import { getShuffledCoords } from '/utils/helpers.js'
+import { getEmptyCoords } from '/utils/helpers.js'
 import Avatar from '/utils/actor/Avatar.js'
 import Platform from '/utils/objects/Platform.js'
 
@@ -12,7 +12,7 @@ scene.add(createMoon())
 
 const objects = []
 const mapSize = 400
-const coords = getShuffledCoords({ mapSize: mapSize / 2, fieldSize: 30 })
+const coords = getEmptyCoords({ mapSize: mapSize / 2, fieldSize: 30 })
 
 coords.forEach((pos, i) => {
   pos.y = Math.random() * 10 + 5

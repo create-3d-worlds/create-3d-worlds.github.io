@@ -2,7 +2,7 @@ import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { createFloor, createGround } from '/utils/ground.js'
 import { createNightCity, createLampposts } from '/utils/city.js'
 import { createTrees } from '/utils/geometry/trees.js'
-import { getShuffledCoords } from '/utils/helpers.js'
+import { getEmptyCoords } from '/utils/helpers.js'
 
 const mapSize = 400
 const center = 50
@@ -22,7 +22,7 @@ const ground = createGround({ size: center * 1.5, circle: false })
 ground.translateY(.1)
 scene.add(ground)
 
-const coords = getShuffledCoords({ mapSize: center * 1.25, fieldSize: 10 })
+const coords = getEmptyCoords({ mapSize: center * 1.25, fieldSize: 10 })
 scene.add(createTrees({ coords, n: 20 }))
 scene.add(createLampposts({ coords, numLampposts: 5 }))
 
