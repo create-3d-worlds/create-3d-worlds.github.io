@@ -16,8 +16,6 @@ npx live-server
 ### Scenes & examples
 
 - Savo / Beg iz lavirinta
-  - dodati cilj
-    - bonus: ubiti sve neprijatelje
   - dodavati različite lavirinte
   - dodati intro na pisaćoj mašini
 

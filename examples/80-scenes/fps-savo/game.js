@@ -25,7 +25,7 @@ const solids = [walls]
 
 const enemyClasses = [GermanFlameThrowerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, GermanMachineGunnerAI, SSSoldierAI, SSSoldierAI, SSSoldierAI, NaziOfficerAI]
 
-const player = new FPSPlayer({ camera, pos: coords.pop(), goal: 'Find a way out' })
+const player = new FPSPlayer({ camera, pos: coords.pop(), goal: 'Find a way out.<br>Bonus: Kill all enemies.' })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
@@ -51,14 +51,14 @@ renderer.setAnimationLoop(() => {
   if (!document.pointerLockElement) return
   const delta = clock.getDelta()
 
+  const killed = enemies.filter(enemy => enemy.energy <= 0)
+  score.render(killed.length, enemies.length - killed.length)
+
   player.update(delta)
   if (player.position.distanceTo(maze.exitPosition) < 5)
-    score.renderText('You found a way out')
+    score.renderText(`Bravo!<br>You found a way out<br> and kill ${killed.length} of ${enemies.length} enemies`)
 
   enemies.forEach(enemy => enemy.update(delta))
-
-  const killed = enemies.filter(enemy => enemy.energy <= 0)
-  if (!player.dead) score.render(killed.length, enemies.length - killed.length)
 
   if (Math.random() > .997) lightningStrike(light)
 })
