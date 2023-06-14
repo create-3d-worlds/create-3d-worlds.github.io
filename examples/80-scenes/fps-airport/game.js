@@ -4,7 +4,6 @@ import { sample, getEmptyCoords } from '/utils/helpers.js'
 import { hemLight } from '/utils/light.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import Score from '/utils/io/Score.js'
-import { loadModel } from '/utils/loaders.js'
 
 const enemies = []
 const coords = getEmptyCoords()
@@ -49,9 +48,23 @@ for (let i = 0; i < 10; i++) {
   scene.add(enemy.mesh)
 }
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 8; i++) {
+  const obj = await import('/utils/objects/JunkersStuka.js')
+  const aircraft = new obj.default()
+  aircraft.position.set(-50, aircraft.position.y, -50 + i * 10)
+  scene.add(aircraft.mesh)
+}
+
+for (let i = 0; i < 8; i++) {
+  const obj = await import('/utils/objects/DornierBomber.js')
+  const aircraft = new obj.default()
+  aircraft.position.set(-50 + i * 15, aircraft.position.y, -75)
+  scene.add(aircraft.mesh)
+}
+
+for (let i = 0; i < 8; i++) {
   const obj = await import('/utils/objects/HeinkelBomber.js')
   const aircraft = new obj.default()
-  aircraft.position.set(-50 + i * 15, aircraft.position.y, -20)
+  aircraft.position.set(-50 + i * 15, aircraft.position.y, 50)
   scene.add(aircraft.mesh)
 }
