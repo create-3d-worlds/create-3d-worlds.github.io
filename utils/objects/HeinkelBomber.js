@@ -3,9 +3,9 @@ import { loadModel } from '/utils/loaders.js'
 
 const mesh = await loadModel({
   file: 'aircraft/airplane/heinkel-he-111/model.fbx',
+  size: 4,
   angle: .125,
   axis: [1, 0, 0],
-  size: 3
 })
 
 export default class HeinkelBomber extends GameObject {

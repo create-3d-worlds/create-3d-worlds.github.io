@@ -48,23 +48,23 @@ for (let i = 0; i < 10; i++) {
   scene.add(enemy.mesh)
 }
 
-for (let i = 0; i < 8; i++) {
+for (let i = 0; i < 8; i++) { // left
   const obj = await import('/utils/objects/JunkersStuka.js')
   const aircraft = new obj.default()
-  aircraft.position.set(-50, aircraft.position.y, -50 + i * 10)
+  aircraft.position.set(-55, aircraft.position.y, -55 + i * 12)
   scene.add(aircraft.mesh)
 }
 
-for (let i = 0; i < 8; i++) {
+for (let i = 0; i < 8; i++) { // front
   const obj = await import('/utils/objects/DornierBomber.js')
   const aircraft = new obj.default()
   aircraft.position.set(-50 + i * 15, aircraft.position.y, -75)
   scene.add(aircraft.mesh)
 }
 
-for (let i = 0; i < 8; i++) {
+for (let i = 0; i < 7; i++) { // back
   const obj = await import('/utils/objects/HeinkelBomber.js')
   const aircraft = new obj.default()
-  aircraft.position.set(-50 + i * 15, aircraft.position.y, 50)
+  aircraft.position.set(-50 + i * 18, aircraft.position.y, 50)
   scene.add(aircraft.mesh)
 }
