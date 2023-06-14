@@ -26,7 +26,7 @@ const groundDistance = mapSize * .99
 const updatables = []
 const objects = []
 
-const score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.' })
+const score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.', showMessages: true })
 
 scene.fog = new THREE.Fog(0xE5C5AB, mapSize * .25, buildingDistance)
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))

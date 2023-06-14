@@ -7,13 +7,15 @@ import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
 import Score from '/utils/io/Score.js'
 
+const enemies = []
+
 const light = hemLight({ intensity: .75 })
 setBackground(0x070b34)
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
 
 const maze = new Maze(8, 8, truePrims, 5)
 const coords = maze.getEmptyCoords(true)
-const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' }) 
+const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
 scene.add(walls)
 
 /* ACTORS */
@@ -21,8 +23,6 @@ scene.add(walls)
 const player = new FPSPlayer({ camera, goal: 'Find a way out.<br>Bonus: Kill all enemies.', solids: walls })
 player.putInMaze(maze)
 scene.add(player.mesh)
-
-const enemies = []
 
 const score = new Score({ subtitle: 'Enemy left', total: enemies.length })
 

@@ -17,7 +17,9 @@ npx live-server
 
 - FPS / Airport
   - poređani nemački avioni na pisti 
-  - pucaju kule i vojnici
+    - lenjo učitati avione i ređati u petlji
+  - pucaju kule (dodati na četiri ugla)
+  - vojnici
   - dodati fabriku, ratne zgrade, tenk, bunker i slično
 
 - RPG / Fantasy
