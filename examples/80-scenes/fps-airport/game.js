@@ -4,6 +4,7 @@ import { sample, getEmptyCoords } from '/utils/helpers.js'
 import { hemLight } from '/utils/light.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import Score from '/utils/io/Score.js'
+import { createAirport } from '/utils/city.js'
 
 const enemies = []
 const coords = getEmptyCoords()
@@ -35,7 +36,7 @@ renderer.setAnimationLoop(() => {
   enemies.forEach(enemy => enemy.update(delta))
 })
 
-/* LAZY LOAD */
+/* SOLDIERS */
 
 const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer']
 
@@ -47,6 +48,8 @@ for (let i = 0; i < 10; i++) {
   enemies.push(enemy)
   scene.add(enemy.mesh)
 }
+
+/* AIRCRAFT */
 
 for (let i = 0; i < 8; i++) { // left
   const obj = await import('/utils/objects/JunkersStuka.js')
@@ -68,3 +71,14 @@ for (let i = 0; i < 7; i++) { // back
   aircraft.position.set(-50 + i * 18, aircraft.position.y, 50)
   scene.add(aircraft.mesh)
 }
+
+/* OBJECTS */
+
+const airport = createAirport()
+airport.translateX(50)
+airport.rotateY(Math.PI * .5)
+scene.add(airport)
+
+const airport2 = airport.clone()
+airport2.translateX(25)
+scene.add(airport2)

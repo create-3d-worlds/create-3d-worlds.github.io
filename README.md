@@ -16,11 +16,11 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Airport
-  - dodati štuke i sa druge strane?
-  - dodati zgradu aerodroma
   - dodati pucaće kule (na četiri ugla)
   - dodati fabriku, ratne zgrade, tenk, bunker i slično
   - probati 3D model igrača
+  - cilj: uništi sve avione
+  - dodati štuke i sa druge strane?
 
 - RPG / Fantasy
   - napraviti scenu sa ravnim tlom
