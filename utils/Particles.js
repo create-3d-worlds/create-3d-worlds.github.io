@@ -229,7 +229,7 @@ export class Smoke extends Particles {
 
 export class BigSmoke extends Smoke {
   constructor() {
-    super({ size: 10, opacity: .7, minRadius: 1.5, maxRadius: 3 })
+    super({ num: 40, size: 10, opacity: .7, minRadius: 1.5, maxRadius: 3 })
   }
 
   update({ min = -8, max = 4, minVelocity = 1.5, ...rest } = {}) {

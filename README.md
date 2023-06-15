@@ -16,7 +16,7 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Airport
-  - dodati fabriku, ratne zgrade, tenk, bunker i slično
+  - dodati tenk, bunker i slično
   - probati 3D model igrača
   - dodati pobedu / poraz
 

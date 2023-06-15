@@ -4,21 +4,18 @@ import GameObject from '/utils/objects/GameObject.js'
 const { randFloat } = THREE.MathUtils
 
 export default class Building extends GameObject {
-  constructor({ name = 'building', energy = 150, ...rest } = {}) {
+  constructor({ name = 'building', energy = 150, randomSmoke = false, ...rest } = {}) {
     super({ name, energy, ...rest })
-    this.fireMin = randFloat(-8, -6)
-    this.fireMax = randFloat(2, 4)
-    // this.fireMin = randFloat(-4, -2)
-    // this.fireMax = randFloat(1, 3)
+    this.fireMin = randFloat(-this.height, -this.height * .75)
+    this.randomSmoke = randomSmoke
   }
 
   addFire() {
     const promise = import('/utils/Particles.js')
     promise.then(obj => {
-      this.fire = Math.random() > .5 ? new obj.Fire() : new obj.BigSmoke()
+      this.fire = (this.randomSmoke && Math.random() > .5) ? new obj.BigSmoke() : new obj.Fire()
       this.add(this.fire.mesh)
       this.fire.mesh.position.y += this.height * .5
-      // this.fire.mesh.position.z -= this.depth * .5
     })
   }
 
@@ -30,6 +27,6 @@ export default class Building extends GameObject {
 
   update(delta) {
     super.update()
-    this.fire?.update({ delta, min: this.fireMin, max: this.fireMax })
+    this.fire?.update({ delta, min: this.fireMin, max: 0 })
   }
 }

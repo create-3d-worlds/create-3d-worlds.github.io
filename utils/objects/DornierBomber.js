@@ -9,7 +9,7 @@ const mesh = await loadModel({
 
 export default class DornierBomber extends Building {
   constructor(params = {}) {
-    super({ mesh, ...params })
+    super({ mesh, randomSmoke: true, ...params })
     this.position.y += this.height / 2
   }
 }
