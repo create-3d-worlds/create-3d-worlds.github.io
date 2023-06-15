@@ -1,4 +1,4 @@
-import GameObject from '/utils/objects/GameObject.js'
+import Building from '/utils/objects/Building.js'
 import { loadModel } from '/utils/loaders.js'
 
 const mesh = await loadModel({
@@ -8,7 +8,7 @@ const mesh = await loadModel({
   axis: [1, 0, 0],
 })
 
-export default class HeinkelBomber extends GameObject {
+export default class HeinkelBomber extends Building {
   constructor(params = {}) {
     super({ mesh, ...params })
     this.position.y += this.height * .27

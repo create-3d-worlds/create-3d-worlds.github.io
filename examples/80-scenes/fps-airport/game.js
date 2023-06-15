@@ -35,8 +35,9 @@ renderer.setAnimationLoop(() => {
   score.render(killed.length, aircraft.length - killed.length)
 
   player.update(delta)
-  towers.forEach(tower => tower.update(delta))
-  enemies.forEach(enemy => enemy.update(delta))
+  towers.forEach(obj => obj.update(delta))
+  enemies.forEach(obj => obj.update(delta))
+  aircraft.forEach(obj => obj.update(delta))
 })
 
 /* SOLDIERS */
@@ -56,26 +57,29 @@ for (let i = 0; i < 10; i++) {
 
 const stukaFile = await import('/utils/objects/JunkersStuka.js')
 for (let i = 0; i < 8; i++) { // left
-  const stuka = new stukaFile.default()
-  stuka.position.set(-55, stuka.position.y, -55 + i * 12)
-  scene.add(stuka.mesh)
-  aircraft.push(stuka)
+  const plane = new stukaFile.default()
+  plane.position.set(-55, plane.position.y, -55 + i * 12)
+  scene.add(plane.mesh)
+  plane.name = 'enemy'
+  aircraft.push(plane)
 }
 
 const dornierFile = await import('/utils/objects/DornierBomber.js')
 for (let i = 0; i < 8; i++) { // front
-  const dornier = new dornierFile.default()
-  dornier.position.set(-50 + i * 15, dornier.position.y, -75)
-  scene.add(dornier.mesh)
-  aircraft.push(dornier)
+  const plane = new dornierFile.default()
+  plane.position.set(-50 + i * 15, plane.position.y, -75)
+  scene.add(plane.mesh)
+  plane.name = 'enemy'
+  aircraft.push(plane)
 }
 
 const heinkelFile = await import('/utils/objects/HeinkelBomber.js')
 for (let i = 0; i < 7; i++) { // back
-  const heinkel = new heinkelFile.default()
-  heinkel.position.set(-50 + i * 18, heinkel.position.y, 50)
-  scene.add(heinkel.mesh)
-  aircraft.push(heinkel)
+  const plane = new heinkelFile.default()
+  plane.position.set(-50 + i * 18, plane.position.y, 50)
+  scene.add(plane.mesh)
+  plane.name = 'enemy'
+  aircraft.push(plane)
 }
 
 /* OBJECTS */

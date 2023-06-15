@@ -1,4 +1,4 @@
-import GameObject from '/utils/objects/GameObject.js'
+import Building from '/utils/objects/Building.js'
 import { loadModel } from '/utils/loaders.js'
 
 const mesh = await loadModel({
@@ -7,7 +7,7 @@ const mesh = await loadModel({
   size: 3
 })
 
-export default class DornierBomber extends GameObject {
+export default class DornierBomber extends Building {
   constructor(params = {}) {
     super({ mesh, ...params })
     this.position.y += this.height / 2

@@ -16,9 +16,10 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Airport
-  - cilj: uništi sve avione
+  - dodati nekim avionima dim ili različitu vatru
   - dodati fabriku, ratne zgrade, tenk, bunker i slično
   - probati 3D model igrača
+  - dodati pobedu / poraz
 
 - RPG / Fantasy
   - napraviti scenu sa ravnim tlom
