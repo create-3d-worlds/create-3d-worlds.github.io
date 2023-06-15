@@ -16,8 +16,7 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Airport
-  - dodati nekim avionima dim ili različitu vatru
-    - vremenom prestaje vatra
+  - vremenom prestaje vatra
   - dodati fabriku, ratne zgrade, tenk, bunker i slično
   - probati 3D model igrača
   - dodati pobedu / poraz
