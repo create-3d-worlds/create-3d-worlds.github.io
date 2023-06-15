@@ -16,7 +16,6 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Airport
-  - probati noć
   - probati 3D model igrača
   - dodati pobedu / poraz
   - srediti random coords za vojnike da se ne preklapaju sa zgradama

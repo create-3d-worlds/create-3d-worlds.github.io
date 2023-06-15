@@ -11,6 +11,7 @@ export default class Building extends GameObject {
   }
 
   addFire() {
+    if (this.fire) return
     const promise = import('/utils/Particles.js')
     promise.then(obj => {
       this.fire = (this.randomSmoke && Math.random() > .5) ? new obj.BigSmoke() : new obj.Fire()
