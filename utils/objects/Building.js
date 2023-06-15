@@ -8,6 +8,8 @@ export default class Building extends GameObject {
     super({ name, energy, ...rest })
     this.fireMin = randFloat(-8, -6)
     this.fireMax = randFloat(2, 4)
+    // this.fireMin = randFloat(-4, -2)
+    // this.fireMax = randFloat(1, 3)
   }
 
   addFire() {

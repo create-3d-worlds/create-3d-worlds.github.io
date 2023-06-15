@@ -84,14 +84,17 @@ const airport2 = airport.clone()
 airport2.translateX(25)
 scene.add(airport2)
 
+player.addSolids([airport, airport2])
+
 /* SOLDIERS */
 
 const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer']
 
-for (let i = 0; i < 10; i++) {
-  const name = sample(soldiers)
-  const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
-  const EnemyClass = obj[name + 'AI']
-  const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh })
-  addEnemy(enemy, enemies)
-}
+// for (let i = 0; i < 10; i++) {
+//   const name = sample(soldiers)
+//   const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
+//   const EnemyClass = obj[name + 'AI']
+//   const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh })
+//   addEnemy(enemy, enemies)
+//   enemy.addSolids([airport, airport2]) // možda i ne? da ne ostanu unutra
+// }
