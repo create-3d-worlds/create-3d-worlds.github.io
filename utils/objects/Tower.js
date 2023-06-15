@@ -10,12 +10,14 @@ const mesh = await loadModel({
 })
 
 export default class Tower extends Building {
-  constructor(params = {}) {
-    super({ mesh, name: 'tower', ...params })
-    this.range = 200
+  constructor({ range = 200, interval = 500, damage = 100, damageDistance = 2, ...rest } = {}) {
+    super({ mesh, name: 'tower', ...rest })
+    this.range = range
+    this.damage = damage
+    this.damageDistance = damageDistance
     this.bullets = []
     this.last = Date.now()
-    this.interval = 500
+    this.interval = interval
   }
 
   get targetInRange() {
@@ -27,10 +29,10 @@ export default class Tower extends Building {
     return !this.dead && Date.now() - this.last >= this.interval
   }
 
-  addBullet() {
+  createBullet() {
     const pos = this.position.clone()
     pos.y += this.height
-    const bullet = new Bullet({ pos })
+    const bullet = new Bullet({ pos, damage: this.damage, damageDistance: this.damageDistance })
     this.scene.add(bullet.mesh)
     this.bullets.push(bullet)
   }
@@ -49,7 +51,7 @@ export default class Tower extends Building {
     super.update(delta)
 
     if (this.targetInRange && this.ableToShoot) {
-      this.addBullet()
+      this.createBullet()
       this.last = Date.now()
     }
 

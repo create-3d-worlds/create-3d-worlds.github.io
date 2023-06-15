@@ -6,10 +6,12 @@ const sphereGeo = new THREE.SphereGeometry(.3)
 const sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
 
 export default class Bullet extends GameObject {
-  constructor({ pos } = {}) {
+  constructor({ pos, damage = 100, damageDistance = 2 } = {}) {
     super({ mesh: sphere, pos })
     this.speed = .2
     this.maxRange = 500
+    this.damageDistance = damageDistance
+    this.damage = damage
     this.initPosition = pos.clone()
   }
 
@@ -28,8 +30,8 @@ export default class Bullet extends GameObject {
 
     this.position.lerp(this.target, this.speed * delta)
 
-    if (this.distanceTo(this.playerMesh) < 2) {
-      this.playerMesh.userData.hitAmount = 100
+    if (this.distanceTo(this.playerMesh) < this.damageDistance) {
+      this.playerMesh.userData.hitAmount = this.damage
       this.energy = 0
     }
 

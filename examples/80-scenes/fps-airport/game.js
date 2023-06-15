@@ -6,6 +6,8 @@ import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import Score from '/utils/io/Score.js'
 import { createAirport } from '/utils/city.js'
 
+const towers = []
+const aircraft = []
 const enemies = []
 const coords = getEmptyCoords()
 
@@ -33,6 +35,7 @@ renderer.setAnimationLoop(() => {
   score.render(killed.length, enemies.length - killed.length)
 
   player.update(delta)
+  towers.forEach(tower => tower.update(delta))
   enemies.forEach(enemy => enemy.update(delta))
 })
 
@@ -51,28 +54,36 @@ for (let i = 0; i < 10; i++) {
 
 /* AIRCRAFT */
 
+const stukaFile = await import('/utils/objects/JunkersStuka.js')
 for (let i = 0; i < 8; i++) { // left
-  const obj = await import('/utils/objects/JunkersStuka.js')
-  const aircraft = new obj.default()
-  aircraft.position.set(-55, aircraft.position.y, -55 + i * 12)
-  scene.add(aircraft.mesh)
+  const stuka = new stukaFile.default()
+  stuka.position.set(-55, stuka.position.y, -55 + i * 12)
+  scene.add(stuka.mesh)
 }
 
+const dornierFile = await import('/utils/objects/DornierBomber.js')
 for (let i = 0; i < 8; i++) { // front
-  const obj = await import('/utils/objects/DornierBomber.js')
-  const aircraft = new obj.default()
-  aircraft.position.set(-50 + i * 15, aircraft.position.y, -75)
-  scene.add(aircraft.mesh)
+  const dornier = new dornierFile.default()
+  dornier.position.set(-50 + i * 15, dornier.position.y, -75)
+  scene.add(dornier.mesh)
 }
 
+const heinkelFile = await import('/utils/objects/HeinkelBomber.js')
 for (let i = 0; i < 7; i++) { // back
-  const obj = await import('/utils/objects/HeinkelBomber.js')
-  const aircraft = new obj.default()
-  aircraft.position.set(-50 + i * 18, aircraft.position.y, 50)
-  scene.add(aircraft.mesh)
+  const heinkel = new heinkelFile.default()
+  heinkel.position.set(-50 + i * 18, heinkel.position.y, 50)
+  scene.add(heinkel.mesh)
 }
 
 /* OBJECTS */
+
+const towerFile = await import('/utils/objects/Tower.js')
+;[[-75, -75], [-75, 75], [75, -75], [75, 75]].forEach(async coord => {
+  const tower = new towerFile.default({ range: 50, interval: 1500, damage: 10, damageDistance: 1 })
+  tower.position.set(coord[0], tower.position.y, coord[1])
+  towers.push(tower)
+  scene.add(tower.mesh)
+})
 
 const airport = createAirport()
 airport.translateX(50)
