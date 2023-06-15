@@ -55,19 +55,19 @@ for (let i = 0; i < 10; i++) {
 
 /* AIRCRAFT */
 
-const stukaFile = await import('/utils/objects/JunkersStuka.js')
-for (let i = 0; i < 8; i++) { // left
-  const plane = new stukaFile.default()
-  plane.position.set(-55, plane.position.y, -55 + i * 12)
+const dornierFile = await import('/utils/objects/DornierBomber.js')
+for (let i = 0; i < 8; i++) { // front
+  const plane = new dornierFile.default()
+  plane.position.set(-50 + i * 15, plane.position.y, -75)
   scene.add(plane.mesh)
   plane.name = 'enemy'
   aircraft.push(plane)
 }
 
-const dornierFile = await import('/utils/objects/DornierBomber.js')
-for (let i = 0; i < 8; i++) { // front
-  const plane = new dornierFile.default()
-  plane.position.set(-50 + i * 15, plane.position.y, -75)
+const stukaFile = await import('/utils/objects/JunkersStuka.js')
+for (let i = 0; i < 8; i++) { // left
+  const plane = new stukaFile.default()
+  plane.position.set(-55, plane.position.y, -55 + i * 12)
   scene.add(plane.mesh)
   plane.name = 'enemy'
   aircraft.push(plane)
