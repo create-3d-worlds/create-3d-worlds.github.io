@@ -7,22 +7,24 @@ import Score from '/utils/io/Score.js'
 import { createAirport } from '/utils/city.js'
 import { loadModel } from '/utils/loaders.js'
 
+const mapSize = 200
 const aircraft = []
 const enemies = []
+const solids = []
 
 hemLight({ intensity: .75 })
 
 const ground = createGround({ file: 'terrain/ground.jpg' })
 ground.position.y -= .1
 scene.add(ground)
-scene.add(createFloor({ size: 200 }))
+scene.add(createFloor({ size: mapSize, file: 'terrain/asphalt.jpg' }))
 
-const coords = getEmptyCoords({ mapSize: 200})
-
-const player = new FPSPlayer({ camera, goal: 'Destroy all enemy aircraft.' })
-scene.add(player.mesh)
-
+const coords = getEmptyCoords({ mapSize })
 const score = new Score({ subtitle: 'Aircraft left', total: aircraft.length })
+
+const player = new FPSPlayer({ camera, goal: 'Destroy all enemy aircraft.', pos: [100, 0, 0] })
+player.lookAt(scene.position)
+scene.add(player.mesh)
 
 /* UTILS */
 
@@ -85,20 +87,25 @@ airport2.translateX(25)
 
 const bunker = await loadModel({ file: 'building/bunker.fbx', size: 3 })
 bunker.position.set(50, 0, 25)
-addTexture(bunker, 'terrain/beton.gif')
+addTexture(bunker, 'terrain/concrete.jpg')
 
 scene.add(airport, airport2, bunker)
-player.addSolids([airport, airport2, bunker])
+solids.push(airport, airport2, bunker)
+player.addSolids(solids)
 
 /* SOLDIERS */
 
 const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer']
+for (let i = 0; i < 10; i++) {
+  const name = sample(soldiers)
+  const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
+  const EnemyClass = obj[name + 'AI']
+  const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh, mapSize })
+  addEnemy(enemy, enemies)
+  enemy.addSolids(solids)
+}
 
-// for (let i = 0; i < 10; i++) {
-//   const name = sample(soldiers)
-//   const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
-//   const EnemyClass = obj[name + 'AI']
-//   const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh })
-//   addEnemy(enemy, enemies)
-//   enemy.addSolids([airport, airport2]) // možda i ne? da ne ostanu unutra
-// }
+const obj = await import('/utils/actor/derived/Tank.js')
+const tank = new obj.TankAI({ mapSize })
+addEnemy(tank, enemies)
+tank.addSolids(solids)

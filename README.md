@@ -16,9 +16,10 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Airport
-  - dodati tenk i slično
   - probati 3D model igrača
   - dodati pobedu / poraz
+  - srediti random coords za vojnike da se ne preklapaju sa zgradama
+  - intro na pisaćoj mašini
 
 - RPG / Fantasy
   - napraviti scenu sa ravnim tlom
