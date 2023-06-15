@@ -11,6 +11,7 @@ export default class Building extends GameObject {
       this.fire = new obj.Fire()
       this.add(this.fire.mesh)
       this.fire.mesh.position.y += this.height * .5
+      this.fire.mesh.position.z -= this.depth * .5
     })
   }
 
@@ -19,7 +20,7 @@ export default class Building extends GameObject {
 
     this.applyDamage()
 
-    if (!this.fire) this.addFire()
+    if (this.energy <= 0 && !this.fire) this.addFire()
   }
 
   update(delta) {

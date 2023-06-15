@@ -15,7 +15,7 @@ import SpecialState from './SpecialState.js'
 
 const chooseJumpState = jumpStyle => {
   switch (jumpStyle) {
-    case jumpStyles.FALSE_JUMP: return JumpState
+    case jumpStyles.ANIM_JUMP: return JumpState
     case jumpStyles.FLY_JUMP: return JumpFlyState
     case jumpStyles.FLY: return FlyState
     case jumpStyles.DOUBLE_JUMP: return DoubleJumpState

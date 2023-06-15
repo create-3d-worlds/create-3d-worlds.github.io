@@ -78,9 +78,11 @@ for (let i = 0; i < 7; i++) { // back
 /* OBJECTS */
 
 const towerFile = await import('/utils/objects/Tower.js')
+
 ;[[-75, -75], [-75, 75], [75, -75], [75, 75]].forEach(async coord => {
   const tower = new towerFile.default({ range: 50, interval: 1500, damage: 10, damageDistance: 1 })
   tower.position.set(coord[0], tower.position.y, coord[1])
+  tower.name = 'enemy'
   towers.push(tower)
   scene.add(tower.mesh)
 })

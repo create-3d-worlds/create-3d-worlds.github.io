@@ -2,7 +2,7 @@ import Player from '/utils/actor/Player.js'
 import FPSRenderer from '/utils/actor/FPSRenderer.js'
 import { camera as defaultCamera } from '/utils/scene.js'
 import { getCameraIntersects } from '/utils/helpers.js'
-import { attackStyles } from '/utils/constants.js'
+import { attackStyles, jumpStyles } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry/index.js'
 
 export default class FPSPlayer extends Player {
@@ -17,6 +17,7 @@ export default class FPSPlayer extends Player {
     super({
       mesh: createPlayerBox({ visible: false }),
       attackStyle: attackStyles.ONCE,
+      jumpStyle: jumpStyles.FLY_JUMP,
       attackDistance: 100,
       useRicochet: true,
       attackSound,

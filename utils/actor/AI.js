@@ -16,7 +16,7 @@ const pursueStates = [baseStates.idle, baseStates.patrol, baseStates.wander]
 export default class AI extends Actor {
   constructor({
     speed = 1.8,
-    jumpStyle = jumpStyles.FALSE_JUMP,
+    jumpStyle = jumpStyles.ANIM_JUMP,
     attackStyle = attackStyles.LOOP,
     baseState = baseStates.wander,
     sightDistance = 25,

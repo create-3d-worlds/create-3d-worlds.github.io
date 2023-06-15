@@ -11,7 +11,7 @@ export default class Player extends Actor {
     input = defaultKeyboard,
     useJoystick,
     attackStyle = attackStyles.LOOP,
-    jumpStyle = jumpStyles.FALSE_JUMP,
+    jumpStyle = jumpStyles.ANIM_JUMP,
     getState = name => getPlayerState(name, jumpStyle, attackStyle),
     shouldRaycastGround = true,
     attackDistance = 1.5,
