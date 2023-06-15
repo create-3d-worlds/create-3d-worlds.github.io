@@ -1,7 +1,7 @@
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createGround, createFloor } from '/utils/ground.js'
 import { sample, getEmptyCoords, addTexture } from '/utils/helpers.js'
-import { hemLight } from '/utils/light.js'
+import { createSun } from '/utils/light.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import Score from '/utils/io/Score.js'
 import { createAirport } from '/utils/city.js'
@@ -12,14 +12,14 @@ const aircraft = []
 const enemies = []
 const solids = []
 
-hemLight({ intensity: .75 })
+scene.add(createSun())
 
 const ground = createGround({ file: 'terrain/ground.jpg' })
 ground.position.y -= .1
 scene.add(ground)
 scene.add(createFloor({ size: mapSize, file: 'terrain/asphalt.jpg' }))
 
-const coords = getEmptyCoords({ mapSize })
+const coords = getEmptyCoords({ mapSize: mapSize * .5 })
 const score = new Score({ subtitle: 'Aircraft left', total: aircraft.length })
 
 const player = new FPSPlayer({ camera, goal: 'Destroy all enemy aircraft.', pos: [100, 0, 0] })
@@ -79,14 +79,14 @@ const towerFile = await import('/utils/objects/Tower.js')
 })
 
 const airport = createAirport()
-airport.translateX(50)
+airport.translateX(75)
 airport.rotateY(Math.PI * .5)
 
 const airport2 = airport.clone()
 airport2.translateX(25)
 
 const bunker = await loadModel({ file: 'building/bunker.fbx', size: 3 })
-bunker.position.set(50, 0, 25)
+bunker.position.set(75, 0, 25)
 addTexture(bunker, 'terrain/concrete.jpg')
 
 scene.add(airport, airport2, bunker)
