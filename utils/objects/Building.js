@@ -1,8 +1,8 @@
 import GameObject from '/utils/objects/GameObject.js'
 
 export default class Building extends GameObject {
-  constructor({ name = 'building', ...rest } = {}) {
-    super({ name, ...rest })
+  constructor({ name = 'building', energy = 150, ...rest } = {}) {
+    super({ name, energy, ...rest })
   }
 
   addFire() {

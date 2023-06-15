@@ -189,18 +189,6 @@ export class Explosion extends Particles {
   }
 }
 
-export class Fire extends Particles {
-  constructor({ file = 'fire.png', num = 100, size = 30, opacity = .7, minRadius = 1.5, maxRadius = 3, color = 0xffffff } = {}) {
-    super({ file, num, size, opacity, minRadius, maxRadius, color, blending: THREE.NormalBlending })
-    this.mesh.rotateX(Math.PI)
-  }
-
-  update({ rotateY = .009, min = -8, max = 4, minVelocity = 1.5, maxVelocity = 5, ...rest } = {}) {
-    super.update({ axis: 1, rotateY, min, max, minVelocity, maxVelocity, ...rest })
-
-  }
-}
-
 export class Flame extends Particles {
   constructor({ file = 'fire.png', size = 5, num = 50, minRadius = 0, maxRadius = .5, ...rest } = {}) {
     super({ num, file, size, minRadius, maxRadius, ...rest })
@@ -217,6 +205,17 @@ export class RedFlame extends Flame {
   }
 }
 
+export class Fire extends Particles {
+  constructor({ file = 'fire.png', num = 100, size = 30, opacity = .7, minRadius = 1.5, maxRadius = 3, color = 0xffffff } = {}) {
+    super({ file, num, size, opacity, minRadius, maxRadius, color, blending: THREE.NormalBlending })
+    this.mesh.rotateX(Math.PI)
+  }
+
+  update({ rotateY = .009, min = -8, max = 4, minVelocity = 1.5, maxVelocity = 5, ...rest } = {}) {
+    super.update({ axis: 1, rotateY, min, max, minVelocity, maxVelocity, ...rest })
+  }
+}
+
 export class Smoke extends Particles {
   constructor({ file = 'smoke.png', size = 1, num = 100, minRadius = 0, maxRadius = .5, color = 0x999999, blending = THREE.NormalBlending, ...rest } = {}) {
     super({ num, file, size, minRadius, maxRadius, color, blending, ...rest })
@@ -225,5 +224,15 @@ export class Smoke extends Particles {
 
   update({ rotateY = .009, min = -4, max = 0, minVelocity = 2, maxVelocity = 5, ...rest } = {}) {
     super.update({ rotateY, min, max, minVelocity, maxVelocity, axis: 1, ...rest })
+  }
+}
+
+export class BigSmoke extends Smoke {
+  constructor() {
+    super({ size: 10, opacity: .7, minRadius: 1.5, maxRadius: 3 })
+  }
+
+  update({ min = -8, max = 4, minVelocity = 1.5, ...rest } = {}) {
+    super.update({ min, max, minVelocity, ...rest })
   }
 }
