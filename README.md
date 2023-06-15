@@ -17,7 +17,6 @@ npx live-server
 
 - FPS / Airport
   - cilj: uništi sve avione
-    - brojati uništene avione
   - dodati fabriku, ratne zgrade, tenk, bunker i slično
   - probati 3D model igrača
 

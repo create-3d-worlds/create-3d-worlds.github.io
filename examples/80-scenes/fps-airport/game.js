@@ -22,7 +22,7 @@ scene.add(createFloor({ size: 200 }))
 const player = new FPSPlayer({ camera, goal: 'Destroy all aircraft.' })
 scene.add(player.mesh)
 
-const score = new Score({ subtitle: 'Enemy left', total: enemies.length })
+const score = new Score({ subtitle: 'Aircraft left', total: aircraft.length })
 
 /* LOOP */
 
@@ -31,8 +31,8 @@ renderer.setAnimationLoop(() => {
   if (!document.pointerLockElement) return
   const delta = clock.getDelta()
 
-  const killed = enemies.filter(enemy => enemy.energy <= 0)
-  score.render(killed.length, enemies.length - killed.length)
+  const killed = aircraft.filter(plane => plane.energy <= 0)
+  score.render(killed.length, aircraft.length - killed.length)
 
   player.update(delta)
   towers.forEach(tower => tower.update(delta))
@@ -48,8 +48,8 @@ for (let i = 0; i < 10; i++) {
   const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
   const EnemyClass = obj[name + 'AI']
   const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh })
-  enemies.push(enemy)
   scene.add(enemy.mesh)
+  enemies.push(enemy)
 }
 
 /* AIRCRAFT */
@@ -59,6 +59,7 @@ for (let i = 0; i < 8; i++) { // left
   const stuka = new stukaFile.default()
   stuka.position.set(-55, stuka.position.y, -55 + i * 12)
   scene.add(stuka.mesh)
+  aircraft.push(stuka)
 }
 
 const dornierFile = await import('/utils/objects/DornierBomber.js')
@@ -66,6 +67,7 @@ for (let i = 0; i < 8; i++) { // front
   const dornier = new dornierFile.default()
   dornier.position.set(-50 + i * 15, dornier.position.y, -75)
   scene.add(dornier.mesh)
+  aircraft.push(dornier)
 }
 
 const heinkelFile = await import('/utils/objects/HeinkelBomber.js')
@@ -73,6 +75,7 @@ for (let i = 0; i < 7; i++) { // back
   const heinkel = new heinkelFile.default()
   heinkel.position.set(-50 + i * 18, heinkel.position.y, 50)
   scene.add(heinkel.mesh)
+  aircraft.push(heinkel)
 }
 
 /* OBJECTS */
