@@ -206,7 +206,7 @@ export class RedFlame extends Flame {
 }
 
 export class Fire extends Particles {
-  constructor({ file = 'fire.png', num = 100, size = 30, opacity = .7, minRadius = 1.5, maxRadius = 3, color = 0xffffff } = {}) {
+  constructor({ file = 'fire.png', num = 30, size = 30, opacity = .7, minRadius = 1.5, maxRadius = 3, color = 0xffffff } = {}) {
     super({ file, num, size, opacity, minRadius, maxRadius, color, blending: THREE.NormalBlending })
     this.mesh.rotateX(Math.PI)
   }
