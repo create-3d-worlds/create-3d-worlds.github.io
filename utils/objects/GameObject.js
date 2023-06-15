@@ -91,4 +91,14 @@ export default class GameObject {
     this.energy -= this.hitAmount
     this.hitAmount = 0
   }
+
+  checkHit() {
+    if (this.hitAmount) this.applyDamage()
+  }
+
+  /* UPDATE */
+
+  update() {
+    this.checkHit()
+  }
 }

@@ -16,15 +16,13 @@ export default class Building extends GameObject {
   }
 
   checkHit() {
-    if (!this.hitAmount) return
-
-    this.applyDamage()
+    super.checkHit()
 
     if (this.energy <= 0 && !this.fire) this.addFire()
   }
 
   update(delta) {
-    this.checkHit()
+    super.update()
     this.fire?.update({ delta })
   }
 }
