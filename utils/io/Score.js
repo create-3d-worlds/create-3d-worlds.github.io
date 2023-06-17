@@ -1,7 +1,6 @@
 const getStyle = (color, stroke) => /* css */`
   .score, .central {
     color: ${color};
-    font-family: Verdana;
     text-shadow: -1px -1px 0 ${stroke}, 1px -1px 0 ${stroke}, -1px  1px 0 ${stroke}, 1px  1px 0 ${stroke};
     user-select: none;
   }

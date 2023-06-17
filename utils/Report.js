@@ -22,7 +22,7 @@ function createHtml(container) {
 
   const div = document.createElement('div')
   div.setAttribute('style', divStyle)
-  container.appendChild(div)
+  container.prepend(div)
 
   const p = document.createElement('p')
   p.setAttribute('style', pStyle)

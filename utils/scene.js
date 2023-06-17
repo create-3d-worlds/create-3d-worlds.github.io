@@ -23,7 +23,11 @@ export const renderer = new THREE.WebGLRenderer({
   antialias: true
 })
 
-document.body.style.margin = 0
+const bodyStyle = `
+  margin: 0;
+  font-family: Verdana;
+`
+document.body.setAttribute('style', bodyStyle)
 const container = document.getElementById('container') || document.body
 container.appendChild(renderer.domElement)
 renderer.setSize(window.innerWidth, window.innerHeight)

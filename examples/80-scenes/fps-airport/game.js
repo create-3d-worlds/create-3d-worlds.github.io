@@ -12,6 +12,7 @@ const mapSize = 200
 const aircraft = []
 const enemies = []
 const solids = []
+const dornierNum = 8, stukaNum = 8, heinkelNum = 7
 
 scene.add(createSun())
 
@@ -21,7 +22,7 @@ scene.add(ground)
 scene.add(createFloor({ size: mapSize, file: 'terrain/asphalt.jpg' }))
 
 const coords = getEmptyCoords({ mapSize: mapSize * .5 })
-const score = new Score({ subtitle: 'Aircraft left', total: aircraft.length })
+const score = new Score({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + heinkelNum })
 
 const player = new FPSPlayer({ camera, pos: [100, 0, 0] })
 player.lookAt(scene.position)
@@ -58,19 +59,19 @@ renderer.setAnimationLoop(() => {
 /* AIRCRAFT */
 
 const dornierFile = await import('/utils/objects/DornierBomber.js')
-for (let i = 0; i < 8; i++) { // front
+for (let i = 0; i < dornierNum; i++) { // front
   const plane = new dornierFile.default({ pos: [-50 + i * 15, 0, -75] })
   addEnemy(plane, aircraft)
 }
 
 const stukaFile = await import('/utils/objects/JunkersStuka.js')
-for (let i = 0; i < 8; i++) { // left
+for (let i = 0; i < stukaNum; i++) { // left
   const plane = new stukaFile.default({ pos: [-55, 0, -55 + i * 12] })
   addEnemy(plane, aircraft)
 }
 
 const heinkelFile = await import('/utils/objects/HeinkelBomber.js')
-for (let i = 0; i < 7; i++) { // back
+for (let i = 0; i < heinkelNum; i++) { // back
   const plane = new heinkelFile.default({ pos: [-50 + i * 18, 0, 50] })
   addEnemy(plane, aircraft)
 }
