@@ -18,6 +18,7 @@ function createHtml(container) {
   padding-left: 15%;
   padding-right: 15%;
   padding-top: 12em;
+  margin: 0;
 `
 
   const div = document.createElement('div')

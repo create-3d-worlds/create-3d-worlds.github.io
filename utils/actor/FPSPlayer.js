@@ -57,7 +57,7 @@ export default class FPSPlayer extends Player {
   addPointerLock() {
     const innerHTML = /* html */`
     <div>
-      ${this.goal ? `<h3 style="color:crimson">${this.goal}<h3>` : ''}
+      ${this.goal ? `<h4 style="color:crimson;margin:0">${this.goal}<h4>` : ''}
       <h2>Click to start</h2>
       Shoot: MOUSE<br />
       Move: WASD or ARROWS<br />
@@ -71,7 +71,7 @@ export default class FPSPlayer extends Player {
       transform: translate(-50%, -50%);
       background-color: rgba(242, 242, 242, 0.8);
       border: 3px dashed black;
-      padding: 0 40px 40px 40px;
+      padding: 20px 20px 20px 20px;
       text-align: center;
       cursor: crosshair;
     `
