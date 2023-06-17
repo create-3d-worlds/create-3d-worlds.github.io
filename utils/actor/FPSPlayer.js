@@ -58,8 +58,7 @@ export default class FPSPlayer extends Player {
     const innerHTML = /* html */`
     <div>
       ${this.goal ? `<h3 style="color:crimson">${this.goal}<h3>` : ''}
-      <h1>Click to start</h1>
-
+      <h2>Click to start</h2>
       Shoot: MOUSE<br />
       Move: WASD or ARROWS<br />
       Run: CAPSLOCK

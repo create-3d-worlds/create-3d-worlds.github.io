@@ -16,7 +16,7 @@ npx live-server
 ### Scenes & examples
 
 - FPS / Airport
-  - dodati pobedu / poraz
+  - dodati poraz
   - play again btn
 
 - RPG / Fantasy

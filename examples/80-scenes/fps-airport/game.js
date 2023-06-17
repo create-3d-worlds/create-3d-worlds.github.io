@@ -47,6 +47,9 @@ renderer.setAnimationLoop(() => {
   const destroyed = aircraft.filter(plane => plane.energy <= 0)
   score.render(destroyed.length, aircraft.length - destroyed.length)
 
+  if (destroyed.length == aircraft.length)
+    score.renderText('Congratulations!<br>All enemy planes were destroyed.')
+
   player.update(delta)
   enemies.forEach(obj => obj.update(delta))
   aircraft.forEach(obj => obj.update(delta))
