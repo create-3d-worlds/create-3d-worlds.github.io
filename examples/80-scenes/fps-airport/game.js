@@ -6,6 +6,7 @@ import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import Score from '/utils/io/Score.js'
 import { createAirport } from '/utils/city.js'
 import { loadModel } from '/utils/loaders.js'
+import Report from '/utils/Report.js'
 
 const mapSize = 200
 const aircraft = []
@@ -22,9 +23,11 @@ scene.add(createFloor({ size: mapSize, file: 'terrain/asphalt.jpg' }))
 const coords = getEmptyCoords({ mapSize: mapSize * .5 })
 const score = new Score({ subtitle: 'Aircraft left', total: aircraft.length })
 
-const player = new FPSPlayer({ camera, goal: 'Destroy all enemy aircraft.', pos: [100, 0, 0] })
+const player = new FPSPlayer({ camera, pos: [100, 0, 0] })
 player.lookAt(scene.position)
 scene.add(player.mesh)
+
+new Report({ container: document.getElementById('popup'), text: 'The German planes that sow death among our combatants are stationed at the Rajlovac Airport near Sarajevo.\n\nEnter the airport and destroy all enemy aircraft.' })
 
 /* UTILS */
 

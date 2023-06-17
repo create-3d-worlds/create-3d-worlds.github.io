@@ -55,7 +55,7 @@ export default class FPSPlayer extends Player {
   /* UTILS */
 
   addPointerLock() {
-    const html = /* html */`
+    const innerHTML = /* html */`
     <div>
       ${this.goal ? `<h3 style="color:crimson">${this.goal}<h3>` : ''}
       <h1>Click to start</h1>
@@ -77,7 +77,8 @@ export default class FPSPlayer extends Player {
       cursor: crosshair;
     `
     const div = document.createElement('div')
-    div.innerHTML = html
+    div.id = 'popup'
+    div.innerHTML = innerHTML
     div.setAttribute('style', css)
     document.body.appendChild(div)
 
