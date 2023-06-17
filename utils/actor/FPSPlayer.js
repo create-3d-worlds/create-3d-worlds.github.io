@@ -76,16 +76,15 @@ export default class FPSPlayer extends Player {
       text-align: center;
       cursor: crosshair;
     `
-    const div = document.createElement('div')
-    div.id = 'popup'
-    div.innerHTML = innerHTML
-    div.setAttribute('style', css)
-    document.body.appendChild(div)
+    this.div = document.createElement('div')
+    this.div.innerHTML = innerHTML
+    this.div.setAttribute('style', css)
+    document.body.appendChild(this.div)
 
-    div.addEventListener('click', document.body.requestPointerLock)
+    this.div.addEventListener('click', document.body.requestPointerLock)
 
     document.addEventListener('pointerlockchange', () => {
-      div.style.display = document.pointerLockElement ? 'none' : 'block'
+      this.div.style.display = document.pointerLockElement ? 'none' : 'block'
     })
 
     document.addEventListener('mousemove', e => this.moveCursor(e))
