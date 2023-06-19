@@ -16,9 +16,7 @@ npx live-server
 ### Scenes & examples
 
 - RPG / Fantasy
-  - BUG: napadač prilazi i secka
-  - napraviti scenu sa ravnim tlom
-  - karakter dolazi do kuće i ulazi (vidi house model primer)
+  - dodati cilj i poene?
 
 - Avatar
   - pre početka scene izbor skina za avatar?

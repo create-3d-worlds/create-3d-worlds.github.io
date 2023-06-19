@@ -4,12 +4,8 @@ import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { createSun } from '/utils/light.js'
 import { sample, getEmptyCoords, putOnSolids } from '/utils/helpers.js'
 import { BarbarianPlayer } from '/utils/actor/derived/fantasy/Barbarian.js'
-import { OrcAI } from '/utils/actor/derived/fantasy/Orc.js'
-import { OrcOgreAI } from '/utils/actor/derived/fantasy/OrcOgre.js'
-import { FlamingoAI } from '/utils/actor/derived/Flamingo.js'
 import { ZeppelinAI } from '/utils/actor/derived/Zeppelin.js'
 import { loadModel } from '/utils/loaders.js'
-import Cloud from '/utils/objects/Cloud.js'
 
 const mapSize = 400
 const npcs = []
@@ -39,25 +35,6 @@ npcs.push(airship)
 const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera })
 scene.add(player.mesh)
 
-for (let i = 0; i < 20; i++) {
-  const Enemy = sample([OrcAI, OrcOgreAI])
-  const enemy = new Enemy({ pos: coords.pop(), target: player.mesh, mapSize, solids, shouldRaycastGround: true })
-  npcs.push(enemy)
-  scene.add(enemy.mesh)
-}
-
-for (let i = 0; i < 10; i++) {
-  const bird = new FlamingoAI({ mapSize, pos: coords.pop() })
-  npcs.push(bird)
-  scene.add(bird.mesh)
-}
-
-for (let i = 0; i < 5; i++) {
-  const cloud = new Cloud({ mapSize, pos: coords.pop() })
-  npcs.push(cloud)
-  scene.add(cloud.mesh)
-}
-
 /* LOOP */
 
 void function loop() {
@@ -69,3 +46,29 @@ void function loop() {
 
   renderer.render(scene, camera)
 }()
+
+/* LAZY LOAD */
+
+const orcs = ['Orc', 'OrcOgre']
+for (let i = 0; i < 20; i++) {
+  const name = sample(orcs)
+  const obj = await import(`/utils/actor/derived/fantasy/${name}.js`)
+  const Enemy = obj[name + 'AI']
+  const enemy = new Enemy({ pos: coords.pop(), target: player.mesh, mapSize, solids, shouldRaycastGround: true })
+  npcs.push(enemy)
+  scene.add(enemy.mesh)
+}
+
+const flamingoFile = await import('/utils/actor/derived/Flamingo.js')
+for (let i = 0; i < 10; i++) {
+  const bird = new flamingoFile.FlamingoAI ({ mapSize, pos: coords.pop() })
+  npcs.push(bird)
+  scene.add(bird.mesh)
+}
+
+const cloudFile = await import('/utils/objects/Cloud.js')
+for (let i = 0; i < 5; i++) {
+  const cloud = new cloudFile.default({ mapSize, pos: coords.pop() })
+  npcs.push(cloud)
+  scene.add(cloud.mesh)
+}
