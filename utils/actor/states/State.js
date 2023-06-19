@@ -23,7 +23,7 @@ export default class State {
   /* FSM */
 
   enter(oldState, oldAction) {
-    // if (this.actor.name == 'enemy') console.log(this.name)
+    // if (this.actor.name == 'player') console.log(this.name, this.action)
     this.prevState = oldState?.name
     if (this.action) this.action.enabled = true
   }
@@ -37,11 +37,13 @@ export default class State {
   findActiveAction(prevAction) {
     if (prevAction) return prevAction
     const { mixer } = this.actor
-    const othersActive = mixer?._actions.filter(action => action.isRunning() && action !== this.action)
 
+    const othersActive = mixer?._actions.filter(action => action.isRunning() && action !== this.action)
     const first = othersActive.shift()
-    // if (othersActive.length > 1) mixer.stopAllAction()
-    othersActive.forEach(action => action.stop())
+
+    if (!first) mixer.stopAllAction()
+    else othersActive.forEach(action => action.stop())
+
     return first
   }
 

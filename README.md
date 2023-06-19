@@ -15,11 +15,8 @@ npx live-server
 
 ### Scenes & examples
 
-- FPS / Airport
-  - dodati poraz
-  - play again btn
-
 - RPG / Fantasy
+  - BUG: napadač prilazi i secka
   - napraviti scenu sa ravnim tlom
   - karakter dolazi do kuće i ulazi (vidi house model primer)
 
