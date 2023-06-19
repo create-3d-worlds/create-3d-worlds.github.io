@@ -5,6 +5,7 @@ import { createSun } from '/utils/light.js'
 import { sample, getEmptyCoords, putOnSolids } from '/utils/helpers.js'
 import { BarbarianPlayer } from '/utils/actor/derived/fantasy/Barbarian.js'
 import { loadModel } from '/utils/loaders.js'
+import Score from '/utils/io/Score.js'
 
 const mapSize = 400
 const npcs = []
@@ -29,6 +30,8 @@ const solids = [terrain, castle]
 const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera })
 scene.add(player.mesh)
 
+const score = new Score({ title: 'Orcs killed', subtitle: 'Orcs left' })
+
 /* LOOP */
 
 void function loop() {
@@ -37,6 +40,9 @@ void function loop() {
   const delta = clock.getDelta()
   player.update(delta)
   npcs.forEach(enemy => enemy.update(delta))
+
+  const killed = player.enemies.filter(enemy => enemy.userData.energy <= 0)
+  score.render(killed.length, player.enemies.length - killed.length)
 
   renderer.render(scene, camera)
 }()
