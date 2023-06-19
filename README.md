@@ -16,13 +16,12 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / random-boxes
-  - BUG: ne mrdaju platforme
-  - spojiti sa avatar-towers?
-  - pre početka scene izbor skina za avatar?
+  - BUG: ne mrdaju platforme ponekad
+  - lava da skida energiju (osim kad je lava skin)
+  - pre početka scene biranje skin za avatar?
 
-- Avatar towers
-  - dodati novčiće na stepenice?
-  - ograničiti vreme?
+- stairway girl
+  - merge with avatar-towers
 
 - Barbarian
   - dodati spomenik viteza

@@ -1,14 +1,12 @@
 import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { createSkySphere } from '/utils/geometry/index.js'
-import { createStairway, createBabelTower, createBaradDur, createRingTower } from '/utils/geometry/towers.js'
+import { createStairway, createBabelTower, createDarkTower, createRingTower } from '/utils/geometry/towers.js'
 import { createTerrain, createLava, createGround } from '/utils/ground.js'
 import { hemLight, dirLight } from '/utils/light.js'
 import Avatar from '/utils/actor/Avatar.js'
 
 const mapSize = 1000
 
-scene.add(await createSkySphere())
-hemLight({ intensity: 1 }) // createSun pravi bug prilikom letenja
+hemLight() // createSun + some geometry creates flying bug
 dirLight({ intensity: .25 })
 
 const terrain = createTerrain({ size: mapSize })
@@ -31,13 +29,13 @@ const lavaBottom = createGround({ size: 50 })
 lavaBottom.translateY(3.5)
 scene.add(lavaBottom)
 
-const baradDur = createBaradDur()
-baradDur.position.set(-150, 0, 150)
+const darkTower = createDarkTower()
+darkTower.position.set(-150, 0, 150)
 
 const spaceTower = createRingTower()
 spaceTower.position.set(-150, 0, -150)
 
-const solids = [terrain, stairsRight, stairsLeft, babelTower, baradDur, spaceTower, lavaBottom]
+const solids = [terrain, stairsRight, stairsLeft, babelTower, darkTower, spaceTower, lavaBottom]
 scene.add(...solids, lava)
 
 /* PLAYER */

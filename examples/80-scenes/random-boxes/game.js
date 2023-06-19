@@ -1,6 +1,6 @@
 import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { createRandomBoxes } from '/utils/geometry/index.js'
-import { createGround } from '/utils/ground.js'
+import { createRandomBoxes, createSkySphere } from '/utils/geometry/index.js'
+import { createGround, createLava } from '/utils/ground.js'
 import { hemLight, createSun } from '/utils/light.js'
 import Avatar from '/utils/actor/Avatar.js'
 import Coin from '/utils/objects/Coin.js'
@@ -13,6 +13,7 @@ const platforms = []
 
 hemLight()
 scene.add(createSun({ intensity: .25 }))
+scene.add(await createSkySphere())
 
 const floor = createGround({ file: 'terrain/ground.jpg' })
 scene.add(floor)
@@ -49,6 +50,10 @@ const messageDict = {
 }
 const score = new Score({ title: 'POINTS', subtitle: 'coins left', total: coins.length, endText: 'BRAVO!<br>You have collected all coins', messageDict })
 
+const lava = await createLava({ size: 50 })
+lava.translateY(.1)
+scene.add(lava)
+
 /* FUNCTIONS */
 
 function checkCollision(coin) {
@@ -60,14 +65,19 @@ function checkCollision(coin) {
 
 /* LOOP */
 
+let time = 0
+
 void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
+  time += delta
+
   player.update(delta)
   coins.forEach(coin => {
     coin.update(delta)
     checkCollision(coin)
   })
   platforms.forEach(platform => platform.update(delta))
+  lava.material.uniforms.time.value = time * .5
   renderer.render(scene, camera)
 }()

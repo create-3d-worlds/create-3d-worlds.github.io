@@ -29,7 +29,7 @@ export function createBabelTower({ floors = 5, size = 10, r = 50 } = {}) {
   return group
 }
 
-export function createBaradDur({ floors = 6, size = 20, r = 5 } = {}) {
+export function createDarkTower({ floors = 6, size = 20, r = 5 } = {}) {
   const group = new THREE.Group()
   for (let i = 0; i < floors; i++)
     group.add(...createCircle({ r: r - i * 5, y: i * size * .5, size, color: 0x444444 }))
