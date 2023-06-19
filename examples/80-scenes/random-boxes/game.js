@@ -7,7 +7,7 @@ import Coin from '/utils/objects/Coin.js'
 import Score from '/utils/io/Score.js'
 import Platform from '/utils/objects/Platform.js'
 
-const numBoxes = 400
+const numBoxes = 400, mapSize = 200, lavaSize = 50
 const numCoins = numBoxes / 4
 const platforms = []
 
@@ -17,7 +17,7 @@ scene.add(await createSkySphere())
 
 const floor = createGround({ file: 'terrain/ground.jpg' })
 scene.add(floor)
-const boxes = createRandomBoxes({ n: numBoxes, mapSize: 200 })
+const boxes = createRandomBoxes({ n: numBoxes, mapSize })
 scene.add(...boxes)
 
 const coins = []
@@ -50,7 +50,7 @@ const messageDict = {
 }
 const score = new Score({ title: 'POINTS', subtitle: 'coins left', total: coins.length, endText: 'BRAVO!<br>You have collected all coins', messageDict })
 
-const lava = await createLava({ size: 50 })
+const lava = await createLava({ size: lavaSize })
 lava.translateY(.1)
 scene.add(lava)
 
@@ -62,6 +62,10 @@ function checkCollision(coin) {
   scene.remove(coin.mesh)
   score.update(1, coins.length)
 }
+
+const withinCircle = position => Math.pow(position.x, 2) + Math.pow(position.z, 2) < Math.pow(lavaSize, 2)
+
+const inLava = () => player.onGround && withinCircle(player.position)
 
 /* LOOP */
 
@@ -77,6 +81,7 @@ void function loop() {
     coin.update(delta)
     checkCollision(coin)
   })
+  console.log(inLava())
   platforms.forEach(platform => platform.update(delta))
   lava.material.uniforms.time.value = time * .5
   renderer.render(scene, camera)

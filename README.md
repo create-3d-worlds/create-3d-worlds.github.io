@@ -16,8 +16,7 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / random-boxes
-  - BUG: ne mrdaju platforme ponekad
-  - lava da skida energiju (osim kad je lava skin)
+  - lava da skida energiju
   - pre početka scene biranje skin za avatar?
 
 - stairway girl
