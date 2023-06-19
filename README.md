@@ -15,9 +15,6 @@ npx live-server
 
 ### Scenes & examples
 
-- RPG / Fantasy
-  - dodati motivacione poruke?
-
 - Avatar
   - pre početka scene izbor skina za avatar?
 

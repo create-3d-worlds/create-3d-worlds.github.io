@@ -30,9 +30,16 @@ const solids = [terrain, castle]
 const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera })
 scene.add(player.mesh)
 
-const score = new Score({ title: 'Orcs killed', subtitle: 'Orcs left' })
+const messageDict = {
+  1: 'You killed the first Orc. Free the land from their vile presence!',
+  10: 'You killed half the vile creatures',
+  19: 'You smell victory in the air...',
+}
+const score = new Score({ title: 'Orcs killed', subtitle: 'Orcs left', messageDict })
 
 /* LOOP */
+
+let loaded = false
 
 void function loop() {
   requestAnimationFrame(loop)
@@ -42,7 +49,7 @@ void function loop() {
   npcs.forEach(enemy => enemy.update(delta))
 
   const killed = player.enemies.filter(enemy => enemy.userData.energy <= 0)
-  score.render(killed.length, player.enemies.length - killed.length)
+  if (loaded) score.render(killed.length, player.enemies.length - killed.length)
 
   renderer.render(scene, camera)
 }()
@@ -57,6 +64,7 @@ for (let i = 0; i < 20; i++) {
   const enemy = new Enemy({ pos: coords.pop(), target: player.mesh, mapSize, solids, shouldRaycastGround: true })
   npcs.push(enemy)
   scene.add(enemy.mesh)
+  loaded = true
 }
 
 const { FlamingoAI } = await import('/utils/actor/derived/Flamingo.js')

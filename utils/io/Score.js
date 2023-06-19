@@ -35,14 +35,6 @@ const getStyle = (color, stroke) => /* css */`
   }
 `
 
-const defaultDict = {
-  1: 'Well, that\'s a good start!',
-  10: 'Keep up the good work!',
-  25: 'Nice result so far...',
-  50: 'Half down, half to go!',
-  75: 'You smell victory in the air...',
-}
-
 const isNumber = num => typeof num == 'number'
 
 export default class Score {
@@ -53,9 +45,8 @@ export default class Score {
     total,
     color = 'yellow',
     stroke = '#000',
-    messageDict = defaultDict,
+    messageDict,
     endText = 'Bravo!<br>Nothing left',
-    showMessages = false,
     showHighScore = false,
   } = {}) {
     this.points = points
@@ -63,7 +54,6 @@ export default class Score {
     this.subtitle = subtitle
     this.total = total
     this.messageDict = messageDict
-    this.showMessages = showMessages
     this.endText = endText
 
     this.scoreDiv = document.createElement('div')
@@ -88,7 +78,7 @@ export default class Score {
     this.centralDiv.innerHTML = ''
   }
 
-  clearSoon(milliseconds = 1500) {
+  clearSoon(milliseconds = 2000) {
     setTimeout(() => this.clear(), milliseconds)
   }
 
@@ -103,8 +93,8 @@ export default class Score {
     this.clearSoon(milliseconds)
   }
 
-  renderMessage(left) {
-    const message = this.messageDict[this.points]
+  renderMessage(left, points = this.points) {
+    const message = this.messageDict[points]
     if (message) this.renderTempText(message)
     if (left === 0) this.renderText(this.endText)
   }
@@ -122,13 +112,13 @@ export default class Score {
     if (isNumber(energyLeft)) html += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
     if (this.scoreDiv.innerHTML === html) return
     this.scoreDiv.innerHTML = html
+
+    if (this.messageDict) this.renderMessage(enemiesLeft, points)
   }
 
-  update(change = 1, left, energyLeft) {
+  update(change = 1, enemiesLeft, energyLeft) {
     this.points += change
-    this.render(this.points, left, energyLeft)
-
-    if (this.showMessages) this.renderMessage(left)
+    this.render(this.points, enemiesLeft, energyLeft)
 
     if (this.points > this.highScore)
       localStorage.setItem(location.pathname, this.points)

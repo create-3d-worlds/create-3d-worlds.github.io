@@ -40,7 +40,14 @@ const player = new Avatar({ camera, solids, jumpStyle: 'DOUBLE_JUMP' })
 player.chaseCamera.distance = 6
 scene.add(player.mesh)
 
-const score = new Score({ title: 'POINTS', subtitle: 'coins left', total: coins.length, endText: 'BRAVO!<br>You have collected all coins', showMessages: true })
+const messageDict = {
+  1: 'Well, that\'s a good start!',
+  10: 'Keep up the good work!',
+  25: 'Nice result so far...',
+  50: 'Half down, half to go!',
+  75: 'You smell victory in the air...',
+}
+const score = new Score({ title: 'POINTS', subtitle: 'coins left', total: coins.length, endText: 'BRAVO!<br>You have collected all coins', messageDict })
 
 /* FUNCTIONS */
 

@@ -59,7 +59,7 @@ const tank = new Tank({ physicsWorld: world.physicsWorld, camera, pos: { x: 0, y
 
 scene.add(tank.mesh)
 
-const score = new Score({ title: 'Crates left', points: countableCrates.length, subtitle: 'Seconds', total: time, showMessages: false })
+const score = new Score({ title: 'Crates left', points: countableCrates.length, subtitle: 'Seconds', total: time })
 
 /* LOOP */
 
