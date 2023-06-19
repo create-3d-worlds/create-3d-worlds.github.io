@@ -15,7 +15,9 @@ npx live-server
 
 ### Scenes & examples
 
-- Avatar
+- Avatar / random-boxes
+  - BUG: ne mrdaju platforme
+  - spojiti sa avatar-towers?
   - pre početka scene izbor skina za avatar?
 
 - Avatar towers
@@ -23,7 +25,6 @@ npx live-server
   - ograničiti vreme?
 
 - Barbarian
-  - BUG: nakon skoka ostaje ukočena
   - dodati spomenik viteza
 
 - Spomenici
