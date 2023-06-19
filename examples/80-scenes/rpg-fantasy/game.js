@@ -4,7 +4,6 @@ import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { createSun } from '/utils/light.js'
 import { sample, getEmptyCoords, putOnSolids } from '/utils/helpers.js'
 import { BarbarianPlayer } from '/utils/actor/derived/fantasy/Barbarian.js'
-import { ZeppelinAI } from '/utils/actor/derived/Zeppelin.js'
 import { loadModel } from '/utils/loaders.js'
 
 const mapSize = 400
@@ -26,11 +25,6 @@ scene.add(castle)
 const solids = [terrain, castle]
 
 /* ACTORS */
-
-const airship = new ZeppelinAI({ mapSize, solids: terrain })
-
-scene.add(airship.mesh)
-npcs.push(airship)
 
 const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera })
 scene.add(player.mesh)
@@ -59,9 +53,9 @@ for (let i = 0; i < 20; i++) {
   scene.add(enemy.mesh)
 }
 
-const flamingoFile = await import('/utils/actor/derived/Flamingo.js')
+const { FlamingoAI } = await import('/utils/actor/derived/Flamingo.js')
 for (let i = 0; i < 10; i++) {
-  const bird = new flamingoFile.FlamingoAI ({ mapSize, pos: coords.pop() })
+  const bird = new FlamingoAI ({ mapSize, pos: coords.pop() })
   npcs.push(bird)
   scene.add(bird.mesh)
 }
@@ -72,3 +66,8 @@ for (let i = 0; i < 5; i++) {
   npcs.push(cloud)
   scene.add(cloud.mesh)
 }
+
+const { ZeppelinAI } = await import('/utils/actor/derived/Zeppelin.js')
+const airship = new ZeppelinAI({ mapSize, solids: terrain })
+scene.add(airship.mesh)
+npcs.push(airship)
