@@ -75,7 +75,7 @@ export default class ChaseCamera {
 
   addButton() {
     const style = `
-    top: 20px;
+    bottom: 20px;
     right: 20px;
     position: absolute;
     cursor: pointer;

@@ -11,7 +11,7 @@ npx live-server
 
 ## TODO
 
-- prikazivati energiju igrača?
+- BUG: fps pointer lock ne prihvata klik iz prve
 
 ### Scenes & examples
 
@@ -24,6 +24,7 @@ npx live-server
 
 - Barbarian
   - dodati spomenik viteza
+  - BUG: flamingosi proleću kroz brdo
 
 - Spomenici
   - skalirati teren?

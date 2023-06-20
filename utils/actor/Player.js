@@ -18,6 +18,7 @@ export default class Player extends Actor {
     camera,
     ...params
   } = {}) {
+
     super({ name: 'player', input, jumpStyle, getState, shouldRaycastGround, attackDistance, ...params })
 
     if (useJoystick) {
@@ -40,6 +41,7 @@ export default class Player extends Actor {
         this.orbitControls.mouseButtons = { RIGHT: THREE.MOUSE.ROTATE }
       })
     }
+    this.crateHealthBar()
   }
 
   /* GETTERS & SETTERS */
@@ -68,6 +70,21 @@ export default class Player extends Actor {
   }
 
   /* UTILS */
+
+  crateHealthBar() {
+    this.healthBar = document.createElement('progress')
+    this.healthBar.value = this.healthBar.max = this.energy
+    this.healthBar.style.accentColor = 'crimson'
+    this.healthBar.style.position = 'absolute'
+    this.healthBar.style.top = '20px'
+    this.healthBar.style.right = '20px'
+
+    document.body.appendChild(this.healthBar)
+  }
+
+  updateHealthBar() {
+    this.healthBar.value = this.energy
+  }
 
   putInMaze(maze, tile = [1, 1]) {
     this.position = maze.tilePosition(...tile)
@@ -104,5 +121,6 @@ export default class Player extends Actor {
       this.shouldAlignCamera = false
     }
     if (this.chaseCamera) this.updateCamera(delta)
+    this.updateHealthBar()
   }
 }
