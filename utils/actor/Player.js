@@ -15,6 +15,7 @@ export default class Player extends Actor {
     getState = name => getPlayerState(name, jumpStyle, attackStyle),
     shouldRaycastGround = true,
     attackDistance = 1.5,
+    showHealthBar = true,
     camera,
     ...params
   } = {}) {
@@ -41,7 +42,8 @@ export default class Player extends Actor {
         this.orbitControls.mouseButtons = { RIGHT: THREE.MOUSE.ROTATE }
       })
     }
-    this.crateHealthBar()
+
+    if (showHealthBar) this.crateHealthBar()
   }
 
   /* GETTERS & SETTERS */
@@ -121,6 +123,6 @@ export default class Player extends Actor {
       this.shouldAlignCamera = false
     }
     if (this.chaseCamera) this.updateCamera(delta)
-    this.updateHealthBar()
+    if (this.showHealthBar) this.updateHealthBar()
   }
 }
