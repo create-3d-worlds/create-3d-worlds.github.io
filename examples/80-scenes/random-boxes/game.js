@@ -10,6 +10,7 @@ import Platform from '/utils/objects/Platform.js'
 const numBoxes = 400, mapSize = 200, lavaSize = 50
 const numCoins = numBoxes / 4
 const platforms = []
+const coins = []
 
 hemLight()
 scene.add(createSun({ intensity: .25 }))
@@ -19,22 +20,6 @@ const floor = createGround({ file: 'terrain/ground.jpg' })
 scene.add(floor)
 const boxes = createRandomBoxes({ n: numBoxes, mapSize })
 scene.add(...boxes)
-
-const coins = []
-for (let i = 0; i < numCoins; i++) {
-  const pos = boxes[i].position.clone()
-  pos.y += 6.15
-
-  if (Math.random() > .5) {
-    const platform = new Platform({ pos, file: null })
-    platforms.push(platform)
-    scene.add(platform.mesh)
-  }
-
-  const coin = new Coin({ pos })
-  coins.push(coin)
-  scene.add(coin.mesh)
-}
 
 const solids = [floor, ...boxes, ...platforms.map(x => x.mesh)]
 const player = new Avatar({ camera, solids, jumpStyle: 'DOUBLE_JUMP' })
@@ -48,13 +33,19 @@ const messageDict = {
   50: 'Half down, half to go!',
   75: 'You smell victory in the air...',
 }
-const score = new Score({ title: 'POINTS', subtitle: 'coins left', total: coins.length, endText: 'BRAVO!<br>You have collected all coins', messageDict })
+const score = new Score({ title: 'POINTS', subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict, showHighScore: true })
 
 const lava = await createLava({ size: lavaSize })
 lava.translateY(.1)
 scene.add(lava)
 
+reset()
+
 /* FUNCTIONS */
+
+const withinCircle = position => Math.pow(position.x, 2) + Math.pow(position.z, 2) < Math.pow(lavaSize, 2)
+
+const inLava = () => player.position.y <= .1 && withinCircle(player.position)
 
 function checkCollision(coin) {
   if (player.distanceTo(coin.mesh) > 1.4) return
@@ -63,9 +54,34 @@ function checkCollision(coin) {
   score.update(1, coins.length)
 }
 
-const withinCircle = position => Math.pow(position.x, 2) + Math.pow(position.z, 2) < Math.pow(lavaSize, 2)
+function createCoins(addPlatforms = true) {
+  for (let i = 0; i < numCoins; i++) {
+    const pos = boxes[i].position.clone()
+    pos.y += 6.15
 
-const inLava = () => player.position.y <= .1 && withinCircle(player.position)
+    if (addPlatforms && Math.random() > .5) {
+      const platform = new Platform({ pos, file: null })
+      platforms.push(platform)
+      scene.add(platform.mesh)
+    }
+
+    const coin = new Coin({ pos })
+    coins.push(coin)
+    scene.add(coin.mesh)
+  }
+}
+
+function reset() {
+  coins.forEach(coin => scene.remove(coin.mesh))
+  coins.length = 0
+  createCoins(false)
+
+  score.points = 0
+  score.update(0, coins.length)
+
+  player.position = [0, 0, 50]
+  player.energy = 100
+}
 
 /* LOOP */
 
@@ -84,9 +100,10 @@ void function loop() {
   if (inLava()) player.energy -= .1
 
   if (player.dead) {
-    score.renderText('You are dead.')
+    score.renderEndScreen({ callback: reset })
     player.position.y -= .01
-  } else player.update(delta)
+  } else
+    player.update(delta)
 
   platforms.forEach(platform => platform.update(delta))
   lava.material.uniforms.time.value = time * .5

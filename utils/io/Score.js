@@ -24,6 +24,10 @@ const getStyle = (color, stroke) => /* css */`
     text-align: center;
   }
 
+  .end-screen {
+    background-color: rgba(242, 242, 242, 0.9);
+  }
+
   .blink {
     animation: blinker 1s step-start infinite;
   }
@@ -103,6 +107,21 @@ export default class Score {
     if (this.highScore < 2) return
     this.centralDiv.innerHTML = `<h3>The current high score is ${this.highScore} points. Beat it!</h3>`
     this.clearSoon(3000)
+  }
+
+  renderEndScreen({ text = 'You are dead.', callback } = {}) {
+    const html = `
+      <h3>${text}</h3>
+      <b>Click here to start again</b>  
+    `
+    if (this.centralDiv.innerHTML === html) return
+    this.centralDiv.innerHTML = html
+    this.centralDiv.classList.add('end-screen')
+    this.centralDiv.addEventListener('click', () => {
+      this.centralDiv.classList.remove('end-screen')
+      this.clear()
+      callback()
+    })
   }
 
   render(points, enemiesLeft, energyLeft) {

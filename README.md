@@ -14,8 +14,7 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / random-boxes
-  - play again
-  - pozicionirati izvan lave
+  - BUG: kanda secka kad skače
   - pre početka scene biranje skin za avatar?
 
 - stairway girl
