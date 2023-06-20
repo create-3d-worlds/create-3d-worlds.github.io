@@ -65,7 +65,7 @@ function checkCollision(coin) {
 
 const withinCircle = position => Math.pow(position.x, 2) + Math.pow(position.z, 2) < Math.pow(lavaSize, 2)
 
-const inLava = () => player.onGround && withinCircle(player.position)
+const inLava = () => player.position.y <= .1 && withinCircle(player.position)
 
 /* LOOP */
 
@@ -81,7 +81,9 @@ void function loop() {
     coin.update(delta)
     checkCollision(coin)
   })
-  console.log(inLava())
+
+  if (inLava()) player.energy -= .1
+
   platforms.forEach(platform => platform.update(delta))
   lava.material.uniforms.time.value = time * .5
   renderer.render(scene, camera)

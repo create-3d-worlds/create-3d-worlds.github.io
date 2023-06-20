@@ -123,6 +123,6 @@ export default class Player extends Actor {
       this.shouldAlignCamera = false
     }
     if (this.chaseCamera) this.updateCamera(delta)
-    if (this.showHealthBar) this.updateHealthBar()
+    if (this.healthBar) this.updateHealthBar()
   }
 }

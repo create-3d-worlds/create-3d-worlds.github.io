@@ -11,12 +11,10 @@ npx live-server
 
 ## TODO
 
-- BUG: fps pointer lock ne prihvata klik iz prve
-
 ### Scenes & examples
 
 - Avatar / random-boxes
-  - lava da skida energiju
+  - dodati poraz
   - pre početka scene biranje skin za avatar?
 
 - stairway girl
