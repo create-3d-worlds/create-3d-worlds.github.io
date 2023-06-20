@@ -14,7 +14,8 @@ npx live-server
 ### Scenes & examples
 
 - Avatar / random-boxes
-  - dodati poraz
+  - play again
+  - pozicionirati izvan lave
   - pre početka scene biranje skin za avatar?
 
 - stairway girl

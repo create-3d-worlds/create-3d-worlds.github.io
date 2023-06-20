@@ -76,13 +76,17 @@ void function loop() {
   const delta = clock.getDelta()
   time += delta
 
-  player.update(delta)
   coins.forEach(coin => {
     coin.update(delta)
     checkCollision(coin)
   })
 
   if (inLava()) player.energy -= .1
+
+  if (player.dead) {
+    score.renderText('You are dead.')
+    player.position.y -= .01
+  } else player.update(delta)
 
   platforms.forEach(platform => platform.update(delta))
   lava.material.uniforms.time.value = time * .5
