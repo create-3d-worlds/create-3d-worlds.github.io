@@ -81,6 +81,7 @@ function reset() {
 
   player.position = [0, 0, 50]
   player.energy = 100
+  player.lookAt(scene.position)
 }
 
 /* LOOP */
