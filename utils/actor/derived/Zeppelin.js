@@ -4,7 +4,6 @@ import { loadModel } from '/utils/loaders.js'
 
 /* LOADING */
 
-// airship/airship-cargo/model.fbx
 const mesh = await loadModel({ file: 'aircraft/airship/zeppelin.fbx', size: 20 })
 
 /* EXTENDED CLASSES */

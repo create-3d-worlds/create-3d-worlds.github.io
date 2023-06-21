@@ -15,7 +15,6 @@ npx live-server
 
 - Barbarian
   - dodati spomenik viteza
-  - BUG: flamingosi proleću kroz brdo
 
 - Spomenici
   - skalirati teren?

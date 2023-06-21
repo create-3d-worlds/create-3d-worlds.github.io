@@ -10,7 +10,7 @@ const mesh = await loadModel({ file: 'animal/flamingo.glb', size: 20, angle: Mat
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations: mesh.userData.animations, animDict, speed: 8, shouldRaycastGround: false }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict, speed: 8, shouldRaycastGround: true, altitude: 60 }
 
 export class FlamingoPlayer extends Player {
   constructor(props = {}) {
