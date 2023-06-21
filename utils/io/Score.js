@@ -52,6 +52,7 @@ export default class Score {
     messageDict,
     endText = 'Bravo!<br>Nothing left',
     showHighScore = false,
+    shouldBlink = true
   } = {}) {
     this.points = points
     this.title = title
@@ -59,6 +60,7 @@ export default class Score {
     this.total = total
     this.messageDict = messageDict
     this.endText = endText
+    this.shouldBlink = shouldBlink
 
     this.scoreDiv = document.createElement('div')
     this.scoreDiv.classList.add('score', 'text')
@@ -126,9 +128,10 @@ export default class Score {
 
   render(points, enemiesLeft, energyLeft) {
     let html = ''
+    const blink = this.shouldBlink ? 'blink' : ''
     if (isNumber(points)) html += `<h3>${this.title}: ${points}</h3>`
-    if (isNumber(enemiesLeft)) html += `<div class="blink">${this.subtitle}: ${enemiesLeft}</div>`
-    if (isNumber(energyLeft)) html += `<div class="blink">${this.subtitle}: ${energyLeft}</div>`
+    if (isNumber(enemiesLeft)) html += `<div class="${blink}">${this.subtitle}: ${enemiesLeft}</div>`
+    if (isNumber(energyLeft)) html += `<div class="${blink}">${this.subtitle}: ${energyLeft}</div>`
     if (this.scoreDiv.innerHTML === html) return
     this.scoreDiv.innerHTML = html
 
