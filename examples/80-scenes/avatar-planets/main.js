@@ -28,7 +28,7 @@ const stars = new Stars({ num: 10000 })
 scene.add(stars.mesh)
 
 const solids = [...objects.map(o => o.mesh), terrain]
-const player = new Avatar({ solids, camera, skin: 'DISCO', showHealthBar: false })
+const player = new Avatar({ solids, camera, skin: 'DISCO', showHealthBar: false, jumpStyle: 'FLY' })
 scene.add(player.mesh)
 
 /* LOOP */
