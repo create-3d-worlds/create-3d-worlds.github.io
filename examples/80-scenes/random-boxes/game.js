@@ -2,15 +2,20 @@ import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createRandomBoxes, createSkySphere } from '/utils/geometry/index.js'
 import { createGround, createLava } from '/utils/ground.js'
 import { hemLight, createSun } from '/utils/light.js'
-import Avatar from '/utils/actor/Avatar.js'
 import Coin from '/utils/objects/Coin.js'
 import Score from '/utils/io/Score.js'
 import Platform from '/utils/objects/Platform.js'
+
+const startScreen = document.getElementById('start-screen')
 
 const numBoxes = 400, mapSize = 200, lavaSize = 50
 const numCoins = numBoxes / 4
 const platforms = []
 const coins = []
+
+let player
+let pause = true
+let time = 0
 
 hemLight()
 scene.add(createSun({ intensity: .25 }))
@@ -18,13 +23,9 @@ scene.add(await createSkySphere())
 
 const floor = createGround({ file: 'terrain/ground.jpg' })
 scene.add(floor)
+
 const boxes = createRandomBoxes({ n: numBoxes, mapSize })
 scene.add(...boxes)
-
-const solids = [floor, ...boxes, ...platforms.map(x => x.mesh)]
-const player = new Avatar({ camera, solids, jumpStyle: 'DOUBLE_JUMP' })
-player.chaseCamera.distance = 6
-scene.add(player.mesh)
 
 const messageDict = {
   1: 'Well, that\'s a good start!',
@@ -33,13 +34,10 @@ const messageDict = {
   50: 'Half down, half to go!',
   75: 'You smell victory in the air...',
 }
-const score = new Score({ title: 'POINTS', subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict, showHighScore: true })
+const score = new Score({ title: 'POINTS', subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict })
 
 const lava = await createLava({ size: lavaSize })
-lava.translateY(.1)
 scene.add(lava)
-
-reset(true)
 
 /* FUNCTIONS */
 
@@ -63,6 +61,7 @@ function createCoins(addPlatforms) {
       const platform = new Platform({ pos, file: null })
       platforms.push(platform)
       scene.add(platform.mesh)
+      player.addSolids(platform.mesh)
     }
 
     const coin = new Coin({ pos })
@@ -86,10 +85,11 @@ function reset(addPlatforms = false) {
 
 /* LOOP */
 
-let time = 0
-
 void function loop() {
   requestAnimationFrame(loop)
+  renderer.render(scene, camera)
+  if (pause) return
+
   const delta = clock.getDelta()
   time += delta
 
@@ -108,5 +108,21 @@ void function loop() {
 
   platforms.forEach(platform => platform.update(delta))
   lava.material.uniforms.time.value = time * .5
-  renderer.render(scene, camera)
 }()
+
+/* EVENTS */
+
+startScreen.addEventListener('click', e => {
+  if (e.target.tagName != 'INPUT') return
+  startScreen.style.display = 'none'
+
+  const promise = import('/utils/actor/Avatar.js')
+  promise.then(obj => {
+    pause = false
+    player = new obj.default({ camera, solids: [floor, ...boxes], skin: e.target.id })
+    player.chaseCamera.distance = 6
+    scene.add(player.mesh)
+    reset(true)
+    score.renderHeighScore()
+  })
+})

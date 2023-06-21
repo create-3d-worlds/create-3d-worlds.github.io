@@ -11,10 +11,9 @@ npx live-server
 
 ## TODO
 
-### Scenes & examples
+- pomeriti start i end screen na Score (refaktorisati u UI?)
 
-- Avatar / random-boxes
-  - pre početka scene biranje skin za avatar? videti warplane
+### Scenes & examples
 
 - stairway girl
   - merge with avatar-towers

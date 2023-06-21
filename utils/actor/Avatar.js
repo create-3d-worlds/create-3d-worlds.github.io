@@ -4,7 +4,7 @@ import { createAvatar, updateAvatar, uniforms, skins } from '/utils/geometry/ava
 import { jumpStyles } from '/utils/constants.js'
 
 export default class Avatar extends Player {
-  constructor({ skin = skins.STONE, jumpStyle = jumpStyles.FLY, maxJumpTime = 40, size = 1, speed = size * 4, ...params } = {}) {
+  constructor({ skin = skins.STONE, jumpStyle = jumpStyles.DOUBLE_JUMP, maxJumpTime = 40, size = 1, speed = size * 4, ...params } = {}) {
     super({
       mesh: createAvatar({ skin, r: size }),
       speed,

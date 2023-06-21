@@ -1,5 +1,5 @@
 const getStyle = (color, stroke) => /* css */`
-  .score, .central {
+  .text {
     color: ${color};
     text-shadow: -1px -1px 0 ${stroke}, 1px -1px 0 ${stroke}, -1px  1px 0 ${stroke}, 1px  1px 0 ${stroke};
     user-select: none;
@@ -61,11 +61,11 @@ export default class Score {
     this.endText = endText
 
     this.scoreDiv = document.createElement('div')
-    this.scoreDiv.className = 'score'
+    this.scoreDiv.classList.add('score', 'text')
     document.body.appendChild(this.scoreDiv)
 
     this.centralDiv = document.createElement('div')
-    this.centralDiv.className = 'central'
+    this.centralDiv.classList.add('central', 'text')
     document.body.appendChild(this.centralDiv)
 
     const style = document.createElement('style')

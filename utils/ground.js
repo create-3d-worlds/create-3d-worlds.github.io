@@ -58,7 +58,9 @@ export async function createLava({ size = 100 } = {}) {
   const geometry = new THREE.CircleGeometry(size)
   geometry.rotateX(- Math.PI / 2)
   const { material } = await import('/utils/shaders/lava.js')
-  return new THREE.Mesh(geometry, material)
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.translateY(.1)
+  return mesh
 }
 
 export async function createMarble({ size = 100 } = {}) {
