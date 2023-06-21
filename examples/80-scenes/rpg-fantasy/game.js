@@ -85,3 +85,8 @@ const { ZeppelinAI } = await import('/utils/actor/derived/Zeppelin.js')
 const airship = new ZeppelinAI({ mapSize, solids: terrain })
 scene.add(airship.mesh)
 npcs.push(airship)
+
+const monument = await loadModel({ file: 'building/monument/knight/knight.fbx', size: 5, shouldAdjustHeight: true, shouldCenter: true })
+monument.position.copy(coords.pop())
+putOnSolids(monument, terrain)
+scene.add(monument)

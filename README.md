@@ -13,9 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Barbarian
-  - dodati spomenik viteza
-
 - Spomenici
   - skalirati teren?
 
