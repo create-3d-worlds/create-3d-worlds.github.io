@@ -1,4 +1,5 @@
 import { scene, camera, renderer, clock } from '/utils/scene.js'
+import { createSkySphere } from '/utils/geometry/index.js'
 import { createStairway, createBabelTower, createDarkTower, createRingTower } from '/utils/geometry/towers.js'
 import { createTerrain, createLava, createGround } from '/utils/ground.js'
 import { hemLight, dirLight } from '/utils/light.js'
@@ -8,6 +9,7 @@ const mapSize = 1000
 
 hemLight() // createSun + some geometry creates flying bug
 dirLight({ intensity: .25 })
+scene.add(await createSkySphere())
 
 const terrain = createTerrain({ size: mapSize })
 scene.add(terrain)
@@ -40,7 +42,7 @@ scene.add(...solids, lava)
 
 /* PLAYER */
 
-const player = new Avatar({ camera, solids, pos: [60, 0, 0], skin: 'DISCO' })
+const player = new Avatar({ camera, solids, pos: [60, 0, 0], skin: 'DISCO', jumpStyle: 'FLY', showHealthBar: false })
 scene.add(player.mesh)
 
 /* LOOP */

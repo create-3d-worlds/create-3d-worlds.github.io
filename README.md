@@ -11,12 +11,9 @@ npx live-server
 
 ## TODO
 
-- pomeriti start i end screen na Score (refaktorisati u UI?)
-
 ### Scenes & examples
 
-- stairway girl
-  - merge with avatar-towers
+- merge avatar-towers i stairway girl
 
 - Barbarian
   - dodati spomenik viteza
