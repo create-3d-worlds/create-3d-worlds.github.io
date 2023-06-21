@@ -13,8 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- merge avatar-towers i stairway girl
-
 - Barbarian
   - dodati spomenik viteza
   - BUG: flamingosi proleću kroz brdo
