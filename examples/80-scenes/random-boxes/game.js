@@ -39,7 +39,7 @@ const lava = await createLava({ size: lavaSize })
 lava.translateY(.1)
 scene.add(lava)
 
-reset()
+reset(true)
 
 /* FUNCTIONS */
 
@@ -54,7 +54,7 @@ function checkCollision(coin) {
   score.update(1, coins.length)
 }
 
-function createCoins(addPlatforms = true) {
+function createCoins(addPlatforms) {
   for (let i = 0; i < numCoins; i++) {
     const pos = boxes[i].position.clone()
     pos.y += 6.15
@@ -71,10 +71,10 @@ function createCoins(addPlatforms = true) {
   }
 }
 
-function reset() {
+function reset(addPlatforms = false) {
   coins.forEach(coin => scene.remove(coin.mesh))
   coins.length = 0
-  createCoins(false)
+  createCoins(addPlatforms)
 
   score.points = 0
   score.update(0, coins.length)

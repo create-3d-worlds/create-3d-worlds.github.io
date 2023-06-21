@@ -15,6 +15,8 @@ npx live-server
 
 - Avatar / random-boxes
   - pre početka scene biranje skin za avatar?
+    - uslikati 3 slike
+    - postaviti slike u html, videti warplane
 
 - stairway girl
   - merge with avatar-towers
