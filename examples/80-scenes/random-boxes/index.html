@@ -2,15 +2,43 @@
 <html lang="en">
 
 <head>
-    <title>Random boxes</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>Random boxes</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <style>
+    #start-screen {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .wrapper input {
+      border: 3px solid black;
+      height: 200px;
+    }
+  </style>
 </head>
 
 <body>
-    
-    
-      <script type="importmap">
+
+  <div id="start-screen">
+    <h2>Choose your avatar</h2>
+    <div class="wrapper">
+      <input type="image" id="Biplane" src="/assets/images/avatar/avatar-stone.jpg" />
+      <input type="image" id="Triplane" src="/assets/images/avatar/avatar-lava.jpg" />
+      <input type="image" id="Messerschmitt" src="/assets/images/avatar/avatar-disco.jpg" />
+    </div>
+  </div>
+
+  <script type="importmap">
     {
         "imports": {
             "three": "/node_modules/three/build/three.module.js"
