@@ -4,7 +4,9 @@ import { loadModel } from '/utils/loaders.js'
 import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
 import { createFlag } from '/utils/geometry/index.js'
 import { wave } from '/utils/ground.js'
-import Player from '/utils/actor/Player.js'
+import { ResistanceWalkerPlayer } from '/utils/actor/derived/ww2/ResistanceWalker.js'
+
+let time = 0
 
 scene.add(createSun())
 
@@ -13,34 +15,18 @@ scene.add(terrain)
 
 const redFlag = createFlag({ file: 'prva-proleterska.jpg' })
 redFlag.position.set(-1.5, 11.2, 0)
+const redCanvas = redFlag.getObjectByName('canvas')
 
 const yuFlag = createFlag({ file: 'sfrj.png' })
 yuFlag.position.set(1.5, 11, 0)
+const yuCanvas = yuFlag.getObjectByName('canvas')
 
 /* PLAYER */
 
-const animDict = {
-  idle: 'Rifle Idle',
-  walk: 'Rifle Walk',
-  run: 'Rifle Run',
-}
-
-const [mesh, twoHandedWeapon] = await Promise.all([
-  await loadModel({ file: 'resistance-fighter.fbx', angle: Math.PI, animDict, prefix: 'character/soldier/', fixColors: true, size: 1.8 }),
-  await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI }),
-])
-
-const player = new Player({ mesh, solids: terrain, animations: mesh.userData.animations, animDict, twoHandedWeapon, camera, altitude: .7, attackStyle: 'ONCE' })
-
-player.chaseCamera.distance = 1.5
+const player = new ResistanceWalkerPlayer({ solids: terrain, camera })
 player.position.z = 2
 
 /* LOOP */
-
-let time = 0
-
-const redCanvas = redFlag.getObjectByName('canvas')
-const yuCanvas = yuFlag.getObjectByName('canvas')
 
 void function loop() {
   requestAnimationFrame(loop)
@@ -49,7 +35,7 @@ void function loop() {
 
   wave({ geometry: redCanvas.geometry, time: time * 2, amplitude: 2.5, frequency: 2 })
   wave({ geometry: yuCanvas.geometry, time: time * 2, amplitude: 2.5, frequency: 2 })
-  player?.update(delta)
+  player.update(delta)
 
   renderer.render(scene, camera)
 }()
