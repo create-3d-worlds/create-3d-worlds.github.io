@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { RIGHT_ANGLE } from '/utils/constants.js'
-import { centerMesh, adjustHeight, randomGray, getHeight } from '/utils/helpers.js'
+import { randomGray, getHeight } from '/utils/helpers.js'
 
 const { randFloatSpread } = THREE.MathUtils
 
@@ -39,8 +39,6 @@ export function createLocomotive() {
   group.rotation.y = Math.PI * .5
   group.position.y = .85
 
-  centerMesh(group)
-  adjustHeight(group)
   const wrapper = new THREE.Group()
   wrapper.add(group)
   return wrapper

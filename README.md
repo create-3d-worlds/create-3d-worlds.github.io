@@ -13,8 +13,7 @@ npx live-server
 
 ## Scene
 
-Cannon
-- dodati poene
+- cannon dodati poene
 
 ### Optimizacija 
 - dinamički (fetch) orbitControls?

@@ -40,7 +40,7 @@ void function loop() {
   renderer.render(scene, camera)
 }()
 
-/* LAZY LOADING */
+/* LAZY LOAD */
 
 const [kosmaj, kosovskaMitrovica, podgaric, kadinjaca, ilirskaBistrica] = await Promise.all([
   await loadModel({ file: 'building/monument/kosmaj.fbx', size: 30, texture: 'terrain/beton.gif' }),
