@@ -17,6 +17,8 @@ let player
 let pause = true
 let time = 0
 
+camera.position.set(0, 2, 56)
+
 hemLight()
 scene.add(createSun({ intensity: .25 }))
 scene.add(await createSkySphere())
@@ -98,7 +100,7 @@ void function loop() {
     checkCollision(coin)
   })
 
-  if (inLava()) player.energy -= .1
+  if (inLava() && player.skin != 'LAVA') player.energy -= .1
 
   if (player.dead) {
     score.renderEndScreen({ callback: reset })

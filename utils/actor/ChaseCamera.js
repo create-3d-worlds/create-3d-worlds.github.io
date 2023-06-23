@@ -32,7 +32,7 @@ export default class ChaseCamera {
     this.camera = camera
     this.rotate = rotate
 
-    this.thirdPersonSpeed = this.speed = speed
+    this.initialSpeed = this.speed = speed
     this.thirdPersonOffset = this.offset = offset
     this.thirdPersonLookAt = this.lookAt = lookAt
 
@@ -117,10 +117,10 @@ export default class ChaseCamera {
 
   getSpeed(cameraStyle) {
     switch (cameraStyle) {
-      case THIRD_PERSON: return this.thirdPersonSpeed
-      case BIRDS_EYE: return this.thirdPersonSpeed * .75
-      case ORBITAL: return this.thirdPersonSpeed * .25
-      default: return this.thirdPersonSpeed
+      case THIRD_PERSON: return this.initialSpeed
+      case BIRDS_EYE: return this.initialSpeed * .75
+      case ORBITAL: return this.initialSpeed * .25
+      default: return this.initialSpeed
     }
   }
 

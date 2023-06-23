@@ -11,12 +11,7 @@ npx live-server
 
 ## TODO
 
-### Scenes & examples
-
-- Warplane / 1943
-  - dodati ravno tlo za sletanje
-
-### Optimizacija
+### Optimizacija (sve scene redom)
 
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
   - odrediti blizinu u lavirintu?
