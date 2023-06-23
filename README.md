@@ -13,9 +13,6 @@ npx live-server
 
 ### Scenes & examples
 
-- Spomenici
-  - skalirati teren?
-
 - Warplane / 1943
   - dodati ravno tlo za sletanje
 

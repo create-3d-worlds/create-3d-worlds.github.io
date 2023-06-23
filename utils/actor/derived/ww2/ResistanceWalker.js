@@ -17,7 +17,7 @@ const [mesh, twoHandedWeapon] = await Promise.all([
 
 /* EXTENDED CLASSES */
 
-const sharedProps = { mesh, animations: mesh.userData.animations, animDict, twoHandedWeapon, altitude: .7, attackStyle: 'ONCE', showHealthBar: false }
+const sharedProps = { mesh, animations: mesh.userData.animations, animDict, twoHandedWeapon, attackStyle: 'ONCE', showHealthBar: false }
 
 export class ResistanceWalkerPlayer extends Player {
   constructor(props = {}) {

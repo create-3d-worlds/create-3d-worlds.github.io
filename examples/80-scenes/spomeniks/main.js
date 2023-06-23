@@ -23,7 +23,7 @@ const yuCanvas = yuFlag.getObjectByName('canvas')
 
 /* PLAYER */
 
-const player = new ResistanceWalkerPlayer({ solids: terrain, camera })
+const player = new ResistanceWalkerPlayer({ camera, solids: terrain, altitude: .7 })
 player.position.z = 2
 
 /* LOOP */
