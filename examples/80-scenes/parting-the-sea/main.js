@@ -13,7 +13,7 @@ water.position.y = 5
 water.rotateY(Math.PI * .5)
 scene.add(water)
 
-const player = new WizardPlayer({ camera })
+const player = new WizardPlayer({ camera, showHealthBar: false })
 scene.add(player.mesh)
 
 /* LOOP */

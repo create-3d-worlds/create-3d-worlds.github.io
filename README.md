@@ -16,8 +16,8 @@ npx live-server
 Cannon
 - dodati poene
 
-### Optimizacija (sve scene redom)
-
+### Optimizacija 
+- proveriti scene redom
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
   - odrediti blizinu u lavirintu?
 - optimizovati statične modele https://github.com/donmccurdy/glTF-Transform
@@ -27,7 +27,6 @@ Cannon
 - izmeriti statistike, ako je presporo izbacivati nevažno
 - smanjiti zavisnosti fajlova, obrisati neke helper funkcije ili prebaciti na klase
   - npr createCoin to Coin class, i ostale funkcije koje imaju matične klase
-  - spojiti decals.js
 
 ### Polishing
 

@@ -1,24 +1,23 @@
 import * as THREE from 'three'
 import { scene, camera, renderer, clock } from '/utils/scene.js'
 import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
-import Tank from '/utils/physics/Tank.js'
 import { createGround } from '/utils/ground.js'
 import { createMoonSphere, createTremplin, createCrates, createCrate, createRustyBarrel, createMetalBarrel } from '/utils/geometry/index.js'
 import { createSun } from '/utils/light.js'
 import { sample } from '/utils/helpers.js'
 import { createFirTree } from '/utils/geometry/trees.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
-import Score from '/utils/io/Score.js'
 import { leaveTracks } from '/utils/physics/leaveTracks.js'
 
 const { randFloat } = THREE.MathUtils
 
 let i = 0
 let time = 0
-
-const world = new PhysicsWorld()
+let tank, score
 
 scene.add(createSun())
+
+const world = new PhysicsWorld()
 
 const ground = createGround({ color: 0x509f53 })
 world.add(ground, 0)
@@ -53,18 +52,13 @@ for (let i = -1; i < 5; i++)
     world.add(warehouse)
   }
 
-/* VEHICLE */
-
-const tank = new Tank({ physicsWorld: world.physicsWorld, camera, pos: { x: 0, y: 0, z: -20 } })
-
-scene.add(tank.mesh)
-
-const score = new Score({ title: 'Crates left', points: countableCrates.length, subtitle: 'Seconds', total: time })
-
 /* LOOP */
 
 void function loop() {
   requestAnimationFrame(loop)
+  renderer.render(scene, camera)
+  if (!tank) return
+
   const dt = clock.getDelta()
   const newTime = Math.floor(time + dt)
 
@@ -87,6 +81,13 @@ void function loop() {
     time += dt
   else
     score.renderText(`Bravo!<br>You demolished everything in ${newTime} seconds.`)
-
-  renderer.render(scene, camera)
 }()
+
+/* LAZY LOAD */
+
+const tankFile = await import('/utils/physics/Tank.js')
+tank = new tankFile.default({ physicsWorld: world.physicsWorld, camera, pos: { x: 0, y: 0, z: -20 } })
+scene.add(tank.mesh)
+
+const scoreFile = await import('/utils/io/Score.js')
+score = new scoreFile.default({ title: 'Crates left', points: countableCrates.length, subtitle: 'Seconds', total: time })
