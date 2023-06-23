@@ -17,7 +17,7 @@ Cannon
 - dodati poene
 
 ### Optimizacija 
-- proveriti scene redom
+- proveriti učitavanje scena redom
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
   - odrediti blizinu u lavirintu?
 - optimizovati statične modele https://github.com/donmccurdy/glTF-Transform
