@@ -5,13 +5,14 @@ import { getHeightData } from '/utils/terrain/heightmap.js'
 import { createTerrain } from '/utils/physics/index.js'
 import { createSphere, createTremplin } from '/utils/geometry/index.js'
 import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
-import Humvee from '/utils/physics/Humvee.js'
 
 const { randFloatSpread } = THREE.MathUtils
 
-scene.add(createSun({ planetColor: 0xB0E0E6 }))
+let vehicle
 
 const world = new PhysicsWorld()
+
+scene.add(createSun({ planetColor: 0xB0E0E6 }))
 
 const { data, width, depth } = await getHeightData('/assets/heightmaps/wiki.png', 5)
 const terrain = await createTerrain({ data, width, depth, minHeight: -2, maxHeight: 16 })
@@ -27,17 +28,19 @@ for (let i = 0; i < 5; i++) {
   world.add(ball, 800)
 }
 
-/* VEHICLE */
-
-const vehicle = new Humvee({ camera, physicsWorld: world.physicsWorld })
-scene.add(vehicle.mesh, ...vehicle.wheelMeshes)
-
 /* LOOP */
 
 void function loop() {
   requestAnimationFrame(loop)
+  renderer.render(scene, camera)
+  if (!vehicle) return
   const dt = clock.getDelta()
   vehicle.update(dt)
   world.update(dt)
-  renderer.render(scene, camera)
 }()
+
+/* LAZY LOAD */
+
+const vehicleFile = await import('/utils/physics/Humvee.js')
+vehicle = new vehicleFile.default({ camera, physicsWorld: world.physicsWorld })
+scene.add(vehicle.mesh, ...vehicle.wheelMeshes)
