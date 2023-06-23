@@ -1,12 +1,12 @@
 import { scene, camera, renderer, clock, setBackground } from '/utils/scene.js'
-import { ambLight, createMoon } from '/utils/light.js'
+import { ambLight, createMoon, orbitAround } from '/utils/light.js'
 import { Stars } from '/utils/Particles.js'
 import Score from '/utils/io/Score.js'
 import Lander from './Lander.js'
 import Platform from '/utils/objects/Platform.js'
 import { loadModel } from '/utils/loaders.js'
 import { createSphere } from '/utils/geometry/index.js'
-import { createJupiter, createSaturn, orbitAround } from '/utils/geometry/planets.js'
+import { createJupiter, createSaturn } from '/utils/geometry/planets.js'
 import input from '/utils/io/Input.js'
 
 setBackground(0x000000)

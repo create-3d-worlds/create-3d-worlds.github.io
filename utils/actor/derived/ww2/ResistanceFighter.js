@@ -1,7 +1,15 @@
 import Player from '/utils/actor/Player.js'
 import AI from '/utils/actor/AI.js'
 import { loadModel } from '/utils/loaders.js'
-import { animDict } from './Partisan.js'
+
+const animDict = {
+  idle: 'Rifle Idle',
+  walk: 'Rifle Walk',
+  run: 'Rifle Run',
+  attack: 'Firing Rifle',
+  pain: 'Hit Reaction',
+  death: 'Dying',
+}
 
 /* LOADING */
 

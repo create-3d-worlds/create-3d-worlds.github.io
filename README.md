@@ -27,6 +27,7 @@ Cannon
 - izmeriti statistike, ako je presporo izbacivati nevažno
 - smanjiti zavisnosti fajlova, obrisati neke helper funkcije ili prebaciti na klase
   - npr createCoin to Coin class, i ostale funkcije koje imaju matične klase
+  - spojiti decals.js
 
 ### Polishing
 

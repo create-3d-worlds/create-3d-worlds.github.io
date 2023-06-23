@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import { scene, renderer, addUIControls, createOrbitControls } from '/utils/scene.js'
 import { createSphere } from '/utils/geometry/index.js'
-import { createEarth, orbiting } from '/utils/geometry/planets.js'
-import { createSun } from '/utils/light.js'
+import { createEarth } from '/utils/geometry/planets.js'
+import { createSun, orbiting } from '/utils/light.js'
 import { Stars } from '/utils/Particles.js'
 
 createOrbitControls()
