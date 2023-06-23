@@ -3,12 +3,13 @@ import { createHillyTerrain } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { createSun } from '/utils/light.js'
 import { sample, getEmptyCoords, putOnSolids } from '/utils/helpers.js'
-import { BarbarianPlayer } from '/utils/actor/derived/fantasy/Barbarian.js'
 import { loadModel } from '/utils/loaders.js'
-import Score from '/utils/io/Score.js'
 
+let player, score
 const mapSize = 400
 const npcs = []
+
+camera.position.y = 50
 
 const coords = getEmptyCoords({ mapSize: mapSize * .9, fieldSize: 5 })
 scene.add(createSun({ pos: [15, 100, 50] }))
@@ -19,42 +20,32 @@ scene.add(terrain)
 const trees = createTreesOnTerrain({ terrain })
 scene.add(trees)
 
-const castle = await loadModel({ file: 'building/castle/fortress.fbx', size: 40 })
-putOnSolids(castle, terrain, -5)
-scene.add(castle)
-
-const solids = [terrain, castle]
-
-/* ACTORS */
-
-const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera })
-scene.add(player.mesh)
-
-const messageDict = {
-  1: 'You killed the first Orc. Free the land from their vile presence!',
-  10: 'You killed half the vile creatures',
-  19: 'You smell victory in the air...',
-}
-const score = new Score({ title: 'Orcs killed', subtitle: 'Orcs left', messageDict })
-
 /* LOOP */
-
-let loaded = false
 
 void function loop() {
   requestAnimationFrame(loop)
+  renderer.render(scene, camera)
+  if (!player) return
 
   const delta = clock.getDelta()
   player.update(delta)
   npcs.forEach(enemy => enemy.update(delta))
 
   const killed = player.enemies.filter(enemy => enemy.userData.energy <= 0)
-  if (loaded) score.render(killed.length, player.enemies.length - killed.length)
-
-  renderer.render(scene, camera)
+  score?.render(killed.length, player.enemies.length - killed.length)
 }()
 
 /* LAZY LOAD */
+
+const castle = await loadModel({ file: 'building/castle/fortress.fbx', size: 40 })
+putOnSolids(castle, terrain, -5)
+scene.add(castle)
+
+const solids = [terrain, castle]
+
+const { BarbarianPlayer } = await import('/utils/actor/derived/fantasy/Barbarian.js')
+player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera })
+scene.add(player.mesh)
 
 const orcs = ['Orc', 'OrcOgre']
 for (let i = 0; i < 20; i++) {
@@ -64,8 +55,20 @@ for (let i = 0; i < 20; i++) {
   const enemy = new Enemy({ pos: coords.pop(), target: player.mesh, mapSize, solids, shouldRaycastGround: true })
   npcs.push(enemy)
   scene.add(enemy.mesh)
-  loaded = true
 }
+
+const scoreFile = await import('/utils/io/Score.js')
+const messageDict = {
+  1: 'You killed the first Orc. Free the land from their vile presence!',
+  10: 'You killed half the vile creatures',
+  19: 'You smell victory in the air...',
+}
+score = new scoreFile.default({ title: 'Orcs killed', subtitle: 'Orcs left', messageDict })
+
+const monument = await loadModel({ file: 'building/monument/knight/knight.fbx', size: 5, shouldAdjustHeight: true, shouldCenter: true })
+monument.position.copy(coords.pop())
+putOnSolids(monument, terrain)
+scene.add(monument)
 
 const { FlamingoAI } = await import('/utils/actor/derived/Flamingo.js')
 for (let i = 0; i < 10; i++) {
@@ -85,8 +88,3 @@ const { ZeppelinAI } = await import('/utils/actor/derived/Zeppelin.js')
 const airship = new ZeppelinAI({ mapSize, solids: terrain })
 scene.add(airship.mesh)
 npcs.push(airship)
-
-const monument = await loadModel({ file: 'building/monument/knight/knight.fbx', size: 5, shouldAdjustHeight: true, shouldCenter: true })
-monument.position.copy(coords.pop())
-putOnSolids(monument, terrain)
-scene.add(monument)

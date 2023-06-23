@@ -5,10 +5,10 @@ import { loadModel } from '/utils/loaders.js'
 const animDict = {
   idle: 'Unarmed Idle',
   walk: 'Orc Walk',
-  run: 'Unarmed Run Forward',
+  // run: 'Unarmed Run Forward',
   attack: 'Zombie Attack',
   attack2: 'Zombie Kicking',
-  special: 'Zombie Scream',
+  // special: 'Zombie Scream',
   pain: 'Zombie Reaction Hit',
   death: 'Death From The Back',
 }

@@ -17,6 +17,7 @@ Cannon
 - dodati poene
 
 ### Optimizacija 
+- dinamički (fetch) orbitControls?
 - proveriti učitavanje scena redom
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
   - odrediti blizinu u lavirintu?
