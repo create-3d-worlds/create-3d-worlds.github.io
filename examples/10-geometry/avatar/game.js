@@ -1,5 +1,5 @@
 import { scene, camera, renderer } from '/utils/scene.js'
-import { createAvatar } from '/utils/geometry/avatar.js'
+import { createAvatar } from '/utils/actor/Avatar.js'
 import { hemLight } from '/utils/light.js'
 
 hemLight()
