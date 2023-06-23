@@ -7,7 +7,7 @@ const animDict = {
   walk: 'Orc Walk',
   // run: 'Unarmed Run Forward',
   attack: 'Zombie Attack',
-  attack2: 'Zombie Kicking',
+  // attack2: 'Zombie Kicking',
   // special: 'Zombie Scream',
   pain: 'Zombie Reaction Hit',
   death: 'Death From The Back',
