@@ -11,6 +11,11 @@ npx live-server
 
 ## TODO
 
+## Scene
+
+Cannon
+- dodati poene
+
 ### Optimizacija (sve scene redom)
 
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
