@@ -4,8 +4,6 @@ import { createSun } from '/utils/light.js'
 import { createTerrain } from '/utils/ground.js'
 import { createFirTree } from '/utils/geometry/trees.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
-import Tower from '/utils/objects/Tower.js'
-import Building from '/utils/objects/Building.js'
 import { loadModel } from '/utils/loaders.js'
 import Score from '/utils/io/Score.js'
 
@@ -45,29 +43,32 @@ scene.add(ground, ground2)
 
 /* OBJECTS */
 
-const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 })
-
 const addMesh = (mesh, spread = .33) => {
   mesh.position.copy({ x: randFloatSpread(mapSize * spread), y: 0, z: -buildingDistance })
   scene.add(mesh)
   objects.push(mesh)
 }
 
-const createBuilding = time => {
+const createBuilding = async time => {
+  const Building = (await import('/utils/objects/Building.js')).default
   const minutes = Math.floor(time / 60)
   switch (randInt(1, 7 + minutes)) {
-    case 1: return new Building({ mesh: factory, name: 'factory' })
+    case 1:
+      const factory = await loadModel({ file: 'building/factory/model.fbx', size: 25 })
+      return new Building({ mesh: factory, name: 'factory' })
     case 2: return new Building({ mesh: createAirport() })
     case 3: return new Building({ mesh: createWarRuin(), name: 'civil' })
     case 4: return new Building({ mesh: createRuin(), name: 'civil' })
     case 5: return new Building({ mesh: createWarehouse() })
     case 6: return new Building({ mesh: createWarehouse2() })
-    default: return new Tower()
+    default:
+      const obj = await import('/utils/objects/Tower.js')
+      return new obj.default()
   }
 }
 
-const addBuilding = time => {
-  const building = createBuilding(time)
+const addBuilding = async time => {
+  const building = await createBuilding(time)
   updatables.push(building)
   addMesh(building.mesh)
 }

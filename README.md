@@ -13,10 +13,10 @@ npx live-server
 
 ## Scene
 
-- cannon dodati poene
+- cannon: dodati poene
+- warplane: choose your aircraft
 
 ### Optimizacija 
-- dinamički (fetch) orbitControls?
 - proveriti učitavanje scena redom
 - probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
   - odrediti blizinu u lavirintu?
