@@ -5,6 +5,7 @@ import { createTerrain } from '/utils/ground.js'
 import { createFirTree } from '/utils/geometry/trees.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import { loadModel } from '/utils/loaders.js'
+import Score from '/utils/io/Score.js'
 
 const { randInt, randFloatSpread } = THREE.MathUtils
 const startScreen = document.getElementById('start-screen')
@@ -13,7 +14,7 @@ let i = 0
 let time = 0
 let last = Date.now()
 let pause = true
-let warplane, score
+let warplane
 
 const totalTime = 150
 const mapSize = 800
@@ -39,6 +40,8 @@ const ground = createTerrain(groundParams)
 const ground2 = createTerrain(groundParams)
 ground2.position.z = -groundDistance
 scene.add(ground, ground2)
+
+const score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.', messageDict })
 
 /* OBJECTS */
 
@@ -139,16 +142,14 @@ void function update() {
 
 startScreen.addEventListener('click', async e => {
   if (e.target.tagName != 'INPUT') return
-  startScreen.style.display = 'none'
 
-  const Warplane = (await import(`/utils/aircraft/derived/${e.target.id}.js`)).default
-  warplane = new Warplane({ camera, limit: mapSize * .25 })
+  startScreen.style.display = 'none'
+  score.renderTempText('Destroy enemy factories, do not target civilian buildings')
+
+  const obj = await import(`/utils/aircraft/derived/${e.target.id}.js`)
+  warplane = new obj.default({ camera, limit: mapSize * .25 })
   scene.add(warplane.mesh)
   updatables.push(warplane)
-
-  const Score = (await import('/utils/io/Score.js')).default
-  score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.', messageDict })
-  score.renderTempText('Destroy enemy factories, do not target civilian buildings', 2000)
 
   pause = false
 })
