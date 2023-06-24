@@ -5,7 +5,6 @@ import { createTerrain } from '/utils/ground.js'
 import { createFirTree } from '/utils/geometry/trees.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import { loadModel } from '/utils/loaders.js'
-import Score from '/utils/io/Score.js'
 
 const { randInt, randFloatSpread } = THREE.MathUtils
 const startScreen = document.getElementById('start-screen')
@@ -14,7 +13,7 @@ let i = 0
 let time = 0
 let last = Date.now()
 let pause = true
-let warplane
+let warplane, score
 
 const totalTime = 150
 const mapSize = 800
@@ -23,13 +22,13 @@ const buildingDistance = mapSize * .4
 const groundDistance = mapSize * .99
 const updatables = []
 const objects = []
-
 const messageDict = {
   1: 'Well, that\'s a good start!',
   10: 'Keep up the good work!',
   25: 'Nice result so far...',
 }
-const score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.', messageDict })
+
+camera.position.set(0, 29, 0)
 
 scene.fog = new THREE.Fog(0xE5C5AB, mapSize * .25, buildingDistance)
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
@@ -138,16 +137,18 @@ void function update() {
 
 /* EVENTS */
 
-startScreen.addEventListener('click', e => {
+startScreen.addEventListener('click', async e => {
   if (e.target.tagName != 'INPUT') return
   startScreen.style.display = 'none'
+
+  const Warplane = (await import(`/utils/aircraft/derived/${e.target.id}.js`)).default
+  warplane = new Warplane({ camera, limit: mapSize * .25 })
+  scene.add(warplane.mesh)
+  updatables.push(warplane)
+
+  const Score = (await import('/utils/io/Score.js')).default
+  score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.', messageDict })
   score.renderTempText('Destroy enemy factories, do not target civilian buildings', 2000)
 
-  const promise = import(`/utils/aircraft/derived/${e.target.id}.js`)
-  promise.then(obj => {
-    pause = false
-    warplane = new obj.default({ camera, limit: mapSize * .25 })
-    scene.add(warplane.mesh)
-    updatables.push(warplane)
-  })
+  pause = false
 })
