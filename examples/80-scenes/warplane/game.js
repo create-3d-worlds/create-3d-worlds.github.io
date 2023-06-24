@@ -13,7 +13,6 @@ const startScreen = document.getElementById('start-screen')
 let i = 0
 let time = 0
 let last = Date.now()
-let pause = true
 let warplane
 
 const totalTime = 150
@@ -116,7 +115,7 @@ const updateObjects = delta => updatables.forEach(object => {
 void function update() {
   requestAnimationFrame(update)
   renderer.render(scene, camera)
-  if (pause) return
+  if (!warplane) return
 
   const delta = clock.getDelta()
   const deltaSpeed = warplane.speed * delta
@@ -150,6 +149,4 @@ startScreen.addEventListener('click', async e => {
   warplane = new obj.default({ camera, limit: mapSize * .25 })
   scene.add(warplane.mesh)
   updatables.push(warplane)
-
-  pause = false
 })
