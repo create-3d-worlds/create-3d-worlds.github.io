@@ -20,7 +20,7 @@ const mapSize = 800
 const buildingInterval = 2000
 const buildingDistance = mapSize * .4
 const groundDistance = mapSize * .99
-const updatables = []
+const entities = []
 const objects = []
 const messageDict = {
   1: 'Well, that\'s a good start!',
@@ -70,7 +70,7 @@ const createBuilding = async time => {
 
 const addBuilding = async time => {
   const building = await createBuilding(time)
-  updatables.push(building)
+  entities.push(building)
   addMesh(building.mesh)
 }
 
@@ -92,7 +92,7 @@ const moveGround = deltaSpeed => [ground, ground2].forEach(g => {
   if (g.position.z >= mapSize * .75) g.position.z = -groundDistance
 })
 
-const moveMeshes = deltaSpeed => objects.forEach(mesh => {
+const moveObjects = deltaSpeed => objects.forEach(mesh => {
   mesh.translateZ(deltaSpeed)
   if (mesh.position.z > camera.position.z + 200) {
     objects.splice(objects.indexOf(mesh), 1)
@@ -100,8 +100,8 @@ const moveMeshes = deltaSpeed => objects.forEach(mesh => {
   }
 })
 
-const updateObjects = delta => updatables.forEach(object => {
-  if (!object.scene) updatables.splice(updatables.indexOf(object), 1)
+const updateEntities = delta => entities.forEach(object => {
+  if (!object.scene) entities.splice(entities.indexOf(object), 1)
   if (object.hitAmount) {
     if (object.name == 'factory') score.update(1)
     if (object.name == 'civil') {
@@ -122,8 +122,8 @@ void function update() {
   time += delta
 
   moveGround(deltaSpeed)
-  moveMeshes(deltaSpeed)
-  updateObjects(delta)
+  moveObjects(deltaSpeed)
+  updateEntities(delta)
 
   if (warplane.dead)
     return setTimeout(() => score.renderText('You have failed.'), 2500)
@@ -148,5 +148,5 @@ startScreen.addEventListener('click', async e => {
   const obj = await import(`/utils/aircraft/derived/${e.target.id}.js`)
   warplane = new obj.default({ camera, limit: mapSize * .25 })
   scene.add(warplane.mesh)
-  updatables.push(warplane)
+  entities.push(warplane)
 })

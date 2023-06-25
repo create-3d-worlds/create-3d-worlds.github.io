@@ -13,12 +13,16 @@ npx live-server
 
 ## Scene
 
-- cannon: dodati poene
-- warplane: choose your aircraft
+- cannon: 
+  - dodati poene
+- warplane: 
+  - Choose your aircraft
+    - reuse start-screen
 
 ### Optimizacija 
 - proveriti učitavanje scena redom
-- probati dinamički import, učitavati neprijatelje (i objekte) tek kad su blizu
+- dinamičko učitavanje je sranje, možda bolje loader?
+- učitavati neprijatelje i objekte tek kad su blizu
   - odrediti blizinu u lavirintu?
 - optimizovati statične modele https://github.com/donmccurdy/glTF-Transform
 - primeniti savete 
