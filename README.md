@@ -14,6 +14,7 @@ npx live-server
 UI
 - reuse start-screen (rename to select-screen)
 - merge start-screen and addPointerLock
+- toggle commands
 
 ## Scene
 

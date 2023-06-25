@@ -24,15 +24,17 @@ export const renderer = new THREE.WebGLRenderer({
 })
 
 const bodyStyle = `
-  margin: 0;
+  color: yellow;
   font-family: Verdana;
+  margin: 0;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
+  user-select: none;
 `
 document.body.setAttribute('style', bodyStyle)
 const container = document.getElementById('container') || document.body
 container.appendChild(renderer.domElement)
 renderer.setSize(window.innerWidth, window.innerHeight)
-// Some mobiles have a pixel ratio 5. Improve battery life by limiting this to 2.
-renderer.setPixelRatio(Math.min(2, window.devicePixelRatio))
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio)) // improve battery life by limit pixel ratio to 2
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.setClearColor(0x87CEEB) // 0x7ec0ee

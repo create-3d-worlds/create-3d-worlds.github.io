@@ -1,10 +1,4 @@
-const getStyle = (color, stroke) => /* css */`
-  .text {
-    color: ${color};
-    text-shadow: -1px -1px 0 ${stroke}, 1px -1px 0 ${stroke}, -1px  1px 0 ${stroke}, 1px  1px 0 ${stroke};
-    user-select: none;
-  }
-
+const getStyle = () => /* css */`
   .score {
     left: 20px;
     position: absolute;
@@ -47,8 +41,6 @@ export default class Score {
     points = 0,
     subtitle = 'left',
     total,
-    color = 'yellow',
-    stroke = '#000',
     messageDict,
     endText = 'Bravo!<br>Nothing left',
     showHighScore = false,
@@ -71,7 +63,7 @@ export default class Score {
     document.body.appendChild(this.centralDiv)
 
     const style = document.createElement('style')
-    style.textContent = getStyle(color, stroke)
+    style.textContent = getStyle()
     document.head.appendChild(style)
 
     this.highScore = +localStorage.getItem(location.pathname)
