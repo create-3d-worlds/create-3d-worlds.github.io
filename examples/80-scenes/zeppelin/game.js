@@ -1,9 +1,10 @@
-import { camera, scene, renderer, clock, addUIControls } from '/utils/scene.js'
+import { camera, scene, renderer, clock } from '/utils/scene.js'
 import { createSkySphere } from '/utils/geometry/index.js'
 import { hemLight, ambLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { getEmptyCoords, putOnSolids } from '/utils/helpers.js'
+import UI from '/utils/io/UI.js'
 
 const updatables = []
 
@@ -20,6 +21,16 @@ scene.add(terrain)
 
 const water = createWater({ size: mapSize * 10 })
 scene.add(water)
+
+const commands = {
+  '←': 'levo',
+  '→': 'desno',
+  '↑': 'gore',
+  '↓': 'dole',
+  'PgUp': 'ubrzavanje',
+  'PgDn': 'usporavanje',
+}
+new UI({ commands })
 
 /* UTILS */
 
@@ -76,15 +87,3 @@ for (let i = 0; i < 4; i++) {
 }
 
 updatables.forEach(gameObj => scene.add(gameObj.mesh))
-
-/* UI */
-
-const commands = {
-  '←': 'levo',
-  '→': 'desno',
-  '↑': 'gore',
-  '↓': 'dole',
-  'PgUp': 'ubrzavanje',
-  'PgDn': 'usporavanje',
-}
-addUIControls({ commands })

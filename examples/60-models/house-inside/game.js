@@ -1,8 +1,9 @@
-import { scene, camera, renderer, createOrbitControls, addUIControls } from '/utils/scene.js'
+import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import input from '/utils/io/Input.js'
 import { loadModel } from '/utils/loaders.js'
 import { createSun } from '/utils/light.js'
+import UI from '/utils/io/UI.js'
 
 camera.position.set(1.5, 2.5, -6.5)
 const controls = createOrbitControls()
@@ -17,7 +18,7 @@ scene.add(createSun())
 const mesh = await loadModel({ file: 'building/house/medieval/house1-02.obj', mtl: 'building/house/medieval/house1-02.mtl', size: 12 })
 scene.add(mesh)
 
-addUIControls({ commands: {
+new UI({ commands: {
   '1': 'inside',
   '2': 'outside',
 }, title: 'Change camera' })

@@ -1,10 +1,11 @@
 import * as THREE from 'three'
-import { scene, renderer, clock, camera, addUIControls } from '/utils/scene.js'
+import { scene, renderer, clock, camera } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { hemLight } from '/utils/light.js'
 import { createFirTrees } from '/utils/geometry/trees.js'
 import input from '/utils/io/Input.js'
 import Avatar from '/utils/actor/Avatar.js'
+import UI from '/utils/io/UI.js'
 
 hemLight({ intensity: 1.25 })
 
@@ -21,7 +22,7 @@ const commands = {
   '1': 'Distant camera',
   '2': 'FPS camera',
 }
-addUIControls({ commands, title: 'CONTROLS' })
+new UI({ commands, title: 'CONTROLS' })
 
 /* FUNCTIONS */
 

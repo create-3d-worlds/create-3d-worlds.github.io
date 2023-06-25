@@ -11,6 +11,9 @@ npx live-server
 
 ## TODO
 
+- napraviti UI klasu
+  - dodati start-screen
+
 ## Scene
 
 - cannon: 
