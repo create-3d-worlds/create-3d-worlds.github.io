@@ -1,8 +1,30 @@
-const divStyle = `
-  color: #fff;
-  left: 8px;
+const baseControls = {
+  '←': 'left',
+  '→': 'right',
+  '↑': 'forward',
+  '↓': 'backward',
+  CapsLock: 'run',
+  Space: 'jump',
+}
+
+/** STYLE */
+
+const startScreenStyle = `
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  width: 80%;
+  flex-wrap: wrap;
+  justify-content: center;
+`
+
+const controlsStyle = `
+  left: 20px;
   position: absolute;
-  top: 4px;
+  bottom: 20px;
 `
 
 const rowStyle = `
@@ -11,21 +33,13 @@ const rowStyle = `
 `
 
 const btnStyle = `
-  border:1px solid #fff;
   padding: 1px 2px;
   min-width: 12px;
   display: inline-block;
   text-align: center;
 `
 
-const baseCommands = {
-  '←': 'left',
-  '→': 'right',
-  '↑': 'forward',
-  '↓': 'backward',
-  CapsLock: 'run',
-  Space: 'jump',
-}
+/** UTILS */
 
 const translateKey = key => {
   key = key.replace(/Key/, '') // eslint-disable-line no-param-reassign
@@ -44,20 +58,28 @@ const translateKey = key => {
 }
 
 export default class UI {
-  constructor({ title = 'COMMANDS', commands = baseCommands } = {}) {
+  constructor({ title = 'COMMANDS', commands = baseControls } = {}) {
     this.title = title
     this.commands = commands
-    this.addUIControls()
+    this.addUIControls(title, commands)
   }
 
-  addUIControls() {
+  addUIControls(title, commands) {
     const div = document.createElement('div')
-    div.style = divStyle
-    div.innerHTML = Object.keys(this.commands).reduce(
-      (acc, key) => acc +
-      `<p style="${rowStyle}"><b style="${btnStyle}">${translateKey(key)}</b> ${this.commands[key]}</p>`,
-      `<h3 style="${rowStyle}">${this.title}</h2>`
+    div.style = controlsStyle
+    div.innerHTML = Object.keys(commands).reduce((acc, key) => acc +
+    `<p style="${rowStyle}"><b style="${btnStyle}">${translateKey(key)}</b> ${commands[key]}</p>`,
+    `<h3 style="${rowStyle}">${title}</h2>`
     )
+    document.body.appendChild(div)
+  }
+
+  addStartScreen({ innerHTML, callback }) {
+    const div = document.createElement('div')
+    div.style = startScreenStyle
+    div.innerHTML = innerHTML
+    div.addEventListener('click', e => callback(e, div))
+
     document.body.appendChild(div)
   }
 }

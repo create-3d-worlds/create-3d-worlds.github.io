@@ -6,9 +6,9 @@ import { createFirTree } from '/utils/geometry/trees.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import { loadModel } from '/utils/loaders.js'
 import Score from '/utils/io/Score.js'
+import UI from '/utils/io/UI.js'
 
 const { randInt, randFloatSpread } = THREE.MathUtils
-const startScreen = document.getElementById('start-screen')
 
 let i = 0
 let time = 0
@@ -137,9 +137,18 @@ void function update() {
   if (time >= totalTime) warplane.land(delta)
 }()
 
-/* EVENTS */
+/* UI */
 
-startScreen.addEventListener('click', async e => {
+const inputStyle = `
+  border: 3px solid black; 
+  height: 180px;
+`
+
+const innerHTML = ['Biplane', 'Triplane', 'Messerschmitt', 'Bomber', 'F18'].map(name =>
+  `<input type="image" id="${name}" src="/assets/images/airplanes/${name}.png" style="${inputStyle}" />`
+).join('')
+
+const callback = async(e, startScreen) => {
   if (e.target.tagName != 'INPUT') return
 
   startScreen.style.display = 'none'
@@ -149,4 +158,7 @@ startScreen.addEventListener('click', async e => {
   warplane = new obj.default({ camera, limit: mapSize * .25 })
   scene.add(warplane.mesh)
   entities.push(warplane)
-})
+}
+
+const ui = new UI()
+ui.addStartScreen({ innerHTML, callback })
