@@ -20,7 +20,6 @@ npx live-server
     - reuse start-screen
 
 ### Optimizacija 
-- proveriti učitavanje scena redom
 - dinamičko učitavanje je sranje, možda bolje loader?
 - učitavati neprijatelje i objekte tek kad su blizu
   - odrediti blizinu u lavirintu?
