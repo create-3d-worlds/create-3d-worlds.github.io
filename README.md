@@ -11,16 +11,16 @@ npx live-server
 
 ## TODO
 
-- napraviti UI klasu
-  - dodati start-screen
+UI
+- reuse start-screen (rename to select-screen)
+- merge start-screen and addPointerLock
 
 ## Scene
 
-- cannon: 
-  - dodati poene
 - warplane: 
   - Choose your aircraft
-    - reuse start-screen
+- cannon: 
+  - dodati poene
 
 ### Optimizacija 
 - dinamičko učitavanje je sranje, možda bolje loader?
