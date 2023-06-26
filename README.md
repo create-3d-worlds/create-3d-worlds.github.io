@@ -17,8 +17,6 @@ UI
 
 ## Scene
 
-- warplane: 
-  - Choose your aircraft
 - cannon: 
   - dodati poene
 

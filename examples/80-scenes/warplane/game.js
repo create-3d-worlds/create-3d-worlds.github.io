@@ -161,4 +161,4 @@ const callback = async(e, div) => {
 }
 
 const ui = new UI()
-ui.addStartScreen({ innerHTML, callback })
+ui.addStartScreen({ innerHTML, callback, title: 'Choose your aircraft' })
