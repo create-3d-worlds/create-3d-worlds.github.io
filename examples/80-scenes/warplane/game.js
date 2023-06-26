@@ -160,5 +160,10 @@ const callback = async(e, div) => {
   entities.push(warplane)
 }
 
-const ui = new UI()
+const controls = {
+  '↑ ↓ ← →': 'move',
+  'WASD': 'move',
+  Enter: 'attack',
+}
+const ui = new UI({ controls })
 ui.addStartScreen({ innerHTML, callback, title: 'Choose your aircraft' })

@@ -62,18 +62,18 @@ const translateKey = key => {
 }
 
 export default class UI {
-  constructor({ title = 'COMMANDS', commands = baseControls } = {}) {
+  constructor({ title = 'CONTROLS', controls = baseControls } = {}) {
     this.title = title
-    this.commands = commands
-    this.addUIControls(title, commands)
+    this.controls = controls
+    this.addUIControls(title, controls)
   }
 
-  addUIControls(title, commands) {
+  addUIControls(title, controls) {
     const div = document.createElement('div')
     div.style = controlsStyle
 
-    div.innerHTML = Object.keys(commands).reduce((acc, key) => acc +
-    `<p style="${rowStyle}"><b style="${btnStyle}">${translateKey(key)}</b> ${commands[key]}</p>`,
+    div.innerHTML = Object.keys(controls).reduce((acc, key) => acc +
+    `<p style="${rowStyle}"><b style="${btnStyle}">${translateKey(key)}</b> ${controls[key]}</p>`,
     `<h3 style="${rowStyle}">${title}</h2>`
     )
     document.body.appendChild(div)
