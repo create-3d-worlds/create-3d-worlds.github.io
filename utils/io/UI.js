@@ -72,10 +72,19 @@ export default class UI {
     const div = document.createElement('div')
     div.style = controlsStyle
 
-    div.innerHTML = Object.keys(controls).reduce((acc, key) => acc +
-    `<p style="${rowStyle}"><b style="${btnStyle}">${translateKey(key)}</b> ${controls[key]}</p>`,
-    `<h3 style="${rowStyle}">${title}</h2>`
-    )
+    const innerDiv = document.createElement('div')
+    innerDiv.innerHTML = Object.keys(controls).map(key =>
+      `<p style="${rowStyle}"><b style="${btnStyle}">${translateKey(key)}</b> ${controls[key]}</p>`
+    ).join('')
+
+    const icon = innerDiv.style.display == 'none' ? '▶' : '▼'
+    div.innerHTML = `<h3 style="${rowStyle}">${title} ▾</h3>` // ▾ ► ▼ ▶
+
+    div.addEventListener('click', () => {
+      innerDiv.style.display = innerDiv.style.display == 'none' ? 'block' : 'none'
+    })
+
+    div.appendChild(innerDiv)
     document.body.appendChild(div)
   }
 
