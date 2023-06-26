@@ -13,7 +13,6 @@ npx live-server
 
 UI
 - merge start-screen and addPointerLock
-- toggle commands
 
 ## Scene
 
