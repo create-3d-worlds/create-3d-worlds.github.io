@@ -12,7 +12,6 @@ npx live-server
 ## TODO
 
 UI
-- reuse start-screen
 - merge start-screen and addPointerLock
 - toggle commands
 

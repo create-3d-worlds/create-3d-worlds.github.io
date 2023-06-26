@@ -148,10 +148,10 @@ const innerHTML = ['Biplane', 'Triplane', 'Messerschmitt', 'Bomber', 'F18'].map(
   `<input type="image" id="${name}" src="/assets/images/airplanes/${name}.png" style="${inputStyle}" />`
 ).join('')
 
-const callback = async(e, startScreen) => {
+const callback = async(e, div) => {
   if (e.target.tagName != 'INPUT') return
 
-  startScreen.style.display = 'none'
+  div.style.display = 'none'
   score.renderTempText('Destroy enemy factories, do not target civilian buildings')
 
   const obj = await import(`/utils/aircraft/derived/${e.target.id}.js`)

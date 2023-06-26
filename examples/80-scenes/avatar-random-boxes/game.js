@@ -5,8 +5,7 @@ import { hemLight, createSun } from '/utils/light.js'
 import Coin from '/utils/objects/Coin.js'
 import Score from '/utils/io/Score.js'
 import Platform from '/utils/objects/Platform.js'
-
-const startScreen = document.getElementById('start-screen')
+import UI from '/utils/io/UI.js'
 
 const numBoxes = 400, mapSize = 200, lavaSize = 50
 const numCoins = numBoxes / 4
@@ -112,11 +111,17 @@ void function loop() {
   lava.material.uniforms.time.value = time * .5
 }()
 
-/* EVENTS */
+/* UI */
 
-startScreen.addEventListener('click', e => {
+const innerHTML = `
+  <input type="image" id="STONE" src="/assets/images/avatar/STONE.jpg" style="border: 3px solid black" />
+  <input type="image" id="DISCO" src="/assets/images/avatar/DISCO.jpg" style="border: 3px solid black" />
+  <input type="image" id="LAVA" src="/assets/images/avatar/LAVA.jpg" style="border: 3px solid black" />
+`
+
+const callback = (e, div) => {
   if (e.target.tagName != 'INPUT') return
-  startScreen.style.display = 'none'
+  div.style.display = 'none'
 
   const promise = import('/utils/actor/Avatar.js')
   promise.then(obj => {
@@ -127,4 +132,7 @@ startScreen.addEventListener('click', e => {
     reset(true)
     score.renderHeighScore()
   })
-})
+}
+
+const ui = new UI()
+ui.addStartScreen({ innerHTML, callback, title: 'Choose your avatar' })

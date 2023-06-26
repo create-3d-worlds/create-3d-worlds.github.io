@@ -7,19 +7,23 @@ const baseControls = {
   Space: 'jump',
 }
 
-/** STYLE */
+/** START SCREEN STYLE */
 
-const startScreenStyle = `
+const startOuterStyle = `
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
+`
 
+const startInnerStyle = `
   display: flex;
-  width: 80%;
   flex-wrap: wrap;
   justify-content: center;
 `
+
+/** CONTROLS STYLE */
 
 const controlsStyle = `
   left: 20px;
@@ -67,6 +71,7 @@ export default class UI {
   addUIControls(title, commands) {
     const div = document.createElement('div')
     div.style = controlsStyle
+
     div.innerHTML = Object.keys(commands).reduce((acc, key) => acc +
     `<p style="${rowStyle}"><b style="${btnStyle}">${translateKey(key)}</b> ${commands[key]}</p>`,
     `<h3 style="${rowStyle}">${title}</h2>`
@@ -74,12 +79,17 @@ export default class UI {
     document.body.appendChild(div)
   }
 
-  addStartScreen({ innerHTML, callback }) {
+  addStartScreen({ title, innerHTML, callback }) {
     const div = document.createElement('div')
-    div.style = startScreenStyle
-    div.innerHTML = innerHTML
-    div.addEventListener('click', e => callback(e, div))
+    div.style = startOuterStyle
+    if (title)div.innerHTML = `<h2>${title}</h2>`
 
+    const innerDiv = document.createElement('div')
+    innerDiv.style = startInnerStyle
+    innerDiv.innerHTML = innerHTML
+    innerDiv.addEventListener('click', e => callback(e, div))
+
+    div.appendChild(innerDiv)
     document.body.appendChild(div)
   }
 }
