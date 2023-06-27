@@ -18,36 +18,33 @@ camera.position.set(0, 2, 4)
 
 // RENDERER
 
-export const renderer = new THREE.WebGLRenderer({
-  alpha: true,
-  antialias: true
-})
-
 const bodyStyle = `
   color: yellow;
   font-family: Verdana;
   margin: 0;
+  overflow: hidden;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
   user-select: none;
 `
 document.body.setAttribute('style', bodyStyle)
-const container = document.getElementById('container') || document.body
-container.appendChild(renderer.domElement)
+
+export const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.setPixelRatio(Math.min(2, window.devicePixelRatio)) // improve battery life by limit pixel ratio to 2
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio)) // save battery by limit pixel ratio to 2
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.setClearColor(0x87CEEB) // 0x7ec0ee
 
-renderer.domElement.focus()
+const canvas = renderer.domElement
+canvas.addEventListener('contextmenu', e => e.preventDefault())
+document.body.appendChild(canvas)
+canvas.focus()
 
 window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight)
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()
 })
-
-renderer.domElement.addEventListener('contextmenu', e => e.preventDefault())
 
 export async function createToonRenderer({ defaultThickness = 0.003 } = {}) {
   const { OutlineEffect } = await import('/node_modules/three/examples/jsm/effects/OutlineEffect.js')

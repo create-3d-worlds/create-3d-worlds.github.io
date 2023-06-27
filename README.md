@@ -10,18 +10,10 @@ npx live-server
 ```
 
 ## TODO
-
-## Scene
-
-### Optimizacija 
-- smanjiti zavisnosti fajlova, obrisati neke helper funkcije ili prebaciti na klase
-
 ### Polishing
 
-- puštati i restartovati scenu, probati intro i outro za scene
-- popraviti HTML margine?
 DODATI:
-  - toon-shader gde se slaže
+  - toon-shader gde se slaže (MeshToonMaterial removes nuisances, OutlineEffect adds black borders)
     https://www.maya-ndljk.com/blog/threejs-basic-toon-shader
     https://summer-afternoon.vlucendo.com/
   - cilj i poene?

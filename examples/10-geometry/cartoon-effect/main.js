@@ -1,11 +1,11 @@
-// MeshToonMaterial removes nuisances, OutlineEffect adds black borders
 import * as THREE from 'three'
-import { OutlineEffect } from '/node_modules/three/examples/jsm/effects/OutlineEffect.js'
-import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
+import { scene, camera, createOrbitControls, createToonRenderer } from '/utils/scene.js'
 import { createTrees } from '/utils/geometry/trees.js'
 import { createSun } from '/utils/light.js'
 
 const mapSize = 200
+
+const renderer = await createToonRenderer()
 
 const sun = createSun()
 scene.add(sun)
@@ -29,8 +29,6 @@ function createGround({ size = mapSize } = {}) {
 
 scene.add(createGround())
 
-const effect = new OutlineEffect(renderer, { defaultThickness: 0.003 })
-
 /* LOOP */
 
 void function loop() {
@@ -41,5 +39,5 @@ void function loop() {
   sun.position.x = Math.sin(timer) * 100
   sun.position.y = Math.cos(timer) * 100
 
-  effect.render(scene, camera)
+  renderer.render(scene, camera)
 }()
