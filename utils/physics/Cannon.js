@@ -32,7 +32,7 @@ export default class Cannon extends Vehicle {
   }
 
   shoot = () => {
-    const angle = this.mesh.rotation.y // + Math.PI * .5
+    const angle = this.mesh.rotation.y
     const x = this.impulse.value * Math.sin(angle)
     const z = this.impulse.value * Math.cos(angle)
 
