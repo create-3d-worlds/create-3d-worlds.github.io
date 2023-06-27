@@ -12,12 +12,12 @@ npx live-server
 ## TODO
 ### Polishing
 
-DODATI:
-  - toon-shader gde se slaže (MeshToonMaterial removes nuisances, OutlineEffect adds black borders)
+DODATI SVUDA:
+  - toon-shader gde se slaže
+    - prvi krug OutlineEffect (add black border)
+    - drugi krug MeshToonMaterial (removes nuisances)
     https://www.maya-ndljk.com/blog/threejs-basic-toon-shader
     https://summer-afternoon.vlucendo.com/
-  - cilj i poene?
-  - indikator energije?
   - UI komande (desni miš rotiranje kamere, i sl)
   - dodati game UI https://ronenness.github.io/RPGUI ?
   - komande za dodirne ekrane (strelice i dugmiće)

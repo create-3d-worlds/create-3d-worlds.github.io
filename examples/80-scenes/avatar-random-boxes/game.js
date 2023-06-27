@@ -1,11 +1,13 @@
-import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { createRandomBoxes, createSkySphere } from '/utils/geometry/index.js'
+import { scene, camera, clock, createToonRenderer } from '/utils/scene.js'
+import { createRandomBoxes } from '/utils/geometry/index.js'
 import { createGround, createLava } from '/utils/ground.js'
 import { hemLight, createSun } from '/utils/light.js'
 import Coin from '/utils/objects/Coin.js'
 import Score from '/utils/io/Score.js'
 import Platform from '/utils/objects/Platform.js'
 import UI from '/utils/io/UI.js'
+
+const renderer = await createToonRenderer()
 
 const numBoxes = 400, mapSize = 200, lavaSize = 50
 const numCoins = numBoxes / 4
@@ -20,7 +22,6 @@ camera.position.set(0, 2, 56)
 
 hemLight()
 scene.add(createSun({ intensity: .25 }))
-scene.add(await createSkySphere())
 
 const floor = createGround({ file: 'terrain/ground.jpg' })
 scene.add(floor)

@@ -18,7 +18,10 @@ camera.position.set(0, 2, 4)
 
 // RENDERER
 
+// https://gist.github.com/mikedugan/7355415
 const bodyStyle = `
+  // background: linear-gradient(to bottom, #b7eaff 0%,#94dfff 100%);
+  background: linear-gradient(to bottom, #94c5f8 1%,#a6e6ff 70%,#b1b5ea 100%);
   color: yellow;
   font-family: Verdana;
   margin: 0;
@@ -26,14 +29,14 @@ const bodyStyle = `
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
   user-select: none;
 `
-document.body.setAttribute('style', bodyStyle)
+document.body.style = bodyStyle
 
 export const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio)) // save battery by limit pixel ratio to 2
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor(0x87CEEB) // 0x7ec0ee
+// renderer.setClearColor(0x87CEEB) // 0x7ec0ee
 
 const canvas = renderer.domElement
 canvas.addEventListener('contextmenu', e => e.preventDefault())
