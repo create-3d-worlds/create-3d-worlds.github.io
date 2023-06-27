@@ -77,8 +77,7 @@ export const createShapeFromMesh = mesh => {
 
 /* BODIES */
 
-export function createRigidBody({ mesh, mass = 0, shape = createShapeFromMesh(mesh), friction, kinematic = false }) {
-  if (mass == -1) mass = guessMassFromMesh(mesh)
+export function createRigidBody({ mesh, mass = guessMassFromMesh(mesh), shape = createShapeFromMesh(mesh), friction, kinematic = false }) {
   const { position, quaternion: quat } = mesh
 
   const transform = new Ammo.btTransform()

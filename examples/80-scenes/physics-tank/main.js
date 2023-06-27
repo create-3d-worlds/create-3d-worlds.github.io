@@ -34,7 +34,7 @@ const countableCrates = crates.filter(mesh => mesh.position.y > .5)
 for (let i = 0; i < 20; i++) {
   const mesh = createFirTree()
   mesh.position.set(randFloat(10, 50), 0, randFloat(-50, 50))
-  world.add(mesh)
+  world.add(mesh, 0)
 }
 
 const createObject = [createCrate, createRustyBarrel, createMetalBarrel, createMoonSphere]
@@ -49,7 +49,7 @@ for (let i = -1; i < 5; i++)
   for (let j = 0; j < 3; j++) {
     const warehouse = sample(createBuilding)()
     warehouse.position.set(-i * 30, 0, j * 30 + 60)
-    world.add(warehouse)
+    world.add(warehouse, 0)
   }
 
 /* LOOP */

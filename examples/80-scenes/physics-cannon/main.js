@@ -12,10 +12,10 @@ const sun = createSun({ pos: [-5, 10, 5] })
 scene.add(sun)
 
 const ground = createGround({ size: 40 })
-world.add(ground)
+world.add(ground, 0)
 
 const boxes = createSideWall({ brickMass: 3, friction: 5, z: 7 })
-boxes.forEach(mesh => world.add(mesh, -1))
+boxes.forEach(mesh => world.add(mesh))
 let countableCrates = boxes.filter(mesh => mesh.position.y > .5)
 
 /* LOOP */

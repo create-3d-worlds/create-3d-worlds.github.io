@@ -14,15 +14,7 @@ npx live-server
 ## Scene
 
 ### Optimizacija 
-- učitavati neprijatelje i objekte tek kad su blizu
-  - odrediti blizinu u lavirintu?
-- optimizovati statične modele https://github.com/donmccurdy/glTF-Transform
-- primeniti savete 
-  - https://twitter.com/mrdoob/status/966609115140128768
-  - https://attackingpixels.com/tips-tricks-optimizing-three-js-performance/
-- izmeriti statistike, ako je presporo izbacivati nevažno
 - smanjiti zavisnosti fajlova, obrisati neke helper funkcije ili prebaciti na klase
-  - npr createCoin to Coin class, i ostale funkcije koje imaju matične klase
 
 ### Polishing
 
