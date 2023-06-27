@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import * as BufferGeometryUtils from '/node_modules/three/examples/jsm/utils/BufferGeometryUtils.js'
-import { centerGeometry, createTexture } from '/utils/helpers.js'
+import { createTexture } from '/utils/helpers.js'
 import { createBuildingTexture, createBuildingGeometry } from '/utils/city.js'
 import chroma from '/libs/chroma.js'
 
@@ -15,6 +15,14 @@ export const tileToPosition = (tilemap, [row, column], cellSize = 1) => {
   const x = column * cellSize + cellSize / 2 - tilemap[0].length / 2 * cellSize
   const z = row * cellSize + cellSize / 2 - tilemap.length / 2 * cellSize
   return { x, y: 0, z }
+}
+
+// different from geometry.center(), not adjusting height
+const centerGeometry = geometry => {
+  const _offset = new THREE.Vector3()
+  geometry.computeBoundingBox()
+  geometry.boundingBox.getCenter(_offset).negate()
+  geometry.translate(_offset.x, 0, _offset.z)
 }
 
 /* MESH FROM TILEMAP */

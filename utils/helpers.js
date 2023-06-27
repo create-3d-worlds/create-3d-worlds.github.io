@@ -40,14 +40,6 @@ export function normalizeMouse(e) {
   return { x, y }
 }
 
-/* returns mouse 3D vector in world coordinates */
-export const mouseToWorld = (e, camera = defaultCamera, z = .9) => {
-  const { x, y } = normalizeMouse(e)
-  const mouse3D = new THREE.Vector3(x, y, z) // initially .5
-  mouse3D.unproject(camera)
-  return mouse3D
-}
-
 export const getCursorPosition = e => {
   const clientX = e.targetTouches ? e.targetTouches[0].pageX : e.clientX
   const clientY = e.targetTouches ? e.targetTouches[0].pageY : e.clientY
@@ -66,15 +58,9 @@ export const getMesh = obj => {
   return mesh
 }
 
-export const isCollide = (bounds1, bounds2) =>
-  bounds1.xMin <= bounds2.xMax && bounds1.xMax >= bounds2.xMin &&
-  bounds1.yMin <= bounds2.yMax && bounds1.yMax >= bounds2.yMin &&
-  bounds1.zMin <= bounds2.zMax && bounds1.zMax >= bounds2.zMin
-
 /* @param key: x, y or z (represents width, height and depth) */
 export const getSize = (mesh, key) => {
   const box = new THREE.Box3().setFromObject(mesh)
-
   return key
     ? box.max[key] - box.min[key]
     : {
@@ -91,14 +77,6 @@ export const centerMesh = mesh => {
   const box = new THREE.Box3().setFromObject(mesh)
   box.getCenter(mesh.position) // re-sets mesh position
   mesh.position.multiplyScalar(-1)
-}
-
-// different from geometry.center(), not adjusting height
-export const centerGeometry = geometry => {
-  const _offset = new THREE.Vector3()
-  geometry.computeBoundingBox()
-  geometry.boundingBox.getCenter(_offset).negate()
-  geometry.translate(_offset.x, 0, _offset.z)
 }
 
 export const adjustHeight = mesh => mesh.translateY(getHeight(mesh) / 2)
