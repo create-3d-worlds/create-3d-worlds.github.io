@@ -9,8 +9,9 @@ import { createGround } from '/utils/ground.js'
 import { createSphere, createSideWall } from '/utils/geometry/index.js'
 import Vehicle from '/utils/physics/Vehicle.js'
 
-const world = new PhysicsWorld()
+let score
 
+const world = new PhysicsWorld()
 const impulse = document.getElementById('impulse')
 const minImpulse = impulse.value = 15
 const maxImpulse = 25
@@ -21,7 +22,9 @@ scene.add(sun)
 const ground = createGround({ size: 40 })
 world.add(ground)
 
-createSideWall({ brickMass: 3, friction: 5, z: 7 }).forEach(mesh => world.add(mesh, -1))
+const boxes = createSideWall({ brickMass: 3, friction: 5, z: 7 })
+boxes.forEach(mesh => world.add(mesh, -1))
+const countableCrates = boxes.filter(mesh => mesh.position.y > .5)
 
 const mesh = await loadModel({ file: 'weapon/cannon/mortar/mortar.obj', mtl: 'weapon/cannon/mortar/mortar.mtl', size: 1, angle: Math.PI * .5 })
 
@@ -67,9 +70,25 @@ void function loop() {
   handleInput()
   cannon.update(dt)
   world.update(dt)
+
+  countableCrates.forEach(mesh => {
+    if (mesh.position.y <= 0.5) {
+      countableCrates.splice(countableCrates.findIndex(c => c === mesh), 1)
+      score.update(-1)
+    }
+  })
+
+  if (!countableCrates.length)
+    score.renderText('Bravo!<br>You demolished everything.')
+
   renderer.render(scene, camera)
 }()
 
 /* EVENTS */
 
 document.addEventListener('mouseup', shoot)
+
+/* LAZY LOAD */
+
+const scoreFile = await import('/utils/io/Score.js')
+score = new scoreFile.default({ title: 'Blocks left', points: countableCrates.length })

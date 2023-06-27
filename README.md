@@ -11,16 +11,9 @@ npx live-server
 
 ## TODO
 
-UI
-- merge start-screen and addPointerLock
-
 ## Scene
 
-- cannon: 
-  - dodati poene
-
 ### Optimizacija 
-- dinamičko učitavanje je sranje, možda bolje loader?
 - učitavati neprijatelje i objekte tek kad su blizu
   - odrediti blizinu u lavirintu?
 - optimizovati statične modele https://github.com/donmccurdy/glTF-Transform
