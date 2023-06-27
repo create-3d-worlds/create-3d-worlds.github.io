@@ -36,6 +36,7 @@ export default class Report {
     this.i = 0
     this.intervalId
     this.text = text
+    this.container = container
     this.p = createHtml(container)
     this.audio = new Audio('/assets/sounds/typing.mp3')
     this.kucaj = this.kucaj.bind(this)
@@ -50,6 +51,7 @@ export default class Report {
       this.audio.pause()
       clearInterval(this.intervalId)
     }
+    if (this.container.style.display == 'none') this.audio.volume = 0
     this.i++
   }
 

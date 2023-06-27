@@ -40,7 +40,8 @@ const addEnemy = (obj, arr) => {
 
 /* LOOP */
 
-renderer.setAnimationLoop(() => {
+void function loop() {
+  requestAnimationFrame(loop)
   renderer.render(scene, camera)
   if (!document.pointerLockElement) return
   const delta = clock.getDelta()
@@ -54,7 +55,7 @@ renderer.setAnimationLoop(() => {
   player.update(delta)
   enemies.forEach(obj => obj.update(delta))
   aircraft.forEach(obj => obj.update(delta))
-})
+}()
 
 /* AIRCRAFT */
 
@@ -80,7 +81,7 @@ for (let i = 0; i < heinkelNum; i++) { // back
 
 const towerFile = await import('/utils/objects/Tower.js')
 
-;[[-75, -75], [-75, 75], [75, -75], [75, 75]].forEach(async([x, z]) => {
+  ;[[-75, -75], [-75, 75], [75, -75], [75, 75]].forEach(async([x, z]) => {
   const tower = new towerFile.default({ pos: [x, 0, z], range: 50, interval: 1500, damage: 10, damageDistance: 1 })
   addEnemy(tower, enemies)
 })

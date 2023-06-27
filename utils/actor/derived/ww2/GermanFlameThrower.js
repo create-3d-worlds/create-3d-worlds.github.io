@@ -51,4 +51,9 @@ export class GermanFlameThrowerAI extends AI {
   exitAttack() {
     this.endFlame()
   }
+
+  update(delta) {
+    super.update(delta)
+    if (this.state != 'attack') this.endFlame()
+  }
 }

@@ -10,6 +10,7 @@ npx live-server
 ```
 
 ## TODO
+
 ### Polishing
 
 DODATI SVUDA:

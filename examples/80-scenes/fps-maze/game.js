@@ -42,7 +42,7 @@ renderer.setAnimationLoop(() => {
 
   enemies.forEach(enemy => enemy.update(delta))
 
-  if (Math.random() > .997) lightningStrike(light)
+  if (Math.random() > .998) lightningStrike(light)
 })
 
 /* LAZY LOAD */
