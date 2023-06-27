@@ -1,11 +1,13 @@
 import * as THREE from 'three'
-import { camera, scene, renderer, setBackground, clock } from '/utils/scene.js'
+import { camera, scene, createToonRenderer, setBackground, clock } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { createMoon, orbiting } from '/utils/light.js'
 import { getEmptyCoords, sample } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
 import { Smoke } from '/utils/Particles.js'
 import Score from '/utils/io/Score.js'
+
+const renderer = await createToonRenderer()
 
 const moonSpeed = .005
 const totalTime = 300
@@ -19,12 +21,12 @@ let player
 
 /* INIT */
 
-const score = new Score({ subtitle: 'Time left' })
+const score = new Score({ title: 'Zombies killed', subtitle: 'Time left' })
 const coords = getEmptyCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
 
 const particles = new Smoke({ size: 1, num: 100, minRadius: 0, maxRadius: .5 })
 
-setBackground(0x070b34)
+setBackground(0x202030)
 
 const moon = createMoon({ intensity: .5, pos: [15, 25, -30] })
 scene.add(moon)
@@ -109,8 +111,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 const { ResistanceFighterPlayer } = await import('/utils/actor/derived/ww2/ResistanceFighter.js')
-player = new ResistanceFighterPlayer({ camera })
-player.addSolids(solids)
+player = new ResistanceFighterPlayer({ camera, solids })
 scene.add(player.mesh)
 
 scene.add(particles.mesh)

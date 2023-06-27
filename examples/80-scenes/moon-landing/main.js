@@ -34,6 +34,9 @@ saturn.position.set(85, 20, -50)
 
 scene.add(platform.mesh, lander.mesh, stars.mesh, arcology, jupiter, saturn, moon, moonLight)
 
+// TODO: prikazati text
+score.renderTempText('Land on the platform gently')
+
 /* LOOP */
 
 let time = 0
