@@ -18,6 +18,7 @@ export default class Lander extends GameObject {
   constructor({ platform }) {
     super ({ mesh })
     this.name = 'player'
+    this.input = input
     this.platform = platform
     this.flame = new Flame()
     this.flame.mesh.rotateX(Math.PI * .5)

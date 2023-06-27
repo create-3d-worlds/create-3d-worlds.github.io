@@ -29,7 +29,7 @@ function addMoon(planet, r) {
  * i = 2: lava shader
  * i > 2: random texture
  */
-export function createPlanet({ r = randFloat(2, 5), pos, i = 0 } = {}) {
+function createPlanet({ r = randFloat(2, 5), pos, i = 0 } = {}) {
   const file = `planets/${textures[i % textures.length]}`
   const planet = createSphere({ file, r })
   if (pos) planet.position.copy(pos)
