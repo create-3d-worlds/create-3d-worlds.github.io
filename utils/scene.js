@@ -19,9 +19,10 @@ camera.position.set(0, 2, 4)
 // RENDERER
 
 // https://gist.github.com/mikedugan/7355415
-const bodyStyle = `
+document.body.style = `
   // background: linear-gradient(to bottom, #b7eaff 0%,#94dfff 100%);
-  background: linear-gradient(to bottom, #94c5f8 1%,#a6e6ff 70%,#b1b5ea 100%);
+  // background: linear-gradient(to bottom, #94c5f8 1%,#a6e6ff 70%,#b1b5ea 100%);
+  background: linear-gradient(to bottom, #40405c 0%,#6f71aa 80%,#8a76ab 100%);
   color: yellow;
   font-family: Verdana;
   margin: 0;
@@ -29,7 +30,6 @@ const bodyStyle = `
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
   user-select: none;
 `
-document.body.style = bodyStyle
 
 export const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)

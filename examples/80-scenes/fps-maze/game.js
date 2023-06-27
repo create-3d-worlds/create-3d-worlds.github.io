@@ -1,4 +1,4 @@
-import { scene, renderer, camera, clock, setBackground } from '/utils/scene.js'
+import { scene, camera, clock, setBackground, createToonRenderer } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { sample } from '/utils/helpers.js'
 import { hemLight, lightningStrike } from '/utils/light.js'
@@ -8,6 +8,8 @@ import { truePrims } from '/utils/mazes/algorithms.js'
 import Score from '/utils/io/Score.js'
 
 const enemies = []
+
+const renderer = await createToonRenderer()
 
 const light = hemLight({ intensity: .75 })
 setBackground(0x070b34)
@@ -28,7 +30,8 @@ const score = new Score({ subtitle: 'Enemy left', total: enemies.length })
 
 /* LOOP */
 
-renderer.setAnimationLoop(() => {
+void function loop() {
+  requestAnimationFrame(loop)
   renderer.render(scene, camera)
   if (!document.pointerLockElement) return
   const delta = clock.getDelta()
@@ -43,7 +46,7 @@ renderer.setAnimationLoop(() => {
   enemies.forEach(enemy => enemy.update(delta))
 
   if (Math.random() > .998) lightningStrike(light)
-})
+}()
 
 /* LAZY LOAD */
 
