@@ -81,28 +81,6 @@ export const centerMesh = mesh => {
 
 export const adjustHeight = mesh => mesh.translateY(getHeight(mesh) / 2)
 
-// TODO: move to Airship
-export const addSolids = (oldSolids, ...newSolids) => {
-  const pushUnique = obj => {
-    if (!oldSolids.includes(obj)) oldSolids.push(obj)
-  }
-  newSolids.forEach(solid => {
-    if (Array.isArray(solid)) solid.forEach(pushUnique)
-    else pushUnique(solid)
-  })
-}
-
-export const getScene = object => {
-  if (!object.parent) return null
-  if (object.parent.type === 'Scene') return object.parent
-  return getScene(object.parent)
-}
-
-export const getParent = (object, name) => {
-  if (object.name === name) return object
-  return getParent(object.parent, name)
-}
-
 export const belongsTo = (object, name) => {
   if (!object) return false
   if (object.name === name) return true
@@ -110,8 +88,6 @@ export const belongsTo = (object, name) => {
 }
 
 /* COLORS */
-
-export const randomColor = () => new THREE.Color(Math.random() * 0xffffff)
 
 export function randomGray(min = 175, max = 250) { // range 0-255
   const v = (randFloat(min, max) | 0).toString(16)

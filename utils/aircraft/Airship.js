@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import input from '/utils/io/Input.js'
-import { addSolids, getMesh, getGroundY } from '/utils/helpers.js'
+import { getMesh, getGroundY } from '/utils/helpers.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 import GameObject from '/utils/objects/GameObject.js'
 
@@ -34,7 +34,7 @@ export default class Airship extends GameObject {
     }
 
     if (solids)
-      this.addSolids(solids)
+      this.solids.push(solids)
 
     if (camera) {
       this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, height: 2, speed: this.speed * .5 })
@@ -67,10 +67,6 @@ export default class Airship extends GameObject {
   }
 
   /* UTILS */
-
-  addSolids(...newSolids) {
-    addSolids(this.solids, ...newSolids)
-  }
 
   updateGround() {
     const { solids } = this

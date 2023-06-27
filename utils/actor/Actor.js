@@ -2,14 +2,17 @@ import * as THREE from 'three'
 import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 
 import GameObject from '/utils/objects/GameObject.js'
-import { getGroundY, directionBlocked, getMesh, intersect, getParent, belongsTo } from '/utils/helpers.js'
+import { getGroundY, directionBlocked, getMesh, intersect, belongsTo } from '/utils/helpers.js'
 import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
 import config from '/config.js'
 
 const { randInt } = THREE.MathUtils
 
+const getParent = (object, name) =>
+  object.name === name ? object : getParent(object.parent, name)
+
 /**
- * Base abstract class for AI and Player, handles movement, animations...
+ * Base abstract class for AI and Player; handles movement, animations...
  * @param animDict: maps state to animation
  */
 export default class Actor extends GameObject {
