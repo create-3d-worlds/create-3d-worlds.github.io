@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { scene as defaultScene, camera as defaultCamera } from '/utils/scene.js'
 import { dir } from '/utils/constants.js'
 
 const { randFloat, randFloatSpread } = THREE.MathUtils
@@ -116,7 +115,7 @@ export function similarColor(color, range = .25) {
 
 /* RAYCAST */
 
-export const getIntersects = (raycaster, target = defaultScene) => (
+export const getIntersects = (raycaster, target) => (
   Array.isArray(target)
     ? raycaster.intersectObjects(target)
     : raycaster.intersectObject(target)
@@ -148,17 +147,12 @@ export const intersect = (mesh, solids, dir, height = getHeight(mesh) * .5) => {
   return getIntersects(raycaster, solids)
 }
 
-const defaultLength = (currDir, mesh) => currDir == dir.forward ? getSize(mesh, 'z') : getSize(mesh, 'y')
+const defaultLength = (currDir, mesh) =>
+  currDir == dir.forward ? getSize(mesh, 'z') : getSize(mesh, 'y')
 
 export const directionBlocked = (mesh, solids, currDir, rayLength = defaultLength(currDir, mesh)) => {
   const intersects = intersect(mesh, solids, currDir)
   return intersects.length && intersects[0].distance < rayLength
-}
-
-export function getMouseIntersects(e, camera = defaultCamera, target = defaultScene) {
-  const mouse = normalizeMouse(e)
-  raycaster.setFromCamera(mouse, camera)
-  return getIntersects(raycaster, target)
 }
 
 export function getCameraIntersects(camera, target) {
@@ -188,9 +182,7 @@ export const addTexture = (mesh, file = 'terrain/concrete.jpg', repeat = 1) => {
   })
 }
 
-/* ARRAYS AND OBJECTS */
-
-export const isEmpty = obj => Object.keys(obj).length === 0
+/* ARRAYS */
 
 export const sample = arr => arr[Math.floor(Math.random() * arr.length)]
 
