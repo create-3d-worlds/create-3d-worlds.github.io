@@ -46,7 +46,7 @@ export default class Lander extends GameObject {
     return this.position.y < lowerBound
   }
 
-  get statusText() {
+  get endText() {
     if (this.hasLanded) return message.success
     if (this.broken) return message.fail
     if (this.outOfFuel) return message.outOfFuel
@@ -142,8 +142,5 @@ export default class Lander extends GameObject {
     if (!this.onPlatform) this.applyGravity(delta)
     this.applyVelocity(delta)
     this.updateFlame(delta)
-
-    if (this.statusText && input.pressed.KeyR)
-      this.reset()
   }
 }

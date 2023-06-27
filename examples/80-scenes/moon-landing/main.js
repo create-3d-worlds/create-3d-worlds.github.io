@@ -34,7 +34,6 @@ saturn.position.set(85, 20, -50)
 
 scene.add(platform.mesh, lander.mesh, stars.mesh, arcology, jupiter, saturn, moon, moonLight)
 
-// TODO: prikazati text
 score.renderTempText('Land on the platform gently')
 
 /* LOOP */
@@ -60,5 +59,12 @@ void function loop() {
   orbitAround({ moon, planet: jupiter, time: time += dt * .75 })
 
   score.render(score.points, null, lander.fuel)
-  score.renderText(lander.statusText ? lander.statusText + '<br><br><small>press R to play again</small>' : '')
+
+  if (lander.endText) {
+    score.renderText(lander.endText + '<br><br><small>press R to play again</small>')
+    if (input.pressed.KeyR) {
+      lander.reset()
+      score.clear()
+    }
+  }
 }()
