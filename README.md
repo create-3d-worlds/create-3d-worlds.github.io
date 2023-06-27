@@ -11,6 +11,9 @@ npx live-server
 
 ## TODO
 
+- showHighScore da budu mala slova ispod poena, ne početni prozor?
+  - probati u moon-landing
+
 ### Polishing
 
 DODATI SVUDA:

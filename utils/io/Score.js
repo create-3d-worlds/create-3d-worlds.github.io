@@ -99,8 +99,7 @@ export default class Score {
 
   renderHeighScore() {
     if (this.highScore < 2) return
-    this.centralDiv.innerHTML = `<h3>The current high score is ${this.highScore} points. Beat it!</h3>`
-    this.clearSoon(3000)
+    this.renderTempText(`The current high score is ${this.highScore} points. Beat it!`, 3000)
   }
 
   renderEndScreen({ text = 'You are dead.', callback } = {}) {
@@ -128,13 +127,13 @@ export default class Score {
     this.scoreDiv.innerHTML = html
 
     if (this.messageDict) this.renderMessage(enemiesLeft, points)
+
+    if (points > this.highScore)
+      localStorage.setItem(location.pathname, points)
   }
 
   update(change = 1, enemiesLeft, energyLeft) {
     this.points += change
     this.render(this.points, enemiesLeft, energyLeft)
-
-    if (this.points > this.highScore)
-      localStorage.setItem(location.pathname, this.points)
   }
 }

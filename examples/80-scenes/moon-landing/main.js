@@ -15,8 +15,6 @@ camera.position.z = 18
 ambLight({ intensity: .9 })
 const moonLight = createMoon({ pos: [30, 30, 30], intensity: .1 })
 
-const score = new Score({ subtitle: 'Fuel left' })
-
 const platform = new Platform({ pos: [0, -10, 0], axis: 'x', range: 29, randomDirChange: true })
 const lander = new Lander({ platform })
 const stars = new Stars({ minRadius: 150 })
@@ -34,6 +32,7 @@ saturn.position.set(85, 20, -50)
 
 scene.add(platform.mesh, lander.mesh, stars.mesh, arcology, jupiter, saturn, moon, moonLight)
 
+const score = new Score({ subtitle: 'Fuel left' })
 score.renderTempText('Land on the platform gently')
 
 /* LOOP */
