@@ -1,5 +1,5 @@
 import { camera, scene, clock, setBackground, renderer } from '/utils/scene.js'
-import { Planet } from '/utils/geometry/planets.js'
+import Planet from '/utils/geometry/Planet.js'
 import { createTerrain, shake } from '/utils/ground.js'
 import { Stars } from '/utils/Particles.js'
 import { createMoon } from '/utils/light.js'
