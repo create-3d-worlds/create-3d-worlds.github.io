@@ -7,7 +7,7 @@ import { loadModel } from '/utils/loaders.js'
 import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import { createGround } from '/utils/ground.js'
 import { createSphere, createSideWall } from '/utils/geometry/index.js'
-import Vehicle from '/utils/physics/Vehicle.js'
+import Cannon from '/utils/physics/Cannon.js'
 
 let score
 
@@ -24,27 +24,22 @@ world.add(ground)
 
 const boxes = createSideWall({ brickMass: 3, friction: 5, z: 7 })
 boxes.forEach(mesh => world.add(mesh, -1))
-const countableCrates = boxes.filter(mesh => mesh.position.y > .5)
+let countableCrates = boxes.filter(mesh => mesh.position.y > .5)
 
-const mesh = await loadModel({ file: 'weapon/cannon/mortar/mortar.obj', mtl: 'weapon/cannon/mortar/mortar.mtl', size: 1, angle: Math.PI * .5 })
-
-const cannon = new Vehicle({ physicsWorld: world.physicsWorld, mesh, defaultRadius: .18, wheelFront: { x: .3, y: .12, z: .32 }, wheelBack: { x: .3, y: .18, z: -.56 }, maxEngineForce: 20, mass: 100, camera })
-cannon.chaseCamera.offset = [0, 1, -2.5]
-cannon.chaseCamera.lookAt = [0, 1, 0]
-
-scene.add(mesh, ...cannon.wheelMeshes)
+const cannon = new Cannon({ physicsWorld: world.physicsWorld, camera})
+scene.add(cannon.mesh, ...cannon.wheelMeshes)
 
 /* FUNCTIONS */
 
 function shoot() {
-  const angle = mesh.rotation.y // + Math.PI * .5
+  const angle = cannon.mesh.rotation.y // + Math.PI * .5
   const x = impulse.value * Math.sin(angle)
   const z = impulse.value * Math.cos(angle)
 
   const distance = .7
   const cannonTop = new THREE.Vector3(distance * Math.sin(angle), 0, distance * Math.cos(angle))
 
-  const pos = mesh.position.clone()
+  const pos = cannon.mesh.position.clone()
   pos.y += 0.5
   pos.add(cannonTop)
 
@@ -58,7 +53,7 @@ function shoot() {
 }
 
 function handleInput() {
-  if ((input.pressed.mouse) && impulse.value < maxImpulse)
+  if (input.pressed.mouse && impulse.value < maxImpulse)
     impulse.value = parseFloat(impulse.value) + .2
 }
 
@@ -71,12 +66,9 @@ void function loop() {
   cannon.update(dt)
   world.update(dt)
 
-  countableCrates.forEach(mesh => {
-    if (mesh.position.y <= 0.5) {
-      countableCrates.splice(countableCrates.findIndex(c => c === mesh), 1)
-      score.update(-1)
-    }
-  })
+  const valid = countableCrates.filter(mesh => mesh.position.y > .5)
+  score?.update(valid.length - countableCrates.length)
+  countableCrates = valid
 
   if (!countableCrates.length)
     score.renderText('Bravo!<br>You demolished everything.')

@@ -13,6 +13,9 @@ npx live-server
 
 ## Scene
 
+cannon
+  - BUG: kad se top vrti oko sebe pucanje se kvari
+
 ### Optimizacija 
 - učitavati neprijatelje i objekte tek kad su blizu
   - odrediti blizinu u lavirintu?
