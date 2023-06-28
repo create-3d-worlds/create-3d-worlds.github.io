@@ -1,4 +1,4 @@
-import { scene, renderer, camera, clock } from '/utils/scene.js'
+import { scene, createToonRenderer, camera, clock } from '/utils/scene.js'
 import { createHillyTerrain } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { createSun } from '/utils/light.js'
@@ -9,7 +9,8 @@ let player, score
 const mapSize = 400
 const npcs = []
 
-camera.position.y = 50
+const renderer = await createToonRenderer()
+camera.position.set(0, 50, 150)
 
 const coords = getEmptyCoords({ mapSize: mapSize * .9, fieldSize: 5 })
 scene.add(createSun({ pos: [15, 100, 50] }))

@@ -48,7 +48,7 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix()
 })
 
-export async function createToonRenderer({ defaultThickness = 0.003 } = {}) {
+export async function createToonRenderer({ defaultThickness = 0.0025 } = {}) {
   const { OutlineEffect } = await import('/node_modules/three/examples/jsm/effects/OutlineEffect.js')
   return new OutlineEffect(renderer, { defaultThickness })
 }

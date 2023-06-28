@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { scene, camera, renderer, clock } from '/utils/scene.js'
+import { scene, camera, createToonRenderer, clock } from '/utils/scene.js'
 import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import { createGround } from '/utils/ground.js'
 import { createMoonSphere, createTremplin, createCrates, createCrate, createRustyBarrel, createMetalBarrel } from '/utils/geometry/index.js'
@@ -10,6 +10,8 @@ import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAir
 import { leaveTracks } from '/utils/physics/leaveTracks.js'
 
 const { randFloat } = THREE.MathUtils
+
+const renderer = await createToonRenderer()
 
 let i = 0
 let time = 0

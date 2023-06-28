@@ -47,10 +47,10 @@ export default class AI extends Actor {
     this.patrolDistance = patrolDistance
     this.last = Date.now() // for ai intervals
 
-    this.randomizeAction()
     this.mesh.rotateY(Math.random() * Math.PI * 2)
 
     this.setState(baseState)
+    this.randomizeAction()
   }
 
   /* GETTERS */

@@ -13,8 +13,6 @@ npx live-server
 
 - showHighScore da budu mala slova ispod poena, ne početni prozor?
   - probati u moon-landing
-- optim: castle/magic-castle.fbx
-- https://github.com/donmccurdy/glTF-Transform
 
 ### Polishing
 
