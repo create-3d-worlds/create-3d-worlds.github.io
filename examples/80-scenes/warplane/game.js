@@ -22,11 +22,6 @@ const buildingDistance = mapSize * .4
 const groundDistance = mapSize * .99
 const entities = []
 const objects = []
-const messageDict = {
-  1: 'Well, that\'s a good start!',
-  10: 'Keep up the good work!',
-  25: 'Nice result so far...',
-}
 
 camera.position.set(0, 29, 0)
 
@@ -40,7 +35,7 @@ const ground2 = createTerrain(groundParams)
 ground2.position.z = -groundDistance
 scene.add(ground, ground2)
 
-const score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.', messageDict })
+const score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.' })
 
 /* OBJECTS */
 

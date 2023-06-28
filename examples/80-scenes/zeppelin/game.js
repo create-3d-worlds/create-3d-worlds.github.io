@@ -1,10 +1,11 @@
-import { camera, scene, renderer, clock } from '/utils/scene.js'
-import { createSkySphere } from '/utils/geometry/index.js'
+import { camera, scene, createToonRenderer, clock } from '/utils/scene.js'
 import { hemLight, ambLight } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { getEmptyCoords, putOnSolids } from '/utils/helpers.js'
 import UI from '/utils/io/UI.js'
+
+const renderer = await createToonRenderer()
 
 const updatables = []
 
@@ -14,7 +15,6 @@ hemLight({ intensity: .75 })
 ambLight({ intensity: .5 })
 
 camera.position.set(0, 40, 200)
-scene.add(await createSkySphere({ r: 5000 }))
 
 const terrain = await createHillyTerrain({ size: mapSize, factorY: 30 })
 scene.add(terrain)

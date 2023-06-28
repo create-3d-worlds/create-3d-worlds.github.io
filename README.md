@@ -18,8 +18,7 @@ npx live-server
 
 DODATI SVUDA:
   - toon-shader gde se slaže
-    - prvi krug OutlineEffect (add black border)
-    - drugi krug MeshToonMaterial (removes nuisances)
+    - drugi krug MeshToonMaterial
     https://www.maya-ndljk.com/blog/threejs-basic-toon-shader
     https://summer-afternoon.vlucendo.com/
   - UI komande (desni miš rotiranje kamere, i sl)

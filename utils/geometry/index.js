@@ -73,17 +73,6 @@ export const createBullet = ({ color = 0x333333, r = .1, widthSegments = 6 } = {
 
 export const createMoonSphere = () => createSphere({ r: .5, file: 'planets/moon.jpg' })
 
-/* SKY SPHERE */
-
-export async function createSkySphere({ r = 4000, color1 = 0x0077ff, color2 = 0xffffff } = {}) {
-  const geometry = new THREE.SphereGeometry(r, 32, 15)
-  const { material } = await import('/utils/shaders/gradient-sky.js')
-
-  material.uniforms.color1.value = new THREE.Color(color1)
-  material.uniforms.color2.value = new THREE.Color(color2)
-  return new THREE.Mesh(geometry, material)
-}
-
 /* BARRELS */
 
 export function createRustyBarrel({ r = .4, height = 1, segments = 32, file = 'metal/rust.jpg', topFile = 'barrel/rust-top.jpg', translateHeight = true } = {}) {
