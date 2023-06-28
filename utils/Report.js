@@ -1,25 +1,25 @@
 function createHtml(container) {
   const divStyle = `
-  background-color: #cccccc;
-  background-image: url(/assets/images/document.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 24.3em;
-  margin: 0 auto;
-  width: 39.6em;
-`
+    background-color: #cccccc;
+    background-image: url(/assets/images/document.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 24.3em;
+    margin: 0 auto;
+    width: 39.6em;
+    color: #333;
+  `
 
   const pStyle = `
-  font-family: Courier;
-  font-size: 110%;
-  font-weight: bold;
-  letter-spacing: 0.04em;
-  line-height: 1.2;
-  padding-left: 15%;
-  padding-right: 15%;
-  padding-top: 12em;
-  margin: 0;
-`
+    font-family: Courier;
+    font-size: 110%;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-top: 12em;
+    margin: 0;
+  `
 
   const div = document.createElement('div')
   div.setAttribute('style', divStyle)
