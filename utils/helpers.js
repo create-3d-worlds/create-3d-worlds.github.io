@@ -171,17 +171,6 @@ export const createTexture = ({ file, repeat = 1 } = {}) => {
   return texture
 }
 
-export const addTexture = (mesh, file = 'terrain/concrete.jpg', repeat = 1) => {
-  const texture = createTexture({ file, repeat })
-  mesh.traverse(child => {
-    if (child.isMesh) {
-      child.material = new THREE.MeshLambertMaterial()
-      child.material.map = texture
-      child.material.side = THREE.DoubleSide
-    }
-  })
-}
-
 /* ARRAYS */
 
 export const sample = arr => arr[Math.floor(Math.random() * arr.length)]

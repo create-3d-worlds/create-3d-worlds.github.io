@@ -35,6 +35,7 @@ const prepareMesh = async({ model, size = 2, texture, angle, axis = [0, 1, 0], a
       if (map) {
         child.material = new THREE.MeshLambertMaterial()
         child.material.map = map
+        // child.material.side = THREE.DoubleSide
       }
       if (!child.geometry.attributes.normal) child.geometry.computeVertexNormals()
     }

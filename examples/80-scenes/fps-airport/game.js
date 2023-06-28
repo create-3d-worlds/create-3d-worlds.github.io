@@ -1,6 +1,6 @@
 import { scene, renderer, camera, clock } from '/utils/scene.js'
 import { createGround, createFloor } from '/utils/ground.js'
-import { sample, getEmptyCoords, addTexture } from '/utils/helpers.js'
+import { sample, getEmptyCoords } from '/utils/helpers.js'
 import { createSun } from '/utils/light.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import Score from '/utils/io/Score.js'
@@ -93,9 +93,8 @@ airport.rotateY(Math.PI * .5)
 const airport2 = airport.clone()
 airport2.translateX(25)
 
-const bunker = await loadModel({ file: 'building/bunker.fbx', size: 3 })
+const bunker = await loadModel({ file: 'building/bunker.fbx', size: 3, texture: 'terrain/concrete.jpg' })
 bunker.position.set(75, 0, 25)
-addTexture(bunker, 'terrain/concrete.jpg')
 
 scene.add(airport, airport2, bunker)
 solids.push(airport, airport2, bunker)
