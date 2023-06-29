@@ -63,8 +63,9 @@ export function createFirTree({ x = 0, y = 0, z = 0, size = 3.5 } = {}) {
     new THREE.CylinderGeometry(1.5, 1.5, 12, 6, 1, true),
     new THREE.MeshLambertMaterial({ color: similarColor(browns[1]) })
   )
-  const greenMaterial = new THREE.MeshLambertMaterial({ color: randomNuance() })
   trunk.position.y = 6
+
+  const greenMaterial = new THREE.MeshLambertMaterial({ color: randomNuance() })
   const c1 = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 14, 8), greenMaterial)
   c1.position.y = 18
   const c2 = new THREE.Mesh(new THREE.CylinderGeometry(0, 9, 13, 8), greenMaterial)
@@ -73,17 +74,17 @@ export function createFirTree({ x = 0, y = 0, z = 0, size = 3.5 } = {}) {
   c3.position.y = 32
 
   const group = new THREE.Group()
-  group.add(trunk)
-  group.add(c1)
-  group.add(c2)
-  group.add(c3)
+
+  ;[trunk, c1, c2, c3].forEach(mesh => {
+    mesh.castShadow = true
+    group.add(mesh)
+  })
 
   const scale = size / 10
   group.scale.set(scale, randFloat(scale / 2, scale), scale)
   group.position.set(x, y, z)
 
   group.rotateZ(randFloat(-0.15, 0.15))
-
   return group
 }
 

@@ -283,6 +283,8 @@ export function createTexturedBuilding({ width, height, depth = width, color = 0
   ]
 
   const mesh = new THREE.Mesh(geometry, materials)
+  mesh.castShadow = true
+  mesh.receiveShadow = true
   return mesh
 }
 
