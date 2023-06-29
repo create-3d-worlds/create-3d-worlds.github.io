@@ -11,6 +11,7 @@ npx live-server
 
 ## TODO
 
+- ukinuti dinamičko učitavanje i staviti loader na većinu igrica
 - showHighScore da budu mala slova ispod poena, ne početni prozor?
   - probati u moon-landing
 - refaktorisati css u jedan fajl, koristiti klase u js-u (Score, scene, FPSPlayer, itd...)

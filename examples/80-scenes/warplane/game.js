@@ -156,9 +156,8 @@ const callback = async(e, div) => {
 }
 
 const controls = {
-  '↑ ↓ ← →': 'move',
-  'WASD': 'move',
-  Enter: 'attack',
+  'WASD or Arrows:': 'MOVE',
+  'Enter:': 'BOMB',
 }
 const ui = new UI({ controls })
 ui.addStartScreen({ innerHTML, callback, title: 'Choose your aircraft' })

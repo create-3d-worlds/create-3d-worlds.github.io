@@ -23,7 +23,7 @@ document.body.style = `
   background: linear-gradient(to bottom, #94c5f8 1%,#a6e6ff 70%,#b1b5ea 100%);
   // background: linear-gradient(to bottom, #40405c 0%,#6f71aa 80%,#8a76ab 100%);
   color: yellow;
-  font-family: Verdana;
+  font-family: Courier;
   margin: 0;
   overflow: hidden;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;

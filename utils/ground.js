@@ -208,7 +208,6 @@ export const createHillyTerrain = async(
   const mesh = createTerrainMesh({ size, segments })
   await hillyNoise(mesh.geometry, segments, factorX, factorY, factorZ, aboveSea)
   await heightColors({ geometry: mesh.geometry, maxY: factorY * 1.25, minY: -factorY * .25, terrainColors })
-  mesh.name = 'terrain' // for mini-rpg
   return mesh
 }
 

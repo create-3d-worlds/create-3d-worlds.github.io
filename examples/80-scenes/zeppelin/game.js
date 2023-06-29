@@ -1,5 +1,5 @@
 import { camera, scene, createToonRenderer, clock } from '/utils/scene.js'
-import { hemLight, ambLight } from '/utils/light.js'
+import { createSun } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { getEmptyCoords, putOnSolids } from '/utils/helpers.js'
@@ -11,8 +11,7 @@ const updatables = []
 
 const mapSize = 800
 
-hemLight({ intensity: .75 })
-ambLight({ intensity: .5 })
+scene.add(createSun({ intensity: 1.5 }))
 
 camera.position.set(0, 40, 200)
 
@@ -22,15 +21,15 @@ scene.add(terrain)
 const water = createWater({ size: mapSize * 10 })
 scene.add(water)
 
-const commands = {
-  '←': 'levo',
-  '→': 'desno',
-  '↑': 'gore',
-  '↓': 'dole',
-  'PgUp': 'ubrzavanje',
-  'PgDn': 'usporavanje',
+const controls = {
+  '←': 'left',
+  '→': 'right',
+  '↑': 'up',
+  '↓': 'down',
+  'PgUp': 'speed up',
+  'PgDn': 'slow down',
 }
-new UI({ commands })
+new UI({ controls })
 
 /* UTILS */
 
