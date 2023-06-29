@@ -13,6 +13,8 @@ npx live-server
 
 - showHighScore da budu mala slova ispod poena, ne početni prozor?
   - probati u moon-landing
+- refaktorisati css u jedan fajl, koristiti klase u js-u (Score, scene, FPSPlayer, itd...)
+  - da Report nema text-shadow već bold
 
 ### Polishing
 
@@ -23,7 +25,7 @@ DODATI SVUDA:
     https://summer-afternoon.vlucendo.com/
   - UI komande (desni miš rotiranje kamere, i sl)
   - dodati game UI https://ronenness.github.io/RPGUI ?
-  - komande za dodirne ekrane (strelice i dugmiće)
+  - komande za telefone (strelice i dugmiće), testirati
   - reload button (kad igrač umre)
   - full screen btn
   - mute btn

@@ -62,12 +62,10 @@ export const fixColors = () => {
 export function createOrbitControls(cam = camera, el = renderer.domElement) {
   const controls = new OrbitControls(cam, el)
   controls.maxPolarAngle = Math.PI / 2 - 0.1 // prevent bellow ground, negde ne radi
-  // controls.maxDistance = 20
   controls.enableKeys = false
   controls.minDistance = 2
   controls.zoomSpeed = .3
   controls.enableDamping = true
   controls.dampingFactor = 0.1
-  // controls.enableZoom = false
   return controls
 }

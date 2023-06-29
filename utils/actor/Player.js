@@ -16,6 +16,7 @@ export default class Player extends Actor {
     shouldRaycastGround = true,
     attackDistance = 1.5,
     showHealthBar = true,
+    orbitControls = false,
     camera,
     ...params
   } = {}) {
@@ -33,7 +34,9 @@ export default class Player extends Actor {
     if (camera) {
       this.shouldAlignCamera = true
       this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, height: this.height })
+    }
 
+    if (orbitControls) {
       const orbitPromise = import('/utils/scene.js')
       orbitPromise.then(obj => {
         const { createOrbitControls } = obj

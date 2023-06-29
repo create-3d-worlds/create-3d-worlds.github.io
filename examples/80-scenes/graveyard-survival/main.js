@@ -96,13 +96,6 @@ void function loop() {
 
 /* LAZY LOAD */
 
-const { GhostAI } = await import('/utils/actor/derived/horror/Ghost.js')
-for (let i = 0; i < 30; i++) {
-  const ghost = new GhostAI({ pos: coords.pop(), mapSize })
-  npcs.push(ghost)
-  scene.add(ghost.mesh)
-}
-
 const obj = await import('/utils/objects/DeadTree.js')
 for (let i = 0; i < 10; i++) {
   const tree = new obj.default({ pos: coords.pop(), scale: Math.random() * 1 + 1, rotateY: Math.random() * Math.PI })
@@ -114,6 +107,12 @@ const { ResistanceFighterPlayer } = await import('/utils/actor/derived/ww2/Resis
 player = new ResistanceFighterPlayer({ camera, solids })
 scene.add(player.mesh)
 
-scene.add(particles.mesh)
+const { GhostAI } = await import('/utils/actor/derived/horror/Ghost.js')
+for (let i = 0; i < 30; i++) {
+  const ghost = new GhostAI({ pos: coords.pop(), mapSize })
+  npcs.push(ghost)
+  scene.add(ghost.mesh)
+}
 
+scene.add(particles.mesh)
 score.renderTempText('Survive until morning!', 3000)
