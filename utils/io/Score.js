@@ -123,23 +123,22 @@ export default class Score {
     })
   }
 
-  render(points, enemiesLeft, energyLeft) {
+  render(points, left) {
     let html = ''
     const blink = this.shouldBlink ? 'blink' : ''
     if (isNumber(points)) html += `<h3>${this.title}: ${points}</h3>`
-    if (isNumber(enemiesLeft)) html += `<div class="${blink}">${this.subtitle}: ${enemiesLeft}</div>`
-    if (isNumber(energyLeft)) html += `<div class="${blink}">${this.subtitle}: ${energyLeft}</div>`
+    if (isNumber(left)) html += `<div class="${blink}">${this.subtitle}: ${left}</div>`
     if (this.scoreDiv.innerHTML === html) return
     this.scoreDiv.innerHTML = html
 
-    if (this.messageDict) this.renderMessage(enemiesLeft, points)
+    if (this.messageDict) this.renderMessage(left, points)
 
     if (points > this.highScore)
       localStorage.setItem(location.pathname, points)
   }
 
-  update(change = 1, enemiesLeft, energyLeft) {
+  update(change = 1, left) {
     this.points += change
-    this.render(this.points, enemiesLeft, energyLeft)
+    this.render(this.points, left)
   }
 }

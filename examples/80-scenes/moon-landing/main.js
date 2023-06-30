@@ -28,7 +28,7 @@ saturn.position.set(85, 20, -50)
 
 scene.add(platform.mesh, stars.mesh, jupiter, saturn, moon, moonLight)
 
-const score = new Score({ subtitle: 'Fuel left' })
+const score = new Score({ subtitle: 'Fuel left', shouldBlink: false })
 score.renderTempText('Land on the platform gently')
 
 /* LOOP */
@@ -52,7 +52,7 @@ void function loop() {
   moon.rotateY(dt)
   orbitAround({ moon, planet: jupiter, time: time += dt * .75 })
 
-  score.render(score.points, null, lander.fuel)
+  score.render(score.points, lander.fuel)
 
   if (lander.endText) {
     score.renderText(lander.endText + '<br><br><small>press R to play again</small>')
