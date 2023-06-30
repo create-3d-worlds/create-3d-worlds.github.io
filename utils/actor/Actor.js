@@ -16,10 +16,8 @@ const getParent = (object, name) =>
  * @param animDict: maps state to animation
  */
 export default class Actor extends GameObject {
-  #solids = []
 
   constructor({
-    solids,
     animations,
     animDict,
     input,
@@ -46,7 +44,7 @@ export default class Actor extends GameObject {
     turnWhileAttack = !flame,
     ...rest
   }) {
-    super({ solids, altitude, ...rest })
+    super({ altitude, ...rest })
     this.mesh.userData.hitColor = hitColor
     this.speed = speed
     this.groundY = 0
@@ -68,8 +66,6 @@ export default class Actor extends GameObject {
     this.leaveDecals = leaveDecals
     this.altitude = altitude
     this.turnWhileAttack = turnWhileAttack
-
-    if (solids) this.addSolids(solids)
 
     if (animations?.length && animDict) {
       this.setupMixer(animations, animDict)
@@ -158,10 +154,6 @@ export default class Actor extends GameObject {
       || this.position.x <= this.boundaries.min.x
       || this.position.z >= this.boundaries.max.z
       || this.position.z <= this.boundaries.min.z
-  }
-
-  get solids() {
-    return this.#solids
   }
 
   /* STATE MACHINE */
@@ -316,22 +308,6 @@ export default class Actor extends GameObject {
   lookAt(pos) {
     this.mesh.lookAt(pos)
     this.mesh.rotateY(Math.PI)
-  }
-
-  pushToSolids = obj => {
-    if (obj !== this.mesh && !this.#solids.includes(obj))
-      this.#solids.push(obj)
-  }
-
-  /**
-   * Add solid objects to collide (terrain, walls, actors, etc.)
-   * @param {array of meshes, mesh or meshes} newSolids
-   */
-  addSolids(...newSolids) {
-    newSolids.forEach(newSolid => {
-      if (Array.isArray(newSolid)) newSolid.forEach(this.pushToSolids)
-      else this.pushToSolids(newSolid)
-    })
   }
 
   /* UPDATES */

@@ -11,13 +11,13 @@ npx live-server
 
 ## TODO
 
-- ukinuti dinamičko učitavanje i staviti loader na većinu igrica
+- refactor addSolids to GameObject
 - showHighScore da budu mala slova ispod poena, ne početni prozor?
   - probati u moon-landing
 - refaktorisati css u jedan fajl, koristiti klase u js-u (Score, scene, FPSPlayer, itd...)
   - da Report nema text-shadow već bold
-- prebaciti fbx modele u glb, brže radi js
-- refactor addSolids to GameObject?
+- prebaciti fbx modele u glb, brže radi
+- ukinuti dinamičko učitavanje i staviti loader na većinu igrica
 
 ### Polishing
 

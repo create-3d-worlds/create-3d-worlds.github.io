@@ -22,7 +22,6 @@ export default class Airship extends GameObject {
     this.maxPitch = maxPitch
     this.groundY = 0
     this.t = 0
-    this.solids = []
     this.propellers = []
     this.mixer = new THREE.AnimationMixer(getMesh(this.mesh))
     this.mesh.rotation.order = 'YZX' // fix controls (default is 'ZYX')
@@ -32,9 +31,6 @@ export default class Airship extends GameObject {
       this.action = this.mixer.clipAction(clip)
       this.action.play()
     }
-
-    if (solids)
-      this.solids.push(solids)
 
     if (camera) {
       this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, height: 2, speed: this.speed * .5 })

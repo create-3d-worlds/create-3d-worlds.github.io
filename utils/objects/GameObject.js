@@ -8,6 +8,7 @@ const getScene = object => {
 }
 
 export default class GameObject {
+  #solids = []
 
   constructor({ mesh, name, pos, color, solids, scale, rotateY, altitude = 0, energy = 100
   } = {}) {
@@ -21,7 +22,9 @@ export default class GameObject {
     this.hitAmount = 0
 
     if (pos) this.position = pos
+
     if (solids) putOnSolids(this.mesh, solids, altitude)
+    if (solids) this.addSolids(solids)
 
     if (scale) this.mesh.scale.set(scale, scale, scale)
     if (color != undefined) getMesh(this.mesh).material.color.setHex(color)
@@ -34,6 +37,10 @@ export default class GameObject {
   }
 
   /* GETTERS & SETTERS */
+
+  get solids() {
+    return this.#solids
+  }
 
   get name() {
     return this.mesh.name
@@ -86,6 +93,22 @@ export default class GameObject {
 
   add(obj) {
     this.mesh.add(obj)
+  }
+
+  pushToSolids = obj => {
+    if (obj !== this.mesh && !this.#solids.includes(obj))
+      this.#solids.push(obj)
+  }
+
+  /**
+   * Add solid objects to collide (terrain, walls, actors, etc.)
+   * @param {array of meshes, mesh or meshes} newSolids
+   */
+  addSolids(...newSolids) {
+    newSolids.forEach(newSolid => {
+      if (Array.isArray(newSolid)) newSolid.forEach(this.pushToSolids)
+      else this.pushToSolids(newSolid)
+    })
   }
 
   distanceTo(mesh) {
