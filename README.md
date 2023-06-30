@@ -16,8 +16,12 @@ npx live-server
   - probati u moon-landing
 - refaktorisati css u jedan fajl, koristiti klase u js-u (Score, scene, FPSPlayer, itd...)
   - da Report nema text-shadow već bold
+- prebaciti fbx modele u glb, brže radi js
+- refactor addSolids to GameObject?
 
 ### Polishing
+
+zepelin: optimizovati ostrva ili naći alternativu
 
 DODATI SVUDA:
   - toon-shader gde se slaže

@@ -1,7 +1,7 @@
 import GameObject from '/utils/objects/GameObject.js'
 import { loadModel } from '/utils/loaders.js'
 
-const mesh = await loadModel({ file: 'building/wizard-isle/model.fbx', size: 20 })
+const mesh = await loadModel({ file: 'building/wizard-isle/model.glb', size: 20 })
 
 export default class WizardIsle extends GameObject {
   constructor(param = {}) {
