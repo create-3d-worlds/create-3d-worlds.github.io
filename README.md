@@ -21,8 +21,6 @@ npx live-server
 
 ### Polishing
 
-zepelin: optimizovati ostrva ili naći alternativu
-
 DODATI SVUDA:
   - toon-shader gde se slaže
     - drugi krug MeshToonMaterial
