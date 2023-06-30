@@ -11,7 +11,6 @@ npx live-server
 
 ## TODO
 
-- refactor addSolids to GameObject
 - showHighScore da budu mala slova ispod poena, ne početni prozor?
   - probati u moon-landing
 - refaktorisati css u jedan fajl, koristiti klase u js-u (Score, scene, FPSPlayer, itd...)

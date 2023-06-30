@@ -100,7 +100,10 @@ void function loop() {
     checkCollision(coin)
   })
 
-  if (inLava() && player.skin != 'LAVA') player.energy -= .1
+  if (inLava() && player.skin != 'LAVA') {
+    score.renderTempText('Get out of the lava, you\'re burning!')
+    player.energy -= .1
+  }
 
   if (player.dead) {
     score.renderEndScreen({ callback: reset })

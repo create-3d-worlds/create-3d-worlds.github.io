@@ -53,6 +53,7 @@ export default class Score {
     this.messageDict = messageDict
     this.endText = endText
     this.shouldBlink = shouldBlink
+    this.tempTextRendered = false
 
     this.scoreDiv = document.createElement('div')
     this.scoreDiv.classList.add('score', 'text')
@@ -77,7 +78,10 @@ export default class Score {
   }
 
   clearSoon(milliseconds = 2000) {
-    setTimeout(() => this.clear(), milliseconds)
+    setTimeout(() => {
+      this.clear()
+      this.tempTextRendered = false
+    }, milliseconds)
   }
 
   renderText(text) {
@@ -87,8 +91,10 @@ export default class Score {
   }
 
   renderTempText(message, milliseconds) {
+    if (this.tempTextRendered) return
     this.renderText(message)
     this.clearSoon(milliseconds)
+    this.tempTextRendered = true
   }
 
   renderMessage(left, points = this.points) {
