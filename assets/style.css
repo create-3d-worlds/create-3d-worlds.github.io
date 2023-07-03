@@ -38,3 +38,17 @@ body {
   margin-bottom: 2px;
   margin-top: 2px;
 }
+
+.start-screen {
+  left: 50%;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.start-screen div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;  
+}

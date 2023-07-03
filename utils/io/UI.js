@@ -7,22 +7,6 @@ const baseControls = {
   Space: 'jump',
 }
 
-/** START SCREEN STYLE */
-
-const startOuterStyle = `
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-`
-
-const startInnerStyle = `
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`
-
 /** CONTROLS STYLE */
 
 export default class UI {
@@ -57,15 +41,14 @@ export default class UI {
 
   addStartScreen({ title, innerHTML, callback }) {
     const div = document.createElement('div')
-    div.style = startOuterStyle
-    if (title)div.innerHTML = `<h2>${title}</h2>`
+    div.className = 'start-screen'
+    if (title) div.innerHTML = `<h2>${title}</h2>`
 
-    const innerDiv = document.createElement('div')
-    innerDiv.style = startInnerStyle
-    innerDiv.innerHTML = innerHTML
-    innerDiv.addEventListener('click', e => callback(e, div))
+    const selectDiv = document.createElement('div')
+    selectDiv.innerHTML = innerHTML
+    selectDiv.addEventListener('click', e => callback(e, div))
 
-    div.appendChild(innerDiv)
+    div.appendChild(selectDiv)
     document.body.appendChild(div)
   }
 }
