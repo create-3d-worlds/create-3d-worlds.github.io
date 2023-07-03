@@ -76,9 +76,9 @@ export default class Score {
     `
     if (this.centralDiv.innerHTML === html) return
     this.centralDiv.innerHTML = html
-    this.centralDiv.classList.add('end-screen')
+    this.centralDiv.classList.add('dashed-screen')
     this.centralDiv.addEventListener('click', () => {
-      this.centralDiv.classList.remove('end-screen')
+      this.centralDiv.classList.remove('dashed-screen')
       this.clear()
       callback()
     })

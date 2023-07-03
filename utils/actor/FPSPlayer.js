@@ -56,34 +56,20 @@ export default class FPSPlayer extends Player {
 
   addPointerLock() {
     const innerHTML = /* html */`
-    <div>
-      ${this.goal ? `<h4 style="color:crimson;margin:0">${this.goal}<h4>` : ''}
+      ${this.goal ? `<h3 style="color:crimson">${this.goal}</h3>` : ''}
       <h2>Click to start</h2>
       Shoot: MOUSE<br />
       Move: WASD or ARROWS<br />
       Run: CAPSLOCK
-    </div>
     `
-    const css = `
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(242, 242, 242, 0.8);
-      border: 3px dashed black;
-      padding: 20px 20px 20px 20px;
-      text-align: center;
-      cursor: crosshair;
-    `
-    this.div = document.createElement('div')
-    this.div.innerHTML = innerHTML
-    this.div.setAttribute('style', css)
-    document.body.appendChild(this.div)
-
-    this.div.addEventListener('click', document.body.requestPointerLock)
+    const div = document.createElement('div')
+    div.innerHTML = innerHTML
+    div.classList.add('start-screen', 'dashed-screen')
+    div.addEventListener('click', document.body.requestPointerLock)
+    document.body.appendChild(div)
 
     document.addEventListener('pointerlockchange', () => {
-      this.div.style.display = document.pointerLockElement ? 'none' : 'block'
+      div.style.display = document.pointerLockElement ? 'none' : 'block'
     })
 
     document.addEventListener('mousemove', e => this.moveCursor(e))

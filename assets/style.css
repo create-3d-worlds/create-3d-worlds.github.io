@@ -51,15 +51,22 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.start-screen div {
+.start-screen-select {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.end-screen {
-  background-color: rgba(242, 242, 242, 0.9);
-  padding: 0 40px 40px 40px;
+.dashed-screen {
+  background-color: rgba(242, 242, 242, 0.8);
+  border: 3px dashed black;
+  padding: 20px;
+  cursor: crosshair;
+}
+
+.dashed-screen h3 {
+  margin-top: 0;
+  color:crimson;
 }
 
 .report {

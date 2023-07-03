@@ -44,6 +44,7 @@ export default class UI {
     if (title) div.innerHTML = `<h2>${title}</h2>`
 
     const selectDiv = document.createElement('div')
+    selectDiv.className = 'start-screen-select'
     selectDiv.innerHTML = innerHTML
     selectDiv.addEventListener('click', e => callback(e, div))
 
