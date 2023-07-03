@@ -11,8 +11,7 @@ npx live-server
 
 ## TODO
 
-- refaktorisati css u jedan fajl, koristiti klase u js-u (Score, scene, FPSPlayer, itd...)
-  - da Report nema text-shadow već bold
+- da Report nema text-shadow već bold
 - prebaciti fbx modele u glb, brže radi
 - ukinuti dinamičko učitavanje i staviti loader na većinu igrica
 

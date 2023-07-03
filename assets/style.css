@@ -33,6 +33,10 @@ body {
   position: absolute;
 }
 
+.controls h3 {
+  cursor: pointer;
+}
+
 .controls h3,
 .controls p {
   margin-bottom: 2px;
@@ -51,4 +55,29 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;  
+}
+
+.end-screen {
+  background-color: rgba(242, 242, 242, 0.9);
+  padding: 0 40px 40px 40px;
+}
+
+.score {
+  left: 20px;
+  position: absolute;
+  top: 20px;
+}
+
+.score h3 {
+  margin: 0 0 8px;
+}
+
+.blink {
+  animation: blinker 1s step-start infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

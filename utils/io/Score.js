@@ -1,38 +1,3 @@
-const getStyle = () => /* css */`
-  .score {
-    left: 20px;
-    position: absolute;
-    top: 20px;
-  }
-
-  .score h3 {
-    margin: 0 0 8px;
-  }
-
-  .central {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0 40px 40px 40px;
-    text-align: center;
-  }
-
-  .end-screen {
-    background-color: rgba(242, 242, 242, 0.9);
-  }
-
-  .blink {
-    animation: blinker 1s step-start infinite;
-  }
-
-  @keyframes blinker {
-    50% {
-      opacity: 0;
-    }
-  }
-`
-
 const isNumber = num => typeof num == 'number'
 
 export default class Score {
@@ -56,16 +21,12 @@ export default class Score {
     this.tempTextRendered = false
 
     this.scoreDiv = document.createElement('div')
-    this.scoreDiv.classList.add('score', 'text')
+    this.scoreDiv.classList.add('score')
     document.body.appendChild(this.scoreDiv)
 
     this.centralDiv = document.createElement('div')
-    this.centralDiv.classList.add('central', 'text')
+    this.centralDiv.classList.add('start-screen')
     document.body.appendChild(this.centralDiv)
-
-    const style = document.createElement('style')
-    style.textContent = getStyle()
-    document.head.appendChild(style)
 
     this.highScore = +localStorage.getItem(location.pathname)
 

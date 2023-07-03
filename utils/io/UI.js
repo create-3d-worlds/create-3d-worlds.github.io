@@ -20,7 +20,6 @@ export default class UI {
     const div = document.createElement('div')
     div.className = 'controls'
     const h3 = document.createElement('h3')
-    h3.style.cursor = 'pointer'
     h3.innerHTML = title + ' ▼'
 
     const content = document.createElement('div')
