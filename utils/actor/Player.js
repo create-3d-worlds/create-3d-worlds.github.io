@@ -79,11 +79,7 @@ export default class Player extends Actor {
   crateHealthBar() {
     this.healthBar = document.createElement('progress')
     this.healthBar.value = this.healthBar.max = this.energy
-    this.healthBar.style.accentColor = 'crimson'
-    this.healthBar.style.position = 'absolute'
-    this.healthBar.style.top = '20px'
-    this.healthBar.style.right = '20px'
-
+    this.healthBar.className = 'health-bar'
     document.body.appendChild(this.healthBar)
   }
 

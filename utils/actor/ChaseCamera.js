@@ -75,7 +75,7 @@ export default class ChaseCamera {
 
   addButton() {
     const button = document.createElement('button')
-    button.id = 'change-camera'
+    button.className = 'change-camera'
 
     const image = document.createElement('img')
     image.src = '/assets/images/change-camera.png'

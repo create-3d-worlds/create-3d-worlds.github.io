@@ -25,42 +25,6 @@ const startInnerStyle = `
 
 /** CONTROLS STYLE */
 
-const controlsStyle = `
-  left: 20px;
-  position: absolute;
-  bottom: 20px;
-`
-
-const rowStyle = `
-  margin-top: 2px;
-  margin-bottom: 2px;
-`
-
-const btnStyle = `
-  padding: 1px 2px;
-  min-width: 12px;
-  display: inline-block;
-  text-align: center;
-`
-
-/** UTILS */
-
-const translateKey = key => {
-  key = key.replace(/Key/, '') // eslint-disable-line no-param-reassign
-  switch (key) {
-    case 'ArrowLeft':
-      return '←'
-    case 'ArrowRight':
-      return '→'
-    case 'ArrowUp':
-      return '↑'
-    case 'ArrowDown':
-      return '↓'
-    default:
-      return key
-  }
-}
-
 export default class UI {
   constructor({ title = 'CONTROLS', controls = baseControls } = {}) {
     this.title = title
@@ -70,15 +34,14 @@ export default class UI {
 
   addUIControls(title, controls) {
     const div = document.createElement('div')
-    div.style = controlsStyle
+    div.className = 'controls'
     const h3 = document.createElement('h3')
-    h3.style = rowStyle
     h3.style.cursor = 'pointer'
     h3.innerHTML = title + ' ▼'
 
     const content = document.createElement('div')
     content.innerHTML = Object.keys(controls).map(key =>
-      `<p style="${rowStyle}"><b style="${btnStyle}">${translateKey(key)}</b> ${controls[key]}</p>`
+      `<p><b>${key}</b> ${controls[key]}</p>`
     ).join('')
 
     h3.addEventListener('click', () => {

@@ -9,7 +9,7 @@ body {
   user-select: none;
 }
 
-#change-camera {
+.change-camera {
   background-color: transparent;
   border: none;
   bottom: 20px;
@@ -18,4 +18,23 @@ body {
   position: absolute;
   right: 20px;
   user-select: none;
+}
+
+.health-bar {
+  accent-color: crimson;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.controls {
+  bottom: 20px;
+  left: 20px;
+  position: absolute;
+}
+
+.controls h3,
+.controls p {
+  margin-bottom: 2px;
+  margin-top: 2px;
 }
