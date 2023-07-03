@@ -11,7 +11,7 @@ npx live-server
 
 ## TODO
 
-- da Report nema text-shadow već bold
+- refaktorisati style u FPSPlayer
 - prebaciti fbx modele u glb, brže radi
 - ukinuti dinamičko učitavanje i staviti loader na većinu igrica
 
