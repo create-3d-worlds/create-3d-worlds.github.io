@@ -25,7 +25,7 @@ export default class Score {
     document.body.appendChild(this.scoreDiv)
 
     this.centralDiv = document.createElement('div')
-    this.centralDiv.classList.add('start-screen')
+    this.centralDiv.classList.add('central-screen')
     document.body.appendChild(this.centralDiv)
 
     this.highScore = +localStorage.getItem(location.pathname)

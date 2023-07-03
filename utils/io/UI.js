@@ -40,11 +40,11 @@ export default class UI {
 
   addStartScreen({ title, innerHTML, callback }) {
     const div = document.createElement('div')
-    div.className = 'start-screen'
+    div.className = 'central-screen'
     if (title) div.innerHTML = `<h2>${title}</h2>`
 
     const selectDiv = document.createElement('div')
-    selectDiv.className = 'start-screen-select'
+    selectDiv.className = 'central-screen-select'
     selectDiv.innerHTML = innerHTML
     selectDiv.addEventListener('click', e => callback(e, div))
 

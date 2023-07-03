@@ -43,7 +43,7 @@ body {
   margin-top: 2px;
 }
 
-.start-screen {
+.central-screen {
   left: 50%;
   position: fixed;
   text-align: center;
@@ -51,7 +51,7 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.start-screen-select {
+.central-screen-select {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -66,7 +66,7 @@ body {
 
 .dashed-screen h3 {
   margin-top: 0;
-  color:crimson;
+  color: crimson;
 }
 
 .report {
