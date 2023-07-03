@@ -74,23 +74,12 @@ export default class ChaseCamera {
   }
 
   addButton() {
-    const style = `
-    bottom: 20px;
-    right: 20px;
-    position: absolute;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    user-select: none;
-  `
     const button = document.createElement('button')
-    button.setAttribute('id', 'change-camera')
-    button.style.cssText = style
+    button.id = 'change-camera'
 
     const image = document.createElement('img')
-    image.setAttribute('src', '/assets/images/change-camera.png')
-    image.setAttribute('alt', 'change camera')
+    image.src = '/assets/images/change-camera.png'
+    image.alt = 'change camera'
     button.appendChild(image)
 
     button.addEventListener('click', () => this.toggleCamera())

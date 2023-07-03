@@ -11,8 +11,6 @@ npx live-server
 
 ## TODO
 
-- showHighScore da budu mala slova ispod poena, ne početni prozor?
-  - probati u moon-landing
 - refaktorisati css u jedan fajl, koristiti klase u js-u (Score, scene, FPSPlayer, itd...)
   - da Report nema text-shadow već bold
 - prebaciti fbx modele u glb, brže radi

@@ -3,6 +3,14 @@ import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitCo
 
 export const clock = new THREE.Clock()
 
+// STYLE (include in index.html file?)
+
+const link = document.createElement('link')
+link.rel = 'stylesheet'
+link.type = 'text/css'
+link.href = '/assets/style.css'
+document.head.appendChild(link)
+
 // SCENE
 
 export const scene = new THREE.Scene()
@@ -17,18 +25,6 @@ export const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window
 camera.position.set(0, 2, 4)
 
 // RENDERER
-
-// https://gist.github.com/mikedugan/7355415
-document.body.style = `
-  background: linear-gradient(to bottom, #94c5f8 1%,#a6e6ff 70%,#b1b5ea 100%);
-  // background: linear-gradient(to bottom, #40405c 0%,#6f71aa 80%,#8a76ab 100%);
-  color: yellow;
-  font-family: Courier;
-  margin: 0;
-  overflow: hidden;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
-  user-select: none;
-`
 
 export const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
