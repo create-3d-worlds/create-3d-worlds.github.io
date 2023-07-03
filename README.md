@@ -11,14 +11,13 @@ npx live-server
 
 ## TODO
 
-- prebaciti fbx modele u glb, brže radi
-- ukinuti dinamičko učitavanje i staviti loader na većinu igrica
+- dodati loader na većinu igrica
+  - napraviti funkcije showLoader / hideLoader
 
 ### Polishing
 
 DODATI SVUDA:
   - toon-shader gde se slaže
-    - drugi krug MeshToonMaterial
     https://www.maya-ndljk.com/blog/threejs-basic-toon-shader
     https://summer-afternoon.vlucendo.com/
   - UI komande (desni miš rotiranje kamere, i sl)
