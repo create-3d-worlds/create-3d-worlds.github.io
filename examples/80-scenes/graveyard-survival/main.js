@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { camera, scene, createToonRenderer, setBackground, clock } from '/utils/scene.js'
+import { camera, scene, createToonRenderer, setBackground, clock, showLoader, hideLoader } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { createMoon, orbiting } from '/utils/light.js'
 import { getEmptyCoords, sample } from '/utils/helpers.js'
@@ -7,6 +7,7 @@ import { createTombstone } from '/utils/geometry/shapes.js'
 import { Smoke } from '/utils/Particles.js'
 import Score from '/utils/io/Score.js'
 
+showLoader()
 const renderer = await createToonRenderer()
 
 const moonSpeed = .005
@@ -116,3 +117,5 @@ for (let i = 0; i < 30; i++) {
 
 scene.add(particles.mesh)
 score.renderTempText('Survive until morning!', 3000)
+
+hideLoader()

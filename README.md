@@ -11,8 +11,9 @@ npx live-server
 
 ## TODO
 
+- FIX: Report in fps-airport
 - dodati loader na većinu igrica
-  - napraviti funkcije showLoader / hideLoader
+  - saznati kad je loader završen da počne scena
 
 ### Polishing
 

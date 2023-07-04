@@ -109,7 +109,7 @@ export default class Player extends Actor {
     const { x, y, z } = this.mesh.position
     const { lookAt } = this.chaseCamera
 
-    if (this.input.pressed.mouse2)
+    if (this.orbitControls && this.input.pressed.mouse2)
       this.orbitControls.target = new THREE.Vector3(x, y + lookAt[1], z)
     else
       this.chaseCamera.update(delta, this.state)
