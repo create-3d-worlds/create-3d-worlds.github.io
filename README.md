@@ -11,8 +11,7 @@ npx live-server
 
 ## TODO
 
-- FIX: Report in fps-airport
-- dodati loader na većinu igrica
+- ukinuti let gde ima spinner?
 
 ### Polishing
 

@@ -3,12 +3,13 @@ import { createHillyTerrain } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { createSun } from '/utils/light.js'
 import { sample, getEmptyCoords, putOnSolids } from '/utils/helpers.js'
-import { loadModel } from '/utils/loaders.js'
+import { loadModel, Spinner } from '/utils/loaders.js'
 
 let player, score
 const mapSize = 400
 const npcs = []
 
+const spinner = new Spinner()
 const renderer = await createToonRenderer()
 camera.position.set(0, 50, 150)
 
@@ -89,3 +90,5 @@ const { ZeppelinAI } = await import('/utils/actor/derived/Zeppelin.js')
 const airship = new ZeppelinAI({ mapSize, solids: terrain })
 scene.add(airship.mesh)
 npcs.push(airship)
+
+spinner.hide()

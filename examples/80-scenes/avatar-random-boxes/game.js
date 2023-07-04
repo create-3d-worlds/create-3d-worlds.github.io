@@ -6,8 +6,10 @@ import Coin from '/utils/objects/Coin.js'
 import Score from '/utils/io/Score.js'
 import Platform from '/utils/objects/Platform.js'
 import UI from '/utils/io/UI.js'
+import { Spinner } from '/utils/loaders.js'
 
 const renderer = await createToonRenderer()
+const spinner = new Spinner()
 
 const numBoxes = 400, mapSize = 200, lavaSize = 50
 const numCoins = numBoxes / 4
@@ -117,12 +119,6 @@ void function loop() {
 
 /* UI */
 
-const innerHTML = `
-  <input type="image" id="STONE" src="/assets/images/avatar/STONE.jpg" style="border: 3px solid black" />
-  <input type="image" id="DISCO" src="/assets/images/avatar/DISCO.jpg" style="border: 3px solid black" />
-  <input type="image" id="LAVA" src="/assets/images/avatar/LAVA.jpg" style="border: 3px solid black" />
-`
-
 const callback = (e, div) => {
   if (e.target.tagName != 'INPUT') return
   div.style.display = 'none'
@@ -135,8 +131,14 @@ const callback = (e, div) => {
     scene.add(player.mesh)
     reset(true)
     score.renderHeighScore()
+    spinner.hide()
   })
 }
 
 const ui = new UI()
+const innerHTML = /* html */`
+  <input type="image" id="STONE" src="/assets/images/avatar/STONE.jpg" style="border: 3px solid black" />
+  <input type="image" id="DISCO" src="/assets/images/avatar/DISCO.jpg" style="border: 3px solid black" />
+  <input type="image" id="LAVA" src="/assets/images/avatar/LAVA.jpg" style="border: 3px solid black" />
+`
 ui.addStartScreen({ innerHTML, callback, title: 'Choose your avatar' })

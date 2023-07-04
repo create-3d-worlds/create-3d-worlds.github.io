@@ -4,7 +4,7 @@ import { createSun } from '/utils/light.js'
 import { createTerrain } from '/utils/ground.js'
 import { createFirTree } from '/utils/geometry/trees.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
-import { loadModel } from '/utils/loaders.js'
+import { loadModel, Spinner } from '/utils/loaders.js'
 import Score from '/utils/io/Score.js'
 import UI from '/utils/io/UI.js'
 
@@ -23,9 +23,11 @@ const groundDistance = mapSize * .99
 const entities = []
 const objects = []
 
-camera.position.set(0, 29, 0)
+const spinner = new Spinner()
 
+camera.position.set(0, 29, 0)
 scene.fog = new THREE.Fog(0xE5C5AB, mapSize * .25, buildingDistance)
+
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
 scene.add(createSun({ pos: [50, 200, 50] }))
 
@@ -134,15 +136,6 @@ void function update() {
 
 /* UI */
 
-const inputStyle = `
-  border: 3px solid black; 
-  height: 180px;
-`
-
-const innerHTML = ['Biplane', 'Triplane', 'Messerschmitt', 'Bomber', 'F18'].map(name =>
-  `<input type="image" id="${name}" src="/assets/images/airplanes/${name}.png" style="${inputStyle}" />`
-).join('')
-
 const callback = async(e, div) => {
   if (e.target.tagName != 'INPUT') return
 
@@ -153,11 +146,19 @@ const callback = async(e, div) => {
   warplane = new obj.default({ camera, limit: mapSize * .25 })
   scene.add(warplane.mesh)
   entities.push(warplane)
+  spinner.hide()
 }
 
 const controls = {
   'WASD or Arrows:': 'MOVE',
   'Enter:': 'BOMB',
 }
+
+const inputStyle = 'border: 3px solid black; height: 180px'
+
+const innerHTML = ['Biplane', 'Triplane', 'Messerschmitt', 'Bomber', 'F18'].map(name =>
+  `<input type="image" id="${name}" src="/assets/images/airplanes/${name}.png" style="${inputStyle}" />`
+).join('')
+
 const ui = new UI({ controls })
 ui.addStartScreen({ innerHTML, callback, title: 'Choose your aircraft' })

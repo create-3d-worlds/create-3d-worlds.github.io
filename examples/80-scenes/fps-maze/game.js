@@ -6,9 +6,11 @@ import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
 import Score from '/utils/io/Score.js'
+import { Spinner } from '/utils/loaders.js'
 
 const enemies = []
 
+const spinner = new Spinner()
 const renderer = await createToonRenderer()
 
 const light = hemLight({ intensity: .75 })
@@ -33,7 +35,8 @@ const score = new Score({ subtitle: 'Enemy left', total: enemies.length })
 void function loop() {
   requestAnimationFrame(loop)
   renderer.render(scene, camera)
-  if (!document.pointerLockElement) return
+  if (!document.pointerLockElement || spinner.loading) return
+
   const delta = clock.getDelta()
 
   const killed = enemies.filter(enemy => enemy.energy <= 0)
@@ -59,3 +62,5 @@ for (let i = 0; i < 10; i++) {
   enemies.push(enemy)
   scene.add(enemy.mesh)
 }
+
+spinner.hide()
