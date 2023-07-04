@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { camera, scene, createToonRenderer, setBackground, clock, showLoader, hideLoader } from '/utils/scene.js'
+import { camera, scene, createToonRenderer, setBackground, clock, showLoader, hideLoader, isLoaded } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { createMoon, orbiting } from '/utils/light.js'
 import { getEmptyCoords, sample } from '/utils/helpers.js'
@@ -64,12 +64,12 @@ async function spawnZombie(interval) {
 void function loop() {
   requestAnimationFrame(loop)
   renderer.render(scene, camera)
+  if (!isLoaded()) return
 
-  if (!player) return
   const delta = clock.getDelta()
   time += delta
 
-  const timeLeft = Math.floor(totalTime - time)
+  const timeLeft = Math.ceil(totalTime - time)
   const isNight = timeLeft >= 0
 
   const moonTime = isNight ? time * moonSpeed : (time - totalTime) * moonSpeed
@@ -104,16 +104,16 @@ for (let i = 0; i < 10; i++) {
   scene.add(tree.mesh)
 }
 
-const { ResistanceFighterPlayer } = await import('/utils/actor/derived/ww2/ResistanceFighter.js')
-player = new ResistanceFighterPlayer({ camera, solids })
-scene.add(player.mesh)
-
 const { GhostAI } = await import('/utils/actor/derived/horror/Ghost.js')
 for (let i = 0; i < 30; i++) {
   const ghost = new GhostAI({ pos: coords.pop(), mapSize })
   npcs.push(ghost)
   scene.add(ghost.mesh)
 }
+
+const { ResistanceFighterPlayer } = await import('/utils/actor/derived/ww2/ResistanceFighter.js')
+player = new ResistanceFighterPlayer({ camera, solids })
+scene.add(player.mesh)
 
 scene.add(particles.mesh)
 score.renderTempText('Survive until morning!', 3000)

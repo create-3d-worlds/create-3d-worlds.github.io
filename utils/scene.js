@@ -29,6 +29,8 @@ export function hideLoader() {
   loader.style.display = 'none'
 }
 
+export const isLoaded = () => loader.style.display == 'none'
+
 // SCENE
 
 export const scene = new THREE.Scene()

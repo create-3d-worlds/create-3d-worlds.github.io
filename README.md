@@ -13,7 +13,7 @@ npx live-server
 
 - FIX: Report in fps-airport
 - dodati loader na većinu igrica
-  - saznati kad je loader završen da počne scena
+  - odvojiti loader u klasu / file?
 
 ### Polishing
 
