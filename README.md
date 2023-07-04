@@ -13,7 +13,6 @@ npx live-server
 
 - FIX: Report in fps-airport
 - dodati loader na većinu igrica
-  - odvojiti loader u klasu / file?
 
 ### Polishing
 

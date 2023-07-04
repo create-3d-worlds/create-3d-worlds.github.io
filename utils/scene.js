@@ -11,26 +11,6 @@ link.type = 'text/css'
 link.href = '/assets/style.css'
 document.head.appendChild(link)
 
-// LOADER
-
-const loader = document.createElement('img')
-
-export function showLoader() {
-  if (document.body.contains(loader)) {
-    loader.style.display = 'block'
-    return
-  }
-  loader.src = '/assets/images/loader.gif'
-  loader.classList.add('central-screen')
-  document.body.appendChild(loader)
-}
-
-export function hideLoader() {
-  loader.style.display = 'none'
-}
-
-export const isLoaded = () => loader.style.display == 'none'
-
 // SCENE
 
 export const scene = new THREE.Scene()

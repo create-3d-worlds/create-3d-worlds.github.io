@@ -1,5 +1,6 @@
 import * as THREE from 'three'
-import { camera, scene, createToonRenderer, setBackground, clock, showLoader, hideLoader, isLoaded } from '/utils/scene.js'
+import { camera, scene, createToonRenderer, setBackground, clock } from '/utils/scene.js'
+import { Spinner } from '/utils/loaders.js'
 import { createGround } from '/utils/ground.js'
 import { createMoon, orbiting } from '/utils/light.js'
 import { getEmptyCoords, sample } from '/utils/helpers.js'
@@ -7,7 +8,7 @@ import { createTombstone } from '/utils/geometry/shapes.js'
 import { Smoke } from '/utils/Particles.js'
 import Score from '/utils/io/Score.js'
 
-showLoader()
+const spinner = new Spinner()
 const renderer = await createToonRenderer()
 
 const moonSpeed = .005
@@ -64,7 +65,7 @@ async function spawnZombie(interval) {
 void function loop() {
   requestAnimationFrame(loop)
   renderer.render(scene, camera)
-  if (!isLoaded()) return
+  if (spinner.loading) return
 
   const delta = clock.getDelta()
   time += delta
@@ -118,4 +119,4 @@ scene.add(player.mesh)
 scene.add(particles.mesh)
 score.renderTempText('Survive until morning!', 3000)
 
-hideLoader()
+spinner.hide()

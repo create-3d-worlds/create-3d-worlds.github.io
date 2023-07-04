@@ -13,7 +13,7 @@ const getScale = (mesh, newHeight) => {
   return scale
 }
 
-/* group preserves model orientation */
+/* preserves model orientation */
 const createGroup = model => {
   const group = new THREE.Group()
   group.add(model)
@@ -169,5 +169,28 @@ export const loadModel = async param => {
       return loadFbx(params)
     default:
       throw new Error(`Unknown file extension: ${ext}`)
+  }
+}
+
+/* INDICATOR */
+
+export class Spinner {
+  constructor() {
+    this.img = document.createElement('img')
+    this.img.src = '/assets/images/loader.gif'
+    this.img.classList.add('central-screen')
+    document.body.appendChild(this.img)
+  }
+
+  show() {
+    this.img.style.display = 'block'
+  }
+
+  hide() {
+    this.img.style.display = 'none'
+  }
+
+  get loading() {
+    return this.img.style.display != 'none'
   }
 }
