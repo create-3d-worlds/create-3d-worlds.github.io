@@ -1,4 +1,7 @@
-@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("/assets/fonts/PressStart2P.ttf");
+}
 
 body {
   /* background: linear-gradient(to bottom, #40405c 0%,#6f71aa 80%,#8a76ab 100%); */

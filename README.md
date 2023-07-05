@@ -18,9 +18,11 @@ npx live-server
 ### Polishing
 
 DODATI SVUDA:
-  - dodati game UI https://ronenness.github.io/RPGUI
+  - Game UI https://ronenness.github.io/RPGUI
+    - obojiti CONTROLS, možda da bude dugme
+    - ono ispod možda game prozor
+    - ostaviti dugme za score?
     - proveriti end screen
-    - probati dugme za score
   - UI kontrole
     - desni miš rotiranje kamere, spell cast, i sl
     - srediti boje, senku, bold, itd
