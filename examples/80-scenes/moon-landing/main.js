@@ -1,4 +1,4 @@
-import { scene, camera, renderer, clock, setBackground } from '/utils/scene.js'
+import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { ambLight, createMoon, orbitAround } from '/utils/light.js'
 import { Stars } from '/utils/Particles.js'
 import Score from '/utils/io/Score.js'
@@ -9,7 +9,7 @@ import { createSphere } from '/utils/geometry/index.js'
 import { createJupiter, createSaturn } from '/utils/geometry/planets.js'
 import input from '/utils/io/Input.js'
 
-setBackground(0x000000)
+document.body.style.background = 'linear-gradient(to bottom, #020111 70%, #191621 100%)'
 camera.position.z = 18
 
 ambLight({ intensity: .9 })
