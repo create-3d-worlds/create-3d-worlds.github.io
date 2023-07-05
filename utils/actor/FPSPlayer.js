@@ -56,18 +56,20 @@ export default class FPSPlayer extends Player {
 
   addPointerLock() {
     const innerHTML = /* html */`
-      ${this.goal ? `<h3>${this.goal}</h3>` : ''}
+      ${this.goal ? `<div>${this.goal}</div>` : ''}
       <h2>Click to start</h2>
+      <p>
       Shoot: MOUSE<br />
       Move: WASD or ARROWS<br />
       Run: CAPSLOCK
+      </p>
     `
     const div = document.createElement('div')
     div.innerHTML = innerHTML
     div.classList.add('central-screen', 'rpgui-container', 'framed') // dashed-screen
     div.addEventListener('click', document.body.requestPointerLock)
     document.body.appendChild(div)
-    this.div = div // for Report container
+    this.div = div // for container
 
     document.addEventListener('pointerlockchange', () => {
       div.style.display = document.pointerLockElement ? 'none' : 'block'

@@ -1,17 +1,24 @@
 body {
   /* background: linear-gradient(to bottom, #40405c 0%,#6f71aa 80%,#8a76ab 100%); */
   background: linear-gradient(to bottom, #94c5f8 1%, #a6e6ff 70%, #b1b5ea 100%);
-  color: yellow;
-  font-family: Courier;
+  color: white;
+  font-family: 'Press Start 2P', Courier;
+  font-size: 0.8em;
+  line-height: 22px;
   margin: 0;
   overflow: hidden;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   user-select: none;
+  cursor: url(/libs/rpgui/img/cursor/default.png), auto;
+}
+
+body * {
+  image-rendering: pixelated;
 }
 
 progress {
   background-color: #4E4A4E;
-  border-radius: 7px; 
+  border-radius: 7px;
   border: 2px solid black;
   height: 22px;
   margin-left: -11.5%;
@@ -102,14 +109,14 @@ progress::-webkit-progress-value {
 
 .report p {
   font-family: Courier;
-  font-size: 110%;
+  font-size: 1.25em;
   font-weight: bold;
   letter-spacing: 0.04em;
   line-height: 1.2;
   margin: 0;
   padding-left: 15%;
   padding-right: 15%;
-  padding-top: 12em;
+  padding-top: 160px;
   text-shadow: none;
 }
 
@@ -131,4 +138,58 @@ progress::-webkit-progress-value {
   50% {
     opacity: 0;
   }
+}
+
+
+/**
+* Paragraphs and headers
+*/
+
+h1 {
+  color: white;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-size: 1.14em;
+  text-align: center;
+  padding: 0 0 0 0;
+  margin: 7px 7px 17px 7px;
+}
+
+h2 {
+  color: white;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-size: 1.25em;
+  text-align: center;
+  padding: 0 0 0 0;
+  margin: 7px 7px 17px 7px;
+}
+
+h3 {
+  color: white;
+  font-weight: 1;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-size: 1.15em;
+  text-decoration: underline;
+  text-align: center;
+  padding: 0 0 0 0;
+  margin: 7px 7px 17px 7px;
+}
+
+h4 {
+  color: white;
+  font-weight: 1;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-size: 1.0em;
+  text-decoration: underline;
+  text-align: center;
+  padding: 0 0 0 0;
+  margin: 7px 7px 17px 7px;
+}
+
+ul {
+  text-align: left;
+}
+
+li {
+  color: yellow;
+  margin-left: 20px;
 }

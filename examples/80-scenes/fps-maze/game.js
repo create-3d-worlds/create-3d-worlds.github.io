@@ -24,7 +24,13 @@ scene.add(walls)
 
 /* ACTORS */
 
-const player = new FPSPlayer({ camera, goal: 'Find a way out.<br>Bonus: Kill all enemies.', solids: walls })
+const goal = `
+<ul>
+  <li>Find a way out.</li>
+  <li>Bonus: Kill all enemies.</li>
+</ul>
+`
+const player = new FPSPlayer({ camera, goal, solids: walls })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
