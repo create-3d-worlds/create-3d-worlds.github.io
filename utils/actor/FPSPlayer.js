@@ -64,7 +64,7 @@ export default class FPSPlayer extends Player {
     `
     const div = document.createElement('div')
     div.innerHTML = innerHTML
-    div.classList.add('central-screen', 'dashed-screen')
+    div.classList.add('central-screen', 'rpgui-container', 'framed') // dashed-screen
     div.addEventListener('click', document.body.requestPointerLock)
     document.body.appendChild(div)
     this.div = div // for Report container

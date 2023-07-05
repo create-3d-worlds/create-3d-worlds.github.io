@@ -28,7 +28,7 @@ const player = new FPSPlayer({ camera, goal: 'Find a way out.<br>Bonus: Kill all
 player.putInMaze(maze)
 scene.add(player.mesh)
 
-const score = new Score({ subtitle: 'Enemy left', total: enemies.length })
+const score = new Score({ title: 'Killed', subtitle: 'Enemy left', total: enemies.length })
 
 /* LOOP */
 

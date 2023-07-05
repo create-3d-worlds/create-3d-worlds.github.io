@@ -11,24 +11,24 @@ npx live-server
 
 ## TODO
 
-- ukinuti let gde ima spinner?
+- rpg maze: ubacivati trepereću poruku: Find a way out!
 
 ### Polishing
 
 DODATI SVUDA:
-  - toon-shader gde se slaže
-    https://www.maya-ndljk.com/blog/threejs-basic-toon-shader
-    https://summer-afternoon.vlucendo.com/
-  - UI komande (desni miš rotiranje kamere, i sl)
-  - dodati game UI https://ronenness.github.io/RPGUI ?
+  - dodati game UI? https://ronenness.github.io/RPGUI
+  - UI kontrole
+    - desni miš rotiranje kamere, spell cast, i sl
+    - srediti boje, senku, bold, itd
   - komande za telefone (strelice i dugmiće), testirati
   - reload button (kad igrač umre)
   - full screen btn
-  - mute btn
-  - preloader po potrebi (ili standardni svuda?)
-- probati VR https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
+  - volume / mute btn
 - pauzirati scenu na tab unfocus
 - po završetku partije upisivanje imena pored poena za top listu
+- centralni ekran sa izborom scena 
+  - jedan index.html i dinamički import na klik
+  - ili odvojene html stranice
 
 ### Publish
 - napraviti index.js za export svega postojećeg (vidi threejs)
