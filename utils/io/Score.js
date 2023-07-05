@@ -21,7 +21,7 @@ export default class Score {
     this.tempTextRendered = false
 
     this.scoreDiv = document.createElement('div')
-    this.scoreDiv.classList.add('score')
+    this.scoreDiv.className = 'score rpgui-button golden'
     document.body.appendChild(this.scoreDiv)
 
     this.centralDiv = document.createElement('div')
@@ -87,14 +87,11 @@ export default class Score {
   render(points, left) {
     const blink = this.shouldBlink ? 'blink' : ''
 
-    let html = ''
-    if (isNumber(points)) html += `
-      <div class="rpgui-button golden">
-        <p>
-          <span>${this.title}: ${points}</span>
-          <br><small class="${blink}">${this.subtitle}: ${left}</small>
-        </p>
-      </div>
+    const html = `
+      <p>
+        ${this.title}: ${points}
+        <br><small class="${blink}">${this.subtitle}: ${left}</small>
+      </p>
     `
     // if (isNumber(left)) html += `<br><small class="${blink}">${this.subtitle}: ${left}</small>`
     if (this.scoreDiv.innerHTML === html) return

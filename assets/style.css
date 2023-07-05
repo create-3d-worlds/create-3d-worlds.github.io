@@ -24,7 +24,9 @@ body * {
 /* ELEMENTS */
 
 button {
+  border: none;
   cursor: url("/libs/rpgui/img/cursor/point.png") 10 0, auto; /* cursor: pointer */
+  outline: none;
 }
 
 progress {
@@ -67,9 +69,8 @@ h2 {
 }
 
 h3 {
-  font-weight: 1;
+  /* font-weight: 1; */
   font-size: 1.15em;
-  /* text-decoration: underline; */
 }
 
 ul {
@@ -81,14 +82,10 @@ li {
   margin-left: 20px;
 }
 
-/* small {
-  color: yellow;
-} */
-
 .rpgui-container h1,
 .rpgui-container h2,
 .rpgui-container h3 {
-  /* order is important! */
+  /* order is important */
   background: linear-gradient(to bottom, #ff8a00 0%, yellow 100%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -107,10 +104,8 @@ li {
 
 .change-camera {
   background-color: transparent;
-  border: none;
   bottom: 20px;
   image-rendering: initial;
-  outline: none;
   position: absolute;
   right: 20px;
   user-select: none;
@@ -178,120 +173,59 @@ li {
   top: 20px;
 }
 
-.score p {
-  /* color: yellow; */
-}
-
 /* button style */
 
 .rpgui-button {
-  /* hide button default stuff */
-  background-color: Transparent;
+  background: url("/libs/rpgui/img/button.png");
   background-repeat: no-repeat;
-  border: none;
-  overflow: hidden;
-  outline: none;
-  /* background */
-  background: url("/libs/rpgui/img/button.png") no-repeat no-repeat;
-  background-clip: padding-box;
-  background-origin: padding-box;
   background-position: center;
   background-size: 100% 100%;
-  /* font size */
   font-size: 1.0em;
-  /* default size and display */
-  max-width: 100%;
-  min-width: 140px;
+  min-width: 160px;
   height: 60px;
-  display: inline-block;
-  /* padding */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding-left: 35px;
   padding-right: 35px;
 }
 
-/* button hover */
-.rpgui-button.hover,
 .rpgui-button:hover {
   background-image: url("/libs/rpgui/img/button-hover.png");
 }
 
-/* button clicked */
-.rpgui-button.down,
-.rpgui-button:active {
-  background-image: url("/libs/rpgui/img/button-down.png");
-}
-
-/* golden button stuff */
-.rpgui-button.golden p {
-  display: inline-block;
-  line-height: 16px;
-}
-
-/* golden button style */
 .rpgui-button.golden {
-  /* hide button default stuff */
-  background-color: Transparent;
-  background-repeat: no-repeat;
-  border: none;
-  overflow: hidden;
-  outline: none;
-  /* background */
-  background: url("/libs/rpgui/img/button-golden.png") no-repeat no-repeat;
-  background-clip: padding-box;
-  background-origin: padding-box;
-  background-position: center;
+  background-image: url("/libs/rpgui/img/button-golden.png");
   background-size: 100% 80%;
-  /* default size and display */
-  max-width: 100%;
-  min-width: 140px;
-  height: 60px;
-  display: inline-block;
-  /* padding */
   padding-top: 5px;
-  padding-left: 35px;
-  padding-right: 35px;
-  overflow: visible;
+  justify-content: space-between;
 }
 
-
-.rpgui-button.golden:before {
-  white-space: nowrap;
-  display: inline-block;
+.rpgui-button.golden:before,
+.rpgui-button.golden:after {
   content: "";
   width: 34px;
-  display: block;
   height: 110%;
+  margin-top: -5%;
+}
+
+.rpgui-button.golden:before {
   background: transparent url("/libs/rpgui/img/button-golden-left.png") no-repeat right center;
   background-size: 100% 100%;
-  margin: 0 0 0 0;
-  left: 0px;
-  float: left;
   margin-left: -46px;
-  margin-top: -5%;
 }
 
 .rpgui-button.golden:after {
-  white-space: nowrap;
-  display: block;
-  content: "";
-  width: 34px;
-  height: 110%;
   background: transparent url("/libs/rpgui/img/button-golden-right.png") no-repeat left center;
   background-size: 100% 100%;
-  margin: 0 0 0 0;
-  right: 0px;
-  float: right;
   margin-right: -46px;
-  margin-top: -5%;
 }
 
-/* game div without background image*/
 .rpgui-container {
   z-index: 10;
   overflow: show;
 }
 
-/* game div with background image*/
 .rpgui-container.framed {
   border-style: solid;
   border-image-source: url("/libs/rpgui/img/border-image.png");
@@ -304,7 +238,6 @@ li {
   background-color: #4E4A4E;
 }
 
-/* game div with golden background image*/
 .rpgui-container.framed-golden {
   /* border */
   border-style: solid;

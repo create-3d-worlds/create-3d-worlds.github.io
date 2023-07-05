@@ -11,16 +11,18 @@ npx live-server
 
 ## TODO
 
-- rpg maze: 
+- maze: 
   - ubacivati trepereću poruku: Find a way out!
   - kad umre dead screen
+
+- rpg.
+  - da se orci ne pojave preblizu i ne krenu dok traje učitavanje
 
 ### Polishing
 
 DODATI SVUDA:
   - Game UI https://ronenness.github.io/RPGUI
-    - ostaviti dugme za score?
-      - srediti innerHTML logiku
+    - score: srediti innerHTML logiku
     - proveriti end screen
     - dodati stilizovani cursor pointer za izbor avatara i sl.
     - centralne poruke da blinkaju: Get out of lava...
