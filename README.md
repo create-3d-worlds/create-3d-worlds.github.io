@@ -11,7 +11,9 @@ npx live-server
 
 ## TODO
 
-- rpg maze: ubacivati trepereću poruku: Find a way out!
+- rpg maze: 
+  - ubacivati trepereću poruku: Find a way out!
+  - kad umre dead screen
 
 ### Polishing
 

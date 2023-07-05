@@ -77,16 +77,14 @@ export default class Player extends Actor {
   /* UTILS */
 
   crateHealthBar() {
-    this.maxEnergy = this.energy
-
-    this.healthBar = document.createElement('div')
+    this.healthBar = document.createElement('progress')
+    this.healthBar.value = this.healthBar.max = this.energy
+    this.healthBar.className = 'health-bar'
     document.body.appendChild(this.healthBar)
-    this.healthBar.className = 'health-bar red'
-    RPGUI.create(this.healthBar, 'progress')
   }
 
   updateHealthBar() {
-    RPGUI.set_value(this.healthBar, this.energy / this.maxEnergy)
+    this.healthBar.value = this.energy
   }
 
   putInMaze(maze, tile = [1, 1]) {
