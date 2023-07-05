@@ -9,6 +9,33 @@ body {
   user-select: none;
 }
 
+progress {
+  background-color: #4E4A4E;
+  border-radius: 7px; 
+  border: 2px solid black;
+  height: 22px;
+  margin-left: -11.5%;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #4E4A4E;
+  border-radius: 7px;
+}
+
+progress::-webkit-progress-value {
+  background-image: url("/libs/rpgui/img/progress-red.png");
+  background-repeat: repeat-x;
+  background-size: 36px 100%;
+  border-radius: 7px;
+}
+
+.health-bar {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 220px;
+}
+
 .change-camera {
   background-color: transparent;
   border: none;
@@ -18,14 +45,6 @@ body {
   position: absolute;
   right: 20px;
   user-select: none;
-}
-
-.health-bar {
-  accent-color: crimson;
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  width: 280px;
 }
 
 .controls {
