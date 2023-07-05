@@ -23,6 +23,10 @@ body * {
 
 /* ELEMENTS */
 
+button {
+  cursor: url("/libs/rpgui/img/cursor/point.png") 10 0, auto; /* cursor: pointer */
+}
+
 progress {
   background-color: #4E4A4E;
   border-radius: 7px;
@@ -81,8 +85,8 @@ li {
   color: yellow;
 } */
 
-.rpgui-container h1, 
-.rpgui-container h2, 
+.rpgui-container h1,
+.rpgui-container h2,
 .rpgui-container h3 {
   /* order is important! */
   background: linear-gradient(to bottom, #ff8a00 0%, yellow 100%);
@@ -105,7 +109,7 @@ li {
   background-color: transparent;
   border: none;
   bottom: 20px;
-  cursor: pointer;
+  image-rendering: initial;
   outline: none;
   position: absolute;
   right: 20px;
@@ -118,11 +122,6 @@ li {
   position: absolute;
 }
 
-.controls h3 {
-  cursor: pointer;
-}
-
-.controls h3,
 .controls p {
   margin-bottom: 2px;
   margin-top: 2px;
@@ -225,6 +224,7 @@ li {
 /* golden button stuff */
 .rpgui-button.golden p {
   display: inline-block;
+  line-height: 16px;
 }
 
 /* golden button style */
@@ -285,22 +285,14 @@ li {
   margin-top: -5%;
 }
 
-.rpgui-button.golden p {
-  display: inline-block;
-  /* margin-top: 20px; */
-}
-
 /* game div without background image*/
 .rpgui-container {
-  /* position style and default z */
-  /* position: fixed; */
   z-index: 10;
   overflow: show;
 }
 
 /* game div with background image*/
 .rpgui-container.framed {
-  /* border */
   border-style: solid;
   border-image-source: url("/libs/rpgui/img/border-image.png");
   border-image-repeat: repeat;
@@ -308,15 +300,8 @@ li {
   border-image-width: 18px;
   border-width: 15px;
   padding: 12px;
-  /* internal border */
   box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  /* background */
-  background: url("/libs/rpgui/img/background-image.png") repeat repeat;
-  background-clip: padding-box;
-  background-origin: padding-box;
-  background-position: center;
+  background-color: #4E4A4E;
 }
 
 /* game div with golden background image*/

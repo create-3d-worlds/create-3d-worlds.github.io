@@ -85,11 +85,13 @@ export default class Score {
   }
 
   render(points, left) {
-    let html = ''
     const blink = this.shouldBlink ? 'blink' : ''
+
+    let html = ''
     if (isNumber(points)) html += `
       <div class="rpgui-button golden">
-        <p>${this.title}: ${points}
+        <p>
+          <span>${this.title}: ${points}</span>
           <br><small class="${blink}">${this.subtitle}: ${left}</small>
         </p>
       </div>

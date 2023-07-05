@@ -20,7 +20,6 @@ npx live-server
 DODATI SVUDA:
   - Game UI https://ronenness.github.io/RPGUI
     - ostaviti dugme za score?
-      - centrirati poene uspravno
       - srediti innerHTML logiku
     - proveriti end screen
     - dodati stilizovani cursor pointer za izbor avatara i sl.
