@@ -20,6 +20,7 @@ npx live-server
 DODATI SVUDA:
   - dodati game UI https://ronenness.github.io/RPGUI
     - proveriti end screen
+    - probati dugme za score
   - UI kontrole
     - desni miš rotiranje kamere, spell cast, i sl
     - srediti boje, senku, bold, itd

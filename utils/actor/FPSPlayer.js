@@ -57,7 +57,7 @@ export default class FPSPlayer extends Player {
   addPointerLock() {
     const innerHTML = /* html */`
       ${this.goal ? `<div>${this.goal}</div>` : ''}
-      <h2>Click to start</h2>
+      <h2>Click to START!</h2>
       <p>
       Shoot: MOUSE<br />
       Move: WASD or ARROWS<br />

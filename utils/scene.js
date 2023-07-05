@@ -5,11 +5,11 @@ export const clock = new THREE.Clock()
 
 // STYLE
 
-const rpgui = document.createElement('link')
-rpgui.rel = 'stylesheet'
-rpgui.type = 'text/css'
-rpgui.href = '/libs/rpgui/rpgui.css'
-document.head.appendChild(rpgui)
+// const rpgui = document.createElement('link')
+// rpgui.rel = 'stylesheet'
+// rpgui.type = 'text/css'
+// rpgui.href = '/libs/rpgui/rpgui.css'
+// document.head.appendChild(rpgui)
 
 const css = document.createElement('link')
 css.rel = 'stylesheet'
