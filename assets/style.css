@@ -181,13 +181,6 @@ button {
   justify-content: center;
 }
 
-.dashed-screen {
-  background-color: rgba(242, 242, 242, 0.8);
-  border: 3px dashed black;
-  padding: 20px;
-  cursor: crosshair;
-}
-
 .rpgui-container {
   border-image-repeat: repeat;
   border-image-width: 18px;

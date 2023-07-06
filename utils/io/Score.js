@@ -76,9 +76,9 @@ export default class Score {
     `
     if (this.centralDiv.innerHTML === html) return
     this.centralDiv.innerHTML = html
-    this.centralDiv.classList.add('dashed-screen')
+    this.centralDiv.classList.add('rpgui-container', 'framed')
     this.centralDiv.addEventListener('click', () => {
-      this.centralDiv.classList.remove('dashed-screen')
+      this.centralDiv.classList.remove('rpgui-container', 'framed')
       this.clear()
       callback()
     })

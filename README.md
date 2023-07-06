@@ -22,7 +22,6 @@ npx live-server
 
 DODATI SVUDA:
   - Game UI https://ronenness.github.io/RPGUI
-    - proveriti end screen
     - dodati stilizovani cursor pointer za izbor avatara i sl.
     - centralne poruke da blinkaju: Get out of lava...
     - da tačkice ispred li budu bele
