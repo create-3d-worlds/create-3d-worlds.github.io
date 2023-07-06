@@ -3,8 +3,8 @@ const baseControls = {
   '→': 'right',
   '↑': 'forward',
   '↓': 'backward',
-  CapsLock: 'run',
   Space: 'jump',
+  CapsLock: 'run',
 }
 
 /** CONTROLS STYLE */

@@ -23,7 +23,6 @@ npx live-server
 
 DODATI SVUDA:
   - Game UI https://ronenness.github.io/RPGUI
-    - probati lakši font
     - img u assets
   - UI kontrole
     - desni miš rotiranje kamere, spell cast, i sl
