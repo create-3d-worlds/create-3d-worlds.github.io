@@ -11,19 +11,20 @@ npx live-server
 
 ## TODO
 
-- maze: 
-  - ubacivati trepereću poruku: Find a way out!
+- fps: 
+  - kad klikne pointer lock da uđe u pun ekran (za ostale nivoe takođe)
+  - maze: ubacivati trepereću poruku: Find a way out!
   - kad umre dead screen
 
-- rpg.
+- rpg
   - da se orci ne pojave preblizu i ne krenu dok traje učitavanje
 
 ### Polishing
 
 DODATI SVUDA:
   - Game UI https://ronenness.github.io/RPGUI
-    - da tačkice ispred li budu bele
     - probati lakši font
+    - img u assets
   - UI kontrole
     - desni miš rotiranje kamere, spell cast, i sl
     - srediti boje, senku, bold, itd
