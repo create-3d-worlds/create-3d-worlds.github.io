@@ -19,11 +19,13 @@ npx live-server
 - rpg
   - da se orci ne pojave preblizu i ne krenu dok traje učitavanje
 
+- videti sunposition
+
 ### Polishing
 
 DODATI SVUDA:
   - Game UI https://ronenness.github.io/RPGUI
-    - img u assets
+    - negde controls dugme?
   - UI kontrole
     - desni miš rotiranje kamere, spell cast, i sl
     - srediti boje, senku, bold, itd

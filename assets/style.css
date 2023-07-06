@@ -6,7 +6,7 @@
 body {
   /* background: linear-gradient(to bottom, #40405c 0%,#6f71aa 80%,#8a76ab 100%); */
   background: linear-gradient(to bottom, #94c5f8 1%, #a6e6ff 70%, #b1b5ea 100%);
-  cursor: url(/libs/rpgui/img/cursor/default.png), auto;
+  cursor: url(/assets/images/rpgui/cursor/default.png), auto;
   font-size: 0.8em;
   image-rendering: pixelated;
   line-height: 22px;
@@ -65,7 +65,7 @@ progress::-webkit-progress-bar {
 
 progress::-webkit-progress-value {
   background-color: crimson;
-  background-image: url("/libs/rpgui/img/progress-red.png");
+  background-image: url("/assets/images/rpgui/progress-red.png");
   background-repeat: repeat-x;
   background-size: 36px 100%;
   border-radius: 7px;
@@ -83,7 +83,7 @@ progress::-webkit-progress-value {
 button,
 input[type="image"],
 .pointer {
-  cursor: url("/libs/rpgui/img/cursor/point.png") 10 0, auto;
+  cursor: url("/assets/images/rpgui/cursor/point.png") 10 0, auto;
 }
 
 button {
@@ -93,7 +93,7 @@ button {
 }
 
 .rpgui-button {
-  background: url("/libs/rpgui/img/button.png");
+  background: url("/assets/images/rpgui/button.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
@@ -107,7 +107,7 @@ button {
 }
 
 .rpgui-button:hover {
-  background-image: url("/libs/rpgui/img/button-hover.png");
+  background-image: url("/assets/images/rpgui/button-hover.png");
 }
 
 .change-camera {
@@ -120,7 +120,7 @@ button {
 /* SCORE & CONTROLS */
 
 .rpgui-button.golden {
-  background-image: url("/libs/rpgui/img/button-golden.png");
+  background-image: url("/assets/images/rpgui/button-golden.png");
   background-size: 100% 90%;
   padding-top: 5px;
   justify-content: space-between;
@@ -135,13 +135,13 @@ button {
 }
 
 .rpgui-button.golden:before {
-  background: transparent url("/libs/rpgui/img/button-golden-left.png") no-repeat right center;
+  background: transparent url("/assets/images/rpgui/button-golden-left.png") no-repeat right center;
   background-size: 100% 100%;
   margin-left: -46px;
 }
 
 .rpgui-button.golden:after {
-  background: transparent url("/libs/rpgui/img/button-golden-right.png") no-repeat left center;
+  background: transparent url("/assets/images/rpgui/button-golden-right.png") no-repeat left center;
   background-size: 100% 100%;
   margin-right: -46px;
 }
@@ -198,13 +198,13 @@ button {
 .rpgui-container.framed {
   background-color: #4E4A4E;
   border-image-slice: 6 6 6 6;
-  border-image-source: url("/libs/rpgui/img/border-image.png");
+  border-image-source: url("/assets/images/rpgui/border-image.png");
 }
 
 .rpgui-container.framed-golden {
   background-color: #854C30;
   border-image-slice: 4 4 4 4;
-  border-image-source: url("/libs/rpgui/img/border-image-golden.png");
+  border-image-source: url("/assets/images/rpgui/border-image-golden.png");
 }
 
 /* REPORT */
