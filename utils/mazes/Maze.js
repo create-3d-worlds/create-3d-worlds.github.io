@@ -1,5 +1,5 @@
 import { sample, shuffle } from '/utils/helpers.js'
-import { meshFromMaze, meshFromTilemap, tileToPosition, calcPyramidHeight } from '/utils/mazes.js'
+import { meshFromMaze, meshFromTilemap, tileToPosition, calcPyramidHeight } from '/utils/mazes/index.js'
 import { recursiveBacktracker } from '/utils/mazes/algorithms.js'
 import Cell from './Cell.js'
 

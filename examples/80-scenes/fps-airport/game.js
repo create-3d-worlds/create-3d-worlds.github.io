@@ -6,7 +6,7 @@ import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import Score from '/utils/io/Score.js'
 import { createAirport } from '/utils/city.js'
 import { loadModel } from '/utils/loaders.js'
-import Report from '/utils/Report.js'
+import Report from '/utils/io/Report.js'
 
 const mapSize = 200
 const aircraft = []

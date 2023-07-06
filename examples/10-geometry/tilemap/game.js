@@ -1,5 +1,5 @@
 import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
-import { meshFromTilemap } from '/utils/mazes.js'
+import { meshFromTilemap } from '/utils/mazes/index.js'
 import { createGround } from '/utils/ground.js'
 import { hemLight } from '/utils/light.js'
 

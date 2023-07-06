@@ -11,8 +11,6 @@ npx live-server
 
 ## TODO
 
-- reuse GameLoop
-- Report to io, city to geometry, ground to terrain, mazes to mazes
 - fps: 
   - kad umre dead screen (sad opet ide početni koji ne radi)
   - ai previše se nabijaju u zid, povećati raycast distancu?
@@ -22,9 +20,7 @@ npx live-server
   - da se ai ne pojave preblizu i ne krenu dok traje učitavanje
 
 - videti sunposition
-- osmisliti neko rešenje za loop 
-  - da radi pauza na unfocus i na P 
-  - zaustavljanje vremena tokom pauze i slično
+- reuse GameLoop
 
 ### Polishing
 
