@@ -177,6 +177,7 @@ button {
   text-align: center;
   top: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
 .central-screen-select {
@@ -192,7 +193,6 @@ button {
   border-width: 15px;
   box-sizing: border-box;
   padding: 12px;
-  z-index: 10;
 }
 
 .rpgui-container.framed {

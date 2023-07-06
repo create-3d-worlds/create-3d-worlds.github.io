@@ -11,15 +11,20 @@ npx live-server
 
 ## TODO
 
+- Report to io, city to geometry, ground to terrain, mazes to mazes
 - fps: 
   - maze: ubacivati trepereću poruku: Find a way out!
   - kad umre dead screen (sad opet ide početni koji ne radi)
   - ai previše se nabijaju u zid, povećati raycast distancu?
+  - dodati i druge lavirinte iz primera
 
-- rpg
-  - da se orci ne pojave preblizu i ne krenu dok traje učitavanje
+- rpg, fps
+  - da se ai ne pojave preblizu i ne krenu dok traje učitavanje
 
 - videti sunposition
+- osmisliti neko rešenje za loop 
+  - da radi pauza na unfocus i na P 
+  - zaustavljanje vremena tokom pauze i slično
 
 ### Polishing
 

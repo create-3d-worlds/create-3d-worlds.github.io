@@ -70,10 +70,7 @@ export default class FPSPlayer extends Player {
     this.div = div // for container
     document.body.appendChild(div)
 
-    div.addEventListener('click', () => {
-      document.body.requestPointerLock()
-      document.documentElement.requestFullscreen()
-    })
+    div.addEventListener('click', document.body.requestPointerLock)
 
     document.addEventListener('pointerlockchange', () => {
       div.style.display = document.pointerLockElement ? 'none' : 'block'

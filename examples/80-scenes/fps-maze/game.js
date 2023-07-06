@@ -1,4 +1,4 @@
-import { scene, camera, clock, setBackground, createToonRenderer } from '/utils/scene.js'
+import { scene, camera, setBackground, createToonRenderer } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { sample } from '/utils/helpers.js'
 import { hemLight, lightningStrike } from '/utils/light.js'
@@ -7,6 +7,7 @@ import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
 import Score from '/utils/io/Score.js'
 import { Spinner } from '/utils/loaders.js'
+import GameLoop from '/utils/GameLoop.js'
 
 const enemies = []
 
@@ -38,12 +39,11 @@ const score = new Score({ title: 'Killed', subtitle: 'Enemy left', total: enemie
 
 /* LOOP */
 
-void function loop() {
-  requestAnimationFrame(loop)
-  renderer.render(scene, camera)
-  if (!document.pointerLockElement || spinner.loading) return
+renderer.render(scene, camera)
 
-  const delta = clock.getDelta()
+function update(delta, time) {
+  renderer.render(scene, camera)
+  // console.log(delta, time)
 
   const killed = enemies.filter(enemy => enemy.energy <= 0)
   score.render(killed.length, enemies.length - killed.length)
@@ -55,7 +55,9 @@ void function loop() {
   enemies.forEach(enemy => enemy.update(delta))
 
   if (Math.random() > .998) lightningStrike(light)
-}()
+}
+
+new GameLoop(update)
 
 /* LAZY LOAD */
 
