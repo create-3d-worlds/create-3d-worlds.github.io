@@ -140,7 +140,7 @@ const callback = async(e, div) => {
   if (e.target.tagName != 'INPUT') return
 
   div.style.display = 'none'
-  score.renderTempText('Destroy enemy factories, do not target civilian buildings')
+  score.renderTempText('Destroy enemy factories,<br><br>do not target civilian buildings')
 
   const obj = await import(`/utils/aircraft/derived/${e.target.id}.js`)
   warplane = new obj.default({ camera, limit: mapSize * .25 })

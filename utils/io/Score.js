@@ -38,7 +38,7 @@ export default class Score {
     this.centralDiv.innerHTML = ''
   }
 
-  clearSoon(milliseconds = 2000) {
+  clearSoon(milliseconds = 3000) {
     setTimeout(() => {
       this.clear()
       this.tempTextRendered = false
@@ -66,7 +66,7 @@ export default class Score {
 
   renderHeighScore() {
     if (this.highScore < 2) return
-    this.renderTempText(`Your current high score is ${this.highScore} points. Beat it!`, 3000)
+    this.renderTempText(`Your current high score is ${this.highScore} points. Beat it!`)
   }
 
   renderEndScreen({ text = 'You are dead.', callback } = {}) {

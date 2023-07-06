@@ -117,6 +117,6 @@ player = new ResistanceFighterPlayer({ camera, solids })
 scene.add(player.mesh)
 
 scene.add(particles.mesh)
-score.renderTempText('Survive until morning!', 3000)
+score.renderTempText('Survive until morning!')
 
 spinner.hide()

@@ -80,11 +80,15 @@ progress::-webkit-progress-value {
 
 /* BUTTONS */
 
+button,
+input[type="image"],
+.pointer {
+  cursor: url("/libs/rpgui/img/cursor/point.png") 10 0, auto;
+}
+
 button {
   background-color: transparent;
   border: none;
-  cursor: url("/libs/rpgui/img/cursor/point.png") 10 0, auto;
-  /* cursor: pointer */
   outline: none;
 }
 
