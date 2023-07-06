@@ -11,9 +11,9 @@ npx live-server
 
 ## TODO
 
+- reuse GameLoop
 - Report to io, city to geometry, ground to terrain, mazes to mazes
 - fps: 
-  - maze: ubacivati trepereću poruku: Find a way out!
   - kad umre dead screen (sad opet ide početni koji ne radi)
   - ai previše se nabijaju u zid, povećati raycast distancu?
   - dodati i druge lavirinte iz primera
@@ -42,6 +42,7 @@ DODATI SVUDA:
 - centralni ekran sa izborom scena 
   - jedan index.html i dinamički import na klik
   - ili odvojene html stranice
+- dodati svuda svoj potpis i kontakt (developed by mudroljub)
 
 ### Publish
 - napraviti index.js za export svega postojećeg (vidi threejs)
@@ -50,6 +51,7 @@ DODATI SVUDA:
 - sve dobro dokumentovati
 - minimalni bekend za statistike i pamćenje poena ili bar brojač poseta
   - možda server na rosberyju
+- testirati sve nivoe na serveru
 
 ## Helpers
 

@@ -39,25 +39,25 @@ const score = new Score({ title: 'Killed', subtitle: 'Enemy left', total: enemie
 
 /* LOOP */
 
-renderer.render(scene, camera)
+renderer.render(scene, camera) // first draw
 
-function update(delta, time) {
+new GameLoop((delta, time) => {
   renderer.render(scene, camera)
-  // console.log(delta, time)
 
   const killed = enemies.filter(enemy => enemy.energy <= 0)
   score.render(killed.length, enemies.length - killed.length)
 
   player.update(delta)
+
   if (player.position.distanceTo(maze.exitPosition) < 5)
     score.renderText(`Bravo!<br>You found a way out<br> and kill ${killed.length} of ${enemies.length} enemies`)
+  else if (Math.ceil(time) % 20 == 0)
+    score.renderTempText('Find a way out!', true)
 
   enemies.forEach(enemy => enemy.update(delta))
 
   if (Math.random() > .998) lightningStrike(light)
-}
-
-new GameLoop(update)
+})
 
 /* LAZY LOAD */
 
