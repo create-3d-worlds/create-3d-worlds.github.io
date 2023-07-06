@@ -65,6 +65,13 @@ export default class FPSPlayer extends Player {
     `
   }
 
+  get endScreen() {
+    return /* html */`
+      <h2>You are dead.</h2>
+      <p>Reload to play again</p>
+    `
+  }
+
   /* UTILS */
 
   addPointerLock() {
@@ -77,6 +84,7 @@ export default class FPSPlayer extends Player {
 
     document.addEventListener('pointerlockchange', () => {
       this.window.style.display = document.pointerLockElement ? 'none' : 'block'
+      if (this.dead) this.window.innerHTML = this.endScreen
     })
 
     document.addEventListener('mousemove', e => this.moveCursor(e))
