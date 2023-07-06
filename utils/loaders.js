@@ -32,7 +32,10 @@ const prepareMesh = async({ model, size = 2, texture, angle, axis = [0, 1, 0], a
     if (child.isMesh) {
       child.castShadow = castShadow
       child.receiveShadow = receiveShadow
-      if (map) child.material.map = map
+      if (map) {
+        child.material = new THREE.MeshLambertMaterial()
+        child.material.map = map
+      }
       if (!child.geometry.attributes.normal) child.geometry.computeVertexNormals()
     }
   })

@@ -1,7 +1,6 @@
 import Player from '/utils/actor/Player.js'
 import AI from '/utils/actor/AI.js'
 import { loadModel } from '/utils/loaders.js'
-import { addTexture } from '/utils/helpers.js'
 
 const animDict = {
   idle: 'Standing Idle',
@@ -10,9 +9,7 @@ const animDict = {
 
 /* LOADING */
 
-const mesh = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/wizard/', size: 1.8, fixColors: true })
-
-addTexture(mesh, 'lavacloud.png')
+const mesh = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/wizard/', size: 1.8, fixColors: true, texture: 'terrain/snow.jpg' })
 
 /* EXTENDED CLASSES */
 
