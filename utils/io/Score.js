@@ -45,15 +45,16 @@ export default class Score {
     }, milliseconds)
   }
 
-  renderText(text) {
-    const html = `<h3>${text}</h3>`
+  renderText(text, blink = false) {
+    const cssClass = blink ? 'blink' : ''
+    const html = `<h3 class="${cssClass}">${text}</h3>`
     if (this.centralDiv.innerHTML === html) return
     this.centralDiv.innerHTML = html
   }
 
-  renderTempText(message, milliseconds) {
+  renderTempText(message, blink, milliseconds) {
     if (this.tempTextRendered) return
-    this.renderText(message)
+    this.renderText(message, blink)
     this.clearSoon(milliseconds)
     this.tempTextRendered = true
   }

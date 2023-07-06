@@ -103,7 +103,7 @@ void function loop() {
   })
 
   if (inLava() && player.skin != 'LAVA') {
-    score.renderTempText('Get out of the lava, you\'re burning!')
+    score.renderTempText('Get out of the lava, you\'re burning!', true)
     player.energy -= .1
   }
 
