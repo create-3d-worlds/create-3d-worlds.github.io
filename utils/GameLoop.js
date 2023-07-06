@@ -23,6 +23,7 @@ export default class GameLoop {
     this.animationFrameId = requestAnimationFrame(this.loop)
 
     document.addEventListener('keypress', this.handleKeyPress)
+    document.addEventListener('visibilitychange', this.handleVisibilityChange)
   }
 
   stop() {
@@ -64,6 +65,13 @@ export default class GameLoop {
     if (!this.isRunning)
       this.start(this.callback)
     else if (!document.pointerLockElement)
+      this.pause()
+    else
+      this.unpause()
+  }
+
+  handleVisibilityChange = () => {
+    if (document.visibilityState === 'hidden')
       this.pause()
     else
       this.unpause()
