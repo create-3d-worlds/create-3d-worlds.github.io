@@ -9,12 +9,17 @@ npm i
 npx live-server
 ```
 
+## Manifest
+
+Pravim 3D scene jer mi je zabavno, ali sve vreme imam na umu reusability - da neko drugi može iskoristiti delove igara i razne funkcije za svoje potrebe.
+
 ## TODO
 
 - fps: 
-  - kad umre dead screen (sad opet ide početni koji ne radi)
+  - kad umre dead screen (sad opet ide početni koji ne radi start)
   - ai previše se nabijaju u zid, povećati raycast distancu?
   - dodati i druge lavirinte iz primera
+  - da uzima lečenje?
 
 - rpg, fps
   - da se ai ne pojave preblizu i ne krenu dok traje učitavanje

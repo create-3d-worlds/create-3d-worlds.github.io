@@ -52,11 +52,10 @@ export default class FPSPlayer extends Player {
     return pos
   }
 
-  /* UTILS */
-
-  addPointerLock() {
-    const innerHTML = /* html */`
-      ${this.goal ? `<div>${this.goal}</div>` : ''}
+  get startScreen() {
+    const goal = this.goal ? `<div>${this.goal}</div>` : ''
+    return /* html */`
+      ${goal}
       <h2 class="pointer">Click to START!</h2>
       <p>
         Shoot: MOUSE<br />
@@ -64,16 +63,20 @@ export default class FPSPlayer extends Player {
         Run: CAPSLOCK
       </p>
     `
-    const div = document.createElement('div')
-    div.innerHTML = innerHTML
-    div.className = 'central-screen rpgui-container framed'
-    this.div = div // for container
-    document.body.appendChild(div)
+  }
 
-    div.addEventListener('click', document.body.requestPointerLock)
+  /* UTILS */
+
+  addPointerLock() {
+    this.window = document.createElement('div')
+    this.window.innerHTML = this.startScreen
+    this.window.className = 'central-screen rpgui-container framed'
+    document.body.appendChild(this.window)
+
+    this.window.addEventListener('click', document.body.requestPointerLock)
 
     document.addEventListener('pointerlockchange', () => {
-      div.style.display = document.pointerLockElement ? 'none' : 'block'
+      this.window.style.display = document.pointerLockElement ? 'none' : 'block'
     })
 
     document.addEventListener('mousemove', e => this.moveCursor(e))
@@ -89,11 +92,12 @@ export default class FPSPlayer extends Player {
     this.camera.rotation.x = Math.max(lowerRotation, Math.min(upperRotation, this.camera.rotation.x))
   }
 
+  /* COMBAT */
+
+  // parent method overriding
   intersect() {
     return getCameraIntersects(this.camera, this.solids)
   }
-
-  /* COMBAT */
 
   enterAttack() {
     super.enterAttack()
