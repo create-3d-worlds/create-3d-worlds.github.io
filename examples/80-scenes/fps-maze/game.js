@@ -51,7 +51,7 @@ new GameLoop((delta, time) => {
 
   if (player.position.distanceTo(maze.exitPosition) < 5)
     score.renderText(`Bravo!<br>You found a way out<br> and kill ${killed.length} of ${enemies.length} enemies`)
-  else if (Math.ceil(time) % 20 == 0)
+  else if (!player.dead && Math.ceil(time) % 20 == 0)
     score.renderTempText('Find a way out!', true)
 
   enemies.forEach(enemy => enemy.update(delta))
