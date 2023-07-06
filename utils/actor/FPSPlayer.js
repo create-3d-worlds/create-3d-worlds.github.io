@@ -68,7 +68,7 @@ export default class FPSPlayer extends Player {
   get endScreen() {
     return /* html */`
       <h2>You are dead.</h2>
-      <p>Reload page to play again</p>
+      <p>Reload to play again</p>
     `
   }
 
