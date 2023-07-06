@@ -26,7 +26,7 @@ DODATI SVUDA:
     - proveriti end screen
     - dodati stilizovani cursor pointer za izbor avatara i sl.
     - centralne poruke da blinkaju: Get out of lava...
-    - izbrisati višak css
+    - da tačkice ispred li budu bele
   - UI kontrole
     - desni miš rotiranje kamere, spell cast, i sl
     - srediti boje, senku, bold, itd

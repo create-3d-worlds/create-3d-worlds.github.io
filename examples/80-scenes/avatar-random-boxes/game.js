@@ -38,7 +38,7 @@ const messageDict = {
   50: 'Half down, half to go!',
   75: 'You smell victory in the air...',
 }
-const score = new Score({ title: 'POINTS', subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict, shouldBlink: false })
+const score = new Score({ title: 'SCORE', subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict, shouldBlink: false })
 
 const lava = await createLava({ size: lavaSize })
 scene.add(lava)

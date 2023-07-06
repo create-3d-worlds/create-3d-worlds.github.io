@@ -180,7 +180,6 @@ li {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
-  font-size: 1.0em;
   min-width: 160px;
   height: 60px;
   display: flex;
@@ -196,7 +195,7 @@ li {
 
 .rpgui-button.golden {
   background-image: url("/libs/rpgui/img/button-golden.png");
-  background-size: 100% 80%;
+  /* background-size: 100% 80%; */
   padding-top: 5px;
   justify-content: space-between;
 }
@@ -222,40 +221,25 @@ li {
 }
 
 .rpgui-container {
+  border-image-repeat: repeat;
+  border-image-width: 18px;
+  border-style: solid;
+  border-width: 15px;
+  box-sizing: border-box;
+  padding: 12px;
   z-index: 10;
-  overflow: show;
 }
 
 .rpgui-container.framed {
-  border-style: solid;
-  border-image-source: url("/libs/rpgui/img/border-image.png");
-  border-image-repeat: repeat;
-  border-image-slice: 6 6 6 6;
-  border-image-width: 18px;
-  border-width: 15px;
-  padding: 12px;
-  box-sizing: border-box;
   background-color: #4E4A4E;
+  border-image-slice: 6 6 6 6;
+  border-image-source: url("/libs/rpgui/img/border-image.png");
 }
 
 .rpgui-container.framed-golden {
-  /* border */
-  border-style: solid;
-  border-image-source: url("/libs/rpgui/img/border-image-golden.png");
-  border-image-repeat: repeat;
+  background-color: #854C30;
   border-image-slice: 4 4 4 4;
-  border-image-width: 18px;
-  border-width: 15px;
-  padding: 12px;
-  /* internal border */
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  /* background */
-  background: url("/libs/rpgui/img/background-image-golden.png") repeat repeat;
-  background-clip: padding-box;
-  background-origin: padding-box;
-  background-position: center;
+  border-image-source: url("/libs/rpgui/img/border-image-golden.png");
 }
 
 .blink {
