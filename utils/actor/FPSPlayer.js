@@ -67,9 +67,13 @@ export default class FPSPlayer extends Player {
     const div = document.createElement('div')
     div.innerHTML = innerHTML
     div.className = 'central-screen rpgui-container framed'
-    div.addEventListener('click', document.body.requestPointerLock)
-    document.body.appendChild(div)
     this.div = div // for container
+    document.body.appendChild(div)
+
+    div.addEventListener('click', () => {
+      document.body.requestPointerLock()
+      document.documentElement.requestFullscreen()
+    })
 
     document.addEventListener('pointerlockchange', () => {
       div.style.display = document.pointerLockElement ? 'none' : 'block'

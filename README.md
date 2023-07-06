@@ -12,9 +12,9 @@ npx live-server
 ## TODO
 
 - fps: 
-  - kad klikne pointer lock da uđe u pun ekran (za ostale nivoe takođe)
   - maze: ubacivati trepereću poruku: Find a way out!
-  - kad umre dead screen
+  - kad umre dead screen (sad opet ide početni koji ne radi)
+  - ai previše se nabijaju u zid, povećati raycast distancu?
 
 - rpg
   - da se orci ne pojave preblizu i ne krenu dok traje učitavanje
@@ -24,11 +24,10 @@ npx live-server
 ### Polishing
 
 DODATI SVUDA:
-  - Game UI https://ronenness.github.io/RPGUI
-    - negde controls dugme?
   - UI kontrole
     - desni miš rotiranje kamere, spell cast, i sl
     - srediti boje, senku, bold, itd
+    - negde controls dugme?
   - komande za telefone (strelice i dugmiće), testirati
   - reload button u end screen (ili kad igrač umre)
   - full screen btn
