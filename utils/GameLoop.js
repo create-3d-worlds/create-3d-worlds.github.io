@@ -1,16 +1,22 @@
 export default class GameLoop {
-  constructor(callback) {
+  constructor(callback, autoStart = false) {
     this.callback = callback
     this.lastTimestamp = 0
     this.time = 0
     this.isPaused = false
-    this.animationFrameId = null
-    // conditionally handlePointerLockChange?
-    document.addEventListener('pointerlockchange', this.handlePointerLockChange)
+    this.animationId = null
+
+    if (autoStart) {
+      this.start()
+      document.addEventListener('visibilitychange', this.handleVisibilityChange)
+    } else // wait for pointer lock
+      document.addEventListener('pointerlockchange', this.handlePointerLockChange)
+
+    document.addEventListener('keypress', this.handleKeyPress)
   }
 
   get isRunning() {
-    return Boolean(this.animationFrameId)
+    return Boolean(this.animationId)
   }
 
   /* METHODS */
@@ -20,16 +26,13 @@ export default class GameLoop {
 
     this.isPaused = false
     this.lastTimestamp = performance.now()
-    this.animationFrameId = requestAnimationFrame(this.loop)
-
-    document.addEventListener('keypress', this.handleKeyPress)
-    document.addEventListener('visibilitychange', this.handleVisibilityChange)
+    this.animationId = requestAnimationFrame(this.loop)
   }
 
   stop() {
     if (!this.isRunning) return
 
-    cancelAnimationFrame(this.animationFrameId)
+    cancelAnimationFrame(this.animationId)
     this.isPaused = false
     this.callback = null
     this.lastTimestamp = 0
@@ -50,7 +53,7 @@ export default class GameLoop {
 
     this.isPaused = false
     this.lastTimestamp = performance.now()
-    this.animationFrameId = requestAnimationFrame(this.loop)
+    this.animationId = requestAnimationFrame(this.loop)
   }
 
   /* EVENTS */
