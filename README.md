@@ -12,9 +12,7 @@ npx live-server
 ## TODO
 
 - rpg, fps
-  - da uzima lečenje?
-    - kad se igrač približi Potion-u, energija se napuni, a Potion se ukloni sa scene (i dispose?)
-    - možda nema potrebe da bude GameObject?
+  - kad se igrač približi Potion-u, energija se napuni, a Potion se ukloni sa scene
   - da se ai ne pojave preblizu i ne krenu dok traje učitavanje
 
 - fps: 
