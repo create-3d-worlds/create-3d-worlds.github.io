@@ -12,7 +12,7 @@ npx live-server
 ## TODO
 
 - fps: 
-  - kad umre dead screen da se sam otvori
+  - da ne bude pauza dok je endScreen
   - dodati i druge lavirinte iz primera
 - videti sunposition
 - promeniti special sa control, često se pritiska slučajno

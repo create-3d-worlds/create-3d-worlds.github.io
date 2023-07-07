@@ -68,11 +68,16 @@ export default class FPSPlayer extends Player {
   get endScreen() {
     return /* html */`
       <h2>You are dead.</h2>
-      <p>Reload to play again</p>
+      <p>Press Reload to play again</p>
     `
   }
 
   /* UTILS */
+
+  showEndScreen() {
+    this.window.style.display = 'block'
+    this.window.innerHTML = this.endScreen
+  }
 
   addPointerLock() {
     this.window = document.createElement('div')
@@ -80,7 +85,10 @@ export default class FPSPlayer extends Player {
     this.window.className = 'central-screen rpgui-container framed'
     document.body.appendChild(this.window)
 
-    this.window.addEventListener('click', document.body.requestPointerLock)
+    this.window.addEventListener('click', () => {
+      if (this.dead) return
+      document.body.requestPointerLock()
+    })
 
     document.addEventListener('pointerlockchange', () => {
       this.window.style.display = document.pointerLockElement ? 'none' : 'block'
@@ -144,7 +152,11 @@ export default class FPSPlayer extends Player {
         this.fpsRenderer.render(this.time)
     }
 
-    if (this.dead) this.fpsRenderer.clear()
+    if (this.dead) {
+      document.exitPointerLock()
+      this.fpsRenderer.clear()
+      this.showEndScreen()
+    }
 
     if (this.hurting) this.fpsRenderer.drawPain()
 
