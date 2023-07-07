@@ -12,7 +12,8 @@ npx live-server
 ## TODO
 
 - rpg, fps
-  - kad se igrač približi Potion-u, energija se napuni, a Potion se ukloni sa scene
+  - igrač uzima Potion
+    - prikazati poruku
   - da se ai ne pojave preblizu i ne krenu dok traje učitavanje
 
 - fps: 

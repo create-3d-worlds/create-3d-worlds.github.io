@@ -55,6 +55,10 @@ export default class Player extends Actor {
     return this.scene?.getObjectsByProperty('name', 'enemy') || []
   }
 
+  get healths() {
+    return this.scene?.getObjectsByProperty('name', 'health') || []
+  }
+
   get solids() {
     return [...super.solids, ...this.enemies]
   }
@@ -99,6 +103,16 @@ export default class Player extends Actor {
     this.mesh.lookAt(0, 0, -mazeSize * 2)
   }
 
+  checkHealths() {
+    this.healths.forEach(mesh => {
+      if (this.distanceTo(mesh) < 1) {
+        console.log('health')
+        this.energy += mesh.userData.energy
+        this.scene.remove(mesh)
+      }
+    })
+  }
+
   /* UPDATES */
 
   updateMove(delta, reaction = reactions.STOP) {
@@ -123,5 +137,6 @@ export default class Player extends Actor {
     }
     if (this.chaseCamera) this.updateCamera(delta)
     if (this.healthBar) this.updateHealthBar()
+    this.checkHealths()
   }
 }
