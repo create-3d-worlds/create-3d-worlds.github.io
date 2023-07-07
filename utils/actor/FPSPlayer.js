@@ -10,7 +10,7 @@ export default class FPSPlayer extends Player {
     attackDistance = 100,
     mouseSensitivity = .002,
     attackSound = 'rifle.mp3',
-    goal = '',
+    goals = [],
     ...rest
   } = {}) {
     super({
@@ -23,7 +23,7 @@ export default class FPSPlayer extends Player {
       ...rest,
     })
     this.mouseSensitivity = mouseSensitivity
-    this.goal = goal
+    this.goals = goals
     this.time = 0
     this.energy = 100
     this.hurting = false
@@ -51,9 +51,9 @@ export default class FPSPlayer extends Player {
   }
 
   get startScreen() {
-    const goal = this.goal ? `<div>${this.goal}</div>` : ''
+    const goals = this.goals.map(goal => `<li>${goal}</li>`).join('')
     return /* html */`
-      ${goal}
+      <ul>${goals}</ul>
       <h2 class="pointer">Click to START!</h2>
       <p>
         Shoot: MOUSE<br />

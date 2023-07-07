@@ -12,7 +12,7 @@ npx live-server
 ## TODO
 
 - fps: 
-  - da ne bude pauza dok je endScreen
+  - da ne pauzira endScreen
   - dodati i druge lavirinte iz primera
 - videti sunposition
 - promeniti special sa control, često se pritiska slučajno
