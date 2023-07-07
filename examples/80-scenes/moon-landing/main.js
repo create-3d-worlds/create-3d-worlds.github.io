@@ -6,6 +6,7 @@ import Platform from '/utils/objects/Platform.js'
 import { loadModel } from '/utils/loaders.js'
 import { createSphere } from '/utils/geometry/index.js'
 import { createJupiter, createSaturn } from '/utils/geometry/planets.js'
+import GameLoop from '/utils/GameLoop.js'
 
 let arcology, lander
 
@@ -35,14 +36,10 @@ score.renderTempText('Land on the platform gently')
 
 /* LOOP */
 
-let time = 0
-
-void function loop() {
-  requestAnimationFrame(loop)
+new GameLoop((dt, time) => {
   renderer.render(scene, camera)
   if (!lander) return
 
-  const dt = clock.getDelta()
   platform.update(dt)
   lander.update(dt)
 
@@ -52,7 +49,7 @@ void function loop() {
   arcology?.rotateY(dt * .02)
   jupiter.rotateY(dt * .2)
   moon.rotateY(dt)
-  orbitAround({ moon, planet: jupiter, time: time += dt * .75 })
+  orbitAround({ moon, planet: jupiter, time: time * .75 })
 
   score.render(score.points, lander.fuel)
 
@@ -63,7 +60,7 @@ void function loop() {
       score.clear()
     }
   }
-}()
+})
 
 /* LAZY LOAD */
 

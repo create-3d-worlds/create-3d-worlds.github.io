@@ -11,7 +11,6 @@ npx live-server
 
 ## TODO
 
-- reuse GameLoop
 - fps: 
   - kad umre dead screen da se sam otvori
   - dodati i druge lavirinte iz primera
@@ -22,7 +21,8 @@ npx live-server
 
 DODATI SVUDA:
   - UI kontrole
-    - desni miš rotiranje kamere, pauza, spell cast, i sl
+    - minimalne default kontrole (move)
+    - proširivati po potrebi (pause, attack, jump, run, desni miš rotiranje kamere, spell cast...)
     - srediti boje, senku, bold, itd
     - negde controls dugme?
   - komande za telefone (strelice i dugmiće), testirati

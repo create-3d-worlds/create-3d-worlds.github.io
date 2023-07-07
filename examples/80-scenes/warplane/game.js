@@ -23,8 +23,6 @@ const groundDistance = mapSize * .99
 const entities = []
 const objects = []
 
-const spinner = new Spinner()
-
 camera.position.set(0, 29, 0)
 scene.fog = new THREE.Fog(0xE5C5AB, mapSize * .25, buildingDistance)
 
@@ -139,6 +137,7 @@ void function update() {
 const callback = async(e, div) => {
   if (e.target.tagName != 'INPUT') return
 
+  const spinner = new Spinner()
   div.style.display = 'none'
   score.renderTempText('Destroy enemy factories,<br><br>do not target civilian buildings')
 
@@ -149,16 +148,13 @@ const callback = async(e, div) => {
   spinner.hide()
 }
 
-const controls = {
-  'WASD or Arrows:': 'MOVE',
-  'Enter:': 'BOMB',
-}
-
-const inputStyle = 'border: 3px solid black; height: 180px'
-
+const style = 'border: 3px solid black; height: 180px'
 const innerHTML = ['Biplane', 'Triplane', 'Messerschmitt', 'Bomber', 'F18'].map(name =>
-  `<input type="image" id="${name}" src="/assets/images/airplanes/${name}.png" style="${inputStyle}" />`
+  `<input type="image" id="${name}" src="/assets/images/airplanes/${name}.png" style="${style}" />`
 ).join('')
 
-const ui = new UI({ controls })
+const ui = new UI({ controls: {
+  'WASD or Arrows:': 'MOVE',
+  'Enter:': 'Attack',
+} })
 ui.addStartScreen({ innerHTML, callback, title: 'Choose your aircraft' })

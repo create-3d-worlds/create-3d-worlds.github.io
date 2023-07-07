@@ -1,4 +1,4 @@
-import { scene, camera, clock, createToonRenderer } from '/utils/scene.js'
+import { scene, camera, createToonRenderer } from '/utils/scene.js'
 import { createRandomBoxes } from '/utils/geometry/index.js'
 import { createGround, createLava } from '/utils/ground.js'
 import { hemLight, createSun } from '/utils/light.js'
@@ -7,6 +7,7 @@ import Score from '/utils/io/Score.js'
 import Platform from '/utils/objects/Platform.js'
 import UI from '/utils/io/UI.js'
 import { Spinner } from '/utils/loaders.js'
+import GameLoop from '/utils/GameLoop.js'
 
 const renderer = await createToonRenderer()
 
@@ -16,7 +17,6 @@ const platforms = []
 const coins = []
 
 let player
-let time = 0
 
 camera.position.set(0, 2, 56)
 
@@ -87,13 +87,9 @@ function reset(addPlatforms = false) {
 
 /* LOOP */
 
-void function loop() {
-  requestAnimationFrame(loop)
+new GameLoop((delta, time) => {
   renderer.render(scene, camera)
   if (!player) return
-
-  const delta = clock.getDelta()
-  time += delta
 
   coins.forEach(coin => {
     coin.update(delta)
@@ -113,7 +109,7 @@ void function loop() {
 
   platforms.forEach(platform => platform.update(delta))
   lava.material.uniforms.time.value = time * .5
-}()
+})
 
 /* UI */
 

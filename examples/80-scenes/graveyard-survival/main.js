@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { camera, scene, createToonRenderer, setBackground, clock } from '/utils/scene.js'
+import { camera, scene, createToonRenderer, setBackground } from '/utils/scene.js'
 import { Spinner } from '/utils/loaders.js'
 import { createGround } from '/utils/ground.js'
 import { createMoon, orbiting } from '/utils/light.js'
@@ -7,6 +7,7 @@ import { getEmptyCoords, sample } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
 import { Smoke } from '/utils/Particles.js'
 import Score from '/utils/io/Score.js'
+import GameLoop from '/utils/GameLoop.js'
 
 const spinner = new Spinner()
 const renderer = await createToonRenderer()
@@ -18,7 +19,6 @@ const npcs = []
 const solids = []
 
 let last = Date.now()
-let time = 0
 let player
 
 /* INIT */
@@ -62,13 +62,9 @@ async function spawnZombie(interval) {
 
 /* LOOP */
 
-void function loop() {
-  requestAnimationFrame(loop)
+new GameLoop((delta, time) => {
   renderer.render(scene, camera)
   if (spinner.loading) return
-
-  const delta = clock.getDelta()
-  time += delta
 
   const timeLeft = Math.ceil(totalTime - time)
   const isNight = timeLeft >= 0
@@ -94,7 +90,7 @@ void function loop() {
     if (!isNight) npc.hitAmount = 100
   })
   particles.update({ delta, min: -1, max: 0, minVelocity: .2, maxVelocity: .5, loop: false })
-}()
+})
 
 /* LAZY LOAD */
 
