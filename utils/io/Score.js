@@ -9,7 +9,7 @@ export default class Score {
     messageDict,
     endText = 'Bravo!<br>Nothing left',
     showHighScore = false,
-    shouldBlink = true
+    shouldBlink = false
   } = {}) {
     this.points = points
     this.title = title

@@ -18,7 +18,7 @@ export default class GameObject {
       this.mesh = mesh.clone()
 
     this.name = name
-    this.energy = energy
+    this.energy = this.maxEnergy = energy
     this.hitAmount = 0
 
     if (pos) this.position = pos
@@ -54,8 +54,10 @@ export default class GameObject {
     return this.mesh.userData.energy
   }
 
-  set energy(energy) {
-    this.mesh.userData.energy = energy > 0 ? energy : 0
+  set energy(newEnergy) {
+    if (newEnergy < 0) this.mesh.userData.energy = 0
+    else if (newEnergy > this.maxEnergy) this.mesh.userData.energy = this.maxEnergy
+    else this.mesh.userData.energy = newEnergy
   }
 
   get hitAmount() {

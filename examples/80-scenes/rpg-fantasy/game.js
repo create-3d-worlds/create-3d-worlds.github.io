@@ -59,9 +59,15 @@ for (let i = 0; i < 20; i++) {
   scene.add(enemy.mesh)
 }
 
+const obj = await import('/utils/objects/Potion.js')
+for (let i = 0; i < 3; i++) {
+  const potion = new obj.default({ pos: coords.pop(), solids })
+  scene.add(potion.mesh)
+}
+
 const scoreFile = await import('/utils/io/Score.js')
 const messageDict = {
-  1: 'You killed the first Orc. Free the land from their vile presence!',
+  1: 'You killed the first Orc.<br>Free the land from their vile presence!',
   10: 'You killed half the vile creatures',
   19: 'You smell victory in the air...',
 }
@@ -74,7 +80,7 @@ scene.add(monument)
 
 const { FlamingoAI } = await import('/utils/actor/derived/Flamingo.js')
 for (let i = 0; i < 10; i++) {
-  const bird = new FlamingoAI ({ mapSize, pos: coords.pop() })
+  const bird = new FlamingoAI({ mapSize, pos: coords.pop() })
   npcs.push(bird)
   scene.add(bird.mesh)
 }
