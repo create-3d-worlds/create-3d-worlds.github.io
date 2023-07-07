@@ -39,6 +39,7 @@ export default class GameLoop {
     this.time = 0
 
     document.removeEventListener('keypress', this.handleKeyPress)
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange)
     document.removeEventListener('pointerlockchange', this.handlePointerLockChange)
   }
 

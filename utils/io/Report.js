@@ -1,3 +1,5 @@
+import config from '/config.js'
+
 function createHtml(container) {
   const div = document.createElement('div')
   div.className = 'report'
@@ -16,12 +18,11 @@ export default class Report {
     this.container = container
     this.p = createHtml(container)
     this.audio = new Audio('/assets/sounds/typing.mp3')
-    this.kucaj = this.kucaj.bind(this)
-
+    this.audio.volume = config.volume
     this.init()
   }
 
-  kucaj() {
+  kucaj = () => {
     this.p.innerHTML += this.text.charAt(this.i)
     this.p.innerHTML = this.p.innerHTML.replace(/\n/g, '<br>')
     if (this.i >= this.text.length) {

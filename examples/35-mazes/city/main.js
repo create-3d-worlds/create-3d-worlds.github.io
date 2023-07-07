@@ -6,13 +6,13 @@ import { PartisanPlayer } from '/utils/actor/derived/ww2/Partisan.js'
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
 
-const cellSize = 10
+const cellSize = 15
 const matrixSize = 15
 
 hemLight({ intensity: 1.25 })
 camera.position.set(0, 7, 10)
 
-const maze = new Maze(matrixSize, matrixSize, truePrims)
+const maze = new Maze(matrixSize, matrixSize, truePrims, cellSize)
 const city = maze.toCity()
 scene.add(city)
 
