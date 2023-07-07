@@ -3,8 +3,8 @@ const isNumber = num => typeof num == 'number'
 export default class Score {
   constructor({
     title = 'Score',
-    points = 0,
     subtitle = 'left',
+    points = 0,
     total,
     messageDict,
     endText = 'Bravo!<br>Nothing left',

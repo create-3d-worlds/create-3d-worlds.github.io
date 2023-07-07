@@ -3,24 +3,23 @@ const baseControls = {
   '→': 'right',
   '↑': 'forward',
   '↓': 'backward',
-  CapsLock: 'run',
+  // 'Space:': 'jump',
+  // 'Enter:': 'attack',
+  // 'CapsLock:': 'run',
 }
 
-/** CONTROLS STYLE */
-
 export default class UI {
-  constructor({ title = 'CONTROLS', controls = baseControls } = {}) {
-    this.title = title
+  constructor({ controls = baseControls } = {}) {
     this.controls = controls
-    this.addUIControls(title, controls)
+    this.addUIControls(controls)
   }
 
-  addUIControls(title, controls) {
+  addUIControls(controls) {
     const div = document.createElement('div')
     div.className = 'controls'
 
-    const closedTitle = `${title} &#9660;`
-    const openTitle = `${title} &#9654;`
+    const closedTitle = 'CONTROLS &#9660;'
+    const openTitle = 'CONTROLS &#9654;'
 
     const button = document.createElement('button')
     // button.className = 'rpgui-button'
