@@ -16,7 +16,6 @@ Pravim 3D scene jer mi je zabavno, ali sve vreme imam na umu reusability - da ne
 ## TODO
 
 - fps: 
-  - ai previše se nabijaju u zid, povećati raycast distancu?
   - dodati i druge lavirinte iz primera
   - da uzima lečenje?
   - kad umre dead screen da se sam otvori
