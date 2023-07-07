@@ -1,16 +1,15 @@
 import Player from '/utils/actor/Player.js'
 import FPSRenderer from '/utils/actor/FPSRenderer.js'
-import { camera as defaultCamera } from '/utils/scene.js'
 import { getCameraIntersects } from '/utils/helpers.js'
 import { attackStyles, jumpStyles } from '/utils/constants.js'
 import { createPlayerBox } from '/utils/geometry/index.js'
 
 export default class FPSPlayer extends Player {
   constructor({
-    camera = defaultCamera,
+    camera,
+    attackDistance = 100,
     mouseSensitivity = .002,
     attackSound = 'rifle.mp3',
-    usePointerLock = true,
     goal = '',
     ...rest
   } = {}) {
@@ -18,13 +17,12 @@ export default class FPSPlayer extends Player {
       mesh: createPlayerBox({ visible: false }),
       attackStyle: attackStyles.ONCE,
       jumpStyle: jumpStyles.FLY_JUMP,
-      attackDistance: 100,
       useRicochet: true,
+      attackDistance,
       attackSound,
       ...rest,
     })
     this.mouseSensitivity = mouseSensitivity
-    this.usePointerLock = usePointerLock
     this.goal = goal
     this.time = 0
     this.energy = 100
@@ -37,7 +35,7 @@ export default class FPSPlayer extends Player {
     camera.rotation.set(0, 0, 0)
     this.mesh.add(camera)
 
-    if (usePointerLock) this.addPointerLock()
+    this.addPointerLock()
   }
 
   /* GETTERS */
@@ -134,13 +132,9 @@ export default class FPSPlayer extends Player {
 
   /* UPDATES */
 
-  updateCamera() {
-    if (!this.usePointerLock && !this.mixer) this.camera.lookAt(this.cameraTarget)
-  }
-
   update(delta) {
     const { input } = this
-    if (this.usePointerLock) input.attack = input.pressed.mouse // shoot with mouse
+    input.attack = input.pressed.mouse // shoot with mouse
 
     super.update(delta)
 
@@ -159,7 +153,5 @@ export default class FPSPlayer extends Player {
     }
 
     if (this.hurting) this.fpsRenderer.drawPain()
-
-    this.updateCamera()
   }
 }
