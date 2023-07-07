@@ -339,16 +339,20 @@ export default class Actor extends GameObject {
   }
 
   updateMove(delta, reaction = reactions.BOUNCE) {
-    const direction = this.input.up ? dir.forward : dir.backward
+    const direction = this.input.up ? dir.forward
+      : this.input.down ? dir.backward : null
 
-    if (this.directionBlocked(direction))
+    if (direction && this.directionBlocked(direction))
       if (reaction == reactions.BOUNCE) this.bounce()
       else if (reaction == reactions.TURN_SMOOTH) this.turnSmooth()
       else if (reaction == reactions.STEP_OFF) this.stepOff(delta * 2.5)
       else if (reaction == reactions.STOP) return
 
-    const jumpDir = this.input.up ? dir.upForward : dir.upBackward
-    if (this.state == 'jump' && this.directionBlocked(jumpDir)) return
+    if (this.state == 'jump') {
+      const jumpDir = this.input.up ? dir.upForward
+        : this.input.down ? dir.upBackward : null
+      if (jumpDir && this.directionBlocked(jumpDir)) return
+    }
 
     this.velocity.z += -this.acceleration * delta
     this.velocity.z *= (1 - this.drag)

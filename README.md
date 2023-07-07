@@ -18,7 +18,7 @@ npx live-server
 - videti sunposition
 - promeniti special sa control, često se pritiska slučajno
 
-- BUG: avatar nekad neće da skače na random-boxes
+- videti zašto secka, možda vratiti sunce
 
 ### Polishing
 
