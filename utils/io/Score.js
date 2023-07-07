@@ -77,9 +77,9 @@ export default class Score {
     `
     if (this.centralDiv.innerHTML === html) return
     this.centralDiv.innerHTML = html
-    this.centralDiv.classList.add('rpgui-container', 'framed')
+    this.centralDiv.classList.add('rpgui-container', 'framed', 'pointer')
     this.centralDiv.addEventListener('click', () => {
-      this.centralDiv.classList.remove('rpgui-container', 'framed')
+      this.centralDiv.classList.remove('rpgui-container', 'framed', 'pointer')
       this.clear()
       callback()
     })

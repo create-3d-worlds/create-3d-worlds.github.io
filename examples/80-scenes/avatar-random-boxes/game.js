@@ -1,7 +1,7 @@
 import { scene, camera, createToonRenderer } from '/utils/scene.js'
 import { createRandomBoxes } from '/utils/geometry/index.js'
 import { createGround, createLava } from '/utils/ground.js'
-import { hemLight, createSun } from '/utils/light.js'
+import { hemLight } from '/utils/light.js'
 import Coin from '/utils/objects/Coin.js'
 import Score from '/utils/io/Score.js'
 import Platform from '/utils/objects/Platform.js'
@@ -20,8 +20,7 @@ let player
 
 camera.position.set(0, 2, 56)
 
-hemLight()
-scene.add(createSun({ intensity: .25 }))
+hemLight({ intensity: 1.2 })
 
 const floor = createGround({ file: 'terrain/ground.jpg' })
 scene.add(floor)
