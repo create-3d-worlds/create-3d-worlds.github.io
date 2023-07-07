@@ -11,17 +11,17 @@ npx live-server
 
 ## TODO
 
-- fps: 
-  - da uzima lečenje?
-    - napraviti class Potion extends GameObject
-  - dodati i druge lavirinte iz primera
-  - kad umre dead screen da se sam otvori
-
 - rpg, fps
+  - da uzima lečenje?
+    - kad se igrač približi Potion-u, energija se napuni, a Potion se ukloni sa scene (i dispose?)
+    - možda nema potrebe da bude GameObject?
   - da se ai ne pojave preblizu i ne krenu dok traje učitavanje
 
-- videti sunposition
+- fps: 
+  - kad umre dead screen da se sam otvori
+  - dodati i druge lavirinte iz primera
 
+- videti sunposition
 - reuse GameLoop
 
 ### Polishing
