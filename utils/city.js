@@ -91,19 +91,19 @@ const getWindowColor = ({ chance = .5 } = {}) => {
 }
 
 // https://www.25yearsofprogramming.com/threejs-tutorials/how-to-do-a-procedural-city-in-100-lines.html
-export function createBuildingTexture({ night = false, wallColor = night ? '#151515' : '#FFFFFF', width = 32, height = 64 } = {}) {
+export function createBuildingTexture({ night = false, wallColor = night ? '#151515' : '#FFFFFF', width = 32, height = 64, windowHeight = 4 } = {}) {
   const canvas = document.createElement('canvas')
   canvas.width = width
   canvas.height = height
   const context = canvas.getContext('2d')
   context.fillStyle = wallColor
   context.fillRect(0, 0, canvas.width, canvas.height)
-  for (let y = 2; y < canvas.height; y += 2)
-    for (let x = 0; x < canvas.width; x += 2) {
+  for (let y = windowHeight; y < canvas.height; y += windowHeight)
+    for (let x = 0; x < canvas.width; x += windowHeight) {
       context.fillStyle = night
         ? getWindowColor({ chance: .25 }).getStyle()
         : randomGrayish({ min: 0, max: .5, colorful: 0 }).getStyle()
-      context.fillRect(x, y, 2, 1)
+      context.fillRect(x, y, windowHeight, windowHeight / 2)
     }
 
   const canvas2 = document.createElement('canvas')

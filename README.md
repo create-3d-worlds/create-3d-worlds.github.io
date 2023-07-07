@@ -11,13 +11,10 @@ npx live-server
 
 ## TODO
 
-- fps: 
-  - da ne pauzira endScreen
+- postaviti cilj na neke lavirinte
+  - dodavati razne klase na renderTempText
 - videti sunposition
 - promeniti special sa control, često se pritiska slučajno
-
-maze:
-  - postaviti cilj za sve primere
 
 ### Polishing
 
