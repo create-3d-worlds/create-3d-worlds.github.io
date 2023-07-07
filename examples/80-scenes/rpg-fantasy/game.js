@@ -73,10 +73,9 @@ const messageDict = {
 }
 score = new scoreFile.default({ title: 'Orcs killed', subtitle: 'Orcs left', messageDict })
 
-const monument = await loadModel({ file: 'building/monument/knight/knight.fbx', size: 5, shouldAdjustHeight: true, shouldCenter: true })
-monument.position.copy(coords.pop())
-putOnSolids(monument, terrain)
-scene.add(monument)
+const monumentFile = await import('/utils/objects/Monument.js')
+const monument = new monumentFile.default({ pos: coords.pop(), solids: terrain })
+scene.add(monument.mesh)
 
 const { FlamingoAI } = await import('/utils/actor/derived/Flamingo.js')
 for (let i = 0; i < 10; i++) {

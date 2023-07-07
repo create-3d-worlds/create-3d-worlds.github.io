@@ -11,8 +11,8 @@ npx live-server
 
 ## TODO
 
-- rpg, fps
-  - da se ai ne pojave preblizu i ne krenu dok traje učitavanje
+- rpg
+  - da ai ne počnu napad dok traje učitavanje
 
 - fps: 
   - kad umre dead screen da se sam otvori
