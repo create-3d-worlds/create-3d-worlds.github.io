@@ -1,18 +1,17 @@
 export default class GameLoop {
-  constructor(callback, usePointerLock = false) {
-    this.callback = callback
+  constructor(update, usePointerLock = false, autostart = !usePointerLock) {
+    this.update = update
     this.lastTimestamp = 0
     this.time = 0
     this.isPaused = false
     this.animationId = null
 
+    document.addEventListener('keypress', this.handleKeyPress)
     if (usePointerLock)
       document.addEventListener('pointerlockchange', this.handlePointerLockChange)
-    else {
-      this.start()
+    else
       document.addEventListener('visibilitychange', this.handleVisibilityChange)
-    }
-    document.addEventListener('keypress', this.handleKeyPress)
+    if (autostart) this.start()
   }
 
   get isRunning() {
@@ -34,7 +33,7 @@ export default class GameLoop {
 
     cancelAnimationFrame(this.animationId)
     this.isPaused = false
-    this.callback = null
+    this.update = null
     this.lastTimestamp = 0
     this.time = 0
 
@@ -67,7 +66,7 @@ export default class GameLoop {
 
   handlePointerLockChange = () => {
     if (!this.isRunning)
-      this.start(this.callback)
+      this.start(this.update)
     else if (!document.pointerLockElement)
       this.pause()
     else
@@ -95,7 +94,7 @@ export default class GameLoop {
     this.lastTimestamp = timestamp
     this.time += deltaTime
 
-    this.callback(deltaTime / 1000, this.time / 1000) // to seconds
+    this.update(deltaTime / 1000, this.time / 1000) // to seconds
 
     requestAnimationFrame(this.loop)
   }
