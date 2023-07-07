@@ -27,7 +27,7 @@ scene.add(trees)
 void function loop() {
   requestAnimationFrame(loop)
   renderer.render(scene, camera)
-  if (!player) return
+  if (!npcs.length) return
 
   const delta = clock.getDelta()
   player.update(delta)

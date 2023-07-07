@@ -11,15 +11,11 @@ npx live-server
 
 ## TODO
 
-- rpg
-  - da ai ne počnu napad dok traje učitavanje
-
+- reuse GameLoop
 - fps: 
   - kad umre dead screen da se sam otvori
   - dodati i druge lavirinte iz primera
-
 - videti sunposition
-- reuse GameLoop
 
 ### Polishing
 
