@@ -18,6 +18,9 @@ npx live-server
 - videti sunposition
 - promeniti special sa control, često se pritiska slučajno
 
+- BUG: avatar nekad neće da skače na random-boxes
+- BUG: avatar opet se trese u skoku
+
 ### Polishing
 
 DODATI SVUDA:

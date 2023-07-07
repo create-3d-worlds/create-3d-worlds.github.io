@@ -69,13 +69,13 @@ void function loop() {
   world.update(dt)
 
   if (Math.floor(time) != newTime)
-    score.update(0, newTime)
+    score.add(0, newTime)
 
   if (i++ % 3 === 0)
     countableCrates.forEach(mesh => {
       if (mesh.position.y <= 0.5) {
         countableCrates.splice(countableCrates.findIndex(c => c === mesh), 1)
-        score.update(-1, newTime)
+        score.add(-1, newTime)
       }
     })
 

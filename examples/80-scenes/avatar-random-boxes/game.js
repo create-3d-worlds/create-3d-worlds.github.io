@@ -51,7 +51,7 @@ function checkCollision(coin) {
   if (player.distanceTo(coin.mesh) > 1.4) return
   coins.splice(coins.findIndex(c => c === coin), 1)
   scene.remove(coin.mesh)
-  score.update(1, coins.length)
+  score.add(1, coins.length)
 }
 
 function createCoins(addPlatforms) {
@@ -78,7 +78,7 @@ function reset(addPlatforms = false) {
   createCoins(addPlatforms)
 
   score.points = 0
-  score.update(0, coins.length)
+  score.render(0, coins.length)
 
   player.position = [0, 0, 50]
   player.energy = 100

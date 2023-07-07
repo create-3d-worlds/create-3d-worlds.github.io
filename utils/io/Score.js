@@ -30,7 +30,7 @@ export default class Score {
 
     this.highScore = +localStorage.getItem(location.pathname)
 
-    this.update(0, total)
+    this.add(0, total)
     if (showHighScore) this.renderHeighScore()
   }
 
@@ -105,7 +105,7 @@ export default class Score {
       localStorage.setItem(location.pathname, points)
   }
 
-  update(change = 1, left) {
+  add(change = 1, left) {
     this.points += change
     this.render(this.points, left)
   }
