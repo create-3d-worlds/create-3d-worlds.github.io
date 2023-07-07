@@ -18,8 +18,6 @@ npx live-server
 - videti sunposition
 - promeniti special sa control, često se pritiska slučajno
 
-- videti zašto secka, možda vratiti sunce
-
 ### Polishing
 
 DODATI SVUDA:
