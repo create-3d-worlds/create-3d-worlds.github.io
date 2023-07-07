@@ -20,7 +20,7 @@ let player
 
 camera.position.set(0, 2, 56)
 
-hemLight({ intensity: 1.2 })
+hemLight({ intensity: 1.1 })
 
 const floor = createGround({ file: 'terrain/ground.jpg' })
 scene.add(floor)
