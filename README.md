@@ -13,6 +13,8 @@ npx live-server
 
 - postaviti cilj na neke lavirinte
   - dodavati razne klase na renderTempText
+  - premestiti renderTempText na UI?
+  - spojiti UI i Score?
 - videti sunposition
 - promeniti special sa control, često se pritiska slučajno
 

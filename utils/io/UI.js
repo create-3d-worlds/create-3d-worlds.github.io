@@ -3,7 +3,6 @@ const baseControls = {
   '→': 'right',
   '↑': 'forward',
   '↓': 'backward',
-  Space: 'jump',
   CapsLock: 'run',
 }
 
@@ -44,17 +43,23 @@ export default class UI {
     document.body.appendChild(div)
   }
 
-  addStartScreen({ title, innerHTML, callback }) {
+  addStartScreen({ title, innerHTML, callback, className = 'rpgui-container framed' } = {}) {
     const div = document.createElement('div')
-    div.className = 'central-screen rpgui-container framed'
+    div.className = `central-screen pointer ${className}`
     if (title) div.innerHTML = `<h2>${title}</h2>`
 
-    const selectDiv = document.createElement('div')
-    selectDiv.className = 'central-screen-select'
-    selectDiv.innerHTML = innerHTML
-    selectDiv.addEventListener('click', e => callback(e, div))
+    if (innerHTML) {
+      const selectDiv = document.createElement('div')
+      selectDiv.className = 'central-screen-select'
+      selectDiv.innerHTML = innerHTML
+      div.appendChild(selectDiv)
+    }
 
-    div.appendChild(selectDiv)
+    div.addEventListener('click', e => {
+      if (callback) callback(e, div)
+      else div.style.display = 'none'
+    })
+
     document.body.appendChild(div)
   }
 }

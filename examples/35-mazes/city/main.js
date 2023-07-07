@@ -5,6 +5,10 @@ import { hemLight } from '/utils/light.js'
 import { PartisanPlayer } from '/utils/actor/derived/ww2/Partisan.js'
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
+import UI from '/utils/io/UI.js'
+
+const ui = new UI()
+ui.addStartScreen({ title: 'Get out!', innerHTML: 'Find a way out<br>of the concrete jungle' })
 
 const cellSize = 15
 const matrixSize = 15
