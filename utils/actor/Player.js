@@ -94,6 +94,8 @@ export default class Player extends Actor {
   checkHealths() {
     this.healths.forEach(health => {
       if (this.distanceTo(health) >= 1) return
+      if (this.energy == this.maxEnergy) return
+
       if (health.userData.energy) {
         health.userData.energy--
         this.energy++
