@@ -9,7 +9,6 @@ import UI from '/utils/io/UI.js'
 import { Spinner } from '/utils/loaders.js'
 
 const renderer = await createToonRenderer()
-const spinner = new Spinner()
 
 const numBoxes = 400, mapSize = 200, lavaSize = 50
 const numCoins = numBoxes / 4
@@ -17,7 +16,6 @@ const platforms = []
 const coins = []
 
 let player
-let pause = true
 let time = 0
 
 camera.position.set(0, 2, 56)
@@ -92,7 +90,7 @@ function reset(addPlatforms = false) {
 void function loop() {
   requestAnimationFrame(loop)
   renderer.render(scene, camera)
-  if (pause) return
+  if (!player) return
 
   const delta = clock.getDelta()
   time += delta
@@ -122,10 +120,10 @@ void function loop() {
 const callback = (e, div) => {
   if (e.target.tagName != 'INPUT') return
   div.style.display = 'none'
+  const spinner = new Spinner()
 
   const promise = import('/utils/actor/Avatar.js')
   promise.then(obj => {
-    pause = false
     player = new obj.default({ camera, solids: [floor, ...boxes], skin: e.target.id })
     player.chaseCamera.distance = 6
     scene.add(player.mesh)

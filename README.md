@@ -16,12 +16,13 @@ npx live-server
   - kad umre dead screen da se sam otvori
   - dodati i druge lavirinte iz primera
 - videti sunposition
+- promeniti special sa control, često se pritiska slučajno
 
 ### Polishing
 
 DODATI SVUDA:
   - UI kontrole
-    - desni miš rotiranje kamere, spell cast, i sl
+    - desni miš rotiranje kamere, pauza, spell cast, i sl
     - srediti boje, senku, bold, itd
     - negde controls dugme?
   - komande za telefone (strelice i dugmiće), testirati

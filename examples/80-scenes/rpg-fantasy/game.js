@@ -1,9 +1,10 @@
-import { scene, createToonRenderer, camera, clock } from '/utils/scene.js'
+import { scene, createToonRenderer, camera } from '/utils/scene.js'
 import { createHillyTerrain } from '/utils/ground.js'
 import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { createSun } from '/utils/light.js'
 import { sample, getEmptyCoords, putOnSolids } from '/utils/helpers.js'
 import { loadModel, Spinner } from '/utils/loaders.js'
+import GameLoop from '/utils/GameLoop.js'
 
 let player, score
 const mapSize = 400
@@ -24,18 +25,16 @@ scene.add(trees)
 
 /* LOOP */
 
-void function loop() {
-  requestAnimationFrame(loop)
+new GameLoop(delta => {
   renderer.render(scene, camera)
   if (!npcs.length) return
 
-  const delta = clock.getDelta()
   player.update(delta)
   npcs.forEach(enemy => enemy.update(delta))
 
   const killed = player.enemies.filter(enemy => enemy.userData.energy <= 0)
   score?.render(killed.length, player.enemies.length - killed.length)
-}()
+})
 
 /* LAZY LOAD */
 

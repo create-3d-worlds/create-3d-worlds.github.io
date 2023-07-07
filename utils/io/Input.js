@@ -13,7 +13,6 @@ class Input {
   constructor(listen = true) {
     this.pressed = {}
     this.capsLock = false
-    this.pause = false
 
     if (!listen) return
 
@@ -22,7 +21,6 @@ class Input {
     document.addEventListener('keydown', e => {
       preventSome(e)
       this.pressed[e.code] = true
-      if (e.code == 'KeyP') this.pause = !this.pause
     })
     document.addEventListener('keyup', e => {
       this.pressed[e.code] = false
