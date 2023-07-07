@@ -1,17 +1,17 @@
 export default class GameLoop {
-  constructor(callback, autoStart = false) {
+  constructor(callback, usePointerLock = false) {
     this.callback = callback
     this.lastTimestamp = 0
     this.time = 0
     this.isPaused = false
     this.animationId = null
 
-    if (autoStart) {
+    if (usePointerLock)
+      document.addEventListener('pointerlockchange', this.handlePointerLockChange)
+    else {
       this.start()
       document.addEventListener('visibilitychange', this.handleVisibilityChange)
-    } else // wait for pointer lock
-      document.addEventListener('pointerlockchange', this.handlePointerLockChange)
-
+    }
     document.addEventListener('keypress', this.handleKeyPress)
   }
 

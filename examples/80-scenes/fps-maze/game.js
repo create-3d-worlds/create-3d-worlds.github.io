@@ -57,7 +57,7 @@ new GameLoop((delta, time) => {
   enemies.forEach(enemy => enemy.update(delta))
 
   if (Math.random() > .998) lightningStrike(light)
-})
+}, true)
 
 /* LAZY LOAD */
 

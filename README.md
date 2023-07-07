@@ -9,21 +9,19 @@ npm i
 npx live-server
 ```
 
-## Manifest
-
-Pravim 3D scene jer mi je zabavno, ali sve vreme imam na umu reusability - da neko drugi može iskoristiti delove igara i razne funkcije za svoje potrebe.
-
 ## TODO
 
 - fps: 
-  - dodati i druge lavirinte iz primera
   - da uzima lečenje?
+    - napraviti class Potion extends GameObject
+  - dodati i druge lavirinte iz primera
   - kad umre dead screen da se sam otvori
 
 - rpg, fps
   - da se ai ne pojave preblizu i ne krenu dok traje učitavanje
 
 - videti sunposition
+
 - reuse GameLoop
 
 ### Polishing
@@ -140,3 +138,7 @@ Geodata:
 - weighted random https://pixelero.wordpress.com/2008/04/24/various-functions-and-various-distributions-with-mathrandom/
 
 Ako sam propustio da navedem neki izvor, molim vas da mi javite. Već 10 godina pratim razne knjige, kurseve, repozitorije i druge materijale vezano za Three.js, više ni sam ne znam gde sam nešto našao.
+
+## Manifest
+
+Pravim 3D scene iz čistog zadovoljstva, ali sve vreme imam na umu reusability - da neko drugi može iskoristiti delove igara i razne funkcije za svoje potrebe.
