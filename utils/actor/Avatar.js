@@ -74,12 +74,21 @@ function updateAvatar(mesh, time, axis = 'z') {
 /** CLASS */
 
 export default class Avatar extends Player {
-  constructor({ skin = STONE, jumpStyle = jumpStyles.DOUBLE_JUMP, maxJumpTime = 40, size = 1, speed = size * 4, ...params } = {}) {
+  constructor({
+    skin = STONE,
+    jumpStyle = jumpStyles.DOUBLE_JUMP,
+    maxJumpTime = 40,
+    size = 1,
+    speed = size * 4,
+    showHealthBar = false,
+    ...params
+  } = {}) {
     super({
       mesh: createAvatar({ skin, r: size }),
       speed,
       jumpStyle,
       maxJumpTime,
+      showHealthBar,
       ...params,
     })
     this.skin = skin

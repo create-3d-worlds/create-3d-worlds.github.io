@@ -13,9 +13,11 @@ npx live-server
 
 - fps: 
   - da ne pauzira endScreen
-  - dodati i druge lavirinte iz primera
 - videti sunposition
 - promeniti special sa control, često se pritiska slučajno
+
+maze:
+  - postaviti cilj za sve primere
 
 ### Polishing
 

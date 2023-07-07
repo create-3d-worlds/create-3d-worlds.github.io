@@ -292,7 +292,7 @@ export default class Actor extends GameObject {
   }
 
   directionBlocked(currDir, solids = this.solids) {
-    const rayLength = currDir == dir.forward ? this.depth * 2 : this.height
+    const rayLength = currDir == dir.forward ? this.depth : this.height
     return directionBlocked(this.mesh, solids, currDir, rayLength)
   }
 

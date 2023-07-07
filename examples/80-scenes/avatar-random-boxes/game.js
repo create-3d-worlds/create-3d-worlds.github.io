@@ -120,7 +120,7 @@ const callback = (e, div) => {
 
   const promise = import('/utils/actor/Avatar.js')
   promise.then(obj => {
-    player = new obj.default({ camera, solids: [floor, ...boxes], skin: e.target.id })
+    player = new obj.default({ camera, solids: [floor, ...boxes], skin: e.target.id, showHealthBar: true })
     player.chaseCamera.distance = 6
     scene.add(player.mesh)
     reset(true)

@@ -4,8 +4,8 @@ import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js
 import Actor from './Actor.js'
 import { Input } from '/utils/io/Input.js'
 import { getAIState } from './states/ai/index.js'
-import { jumpStyles, attackStyles, baseStates } from '/utils/constants.js'
-import { belongsTo } from '/utils/helpers.js'
+import { jumpStyles, attackStyles, baseStates, dir } from '/utils/constants.js'
+import { belongsTo, directionBlocked } from '/utils/helpers.js'
 
 const { randFloat, randFloatSpread } = MathUtils
 
@@ -145,6 +145,11 @@ export default class AI extends Actor {
         .start()
       this.last = Date.now()
     }
+  }
+
+  directionBlocked(currDir, solids = this.solids) {
+    const rayLength = currDir == dir.forward ? this.depth * 2 : this.height
+    return directionBlocked(this.mesh, solids, currDir, rayLength)
   }
 
   /* COMBAT */

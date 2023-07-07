@@ -6,6 +6,7 @@ import Avatar from '/utils/actor/Avatar.js'
 import { hemLight } from '/utils/light.js'
 import { material, uniforms } from '/utils/shaders/lightning-led.js'
 
+document.body.style.background = 'black'
 const cellSize = 3
 
 hemLight()
@@ -18,6 +19,7 @@ const city = maze.toTiledMesh({ maxHeight: cellSize * 3, material })
 scene.add(city)
 
 const player = new Avatar({ size: .5, camera, solids: city })
+player.chaseCamera.distance = 2
 player.putInMaze(maze)
 scene.add(player.mesh)
 
