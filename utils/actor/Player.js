@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-import defaultKeyboard from '/utils/io/Input.js'
+import defaultInput from '/utils/io/Input.js'
 import { jumpStyles, attackStyles, reactions } from '/utils/constants.js'
 import { getPlayerState } from './states/index.js'
 import Actor from './Actor.js'
@@ -8,7 +8,7 @@ import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 export default class Player extends Actor {
   constructor({
-    input = defaultKeyboard,
+    input = defaultInput,
     useJoystick,
     attackStyle = attackStyles.LOOP,
     jumpStyle = jumpStyles.ANIM_JUMP,
@@ -106,7 +106,6 @@ export default class Player extends Actor {
   checkHealths() {
     this.healths.forEach(mesh => {
       if (this.distanceTo(mesh) < 1) {
-        console.log('health')
         this.energy += mesh.userData.energy
         this.scene.remove(mesh)
       }

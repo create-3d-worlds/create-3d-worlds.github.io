@@ -71,4 +71,10 @@ for (let i = 0; i < 10; i++) {
   scene.add(enemy.mesh)
 }
 
+const obj = await import('/utils/objects/Potion.js')
+for (let i = 0; i < 2; i++) {
+  const potion = new obj.default({ pos: coords.pop() })
+  scene.add(potion.mesh)
+}
+
 spinner.hide()

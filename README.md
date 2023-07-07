@@ -13,7 +13,7 @@ npx live-server
 
 - rpg, fps
   - igrač uzima Potion
-    - prikazati poruku
+    - prikazati poruku ili neki efekat ili da se lagano puni
   - da se ai ne pojave preblizu i ne krenu dok traje učitavanje
 
 - fps: 

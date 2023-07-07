@@ -95,10 +95,6 @@ export default class GameObject {
     this.mesh.add(obj)
   }
 
-  remove(mesh = this.mesh) {
-    this.scene.remove(mesh)
-  }
-
   pushToSolids = obj => {
     if (obj !== this.mesh && !this.#solids.includes(obj))
       this.#solids.push(obj)
