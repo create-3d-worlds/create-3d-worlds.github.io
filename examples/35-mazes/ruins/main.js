@@ -17,7 +17,6 @@ scene.add(dunes)
 const renderer = await createToonRenderer()
 
 const player = new WitchPlayer({ camera, solids: [dunes, ruins] })
-player.putInMaze(maze)
 scene.add(player.mesh)
 
 /* LOOP */

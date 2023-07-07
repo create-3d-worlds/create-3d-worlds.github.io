@@ -104,6 +104,7 @@ export default class Player extends Actor {
     })
   }
 
+  /* works only for Maze.toTiledMesh() */
   putInMaze(maze, tile = [1, 1]) {
     this.position = maze.tilePosition(...tile)
     this.mesh.lookAt(0, 0, 0)
