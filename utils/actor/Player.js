@@ -56,7 +56,7 @@ export default class Player extends Actor {
   }
 
   get healths() {
-    return this.scene?.getObjectsByProperty('name', 'health') || []
+    return this.scene?.getObjectsByProperty('name', 'health')
   }
 
   get solids() {
@@ -91,6 +91,17 @@ export default class Player extends Actor {
     this.healthBar.value = this.energy
   }
 
+  checkHealths() {
+    this.healths.forEach(health => {
+      if (this.distanceTo(health) >= 1) return
+      if (health.userData.energy) {
+        health.userData.energy--
+        this.energy++
+      } else
+        this.scene.remove(health)
+    })
+  }
+
   putInMaze(maze, tile = [1, 1]) {
     this.position = maze.tilePosition(...tile)
     this.mesh.lookAt(0, 0, 0)
@@ -101,15 +112,6 @@ export default class Player extends Actor {
     const mazeSize = maze.rows * maze.cellSize
     this.position = { x: maze.cellSize * .5, y: 0, z: -mazeSize - maze.cellSize }
     this.mesh.lookAt(0, 0, -mazeSize * 2)
-  }
-
-  checkHealths() {
-    this.healths.forEach(mesh => {
-      if (this.distanceTo(mesh) < 1) {
-        this.energy += mesh.userData.energy
-        this.scene.remove(mesh)
-      }
-    })
   }
 
   /* UPDATES */
@@ -136,6 +138,6 @@ export default class Player extends Actor {
     }
     if (this.chaseCamera) this.updateCamera(delta)
     if (this.healthBar) this.updateHealthBar()
-    this.checkHealths()
+    if (this.healths) this.checkHealths()
   }
 }
