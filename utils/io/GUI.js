@@ -80,13 +80,13 @@ export default class GUI {
   }
 
   renderEndScreen({ text = 'You are dead.', callback } = {}) {
-    const html = `
-    <h3>${text}</h3>
-    <b>Click here to start again</b>  
+    const innerHTML = `
+      <h3>${text}</h3>
+      <b>Click here to start again</b>  
     `
-    if (this.centralDiv.innerHTML === html) return
+    if (this.centralDiv.innerHTML === innerHTML) return
 
-    this.centralDiv.innerHTML = html
+    this.centralDiv.innerHTML = innerHTML
     const classes = ['rpgui-container', 'framed', 'pointer']
     this.centralDiv.classList.add(...classes)
 
@@ -97,21 +97,21 @@ export default class GUI {
     })
   }
 
-  addStartScreen({ title, innerHTML, callback, className = 'rpgui-container framed' } = {}) {
+  addStartScreen({ title, content, callback, className = 'rpgui-container framed' } = {}) {
     const div = document.createElement('div')
     div.className = `central-screen pointer ${className}`
     if (title) div.innerHTML = `<h2>${title}</h2>`
 
-    if (innerHTML) {
+    if (content) {
       const selectDiv = document.createElement('div')
       selectDiv.className = 'central-screen-select'
-      selectDiv.innerHTML = innerHTML
+      selectDiv.innerHTML = content
       div.appendChild(selectDiv)
     }
 
     div.addEventListener('click', e => {
       if (callback) callback(e, div)
-      else div.style.display = 'none'
+      else document.body.removeChild(div)
     })
 
     document.body.appendChild(div)

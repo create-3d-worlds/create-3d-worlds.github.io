@@ -7,9 +7,6 @@ import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
 import GUI from '/utils/io/GUI.js'
 
-const ui = new GUI({ showScore: false })
-ui.addStartScreen({ title: 'Find a way out!', innerHTML: 'Get out of the concrete jungle' })
-
 const cellSize = 15
 const matrixSize = 15
 
@@ -30,6 +27,9 @@ scene.add(floor, streetLights)
 
 const player = new PartisanPlayer({ camera, solids: city })
 scene.add(player.mesh)
+
+const gui = new GUI({ showScore: false })
+gui.renderTempText('Get out of the concrete jungle', true)
 
 /* LOOP */
 

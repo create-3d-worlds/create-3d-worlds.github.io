@@ -12,8 +12,8 @@ npx live-server
 ## TODO
 
 GUI:
+- refactor
 - sakrivati Score ako nije igra
-- dodavati razne klase na renderTempText
 - po defaultu da ide vreme ako nema poena
 
 lavirinti:

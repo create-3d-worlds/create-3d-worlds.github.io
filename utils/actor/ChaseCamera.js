@@ -78,15 +78,13 @@ export default class ChaseCamera {
   }
 
   addButton() {
-    const button = document.createElement('button')
+    const button = document.createElement('input')
+    button.type = 'image'
     button.className = 'change-camera'
+    button.src = '/assets/images/change-camera.png'
+    button.alt = 'change camera'
 
-    const image = document.createElement('img')
-    image.src = '/assets/images/change-camera.png'
-    image.alt = 'change camera'
-    button.appendChild(image)
-
-    button.addEventListener('click', () => this.toggleCamera())
+    button.addEventListener('click', this.toggleCamera)
     document.body.appendChild(button)
   }
 
@@ -124,7 +122,7 @@ export default class ChaseCamera {
     this.speed = this.getSpeed(cameraStyle)
   }
 
-  toggleCamera() {
+  toggleCamera = () => {
     const i = (Number(localStorage.getItem('cameraIndex')) + 1) % cameraStyles.length
     this.setCamera(i)
     localStorage.setItem('cameraIndex', i)

@@ -114,7 +114,7 @@ new GameLoop((delta, time) => {
 
 const callback = (e, div) => {
   if (e.target.tagName != 'INPUT') return
-  div.style.display = 'none'
+  document.body.removeChild(div)
   const spinner = new Spinner()
 
   const promise = import('/utils/actor/Avatar.js')
@@ -128,9 +128,9 @@ const callback = (e, div) => {
   })
 }
 
-const innerHTML = /* html */`
+const content = /* html */`
   <input type="image" id="STONE" src="/assets/images/avatar/STONE.jpg" style="border: 3px solid black" />
   <input type="image" id="DISCO" src="/assets/images/avatar/DISCO.jpg" style="border: 3px solid black" />
   <input type="image" id="LAVA" src="/assets/images/avatar/LAVA.jpg" style="border: 3px solid black" />
 `
-gui.addStartScreen({ innerHTML, callback, title: 'Choose your avatar' })
+gui.addStartScreen({ content, callback, title: 'Choose your avatar' })
