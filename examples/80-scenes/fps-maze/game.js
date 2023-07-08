@@ -30,7 +30,7 @@ const player = new FPSPlayer({ camera, goals, solids: walls })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
-const gui = new GUI({ scoreTitle: 'Killed', subtitle: 'Enemy left', total: enemies.length })
+const gui = new GUI({ subtitle: 'Enemy left', total: enemies.length })
 
 /* LOOP */
 
@@ -52,7 +52,7 @@ new GameLoop((delta, time) => {
   enemies.forEach(enemy => enemy.update(delta))
 
   if (Math.random() > .998) lightningStrike(light)
-}, true)
+}, false, true)
 
 /* LAZY LOAD */
 

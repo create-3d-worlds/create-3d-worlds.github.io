@@ -106,8 +106,8 @@ export default class GUI {
     }
 
     this.centralDiv.onclick = e => {
+      if (!content) this.clearScreen()
       if (callback) callback(e)
-      else this.clearScreen()
     }
   }
 

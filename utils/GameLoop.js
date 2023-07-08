@@ -1,5 +1,5 @@
 export default class GameLoop {
-  constructor(update, usePointerLock = false, autostart = !usePointerLock) {
+  constructor(update, autostart = true, usePointerLock = false) {
     this.update = update
     this.lastTimestamp = 0
     this.time = 0

@@ -25,7 +25,9 @@ scene.add(trees)
 
 /* LOOP */
 
-new GameLoop(delta => {
+renderer.render(scene, camera)
+
+const loop = new GameLoop(delta => {
   renderer.render(scene, camera)
   if (!npcs.length) return
 
@@ -34,7 +36,7 @@ new GameLoop(delta => {
 
   const killed = player.enemies.filter(enemy => enemy.userData.energy <= 0)
   gui?.renderScore(killed.length, player.enemies.length - killed.length)
-})
+}, false)
 
 /* LAZY LOAD */
 
@@ -66,11 +68,11 @@ for (let i = 0; i < 3; i++) {
 
 const scoreFile = await import('/utils/io/GUI.js')
 const messageDict = {
-  1: 'You killed the first Orc.<br>Free the land from their vile presence!',
+  1: 'You just killed the first Orc.<br>Middle Earth will be free!',
   10: 'You killed half the vile creatures',
   19: 'You smell victory in the air...',
 }
-gui = new scoreFile.default({ scoreTitle: 'Orcs killed', subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button' })
+gui = new scoreFile.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button' })
 
 const monumentFile = await import('/utils/objects/Monument.js')
 const monument = new monumentFile.default({ pos: coords.pop(), solids: terrain })
@@ -96,3 +98,5 @@ scene.add(airship.mesh)
 npcs.push(airship)
 
 spinner.hide()
+
+gui.showGameScreen({ title: 'Kill all the Orcs!', subtitle: 'Free the land from their vile presence', callback: () => loop.start() })
