@@ -5,9 +5,7 @@ import { hemLight, lightningStrike } from '/utils/light.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
-import GUI from '/utils/io/GUI.js'
 import { Spinner } from '/utils/loaders.js'
-import GameLoop from '/utils/GameLoop.js'
 
 const enemies = []
 
@@ -23,20 +21,40 @@ const coords = maze.getEmptyCoords(true)
 const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
 scene.add(walls)
 
-/* ACTORS */
-
 const goals = ['Find a way out.', 'Bonus: Kill all enemies.']
 const player = new FPSPlayer({ camera, goals, solids: walls })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
-const gui = new GUI({ subtitle: 'Enemy left', total: enemies.length })
+renderer.render(scene, camera) // first draw
+
+/* DYNAMIC IMPORT */
+
+const GUI = await import('/utils/io/GUI.js')
+const gui = new GUI.default({ subtitle: 'Enemy left', total: enemies.length })
+
+const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer', 'GermanFlameThrower']
+for (let i = 0; i < 10; i++) {
+  const name = sample(soldiers)
+  const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
+  const EnemyClass = obj[name + 'AI']
+  const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh, solids: walls })
+  enemies.push(enemy)
+  scene.add(enemy.mesh)
+}
+
+const Potion = await import('/utils/objects/Potion.js')
+for (let i = 0; i < 2; i++) {
+  const potion = new Potion.default({ pos: coords.pop() })
+  scene.add(potion.mesh)
+}
+
+const GameLoop = await import('/utils/GameLoop.js')
+spinner.hide()
 
 /* LOOP */
 
-renderer.render(scene, camera) // first draw
-
-new GameLoop((delta, time) => {
+new GameLoop.default((delta, time) => {
   renderer.render(scene, camera)
 
   const killed = enemies.filter(enemy => enemy.energy <= 0)
@@ -53,23 +71,3 @@ new GameLoop((delta, time) => {
 
   if (Math.random() > .998) lightningStrike(light)
 }, false, true)
-
-/* LAZY LOAD */
-
-const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer', 'GermanFlameThrower']
-for (let i = 0; i < 10; i++) {
-  const name = sample(soldiers)
-  const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
-  const EnemyClass = obj[name + 'AI']
-  const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh, solids: walls })
-  enemies.push(enemy)
-  scene.add(enemy.mesh)
-}
-
-const obj = await import('/utils/objects/Potion.js')
-for (let i = 0; i < 2; i++) {
-  const potion = new obj.default({ pos: coords.pop() })
-  scene.add(potion.mesh)
-}
-
-spinner.hide()
