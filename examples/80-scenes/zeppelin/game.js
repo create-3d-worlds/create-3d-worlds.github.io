@@ -54,7 +54,7 @@ putOnSolids(castle, terrain)
 scene.add(castle)
 
 const dirigibleFile = await import('/utils/aircraft/derived/Dirigible.js')
-const player = new dirigibleFile.default({ camera, solids: terrain })
+const player = new dirigibleFile.default({ camera, solids: terrain, cameraClass: 'rpgui-button' })
 player.position.z = 200
 player.solids.push(castle)
 addEntity(player)

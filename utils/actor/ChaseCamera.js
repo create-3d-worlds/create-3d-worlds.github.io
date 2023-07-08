@@ -26,6 +26,7 @@ export default class ChaseCamera {
     birdsEyeLookAt = [0, 0, -height * 3],
     orbitalOffset = [-height * 10, height * 10, height * 10],
 
+    cameraClass = '',
     rotate = true,
   }) {
     this.mesh = mesh
@@ -48,8 +49,10 @@ export default class ChaseCamera {
     this.camera.position.copy(calc(mesh, offset, rotate))
     this.camera.lookAt(calc(mesh, lookAt, rotate))
 
-    this.addButton()
+    this.addButton(cameraClass)
   }
+
+  /* SETTERS */
 
   set height(y) {
     this.offset[1] = y
@@ -69,17 +72,11 @@ export default class ChaseCamera {
     this.camera.updateProjectionMatrix()
   }
 
-  alignCamera() {
-    this.currentPosition = calc(this.mesh, this.offset, this.rotate)
-    this.currentLookAt = calc(this.mesh, this.lookAt, this.rotate)
+  /* UTILS */
 
-    this.camera.position.copy(this.currentPosition)
-    this.camera.lookAt(this.currentLookAt)
-  }
-
-  addButton() {
+  addButton(cameraClass) {
     const button = document.createElement('button')
-    button.className = 'change-camera' // rpgui-button
+    button.className = `change-camera ${cameraClass}`
     const img = document.createElement('img')
     img.src = '/assets/images/change-camera.png'
     img.alt = 'change camera'
@@ -87,6 +84,14 @@ export default class ChaseCamera {
     button.addEventListener('click', this.toggleCamera)
     button.appendChild(img)
     document.body.appendChild(button)
+  }
+
+  alignCamera() {
+    this.currentPosition = calc(this.mesh, this.offset, this.rotate)
+    this.currentLookAt = calc(this.mesh, this.lookAt, this.rotate)
+
+    this.camera.position.copy(this.currentPosition)
+    this.camera.lookAt(this.currentLookAt)
   }
 
   getOffset(cameraStyle) {
@@ -133,6 +138,8 @@ export default class ChaseCamera {
     this.setCamera(2)
     setTimeout(() => this.setCamera(0), ms)
   }
+
+  /* UPDATE */
 
   update(delta, stateName) {
     this.currentPosition.copy(this.camera.position)

@@ -45,7 +45,7 @@ scene.add(castle)
 const solids = [terrain, castle]
 
 const { BarbarianPlayer } = await import('/utils/actor/derived/fantasy/Barbarian.js')
-player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera, orbitControls: true })
+player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera, cameraClass: 'rpgui-button' })
 scene.add(player.mesh)
 
 const orcs = ['Orc', 'OrcOgre']

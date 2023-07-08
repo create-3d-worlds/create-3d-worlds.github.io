@@ -18,6 +18,7 @@ export default class Player extends Actor {
     showHealthBar = true,
     orbitControls = false,
     camera,
+    cameraClass,
     ...params
   } = {}) {
 
@@ -33,7 +34,7 @@ export default class Player extends Actor {
 
     if (camera) {
       this.shouldAlignCamera = true
-      this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, height: this.height })
+      this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, height: this.height, cameraClass })
     }
 
     if (orbitControls) {

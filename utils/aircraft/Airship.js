@@ -10,7 +10,7 @@ const maxRoll = Infinity
 
 export default class Airship extends GameObject {
   constructor({
-    mesh, speed = 1, maxSpeed = speed * 2.5, minSpeed = speed * .1, minHeight = 2, minDistance = 10, maxPitch = .1, animations, solids, camera, pos, altitude = minHeight * 3, name
+    mesh, speed = 1, maxSpeed = speed * 2.5, minSpeed = speed * .1, minHeight = 2, minDistance = 10, maxPitch = .1, animations, solids, camera, pos, altitude = minHeight * 3, name, cameraClass
   } = {}) {
     super({ mesh, pos, solids, altitude, name })
     this.speed = speed
@@ -33,7 +33,7 @@ export default class Airship extends GameObject {
     }
 
     if (camera) {
-      this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, height: 2, speed: this.speed * .5 })
+      this.chaseCamera = new ChaseCamera({ camera, cameraClass, mesh: this.mesh, height: 2, speed: this.speed * .5 })
       this.chaseCamera.distance = 6
       this.shouldAlignCamera = true
     }

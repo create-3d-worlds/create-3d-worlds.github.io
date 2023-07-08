@@ -12,13 +12,9 @@ npx live-server
 ## TODO
 
 GUI:
-- ako nije igra sakrivati Score ili prikazivati vreme
-- negde Score bez dugmeta
+- kamera gui dugme negde
 
-lavirinti:
-- postaviti cilj na neke lavirinte (start screen ili temp text)
-- toon renderer negde
-
+- izbrisati orbitControls sa igrača
 - BUG: avatar skok secka
 - videti sunposition
 - createOrbitControls async
@@ -29,6 +25,7 @@ DODATI SVUDA:
   - UI kontrole
     - minimalne default kontrole (move)
     - proširivati po potrebi (pause, attack, jump, run, desni miš rotiranje kamere, spell cast...)
+    - igrač ako baca magiju da renderuje dugme
     - toggle camera na C
     - promeniti special sa control, često se pritiska slučajno
     - srediti boje, senku, bold, itd
