@@ -12,9 +12,6 @@ npx live-server
 ## TODO
 
 GUI:
-- kamera gui dugme negde
-
-- izbrisati orbitControls sa igrača
 - BUG: avatar skok secka
 - videti sunposition
 - createOrbitControls async
@@ -31,6 +28,7 @@ DODATI SVUDA:
     - srediti boje, senku, bold, itd
     - negde controls dugme?
   - komande za telefone (strelice i dugmiće), testirati
+    - renderovati virtuelni joystick https://en.wikipedia.org/wiki/File:Vg_graphics.svg
   - reload button u end screen (ili kad igrač umre)
   - full screen btn
   - volume / mute btn

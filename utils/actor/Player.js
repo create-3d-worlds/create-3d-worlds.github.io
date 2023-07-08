@@ -1,5 +1,3 @@
-import * as THREE from 'three'
-
 import defaultInput from '/utils/io/Input.js'
 import { jumpStyles, attackStyles, reactions } from '/utils/constants.js'
 import { getPlayerState } from './states/index.js'
@@ -16,7 +14,6 @@ export default class Player extends Actor {
     shouldRaycastGround = true,
     attackDistance = 1.5,
     showHealthBar = true,
-    orbitControls = false,
     camera,
     cameraClass,
     ...params
@@ -35,16 +32,6 @@ export default class Player extends Actor {
     if (camera) {
       this.shouldAlignCamera = true
       this.chaseCamera = new ChaseCamera({ camera, mesh: this.mesh, height: this.height, cameraClass })
-    }
-
-    if (orbitControls) {
-      const orbitPromise = import('/utils/scene.js')
-      orbitPromise.then(obj => {
-        const { createOrbitControls } = obj
-        this.orbitControls = createOrbitControls()
-        this.orbitControls.maxPolarAngle = Math.PI - Math.PI / 4
-        this.orbitControls.mouseButtons = { RIGHT: THREE.MOUSE.ROTATE }
-      })
     }
 
     if (showHealthBar) this.crateHealthBar()
@@ -124,23 +111,13 @@ export default class Player extends Actor {
     super.updateMove(delta, reaction)
   }
 
-  updateCamera(delta) {
-    const { x, y, z } = this.mesh.position
-    const { lookAt } = this.chaseCamera
-
-    if (this.orbitControls && this.input.pressed.mouse2)
-      this.orbitControls.target = new THREE.Vector3(x, y + lookAt[1], z)
-    else
-      this.chaseCamera.update(delta, this.state)
-  }
-
   update(delta = 1 / 60) {
     super.update(delta)
     if (this.shouldAlignCamera) {
       this.chaseCamera.alignCamera()
       this.shouldAlignCamera = false
     }
-    if (this.chaseCamera) this.updateCamera(delta)
+    if (this.chaseCamera) this.chaseCamera.update(delta, this.state)
     if (this.healthBar) this.updateHealthBar()
     if (this.healths) this.checkHealths()
   }
