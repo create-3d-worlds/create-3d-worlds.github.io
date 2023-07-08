@@ -12,8 +12,8 @@ npx live-server
 ## TODO
 
 GUI:
-- sakrivati Score ako nije igra
-  - ili da po defaultu da ide vreme ako nema poena?
+- ako nije igra sakrivati Score ili prikazivati vreme
+- negde Score bez dugmeta
 
 lavirinti:
 - postaviti cilj na neke lavirinte (start screen ili temp text)
@@ -21,6 +21,7 @@ lavirinti:
 
 - BUG: avatar skok secka
 - videti sunposition
+- createOrbitControls async
 
 ### Polishing
 

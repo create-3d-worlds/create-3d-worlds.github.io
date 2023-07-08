@@ -29,7 +29,7 @@ const player = new PartisanPlayer({ camera, solids: city })
 scene.add(player.mesh)
 
 const gui = new GUI({ scoreTitle: 'Time' })
-gui.renderTempText('Get out of the concrete jungle', true, 4000)
+gui.showMessage('Get out of the concrete jungle', true, 4000)
 
 /* LOOP */
 

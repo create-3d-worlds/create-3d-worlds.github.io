@@ -4,6 +4,7 @@ import { huntAndKill } from '/utils/mazes/algorithms.js'
 import Avatar from '/utils/actor/Avatar.js'
 import { hemLight } from '/utils/light.js'
 import { createMarble } from '/utils/ground.js'
+import GUI from '/utils/io/GUI.js'
 
 const cellSize = 8
 const matrixSize = 12
@@ -17,15 +18,19 @@ const maze = new Maze(matrixSize, matrixSize, huntAndKill, cellSize)
 const pyramid = maze.toPyramid({ texture: 'walls/mayan.jpg' })
 scene.add(pyramid)
 
-const player = new Avatar({ speed: 2, camera, solids: pyramid, skin: 'LAVA' })
+const player = new Avatar({ camera, solids: pyramid, skin: 'LAVA' })
 player.putInMaze(maze)
 scene.add(player.mesh)
+
+const gui = new GUI({ scoreTitle: 'Time' })
+gui.showMessage('Find the way out', true, 4000)
 
 /* LOOP */
 
 void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
+  gui.renderTime()
   player.update(delta)
   renderer.render(scene, camera)
 }()

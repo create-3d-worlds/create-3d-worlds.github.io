@@ -95,7 +95,7 @@ new GameLoop((delta, time) => {
   })
 
   if (inLava() && player.skin != 'LAVA') {
-    gui.renderTempText('Get out of the lava, you\'re burning!', true)
+    gui.showMessage('Get out of the lava, you\'re burning!', true)
     player.energy -= .1
   }
 

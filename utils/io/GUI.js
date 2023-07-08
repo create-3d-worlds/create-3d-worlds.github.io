@@ -72,7 +72,7 @@ export default class GUI {
     this.centralDiv.innerHTML = html
   }
 
-  renderTempText(message, blink, milliseconds) {
+  showMessage(message, blink, milliseconds) {
     if (this.tempTextRendered) return
     this.renderText(message, blink)
     this.clearSoon(milliseconds)
@@ -81,7 +81,7 @@ export default class GUI {
 
   showMotivationalMessage(left, points = this.points) {
     const message = this.messageDict[points]
-    if (message) this.renderTempText(message)
+    if (message) this.showMessage(message)
     if (left === 0) this.renderText(this.endText)
   }
 
@@ -121,7 +121,7 @@ export default class GUI {
 
   showHeighScore() {
     if (this.highScore < 2) return
-    this.renderTempText(`Your current high score is ${this.highScore} points. Beat it!`)
+    this.showMessage(`Your current high score is ${this.highScore} points. Beat it!`)
   }
 
   /* CONTROLS */

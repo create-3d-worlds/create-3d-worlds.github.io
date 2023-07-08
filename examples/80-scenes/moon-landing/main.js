@@ -32,7 +32,7 @@ saturn.position.set(85, 20, -50)
 scene.add(platform.mesh, stars.mesh, jupiter, saturn, moon, moonLight)
 
 const gui = new GUI({ subtitle: 'Fuel left', shouldBlink: false })
-gui.renderTempText('Land on the platform gently')
+gui.showMessage('Land on the platform gently')
 
 /* LOOP */
 

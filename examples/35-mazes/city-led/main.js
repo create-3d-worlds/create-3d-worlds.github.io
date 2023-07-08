@@ -6,11 +6,11 @@ import Avatar from '/utils/actor/Avatar.js'
 import { hemLight } from '/utils/light.js'
 import { material, uniforms } from '/utils/shaders/lightning-led.js'
 
-document.body.style.background = 'black'
 const cellSize = 3
 
 hemLight()
 setBackground(0)
+document.body.style.background = 'black'
 
 scene.add(createFloor())
 
@@ -19,15 +19,15 @@ const city = maze.toTiledMesh({ maxHeight: cellSize * 3, material })
 scene.add(city)
 
 const player = new Avatar({ size: .5, camera, solids: city })
-player.chaseCamera.distance = 2
+player.chaseCamera.distance = 1.75
 player.putInMaze(maze)
 scene.add(player.mesh)
 
 /* LOOP */
 
-void function loop(time) {
+void function loop(timeStamp) {
   requestAnimationFrame(loop)
-  uniforms.iTime.value = time * 0.0006
+  uniforms.iTime.value = timeStamp * 0.0006
   player.update()
   renderer.render(scene, camera)
 }()

@@ -34,6 +34,6 @@ export class PartisanAI extends AI {
 export class PartisanPlayer extends Player {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
-    this.chaseCamera.height = 1.5
+    this.chaseCamera.height = 1.6
   }
 }

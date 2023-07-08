@@ -103,7 +103,7 @@ const updateEntities = delta => entities.forEach(object => {
   if (object.hitAmount) {
     if (object.name == 'factory') gui.addScore(1)
     if (object.name == 'civil') {
-      gui.renderTempText('No! Destruction of civilian buildings is a war crime.')
+      gui.showMessage('No! Destruction of civilian buildings is a war crime.')
       gui.addScore(-1)
     }
   }
@@ -148,7 +148,7 @@ const callback = async e => {
   scene.add(warplane.mesh)
   entities.push(warplane)
   spinner.hide()
-  gui.renderTempText('Destroy enemy factories,<br><br>do not target civilian buildings')
+  gui.showMessage('Destroy enemy factories,<br><br>do not target civilian buildings')
 }
 
 const style = 'border: 3px solid black; height: 180px'

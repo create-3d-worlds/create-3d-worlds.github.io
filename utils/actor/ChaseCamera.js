@@ -128,6 +128,11 @@ export default class ChaseCamera {
     localStorage.setItem('cameraIndex', i)
   }
 
+  zoomIn(ms = 1000) {
+    this.setCamera(2)
+    setTimeout(() => this.setCamera(0), ms)
+  }
+
   update(delta, stateName) {
     this.currentPosition.copy(this.camera.position)
 
