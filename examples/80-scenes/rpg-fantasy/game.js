@@ -4,7 +4,6 @@ import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { createSun } from '/utils/light.js'
 import { sample, getEmptyCoords, putOnSolids } from '/utils/helpers.js'
 import { loadModel, Spinner } from '/utils/loaders.js'
-import GameLoop from '/utils/GameLoop.js'
 
 const mapSize = 400
 const npcs = []
@@ -24,7 +23,15 @@ scene.add(trees)
 
 renderer.render(scene, camera) // first draw
 
-/* LAZY LOAD */
+/* DYNAMIC IMPORT */
+
+const GUI = await import('/utils/io/GUI.js')
+const messageDict = {
+  1: 'You just killed the first Orc.<br>Middle Earth will be free!',
+  10: 'You killed half the vile creatures',
+  19: 'You smell victory in the air...',
+}
+const gui = new GUI.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button' })
 
 const castle = await loadModel({ file: 'building/castle/fortress.fbx', size: 40 })
 putOnSolids(castle, terrain, -5)
@@ -46,22 +53,14 @@ for (let i = 0; i < 20; i++) {
   scene.add(enemy.mesh)
 }
 
-const obj = await import('/utils/objects/Potion.js')
+const Potion = await import('/utils/objects/Potion.js')
 for (let i = 0; i < 3; i++) {
-  const potion = new obj.default({ pos: coords.pop(), solids })
+  const potion = new Potion.default({ pos: coords.pop(), solids })
   scene.add(potion.mesh)
 }
 
-const scoreFile = await import('/utils/io/GUI.js')
-const messageDict = {
-  1: 'You just killed the first Orc.<br>Middle Earth will be free!',
-  10: 'You killed half the vile creatures',
-  19: 'You smell victory in the air...',
-}
-const gui = new scoreFile.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button' })
-
-const monumentFile = await import('/utils/objects/Monument.js')
-const monument = new monumentFile.default({ pos: coords.pop(), solids: terrain })
+const Monument = await import('/utils/objects/Monument.js')
+const monument = new Monument.default({ pos: coords.pop(), solids: terrain })
 scene.add(monument.mesh)
 
 const { FlamingoAI } = await import('/utils/actor/derived/Flamingo.js')
@@ -71,9 +70,9 @@ for (let i = 0; i < 10; i++) {
   scene.add(bird.mesh)
 }
 
-const cloudFile = await import('/utils/objects/Cloud.js')
+const Cloud = await import('/utils/objects/Cloud.js')
 for (let i = 0; i < 5; i++) {
-  const cloud = new cloudFile.default({ mapSize, pos: coords.pop() })
+  const cloud = new Cloud.default({ mapSize, pos: coords.pop() })
   npcs.push(cloud)
   scene.add(cloud.mesh)
 }
@@ -83,11 +82,12 @@ const airship = new ZeppelinAI({ mapSize, solids: terrain })
 scene.add(airship.mesh)
 npcs.push(airship)
 
+const GameLoop = await import('/utils/GameLoop.js')
 spinner.hide()
 
 /* LOOP */
 
-const loop = new GameLoop(delta => {
+const loop = new GameLoop.default(delta => {
   renderer.render(scene, camera)
   if (!npcs.length) return
 

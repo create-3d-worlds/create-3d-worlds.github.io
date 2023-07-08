@@ -12,9 +12,11 @@ npx live-server
 ## TODO
 
 GUI:
+- merge addPointerLock & showEndScreen with GUI
+
+- createOrbitControls async
 - BUG: avatar skok secka
 - videti sunposition
-- createOrbitControls async
 
 ### Polishing
 
