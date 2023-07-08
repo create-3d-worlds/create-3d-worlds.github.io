@@ -6,7 +6,6 @@ import { sample, getEmptyCoords, putOnSolids } from '/utils/helpers.js'
 import { loadModel, Spinner } from '/utils/loaders.js'
 import GameLoop from '/utils/GameLoop.js'
 
-let player, gui
 const mapSize = 400
 const npcs = []
 
@@ -23,20 +22,7 @@ scene.add(terrain)
 const trees = createTreesOnTerrain({ terrain })
 scene.add(trees)
 
-/* LOOP */
-
-renderer.render(scene, camera)
-
-const loop = new GameLoop(delta => {
-  renderer.render(scene, camera)
-  if (!npcs.length) return
-
-  player.update(delta)
-  npcs.forEach(enemy => enemy.update(delta))
-
-  const killed = player.enemies.filter(enemy => enemy.userData.energy <= 0)
-  gui?.renderScore(killed.length, player.enemies.length - killed.length)
-}, false)
+renderer.render(scene, camera) // first draw
 
 /* LAZY LOAD */
 
@@ -47,7 +33,7 @@ scene.add(castle)
 const solids = [terrain, castle]
 
 const { BarbarianPlayer } = await import('/utils/actor/derived/fantasy/Barbarian.js')
-player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera, cameraClass: 'rpgui-button' })
+const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera, cameraClass: 'rpgui-button' })
 scene.add(player.mesh)
 
 const orcs = ['Orc', 'OrcOgre']
@@ -72,7 +58,7 @@ const messageDict = {
   10: 'You killed half the vile creatures',
   19: 'You smell victory in the air...',
 }
-gui = new scoreFile.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button' })
+const gui = new scoreFile.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button' })
 
 const monumentFile = await import('/utils/objects/Monument.js')
 const monument = new monumentFile.default({ pos: coords.pop(), solids: terrain })
@@ -99,4 +85,17 @@ npcs.push(airship)
 
 spinner.hide()
 
-gui.showGameScreen({ title: 'Kill all the Orcs!', subtitle: 'Free the land from their vile presence', callback: () => loop.start() })
+/* LOOP */
+
+const loop = new GameLoop(delta => {
+  renderer.render(scene, camera)
+  if (!npcs.length) return
+
+  player.update(delta)
+  npcs.forEach(enemy => enemy.update(delta))
+
+  const killed = player.enemies.filter(enemy => enemy.userData.energy <= 0)
+  gui?.renderScore(killed.length, player.enemies.length - killed.length)
+}, false)
+
+gui.showGameScreen({ title: 'Kill all the Orcs', subtitle: 'Free the land from their vile presence!', callback: () => loop.start() })
