@@ -22,7 +22,7 @@ const player = new Avatar({ camera, solids: pyramid, skin: 'LAVA' })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
-const gui = new GUI({ scoreTitle: 'Time' })
+const gui = new GUI({ scoreTitle: 'Time', scoreClass: '' })
 gui.showMessage('Find the way out', true, 4000)
 
 /* LOOP */

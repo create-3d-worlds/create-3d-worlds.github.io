@@ -27,7 +27,7 @@ void function loop() {
   world.update(dt)
 
   const valid = countableCrates.filter(mesh => mesh.position.y > .5)
-  gui?.update(valid.length - countableCrates.length)
+  gui?.addScore(valid.length - countableCrates.length)
   countableCrates = valid
 
   if (!countableCrates.length)
@@ -43,4 +43,4 @@ cannon = new cannonFile.default({ world, camera })
 scene.add(cannon.mesh, ...cannon.wheelMeshes)
 
 const scoreFile = await import('/utils/io/GUI.js')
-gui = new scoreFile.default({ title: 'Blocks left', points: countableCrates.length })
+gui = new scoreFile.default({ scoreTitle: 'Blocks left', points: countableCrates.length })

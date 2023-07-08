@@ -19,9 +19,10 @@ export default class GUI {
     controls = baseControls,
     messageDict,
     endText = 'Bravo!<br>Nothing left',
-    showScore = true,
     showHighScore = false,
-    shouldBlink = false
+    shouldBlink = false,
+    scoreClass = 'rpgui-button golden',
+    controlsClass = '' // rpgui-button
   } = {}) {
     this.scoreTitle = scoreTitle
     this.subtitle = subtitle
@@ -37,17 +38,17 @@ export default class GUI {
     this.centralDiv.className = 'central-screen'
     document.body.appendChild(this.centralDiv)
 
-    this.addUIControls(controls)
+    this.addUIControls(controls, controlsClass)
 
-    if (showScore) {
+    if (scoreTitle) {
       this.scoreDiv = document.createElement('div')
-      this.scoreDiv.className = 'score rpgui-button golden'
+      this.scoreDiv.className = `score ${scoreClass}`
       document.body.appendChild(this.scoreDiv)
       this.addScore(0, total)
-    }
 
-    this.highScore = +localStorage.getItem(location.pathname)
-    if (showHighScore) this.showHeighScore()
+      this.highScore = +localStorage.getItem(location.pathname)
+      if (showHighScore) this.showHeighScore()
+    }
   }
 
   reset() {
@@ -126,7 +127,7 @@ export default class GUI {
 
   /* CONTROLS */
 
-  addUIControls(controls) {
+  addUIControls(controls, controlsClass) {
     const div = document.createElement('div')
     div.className = 'controls'
 
@@ -134,7 +135,7 @@ export default class GUI {
     const openTitle = 'CONTROLS &#9654;'
 
     const button = document.createElement('button')
-    // button.className = 'rpgui-button'
+    button.className = controlsClass
     button.innerHTML = closedTitle
 
     const content = document.createElement('div')

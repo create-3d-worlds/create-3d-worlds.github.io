@@ -29,6 +29,7 @@ DODATI SVUDA:
   - UI kontrole
     - minimalne default kontrole (move)
     - proširivati po potrebi (pause, attack, jump, run, desni miš rotiranje kamere, spell cast...)
+    - toggle camera na C
     - promeniti special sa control, često se pritiska slučajno
     - srediti boje, senku, bold, itd
     - negde controls dugme?

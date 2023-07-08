@@ -13,6 +13,8 @@ function createInputRange() {
   impulse.max = 25
   impulse.step = 0.2
   impulse.style.position = 'absolute'
+  impulse.style.right = '20px'
+  impulse.style.top = '10px'
   document.body.prepend(impulse)
   return impulse
 }

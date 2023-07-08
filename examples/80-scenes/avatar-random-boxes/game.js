@@ -35,7 +35,7 @@ const messageDict = {
   50: 'Half down, half to go!',
   75: 'You smell victory in the air...',
 }
-const gui = new GUI({ scoreTitle: 'SCORE', subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict, shouldBlink: false })
+const gui = new GUI({ scoreTitle: 'SCORE', subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict })
 
 const lava = await createLava({ size: lavaSize })
 scene.add(lava)

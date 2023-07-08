@@ -22,7 +22,7 @@ scene.add(ground)
 scene.add(createFloor({ size: mapSize, file: 'terrain/asphalt.jpg' }))
 
 const coords = getEmptyCoords({ mapSize: mapSize * .5 })
-const gui = new GUI({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + heinkelNum })
+const gui = new GUI({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + heinkelNum, scoreClass: '' })
 
 const player = new FPSPlayer({ camera, pos: [100, 0, 0] })
 player.lookAt(scene.position)

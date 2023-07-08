@@ -5,6 +5,8 @@ import { createSun } from '/utils/light.js'
 import { createDunes } from '/utils/ground.js'
 import { ResistanceFighterPlayer } from '/utils/actor/derived/ww2/ResistanceFighter.js'
 
+const renderer = await createToonRenderer()
+
 const sun = createSun()
 scene.add(sun)
 
@@ -17,11 +19,10 @@ scene.add(ruins)
 
 const player = new ResistanceFighterPlayer({ camera, solids: [ruins, ground] })
 player.putInPolarMaze(maze)
+player.chaseCamera.zoomIn()
 scene.add(player.mesh)
 
 /* LOOP */
-
-const renderer = await createToonRenderer()
 
 void function loop() {
   requestAnimationFrame(loop)

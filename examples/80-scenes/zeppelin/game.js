@@ -27,7 +27,7 @@ const controls = {
   'PgUp': 'speed up',
   'PgDn': 'slow down',
 }
-new GUI({ controls })
+new GUI({ controls, controlsClass: 'rpgui-button', scoreTitle: '' })
 
 /* UTILS */
 

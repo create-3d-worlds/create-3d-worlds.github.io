@@ -33,7 +33,7 @@ new GameLoop(delta => {
   npcs.forEach(enemy => enemy.update(delta))
 
   const killed = player.enemies.filter(enemy => enemy.userData.energy <= 0)
-  gui?.render(killed.length, player.enemies.length - killed.length)
+  gui?.renderScore(killed.length, player.enemies.length - killed.length)
 })
 
 /* LAZY LOAD */
@@ -70,7 +70,7 @@ const messageDict = {
   10: 'You killed half the vile creatures',
   19: 'You smell victory in the air...',
 }
-gui = new scoreFile.default({ title: 'Orcs killed', subtitle: 'Orcs left', messageDict })
+gui = new scoreFile.default({ scoreTitle: 'Orcs killed', subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button' })
 
 const monumentFile = await import('/utils/objects/Monument.js')
 const monument = new monumentFile.default({ pos: coords.pop(), solids: terrain })
