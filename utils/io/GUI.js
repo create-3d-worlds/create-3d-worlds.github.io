@@ -156,6 +156,10 @@ export default class GUI {
 
   /* SCORE */
 
+  renderTime() {
+    this.renderScore(Math.floor(performance.now() / 1000))
+  }
+
   renderScore(points, left) {
     const blink = this.shouldBlink ? 'blink' : ''
     const subtitle = isNumber(left) ? `<br><small class="${blink}">${this.subtitle}: ${left}</small>` : ''

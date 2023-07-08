@@ -36,6 +36,6 @@ gui.renderTempText('Get out of the concrete jungle', true, 4000)
 void function loop() {
   requestAnimationFrame(loop)
   player.update()
-  gui.renderScore(Math.floor(performance.now() / 1000))
+  gui.renderTime()
   renderer.render(scene, camera)
 }()
