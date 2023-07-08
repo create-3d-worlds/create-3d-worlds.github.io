@@ -7,7 +7,7 @@ import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
 import GUI from '/utils/io/GUI.js'
 
-const ui = new GUI()
+const ui = new GUI({ showScore: false })
 ui.addStartScreen({ title: 'Find a way out!', innerHTML: 'Get out of the concrete jungle' })
 
 const cellSize = 15

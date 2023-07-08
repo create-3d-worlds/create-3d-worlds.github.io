@@ -19,6 +19,7 @@ export default class GUI {
     controls = baseControls,
     messageDict,
     endText = 'Bravo!<br>Nothing left',
+    showScore = true,
     showHighScore = false,
     shouldBlink = false
   } = {}) {
@@ -32,16 +33,18 @@ export default class GUI {
     this.shouldBlink = shouldBlink
     this.tempTextRendered = false
 
-    this.scoreDiv = document.createElement('div')
-    this.scoreDiv.className = 'score rpgui-button golden'
-    document.body.appendChild(this.scoreDiv)
-
     this.centralDiv = document.createElement('div')
     this.centralDiv.classList.add('central-screen')
     document.body.appendChild(this.centralDiv)
 
     this.addUIControls(controls)
-    this.addScore(0, total)
+
+    if (showScore) {
+      this.scoreDiv = document.createElement('div')
+      this.scoreDiv.className = 'score rpgui-button golden'
+      document.body.appendChild(this.scoreDiv)
+      this.addScore(0, total)
+    }
 
     this.highScore = +localStorage.getItem(location.pathname)
     if (showHighScore) this.renderHeighScore()

@@ -51,8 +51,12 @@ export default class ChaseCamera {
     this.addButton()
   }
 
-  set distance(x) {
-    this.offset[2] = x
+  set height(y) {
+    this.offset[1] = y
+  }
+
+  set distance(z) {
+    this.offset[2] = z
   }
 
   set near(x) {

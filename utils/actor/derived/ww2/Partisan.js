@@ -8,7 +8,7 @@ export const animDict = {
   run: 'Rifle Run',
   attack: 'Firing Rifle',
   // attack2: 'Fire Rifle Crouch',
-  // jump: 'Jump Forward',
+  jump: 'Jump Forward',
   // special: 'Toss Grenade',
   pain: 'Hit Reaction',
   death: 'Dying',
@@ -34,5 +34,6 @@ export class PartisanAI extends AI {
 export class PartisanPlayer extends Player {
   constructor(props = {}) {
     super({ ...sharedProps, ...props })
+    this.chaseCamera.height = 1.5
   }
 }
