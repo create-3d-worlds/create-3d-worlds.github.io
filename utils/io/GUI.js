@@ -34,7 +34,7 @@ export default class GUI {
     this.tempTextRendered = false
 
     this.centralDiv = document.createElement('div')
-    this.centralDiv.classList.add('central-screen')
+    this.centralDiv.className = 'central-screen'
     document.body.appendChild(this.centralDiv)
 
     this.addUIControls(controls)
@@ -79,9 +79,14 @@ export default class GUI {
     if (left === 0) this.renderText(this.endText)
   }
 
-  renderEndScreen({ text = 'You are dead.', callback } = {}) {
+  clearScreen() {
+    this.centralDiv.className = 'central-screen'
+    this.centralDiv.innerHTML = ''
+  }
+
+  renderEndScreen({ title = 'You are dead.', callback } = {}) {
     const innerHTML = `
-      <h3>${text}</h3>
+      <h3>${title}</h3>
       <b>Click here to start again</b>  
     `
     if (this.centralDiv.innerHTML === innerHTML) return
@@ -90,31 +95,30 @@ export default class GUI {
     const classes = ['rpgui-container', 'framed', 'pointer']
     this.centralDiv.classList.add(...classes)
 
-    this.centralDiv.addEventListener('click', () => {
-      this.centralDiv.classList.remove(...classes)
-      this.centralDiv.innerHTML = ''
+    this.centralDiv.onclick = () => {
+      this.clearScreen()
       callback()
-    })
+    }
   }
 
-  addStartScreen({ title, content, callback, className = 'rpgui-container framed' } = {}) {
-    const div = document.createElement('div')
-    div.className = `central-screen pointer ${className}`
-    if (title) div.innerHTML = `<h2>${title}</h2>`
+  addStartScreen({ title, content, callback } = {}) {
+    const innerHTML = `<h2>${title}</h2>`
+
+    this.centralDiv.innerHTML = innerHTML
+    const classes = ['rpgui-container', 'framed']
+    this.centralDiv.classList.add(...classes)
 
     if (content) {
       const selectDiv = document.createElement('div')
       selectDiv.className = 'central-screen-select'
       selectDiv.innerHTML = content
-      div.appendChild(selectDiv)
+      this.centralDiv.appendChild(selectDiv)
     }
 
-    div.addEventListener('click', e => {
-      if (callback) callback(e, div)
-      else document.body.removeChild(div)
-    })
-
-    document.body.appendChild(div)
+    this.centralDiv.onclick = e => {
+      if (callback) callback(e)
+      else this.clearScreen()
+    }
   }
 
   renderHeighScore() {

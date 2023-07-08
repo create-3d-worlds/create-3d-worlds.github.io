@@ -12,16 +12,16 @@ npx live-server
 ## TODO
 
 GUI:
-- refactor
+- merge renderEndScreen and addStartScreen
 - sakrivati Score ako nije igra
 - po defaultu da ide vreme ako nema poena
 
 lavirinti:
 - postaviti cilj na neke lavirinte (start screen ili temp text)
 - toon renderer negde
-  
+
+- BUG: avatar skok secka
 - videti sunposition
-- promeniti special sa control, često se pritiska slučajno
 
 ### Polishing
 
@@ -29,6 +29,7 @@ DODATI SVUDA:
   - UI kontrole
     - minimalne default kontrole (move)
     - proširivati po potrebi (pause, attack, jump, run, desni miš rotiranje kamere, spell cast...)
+    - promeniti special sa control, često se pritiska slučajno
     - srediti boje, senku, bold, itd
     - negde controls dugme?
   - komande za telefone (strelice i dugmiće), testirati

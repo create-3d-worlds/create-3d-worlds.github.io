@@ -137,18 +137,18 @@ void function update() {
 
 /* CALLBACK */
 
-const callback = async(e, div) => {
+const callback = async e => {
   if (e.target.tagName != 'INPUT') return
 
-  document.body.removeChild(div)
   const spinner = new Spinner()
-  gui.renderTempText('Destroy enemy factories,<br><br>do not target civilian buildings')
+  gui.clearScreen()
 
   const obj = await import(`/utils/aircraft/derived/${e.target.id}.js`)
   warplane = new obj.default({ camera, limit: mapSize * .25 })
   scene.add(warplane.mesh)
   entities.push(warplane)
   spinner.hide()
+  gui.renderTempText('Destroy enemy factories,<br><br>do not target civilian buildings')
 }
 
 const style = 'border: 3px solid black; height: 180px'
@@ -156,4 +156,4 @@ const content = ['Biplane', 'Triplane', 'Messerschmitt', 'Bomber', 'F18'].map(na
   `<input type="image" id="${name}" src="/assets/images/airplanes/${name}.png" style="${style}" />`
 ).join('')
 
-gui.addStartScreen({ content, callback, title: 'Choose your aircraft' })
+gui.addStartScreen({ title: 'Choose your aircraft', content, callback })
