@@ -78,13 +78,14 @@ export default class ChaseCamera {
   }
 
   addButton() {
-    const button = document.createElement('input')
-    button.type = 'image'
-    button.className = 'change-camera'
-    button.src = '/assets/images/change-camera.png'
-    button.alt = 'change camera'
+    const button = document.createElement('button')
+    button.className = 'change-camera' // rpgui-button
+    const img = document.createElement('img')
+    img.src = '/assets/images/change-camera.png'
+    img.alt = 'change camera'
 
     button.addEventListener('click', this.toggleCamera)
+    button.appendChild(img)
     document.body.appendChild(button)
   }
 

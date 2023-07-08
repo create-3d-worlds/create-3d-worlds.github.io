@@ -49,7 +49,7 @@ li {
   text-shadow: none;
 }
 
-/* HEALTH */
+/* HEALTH BAR */
 
 progress {
   background-color: #4E4A4E;
@@ -118,15 +118,6 @@ button {
   background-image: url("/assets/images/rpgui/button-hover.png");
 }
 
-.change-camera {
-  bottom: 20px;
-  image-rendering: initial;
-  position: absolute;
-  right: 20px;
-}
-
-/* SCORE & CONTROLS */
-
 .rpgui-button.golden {
   background-image: url("/assets/images/rpgui/button-golden.png");
   background-size: 100% 90%;
@@ -153,6 +144,8 @@ button {
   background-size: 100% 100%;
   margin-right: -46px;
 }
+
+/* SCORE */
 
 .score {
   left: 28px;
@@ -183,7 +176,16 @@ button {
   margin-top: 2px;
 }
 
-/* WINDOWS */
+/* CAMERA */
+
+.change-camera {
+  bottom: 20px;
+  image-rendering: initial;
+  position: absolute;
+  right: 20px;
+}
+
+/* GAME SCREEN */
 
 .central-screen {
   left: 50%;

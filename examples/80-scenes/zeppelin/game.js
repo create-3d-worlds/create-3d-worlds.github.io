@@ -5,7 +5,7 @@ import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { getEmptyCoords, putOnSolids } from '/utils/helpers.js'
 import GUI from '/utils/io/GUI.js'
 
-const renderer = await createToonRenderer()
+const renderer = await createToonRenderer(0.0015)
 
 const updatables = []
 const mapSize = 800
@@ -72,12 +72,12 @@ for (let i = 0; i < 10; i++) {
 
 const aerialFile = await import('/utils/objects/AerialScrew.js')
 for (let i = 0; i < 8; i++) {
-  const screw = new aerialFile.default({ pos: coords.pop(), solids: terrain, altitude: 15 + 15 * Math.random() })
+  const screw = new aerialFile.default({ pos: coords.pop(), solids: terrain, altitude: 20 + 20 * Math.random() })
   addEntity(screw)
 }
 
 const isleFile = await import('/utils/objects/WizardIsle.js')
-const isle = new isleFile.default({ pos: coords.pop(), solids: terrain, altitude: 20 })
+const isle = new isleFile.default({ pos: coords.pop(), solids: terrain, altitude: 40 })
 addEntity(isle)
 
 updatables.forEach(gameObj => scene.add(gameObj.mesh))
