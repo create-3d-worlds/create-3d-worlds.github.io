@@ -30,7 +30,7 @@ const player = new FPSPlayer({ camera, goals, solids: walls })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
-const gui = new GUI({ title: 'Killed', subtitle: 'Enemy left', total: enemies.length })
+const gui = new GUI({ scoreTitle: 'Killed', subtitle: 'Enemy left', total: enemies.length })
 
 /* LOOP */
 

@@ -5,9 +5,9 @@ import { hemLight } from '/utils/light.js'
 import { PartisanPlayer } from '/utils/actor/derived/ww2/Partisan.js'
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
-import UI from '/utils/io/UI.js'
+import GUI from '/utils/io/GUI.js'
 
-const ui = new UI()
+const ui = new GUI()
 ui.addStartScreen({ title: 'Find a way out!', innerHTML: 'Get out of the concrete jungle' })
 
 const cellSize = 15

@@ -3,7 +3,7 @@ import { createSun } from '/utils/light.js'
 import { loadModel } from '/utils/loaders.js'
 import { createHillyTerrain, createWater } from '/utils/ground.js'
 import { getEmptyCoords, putOnSolids } from '/utils/helpers.js'
-import UI from '/utils/io/UI.js'
+import GUI from '/utils/io/GUI.js'
 
 const renderer = await createToonRenderer()
 
@@ -27,7 +27,7 @@ const controls = {
   'PgUp': 'speed up',
   'PgDn': 'slow down',
 }
-new UI({ controls })
+new GUI({ controls })
 
 /* UTILS */
 

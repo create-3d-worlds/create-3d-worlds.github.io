@@ -5,7 +5,7 @@ import { hemLight } from '/utils/light.js'
 import { createFirTrees } from '/utils/geometry/trees.js'
 import input from '/utils/io/Input.js'
 import Avatar from '/utils/actor/Avatar.js'
-import UI from '/utils/io/UI.js'
+import GUI from '/utils/io/GUI.js'
 
 hemLight({ intensity: 1.25 })
 
@@ -22,7 +22,7 @@ const controls = {
   '1': 'Distant camera',
   '2': 'FPS camera',
 }
-new UI({ controls })
+new GUI({ controls })
 
 /* FUNCTIONS */
 

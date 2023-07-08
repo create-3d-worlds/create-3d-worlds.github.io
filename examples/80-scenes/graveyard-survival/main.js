@@ -23,7 +23,7 @@ let player
 
 /* INIT */
 
-const gui = new GUI({ title: 'Zombies killed', subtitle: 'Time left' })
+const gui = new GUI({ scoreTitle: 'Zombies killed', subtitle: 'Time left' })
 const coords = getEmptyCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
 
 const particles = new Smoke({ size: 1, num: 100, minRadius: 0, maxRadius: .5 })

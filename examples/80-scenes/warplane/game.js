@@ -6,7 +6,6 @@ import { createFirTree } from '/utils/geometry/trees.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import { loadModel, Spinner } from '/utils/loaders.js'
 import GUI from '/utils/io/GUI.js'
-import UI from '/utils/io/UI.js'
 
 const { randInt, randFloatSpread } = THREE.MathUtils
 
@@ -35,7 +34,11 @@ const ground2 = createTerrain(groundParams)
 ground2.position.z = -groundDistance
 scene.add(ground, ground2)
 
-const gui = new GUI({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.' })
+const controls = {
+  'WASD or Arrows:': 'MOVE',
+  'Enter:': 'Attack',
+}
+const gui = new GUI({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.', controls })
 
 /* OBJECTS */
 
@@ -132,7 +135,7 @@ void function update() {
   if (time >= totalTime) warplane.land(delta)
 }()
 
-/* UI */
+/* CALLBACK */
 
 const callback = async(e, div) => {
   if (e.target.tagName != 'INPUT') return
@@ -153,8 +156,4 @@ const innerHTML = ['Biplane', 'Triplane', 'Messerschmitt', 'Bomber', 'F18'].map(
   `<input type="image" id="${name}" src="/assets/images/airplanes/${name}.png" style="${style}" />`
 ).join('')
 
-const ui = new UI({ controls: {
-  'WASD or Arrows:': 'MOVE',
-  'Enter:': 'Attack',
-} })
-ui.addStartScreen({ innerHTML, callback, title: 'Choose your aircraft' })
+gui.addStartScreen({ innerHTML, callback, title: 'Choose your aircraft' })

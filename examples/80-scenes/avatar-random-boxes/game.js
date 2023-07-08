@@ -5,7 +5,6 @@ import { hemLight, createSun } from '/utils/light.js'
 import Coin from '/utils/objects/Coin.js'
 import GUI from '/utils/io/GUI.js'
 import Platform from '/utils/objects/Platform.js'
-import UI from '/utils/io/UI.js'
 import { Spinner } from '/utils/loaders.js'
 import GameLoop from '/utils/GameLoop.js'
 
@@ -36,7 +35,7 @@ const messageDict = {
   50: 'Half down, half to go!',
   75: 'You smell victory in the air...',
 }
-const gui = new GUI({ title: 'SCORE', subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict, shouldBlink: false })
+const gui = new GUI({ scoreTitle: 'SCORE', subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict, shouldBlink: false })
 
 const lava = await createLava({ size: lavaSize })
 scene.add(lava)
@@ -111,7 +110,7 @@ new GameLoop((delta, time) => {
   lava.material.uniforms.time.value = time * .5
 })
 
-/* UI */
+/* CALLBACK */
 
 const callback = (e, div) => {
   if (e.target.tagName != 'INPUT') return
@@ -129,10 +128,9 @@ const callback = (e, div) => {
   })
 }
 
-const ui = new UI()
 const innerHTML = /* html */`
   <input type="image" id="STONE" src="/assets/images/avatar/STONE.jpg" style="border: 3px solid black" />
   <input type="image" id="DISCO" src="/assets/images/avatar/DISCO.jpg" style="border: 3px solid black" />
   <input type="image" id="LAVA" src="/assets/images/avatar/LAVA.jpg" style="border: 3px solid black" />
 `
-ui.addStartScreen({ innerHTML, callback, title: 'Choose your avatar' })
+gui.addStartScreen({ innerHTML, callback, title: 'Choose your avatar' })
