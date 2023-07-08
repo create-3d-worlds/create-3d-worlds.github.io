@@ -111,21 +111,19 @@ new GameLoop((delta, time) => {
 
 /* CALLBACK */
 
-const callback = e => {
+const callback = async e => {
   if (e.target.tagName != 'INPUT') return
 
   const spinner = new Spinner()
   gui.clearScreen()
 
-  const promise = import('/utils/actor/Avatar.js')
-  promise.then(obj => {
-    player = new obj.default({ camera, solids: [floor, ...boxes], skin: e.target.id, showHealthBar: true })
-    player.chaseCamera.distance = 6
-    scene.add(player.mesh)
-    reset(true)
-    gui.showHeighScore()
-    spinner.hide()
-  })
+  const Avatar = await import('/utils/actor/Avatar.js')
+  player = new Avatar.default({ camera, solids: [floor, ...boxes], skin: e.target.id, showHealthBar: true })
+  player.chaseCamera.distance = 6
+  scene.add(player.mesh)
+  reset(true)
+  gui.showHeighScore()
+  spinner.hide()
 }
 
 const content = /* html */`

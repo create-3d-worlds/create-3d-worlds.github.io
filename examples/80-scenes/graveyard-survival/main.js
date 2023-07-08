@@ -5,8 +5,6 @@ import { createGround } from '/utils/ground.js'
 import { createMoon, orbiting } from '/utils/light.js'
 import { getEmptyCoords, sample } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
-import { Smoke } from '/utils/Particles.js'
-import GUI from '/utils/io/GUI.js'
 import GameLoop from '/utils/GameLoop.js'
 
 const spinner = new Spinner()
@@ -19,14 +17,10 @@ const npcs = []
 const solids = []
 
 let last = Date.now()
-let player
 
 /* INIT */
 
-const gui = new GUI({ scoreTitle: 'Zombies killed', subtitle: 'Time left' })
 const coords = getEmptyCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
-
-const particles = new Smoke({ size: 1, num: 100, minRadius: 0, maxRadius: .5 })
 
 setBackground(0x202030)
 
@@ -39,6 +33,37 @@ for (let i = 0; i < 60; i++) {
   solids.push(tombstone)
   scene.add(tombstone)
 }
+
+renderer.render(scene, camera)
+
+/* LAZY LOAD */
+
+const GUI = await import('/utils/io/GUI.js')
+const gui = new GUI.default({ scoreTitle: 'Zombies killed', subtitle: 'Time left' })
+
+const DeadTree = await import('/utils/objects/DeadTree.js')
+for (let i = 0; i < 10; i++) {
+  const tree = new DeadTree.default({ pos: coords.pop(), scale: Math.random() * 1 + 1, rotateY: Math.random() * Math.PI })
+  solids.push(tree.mesh)
+  scene.add(tree.mesh)
+}
+
+const { GhostAI } = await import('/utils/actor/derived/horror/Ghost.js')
+for (let i = 0; i < 30; i++) {
+  const ghost = new GhostAI({ pos: coords.pop(), mapSize })
+  npcs.push(ghost)
+  scene.add(ghost.mesh)
+}
+
+const { ResistanceFighterPlayer } = await import('/utils/actor/derived/ww2/ResistanceFighter.js')
+const player = new ResistanceFighterPlayer({ camera, solids })
+scene.add(player.mesh)
+
+const { Smoke } = await import('/utils/Particles.js')
+const particles = new Smoke({ size: 1, num: 100, minRadius: 0, maxRadius: .5 })
+scene.add(particles.mesh)
+
+spinner.hide()
 
 /* FUNCTIONS */
 
@@ -62,10 +87,8 @@ async function spawnZombie(interval) {
 
 /* LOOP */
 
-new GameLoop((delta, time) => {
+const loop = new GameLoop((delta, time) => {
   renderer.render(scene, camera)
-  if (spinner.loading) return
-
   const timeLeft = Math.ceil(totalTime - time)
   const isNight = timeLeft >= 0
 
@@ -90,29 +113,6 @@ new GameLoop((delta, time) => {
     if (!isNight) npc.hitAmount = 100
   })
   particles.update({ delta, min: -1, max: 0, minVelocity: .2, maxVelocity: .5, loop: false })
-})
+}, false)
 
-/* LAZY LOAD */
-
-const obj = await import('/utils/objects/DeadTree.js')
-for (let i = 0; i < 10; i++) {
-  const tree = new obj.default({ pos: coords.pop(), scale: Math.random() * 1 + 1, rotateY: Math.random() * Math.PI })
-  solids.push(tree.mesh)
-  scene.add(tree.mesh)
-}
-
-const { GhostAI } = await import('/utils/actor/derived/horror/Ghost.js')
-for (let i = 0; i < 30; i++) {
-  const ghost = new GhostAI({ pos: coords.pop(), mapSize })
-  npcs.push(ghost)
-  scene.add(ghost.mesh)
-}
-
-const { ResistanceFighterPlayer } = await import('/utils/actor/derived/ww2/ResistanceFighter.js')
-player = new ResistanceFighterPlayer({ camera, solids })
-scene.add(player.mesh)
-
-scene.add(particles.mesh)
-gui.showMessage('Survive until morning!')
-
-spinner.hide()
+gui.showGameScreen({ title: 'Survive until morning', subtitle: 'Meet the morning at the cursed graveyard.', callback: () => loop.start() })
