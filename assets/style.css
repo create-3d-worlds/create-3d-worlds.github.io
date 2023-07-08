@@ -78,6 +78,14 @@ progress::-webkit-progress-value {
   width: 220px;
 }
 
+@media (max-width: 500px) {
+  .health-bar {
+    left: 20px;
+    width: 90%;
+    top: 10px;
+  }
+}
+
 /* BUTTONS */
 
 button,
@@ -147,19 +155,25 @@ button {
 }
 
 .score {
-  left: 20px;
+  left: 28px;
   position: absolute;
-  top: 20px;
+  top: 12px;
 }
 
 .score p {
   padding: 0 8px;
 }
 
+@media (max-width: 500px) {
+  .score {
+    top: 40px;
+  }
+}
+
 /* CONTROLS */
 
 .controls {
-  bottom: 20px;
+  bottom: 18px;
   left: 20px;
   position: absolute;
 }

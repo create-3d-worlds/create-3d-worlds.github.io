@@ -13,7 +13,7 @@ npx live-server
 
 GUI:
 - sakrivati Score ako nije igra
-- po defaultu da ide vreme ako nema poena
+  - ili da po defaultu da ide vreme ako nema poena?
 
 lavirinti:
 - postaviti cilj na neke lavirinte (start screen ili temp text)

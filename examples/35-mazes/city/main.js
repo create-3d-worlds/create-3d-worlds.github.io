@@ -28,13 +28,14 @@ scene.add(floor, streetLights)
 const player = new PartisanPlayer({ camera, solids: city })
 scene.add(player.mesh)
 
-const gui = new GUI({ showScore: false })
-gui.renderTempText('Get out of the concrete jungle', true)
+const gui = new GUI({ scoreTitle: 'Time' })
+gui.renderTempText('Get out of the concrete jungle', true, 4000)
 
 /* LOOP */
 
 void function loop() {
   requestAnimationFrame(loop)
   player.update()
+  gui.renderScore(Math.floor(performance.now() / 1000))
   renderer.render(scene, camera)
 }()
