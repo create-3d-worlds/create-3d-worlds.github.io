@@ -156,4 +156,4 @@ const content = ['Biplane', 'Triplane', 'Messerschmitt', 'Bomber', 'F18'].map(na
   `<input type="image" id="${name}" src="/assets/images/airplanes/${name}.png" style="${style}" />`
 ).join('')
 
-gui.addStartScreen({ title: 'Choose your aircraft', content, callback })
+gui.showGameScreen({ title: 'Choose your aircraft', content, callback })

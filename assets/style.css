@@ -180,7 +180,7 @@ button {
   z-index: 1;
 }
 
-.central-screen-select {
+.game-screen-select {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

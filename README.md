@@ -12,7 +12,6 @@ npx live-server
 ## TODO
 
 GUI:
-- merge renderEndScreen and addStartScreen
 - sakrivati Score ako nije igra
 - po defaultu da ide vreme ako nema poena
 

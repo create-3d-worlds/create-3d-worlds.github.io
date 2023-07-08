@@ -47,10 +47,16 @@ export default class GUI {
     }
 
     this.highScore = +localStorage.getItem(location.pathname)
-    if (showHighScore) this.renderHeighScore()
+    if (showHighScore) this.showHeighScore()
   }
 
-  /* CENTRAL SCREEN */
+  reset() {
+    this.points = 0
+    this.renderScore(0, this.total)
+    this.clearScreen()
+  }
+
+  /* GAME SCREEN */
 
   clearSoon(milliseconds = 3000) {
     setTimeout(() => {
@@ -60,8 +66,8 @@ export default class GUI {
   }
 
   renderText(text, blink = false) {
-    const cssClass = blink ? 'blink' : ''
-    const html = `<h3 class="${cssClass}">${text}</h3>`
+    const blinkClass = blink ? 'blink' : ''
+    const html = `<h3 class="${blinkClass}">${text}</h3>`
     if (this.centralDiv.innerHTML === html) return
     this.centralDiv.innerHTML = html
   }
@@ -73,21 +79,17 @@ export default class GUI {
     this.tempTextRendered = true
   }
 
-  renderMotivationalMessage(left, points = this.points) {
+  showMotivationalMessage(left, points = this.points) {
     const message = this.messageDict[points]
     if (message) this.renderTempText(message)
     if (left === 0) this.renderText(this.endText)
   }
 
-  clearScreen() {
-    this.centralDiv.className = 'central-screen'
-    this.centralDiv.innerHTML = ''
-  }
-
-  renderEndScreen({ title = 'You are dead.', callback } = {}) {
+  showGameScreen({ title = '', subtitle = '', content, callback } = {}) {
+    const sub = subtitle ? `<b>${subtitle}</b>` : ''
     const innerHTML = `
-      <h3>${title}</h3>
-      <b>Click here to start again</b>  
+      <h2>${title}</h2>
+      ${sub}
     `
     if (this.centralDiv.innerHTML === innerHTML) return
 
@@ -95,22 +97,9 @@ export default class GUI {
     const classes = ['rpgui-container', 'framed', 'pointer']
     this.centralDiv.classList.add(...classes)
 
-    this.centralDiv.onclick = () => {
-      this.clearScreen()
-      callback()
-    }
-  }
-
-  addStartScreen({ title, content, callback } = {}) {
-    const innerHTML = `<h2>${title}</h2>`
-
-    this.centralDiv.innerHTML = innerHTML
-    const classes = ['rpgui-container', 'framed']
-    this.centralDiv.classList.add(...classes)
-
     if (content) {
       const selectDiv = document.createElement('div')
-      selectDiv.className = 'central-screen-select'
+      selectDiv.className = 'game-screen-select'
       selectDiv.innerHTML = content
       this.centralDiv.appendChild(selectDiv)
     }
@@ -121,7 +110,16 @@ export default class GUI {
     }
   }
 
-  renderHeighScore() {
+  showEndScreen() {
+    this.showGameScreen({ title: 'You are dead.', subtitle: 'Click here to start again' })
+  }
+
+  clearScreen() {
+    this.centralDiv.className = 'central-screen'
+    this.centralDiv.innerHTML = ''
+  }
+
+  showHeighScore() {
     if (this.highScore < 2) return
     this.renderTempText(`Your current high score is ${this.highScore} points. Beat it!`)
   }
@@ -172,7 +170,7 @@ export default class GUI {
 
     this.scoreDiv.innerHTML = innerHTML
 
-    if (this.messageDict) this.renderMotivationalMessage(left, points)
+    if (this.messageDict) this.showMotivationalMessage(left, points)
 
     if (points > this.highScore)
       localStorage.setItem(location.pathname, points)

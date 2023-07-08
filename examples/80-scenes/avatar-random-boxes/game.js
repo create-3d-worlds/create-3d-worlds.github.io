@@ -76,8 +76,7 @@ function reset(addPlatforms = false) {
   coins.length = 0
   createCoins(addPlatforms)
 
-  gui.points = 0
-  gui.renderScore(0, coins.length)
+  gui.reset()
 
   player.position = [0, 0, 50]
   player.energy = 100
@@ -101,7 +100,7 @@ new GameLoop((delta, time) => {
   }
 
   if (player.dead) {
-    gui.renderEndScreen({ callback: reset })
+    gui.showEndScreen({ callback: reset })
     player.position.y -= .01
   } else
     player.update(delta)
@@ -124,7 +123,7 @@ const callback = e => {
     player.chaseCamera.distance = 6
     scene.add(player.mesh)
     reset(true)
-    gui.renderHeighScore()
+    gui.showHeighScore()
     spinner.hide()
   })
 }
@@ -134,4 +133,4 @@ const content = /* html */`
   <input type="image" id="DISCO" src="/assets/images/avatar/DISCO.jpg" style="border: 3px solid black" />
   <input type="image" id="LAVA" src="/assets/images/avatar/LAVA.jpg" style="border: 3px solid black" />
 `
-gui.addStartScreen({ title: 'Choose your avatar', content, callback })
+gui.showGameScreen({ title: 'Choose your avatar', content, callback })
