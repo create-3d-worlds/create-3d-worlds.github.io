@@ -10,7 +10,7 @@ export default class FallState extends State {
 
     actor.updateTurn(delta)
     actor.applyGravity(delta)
-    actor.applyVelocityY()
+    actor.applyVelocityY(delta)
 
     if (movableJumps.includes(actor.jumpStyle) && actor.input.up)
       actor.updateMove(delta)

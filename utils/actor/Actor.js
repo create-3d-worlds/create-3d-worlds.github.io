@@ -21,11 +21,11 @@ export default class Actor extends GameObject {
     animations,
     animDict,
     input,
-    gravity = .7,
+    gravity = 42,
     jumpStyle,
     speed = 2,
     jumpForce = gravity * 1.66,
-    maxJumpTime = 17,
+    maxJumpTime = .28,
     maxVelocityY = gravity * 20,
     drag = 0.5,
     getState,
@@ -391,9 +391,10 @@ export default class Actor extends GameObject {
       this.velocity.y -= this.gravity * delta
   }
 
-  applyVelocityY() {
-    if (this.mesh.position.y + this.velocity.y > this.groundY)
-      this.mesh.translateY(this.velocity.y)
+  applyVelocityY(delta) {
+    const deltaVelocity = this.velocity.y * delta
+    if (this.mesh.position.y + deltaVelocity > this.groundY)
+      this.mesh.translateY(deltaVelocity)
     else
       this.mesh.position.y = this.groundY
   }

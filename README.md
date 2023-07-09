@@ -15,11 +15,6 @@ GUI:
 - merge addPointerLock & showEndScreen with GUI
 - dodati click to START na showGameScreen u graveyard-survival i rpg-fantasy
 
-- BUG: avatar nekad zaglavi
-  - stisnut space a stanje se menja između jump i idle
-  - vidi DoubleJumpState.transit() 
-  - izgleda velocity.y ide u minus
-  - možda i platforme...
 - videti sunposition
 
 ### Polishing

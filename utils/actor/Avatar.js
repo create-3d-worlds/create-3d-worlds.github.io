@@ -77,7 +77,7 @@ export default class Avatar extends Player {
   constructor({
     skin = STONE,
     jumpStyle = jumpStyles.DOUBLE_JUMP,
-    maxJumpTime = 40,
+    maxJumpTime = .66,
     size = 1,
     speed = size * 4,
     showHealthBar = false,

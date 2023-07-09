@@ -6,7 +6,7 @@ export default class AIFallState extends State {
 
     actor.updateTurn(delta)
     actor.applyGravity(delta)
-    actor.applyVelocityY()
+    actor.applyVelocityY(delta)
 
     /* TRANSIT */
 

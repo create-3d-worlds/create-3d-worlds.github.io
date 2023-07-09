@@ -46,7 +46,7 @@ export default class FlyState extends State {
     if (actor.velocity.y > 0 && actor.directionBlocked(dir.up))
       actor.velocity.y = -actor.velocity.y
 
-    actor.applyVelocityY()
+    actor.applyVelocityY(delta)
 
     /* TRANSIT */
 
