@@ -106,17 +106,16 @@ export default class GUI {
     `
   }
 
-  getEndScreen() {
+  get endScreen() {
     return /* html */`
       <h2>You are dead.</h2>
       <p>Press Reload to play again</p>
     `
   }
 
-  // TODO: innerHTML to getStartScreen
-  showGameScreen({ goals = [], title = 'Click to START!', subtitle = '', innerHTML, callback, usePointerLock = false } = {}) {
-    const startHTML = this.getStartScreen({ goals, title, subtitle, innerHTML })
+  showGameScreen({ goals = [], title = 'Click to START!', subtitle = '', innerHTML, callback, usePointerLock = false, shouldClear = !innerHTML && !usePointerLock } = {}) {
 
+    const startHTML = this.getStartScreen({ goals, title, subtitle, innerHTML })
     if (this.gameScreen.innerHTML === startHTML) return
 
     this.gameScreen.innerHTML = startHTML
@@ -124,7 +123,7 @@ export default class GUI {
     this.gameScreen.onclick = e => {
       if (usePointerLock) document.body.requestPointerLock()
       if (callback) callback(e)
-      if (!innerHTML) this.clearScreen()
+      if (shouldClear) this.clearScreen()
     }
 
     if (usePointerLock) document.addEventListener('pointerlockchange', () => {

@@ -13,6 +13,7 @@ npx live-server
 
 GUI:
 - merge addPointerLock end screen
+- da Report ostaje unutar prozora sve vreme
 - dodati click to START na showGameScreen u graveyard-survival i rpg-fantasy
 
 - videti sunposition

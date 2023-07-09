@@ -1,4 +1,4 @@
-import { scene, renderer, camera, clock } from '/utils/scene.js'
+import { scene, renderer, camera } from '/utils/scene.js'
 import { createGround, createFloor } from '/utils/ground.js'
 import { sample, getEmptyCoords } from '/utils/helpers.js'
 import { createSun } from '/utils/light.js'
@@ -29,14 +29,6 @@ scene.add(player.mesh)
 
 const gui = new GUI({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + heinkelNum, scoreClass: '' })
 
-/* UTILS */
-
-const addEnemy = (obj, arr) => {
-  arr.push(obj)
-  obj.name = 'enemy'
-  scene.add(obj.mesh)
-}
-
 /* LOOP */
 
 const GameLoop = await import('/utils/GameLoop.js')
@@ -56,35 +48,39 @@ const loop = new GameLoop.default(delta => {
   aircraft.forEach(obj => obj.update(delta))
 }, true, true)
 
-gui.addPointerLock()
+gui.showGameScreen({ callback: () => loop.start(), usePointerLock: true, innerHTML: 'Shoot: MOUSE<br>Move: WASD or ARROWS<br>Run: CAPSLOCK' })
 
-new Report({ container: gui.window, text: 'The German planes that sow death among our combatants are stationed at the Rajlovac Airport near Sarajevo.\n\nEnter the airport and destroy all enemy aircraft.' })
+new Report({ container: gui.gameScreen, text: 'The German planes that sow death among our combatants are stationed at the Rajlovac Airport near Sarajevo.\n\nEnter the airport and destroy all enemy aircraft.' })
 
-/* AIRCRAFT */
+/* DYNAMIC IMPORT */
 
-const dornierFile = await import('/utils/objects/DornierBomber.js')
+const addEnemy = (obj, arr) => {
+  arr.push(obj)
+  obj.name = 'enemy'
+  scene.add(obj.mesh)
+}
+
+const DornierBomber = await import('/utils/objects/DornierBomber.js')
 for (let i = 0; i < dornierNum; i++) { // front
-  const plane = new dornierFile.default({ pos: [-50 + i * 15, 0, -75] })
+  const plane = new DornierBomber.default({ pos: [-50 + i * 15, 0, -75] })
   addEnemy(plane, aircraft)
 }
 
-const stukaFile = await import('/utils/objects/JunkersStuka.js')
+const JunkersStuka = await import('/utils/objects/JunkersStuka.js')
 for (let i = 0; i < stukaNum; i++) { // left
-  const plane = new stukaFile.default({ pos: [-55, 0, -55 + i * 12] })
+  const plane = new JunkersStuka.default({ pos: [-55, 0, -55 + i * 12] })
   addEnemy(plane, aircraft)
 }
 
-const heinkelFile = await import('/utils/objects/HeinkelBomber.js')
+const HeinkelBomber = await import('/utils/objects/HeinkelBomber.js')
 for (let i = 0; i < heinkelNum; i++) { // back
-  const plane = new heinkelFile.default({ pos: [-50 + i * 18, 0, 50] })
+  const plane = new HeinkelBomber.default({ pos: [-50 + i * 18, 0, 50] })
   addEnemy(plane, aircraft)
 }
 
-/* OBJECTS */
-
-const towerFile = await import('/utils/objects/Tower.js')
+const Tower = await import('/utils/objects/Tower.js')
 ;[[-75, -75], [-75, 75], [75, -75], [75, 75]].forEach(async([x, z]) => {
-  const tower = new towerFile.default({ pos: [x, 0, z], range: 50, interval: 1500, damage: 10, damageDistance: 1 })
+  const tower = new Tower.default({ pos: [x, 0, z], range: 50, interval: 1500, damage: 10, damageDistance: 1 })
   addEnemy(tower, enemies)
 })
 
@@ -102,19 +98,17 @@ scene.add(airport, airport2, bunker)
 solids.push(airport, airport2, bunker)
 player.addSolids(solids)
 
-/* SOLDIERS */
-
 const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer']
 for (let i = 0; i < 10; i++) {
   const name = sample(soldiers)
   const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
-  const EnemyClass = obj[name + 'AI']
-  const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh, mapSize })
-  addEnemy(enemy, enemies)
-  enemy.addSolids(solids)
+  const RandomClass = obj[name + 'AI']
+  const soldier = new RandomClass({ pos: coords.pop(), target: player.mesh, mapSize })
+  addEnemy(soldier, enemies)
+  soldier.addSolids(solids)
 }
 
-const obj = await import('/utils/actor/derived/Tank.js')
-const tank = new obj.TankAI({ mapSize })
+const { TankAI } = await import('/utils/actor/derived/Tank.js')
+const tank = new TankAI({ mapSize })
 addEnemy(tank, enemies)
 tank.addSolids(solids)
