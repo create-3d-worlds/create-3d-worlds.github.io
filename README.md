@@ -13,7 +13,9 @@ npx live-server
 
 GUI:
 - merge addPointerLock end screen
-- da Report ostaje unutar prozora sve vreme
+  - da Report ostaje unutar prozora sve vreme?
+- BUG: pointerLock menja display u none pa se ne vide druge poruka
+  - ujednačiti logiku, ili da se html prazni ili da se prozor krije
 - dodati click to START na showGameScreen u graveyard-survival i rpg-fantasy
 
 - videti sunposition

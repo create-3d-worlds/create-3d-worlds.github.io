@@ -98,4 +98,4 @@ const loop = new GameLoop.default(delta => {
   gui?.renderScore(killed.length, player.enemies.length - killed.length)
 }, false)
 
-gui.showGameScreen({ title: 'Kill all the Orcs', subtitle: 'Free the land from their vile presence!', callback: () => loop.start() })
+gui.showGameScreen({ goals: ['Kill all the Orcs'], subtitle: 'Free the land<br>from their vile presence!', callback: () => loop.start() })

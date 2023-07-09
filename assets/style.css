@@ -30,7 +30,8 @@ h3 {
 }
 
 ul {
-  text-align: left;
+  list-style-position: inside;
+  padding-left: 0;
 }
 
 li {

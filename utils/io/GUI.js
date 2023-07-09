@@ -92,7 +92,7 @@ export default class GUI {
     if (left === 0) this.renderText(this.endText)
   }
 
-  getStartScreen({ goals, subtitle, innerHTML }) {
+  getStartScreen({ goals, title, subtitle, innerHTML }) {
     const li = goals.map(goal => `<li>${goal}</li>`).join('')
     const innerDiv = innerHTML
       ? `<div class="game-screen-select">${innerHTML}</div>`
@@ -100,7 +100,7 @@ export default class GUI {
 
     return `
       <ul>${li}</ul>
-      <h2 class="pointer">Click to START!</h2>
+      <h2>${title}</h2>
       ${subtitle}
       ${innerDiv}
     `
