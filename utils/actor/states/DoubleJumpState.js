@@ -8,12 +8,13 @@ export default class DoubleJumpState extends FlyState {
     this.doubleJumpUsed = false
   }
 
+  // parent method overriding
   transit() {
     const { actor } = this
     if (this.jumpTime >= this.maxJumpTime && this.doubleJumpUsed)
       this.actor.setState('fall')
 
-    if (actor.onGround) {
+    if (this.actor.velocity.y <= 0 && actor.onGround) {
       actor.velocity.y = 0
       actor.setState('idle')
     }
