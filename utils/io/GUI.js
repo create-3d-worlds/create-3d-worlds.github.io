@@ -92,18 +92,17 @@ export default class GUI {
     if (left === 0) this.renderText(this.endText)
   }
 
-  getStartScreen({ goals, title, subtitle, innerHTML }) {
-    const goalsLi = goals.map(goal => `<li>${goal}</li>`).join('')
-    const sub = subtitle ? `<b>${subtitle}</b>` : ''
+  getStartScreen({ goals, subtitle, innerHTML }) {
+    const li = goals.map(goal => `<li>${goal}</li>`).join('')
     const innerDiv = innerHTML
       ? `<div class="game-screen-select">${innerHTML}</div>`
       : ''
 
     return `
-      ${goals.map(goal => `<li>${goal}</li>`).join('')}
-      <h2 class="pointer">${title}</h2>
-     ${sub}
-     ${innerDiv}
+      <ul>${li}</ul>
+      <h2 class="pointer">Click to START!</h2>
+      ${subtitle}
+      ${innerDiv}
     `
   }
 
@@ -114,6 +113,7 @@ export default class GUI {
     `
   }
 
+  // TODO: innerHTML to getStartScreen
   showGameScreen({ goals = [], title = 'Click to START!', subtitle = '', innerHTML, callback, usePointerLock = false } = {}) {
     const startHTML = this.getStartScreen({ goals, title, subtitle, innerHTML })
 
