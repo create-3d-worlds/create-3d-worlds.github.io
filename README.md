@@ -15,7 +15,8 @@ GUI:
 - merge addPointerLock & showEndScreen with GUI
 - dodati click to START na showGameScreen u graveyard-survival i rpg-fantasy
 
-- BUG: avatar i dalje secka i dalje neće da skače nekad!!!
+- BUG: avatar i dalje secka i nekad zaglavi
+  - možda DOUBLE_JUMP, možda platforme...
 - videti sunposition
 
 ### Polishing

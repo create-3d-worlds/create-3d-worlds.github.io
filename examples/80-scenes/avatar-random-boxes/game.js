@@ -1,7 +1,7 @@
 import { scene, camera, createToonRenderer } from '/utils/scene.js'
 import { createRandomBoxes } from '/utils/geometry/index.js'
 import { createGround, createLava } from '/utils/ground.js'
-import { hemLight, createSun } from '/utils/light.js'
+import { hemLight } from '/utils/light.js'
 import Coin from '/utils/objects/Coin.js'
 import GUI from '/utils/io/GUI.js'
 import Platform from '/utils/objects/Platform.js'
@@ -19,8 +19,7 @@ let player
 
 camera.position.set(0, 2, 56)
 
-hemLight()
-scene.add(createSun({ intensity: .25 }))
+hemLight({ intensity: 1.25 })
 
 const floor = createGround({ file: 'terrain/ground.jpg' })
 scene.add(floor)
@@ -58,7 +57,7 @@ function createCoins(addPlatforms) {
     const pos = boxes[i].position.clone()
     pos.y += 6.15
 
-    if (addPlatforms && Math.random() > .5) {
+    if (addPlatforms && Math.random() > .8) {
       const platform = new Platform({ pos, file: null })
       platforms.push(platform)
       scene.add(platform.mesh)
