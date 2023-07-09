@@ -66,6 +66,9 @@ const loop = new GameLoop.default((delta, time) => {
   else if (!player.dead && Math.ceil(time) % 20 == 0)
     gui.showMessage('Find a way out!', true)
 
+  if (player.dead)
+    gui.showEndScreen()
+
   enemies.forEach(enemy => enemy.update(delta))
 
   if (Math.random() > .998) lightningStrike(light)

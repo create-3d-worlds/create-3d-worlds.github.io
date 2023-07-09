@@ -128,26 +128,7 @@ export default class GUI {
 
     if (usePointerLock) document.addEventListener('pointerlockchange', () => {
       this.gameScreen.style.display = document.pointerLockElement ? 'none' : 'block'
-      this.gameScreen.innerHTML = this.dead ? this.endScreen : startHTML
-    })
-  }
-
-  addPointerLock({ callback, usePointerLock = true } = {}) {
-    const window = document.createElement('div')
-    window.innerHTML = this.startScreen
-    window.className = 'central-screen rpgui-container framed'
-    document.body.appendChild(window)
-
-    this.window = window
-
-    window.onclick = e => {
-      if (usePointerLock) document.body.requestPointerLock()
-      if (callback) callback(e)
-    }
-
-    if (usePointerLock) document.addEventListener('pointerlockchange', () => {
-      window.style.display = document.pointerLockElement ? 'none' : 'block'
-      window.innerHTML = this.dead ? this.getEndScreen() : this.startScreen
+      this.gameScreen.innerHTML = startHTML
     })
   }
 
