@@ -21,7 +21,6 @@ export default class GUI {
     endText = 'Bravo!<br>Nothing left',
     showHighScore = false,
     useBlink = false,
-    goals = [],
     scoreClass = 'rpgui-button golden',
     controlsClass = '' // rpgui-button
   } = {}) {
@@ -33,12 +32,11 @@ export default class GUI {
     this.messageDict = messageDict
     this.endText = endText
     this.useBlink = useBlink
-    this.goals = goals
     this.tempTextRendered = false
 
-    this.centralDiv = document.createElement('div')
-    this.centralDiv.className = 'central-screen'
-    document.body.appendChild(this.centralDiv)
+    this.gameScreen = document.createElement('div')
+    this.gameScreen.className = 'central-screen'
+    document.body.appendChild(this.gameScreen)
 
     this.addUIControls(controls, controlsClass)
 
@@ -62,14 +60,14 @@ export default class GUI {
   /* GAME SCREEN */
 
   clearScreen() {
-    this.centralDiv.className = 'central-screen'
-    this.centralDiv.innerHTML = ''
-    this.centralDiv.onclick = undefined
+    this.gameScreen.className = 'central-screen'
+    this.gameScreen.innerHTML = ''
+    this.gameScreen.onclick = undefined
   }
 
   clearSoon(milliseconds = 3000) {
     setTimeout(() => {
-      this.centralDiv.innerHTML = ''
+      this.gameScreen.innerHTML = ''
       this.tempTextRendered = false
     }, milliseconds)
   }
@@ -77,8 +75,8 @@ export default class GUI {
   renderText(text, blink = false) {
     const blinkClass = blink ? 'blink' : ''
     const html = `<h3 class="${blinkClass}">${text}</h3>`
-    if (this.centralDiv.innerHTML === html) return
-    this.centralDiv.innerHTML = html
+    if (this.gameScreen.innerHTML === html) return
+    this.gameScreen.innerHTML = html
   }
 
   showMessage(message, blink, milliseconds) {
@@ -94,49 +92,45 @@ export default class GUI {
     if (left === 0) this.renderText(this.endText)
   }
 
-  get startScreen() {
-    const goals = this.goals.map(goal => `<li>${goal}</li>`).join('')
-    return /* html */`
-      <ul>${goals}</ul>
-      <h2 class="pointer">Click to START!</h2>
-      <p>
-        Shoot: MOUSE<br />
-        Move: WASD or ARROWS<br />
-        Run: CAPSLOCK
-      </p>
+  getStartScreen({ goals, title, subtitle, innerHTML }) {
+    const goalsLi = goals.map(goal => `<li>${goal}</li>`).join('')
+    const sub = subtitle ? `<b>${subtitle}</b>` : ''
+    const innerDiv = innerHTML
+      ? `<div class="game-screen-select">${innerHTML}</div>`
+      : ''
+
+    return `
+      ${goals.map(goal => `<li>${goal}</li>`).join('')}
+      <h2 class="pointer">${title}</h2>
+     ${sub}
+     ${innerDiv}
     `
   }
 
-  get endScreen() {
+  getEndScreen() {
     return /* html */`
       <h2>You are dead.</h2>
       <p>Press Reload to play again</p>
     `
   }
 
-  showGameScreen({ title = '', subtitle = '', innerHTML, callback } = {}) {
-    const sub = subtitle ? `<b>${subtitle}</b>` : ''
-    const html = `
-      <h2>${title}</h2>
-      ${sub}
-    `
-    if (this.centralDiv.innerHTML === html) return
+  showGameScreen({ goals = [], title = 'Click to START!', subtitle = '', innerHTML, callback, usePointerLock = false } = {}) {
+    const startHTML = this.getStartScreen({ goals, title, subtitle, innerHTML })
 
-    this.centralDiv.innerHTML = html
-    const classes = ['rpgui-container', 'framed', 'pointer']
-    this.centralDiv.classList.add(...classes)
+    if (this.gameScreen.innerHTML === startHTML) return
 
-    if (innerHTML) {
-      const selectDiv = document.createElement('div')
-      selectDiv.className = 'game-screen-select'
-      selectDiv.innerHTML = innerHTML
-      this.centralDiv.appendChild(selectDiv)
-    }
-
-    this.centralDiv.onclick = e => {
+    this.gameScreen.innerHTML = startHTML
+    this.gameScreen.classList.add('rpgui-container', 'framed', 'pointer')
+    this.gameScreen.onclick = e => {
+      if (usePointerLock) document.body.requestPointerLock()
       if (callback) callback(e)
       if (!innerHTML) this.clearScreen()
     }
+
+    if (usePointerLock) document.addEventListener('pointerlockchange', () => {
+      this.gameScreen.style.display = document.pointerLockElement ? 'none' : 'block'
+      this.gameScreen.innerHTML = this.dead ? this.endScreen : startHTML
+    })
   }
 
   addPointerLock({ callback, usePointerLock = true } = {}) {
@@ -154,7 +148,7 @@ export default class GUI {
 
     if (usePointerLock) document.addEventListener('pointerlockchange', () => {
       window.style.display = document.pointerLockElement ? 'none' : 'block'
-      window.innerHTML = this.dead ? this.endScreen : this.startScreen
+      window.innerHTML = this.dead ? this.getEndScreen() : this.startScreen
     })
   }
 

@@ -21,7 +21,6 @@ const coords = maze.getEmptyCoords(true)
 const walls = maze.toTiledMesh({ texture: 'terrain/concrete.jpg' })
 scene.add(walls)
 
-const goals = ['Find a way out.', 'Bonus: Kill all enemies.']
 const player = new FPSPlayer({ camera, solids: walls })
 player.putInMaze(maze)
 scene.add(player.mesh)
@@ -31,7 +30,7 @@ renderer.render(scene, camera) // first draw
 /* DYNAMIC IMPORT */
 
 const GUI = await import('/utils/io/GUI.js')
-const gui = new GUI.default({ subtitle: 'Enemy left', total: enemies.length, goals })
+const gui = new GUI.default({ subtitle: 'Enemy left', total: enemies.length })
 
 const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer', 'GermanFlameThrower']
 for (let i = 0; i < 10; i++) {
@@ -72,4 +71,4 @@ const loop = new GameLoop.default((delta, time) => {
   if (Math.random() > .998) lightningStrike(light)
 }, false, true)
 
-gui.addPointerLock({ callback: () => loop.start() })
+gui.showGameScreen({ goals: ['Find a way out.', 'Bonus: Kill all enemies.'], callback: () => loop.start(), usePointerLock: true, innerHTML: 'Shoot: MOUSE<br> Move: WASD or ARROWS<br> Run: CAPSLOCK' })
