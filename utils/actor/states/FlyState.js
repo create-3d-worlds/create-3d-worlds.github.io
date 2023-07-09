@@ -17,13 +17,8 @@ export default class FlyState extends State {
       this.action.setLoop(THREE.LoopOnce, 1)
       this.action.clampWhenFinished = true
       this.transitFrom(oldAction, .5)
-    }
 
-    if (this.actor.input.down) this.reverseAction()
-
-    if (this.actor.chaseCamera) {
-      this.initCameraSpeed = this.actor.chaseCamera.speed
-      this.actor.chaseCamera.speed = this.initCameraSpeed * 3
+      if (this.actor.input.down) this.reverseAction()
     }
   }
 
@@ -55,17 +50,7 @@ export default class FlyState extends State {
 
     /* TRANSIT */
 
-    this.transit()
-  }
-
-  transit() {
     if (this.actor.velocity.y < 0 && !this.ableToJump)
       this.actor.setState('fall')
-  }
-
-  exit() {
-    this.action?.setEffectiveTimeScale(1)
-    if (this.actor.chaseCamera)
-      this.actor.chaseCamera.speed = this.initCameraSpeed
   }
 }

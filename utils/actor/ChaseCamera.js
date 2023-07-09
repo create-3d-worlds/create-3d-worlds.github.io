@@ -9,6 +9,7 @@ const calc = (mesh, pos, rotate) => {
 }
 
 const speedFactor = state => {
+  if (state == 'jump') return 3
   if (state == 'fall') return 4
   if (state == 'run') return 2
   return 1
