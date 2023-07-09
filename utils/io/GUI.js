@@ -139,7 +139,7 @@ export default class GUI {
     }
   }
 
-  addPointerLock({ callback, usePointerLock = true }) {
+  addPointerLock({ callback, usePointerLock = true } = {}) {
     const window = document.createElement('div')
     window.innerHTML = this.startScreen
     window.className = 'central-screen rpgui-container framed'
@@ -147,9 +147,9 @@ export default class GUI {
 
     this.window = window
 
-    window.onclick = () => {
+    window.onclick = e => {
       if (usePointerLock) document.body.requestPointerLock()
-      callback()
+      if (callback) callback(e)
     }
 
     if (usePointerLock) document.addEventListener('pointerlockchange', () => {

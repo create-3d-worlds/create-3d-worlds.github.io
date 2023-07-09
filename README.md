@@ -12,8 +12,7 @@ npx live-server
 ## TODO
 
 GUI:
-- merge addPointerLock & showEndScreen with GUI
-  - tražiti pointer lock u callback
+- merge addPointerLock
 - dodati click to START na showGameScreen u graveyard-survival i rpg-fantasy
 
 - videti sunposition

@@ -43,6 +43,7 @@ const GameLoop = await import('/utils/GameLoop.js')
 
 const loop = new GameLoop.default(delta => {
   renderer.render(scene, camera)
+  if (!document.pointerLockElement) return
 
   const destroyed = aircraft.filter(plane => plane.energy <= 0)
   gui.renderScore(destroyed.length, aircraft.length - destroyed.length)
@@ -53,9 +54,9 @@ const loop = new GameLoop.default(delta => {
   player.update(delta)
   enemies.forEach(obj => obj.update(delta))
   aircraft.forEach(obj => obj.update(delta))
-}, false, true)
+}, true, true)
 
-gui.addPointerLock({ callback: () => loop.start() })
+gui.addPointerLock()
 
 new Report({ container: gui.window, text: 'The German planes that sow death among our combatants are stationed at the Rajlovac Airport near Sarajevo.\n\nEnter the airport and destroy all enemy aircraft.' })
 
