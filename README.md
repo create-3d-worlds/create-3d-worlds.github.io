@@ -12,11 +12,9 @@ npx live-server
 ## TODO
 
 GUI:
-- end screen na fps ne radi, prikazuje start screen
+- BUG: end screen na fps ne radi, prikazuje uvek start screen
 - BUG: pointerLock menja display u none pa se ne vide druge poruka
   - ujednačiti logiku, ili da se html prazni ili da se prozor krije
-- dodati click to START na showGameScreen u graveyard-survival i rpg-fantasy
-- da Report ostaje unutar prozora i nakon zatvaranja?
 
 - videti sunposition
 
