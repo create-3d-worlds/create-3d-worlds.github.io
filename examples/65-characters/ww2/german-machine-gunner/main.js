@@ -9,7 +9,7 @@ scene.add(createGround({ size: 100 }))
 const player = new GermanMachineGunnerPlayer()
 scene.add(player.mesh)
 
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 controls.target = player.mesh.position
 
 /* LOOP */

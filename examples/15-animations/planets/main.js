@@ -6,7 +6,7 @@ import { dirLight } from '/utils/light.js'
 dirLight({ pos: [100, 10, -50] })
 renderer.setClearColor(0x000000)
 
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 
 const earth = createEarth({ r: 5 })
 earth.translateX(-10)

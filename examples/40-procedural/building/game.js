@@ -2,7 +2,7 @@ import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { createBuilding } from '/utils/city.js'
 import { createMoon } from '/utils/light.js'
 
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 camera.position.set(0, 25, 50)
 renderer.setClearColor(0x070b34)
 

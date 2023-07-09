@@ -10,7 +10,7 @@ const moon = createMoon({ pos: [50, 150, 50] })
 const mapSize = 300
 const numBuildings = 200
 
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 camera.position.set(0, mapSize * .6, mapSize * 1.1)
 
 const floor = createFloor({ size: mapSize * 1.2, color: 0x505050 })

@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
 import { material } from '/utils/shaders/voronoi.js'
 
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 camera.position.set(0, 0, 2)
 
 material.uniforms.color = { value: new THREE.Color(0xFFC00F) }

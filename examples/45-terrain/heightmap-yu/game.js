@@ -5,7 +5,7 @@ import { hemLight, dirLight } from '/utils/light.js'
 hemLight()
 dirLight()
 
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 camera.position.y = 200
 
 const terrain = await terrainFromHeightmap({ file: 'yu.png' })

@@ -12,7 +12,7 @@ scene.add(sun)
 
 scene.background = new THREE.Color('skyblue')
 
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 camera.position.set(0, 30, 40)
 
 scene.add(createTrees({ mapSize: mapSize * .5, n: 100 }))

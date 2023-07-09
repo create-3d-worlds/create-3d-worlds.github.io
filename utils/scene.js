@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls.js'
 
 export const clock = new THREE.Clock()
 
@@ -31,7 +30,6 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio)) // save battery by limit pixel ratio to 2
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-// renderer.setClearColor(0x87CEEB) // 0x7ec0ee
 
 const canvas = renderer.domElement
 canvas.addEventListener('contextmenu', e => e.preventDefault())
@@ -55,7 +53,9 @@ export const fixColors = () => {
 
 /* CONTROLS */
 
-export function createOrbitControls(cam = camera, el = renderer.domElement) {
+export async function createOrbitControls(cam = camera, el = renderer.domElement) {
+  const { OrbitControls } = await import('/node_modules/three/examples/jsm/controls/OrbitControls.js')
+
   const controls = new OrbitControls(cam, el)
   controls.maxPolarAngle = Math.PI / 2 - 0.1 // prevent bellow ground, negde ne radi
   controls.enableKeys = false

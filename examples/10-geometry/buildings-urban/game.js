@@ -3,7 +3,7 @@ import { createTexturedBuilding, createGraffitiBuilding, createArtBuilding } fro
 import { createSun } from '/utils/light.js'
 import { createFloor } from '/utils/ground.js'
 
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 camera.position.set(0, 25, 50)
 
 scene.add(createSun({ pos: [50, 100, 50] }))

@@ -6,7 +6,7 @@ import { hemLight } from '/utils/light.js'
 hemLight()
 renderer.setClearColor(0x7ec0ee)
 
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 camera.position.y = 75
 camera.position.z = 50
 

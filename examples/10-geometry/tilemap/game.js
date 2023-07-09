@@ -23,7 +23,7 @@ scene.add(createGround({ file: 'terrain/ground.jpg', size: 100 }))
 const map = meshFromTilemap({ tilemap, texture: 'terrain/concrete.jpg' })
 scene.add(map)
 
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 
 /* LOOP */
 

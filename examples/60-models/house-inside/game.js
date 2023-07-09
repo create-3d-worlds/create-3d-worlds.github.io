@@ -6,7 +6,7 @@ import { createSun } from '/utils/light.js'
 import GUI from '/utils/io/GUI.js'
 
 camera.position.set(1.5, 2.5, -6.5)
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 
 renderer.setClearColor(0x63adef, 1.0)
 

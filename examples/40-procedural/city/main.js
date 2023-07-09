@@ -7,7 +7,7 @@ import { hemLight } from '/utils/light.js'
 const mapSize = 2000
 
 hemLight()
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 camera.position.set(0, 100, 400)
 camera.lookAt(new THREE.Vector3(0, 100, 0))
 

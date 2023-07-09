@@ -4,7 +4,7 @@ import { loadModel } from '/utils/loaders.js'
 
 scene.add(createSun())
 
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 camera.position.set(0, 2, 12)
 
 const leftCastle = await loadModel({ file: 'building/castle/fortress.fbx', shouldAdjust: true, size: 10 })

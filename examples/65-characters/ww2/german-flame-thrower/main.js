@@ -10,7 +10,7 @@ setBackground(0x000000)
 const player = new GermanFlameThrowerPlayer()
 scene.add(player.mesh)
 
-const controls = createOrbitControls()
+const controls = await createOrbitControls()
 controls.target = player.mesh.position
 
 /* LOOP */

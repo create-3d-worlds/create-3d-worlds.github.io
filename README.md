@@ -15,7 +15,6 @@ GUI:
 - merge addPointerLock & showEndScreen with GUI
 - dodati click to START na showGameScreen u graveyard-survival i rpg-fantasy
 
-- createOrbitControls async
 - BUG: avatar i dalje secka i dalje neće da skače nekad!!!
 - videti sunposition
 
