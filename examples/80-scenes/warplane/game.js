@@ -152,8 +152,8 @@ const callback = async e => {
 }
 
 const style = 'border: 3px solid black; height: 180px'
-const content = ['Biplane', 'Triplane', 'Messerschmitt', 'Bomber', 'F18'].map(name =>
+const innerHTML = ['Biplane', 'Triplane', 'Messerschmitt', 'Bomber', 'F18'].map(name =>
   `<input type="image" id="${name}" src="/assets/images/airplanes/${name}.png" style="${style}" />`
 ).join('')
 
-gui.showGameScreen({ title: 'Choose your aircraft', content, callback })
+gui.showGameScreen({ title: 'Choose your aircraft', innerHTML, callback })

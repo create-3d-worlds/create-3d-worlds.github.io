@@ -21,6 +21,7 @@ export default class GUI {
     endText = 'Bravo!<br>Nothing left',
     showHighScore = false,
     useBlink = false,
+    goals = [],
     scoreClass = 'rpgui-button golden',
     controlsClass = '' // rpgui-button
   } = {}) {
@@ -32,6 +33,7 @@ export default class GUI {
     this.messageDict = messageDict
     this.endText = endText
     this.useBlink = useBlink
+    this.goals = goals
     this.tempTextRendered = false
 
     this.centralDiv = document.createElement('div')
@@ -92,29 +94,68 @@ export default class GUI {
     if (left === 0) this.renderText(this.endText)
   }
 
-  showGameScreen({ title = '', subtitle = '', content, callback } = {}) {
+  get startScreen() {
+    const goals = this.goals.map(goal => `<li>${goal}</li>`).join('')
+    return /* html */`
+      <ul>${goals}</ul>
+      <h2 class="pointer">Click to START!</h2>
+      <p>
+        Shoot: MOUSE<br />
+        Move: WASD or ARROWS<br />
+        Run: CAPSLOCK
+      </p>
+    `
+  }
+
+  get endScreen() {
+    return /* html */`
+      <h2>You are dead.</h2>
+      <p>Press Reload to play again</p>
+    `
+  }
+
+  showGameScreen({ title = '', subtitle = '', innerHTML, callback } = {}) {
     const sub = subtitle ? `<b>${subtitle}</b>` : ''
-    const innerHTML = `
+    const html = `
       <h2>${title}</h2>
       ${sub}
     `
-    if (this.centralDiv.innerHTML === innerHTML) return
+    if (this.centralDiv.innerHTML === html) return
 
-    this.centralDiv.innerHTML = innerHTML
+    this.centralDiv.innerHTML = html
     const classes = ['rpgui-container', 'framed', 'pointer']
     this.centralDiv.classList.add(...classes)
 
-    if (content) {
+    if (innerHTML) {
       const selectDiv = document.createElement('div')
       selectDiv.className = 'game-screen-select'
-      selectDiv.innerHTML = content
+      selectDiv.innerHTML = innerHTML
       this.centralDiv.appendChild(selectDiv)
     }
 
     this.centralDiv.onclick = e => {
-      if (!content) this.clearScreen()
       if (callback) callback(e)
+      if (!innerHTML) this.clearScreen()
     }
+  }
+
+  addPointerLock({ callback, usePointerLock = true }) {
+    const window = document.createElement('div')
+    window.innerHTML = this.startScreen
+    window.className = 'central-screen rpgui-container framed'
+    document.body.appendChild(window)
+
+    this.window = window
+
+    window.onclick = () => {
+      if (usePointerLock) document.body.requestPointerLock()
+      callback()
+    }
+
+    if (usePointerLock) document.addEventListener('pointerlockchange', () => {
+      window.style.display = document.pointerLockElement ? 'none' : 'block'
+      window.innerHTML = this.dead ? this.endScreen : this.startScreen
+    })
   }
 
   showEndScreen(params = {}) {

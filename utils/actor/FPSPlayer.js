@@ -10,7 +10,6 @@ export default class FPSPlayer extends Player {
     attackDistance = 100,
     mouseSensitivity = .002,
     attackSound = 'rifle.mp3',
-    goals = [],
     ...rest
   } = {}) {
     super({
@@ -23,7 +22,6 @@ export default class FPSPlayer extends Player {
       ...rest,
     })
     this.mouseSensitivity = mouseSensitivity
-    this.goals = goals
     this.time = 0
     this.energy = 100
     this.hurting = false
@@ -35,7 +33,7 @@ export default class FPSPlayer extends Player {
     camera.rotation.set(0, 0, 0)
     this.mesh.add(camera)
 
-    this.addPointerLock()
+    document.addEventListener('mousemove', e => this.moveCursor(e))
   }
 
   /* GETTERS */
@@ -50,51 +48,7 @@ export default class FPSPlayer extends Player {
     return pos
   }
 
-  get startScreen() {
-    const goals = this.goals.map(goal => `<li>${goal}</li>`).join('')
-    return /* html */`
-      <ul>${goals}</ul>
-      <h2 class="pointer">Click to START!</h2>
-      <p>
-        Shoot: MOUSE<br />
-        Move: WASD or ARROWS<br />
-        Run: CAPSLOCK
-      </p>
-    `
-  }
-
-  get endScreen() {
-    return /* html */`
-      <h2>You are dead.</h2>
-      <p>Press Reload to play again</p>
-    `
-  }
-
   /* UTILS */
-
-  showEndScreen() {
-    this.window.style.display = 'block'
-    this.window.innerHTML = this.endScreen
-  }
-
-  addPointerLock() {
-    this.window = document.createElement('div')
-    this.window.innerHTML = this.startScreen
-    this.window.className = 'central-screen rpgui-container framed'
-    document.body.appendChild(this.window)
-
-    this.window.addEventListener('click', () => {
-      if (this.dead) return
-      document.body.requestPointerLock()
-    })
-
-    document.addEventListener('pointerlockchange', () => {
-      this.window.style.display = document.pointerLockElement ? 'none' : 'block'
-      this.window.innerHTML = this.dead ? this.endScreen : this.startScreen
-    })
-
-    document.addEventListener('mousemove', e => this.moveCursor(e))
-  }
 
   moveCursor(e) {
     if (this.hurting || this.dead || !document.pointerLockElement) return
@@ -146,11 +100,8 @@ export default class FPSPlayer extends Player {
         this.fpsRenderer.render(this.time)
     }
 
-    if (this.dead) {
-      document.exitPointerLock()
+    if (this.dead)
       this.fpsRenderer.clear()
-      this.showEndScreen()
-    }
 
     if (this.hurting) this.fpsRenderer.drawPain()
   }

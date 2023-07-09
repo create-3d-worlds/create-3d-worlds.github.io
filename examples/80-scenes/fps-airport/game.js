@@ -22,13 +22,12 @@ scene.add(ground)
 scene.add(createFloor({ size: mapSize, file: 'terrain/asphalt.jpg' }))
 
 const coords = getEmptyCoords({ mapSize: mapSize * .5 })
-const gui = new GUI({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + heinkelNum, scoreClass: '' })
 
 const player = new FPSPlayer({ camera, pos: [100, 0, 0] })
 player.lookAt(scene.position)
 scene.add(player.mesh)
 
-new Report({ container: player.window, text: 'The German planes that sow death among our combatants are stationed at the Rajlovac Airport near Sarajevo.\n\nEnter the airport and destroy all enemy aircraft.' })
+const gui = new GUI({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + heinkelNum, scoreClass: '' })
 
 /* UTILS */
 
@@ -40,11 +39,10 @@ const addEnemy = (obj, arr) => {
 
 /* LOOP */
 
-void function loop() {
-  requestAnimationFrame(loop)
+const GameLoop = await import('/utils/GameLoop.js')
+
+const loop = new GameLoop.default(delta => {
   renderer.render(scene, camera)
-  if (!document.pointerLockElement) return
-  const delta = clock.getDelta()
 
   const destroyed = aircraft.filter(plane => plane.energy <= 0)
   gui.renderScore(destroyed.length, aircraft.length - destroyed.length)
@@ -55,7 +53,11 @@ void function loop() {
   player.update(delta)
   enemies.forEach(obj => obj.update(delta))
   aircraft.forEach(obj => obj.update(delta))
-}()
+}, false, true)
+
+gui.addPointerLock({ callback: () => loop.start() })
+
+new Report({ container: gui.window, text: 'The German planes that sow death among our combatants are stationed at the Rajlovac Airport near Sarajevo.\n\nEnter the airport and destroy all enemy aircraft.' })
 
 /* AIRCRAFT */
 
@@ -80,8 +82,7 @@ for (let i = 0; i < heinkelNum; i++) { // back
 /* OBJECTS */
 
 const towerFile = await import('/utils/objects/Tower.js')
-
-  ;[[-75, -75], [-75, 75], [75, -75], [75, 75]].forEach(async([x, z]) => {
+;[[-75, -75], [-75, 75], [75, -75], [75, 75]].forEach(async([x, z]) => {
   const tower = new towerFile.default({ pos: [x, 0, z], range: 50, interval: 1500, damage: 10, damageDistance: 1 })
   addEnemy(tower, enemies)
 })
