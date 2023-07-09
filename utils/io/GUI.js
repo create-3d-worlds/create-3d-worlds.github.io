@@ -59,6 +59,12 @@ export default class GUI {
 
   /* GAME SCREEN */
 
+  clearScreen() {
+    this.centralDiv.className = 'central-screen'
+    this.centralDiv.innerHTML = ''
+    this.centralDiv.onclick = undefined
+  }
+
   clearSoon(milliseconds = 3000) {
     setTimeout(() => {
       this.centralDiv.innerHTML = ''
@@ -111,13 +117,8 @@ export default class GUI {
     }
   }
 
-  showEndScreen() {
-    this.showGameScreen({ title: 'You are dead.', subtitle: 'Click here to start again' })
-  }
-
-  clearScreen() {
-    this.centralDiv.className = 'central-screen'
-    this.centralDiv.innerHTML = ''
+  showEndScreen(params = {}) {
+    this.showGameScreen({ title: 'You are dead.', subtitle: 'Click here to start again', ...params })
   }
 
   showHeighScore() {
