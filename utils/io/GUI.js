@@ -20,7 +20,7 @@ export default class GUI {
     messageDict,
     endText = 'Bravo!<br>Nothing left',
     showHighScore = false,
-    shouldBlink = false,
+    useBlink = false,
     scoreClass = 'rpgui-button golden',
     controlsClass = '' // rpgui-button
   } = {}) {
@@ -31,7 +31,7 @@ export default class GUI {
     this.controls = controls
     this.messageDict = messageDict
     this.endText = endText
-    this.shouldBlink = shouldBlink
+    this.useBlink = useBlink
     this.tempTextRendered = false
 
     this.centralDiv = document.createElement('div')
@@ -162,7 +162,7 @@ export default class GUI {
   }
 
   renderScore(points, left) {
-    const blink = this.shouldBlink ? 'blink' : ''
+    const blink = this.useBlink ? 'blink' : ''
     const subtitle = isNumber(left) ? `<br><small class="${blink}">${this.subtitle}: ${left}</small>` : ''
 
     const innerHTML = `

@@ -38,7 +38,7 @@ const controls = {
   'WASD or Arrows:': 'MOVE',
   'Enter:': 'Attack',
 }
-const gui = new GUI({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.', controls })
+const gui = new GUI({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.', controls, useBlink: true })
 
 /* OBJECTS */
 
