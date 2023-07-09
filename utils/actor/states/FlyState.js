@@ -27,7 +27,7 @@ export default class FlyState extends State {
   }
 
   shouldAddForce(delta) {
-    return this.actor.velocity.y < this.actor.maxVelocityY * delta
+    return this.actor.velocity.y < this.actor.maxVelocityY
   }
 
   update(delta) {

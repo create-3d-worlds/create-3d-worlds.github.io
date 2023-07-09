@@ -92,15 +92,15 @@ export default class Avatar extends Player {
       ...params,
     })
     this.skin = skin
-    this.limbs = [
-      this.mesh.getObjectByName('leftHand'), this.mesh.getObjectByName('rightHand'),
-      this.mesh.getObjectByName('leftLeg'), this.mesh.getObjectByName('rightLeg')
-    ]
     this.jumpForce = this.gravity * 1.8
     if (this.chaseCamera) {
       this.chaseCamera.speed = 4
       this.chaseCamera.distance = 4
     }
+    this.limbs = [
+      this.mesh.getObjectByName('leftHand'), this.mesh.getObjectByName('rightHand'),
+      this.mesh.getObjectByName('leftLeg'), this.mesh.getObjectByName('rightLeg')
+    ]
   }
 
   idleAnim() {

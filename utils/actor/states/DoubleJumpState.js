@@ -22,7 +22,7 @@ export default class DoubleJumpState extends State {
 
     if (actor.input.space
       && this.jumpTime < this.maxJumpTime
-      && actor.velocity.y < actor.maxVelocityY * delta
+      && actor.velocity.y < actor.maxVelocityY
     ) {
       this.jumpTime += delta
       actor.velocity.y += actor.jumpForce * delta

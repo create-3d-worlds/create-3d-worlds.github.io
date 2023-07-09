@@ -17,6 +17,10 @@ GUI:
 
 - videti sunposition
 
+Avatar 
+- BUG: trese se u skoku
+  - velocity udara u max velocity?
+
 ### Polishing
 
 DODATI SVUDA:

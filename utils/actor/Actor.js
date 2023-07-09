@@ -21,12 +21,12 @@ export default class Actor extends GameObject {
     animations,
     animDict,
     input,
-    gravity = 42,
-    jumpStyle,
     speed = 2,
+    jumpStyle,
+    gravity = 42,
     jumpForce = gravity * 1.66,
+    maxVelocityY = gravity / 3, // actually much greater than gravity with applied delta
     maxJumpTime = .28,
-    maxVelocityY = gravity * 20,
     drag = 0.5,
     getState,
     twoHandedWeapon,
@@ -387,7 +387,7 @@ export default class Actor extends GameObject {
   }
 
   applyGravity(delta) {
-    if (this.velocity.y > -this.maxVelocityY * delta)
+    if (this.velocity.y > -this.maxVelocityY)
       this.velocity.y -= this.gravity * delta
   }
 
