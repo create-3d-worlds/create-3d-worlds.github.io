@@ -53,7 +53,7 @@ spinner.hide()
 
 /* LOOP */
 
-const loop = new GameLoop.default((delta, time) => {
+new GameLoop.default((delta, time) => {
   renderer.render(scene, camera)
 
   const killed = enemies.filter(enemy => enemy.energy <= 0)
@@ -71,4 +71,8 @@ const loop = new GameLoop.default((delta, time) => {
   if (Math.random() > .998) lightningStrike(light)
 }, false, true)
 
-gui.showGameScreen({ goals: ['Find a way out.', 'Bonus: Kill all enemies.'], callback: () => loop.start(), usePointerLock: true, innerHTML: 'Shoot: MOUSE<br> Move: WASD or ARROWS<br> Run: CAPSLOCK' })
+gui.showGameScreen({
+  goals: ['Find a way out.', 'Bonus: Kill all enemies.'],
+  innerHTML: 'Shoot: MOUSE<br> Move: WASD or ARROWS<br> Run: CAPSLOCK',
+  usePointerLock: true,
+})

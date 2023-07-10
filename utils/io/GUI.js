@@ -59,12 +59,6 @@ export default class GUI {
 
   /* GAME SCREEN */
 
-  clearScreen() {
-    this.gameScreen.className = 'central-screen'
-    this.gameScreen.innerHTML = ''
-    this.gameScreen.onclick = undefined
-  }
-
   clearSoon(milliseconds = 3000) {
     setTimeout(() => {
       this.gameScreen.innerHTML = ''
@@ -113,23 +107,37 @@ export default class GUI {
     `
   }
 
-  showGameScreen({ goals = [], title = 'Click to START!', subtitle = '', innerHTML, callback, usePointerLock = false, shouldClear = !innerHTML && !usePointerLock } = {}) {
+  clearScreen() {
+    this.closeGameScreen()
+    this.gameScreen.onclick = undefined
+  }
+
+  closeGameScreen() {
+    this.gameScreen.classList.remove('rpgui-container', 'framed', 'pointer')
+    this.gameScreen.innerHTML = ''
+  }
+
+  openGameScreen(html) {
+    this.gameScreen.classList.add('rpgui-container', 'framed', 'pointer')
+    this.gameScreen.innerHTML = html
+  }
+
+  showGameScreen({ goals = [], title = 'Click to START!', subtitle = '', innerHTML, callback, usePointerLock = false } = {}) {
 
     const startHTML = this.getStartScreen({ goals, title, subtitle, innerHTML })
     if (this.gameScreen.innerHTML === startHTML) return
 
-    this.gameScreen.innerHTML = startHTML
-    this.gameScreen.classList.add('rpgui-container', 'framed', 'pointer')
+    this.openGameScreen(startHTML)
+
     this.gameScreen.onclick = e => {
-      if (usePointerLock) document.body.requestPointerLock()
       if (callback) callback(e)
-      if (shouldClear) this.clearScreen()
+      // if usePointerLock GameLoop will auto start
+      if (usePointerLock) document.body.requestPointerLock({ unadjustedMovement: true })
+      if (!innerHTML && !usePointerLock) this.clearScreen()
     }
 
-    if (usePointerLock) document.addEventListener('pointerlockchange', () => {
-      this.gameScreen.style.display = document.pointerLockElement ? 'none' : 'block'
-      this.gameScreen.innerHTML = startHTML
-    })
+    if (usePointerLock) document.addEventListener('pointerlockchange', () =>
+      document.pointerLockElement ? this.closeGameScreen() : this.openGameScreen(startHTML))
   }
 
   showEndScreen(params = {}) {

@@ -7,10 +7,12 @@ export default class GameLoop {
     this.animationId = null
 
     document.addEventListener('keypress', this.handleKeyPress)
+
     if (usePointerLock)
       document.addEventListener('pointerlockchange', this.handlePointerLockChange)
     else
       document.addEventListener('visibilitychange', this.handleVisibilityChange)
+
     if (autostart) this.start()
   }
 
