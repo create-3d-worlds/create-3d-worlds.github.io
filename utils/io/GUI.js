@@ -59,9 +59,9 @@ export default class GUI {
 
   /* GAME SCREEN */
 
-  clearSoon(milliseconds = 3000) {
+  closeSoon(milliseconds = 3000) {
     setTimeout(() => {
-      this.gameScreen.innerHTML = ''
+      this.closeGameScreen()
       this.tempTextRendered = false
     }, milliseconds)
   }
@@ -76,7 +76,7 @@ export default class GUI {
   showMessage(message, blink, milliseconds) {
     if (this.tempTextRendered) return
     this.renderText(message, blink)
-    this.clearSoon(milliseconds)
+    this.closeSoon(milliseconds)
     this.tempTextRendered = true
   }
 

@@ -13,13 +13,17 @@ npx live-server
 
 GUI:
 - BUG: end screen na fps ne radi, smisliti nešto
-- BUG: pointerLock start screen ostaje prazan ram
+  - setovati gui.playerDead, pa odlučiti sadržaj
+  - koristiti showEndScreen(), ali preklapa se sa pointerlockchange koji otvara/zatvara prozor
 
 - videti sunposition
 
 Avatar 
 - BUG: trese se u skoku
   - velocity udara u max velocity?
+
+FPS:
+- bolji objekat za health, kutija crveni krst ili tako što
 
 ### Polishing
 
