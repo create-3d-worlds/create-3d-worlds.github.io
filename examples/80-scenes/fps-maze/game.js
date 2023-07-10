@@ -6,6 +6,7 @@ import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
 import { Spinner } from '/utils/loaders.js'
+import Report from '/utils/io/Report.js'
 
 const enemies = []
 
@@ -72,7 +73,9 @@ new GameLoop.default((delta, time) => {
 }, false, true)
 
 gui.showGameScreen({
-  goals: ['Find the way out of the enemy base', 'Bonus: Kill all enemies'],,
+  goals: ['Find the way out', 'Bonus: Kill all enemies'],
   subtitle: 'Shoot: MOUSE<br> Move: WASD or ARROWS<br> Run: CAPSLOCK',
   usePointerLock: true,
 })
+
+new Report({ container: gui.gameScreen, text: 'After a successful mission you stayed behind enemy lines.\n\nFind the way out of the enemy base.' })

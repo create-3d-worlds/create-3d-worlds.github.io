@@ -120,7 +120,7 @@ export default class GUI {
     `
   }
 
-  showGameScreen({ goals = [], title = 'Click to START!', subtitle = '', autoClose = true, callback, usePointerLock = false } = {}) {
+  showGameScreen({ goals = [], title = 'Click to START!', subtitle = '', autoClose = false, callback, usePointerLock = false } = {}) {
 
     const startHTML = this.getStartScreen({ goals, title, subtitle })
     if (this.gameScreen.innerHTML === startHTML) return
@@ -129,9 +129,9 @@ export default class GUI {
 
     this.gameScreen.onclick = e => {
       if (callback) callback(e)
-      // on pointerlockchange GameLoop starts
-      if (usePointerLock) document.body.requestPointerLock({ unadjustedMovement: true })
       if (autoClose) this.clearScreen()
+      // GameLoop starts on pointerlockchange
+      if (usePointerLock) document.body.requestPointerLock({ unadjustedMovement: true })
     }
 
     if (usePointerLock) document.addEventListener('pointerlockchange', () => {

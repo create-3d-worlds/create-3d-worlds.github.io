@@ -132,4 +132,4 @@ const subtitle = /* html */`
     <input type="image" id="LAVA" src="/assets/images/avatar/LAVA.jpg" style="border: 3px solid black" />
   </div>
 `
-gui.showGameScreen({ title: 'Choose your avatar', subtitle, callback, autoClose: false })
+gui.showGameScreen({ title: 'Choose your avatar', subtitle, callback })

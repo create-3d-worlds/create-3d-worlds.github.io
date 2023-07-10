@@ -161,4 +161,4 @@ const subtitle = `
     ${options}
   </div>
 `
-gui.showGameScreen({ title: 'Choose your aircraft', subtitle, callback, autoClose: false })
+gui.showGameScreen({ title: 'Choose your aircraft', subtitle, callback })

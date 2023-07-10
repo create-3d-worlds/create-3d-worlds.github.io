@@ -115,4 +115,4 @@ const loop = new GameLoop((delta, time) => {
   particles.update({ delta, min: -1, max: 0, minVelocity: .2, maxVelocity: .5, loop: false })
 }, false)
 
-gui.showGameScreen({ goals: ['Survive until morning', 'Bonus: Kill zombies'], subtitle: 'Meet the morning<br>at the cursed graveyard.', callback: () => loop.start() })
+gui.showGameScreen({ goals: ['Survive until morning', 'Bonus: Kill zombies'], subtitle: 'Meet the morning<br>at the cursed graveyard.', callback: () => loop.start(), autoClose: true })
