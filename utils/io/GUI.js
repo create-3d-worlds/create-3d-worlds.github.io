@@ -131,13 +131,17 @@ export default class GUI {
 
     this.gameScreen.onclick = e => {
       if (callback) callback(e)
-      // if usePointerLock GameLoop will auto start
+      // on pointerlockchange GameLoop starts
       if (usePointerLock) document.body.requestPointerLock({ unadjustedMovement: true })
       if (!innerHTML && !usePointerLock) this.clearScreen()
     }
 
-    if (usePointerLock) document.addEventListener('pointerlockchange', () =>
-      document.pointerLockElement ? this.closeGameScreen() : this.openGameScreen(startHTML))
+    if (usePointerLock) document.addEventListener('pointerlockchange', () => {
+      if (document.pointerLockElement)
+        this.closeGameScreen()
+      else
+        this.openGameScreen(startHTML)
+    })
   }
 
   showEndScreen(params = {}) {

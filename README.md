@@ -12,9 +12,8 @@ npx live-server
 ## TODO
 
 GUI:
+- BUG: end screen na fps ne radi, smisliti nešto
 - BUG: pointerLock start screen ostaje prazan ram
-  - ujednačiti logiku, ili da se html prazni ili da se prozor krije
-- BUG: end screen na fps ne radi, prikazuje uvek start screen
 
 - videti sunposition
 
