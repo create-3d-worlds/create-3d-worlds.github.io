@@ -125,9 +125,11 @@ const callback = async e => {
   spinner.hide()
 }
 
-const innerHTML = /* html */`
-  <input type="image" id="STONE" src="/assets/images/avatar/STONE.jpg" style="border: 3px solid black" />
-  <input type="image" id="DISCO" src="/assets/images/avatar/DISCO.jpg" style="border: 3px solid black" />
-  <input type="image" id="LAVA" src="/assets/images/avatar/LAVA.jpg" style="border: 3px solid black" />
+const subtitle = /* html */`
+  <div class="game-screen-select">
+    <input type="image" id="STONE" src="/assets/images/avatar/STONE.jpg" style="border: 3px solid black" />
+    <input type="image" id="DISCO" src="/assets/images/avatar/DISCO.jpg" style="border: 3px solid black" />
+    <input type="image" id="LAVA" src="/assets/images/avatar/LAVA.jpg" style="border: 3px solid black" />
+  </div>
 `
-gui.showGameScreen({ title: 'Choose your avatar', innerHTML, callback })
+gui.showGameScreen({ title: 'Choose your avatar', subtitle, callback, autoClose: false })

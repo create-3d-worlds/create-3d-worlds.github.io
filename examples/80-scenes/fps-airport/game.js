@@ -48,7 +48,7 @@ const loop = new GameLoop.default(delta => {
   aircraft.forEach(obj => obj.update(delta))
 }, true, true)
 
-gui.showGameScreen({ callback: () => loop.start(), usePointerLock: true, innerHTML: 'Shoot: MOUSE<br>Move: WASD or ARROWS<br>Run: CAPSLOCK' })
+gui.showGameScreen({ callback: () => loop.start(), usePointerLock: true, subtitle: 'Shoot: MOUSE<br>Move: WASD or ARROWS<br>Run: CAPSLOCK' })
 
 new Report({ container: gui.gameScreen, text: 'The German planes that sow death among our combatants are stationed at the Rajlovac Airport near Sarajevo.\n\nEnter the airport and destroy all enemy aircraft.' })
 

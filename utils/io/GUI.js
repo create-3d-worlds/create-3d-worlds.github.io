@@ -32,7 +32,9 @@ export default class GUI {
     this.messageDict = messageDict
     this.endText = endText
     this.useBlink = useBlink
+
     this.tempTextRendered = false
+    this.playerDead = false
 
     this.gameScreen = document.createElement('div')
     this.gameScreen.className = 'central-screen'
@@ -86,27 +88,6 @@ export default class GUI {
     if (left === 0) this.renderText(this.endText)
   }
 
-  getStartScreen({ goals, title, subtitle, innerHTML }) {
-    const li = goals.map(goal => `<li>${goal}</li>`).join('')
-    const innerDiv = innerHTML
-      ? `<div class="game-screen-select">${innerHTML}</div>`
-      : ''
-
-    return `
-      <ul>${li}</ul>
-      <h2>${title}</h2>
-      ${subtitle}
-      ${innerDiv}
-    `
-  }
-
-  get endScreen() {
-    return /* html */`
-      <h2>You are dead.</h2>
-      <p>Press Reload to play again</p>
-    `
-  }
-
   clearScreen() {
     this.closeGameScreen()
     this.gameScreen.onclick = undefined
@@ -122,9 +103,26 @@ export default class GUI {
     this.gameScreen.innerHTML = html
   }
 
-  showGameScreen({ goals = [], title = 'Click to START!', subtitle = '', innerHTML, callback, usePointerLock = false } = {}) {
+  getStartScreen({ goals, title, subtitle }) {
+    const li = goals.map(goal => `<li>${goal}</li>`).join('')
 
-    const startHTML = this.getStartScreen({ goals, title, subtitle, innerHTML })
+    return `
+      <ul>${li}</ul>
+      <h2>${title}</h2>
+      ${subtitle}
+    `
+  }
+
+  get endScreen() {
+    return /* html */`
+      <h2>You are dead.</h2>
+      <p>Press Reload to play again</p>
+    `
+  }
+
+  showGameScreen({ goals = [], title = 'Click to START!', subtitle = '', autoClose = true, callback, usePointerLock = false } = {}) {
+
+    const startHTML = this.getStartScreen({ goals, title, subtitle })
     if (this.gameScreen.innerHTML === startHTML) return
 
     this.openGameScreen(startHTML)
@@ -133,7 +131,7 @@ export default class GUI {
       if (callback) callback(e)
       // on pointerlockchange GameLoop starts
       if (usePointerLock) document.body.requestPointerLock({ unadjustedMovement: true })
-      if (!innerHTML && !usePointerLock) this.clearScreen()
+      if (autoClose) this.clearScreen()
     }
 
     if (usePointerLock) document.addEventListener('pointerlockchange', () => {

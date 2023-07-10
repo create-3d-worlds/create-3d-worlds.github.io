@@ -72,7 +72,7 @@ new GameLoop.default((delta, time) => {
 }, false, true)
 
 gui.showGameScreen({
-  goals: ['Find a way out.', 'Bonus: Kill all enemies.'],
-  innerHTML: 'Shoot: MOUSE<br> Move: WASD or ARROWS<br> Run: CAPSLOCK',
+  goals: ['Find the way out of the enemy base', 'Bonus: Kill all enemies'],,
+  subtitle: 'Shoot: MOUSE<br> Move: WASD or ARROWS<br> Run: CAPSLOCK',
   usePointerLock: true,
 })
