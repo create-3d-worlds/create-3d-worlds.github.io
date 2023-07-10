@@ -12,11 +12,6 @@ npx live-server
 ## TODO
 
 GUI:
-- BUG: end screen na fps ne radi, smisliti nešto
-  - setovati gui.playerDead, pa odlučiti sadržaj
-  - koristiti showEndScreen(), ali jebe pointerlockchange koji otvara/zatvara prozor
-    - gui može ukloniti pointerlockchange listener
-
 - videti sunposition
 
 Avatar 
@@ -25,7 +20,6 @@ Avatar
 
 FPS maze:
 - bolji objekat za health, kutija crveni krst ili tako što
-- probati report: 'After a successful mission you stayed behind enemy lines. Find the way out of the enemy base.'
 
 ### Polishing
 

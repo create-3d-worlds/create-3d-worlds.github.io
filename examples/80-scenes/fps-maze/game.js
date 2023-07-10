@@ -60,6 +60,7 @@ new GameLoop.default((delta, time) => {
   const killed = enemies.filter(enemy => enemy.energy <= 0)
   gui.renderScore(killed.length, enemies.length - killed.length)
 
+  gui.playerDead = player.dead // update status for endScreen
   player.update(delta)
 
   if (player.position.distanceTo(maze.exitPosition) < 5)
@@ -78,4 +79,4 @@ gui.showGameScreen({
   usePointerLock: true,
 })
 
-new Report({ container: gui.gameScreen, text: 'After a successful mission you stayed behind enemy lines.\n\nFind the way out of the enemy base.' })
+new Report({ container: gui.gameScreen, text: 'After a successful sabotage mission you stayed behind enemy lines.\n\nFind the way out of the enemy base.' })

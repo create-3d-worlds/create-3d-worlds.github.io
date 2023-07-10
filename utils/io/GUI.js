@@ -40,7 +40,7 @@ export default class GUI {
     this.gameScreen.className = 'central-screen'
     document.body.appendChild(this.gameScreen)
 
-    this.addUIControls(controls, controlsClass)
+    this.addControls(controls, controlsClass)
 
     if (scoreTitle) {
       this.scoreDiv = document.createElement('div')
@@ -103,7 +103,7 @@ export default class GUI {
     this.gameScreen.innerHTML = html
   }
 
-  getStartScreen({ goals, title, subtitle }) {
+  getStartScreen({ goals = [], title = 'Click to START!', subtitle = '' } = {}) {
     const li = goals.map(goal => `<li>${goal}</li>`).join('')
 
     return `
@@ -120,13 +120,15 @@ export default class GUI {
     `
   }
 
-  showGameScreen({ goals = [], title = 'Click to START!', subtitle = '', autoClose = false, callback, usePointerLock = false } = {}) {
+  showGameScreen({ callback, autoClose = false, usePointerLock = false, ...params } = {}) {
 
-    const startHTML = this.getStartScreen({ goals, title, subtitle })
-    if (this.gameScreen.innerHTML === startHTML) return
+    const getScreen = () => this.playerDead ? this.endScreen : this.getStartScreen(params)
 
-    this.openGameScreen(startHTML)
+    if (this.gameScreen.innerHTML === getScreen()) return
 
+    this.openGameScreen(getScreen())
+
+    // HANDLE CLICK
     this.gameScreen.onclick = e => {
       if (callback) callback(e)
       if (autoClose) this.clearScreen()
@@ -134,11 +136,12 @@ export default class GUI {
       if (usePointerLock) document.body.requestPointerLock({ unadjustedMovement: true })
     }
 
+    // HANDLE POINTER LOCK
     if (usePointerLock) document.addEventListener('pointerlockchange', () => {
       if (document.pointerLockElement)
         this.closeGameScreen()
       else
-        this.openGameScreen(startHTML)
+        this.openGameScreen(getScreen())
     })
   }
 
@@ -153,7 +156,7 @@ export default class GUI {
 
   /* CONTROLS */
 
-  addUIControls(controls, controlsClass) {
+  addControls(controls, controlsClass) {
     const div = document.createElement('div')
     div.className = 'controls'
 
