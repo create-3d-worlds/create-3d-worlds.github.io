@@ -11,6 +11,7 @@ npx live-server
 
 ## TODO
 
+- BUG: avatar random boxes skače FLY ne DOUBLE_JUMP
 - mali BUG: mazes/walls kad se pritisne jump
 
 ### Polishing
