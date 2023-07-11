@@ -11,6 +11,8 @@ npx live-server
 
 ## TODO
 
+- mali BUG: mazes/walls kad se pritisne jump
+
 ### Polishing
 
 DODATI SVUDA:

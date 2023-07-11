@@ -19,7 +19,7 @@ const avatar = new Avatar({ size: 2, autoCamera: false })
 scene.add(avatar.mesh, createGround({ file: 'terrain/ground.jpg' }), createFirTrees())
 
 const controls = { 1: 'Distant camera', 2: 'FPS camera' }
-new GUI({ controls, scoreTitle: '', openControls: true })
+new GUI({ controls, controlsTitle: 'CAMERA CONTROLS', scoreTitle: '', openControls: true })
 
 /* FUNCTIONS */
 

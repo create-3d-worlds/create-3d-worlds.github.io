@@ -19,7 +19,7 @@ const player = new SorceressPlayer({ camera, solids: walls })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
-const gui = new GUI({ scoreTitle: 'Time', controlsClass: 'rpgui-button' })
+const gui = new GUI({ scoreTitle: 'Time', controlsClass: 'rpgui-button', moreControls: { Enter: 'attack', CapsLock: 'run' } })
 gui.showMessage('Find a way out!', true, 4000)
 
 /* LOOP */

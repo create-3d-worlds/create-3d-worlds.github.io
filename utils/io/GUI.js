@@ -16,15 +16,18 @@ export default class GUI {
     subtitle = 'left',
     points = 0,
     total,
+    scoreClass = 'rpgui-button golden',
+    useBlink = false,
+
     controls = baseControls,
+    controlsClass = '', // rpgui-button
+    controlsTitle = 'CONTROLS',
+    openControls = false,
+    moreControls = {},
+
     messageDict,
     endText = 'Bravo!<br>Nothing left',
     showHighScore = false,
-    useBlink = false,
-    scoreClass = 'rpgui-button golden',
-    controlsClass = '', // rpgui-button
-    openControls = false,
-    moreControls = {},
   } = {}) {
     this.scoreTitle = scoreTitle
     this.subtitle = subtitle
@@ -35,6 +38,7 @@ export default class GUI {
     this.endText = endText
     this.useBlink = useBlink
     this.openControls = openControls
+    this.controlsTitle = controlsTitle
 
     this.tempTextRendered = false
     this.playerDead = false
@@ -178,12 +182,12 @@ export default class GUI {
 
     const open = () => {
       content.style.display = 'block'
-      button.innerHTML = 'CONTROLS &#9654;'
+      button.innerHTML = `${this.controlsTitle} &#9654;`
     }
 
     const close = () => {
       content.style.display = 'none'
-      button.innerHTML = 'CONTROLS &#9660;'
+      button.innerHTML = `${this.controlsTitle} &#9660;`
     }
 
     if (this.openControls) open()

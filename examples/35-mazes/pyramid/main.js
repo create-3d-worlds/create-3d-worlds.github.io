@@ -22,7 +22,7 @@ const player = new Avatar({ camera, solids: pyramid, skin: 'LAVA' })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
-const gui = new GUI({ scoreTitle: 'Time', scoreClass: '' })
+const gui = new GUI({ scoreTitle: 'Time', scoreClass: '', moreControls: { Space: 'jump', CapsLock: 'run' } })
 gui.showMessage('Find the way out', true, 4000)
 
 /* LOOP */
@@ -30,7 +30,9 @@ gui.showMessage('Find the way out', true, 4000)
 void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
+
   gui.renderTime()
   player.update(delta)
+
   renderer.render(scene, camera)
 }()
