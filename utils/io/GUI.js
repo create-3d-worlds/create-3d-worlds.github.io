@@ -132,8 +132,7 @@ export default class GUI {
     this.gameScreen.onclick = e => {
       if (callback) callback(e)
       if (autoClose) this.clearScreen()
-      // GameLoop starts on pointerlockchange
-      if (usePointerLock) document.body.requestPointerLock({ unadjustedMovement: true })
+      if (usePointerLock) document.body.requestPointerLock() // gameLoop starts
     }
 
     // HANDLE POINTER LOCK
