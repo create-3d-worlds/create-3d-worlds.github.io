@@ -22,7 +22,8 @@ export default class GUI {
     showHighScore = false,
     useBlink = false,
     scoreClass = 'rpgui-button golden',
-    controlsClass = '' // rpgui-button
+    controlsClass = '', // rpgui-button
+    controlsOpen = false,
   } = {}) {
     this.scoreTitle = scoreTitle
     this.subtitle = subtitle
@@ -32,6 +33,7 @@ export default class GUI {
     this.messageDict = messageDict
     this.endText = endText
     this.useBlink = useBlink
+    this.controlsOpen = controlsOpen
 
     this.tempTextRendered = false
     this.playerDead = false
@@ -159,23 +161,31 @@ export default class GUI {
     const div = document.createElement('div')
     div.className = 'controls'
 
-    const closedTitle = 'CONTROLS &#9660;'
-    const openTitle = 'CONTROLS &#9654;'
-
     const button = document.createElement('button')
     button.className = controlsClass
-    button.innerHTML = closedTitle
 
     const content = document.createElement('div')
     content.className = 'rpgui-container framed'
     content.innerHTML = Object.keys(controls).map(key =>
       `<p><b>${key}</b> ${controls[key]}</p>`
     ).join('')
-    content.style.display = 'none'
+
+    const openControls = () => {
+      content.style.display = 'block'
+      button.innerHTML = 'CONTROLS &#9654;'
+    }
+
+    const closeControls = () => {
+      content.style.display = 'none'
+      button.innerHTML = 'CONTROLS &#9660;'
+    }
+
+    if (this.controlsOpen) openControls()
+    else closeControls()
 
     button.addEventListener('click', () => {
-      content.style.display = content.style.display == 'none' ? 'block' : 'none'
-      button.innerHTML = content.style.display == 'none' ? closedTitle : openTitle
+      if (content.style.display == 'none') openControls()
+      else closeControls()
     })
 
     div.appendChild(button)

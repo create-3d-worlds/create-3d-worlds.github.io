@@ -14,8 +14,7 @@ npx live-server
 ### Polishing
 
 DODATI SVUDA:
-  - UI kontrole
-    - minimalne default kontrole (move)
+  - GUI kontrole
     - proširivati po potrebi (pause, attack, jump, run, desni miš rotiranje kamere, spell cast...)
     - igrač ako baca magiju da renderuje dugme
     - toggle camera na C
