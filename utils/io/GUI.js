@@ -91,7 +91,7 @@ export default class GUI {
     if (left === 0) this.renderText(this.endText)
   }
 
-  showBlinkingMessage({ message, time, messageInterval }) {
+  showBlinkingMessage({ message, time, messageInterval = 20 }) {
     if (!this.playerDead && Math.ceil(time) % messageInterval == 0)
       this.showMessage(message, true)
   }
@@ -201,10 +201,6 @@ export default class GUI {
 
   /* SCORE */
 
-  renderTime() {
-    this.renderScore(Math.floor(performance.now() / 1000))
-  }
-
   renderScore(points, left) {
     const blink = this.useBlink ? 'blink' : ''
     const subtitle = isNumber(left) ? `<br><small class="${blink}">${this.subtitle}: ${left}</small>` : ''
@@ -230,9 +226,15 @@ export default class GUI {
     this.renderScore(this.points, left)
   }
 
+  /* UTILS */
+
+  renderTime() {
+    this.renderScore(Math.floor(performance.now() / 1000))
+  }
+
   /* SCORE */
 
-  update({ time, points, left, dead, blinkingMessage, messageInterval = 20 } = {}) {
+  update({ time, points, left, dead, blinkingMessage, messageInterval } = {}) {
     this.playerDead = dead
     this.renderScore(points, left)
     if (blinkingMessage) this.showBlinkingMessage({ time, message: blinkingMessage, messageInterval })

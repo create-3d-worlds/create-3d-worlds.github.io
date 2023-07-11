@@ -30,14 +30,16 @@ scene.add(player.mesh)
 
 const moreControls = { CapsLock: 'run', Enter: 'attack', Space: 'jump' }
 const gui = new GUI({ scoreTitle: 'Time', scoreClass: '', moreControls })
-
 gui.showMessage('Get out of the concrete jungle', true, 4000)
 
 /* LOOP */
 
-void function loop() {
+void function loop(time) {
   requestAnimationFrame(loop)
   player.update()
+
   gui.renderTime()
+  gui.showBlinkingMessage({ message: 'Get out of the concrete jungle', time: time / 1000 })
+
   renderer.render(scene, camera)
 }()
