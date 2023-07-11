@@ -11,9 +11,6 @@ npx live-server
 
 ## TODO
 
-GUI:
-- funkcija za trepereću poruku
-
 ### Polishing
 
 DODATI SVUDA:
