@@ -19,10 +19,10 @@ export default class GUI {
     scoreClass = 'rpgui-button golden',
     useBlink = false,
 
+    controlsTitle = 'CONTROLS',
     controls = baseControls,
     controlsClass = '', // rpgui-button
-    controlsTitle = 'CONTROLS',
-    openControls = false,
+    controlsOpen = false,
     moreControls = {},
 
     messageDict,
@@ -37,7 +37,7 @@ export default class GUI {
     this.messageDict = messageDict
     this.endText = endText
     this.useBlink = useBlink
-    this.openControls = openControls
+    this.controlsOpen = controlsOpen
     this.controlsTitle = controlsTitle
 
     this.tempTextRendered = false
@@ -190,7 +190,7 @@ export default class GUI {
       button.innerHTML = `${this.controlsTitle} &#9660;`
     }
 
-    if (this.openControls) open()
+    if (this.controlsOpen) open()
     else close()
 
     button.addEventListener('click', () => {
