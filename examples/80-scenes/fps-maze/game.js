@@ -58,15 +58,16 @@ new GameLoop.default((delta, time) => {
   renderer.render(scene, camera)
 
   const killed = enemies.filter(enemy => enemy.energy <= 0)
-  gui.renderScore(killed.length, enemies.length - killed.length)
+  const left = enemies.length - killed.length
 
-  gui.playerDead = player.dead // update status for endScreen
   player.update(delta)
+
+  // TODO: ne prikazivati blinkingMessage nakon što se ispuni cilj
+
+  gui.update({ time, points: killed.length, left, dead: player.dead, blinkingMessage: 'Find a way out!' })
 
   if (player.position.distanceTo(maze.exitPosition) < 5)
     gui.renderText(`Bravo!<br>You found a way out<br> and kill ${killed.length} of ${enemies.length} enemies`)
-  else if (!player.dead && Math.ceil(time) % 20 == 0)
-    gui.showMessage('Find a way out!', true)
 
   enemies.forEach(enemy => enemy.update(delta))
 

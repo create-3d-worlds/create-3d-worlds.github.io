@@ -24,6 +24,7 @@ export default class GUI {
     scoreClass = 'rpgui-button golden',
     controlsClass = '', // rpgui-button
     controlsOpen = false,
+    moreControls = {},
   } = {}) {
     this.scoreTitle = scoreTitle
     this.subtitle = subtitle
@@ -42,7 +43,7 @@ export default class GUI {
     this.gameScreen.className = 'central-screen'
     document.body.appendChild(this.gameScreen)
 
-    this.addControls(controls, controlsClass)
+    this.addControls({ ...controls, ...moreControls }, controlsClass)
 
     if (scoreTitle) {
       this.scoreDiv = document.createElement('div')
@@ -88,6 +89,11 @@ export default class GUI {
     const message = this.messageDict[points]
     if (message) this.showMessage(message)
     if (left === 0) this.renderText(this.endText)
+  }
+
+  showBlinkingMessage({ message, time, messageInterval }) {
+    if (!this.playerDead && Math.ceil(time) % messageInterval == 0)
+      this.showMessage(message, true)
   }
 
   clearScreen() {
@@ -222,5 +228,13 @@ export default class GUI {
   addScore(change = 1, left) {
     this.points += change
     this.renderScore(this.points, left)
+  }
+
+  /* SCORE */
+
+  update({ time, points, left, dead, blinkingMessage, messageInterval = 20 } = {}) {
+    this.playerDead = dead
+    this.renderScore(points, left)
+    if (blinkingMessage) this.showBlinkingMessage({ time, message: blinkingMessage, messageInterval })
   }
 }
