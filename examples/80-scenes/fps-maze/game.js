@@ -43,10 +43,10 @@ for (let i = 0; i < 10; i++) {
   scene.add(enemy.mesh)
 }
 
-const Potion = await import('/utils/objects/Potion.js')
+const FirstAid = await import('/utils/objects/FirstAid.js')
 for (let i = 0; i < 2; i++) {
-  const potion = new Potion.default({ pos: coords.pop() })
-  scene.add(potion.mesh)
+  const firstAid = new FirstAid.default({ pos: coords.pop() })
+  scene.add(firstAid.mesh)
 }
 
 const GameLoop = await import('/utils/GameLoop.js')

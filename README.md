@@ -11,13 +11,6 @@ npx live-server
 
 ## TODO
 
-GUI:
-- videti sunposition
-
-Avatar 
-- BUG: trese se u skoku
-  - velocity udara u max velocity?
-
 FPS maze:
 - bolji objekat za health, kutija crveni krst ili tako što
 
