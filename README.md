@@ -11,9 +11,6 @@ npx live-server
 
 ## TODO
 
-FPS maze:
-- bolji objekat za health, kutija crveni krst ili tako što
-
 ### Polishing
 
 DODATI SVUDA:
