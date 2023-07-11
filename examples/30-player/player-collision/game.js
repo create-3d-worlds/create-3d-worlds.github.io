@@ -9,19 +9,19 @@ scene.add(createGround())
 const sun = createSun()
 scene.add(sun)
 
-const avatar = new Avatar()
-avatar.add(camera)
-scene.add(avatar.mesh)
+const player = new Avatar()
+player.add(camera)
+scene.add(player.mesh)
 
 const trees = createFirTrees()
 scene.add(trees)
-avatar.addSolids(trees)
+player.addSolids(trees)
 
 /* LOOP */
 
 void function loop() {
   requestAnimationFrame(loop)
   const delta = clock.getDelta()
-  avatar.update(delta)
+  player.update(delta)
   renderer.render(scene, camera)
 }()

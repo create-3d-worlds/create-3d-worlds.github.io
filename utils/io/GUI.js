@@ -23,7 +23,7 @@ export default class GUI {
     useBlink = false,
     scoreClass = 'rpgui-button golden',
     controlsClass = '', // rpgui-button
-    controlsOpen = false,
+    openControls = false,
     moreControls = {},
   } = {}) {
     this.scoreTitle = scoreTitle
@@ -34,7 +34,7 @@ export default class GUI {
     this.messageDict = messageDict
     this.endText = endText
     this.useBlink = useBlink
-    this.controlsOpen = controlsOpen
+    this.openControls = openControls
 
     this.tempTextRendered = false
     this.playerDead = false
@@ -176,22 +176,22 @@ export default class GUI {
       `<p><b>${key}</b> ${controls[key]}</p>`
     ).join('')
 
-    const openControls = () => {
+    const open = () => {
       content.style.display = 'block'
       button.innerHTML = 'CONTROLS &#9654;'
     }
 
-    const closeControls = () => {
+    const close = () => {
       content.style.display = 'none'
       button.innerHTML = 'CONTROLS &#9660;'
     }
 
-    if (this.controlsOpen) openControls()
-    else closeControls()
+    if (this.openControls) open()
+    else close()
 
     button.addEventListener('click', () => {
-      if (content.style.display == 'none') openControls()
-      else closeControls()
+      if (content.style.display == 'none') open()
+      else close()
     })
 
     div.appendChild(button)

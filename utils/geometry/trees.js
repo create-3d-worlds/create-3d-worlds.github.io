@@ -132,7 +132,7 @@ export function createTrees({ mapSize = 100, size = 4, n = maxItems(mapSize, siz
   return group
 }
 
-export const createFirTrees = ({ mapSize = 100, size = 5, n = maxItems(mapSize, size) / 4, ...params } = {}) => createTrees({ mapSize, size, nFirTrees: n, n: 0, ...params })
+export const createFirTrees = ({ mapSize = 100, size = 5, n = 50, ...params } = {}) => createTrees({ mapSize, size, nFirTrees: n, n: 0, ...params })
 
 export const createTreesOnTerrain = ({ terrain, n = 100, mapSize = 400, size, coords = getEmptyCoords({ mapSize, fieldSize: size }) } = {}) => {
   const group = new THREE.Group()
