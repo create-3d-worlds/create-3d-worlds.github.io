@@ -224,6 +224,12 @@ button {
   border-image-source: url("/assets/images/rpgui/border-image-golden.png");
 }
 
+.white-window {
+  margin-top: 10px;
+  border: 2px solid white;
+  padding: 10px;
+}
+
 /* REPORT */
 
 .report {

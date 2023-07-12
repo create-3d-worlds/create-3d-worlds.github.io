@@ -39,7 +39,8 @@ renderer.render(scene, camera)
 /* LAZY LOAD */
 
 const GUI = await import('/utils/io/GUI.js')
-const gui = new GUI.default({ scoreTitle: 'Zombies killed', subtitle: 'Time left', useBlink: true })
+const moreControls = { CapsLock: 'run', Enter: 'shoot', P: 'pause' }
+const gui = new GUI.default({ scoreTitle: 'Zombies killed', subtitle: 'Time left', useBlink: true, moreControls })
 
 const DeadTree = await import('/utils/objects/DeadTree.js')
 for (let i = 0; i < 10; i++) {

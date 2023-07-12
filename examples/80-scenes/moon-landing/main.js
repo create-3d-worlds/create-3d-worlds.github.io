@@ -31,7 +31,17 @@ saturn.position.set(85, 20, -50)
 
 scene.add(platform.mesh, stars.mesh, jupiter, saturn, moon, moonLight)
 
-const gui = new GUI({ subtitle: 'Fuel left', scoreClass: '' })
+const controls = {
+  '← or A': 'thrust left',
+  '→ or D': 'thrust right',
+  '↓ or S': 'thrust down',
+  P: 'pause',
+  // 'Space:': 'jump',
+  // 'Enter:': 'attack',
+  // 'CapsLock:': 'run',
+}
+
+const gui = new GUI({ subtitle: 'Fuel left', scoreClass: '', controls, controlsWindowClass: 'white-window' })
 gui.showMessage('Land on the platform gently')
 
 /* LOOP */
@@ -57,7 +67,7 @@ new GameLoop((dt, time) => {
     gui.renderText(lander.endText + '<br><br><small>press R to play again</small>')
     if (lander.input.pressed.KeyR) {
       lander.reset()
-      gui.clear()
+      gui.reset()
     }
   }
 })

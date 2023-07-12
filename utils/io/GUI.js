@@ -29,7 +29,8 @@ export default class GUI {
 
     controlsTitle = 'CONTROLS',
     controls = baseControls,
-    controlsClass = '', // rpgui-button
+    controlsClass = '', // try rpgui-button
+    controlsWindowClass = 'rpgui-container framed',
     controlsOpen = false,
     moreControls = {},
 
@@ -55,7 +56,7 @@ export default class GUI {
     this.gameScreen.className = 'central-screen'
     document.body.appendChild(this.gameScreen)
 
-    this.addControls({ ...controls, ...moreControls }, controlsClass)
+    this.addControls({ ...controls, ...moreControls }, controlsClass, controlsWindowClass)
 
     if (scoreTitle) {
       this.scoreDiv = document.createElement('div')
@@ -175,7 +176,7 @@ export default class GUI {
 
   /* CONTROLS */
 
-  addControls(controls, controlsClass) {
+  addControls(controls, controlsClass, controlsWindowClass) {
     const div = document.createElement('div')
     div.className = 'controls'
 
@@ -183,7 +184,7 @@ export default class GUI {
     button.className = controlsClass
 
     const content = document.createElement('div')
-    content.className = 'rpgui-container framed'
+    content.className = controlsWindowClass
     content.innerHTML = Object.keys(controls).map(key =>
       `<p><b>${key}</b> - ${controls[key]}</p>`
     ).join('')
