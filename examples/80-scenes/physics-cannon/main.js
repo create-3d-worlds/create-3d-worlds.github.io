@@ -43,4 +43,5 @@ cannon = new cannonFile.default({ world, camera })
 scene.add(cannon.mesh, ...cannon.wheelMeshes)
 
 const scoreFile = await import('/utils/io/GUI.js')
-gui = new scoreFile.default({ scoreTitle: 'Blocks left', points: countableCrates.length })
+const moreControls = { 'Mouse pressed': 'add force', 'Mouse released': 'shoot' }
+gui = new scoreFile.default({ scoreTitle: 'Blocks left', points: countableCrates.length, moreControls })
