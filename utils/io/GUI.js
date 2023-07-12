@@ -1,13 +1,21 @@
 const isNumber = num => typeof num == 'number'
 
 const baseControls = {
-  '←': 'left',
-  '→': 'right',
-  '↑': 'forward',
-  '↓': 'backward',
+  '← or A': 'left',
+  '→ or D': 'right',
+  '↑ or W': 'forward',
+  '↓ or S': 'backward',
   // 'Space:': 'jump',
   // 'Enter:': 'attack',
   // 'CapsLock:': 'run',
+}
+
+export const moreFPSControls = {
+  'PgUp or Q': 'strafe left',
+  'PgDn or E': 'strafe right',
+  CapsLock: 'run',
+  Mouse: 'attack',
+  P: 'pause',
 }
 
 export default class GUI {
@@ -177,7 +185,7 @@ export default class GUI {
     const content = document.createElement('div')
     content.className = 'rpgui-container framed'
     content.innerHTML = Object.keys(controls).map(key =>
-      `<p><b>${key}</b> ${controls[key]}</p>`
+      `<p><b>${key}</b> - ${controls[key]}</p>`
     ).join('')
 
     const open = () => {

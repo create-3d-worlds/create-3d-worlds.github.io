@@ -31,7 +31,8 @@ renderer.render(scene, camera) // first draw
 /* DYNAMIC IMPORT */
 
 const GUI = await import('/utils/io/GUI.js')
-const gui = new GUI.default({ subtitle: 'Enemy left', total: enemies.length })
+const { moreFPSControls } = GUI
+const gui = new GUI.default({ subtitle: 'Enemy left', total: enemies.length, moreControls: moreFPSControls })
 
 const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer', 'GermanFlameThrower']
 for (let i = 0; i < 10; i++) {

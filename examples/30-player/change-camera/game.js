@@ -18,7 +18,7 @@ let currentCamera = camera
 const avatar = new Avatar({ size: 2, autoCamera: false })
 scene.add(avatar.mesh, createGround({ file: 'terrain/ground.jpg' }), createFirTrees())
 
-const controls = { 1: 'Distant camera', 2: 'FPS camera' }
+const controls = { 1: 'Surveillance camera', 2: 'Follow-up camera' }
 new GUI({ controls, controlsTitle: 'CAMERA CONTROLS', scoreTitle: '', controlsOpen: true })
 
 /* FUNCTIONS */
