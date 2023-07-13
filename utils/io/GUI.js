@@ -25,6 +25,12 @@ export const rpgControls = {
   P: 'pause',
 }
 
+export const avatarControls = {
+  ...baseControls,
+  CapsLock: 'run',
+  Space: 'jump',
+}
+
 export default class GUI {
   constructor({
     scoreTitle = 'Score',

@@ -3,7 +3,7 @@ import { createRandomBoxes } from '/utils/geometry/index.js'
 import { createGround, createLava } from '/utils/ground.js'
 import { hemLight } from '/utils/light.js'
 import Coin from '/utils/objects/Coin.js'
-import GUI from '/utils/io/GUI.js'
+import GUI, { avatarControls } from '/utils/io/GUI.js'
 import Platform from '/utils/objects/Platform.js'
 import { Spinner } from '/utils/loaders.js'
 import GameLoop from '/utils/GameLoop.js'
@@ -34,9 +34,8 @@ const messageDict = {
   50: 'Half down, half to go!',
   75: 'You smell victory in the air...',
 }
-const controls = { move: 'WASD/Arrows', jump: 'Space', run: 'CapsLock', pause: 'P' }
 
-const gui = new GUI({ subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict, controls })
+const gui = new GUI({ subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict, controls: { ...avatarControls, P: 'pause' } })
 
 const lava = await createLava({ size: lavaSize })
 scene.add(lava)

@@ -4,7 +4,7 @@ import { huntAndKill } from '/utils/mazes/algorithms.js'
 import Avatar from '/utils/actor/Avatar.js'
 import { hemLight } from '/utils/light.js'
 import { createMarble } from '/utils/ground.js'
-import GUI from '/utils/io/GUI.js'
+import GUI, { avatarControls } from '/utils/io/GUI.js'
 
 const cellSize = 8
 const matrixSize = 12
@@ -22,7 +22,7 @@ const player = new Avatar({ camera, solids: pyramid, skin: 'LAVA' })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
-const gui = new GUI({ scoreTitle: 'Time', scoreClass: '', moreControls: { Space: 'jump', CapsLock: 'run' } })
+const gui = new GUI({ scoreTitle: 'Time', scoreClass: '', controls: avatarControls })
 gui.showMessage('Find the way out', true, 4000)
 
 /* LOOP */
