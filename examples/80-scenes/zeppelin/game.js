@@ -20,10 +20,10 @@ const water = createWater({ size: mapSize * 10 })
 scene.add(water)
 
 const controls = {
-  '←': 'left',
-  '→': 'right',
-  '↑': 'up',
-  '↓': 'down',
+  '← or A': 'left',
+  '→ or D': 'right',
+  '↑ or W': 'up',
+  '↓ or S': 'down',
   'PgUp': 'speed up',
   'PgDn': 'slow down',
 }

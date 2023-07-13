@@ -19,8 +19,6 @@ npx live-server
 
 DODATI SVUDA:
   - GUI kontrole
-    - proširivati po potrebi (pause, attack, jump, run, spell cast...)
-    - promeniti special sa control, često se pritiska slučajno
     - igrač ako baca magiju da renderuje dugme
     - toggle camera na C
     - srediti boje, senku, bold, itd

@@ -35,8 +35,11 @@ ground2.position.z = -groundDistance
 scene.add(ground, ground2)
 
 const controls = {
-  'WASD or Arrows:': 'MOVE',
-  'Enter:': 'Attack',
+  '← or A': 'left',
+  '→ or D': 'right',
+  '↑ or W': 'up',
+  '↓ or S': 'down',
+  'Enter': 'attack',
 }
 const gui = new GUI({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.', controls, useBlink: true })
 
