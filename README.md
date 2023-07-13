@@ -11,6 +11,7 @@ npx live-server
 
 ## TODO
 
+- mazes/pipes: avatar preterano skače i prebrz je, srediti komande
 - BUG: avatar random boxes skače FLY ne DOUBLE_JUMP
 - mali BUG: mazes/walls kad se pritisne jump
 - mali bug: click na controls btn okida mouseup Cannon.shoot() u physics-cannon/
@@ -19,13 +20,14 @@ npx live-server
 
 DODATI SVUDA:
   - GUI kontrole
-    - igrač ako baca magiju da renderuje dugme
+    - refactor moreFPSControls to fpsControls i ostalo
+    - mazes/ruins i druge lavirinte (reuse avatar controls iz pyramid)
+    - igrač ako baca magiju dodati dugme
   - komande za telefone (strelice i dugmiće), testirati
     - renderovati virtuelni joystick https://en.wikipedia.org/wiki/File:Vg_graphics.svg
   - reload button u end screen (ili kad igrač umre)
   - full screen btn
   - volume / mute btn
-- pauzirati scenu na tab unfocus
 - po završetku partije upisivanje imena pored poena za top listu
 - centralni ekran sa izborom scena 
   - jedan index.html i dinamički import na klik

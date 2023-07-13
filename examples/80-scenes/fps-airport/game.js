@@ -3,7 +3,7 @@ import { createGround, createFloor } from '/utils/ground.js'
 import { sample, getEmptyCoords } from '/utils/helpers.js'
 import { createSun } from '/utils/light.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
-import GUI, { moreFPSControls } from '/utils/io/GUI.js'
+import GUI, { fpsControls } from '/utils/io/GUI.js'
 import { createAirport } from '/utils/city.js'
 import { loadModel } from '/utils/loaders.js'
 import Report from '/utils/io/Report.js'
@@ -27,7 +27,7 @@ const player = new FPSPlayer({ camera, pos: [100, 0, 0] })
 player.lookAt(scene.position)
 scene.add(player.mesh)
 
-const gui = new GUI({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + heinkelNum, scoreClass: '', moreControls: moreFPSControls, controlsWindowClass: 'white-window' })
+const gui = new GUI({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + heinkelNum, scoreClass: '', controls: fpsControls, controlsWindowClass: 'white-window' })
 
 /* LOOP */
 

@@ -15,11 +15,11 @@ const maze = new Maze(4, 8, recursiveBacktracker, 5)
 const walls = maze.toTiledMesh({ texture: 'walls/stonetiles.jpg', maxHeight: 6 })
 scene.add(walls)
 
-const player = new SorceressPlayer({ camera, solids: walls })
+const player = new SorceressPlayer({ camera, solids: walls, cameraClass: 'rpgui-button' })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
-const gui = new GUI({ scoreTitle: 'Time', controlsClass: 'rpgui-button', moreControls: { Enter: 'attack', CapsLock: 'run' } })
+const gui = new GUI({ scoreTitle: 'Time', controlsClass: 'rpgui-button', moreControls: { CapsLock: 'run', Enter: 'spell cast' } })
 gui.showMessage('Find a way out!', true, 4000)
 
 /* LOOP */

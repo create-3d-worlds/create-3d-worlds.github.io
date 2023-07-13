@@ -7,7 +7,8 @@ const baseControls = {
   '↓ or S': 'backward',
 }
 
-export const moreFPSControls = {
+export const fpsControls = {
+  ...baseControls,
   'PgUp or Q': 'strafe left',
   'PgDn or E': 'strafe right',
   CapsLock: 'run',
