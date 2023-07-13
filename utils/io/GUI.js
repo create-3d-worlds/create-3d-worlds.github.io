@@ -19,6 +19,7 @@ export const moreRPGControls = {
   CapsLock: 'run',
   Enter: 'attack',
   Space: 'jump',
+  V: 'spell cast',
   P: 'pause',
 }
 

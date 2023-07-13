@@ -121,8 +121,8 @@ class Input {
     return this.pressed.ShiftLeft || this.pressed.ShiftRight
   }
 
-  get control() {
-    return this.pressed.ControlLeft || this.pressed.ControlRight
+  get special() {
+    return this.pressed.KeyV
   }
 
   /* UTILS */
