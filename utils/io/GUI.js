@@ -5,9 +5,6 @@ const baseControls = {
   '→ or D': 'right',
   '↑ or W': 'forward',
   '↓ or S': 'backward',
-  // 'Space:': 'jump',
-  // 'Enter:': 'attack',
-  // 'CapsLock:': 'run',
 }
 
 export const moreFPSControls = {
@@ -15,6 +12,13 @@ export const moreFPSControls = {
   'PgDn or E': 'strafe right',
   CapsLock: 'run',
   Mouse: 'attack',
+  P: 'pause',
+}
+
+export const moreRPGControls = {
+  CapsLock: 'run',
+  Enter: 'attack',
+  Space: 'jump',
   P: 'pause',
 }
 

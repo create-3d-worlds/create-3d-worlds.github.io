@@ -42,6 +42,8 @@ const cannonFile = await import('/utils/physics/Cannon.js')
 cannon = new cannonFile.default({ world, camera })
 scene.add(cannon.mesh, ...cannon.wheelMeshes)
 
-const scoreFile = await import('/utils/io/GUI.js')
+const GUI = await import('/utils/io/GUI.js')
 const moreControls = { 'Mouse pressed': 'add force', 'Mouse released': 'shoot' }
-gui = new scoreFile.default({ scoreTitle: 'Blocks left', points: countableCrates.length, moreControls })
+gui = new GUI.default({ scoreTitle: 'Blocks left', points: countableCrates.length, moreControls })
+
+gui.showMessage('Demolish all blocks')

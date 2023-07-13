@@ -91,6 +91,6 @@ const tankFile = await import('/utils/physics/Tank.js')
 tank = new tankFile.default({ physicsWorld: world.physicsWorld, camera, pos: { x: 0, y: 0, z: -20 } })
 scene.add(tank.mesh)
 
-const scoreFile = await import('/utils/io/GUI.js')
-gui = new scoreFile.default({ scoreTitle: 'Crates left', points: countableCrates.length, subtitle: 'Time', total: 0, useBlink: true })
+const GUI = await import('/utils/io/GUI.js')
+gui = new GUI.default({ scoreTitle: 'Crates left', points: countableCrates.length, subtitle: 'Time', total: 0, useBlink: true, moreControls: { Space: 'break' } })
 gui.showMessage('Demolish all crates')

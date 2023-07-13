@@ -26,12 +26,13 @@ renderer.render(scene, camera) // first draw
 /* DYNAMIC IMPORT */
 
 const GUI = await import('/utils/io/GUI.js')
+const { moreRPGControls } = GUI
 const messageDict = {
   1: 'You just killed the first Orc.<br>Middle Earth will be free!',
   10: 'You killed half the vile creatures',
   19: 'You smell victory in the air...',
 }
-const gui = new GUI.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button' })
+const gui = new GUI.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button', moreControls: moreRPGControls })
 
 const castle = await loadModel({ file: 'building/castle/fortress.fbx', size: 40 })
 putOnSolids(castle, terrain, -5)
@@ -98,4 +99,9 @@ const loop = new GameLoop.default(delta => {
   gui?.renderScore(killed.length, player.enemies.length - killed.length)
 }, false)
 
-gui.showGameScreen({ goals: ['Kill all the Orcs'], subtitle: 'Free the land<br>from their vile presence!', callback: () => loop.start(), autoClose: true })
+gui.showGameScreen({
+  goals: ['Kill all the Orcs'],
+  subtitle: 'Free the land<br>from their vile presence!',
+  callback: () => loop.start(),
+  autoClose: true
+})

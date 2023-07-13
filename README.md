@@ -13,15 +13,16 @@ npx live-server
 
 - BUG: avatar random boxes skače FLY ne DOUBLE_JUMP
 - mali BUG: mazes/walls kad se pritisne jump
+- mali bug: click na controls btn okida mouseup Cannon.shoot() u physics-cannon/
 
 ### Polishing
 
 DODATI SVUDA:
   - GUI kontrole
-    - proširivati po potrebi (pause, attack, jump, run, desni miš rotiranje kamere, spell cast...)
+    - proširivati po potrebi (pause, attack, jump, run, spell cast...)
+    - promeniti special sa control, često se pritiska slučajno
     - igrač ako baca magiju da renderuje dugme
     - toggle camera na C
-    - promeniti special sa control, često se pritiska slučajno
     - srediti boje, senku, bold, itd
     - negde controls dugme?
     - da otvorene kontrole negde nemaju okvir
