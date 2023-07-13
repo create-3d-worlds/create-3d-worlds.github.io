@@ -20,7 +20,6 @@ npx live-server
 
 DODATI SVUDA:
   - GUI kontrole
-    - refactor moreFPSControls to fpsControls i ostalo
     - mazes/ruins i druge lavirinte (reuse avatar controls iz pyramid)
     - igrač ako baca magiju dodati dugme
   - komande za telefone (strelice i dugmiće), testirati

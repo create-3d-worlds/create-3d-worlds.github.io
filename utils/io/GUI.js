@@ -16,7 +16,8 @@ export const fpsControls = {
   P: 'pause',
 }
 
-export const moreRPGControls = {
+export const rpgControls = {
+  ...baseControls,
   CapsLock: 'run',
   Enter: 'attack',
   Space: 'jump',
