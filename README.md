@@ -20,10 +20,6 @@ npx live-server
 DODATI SVUDA:
   - GUI kontrole
     - igrač ako baca magiju da renderuje dugme
-    - toggle camera na C
-    - srediti boje, senku, bold, itd
-    - negde controls dugme?
-    - da otvorene kontrole negde nemaju okvir
   - komande za telefone (strelice i dugmiće), testirati
     - renderovati virtuelni joystick https://en.wikipedia.org/wiki/File:Vg_graphics.svg
   - reload button u end screen (ili kad igrač umre)

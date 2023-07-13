@@ -27,7 +27,7 @@ const player = new FPSPlayer({ camera, pos: [100, 0, 0] })
 player.lookAt(scene.position)
 scene.add(player.mesh)
 
-const gui = new GUI({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + heinkelNum, scoreClass: '', moreControls: moreFPSControls })
+const gui = new GUI({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + heinkelNum, scoreClass: '', moreControls: moreFPSControls, controlsWindowClass: 'white-window' })
 
 /* LOOP */
 
