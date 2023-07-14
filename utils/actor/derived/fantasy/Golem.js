@@ -6,7 +6,7 @@ const animDict = {
   idle: 'Unarmed Idle',
   walk: 'Mutant Walking',
   attack: 'Zombie Kicking',
-  special: 'Mutant Swiping',
+  attack2: 'Mutant Swiping',
   pain: 'Zombie Reaction Hit',
   death: 'Standing Death Forward 01',
 }
