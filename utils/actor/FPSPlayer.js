@@ -67,6 +67,7 @@ export default class FPSPlayer extends Player {
     div.classList.add('central-screen', 'dashed-screen')
     div.addEventListener('click', document.body.requestPointerLock)
     document.body.appendChild(div)
+    this.div = div // for Report container
 
     document.addEventListener('pointerlockchange', () => {
       div.style.display = document.pointerLockElement ? 'none' : 'block'
