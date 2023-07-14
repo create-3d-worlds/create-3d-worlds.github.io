@@ -28,8 +28,7 @@ scene.add(floor, streetLights)
 const player = new PartisanPlayer({ camera, solids: city })
 scene.add(player.mesh)
 
-const moreControls = { CapsLock: 'run', Enter: 'attack', Space: 'jump' }
-const gui = new GUI({ scoreTitle: 'Time', scoreClass: '', moreControls })
+const gui = new GUI({ scoreTitle: 'Time', scoreClass: '', actions: player.actions })
 gui.showMessage('Get out of the concrete jungle', true, 4000)
 
 /* LOOP */

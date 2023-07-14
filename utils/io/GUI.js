@@ -22,7 +22,6 @@ export const barbarianControls = {
   Enter: 'attack',
   Space: 'jump',
   V: 'spell cast',
-  // P: 'pause',
 }
 
 export const avatarControls = {
@@ -43,6 +42,16 @@ export const witchControls = {
   Enter: 'spell cast',
 }
 
+const actionsToControls = actions => {
+  const controls = {}
+  if ('run' in actions) controls.CapsLock = 'run'
+  if ('jump' in actions) controls.Space = 'jump'
+  if ('attack' in actions) controls.Enter = 'attack'
+  if ('attack2' in actions) controls.ShiftRight = 'attack2'
+  if ('special' in actions) controls.V = 'special'
+  return controls
+}
+
 export default class GUI {
   constructor({
     scoreTitle = 'Score', // if empty no score section
@@ -53,11 +62,11 @@ export default class GUI {
     useBlink = false,
 
     controlsTitle = 'CONTROLS',
-    controls = baseControls,
+    actions = {},
+    controls = {},
     controlsClass = '', // try rpgui-button
     controlsWindowClass = 'rpgui-container framed',
     controlsOpen = false,
-    moreControls = {},
 
     messageDict,
     endText = 'Bravo!<br>Nothing left',
@@ -81,7 +90,8 @@ export default class GUI {
     this.gameScreen.className = 'central-screen'
     document.body.appendChild(this.gameScreen)
 
-    this.addControls({ ...controls, ...moreControls }, controlsClass, controlsWindowClass)
+    const allControls = { ...baseControls, ...actionsToControls(actions), ...controls }
+    this.addControls(allControls, controlsClass, controlsWindowClass)
 
     if (scoreTitle) {
       this.scoreDiv = document.createElement('div')

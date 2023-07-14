@@ -15,13 +15,15 @@ npx live-server
 - mali BUG u mazes/walls: SorceressPlayer secka kad hoda i pritisnem jump
   - slično u ruins-polar
 - mali BUG u physics-cannon: click na controls okida Cannon.shoot() na mouseup
+- možda castle u cannon umesto zida, ako nije presporo
 
 ### Polishing
 
 DODATI SVUDA:
-  - GUI kontrole
-    - u characters
-    - igrač ako baca magiju dodati dugme
+  - da attack2 ne bude ShiftRight?
+  - kontrole u characters
+    - prebaciti witchControls u Witch.js ?
+  - igrač ako baca magiju dodati dugme
   - komande za telefone (strelice i dugmiće), testirati
     - renderovati virtuelni joystick https://en.wikipedia.org/wiki/File:Vg_graphics.svg
   - reload button u end screen (ili kad igrač umre)
