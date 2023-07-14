@@ -146,7 +146,7 @@ export default class GUI {
     this.gameScreen.innerHTML = html
   }
 
-  getStartScreen({ goals = [], title = 'Click to START!', subtitle = '' } = {}) {
+  getStartScreen({ goals = [], title = 'Press to START!', subtitle = '' } = {}) {
     const li = goals.map(goal => `<li>${goal}</li>`).join('')
 
     return `
