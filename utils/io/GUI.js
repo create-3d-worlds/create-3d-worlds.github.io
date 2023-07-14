@@ -28,7 +28,7 @@ const actionsToControls = actions => {
   if (actions.run) controls.CapsLock = 'run'
   if (actions.jump) controls.Space = 'jump'
   if (actions.attack) controls.Enter = 'attack'
-  if (actions.attack2) controls.ShiftRight = 'attack2'
+  if (actions.attack2) controls.C = 'attack2'
   if (actions.special) controls.V = 'special'
 
   return controls

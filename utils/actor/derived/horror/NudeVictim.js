@@ -11,6 +11,7 @@ const animDict = {
 
 /* LOADING */
 
+// BUG: model is not centered
 const mesh = await loadModel({ file: 'model.fbx', size: 1.75, prefix: 'character/nude-victim/', animDict, angle: Math.PI, fixColors: true })
 
 /* EXTENDED CLASSES */

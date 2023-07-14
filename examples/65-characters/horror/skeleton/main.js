@@ -2,6 +2,7 @@ import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scen
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import { SkeletonPlayer } from '/utils/actor/derived/fantasy/Skeleton.js'
+import GUI from '/utils/io/GUI.js'
 
 createOrbitControls()
 
@@ -10,6 +11,8 @@ scene.add(createGround({ size: 100 }))
 
 const player = new SkeletonPlayer()
 scene.add(player.mesh)
+
+new GUI({ scoreTitle: '', actions: player.actions })
 
 /* LOOP */
 

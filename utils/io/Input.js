@@ -110,7 +110,7 @@ class Input {
   }
 
   get attack2() {
-    return this.pressed.ShiftRight
+    return this.pressed.KeyC
   }
 
   get backspace() {
