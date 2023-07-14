@@ -11,12 +11,12 @@ scene.add(sun)
 
 scene.add(createGround())
 
-const maze = new PolarMaze(10, recursiveBacktracker, 5)
+const maze = new PolarMaze(10, recursiveBacktracker, 10)
 const pipes = maze.toPipes()
 scene.add(pipes)
 
-const player = new Avatar({ size: .4, camera, speed: 4, solids: pipes, maxJumpTime: 20 })
-player.chaseCamera.distance = 2
+const player = new Avatar({ camera, solids: pipes })
+player.chaseCamera.distance = 4.5
 player.chaseCamera.zoomIn()
 scene.add(player.mesh)
 

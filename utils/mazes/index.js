@@ -106,7 +106,7 @@ const turnTo = (geometry, p1, p2) => {
 
 export function createPipe(p1, p2) {
   const distance = p1.distanceTo(p2)
-  const geometry = new THREE.CylinderGeometry(1, 1, distance, 12)
+  const geometry = new THREE.CylinderGeometry(2, 2, distance, 12)
   geometry.translate(0, -distance / 2, 0)
   geometry.rotateX(-Math.PI / 2)
 
