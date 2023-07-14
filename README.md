@@ -13,11 +13,14 @@ npx live-server
 
 ## TODO
 
+- player u city-graffiti?
+
 ### Polishing
 
 - komande za telefone
   - dodati joystick ili strelice
   - dodati dugmiće za attack, attack2, magiju...
+  - strelice na avion, cepelin, lander...
 - reload button u end screen (ili kad igrač umre)
 - full screen btn
 - volume / mute btn
