@@ -26,7 +26,7 @@ export default class FlyState extends State {
     return this.actor.input.space && this.jumpTime < this.maxJumpTime
   }
 
-  shouldAddForce(delta) {
+  get shouldAddForce() {
     return this.actor.velocity.y < this.actor.maxVelocityY
   }
 
@@ -38,8 +38,8 @@ export default class FlyState extends State {
     actor.applyGravity(delta)
 
     if (this.ableToJump) {
-      this.jumpTime++
-      if (this.shouldAddForce(delta))
+      this.jumpTime += delta
+      if (this.shouldAddForce)
         actor.velocity.y += actor.jumpForce * delta
     }
 

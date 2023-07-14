@@ -16,7 +16,7 @@ const maze = new PolarMaze(10, recursiveBacktracker, 10)
 const pipes = maze.toPipes()
 scene.add(pipes)
 
-const player = new Avatar({ camera, solids: pipes })
+const player = new Avatar({ camera, solids: pipes, maxJumpTime: .45 })
 player.chaseCamera.distance = 4.5
 player.chaseCamera.zoomIn()
 scene.add(player.mesh)

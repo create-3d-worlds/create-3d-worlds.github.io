@@ -1,7 +1,7 @@
 import { jumpStyles } from '/utils/constants.js'
 import State from './State.js'
 
-const movableJumps = [jumpStyles.FLY, jumpStyles.FLY_JUMP, jumpStyles.DOUBLE_JUMP]
+const movableJumps = [jumpStyles.FLY, jumpStyles.FLY_JUMP]
 const flyingJumps = [jumpStyles.FLY]
 
 export default class FallState extends State {

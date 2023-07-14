@@ -118,7 +118,7 @@ const callback = async e => {
   gui.clearScreen()
 
   const Avatar = await import('/utils/actor/Avatar.js')
-  player = new Avatar.default({ camera, solids: [floor, ...boxes], skin: e.target.id, showHealthBar: true })
+  player = new Avatar.default({ camera, solids: [floor, ...boxes], skin: e.target.id, showHealthBar: true, maxJumpTime: .99 })
   player.chaseCamera.distance = 6
   scene.add(player.mesh)
   reset(true)

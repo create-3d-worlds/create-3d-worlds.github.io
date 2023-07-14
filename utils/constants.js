@@ -22,7 +22,6 @@ export const dir = {
 export const jumpStyles = {
   ANIM_JUMP: 'ANIM_JUMP',
   FLY_JUMP: 'FLY_JUMP',
-  DOUBLE_JUMP: 'DOUBLE_JUMP',
   FLY: 'FLY',
 }
 

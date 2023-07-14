@@ -11,7 +11,6 @@ npx live-server
 
 ## TODO
 
-- BUG: avatar random boxes skače FLY ne DOUBLE_JUMP
 - mali BUG u mazes/walls: SorceressPlayer secka kad hoda i pritisnem jump
   - slično u ruins-polar
 

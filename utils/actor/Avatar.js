@@ -76,7 +76,7 @@ function updateAvatar(mesh, time, axis = 'z') {
 export default class Avatar extends Player {
   constructor({
     skin = STONE,
-    jumpStyle = jumpStyles.DOUBLE_JUMP,
+    jumpStyle = jumpStyles.FLY_JUMP,
     maxJumpTime = .66,
     size = 1,
     speed = size * 4,

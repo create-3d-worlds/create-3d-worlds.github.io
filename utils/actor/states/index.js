@@ -5,8 +5,7 @@ import RunState from './RunState.js'
 import WalkState from './WalkState.js'
 import AnimOnceState from './AnimOnceState.js'
 import JumpState from './JumpState.js'
-import JumpFlyState from './JumpFlyState.js'
-import DoubleJumpState from './DoubleJumpState.js'
+import FlyJumpState from './FlyJumpState.js'
 import FlyState from './FlyState.js'
 import FallState from './FallState.js'
 import AttackLoopState from './AttackLoopState.js'
@@ -16,9 +15,8 @@ import SpecialState from './SpecialState.js'
 const chooseJumpState = jumpStyle => {
   switch (jumpStyle) {
     case jumpStyles.ANIM_JUMP: return JumpState
-    case jumpStyles.FLY_JUMP: return JumpFlyState
+    case jumpStyles.FLY_JUMP: return FlyJumpState
     case jumpStyles.FLY: return FlyState
-    case jumpStyles.DOUBLE_JUMP: return DoubleJumpState
   }
 }
 
