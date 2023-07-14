@@ -26,13 +26,13 @@ renderer.render(scene, camera) // first draw
 /* DYNAMIC IMPORT */
 
 const GUI = await import('/utils/io/GUI.js')
-const { rpgControls } = GUI
+const { barbarianControls } = GUI
 const messageDict = {
   1: 'You just killed the first Orc.<br>Middle Earth will be free!',
   10: 'You killed half the vile creatures',
   19: 'You smell victory in the air...',
 }
-const gui = new GUI.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button', controls: rpgControls })
+const gui = new GUI.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button', controls: { ...barbarianControls, P: 'pause' } })
 
 const castle = await loadModel({ file: 'building/castle/fortress.fbx', size: 40 })
 putOnSolids(castle, terrain, -5)
