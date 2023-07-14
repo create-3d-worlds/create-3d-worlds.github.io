@@ -16,14 +16,6 @@ export const fpsControls = {
   P: 'pause',
 }
 
-export const barbarianControls = {
-  ...baseControls,
-  CapsLock: 'run',
-  Enter: 'attack',
-  Space: 'jump',
-  V: 'spell cast',
-}
-
 export const avatarControls = {
   ...baseControls,
   CapsLock: 'run',

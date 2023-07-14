@@ -21,7 +21,7 @@ npx live-server
 
 DODATI SVUDA:
   - da attack2 ne bude ShiftRight?
-  - kontrole u characters (reuse actionsToControls)
+  - kontrole u characters
   - igrač ako baca magiju dodati dugme
   - komande za telefone (strelice i dugmiće), testirati
     - renderovati virtuelni joystick https://en.wikipedia.org/wiki/File:Vg_graphics.svg

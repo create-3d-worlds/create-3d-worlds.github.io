@@ -2,7 +2,7 @@ import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scen
 import { createSun } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import { BarbarianPlayer } from '/utils/actor/derived/fantasy/Barbarian.js'
-import GUI, { barbarianControls } from '/utils/io/GUI.js'
+import GUI from '/utils/io/GUI.js'
 
 scene.add(createSun())
 scene.add(createGround({ size: 100 }))
@@ -13,7 +13,7 @@ scene.add(player.mesh)
 const controls = await createOrbitControls()
 controls.target = player.mesh.position
 
-new GUI({ scoreTitle: '', controls: barbarianControls })
+new GUI({ scoreTitle: '', actions: player.actions })
 
 /* LOOP */
 

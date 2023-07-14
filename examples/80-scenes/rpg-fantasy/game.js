@@ -25,15 +25,6 @@ renderer.render(scene, camera) // first draw
 
 /* DYNAMIC IMPORT */
 
-const GUI = await import('/utils/io/GUI.js')
-const { barbarianControls } = GUI
-const messageDict = {
-  1: 'You just killed the first Orc.<br>Middle Earth will be free!',
-  10: 'You killed half the vile creatures',
-  19: 'You smell victory in the air...',
-}
-const gui = new GUI.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button', controls: { ...barbarianControls, P: 'pause' } })
-
 const castle = await loadModel({ file: 'building/castle/fortress.fbx', size: 40 })
 putOnSolids(castle, terrain, -5)
 scene.add(castle)
@@ -43,6 +34,14 @@ const solids = [terrain, castle]
 const { BarbarianPlayer } = await import('/utils/actor/derived/fantasy/Barbarian.js')
 const player = new BarbarianPlayer({ pos: coords.pop(), mapSize, solids, camera, cameraClass: 'rpgui-button' })
 scene.add(player.mesh)
+
+const GUI = await import('/utils/io/GUI.js')
+const messageDict = {
+  1: 'You just killed the first Orc.<br>Middle Earth will be free!',
+  10: 'You killed half the vile creatures',
+  19: 'You smell victory in the air...',
+}
+const gui = new GUI.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button', actions: player.actions, controls: { P: 'pause' } })
 
 const orcs = ['Orc', 'OrcOgre']
 for (let i = 0; i < 20; i++) {
