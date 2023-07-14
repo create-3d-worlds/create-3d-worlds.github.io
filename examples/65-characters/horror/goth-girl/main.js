@@ -12,7 +12,7 @@ scene.add(createGround({ size: 100 }))
 const player = new GothGirlPlayer()
 scene.add(player.mesh)
 
-new GUI({ scoreTitle: '', actions: player.actions })
+new GUI({ scoreTitle: '', player })
 
 /* LOOP */
 

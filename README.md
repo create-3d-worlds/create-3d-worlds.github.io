@@ -13,6 +13,7 @@ npx live-server
 
 - mali BUG u mazes/walls: SorceressPlayer secka kad hoda i pritisnem jump
   - slično u ruins-polar
+- prebaciti render health na GUI
 
 ### Polishing
 

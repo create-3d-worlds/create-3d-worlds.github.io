@@ -57,7 +57,7 @@ const player = new ResistanceFighterPlayer({ camera, solids })
 scene.add(player.mesh)
 
 const GUI = await import('/utils/io/GUI.js')
-const gui = new GUI.default({ scoreTitle: 'Zombies killed', subtitle: 'Time left', useBlink: true, actions: player.actions, controls: { P: 'pause' } })
+const gui = new GUI.default({ scoreTitle: 'Zombies killed', subtitle: 'Time left', useBlink: true, player, controls: { P: 'pause' } })
 
 const { Smoke } = await import('/utils/Particles.js')
 const particles = new Smoke({ size: 1, num: 100, minRadius: 0, maxRadius: .5 })

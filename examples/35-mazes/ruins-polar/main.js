@@ -23,7 +23,7 @@ player.putInPolarMaze(maze)
 player.chaseCamera.zoomIn()
 scene.add(player.mesh)
 
-new GUI({ scoreTitle: '', actions: player.actions })
+new GUI({ scoreTitle: '', player })
 
 /* LOOP */
 

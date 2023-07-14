@@ -13,7 +13,7 @@ scene.add(player.mesh)
 const controls = await createOrbitControls()
 controls.target = player.mesh.position
 
-new GUI({ scoreTitle: '', actions: player.actions })
+new GUI({ scoreTitle: '', player })
 
 /* LOOP */
 

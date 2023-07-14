@@ -10,7 +10,7 @@ scene.add(createGround({ size: 100 }))
 const player = new PartisanPlayer({ camera, useJoystick: true })
 scene.add(player.mesh)
 
-new GUI({ scoreTitle: '', actions: player.actions })
+new GUI({ scoreTitle: '', player })
 
 /* LOOP */
 

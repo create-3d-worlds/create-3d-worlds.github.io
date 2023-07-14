@@ -41,7 +41,7 @@ const messageDict = {
   10: 'You killed half the vile creatures',
   19: 'You smell victory in the air...',
 }
-const gui = new GUI.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button', actions: player.actions, controls: { P: 'pause' } })
+const gui = new GUI.default({ subtitle: 'Orcs left', messageDict, controlsClass: 'rpgui-button', player, controls: { P: 'pause' } })
 
 const orcs = ['Orc', 'OrcOgre']
 for (let i = 0; i < 20; i++) {

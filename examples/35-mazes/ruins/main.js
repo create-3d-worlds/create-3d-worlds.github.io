@@ -21,7 +21,7 @@ const player = new WitchPlayer({ camera, solids: [dunes, ruins] })
 player.chaseCamera.zoomIn()
 scene.add(player.mesh)
 
-new GUI({ scoreTitle: '', actions: player.actions })
+new GUI({ scoreTitle: '', player })
 
 /* LOOP */
 

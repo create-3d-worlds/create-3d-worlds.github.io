@@ -1,3 +1,5 @@
+import { jumpStyles } from '/utils/constants.js'
+
 const isNumber = num => typeof num == 'number'
 
 const baseControls = {
@@ -22,11 +24,12 @@ export const avatarControls = {
   Space: 'jump',
 }
 
-const actionsToControls = actions => {
+const actionControls = player => {
+  const { actions } = player
   const controls = {}
 
   if (actions.run) controls.CapsLock = 'run'
-  if (actions.jump) controls.Space = 'jump'
+  if (actions.jump || player.jumpStyle != jumpStyles.ANIM_JUMP) controls.Space = 'jump'
   if (actions.attack) controls.Enter = 'attack'
   if (actions.attack2) controls.C = 'attack2'
   if (actions.special) controls.V = 'special'
@@ -44,7 +47,7 @@ export default class GUI {
     useBlink = false,
 
     controlsTitle = 'CONTROLS',
-    actions = {},
+    player = {},
     controls = {},
     controlsClass = '', // try rpgui-button
     controlsWindowClass = 'rpgui-container framed',
@@ -72,7 +75,7 @@ export default class GUI {
     this.gameScreen.className = 'central-screen'
     document.body.appendChild(this.gameScreen)
 
-    const allControls = { ...baseControls, ...actionsToControls(actions), ...controls }
+    const allControls = { ...baseControls, ...actionControls(player), ...controls }
     this.addControls(allControls, controlsClass, controlsWindowClass)
 
     if (scoreTitle) {
