@@ -4,7 +4,7 @@ import { recursiveBacktracker } from '/utils/mazes/algorithms.js'
 import { createSun } from '/utils/light.js'
 import { createDunes } from '/utils/ground.js'
 import { ResistanceFighterPlayer } from '/utils/actor/derived/ww2/ResistanceFighter.js'
-import GUI, { soldierControls } from '/utils/io/GUI.js'
+import GUI from '/utils/io/GUI.js'
 
 const renderer = await createToonRenderer()
 
@@ -23,7 +23,7 @@ player.putInPolarMaze(maze)
 player.chaseCamera.zoomIn()
 scene.add(player.mesh)
 
-new GUI({ scoreTitle: '', controls: soldierControls })
+new GUI({ scoreTitle: '', actions: player.actions })
 
 /* LOOP */
 

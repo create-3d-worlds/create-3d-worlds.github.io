@@ -38,10 +38,6 @@ renderer.render(scene, camera)
 
 /* LAZY LOAD */
 
-const GUI = await import('/utils/io/GUI.js')
-const { soldierControls } = GUI
-const gui = new GUI.default({ scoreTitle: 'Zombies killed', subtitle: 'Time left', useBlink: true, controls: { ...soldierControls, P: 'pause' } })
-
 const DeadTree = await import('/utils/objects/DeadTree.js')
 for (let i = 0; i < 10; i++) {
   const tree = new DeadTree.default({ pos: coords.pop(), scale: Math.random() * 1 + 1, rotateY: Math.random() * Math.PI })
@@ -59,6 +55,9 @@ for (let i = 0; i < 30; i++) {
 const { ResistanceFighterPlayer } = await import('/utils/actor/derived/ww2/ResistanceFighter.js')
 const player = new ResistanceFighterPlayer({ camera, solids })
 scene.add(player.mesh)
+
+const GUI = await import('/utils/io/GUI.js')
+const gui = new GUI.default({ scoreTitle: 'Zombies killed', subtitle: 'Time left', useBlink: true, actions: player.actions, controls: { P: 'pause' } })
 
 const { Smoke } = await import('/utils/Particles.js')
 const particles = new Smoke({ size: 1, num: 100, minRadius: 0, maxRadius: .5 })

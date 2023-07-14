@@ -30,12 +30,6 @@ export const avatarControls = {
   Space: 'jump',
 }
 
-export const soldierControls = {
-  ...baseControls,
-  CapsLock: 'run',
-  Enter: 'shoot',
-}
-
 const actionsToControls = actions => {
   const controls = {}
 
