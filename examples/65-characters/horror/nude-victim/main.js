@@ -17,7 +17,7 @@ scene.add(player.mesh)
 const zombie = new ZombieCopAI({ target: player.mesh, pos: [0, 0, 5] })
 scene.add(zombie.mesh)
 
-new GUI({ scoreTitle: '', player, controls: { Enter: 'terrified', V: 'Agonizing' } })
+new GUI({ scoreTitle: '', player, controls: { CapsLock: '', Enter: 'terrified', V: 'Agonizing' } })
 
 /* LOOP */
 
