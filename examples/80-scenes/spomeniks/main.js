@@ -21,8 +21,6 @@ const yuFlag = createFlag({ file: 'sfrj.png' })
 yuFlag.position.set(1.5, 11, 0)
 const yuCanvas = yuFlag.getObjectByName('canvas')
 
-/* PLAYER */
-
 const player = new ResistanceWalkerPlayer({ camera, solids: terrain, altitude: .7 })
 player.position.z = 2
 

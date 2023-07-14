@@ -11,16 +11,16 @@ npx live-server
 
 ## TODO
 
-- mazes/pipes: avatar preterano skače i prebrz je, srediti komande
 - BUG: avatar random boxes skače FLY ne DOUBLE_JUMP
-- mali BUG: mazes/walls kad se pritisne jump
-- mali bug: click na controls btn okida mouseup Cannon.shoot() u physics-cannon/
+- mali BUG u mazes/walls: SorceressPlayer secka kad hoda i pritisnem jump
+  - slično u ruins-polar
+- mali BUG u physics-cannon: click na controls okida Cannon.shoot() na mouseup
 
 ### Polishing
 
 DODATI SVUDA:
   - GUI kontrole
-    - mazes/ruins i druge lavirinte (reuse avatar controls iz pyramid)
+    - u characters
     - igrač ako baca magiju dodati dugme
   - komande za telefone (strelice i dugmiće), testirati
     - renderovati virtuelni joystick https://en.wikipedia.org/wiki/File:Vg_graphics.svg
@@ -34,6 +34,8 @@ DODATI SVUDA:
 - dodati svuda svoj potpis i kontakt (developed by mudroljub)
 
 ### Publish
+- probati ažuriranje verzije
+- srediti html naslove
 - napraviti index.js za export svega postojećeg (vidi threejs)
 - srediti root-relativne linkove da rade u podfolderu
 - možda build proces, minifikacija, i sl.

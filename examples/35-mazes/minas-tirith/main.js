@@ -4,10 +4,13 @@ import { scene, createToonRenderer, camera } from '/utils/scene.js'
 import { createSun, ambLight } from '/utils/light.js'
 import { createHill } from '/utils/ground.js'
 import Avatar from '/utils/actor/Avatar.js'
+import GUI, { avatarControls } from '/utils/io/GUI.js'
 
 const rows = 20
 const cellSize = 10
 const mazeSize = rows * cellSize
+
+const renderer = await createToonRenderer()
 
 const hill = createHill(mazeSize * 2.05, 164)
 scene.add(hill)
@@ -26,7 +29,7 @@ player.chaseCamera.zoomIn()
 scene.add(player.mesh)
 player.putInPolarMaze(maze)
 
-const renderer = await createToonRenderer()
+new GUI({ scoreTitle: '', controls: avatarControls })
 
 /* LOOP */
 

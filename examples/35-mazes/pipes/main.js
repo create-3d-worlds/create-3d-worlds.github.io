@@ -4,6 +4,7 @@ import { scene, renderer, camera } from '/utils/scene.js'
 import { createSun, hemLight } from '/utils/light.js'
 import { createGround } from '/utils/ground.js'
 import Avatar from '/utils/actor/Avatar.js'
+import GUI, { avatarControls } from '/utils/io/GUI.js'
 
 hemLight({ intensity: .6 })
 const sun = createSun()
@@ -19,6 +20,8 @@ const player = new Avatar({ camera, solids: pipes })
 player.chaseCamera.distance = 4.5
 player.chaseCamera.zoomIn()
 scene.add(player.mesh)
+
+new GUI({ scoreTitle: '', controls: avatarControls })
 
 /* LOOP */
 

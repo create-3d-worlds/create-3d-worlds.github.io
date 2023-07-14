@@ -31,9 +31,21 @@ export const avatarControls = {
   Space: 'jump',
 }
 
+export const soldierControls = {
+  ...baseControls,
+  CapsLock: 'run',
+  Enter: 'shoot',
+}
+
+export const witchControls = {
+  ...baseControls,
+  CapsLock: 'run',
+  Enter: 'spell cast',
+}
+
 export default class GUI {
   constructor({
-    scoreTitle = 'Score',
+    scoreTitle = 'Score', // if empty no score section
     subtitle = 'left',
     points = 0,
     total,

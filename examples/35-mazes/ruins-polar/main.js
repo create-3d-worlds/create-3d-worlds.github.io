@@ -1,9 +1,10 @@
-import PolarMaze from '/utils/mazes/PolarMaze.js'
 import { scene, camera, createToonRenderer, clock } from '/utils/scene.js'
+import PolarMaze from '/utils/mazes/PolarMaze.js'
 import { recursiveBacktracker } from '/utils/mazes/algorithms.js'
 import { createSun } from '/utils/light.js'
 import { createDunes } from '/utils/ground.js'
 import { ResistanceFighterPlayer } from '/utils/actor/derived/ww2/ResistanceFighter.js'
+import GUI, { soldierControls } from '/utils/io/GUI.js'
 
 const renderer = await createToonRenderer()
 
@@ -21,6 +22,8 @@ const player = new ResistanceFighterPlayer({ camera, solids: [ruins, ground] })
 player.putInPolarMaze(maze)
 player.chaseCamera.zoomIn()
 scene.add(player.mesh)
+
+new GUI({ scoreTitle: '', controls: soldierControls })
 
 /* LOOP */
 
