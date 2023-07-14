@@ -14,15 +14,13 @@ npx live-server
 - BUG: avatar random boxes skače FLY ne DOUBLE_JUMP
 - mali BUG u mazes/walls: SorceressPlayer secka kad hoda i pritisnem jump
   - slično u ruins-polar
-- mali BUG u physics-cannon: click na controls okida Cannon.shoot() na mouseup
-- možda castle u cannon umesto zida, ako nije presporo
 
 ### Polishing
 
 DODATI SVUDA:
-  - igrač ako baca magiju dodati dugme
   - komande za telefone (strelice i dugmiće), testirati
-    - renderovati virtuelni joystick https://en.wikipedia.org/wiki/File:Vg_graphics.svg
+    - renderovati joystick, mozda sa dugmicima https://en.wikipedia.org/wiki/File:Vg_graphics.svg
+    - renderovati dugme za attack, attack2 i magiju ako ima
   - reload button u end screen (ili kad igrač umre)
   - full screen btn
   - volume / mute btn

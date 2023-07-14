@@ -219,7 +219,8 @@ export default class GUI {
     if (this.controlsOpen) open()
     else close()
 
-    button.addEventListener('click', () => {
+    button.addEventListener('mouseup', e => {
+      e.stopPropagation()
       if (content.style.display == 'none') open()
       else close()
     })
