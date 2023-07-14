@@ -4,10 +4,11 @@ import { loadModel } from '/utils/loaders.js'
 import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
 import { createFlag } from '/utils/geometry/index.js'
 import { wave } from '/utils/ground.js'
-import { ResistanceWalkerPlayer } from '/utils/actor/derived/ww2/ResistanceWalker.js'
 
+let player
 let time = 0
 
+camera.position.y = 20
 scene.add(createSun())
 
 const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', heightFactor: 3, snow: false })
@@ -21,24 +22,27 @@ const yuFlag = createFlag({ file: 'sfrj.png' })
 yuFlag.position.set(1.5, 11, 0)
 const yuCanvas = yuFlag.getObjectByName('canvas')
 
-const player = new ResistanceWalkerPlayer({ camera, solids: terrain, altitude: .7 })
-player.position.z = 2
-
 /* LOOP */
 
 void function loop() {
   requestAnimationFrame(loop)
+  renderer.render(scene, camera)
   const delta = clock.getDelta()
   time += delta
 
   wave({ geometry: redCanvas.geometry, time: time * 2, amplitude: 2.5, frequency: 2 })
   wave({ geometry: yuCanvas.geometry, time: time * 2, amplitude: 2.5, frequency: 2 })
-  player.update(delta)
-
-  renderer.render(scene, camera)
+  player?.update(delta)
 }()
 
 /* LAZY LOAD */
+
+const { ResistanceFighterPlayer } = await import ('/utils/actor/derived/ww2/ResistanceFighter.js')
+player = new ResistanceFighterPlayer({ camera, solids: terrain, altitude: .7 })
+player.position.z = 2
+
+const GUI = await import('/utils/io/GUI.js')
+new GUI.default({ player, scoreTitle: '' })
 
 const [kosmaj, kosovskaMitrovica, podgaric, kadinjaca, ilirskaBistrica] = await Promise.all([
   await loadModel({ file: 'building/monument/kosmaj.fbx', size: 30, texture: 'terrain/beton.gif' }),

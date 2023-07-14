@@ -35,6 +35,7 @@ const controls = {
   '← or A': 'thrust left',
   '→ or D': 'thrust right',
   '↓ or S': 'thrust down',
+  '↑ or W': '',
   P: 'pause',
   // 'Space:': 'jump',
   // 'Enter:': 'attack',

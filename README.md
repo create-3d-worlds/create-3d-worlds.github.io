@@ -1,6 +1,8 @@
 # Create 3D worlds
 
-Library of reusable Three.js components to play with.
+Library of reusable Three.js components.
+
+Developed by [mudroljub](https://twitter.com/mudroljub).
 
 ## Start
 
@@ -11,33 +13,27 @@ npx live-server
 
 ## TODO
 
-- prebaciti render health na GUI
-
 ### Polishing
 
-DODATI SVUDA:
-  - komande za telefone (strelice i dugmiće), testirati
-    - renderovati joystick, mozda sa dugmicima https://en.wikipedia.org/wiki/File:Vg_graphics.svg
-    - renderovati dugme za attack, attack2 i magiju ako ima
-  - reload button u end screen (ili kad igrač umre)
-  - full screen btn
-  - volume / mute btn
-- po završetku partije upisivanje imena pored poena za top listu
+- komande za telefone
+  - dodati joystick ili strelice
+  - dodati dugmiće za attack, attack2, magiju...
+- reload button u end screen (ili kad igrač umre)
+- full screen btn
+- volume / mute btn
+
+### Publish
+- srediti html naslove
 - centralni ekran sa izborom scena 
   - jedan index.html i dinamički import na klik
   - ili odvojene html stranice
-- dodati svuda svoj potpis i kontakt (developed by mudroljub)
-
-### Publish
-- probati ažuriranje verzije
-- srediti html naslove
 - napraviti index.js za export svega postojećeg (vidi threejs)
 - srediti root-relativne linkove da rade u podfolderu
-- možda build proces, minifikacija, i sl.
+- možda build proces, minifikacija, i sl. (vidi sunposition)
 - sve dobro dokumentovati
+- ažurirati three.js?
 - minimalni bekend za statistike i pamćenje poena ili bar brojač poseta
-  - možda server na rosberyju
-- testirati sve nivoe na serveru
+- testirati sve nakon dizanja na server
 
 ## Helpers
 

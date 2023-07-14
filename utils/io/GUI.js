@@ -15,6 +15,7 @@ export const fpsControls = {
   'PgDn or E': 'strafe right',
   CapsLock: 'run',
   Mouse: 'attack',
+  Space: 'jump',
   P: 'pause',
 }
 
@@ -25,6 +26,7 @@ export const avatarControls = {
 }
 
 const actionControls = player => {
+  if (!player) return {}
   const { actions } = player
   const controls = {}
 
@@ -47,7 +49,7 @@ export default class GUI {
     useBlink = false,
 
     controlsTitle = 'CONTROLS',
-    player = {},
+    player = null,
     controls = {},
     controlsClass = '', // try rpgui-button
     controlsWindowClass = 'rpgui-container framed',
@@ -205,9 +207,11 @@ export default class GUI {
 
     const content = document.createElement('div')
     content.className = controlsWindowClass
-    content.innerHTML = Object.keys(controls).map(key =>
-      `<p><b>${key}</b> - ${controls[key]}</p>`
-    ).join('')
+    content.innerHTML = Object.keys(controls)
+      .filter(key => controls[key])
+      .map(key =>
+        `<p><b>${key}</b> - ${controls[key]}</p>`
+      ).join('')
 
     const open = () => {
       content.style.display = 'block'
