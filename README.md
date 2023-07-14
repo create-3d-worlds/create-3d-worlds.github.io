@@ -20,7 +20,6 @@ npx live-server
 ### Polishing
 
 DODATI SVUDA:
-  - kontrole u characters
   - igrač ako baca magiju dodati dugme
   - komande za telefone (strelice i dugmiće), testirati
     - renderovati virtuelni joystick https://en.wikipedia.org/wiki/File:Vg_graphics.svg
