@@ -3,7 +3,7 @@ import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
 
 import GameObject from '/utils/objects/GameObject.js'
 import { getGroundY, directionBlocked, getMesh, intersect, belongsTo } from '/utils/helpers.js'
-import { dir, RIGHT_ANGLE, reactions } from '/utils/constants.js'
+import { dir, RIGHT_ANGLE, reactions, jumpStyles } from '/utils/constants.js'
 import config from '/config.js'
 
 const { randInt } = THREE.MathUtils
@@ -154,6 +154,10 @@ export default class Actor extends GameObject {
       || this.position.x <= this.boundaries.min.x
       || this.position.z >= this.boundaries.max.z
       || this.position.z <= this.boundaries.min.z
+  }
+
+  get ableToJump() {
+    return this.actions.jump || this.jumpStyle != jumpStyles.ANIM_JUMP
   }
 
   /* STATE MACHINE */

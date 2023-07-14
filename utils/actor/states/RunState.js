@@ -28,7 +28,7 @@ export default class RunState extends State {
 
     /* TRANSIT */
 
-    if (this.input.space)
+    if (this.input.space && this.actor.ableToJump)
       this.actor.setState('jump')
 
     if (this.actor.inAir)

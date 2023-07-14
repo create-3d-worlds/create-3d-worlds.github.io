@@ -27,7 +27,7 @@ export default class IdleState extends State {
     if (this.actor.inAir)
       this.actor.setState('fall')
 
-    if (this.input.space)
+    if (this.input.space && this.actor.ableToJump)
       this.actor.setState('jump')
 
     if (this.input.attack)
