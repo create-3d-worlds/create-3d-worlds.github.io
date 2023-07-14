@@ -36,19 +36,15 @@ export const soldierControls = {
   Enter: 'shoot',
 }
 
-export const witchControls = {
-  ...baseControls,
-  CapsLock: 'run',
-  Enter: 'spell cast',
-}
-
 const actionsToControls = actions => {
   const controls = {}
-  if ('run' in actions) controls.CapsLock = 'run'
-  if ('jump' in actions) controls.Space = 'jump'
-  if ('attack' in actions) controls.Enter = 'attack'
-  if ('attack2' in actions) controls.ShiftRight = 'attack2'
-  if ('special' in actions) controls.V = 'special'
+
+  if (actions.run) controls.CapsLock = 'run'
+  if (actions.jump) controls.Space = 'jump'
+  if (actions.attack) controls.Enter = 'attack'
+  if (actions.attack2) controls.ShiftRight = 'attack2'
+  if (actions.special) controls.V = 'special'
+
   return controls
 }
 
