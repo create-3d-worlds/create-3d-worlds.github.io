@@ -2,19 +2,18 @@ body {
   /* background: linear-gradient(to bottom, #40405c 0%,#6f71aa 80%,#8a76ab 100%); */
   background: linear-gradient(to bottom, #94c5f8 1%, #a6e6ff 70%, #b1b5ea 100%);
   color: white;
+  cursor: url(/libs/rpgui/img/cursor/default.png), auto;
   font-family: 'Press Start 2P', Courier;
   font-size: 0.8em;
+  image-rendering: pixelated;
   line-height: 22px;
   margin: 0;
   overflow: hidden;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   user-select: none;
-  cursor: url(/libs/rpgui/img/cursor/default.png), auto;
 }
 
-body * {
-  image-rendering: pixelated;
-}
+/* ELEMENTS */
 
 progress {
   background-color: #4E4A4E;
@@ -35,6 +34,40 @@ progress::-webkit-progress-value {
   background-size: 36px 100%;
   border-radius: 7px;
 }
+
+/* TYPOGRAPHY */
+
+h1, h2, h3 {
+  color: white;
+  text-align: center;
+  padding: 0 0 0 0;
+  margin: 7px 7px 17px 7px;
+}
+
+h1 {
+  font-size: 1.14em;
+}
+
+h2 {
+  font-size: 1.25em;
+}
+
+h3 {
+  font-weight: 1;
+  font-size: 1.15em;
+  text-decoration: underline;
+}
+
+ul {
+  text-align: left;
+}
+
+li {
+  color: yellow;
+  margin-left: 20px;
+}
+
+/* CLASSES */
 
 .health-bar {
   position: absolute;
@@ -133,58 +166,4 @@ progress::-webkit-progress-value {
   50% {
     opacity: 0;
   }
-}
-
-
-/**
-* Paragraphs and headers
-*/
-
-h1 {
-  color: white;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-  font-size: 1.14em;
-  text-align: center;
-  padding: 0 0 0 0;
-  margin: 7px 7px 17px 7px;
-}
-
-h2 {
-  color: white;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-  font-size: 1.25em;
-  text-align: center;
-  padding: 0 0 0 0;
-  margin: 7px 7px 17px 7px;
-}
-
-h3 {
-  color: white;
-  font-weight: 1;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-  font-size: 1.15em;
-  text-decoration: underline;
-  text-align: center;
-  padding: 0 0 0 0;
-  margin: 7px 7px 17px 7px;
-}
-
-h4 {
-  color: white;
-  font-weight: 1;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-  font-size: 1.0em;
-  text-decoration: underline;
-  text-align: center;
-  padding: 0 0 0 0;
-  margin: 7px 7px 17px 7px;
-}
-
-ul {
-  text-align: left;
-}
-
-li {
-  color: yellow;
-  margin-left: 20px;
 }
