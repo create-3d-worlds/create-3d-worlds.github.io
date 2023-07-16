@@ -91,11 +91,6 @@ progress::-webkit-progress-value {
   cursor: crosshair;
 }
 
-.dashed-screen h3 {
-  margin-top: 0;
-  color: crimson;
-}
-
 .report {
   background-color: #cccccc;
   background-image: url(/assets/images/document.jpg);

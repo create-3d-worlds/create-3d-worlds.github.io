@@ -40,7 +40,7 @@ export default class UI {
 
   addStartScreen({ title, innerHTML, callback }) {
     const div = document.createElement('div')
-    div.className = 'central-screen'
+    div.className = 'central-screen rpgui-container framed'
     if (title) div.innerHTML = `<h2>${title}</h2>`
 
     const selectDiv = document.createElement('div')

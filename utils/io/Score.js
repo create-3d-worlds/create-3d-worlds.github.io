@@ -66,7 +66,7 @@ export default class Score {
 
   renderHeighScore() {
     if (this.highScore < 2) return
-    this.renderTempText(`The current high score is ${this.highScore} points. Beat it!`, 3000)
+    this.renderTempText(`Your current high score is ${this.highScore} points. Beat it!`, 3000)
   }
 
   renderEndScreen({ text = 'You are dead.', callback } = {}) {
