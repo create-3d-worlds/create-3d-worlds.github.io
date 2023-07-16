@@ -19,10 +19,13 @@ npx live-server
 
 DODATI SVUDA:
   - Game UI https://ronenness.github.io/RPGUI
-    - obojiti CONTROLS, možda da bude dugme
-    - ono ispod možda game prozor
     - ostaviti dugme za score?
+      - centrirati poene uspravno
+      - srediti innerHTML logiku
     - proveriti end screen
+    - dodati stilizovani cursor pointer za izbor avatara i sl.
+    - centralne poruke da blinkaju: Get out of lava...
+    - izbrisati višak css
   - UI kontrole
     - desni miš rotiranje kamere, spell cast, i sl
     - srediti boje, senku, bold, itd
@@ -124,6 +127,10 @@ Free 3D Models are from:
 - rigmodels.com
 and other respected sites.
 
+Game UI: https://ronenness.github.io/RPGUI/
+
 Geodata:
 - visinske mape za ceo svet https://tangrams.github.io/heightmapper/#8.3724/43.3401/19.5293
 - weighted random https://pixelero.wordpress.com/2008/04/24/various-functions-and-various-distributions-with-mathrandom/
+
+Ako sam propustio da navedem neki izvor, molim vas da mi javite. Već 10 godina pratim razne knjige, kurseve, repozitorije i druge materijale vezano za Three.js, više ni sam ne znam gde sam nešto našao.

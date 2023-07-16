@@ -36,6 +36,7 @@ progress::-webkit-progress-bar {
 }
 
 progress::-webkit-progress-value {
+  background-color: crimson;
   background-image: url("/libs/rpgui/img/progress-red.png");
   background-repeat: repeat-x;
   background-size: 36px 100%;
@@ -292,7 +293,7 @@ li {
 /* game div without background image*/
 .rpgui-container {
   /* position style and default z */
-  position: fixed;
+  /* position: fixed; */
   z-index: 10;
   overflow: show;
 }
