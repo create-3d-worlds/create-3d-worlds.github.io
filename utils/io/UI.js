@@ -24,7 +24,7 @@ export default class UI {
     const openTitle = `${title} &#9654;`
 
     const button = document.createElement('button')
-    button.className = 'rpgui-button'
+    // button.className = 'rpgui-button'
     button.innerHTML = closedTitle
 
     const content = document.createElement('div')

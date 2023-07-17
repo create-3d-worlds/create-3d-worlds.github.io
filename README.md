@@ -22,16 +22,18 @@ npx live-server
 
 DODATI SVUDA:
   - Game UI https://ronenness.github.io/RPGUI
-    - score: srediti innerHTML logiku
+    - score: 
+      - srediti kad je dugačak natpis (fps-airport)
     - proveriti end screen
     - dodati stilizovani cursor pointer za izbor avatara i sl.
     - centralne poruke da blinkaju: Get out of lava...
     - da tačkice ispred li budu bele
+    - probati lakši font
   - UI kontrole
     - desni miš rotiranje kamere, spell cast, i sl
     - srediti boje, senku, bold, itd
   - komande za telefone (strelice i dugmiće), testirati
-  - reload button (kad igrač umre)
+  - reload button u end screen (ili kad igrač umre)
   - full screen btn
   - volume / mute btn
 - pauzirati scenu na tab unfocus

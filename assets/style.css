@@ -24,6 +24,7 @@ body * {
 /* ELEMENTS */
 
 button {
+  background-color: transparent;
   border: none;
   cursor: url("/libs/rpgui/img/cursor/point.png") 10 0, auto; /* cursor: pointer */
   outline: none;
@@ -54,23 +55,8 @@ progress::-webkit-progress-value {
 h1,
 h2,
 h3 {
-  color: white;
   text-align: center;
-  padding: 0 0 0 0;
-  margin: 7px 7px 17px 7px;
-}
-
-h1 {
-  font-size: 1.14em;
-}
-
-h2 {
-  font-size: 1.25em;
-}
-
-h3 {
-  /* font-weight: 1; */
-  font-size: 1.15em;
+  /* margin: 7px 7px 17px 7px; */
 }
 
 ul {
@@ -103,12 +89,10 @@ li {
 }
 
 .change-camera {
-  background-color: transparent;
   bottom: 20px;
   image-rendering: initial;
   position: absolute;
   right: 20px;
-  user-select: none;
 }
 
 .controls {
@@ -146,15 +130,13 @@ li {
 .report {
   background-color: #cccccc;
   background-image: url(/assets/images/document.jpg);
-  background-repeat: no-repeat;
   background-size: cover;
-  color: #333;
-  height: 24.3em;
-  margin: 0 auto;
-  width: 39.6em;
+  height: 25em;
+  width: 40em;
 }
 
 .report p {
+  color: #333;
   font-family: Courier;
   font-size: 1.25em;
   font-weight: bold;
@@ -173,7 +155,7 @@ li {
   top: 20px;
 }
 
-/* button style */
+/* BUTTON */
 
 .rpgui-button {
   background: url("/libs/rpgui/img/button.png");
@@ -219,6 +201,8 @@ li {
   background-size: 100% 100%;
   margin-right: -46px;
 }
+
+/* WINDOW */
 
 .rpgui-container {
   border-image-repeat: repeat;

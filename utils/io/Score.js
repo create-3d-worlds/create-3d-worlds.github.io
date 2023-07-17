@@ -86,16 +86,17 @@ export default class Score {
 
   render(points, left) {
     const blink = this.shouldBlink ? 'blink' : ''
+    const subtitle = isNumber(left) ? `<br><small class="${blink}">${this.subtitle}: ${left}</small>` : ''
 
-    const html = `
+    const innerHTML = `
       <p>
         ${this.title}: ${points}
-        <br><small class="${blink}">${this.subtitle}: ${left}</small>
+        ${subtitle}
       </p>
     `
-    // if (isNumber(left)) html += `<br><small class="${blink}">${this.subtitle}: ${left}</small>`
-    if (this.scoreDiv.innerHTML === html) return
-    this.scoreDiv.innerHTML = html
+    if (this.scoreDiv.innerHTML === innerHTML) return
+
+    this.scoreDiv.innerHTML = innerHTML
 
     if (this.messageDict) this.renderMessage(left, points)
 
