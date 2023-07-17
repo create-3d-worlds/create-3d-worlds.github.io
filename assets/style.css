@@ -15,48 +15,18 @@ body {
   user-select: none;
 }
 
+/* TYPOGRAPHY */
+
 body * {
   color: white;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   font-family: 'Press Start 2P', Courier;
 }
 
-/* ELEMENTS */
-
-button {
-  background-color: transparent;
-  border: none;
-  cursor: url("/libs/rpgui/img/cursor/point.png") 10 0, auto; /* cursor: pointer */
-  outline: none;
-}
-
-progress {
-  background-color: #4E4A4E;
-  border-radius: 7px;
-  border: 2px solid black;
-  height: 22px;
-}
-
-progress::-webkit-progress-bar {
-  background-color: #4E4A4E;
-  border-radius: 7px;
-}
-
-progress::-webkit-progress-value {
-  background-color: crimson;
-  background-image: url("/libs/rpgui/img/progress-red.png");
-  background-repeat: repeat-x;
-  background-size: 36px 100%;
-  border-radius: 7px;
-}
-
-/* TYPOGRAPHY */
-
 h1,
 h2,
 h3 {
   text-align: center;
-  /* margin: 7px 7px 17px 7px; */
 }
 
 ul {
@@ -79,7 +49,27 @@ li {
   text-shadow: none;
 }
 
-/* CLASSES */
+/* HEALTH */
+
+progress {
+  background-color: #4E4A4E;
+  border-radius: 7px;
+  border: 2px solid black;
+  height: 22px;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #4E4A4E;
+  border-radius: 7px;
+}
+
+progress::-webkit-progress-value {
+  background-color: crimson;
+  background-image: url("/libs/rpgui/img/progress-red.png");
+  background-repeat: repeat-x;
+  background-size: 36px 100%;
+  border-radius: 7px;
+}
 
 .health-bar {
   position: absolute;
@@ -88,74 +78,15 @@ li {
   width: 220px;
 }
 
-.change-camera {
-  bottom: 20px;
-  image-rendering: initial;
-  position: absolute;
-  right: 20px;
-}
+/* BUTTONS */
 
-.controls {
-  bottom: 20px;
-  left: 20px;
-  position: absolute;
+button {
+  background-color: transparent;
+  border: none;
+  cursor: url("/libs/rpgui/img/cursor/point.png") 10 0, auto;
+  /* cursor: pointer */
+  outline: none;
 }
-
-.controls p {
-  margin-bottom: 2px;
-  margin-top: 2px;
-}
-
-.central-screen {
-  left: 50%;
-  position: fixed;
-  text-align: center;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.central-screen-select {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.dashed-screen {
-  background-color: rgba(242, 242, 242, 0.8);
-  border: 3px dashed black;
-  padding: 20px;
-  cursor: crosshair;
-}
-
-.report {
-  background-color: #cccccc;
-  background-image: url(/assets/images/document.jpg);
-  background-size: cover;
-  height: 25em;
-  width: 40em;
-}
-
-.report p {
-  color: #333;
-  font-family: Courier;
-  font-size: 1.25em;
-  font-weight: bold;
-  letter-spacing: 0.04em;
-  line-height: 1.2;
-  margin: 0;
-  padding-left: 15%;
-  padding-right: 15%;
-  padding-top: 160px;
-  text-shadow: none;
-}
-
-.score {
-  left: 20px;
-  position: absolute;
-  top: 20px;
-}
-
-/* BUTTON */
 
 .rpgui-button {
   background: url("/libs/rpgui/img/button.png");
@@ -175,9 +106,18 @@ li {
   background-image: url("/libs/rpgui/img/button-hover.png");
 }
 
+.change-camera {
+  bottom: 20px;
+  image-rendering: initial;
+  position: absolute;
+  right: 20px;
+}
+
+/* SCORE & CONTROLS */
+
 .rpgui-button.golden {
   background-image: url("/libs/rpgui/img/button-golden.png");
-  /* background-size: 100% 80%; */
+  background-size: 100% 90%;
   padding-top: 5px;
   justify-content: space-between;
 }
@@ -202,7 +142,51 @@ li {
   margin-right: -46px;
 }
 
-/* WINDOW */
+.score {
+  left: 20px;
+  position: absolute;
+  top: 20px;
+}
+
+.score p {
+  padding: 0 8px;
+}
+
+/* CONTROLS */
+
+.controls {
+  bottom: 20px;
+  left: 20px;
+  position: absolute;
+}
+
+.controls p {
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
+
+/* WINDOWS */
+
+.central-screen {
+  left: 50%;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.central-screen-select {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.dashed-screen {
+  background-color: rgba(242, 242, 242, 0.8);
+  border: 3px dashed black;
+  padding: 20px;
+  cursor: crosshair;
+}
 
 .rpgui-container {
   border-image-repeat: repeat;
@@ -225,6 +209,32 @@ li {
   border-image-slice: 4 4 4 4;
   border-image-source: url("/libs/rpgui/img/border-image-golden.png");
 }
+
+/* REPORT */
+
+.report {
+  background-color: #cccccc;
+  background-image: url(/assets/images/document.jpg);
+  background-size: cover;
+  height: 25em;
+  width: 40em;
+}
+
+.report p {
+  color: #333;
+  font-family: Courier;
+  font-size: 1.25em;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  margin: 0;
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-top: 160px;
+  text-shadow: none;
+}
+
+/* UTILS */
 
 .blink {
   animation: blinker 1s step-start infinite;

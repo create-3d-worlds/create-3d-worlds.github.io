@@ -22,8 +22,6 @@ npx live-server
 
 DODATI SVUDA:
   - Game UI https://ronenness.github.io/RPGUI
-    - score: 
-      - srediti kad je dugačak natpis (fps-airport)
     - proveriti end screen
     - dodati stilizovani cursor pointer za izbor avatara i sl.
     - centralne poruke da blinkaju: Get out of lava...
