@@ -8,7 +8,7 @@ import { truePrims } from '/utils/mazes/algorithms.js'
 import UI from '/utils/io/UI.js'
 
 const ui = new UI()
-ui.addStartScreen({ title: 'Get out!', innerHTML: 'Find a way out<br>of the concrete jungle' })
+ui.addStartScreen({ title: 'Find a way out!', innerHTML: 'Get out of the concrete jungle' })
 
 const cellSize = 15
 const matrixSize = 15

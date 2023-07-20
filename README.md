@@ -11,10 +11,15 @@ npx live-server
 
 ## TODO
 
-- postaviti cilj na neke lavirinte
-  - dodavati razne klase na renderTempText
-  - premestiti renderTempText na UI?
-  - spojiti UI i Score?
+GUI:
+- spojiti UI i Score?
+- dodavati razne klase na renderTempText
+- po defaultu da ide vreme ako nema poena
+
+lavirinti:
+- postaviti cilj na neke lavirinte (start screen ili temp text)
+- toon renderer negde
+  
 - videti sunposition
 - promeniti special sa control, često se pritiska slučajno
 
