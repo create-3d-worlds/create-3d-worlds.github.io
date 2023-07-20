@@ -11,9 +11,9 @@ export default class GUI {
     showHighScore = false,
     shouldBlink = false
   } = {}) {
-    this.points = points
     this.title = title
     this.subtitle = subtitle
+    this.points = points
     this.total = total
     this.messageDict = messageDict
     this.endText = endText
@@ -28,19 +28,17 @@ export default class GUI {
     this.centralDiv.classList.add('central-screen')
     document.body.appendChild(this.centralDiv)
 
-    this.highScore = +localStorage.getItem(location.pathname)
-
     this.addScore(0, total)
+
+    this.highScore = +localStorage.getItem(location.pathname)
     if (showHighScore) this.renderHeighScore()
   }
 
-  clearText() {
-    this.centralDiv.innerHTML = ''
-  }
+  /* CENTRAL SCREEN */
 
   clearSoon(milliseconds = 3000) {
     setTimeout(() => {
-      this.clearText()
+      this.centralDiv.innerHTML = ''
       this.tempTextRendered = false
     }, milliseconds)
   }
@@ -59,10 +57,28 @@ export default class GUI {
     this.tempTextRendered = true
   }
 
-  renderMessage(left, points = this.points) {
+  renderMotivationalMessage(left, points = this.points) {
     const message = this.messageDict[points]
     if (message) this.renderTempText(message)
     if (left === 0) this.renderText(this.endText)
+  }
+
+  renderEndScreen({ text = 'You are dead.', callback } = {}) {
+    const html = `
+    <h3>${text}</h3>
+    <b>Click here to start again</b>  
+    `
+    if (this.centralDiv.innerHTML === html) return
+
+    this.centralDiv.innerHTML = html
+    const classes = ['rpgui-container', 'framed', 'pointer']
+    this.centralDiv.classList.add(...classes)
+
+    this.centralDiv.addEventListener('click', () => {
+      this.centralDiv.classList.remove(...classes)
+      this.centralDiv.innerHTML = ''
+      callback()
+    })
   }
 
   renderHeighScore() {
@@ -70,20 +86,7 @@ export default class GUI {
     this.renderTempText(`Your current high score is ${this.highScore} points. Beat it!`)
   }
 
-  renderEndScreen({ text = 'You are dead.', callback } = {}) {
-    const html = `
-      <h3>${text}</h3>
-      <b>Click here to start again</b>  
-    `
-    if (this.centralDiv.innerHTML === html) return
-    this.centralDiv.innerHTML = html
-    this.centralDiv.classList.add('rpgui-container', 'framed', 'pointer')
-    this.centralDiv.addEventListener('click', () => {
-      this.centralDiv.classList.remove('rpgui-container', 'framed', 'pointer')
-      this.clearText()
-      callback()
-    })
-  }
+  /* SCORE */
 
   renderScore(points, left) {
     const blink = this.shouldBlink ? 'blink' : ''
@@ -99,7 +102,7 @@ export default class GUI {
 
     this.scoreDiv.innerHTML = innerHTML
 
-    if (this.messageDict) this.renderMessage(left, points)
+    if (this.messageDict) this.renderMotivationalMessage(left, points)
 
     if (points > this.highScore)
       localStorage.setItem(location.pathname, points)
