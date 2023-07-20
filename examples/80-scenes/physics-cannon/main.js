@@ -4,7 +4,7 @@ import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import { createGround } from '/utils/ground.js'
 import { createSideWall } from '/utils/geometry/index.js'
 
-let score, cannon
+let gui, cannon
 
 const world = new PhysicsWorld()
 
@@ -27,11 +27,11 @@ void function loop() {
   world.update(dt)
 
   const valid = countableCrates.filter(mesh => mesh.position.y > .5)
-  score?.update(valid.length - countableCrates.length)
+  gui?.update(valid.length - countableCrates.length)
   countableCrates = valid
 
   if (!countableCrates.length)
-    score.renderText('Bravo!<br>You demolished everything.')
+    gui.renderText('Bravo!<br>You demolished everything.')
 
   renderer.render(scene, camera)
 }()
@@ -42,5 +42,5 @@ const cannonFile = await import('/utils/physics/Cannon.js')
 cannon = new cannonFile.default({ world, camera })
 scene.add(cannon.mesh, ...cannon.wheelMeshes)
 
-const scoreFile = await import('/utils/io/Score.js')
-score = new scoreFile.default({ title: 'Blocks left', points: countableCrates.length })
+const scoreFile = await import('/utils/io/GUI.js')
+gui = new scoreFile.default({ title: 'Blocks left', points: countableCrates.length })

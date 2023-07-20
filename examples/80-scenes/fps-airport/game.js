@@ -3,7 +3,7 @@ import { createGround, createFloor } from '/utils/ground.js'
 import { sample, getEmptyCoords } from '/utils/helpers.js'
 import { createSun } from '/utils/light.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
-import Score from '/utils/io/Score.js'
+import GUI from '/utils/io/GUI.js'
 import { createAirport } from '/utils/city.js'
 import { loadModel } from '/utils/loaders.js'
 import Report from '/utils/io/Report.js'
@@ -22,7 +22,7 @@ scene.add(ground)
 scene.add(createFloor({ size: mapSize, file: 'terrain/asphalt.jpg' }))
 
 const coords = getEmptyCoords({ mapSize: mapSize * .5 })
-const score = new Score({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + heinkelNum })
+const gui = new GUI({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + heinkelNum })
 
 const player = new FPSPlayer({ camera, pos: [100, 0, 0] })
 player.lookAt(scene.position)
@@ -47,10 +47,10 @@ void function loop() {
   const delta = clock.getDelta()
 
   const destroyed = aircraft.filter(plane => plane.energy <= 0)
-  score.render(destroyed.length, aircraft.length - destroyed.length)
+  gui.render(destroyed.length, aircraft.length - destroyed.length)
 
   if (destroyed.length == aircraft.length)
-    score.renderText('Congratulations!<br>All enemy planes were destroyed.')
+    gui.renderText('Congratulations!<br>All enemy planes were destroyed.')
 
   player.update(delta)
   enemies.forEach(obj => obj.update(delta))

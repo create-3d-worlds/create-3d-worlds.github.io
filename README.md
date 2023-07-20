@@ -12,7 +12,7 @@ npx live-server
 ## TODO
 
 GUI:
-- spojiti UI i Score?
+- spojiti UI i GUI?
 - dodavati razne klase na renderTempText
 - po defaultu da ide vreme ako nema poena
 

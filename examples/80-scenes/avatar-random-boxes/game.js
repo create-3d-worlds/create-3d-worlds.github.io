@@ -3,7 +3,7 @@ import { createRandomBoxes } from '/utils/geometry/index.js'
 import { createGround, createLava } from '/utils/ground.js'
 import { hemLight, createSun } from '/utils/light.js'
 import Coin from '/utils/objects/Coin.js'
-import Score from '/utils/io/Score.js'
+import GUI from '/utils/io/GUI.js'
 import Platform from '/utils/objects/Platform.js'
 import UI from '/utils/io/UI.js'
 import { Spinner } from '/utils/loaders.js'
@@ -36,7 +36,7 @@ const messageDict = {
   50: 'Half down, half to go!',
   75: 'You smell victory in the air...',
 }
-const score = new Score({ title: 'SCORE', subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict, shouldBlink: false })
+const gui = new GUI({ title: 'SCORE', subtitle: 'coins left', total: numCoins, endText: 'BRAVO!<br>You have collected all coins', messageDict, shouldBlink: false })
 
 const lava = await createLava({ size: lavaSize })
 scene.add(lava)
@@ -51,7 +51,7 @@ function checkCollision(coin) {
   if (player.distanceTo(coin.mesh) > 1.4) return
   coins.splice(coins.findIndex(c => c === coin), 1)
   scene.remove(coin.mesh)
-  score.add(1, coins.length)
+  gui.add(1, coins.length)
 }
 
 function createCoins(addPlatforms) {
@@ -77,8 +77,8 @@ function reset(addPlatforms = false) {
   coins.length = 0
   createCoins(addPlatforms)
 
-  score.points = 0
-  score.render(0, coins.length)
+  gui.points = 0
+  gui.render(0, coins.length)
 
   player.position = [0, 0, 50]
   player.energy = 100
@@ -97,12 +97,12 @@ new GameLoop((delta, time) => {
   })
 
   if (inLava() && player.skin != 'LAVA') {
-    score.renderTempText('Get out of the lava, you\'re burning!', true)
+    gui.renderTempText('Get out of the lava, you\'re burning!', true)
     player.energy -= .1
   }
 
   if (player.dead) {
-    score.renderEndScreen({ callback: reset })
+    gui.renderEndScreen({ callback: reset })
     player.position.y -= .01
   } else
     player.update(delta)
@@ -124,7 +124,7 @@ const callback = (e, div) => {
     player.chaseCamera.distance = 6
     scene.add(player.mesh)
     reset(true)
-    score.renderHeighScore()
+    gui.renderHeighScore()
     spinner.hide()
   })
 }

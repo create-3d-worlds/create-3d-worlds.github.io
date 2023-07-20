@@ -15,7 +15,7 @@ const renderer = await createToonRenderer()
 
 let i = 0
 let time = 0
-let tank, score
+let tank, gui
 
 scene.add(createSun())
 
@@ -69,20 +69,20 @@ void function loop() {
   world.update(dt)
 
   if (Math.floor(time) != newTime)
-    score.add(0, newTime)
+    gui.add(0, newTime)
 
   if (i++ % 3 === 0)
     countableCrates.forEach(mesh => {
       if (mesh.position.y <= 0.5) {
         countableCrates.splice(countableCrates.findIndex(c => c === mesh), 1)
-        score.add(-1, newTime)
+        gui.add(-1, newTime)
       }
     })
 
   if (countableCrates.length)
     time += dt
   else
-    score.renderText(`Bravo!<br>You demolished everything in ${newTime} seconds.`)
+    gui.renderText(`Bravo!<br>You demolished everything in ${newTime} seconds.`)
 }()
 
 /* LAZY LOAD */
@@ -91,5 +91,5 @@ const tankFile = await import('/utils/physics/Tank.js')
 tank = new tankFile.default({ physicsWorld: world.physicsWorld, camera, pos: { x: 0, y: 0, z: -20 } })
 scene.add(tank.mesh)
 
-const scoreFile = await import('/utils/io/Score.js')
-score = new scoreFile.default({ title: 'Crates left', points: countableCrates.length, subtitle: 'Seconds', total: time })
+const scoreFile = await import('/utils/io/GUI.js')
+gui = new scoreFile.default({ title: 'Crates left', points: countableCrates.length, subtitle: 'Seconds', total: time })

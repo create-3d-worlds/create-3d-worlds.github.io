@@ -1,6 +1,6 @@
 const isNumber = num => typeof num == 'number'
 
-export default class Score {
+export default class GUI {
   constructor({
     title = 'Score',
     subtitle = 'left',

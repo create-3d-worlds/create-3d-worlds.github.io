@@ -5,7 +5,7 @@ import { hemLight, lightningStrike } from '/utils/light.js'
 import FPSPlayer from '/utils/actor/FPSPlayer.js'
 import Maze from '/utils/mazes/Maze.js'
 import { truePrims } from '/utils/mazes/algorithms.js'
-import Score from '/utils/io/Score.js'
+import GUI from '/utils/io/GUI.js'
 import { Spinner } from '/utils/loaders.js'
 import GameLoop from '/utils/GameLoop.js'
 
@@ -30,7 +30,7 @@ const player = new FPSPlayer({ camera, goals, solids: walls })
 player.putInMaze(maze)
 scene.add(player.mesh)
 
-const score = new Score({ title: 'Killed', subtitle: 'Enemy left', total: enemies.length })
+const gui = new GUI({ title: 'Killed', subtitle: 'Enemy left', total: enemies.length })
 
 /* LOOP */
 
@@ -40,14 +40,14 @@ new GameLoop((delta, time) => {
   renderer.render(scene, camera)
 
   const killed = enemies.filter(enemy => enemy.energy <= 0)
-  score.render(killed.length, enemies.length - killed.length)
+  gui.render(killed.length, enemies.length - killed.length)
 
   player.update(delta)
 
   if (player.position.distanceTo(maze.exitPosition) < 5)
-    score.renderText(`Bravo!<br>You found a way out<br> and kill ${killed.length} of ${enemies.length} enemies`)
+    gui.renderText(`Bravo!<br>You found a way out<br> and kill ${killed.length} of ${enemies.length} enemies`)
   else if (!player.dead && Math.ceil(time) % 20 == 0)
-    score.renderTempText('Find a way out!', true)
+    gui.renderTempText('Find a way out!', true)
 
   enemies.forEach(enemy => enemy.update(delta))
 

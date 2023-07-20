@@ -1,7 +1,7 @@
 import { scene, camera, createToonRenderer, clock } from '/utils/scene.js'
 import { ambLight, createMoon, orbitAround } from '/utils/light.js'
 import { Stars } from '/utils/Particles.js'
-import Score from '/utils/io/Score.js'
+import GUI from '/utils/io/GUI.js'
 import Platform from '/utils/objects/Platform.js'
 import { loadModel } from '/utils/loaders.js'
 import { createSphere } from '/utils/geometry/index.js'
@@ -31,8 +31,8 @@ saturn.position.set(85, 20, -50)
 
 scene.add(platform.mesh, stars.mesh, jupiter, saturn, moon, moonLight)
 
-const score = new Score({ subtitle: 'Fuel left', shouldBlink: false })
-score.renderTempText('Land on the platform gently')
+const gui = new GUI({ subtitle: 'Fuel left', shouldBlink: false })
+gui.renderTempText('Land on the platform gently')
 
 /* LOOP */
 
@@ -43,7 +43,7 @@ new GameLoop((dt, time) => {
   platform.update(dt)
   lander.update(dt)
 
-  score.points = lander.hasLanded ? lander.fuel : 0
+  gui.points = lander.hasLanded ? lander.fuel : 0
 
   stars.update({ delta: dt * .005 })
   arcology?.rotateY(dt * .02)
@@ -51,13 +51,13 @@ new GameLoop((dt, time) => {
   moon.rotateY(dt)
   orbitAround({ moon, planet: jupiter, time: time * .75 })
 
-  score.render(score.points, lander.fuel)
+  gui.render(gui.points, lander.fuel)
 
   if (lander.endText) {
-    score.renderText(lander.endText + '<br><br><small>press R to play again</small>')
+    gui.renderText(lander.endText + '<br><br><small>press R to play again</small>')
     if (lander.input.pressed.KeyR) {
       lander.reset()
-      score.clear()
+      gui.clear()
     }
   }
 })

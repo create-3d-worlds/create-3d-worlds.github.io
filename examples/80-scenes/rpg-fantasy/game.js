@@ -6,7 +6,7 @@ import { sample, getEmptyCoords, putOnSolids } from '/utils/helpers.js'
 import { loadModel, Spinner } from '/utils/loaders.js'
 import GameLoop from '/utils/GameLoop.js'
 
-let player, score
+let player, gui
 const mapSize = 400
 const npcs = []
 
@@ -33,7 +33,7 @@ new GameLoop(delta => {
   npcs.forEach(enemy => enemy.update(delta))
 
   const killed = player.enemies.filter(enemy => enemy.userData.energy <= 0)
-  score?.render(killed.length, player.enemies.length - killed.length)
+  gui?.render(killed.length, player.enemies.length - killed.length)
 })
 
 /* LAZY LOAD */
@@ -64,13 +64,13 @@ for (let i = 0; i < 3; i++) {
   scene.add(potion.mesh)
 }
 
-const scoreFile = await import('/utils/io/Score.js')
+const scoreFile = await import('/utils/io/GUI.js')
 const messageDict = {
   1: 'You killed the first Orc.<br>Free the land from their vile presence!',
   10: 'You killed half the vile creatures',
   19: 'You smell victory in the air...',
 }
-score = new scoreFile.default({ title: 'Orcs killed', subtitle: 'Orcs left', messageDict })
+gui = new scoreFile.default({ title: 'Orcs killed', subtitle: 'Orcs left', messageDict })
 
 const monumentFile = await import('/utils/objects/Monument.js')
 const monument = new monumentFile.default({ pos: coords.pop(), solids: terrain })

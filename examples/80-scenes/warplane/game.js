@@ -5,7 +5,7 @@ import { createTerrain } from '/utils/ground.js'
 import { createFirTree } from '/utils/geometry/trees.js'
 import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
 import { loadModel, Spinner } from '/utils/loaders.js'
-import Score from '/utils/io/Score.js'
+import GUI from '/utils/io/GUI.js'
 import UI from '/utils/io/UI.js'
 
 const { randInt, randFloatSpread } = THREE.MathUtils
@@ -35,7 +35,7 @@ const ground2 = createTerrain(groundParams)
 ground2.position.z = -groundDistance
 scene.add(ground, ground2)
 
-const score = new Score({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.' })
+const gui = new GUI({ subtitle: 'Time left', total: totalTime, endText: 'Bravo! <br>You have completed the mission.' })
 
 /* OBJECTS */
 
@@ -98,10 +98,10 @@ const moveObjects = deltaSpeed => objects.forEach(mesh => {
 const updateEntities = delta => entities.forEach(object => {
   if (!object.scene) entities.splice(entities.indexOf(object), 1)
   if (object.hitAmount) {
-    if (object.name == 'factory') score.add(1)
+    if (object.name == 'factory') gui.add(1)
     if (object.name == 'civil') {
-      score.renderTempText('No! Destruction of civilian buildings is a war crime.')
-      score.add(-1)
+      gui.renderTempText('No! Destruction of civilian buildings is a war crime.')
+      gui.add(-1)
     }
   }
   object.update(delta)
@@ -121,12 +121,12 @@ void function update() {
   updateEntities(delta)
 
   if (warplane.dead)
-    return setTimeout(() => score.renderText('You have failed.'), 2500)
+    return setTimeout(() => gui.renderText('You have failed.'), 2500)
 
   let timeLeft = totalTime - Math.floor(time)
   if (timeLeft <= 0) timeLeft = 0
 
-  score.add(0, timeLeft)
+  gui.add(0, timeLeft)
 
   if (time < totalTime - 10) spawnObjects()
   if (time >= totalTime) warplane.land(delta)
@@ -139,7 +139,7 @@ const callback = async(e, div) => {
 
   const spinner = new Spinner()
   div.style.display = 'none'
-  score.renderTempText('Destroy enemy factories,<br><br>do not target civilian buildings')
+  gui.renderTempText('Destroy enemy factories,<br><br>do not target civilian buildings')
 
   const obj = await import(`/utils/aircraft/derived/${e.target.id}.js`)
   warplane = new obj.default({ camera, limit: mapSize * .25 })

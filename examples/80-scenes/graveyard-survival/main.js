@@ -6,7 +6,7 @@ import { createMoon, orbiting } from '/utils/light.js'
 import { getEmptyCoords, sample } from '/utils/helpers.js'
 import { createTombstone } from '/utils/geometry/shapes.js'
 import { Smoke } from '/utils/Particles.js'
-import Score from '/utils/io/Score.js'
+import GUI from '/utils/io/GUI.js'
 import GameLoop from '/utils/GameLoop.js'
 
 const spinner = new Spinner()
@@ -23,7 +23,7 @@ let player
 
 /* INIT */
 
-const score = new Score({ title: 'Zombies killed', subtitle: 'Time left' })
+const gui = new GUI({ title: 'Zombies killed', subtitle: 'Time left' })
 const coords = getEmptyCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
 
 const particles = new Smoke({ size: 1, num: 100, minRadius: 0, maxRadius: .5 })
@@ -75,13 +75,13 @@ new GameLoop((delta, time) => {
   if (isNight) {
     spawnZombie(10000)
     const kills = player.enemies.filter(mesh => mesh.userData.energy <= 0)
-    if (!player.dead) score.render(kills.length, timeLeft)
-    if (player.dead) score.renderText('You have been killed at the cursed graveyard.')
+    if (!player.dead) gui.render(kills.length, timeLeft)
+    if (player.dead) gui.renderText('You have been killed at the cursed graveyard.')
   } else {
     moon.material.color = new THREE.Color(0xFCE570)
     moon.scale.set(2, 2, 2)
     scene.background.lerp(new THREE.Color(0x7ec0ee), delta * .2)
-    if (!player.dead) score.renderText('Victory!<br>You met the morning at the cursed graveyard.')
+    if (!player.dead) gui.renderText('Victory!<br>You met the morning at the cursed graveyard.')
   }
 
   player.update(delta)
@@ -113,6 +113,6 @@ player = new ResistanceFighterPlayer({ camera, solids })
 scene.add(player.mesh)
 
 scene.add(particles.mesh)
-score.renderTempText('Survive until morning!')
+gui.renderTempText('Survive until morning!')
 
 spinner.hide()
