@@ -75,7 +75,7 @@ new GameLoop((delta, time) => {
   if (isNight) {
     spawnZombie(10000)
     const kills = player.enemies.filter(mesh => mesh.userData.energy <= 0)
-    if (!player.dead) gui.render(kills.length, timeLeft)
+    if (!player.dead) gui.renderScore(kills.length, timeLeft)
     if (player.dead) gui.renderText('You have been killed at the cursed graveyard.')
   } else {
     moon.material.color = new THREE.Color(0xFCE570)

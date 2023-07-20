@@ -40,7 +40,7 @@ new GameLoop((delta, time) => {
   renderer.render(scene, camera)
 
   const killed = enemies.filter(enemy => enemy.energy <= 0)
-  gui.render(killed.length, enemies.length - killed.length)
+  gui.renderScore(killed.length, enemies.length - killed.length)
 
   player.update(delta)
 

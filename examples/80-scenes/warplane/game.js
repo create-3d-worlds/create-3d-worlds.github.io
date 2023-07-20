@@ -98,10 +98,10 @@ const moveObjects = deltaSpeed => objects.forEach(mesh => {
 const updateEntities = delta => entities.forEach(object => {
   if (!object.scene) entities.splice(entities.indexOf(object), 1)
   if (object.hitAmount) {
-    if (object.name == 'factory') gui.add(1)
+    if (object.name == 'factory') gui.addScore(1)
     if (object.name == 'civil') {
       gui.renderTempText('No! Destruction of civilian buildings is a war crime.')
-      gui.add(-1)
+      gui.addScore(-1)
     }
   }
   object.update(delta)
@@ -126,7 +126,7 @@ void function update() {
   let timeLeft = totalTime - Math.floor(time)
   if (timeLeft <= 0) timeLeft = 0
 
-  gui.add(0, timeLeft)
+  gui.addScore(0, timeLeft)
 
   if (time < totalTime - 10) spawnObjects()
   if (time >= totalTime) warplane.land(delta)

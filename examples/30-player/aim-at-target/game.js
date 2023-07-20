@@ -33,9 +33,9 @@ const control = {
 }
 
 const gui = new dat.GUI()
-gui.add(control, 'lookAtSphere')
-gui.add(control, 'lookAtCube')
-gui.add(control, 'lookAtTetra')
+gui.addScore(control, 'lookAtSphere')
+gui.addScore(control, 'lookAtCube')
+gui.addScore(control, 'lookAtTetra')
 
 /* FUNCTIONS */
 

@@ -51,7 +51,7 @@ new GameLoop((dt, time) => {
   moon.rotateY(dt)
   orbitAround({ moon, planet: jupiter, time: time * .75 })
 
-  gui.render(gui.points, lander.fuel)
+  gui.renderScore(gui.points, lander.fuel)
 
   if (lander.endText) {
     gui.renderText(lander.endText + '<br><br><small>press R to play again</small>')

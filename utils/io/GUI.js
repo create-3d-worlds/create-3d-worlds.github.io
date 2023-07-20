@@ -30,17 +30,17 @@ export default class GUI {
 
     this.highScore = +localStorage.getItem(location.pathname)
 
-    this.add(0, total)
+    this.addScore(0, total)
     if (showHighScore) this.renderHeighScore()
   }
 
-  clear() {
+  clearText() {
     this.centralDiv.innerHTML = ''
   }
 
   clearSoon(milliseconds = 3000) {
     setTimeout(() => {
-      this.clear()
+      this.clearText()
       this.tempTextRendered = false
     }, milliseconds)
   }
@@ -80,12 +80,12 @@ export default class GUI {
     this.centralDiv.classList.add('rpgui-container', 'framed', 'pointer')
     this.centralDiv.addEventListener('click', () => {
       this.centralDiv.classList.remove('rpgui-container', 'framed', 'pointer')
-      this.clear()
+      this.clearText()
       callback()
     })
   }
 
-  render(points, left) {
+  renderScore(points, left) {
     const blink = this.shouldBlink ? 'blink' : ''
     const subtitle = isNumber(left) ? `<br><small class="${blink}">${this.subtitle}: ${left}</small>` : ''
 
@@ -105,8 +105,8 @@ export default class GUI {
       localStorage.setItem(location.pathname, points)
   }
 
-  add(change = 1, left) {
+  addScore(change = 1, left) {
     this.points += change
-    this.render(this.points, left)
+    this.renderScore(this.points, left)
   }
 }
