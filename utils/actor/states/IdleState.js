@@ -27,7 +27,7 @@ export default class IdleState extends State {
     if (this.actor.inAir)
       this.actor.setState('fall')
 
-    if (this.input.space && this.actor.ableToJump)
+    if (this.input.jump && this.actor.ableToJump)
       this.actor.setState('jump')
 
     if (this.input.attack)
@@ -38,13 +38,5 @@ export default class IdleState extends State {
 
     if (this.input.special)
       this.actor.setState('special')
-
-    /* ONLY FOR TEST */
-
-    if (this.input.backspace)
-      this.actor.setState('pain')
-
-    if (this.input.pressed.Delete)
-      this.actor.setState('death')
   }
 }

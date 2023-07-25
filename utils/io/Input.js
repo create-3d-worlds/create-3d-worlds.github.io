@@ -88,7 +88,7 @@ class Input {
     this.capsLock = bool
   }
 
-  get space() {
+  get jump() {
     return this.pressed.Space
   }
 
@@ -102,14 +102,6 @@ class Input {
 
   get attack2() {
     return this.pressed.KeyC
-  }
-
-  get backspace() {
-    return this.pressed.Backspace
-  }
-
-  get shift() {
-    return this.pressed.ShiftLeft || this.pressed.ShiftRight
   }
 
   get special() {

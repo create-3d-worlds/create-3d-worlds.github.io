@@ -23,7 +23,7 @@ export default class FlyState extends State {
   }
 
   get ableToJump() {
-    return this.actor.input.space && this.jumpTime < this.maxJumpTime
+    return this.actor.input.jump && this.jumpTime < this.maxJumpTime
   }
 
   get shouldAddForce() {

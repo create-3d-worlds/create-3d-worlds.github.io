@@ -17,7 +17,7 @@ export default class FallState extends State {
 
     /* TRANSIT */
 
-    if (flyingJumps.includes(actor.jumpStyle) && this.input.space)
+    if (flyingJumps.includes(actor.jumpStyle) && this.input.jump)
       actor.setState('jump')
 
     if (actor.onGround) {

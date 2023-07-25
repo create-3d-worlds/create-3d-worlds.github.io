@@ -28,7 +28,7 @@ export default class WalkState extends State {
 
     /* TRANSIT */
 
-    if (actor.input.space && this.actor.ableToJump)
+    if (actor.input.jump && this.actor.ableToJump)
       actor.setState('jump')
 
     if (actor.inAir)

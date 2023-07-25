@@ -173,7 +173,7 @@ export default class Vehicle {
     else
       this.vehicleSteering = 0
 
-    if (input.space) this.break()
+    if (input.jump) this.break()
   }
 
   updatePhysics() {

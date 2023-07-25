@@ -131,7 +131,7 @@ export default class Avatar extends Player {
 
     if (name === 'walk' || name === 'run')
       this.walkAnim(name)
-    else if (this.input.space)
+    else if (this.input.jump)
       this.jumpAnim()
     else
       this.idleAnim(true)
