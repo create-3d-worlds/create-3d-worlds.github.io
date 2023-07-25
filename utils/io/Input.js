@@ -1,12 +1,13 @@
+// prevent shake, btn on enter, scroll, etc.
+const preventSome = e => {
+  if (['Space', 'Enter', 'PageUp', 'PageDown'].includes(e.code) || e.code.startsWith('Arrow'))
+    e.preventDefault()
+}
+
 /*
 * Handle user input (keyboard and mouse)
 * screen controls can be optionally attached
 */
-const preventSome = e => {
-  // prevent shake, btn click on enter, etc.
-  if (['Space', 'Enter', 'PageUp', 'PageDown'].includes(e.code) || e.code.startsWith('Arrow')) e.preventDefault()
-}
-
 class Input {
   constructor(listen = true) {
     this.pressed = {}
