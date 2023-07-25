@@ -38,17 +38,11 @@ class Input {
   }
 
   handleMouseDown(e) {
-    if (e.button === 0)
-      this.pressed.mouse = true
-    if (e.button === 2)
-      this.pressed.mouse2 = true
+    if (e.button === 0) this.pressed.mouse = true
   }
 
   handleMouseUp(e) {
-    if (e.button === 0)
-      this.pressed.mouse = false
-    if (e.button === 2)
-      this.pressed.mouse2 = false
+    if (e.button === 0) this.pressed.mouse = false
   }
 
   reset() {

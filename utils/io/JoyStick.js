@@ -24,9 +24,13 @@ const thumbCss = `
 `
 
 export default class JoyStick {
-  constructor(onMove = () => {}, maxRadius = 40) {
+  constructor(onMove = () => { }, maxRadius = 40) {
+    this.onMove = onMove
     this.forward = 0
     this.turn = 0
+    this.maxRadius = maxRadius
+    this.maxRadiusSquared = this.maxRadius * this.maxRadius
+
     const circle = document.createElement('div')
     circle.style.cssText = circleCss
     const thumb = document.createElement('div')
@@ -34,10 +38,8 @@ export default class JoyStick {
     circle.appendChild(thumb)
     document.body.appendChild(circle)
     this.domElement = thumb
-    this.maxRadius = maxRadius
-    this.maxRadiusSquared = this.maxRadius * this.maxRadius
-    this.onMove = onMove
-    this.origin = { left: this.domElement.offsetLeft, top: this.domElement.offsetTop }
+
+    this.origin = { left: thumb.offsetLeft, top: thumb.offsetTop }
 
     if ('ontouchstart' in window)
       this.domElement.addEventListener('touchstart', e => this.tap(e))
