@@ -140,7 +140,7 @@ export default class Actor extends GameObject {
 
   get acceleration() {
     const { input, speed, runCoefficient } = this
-    if (input.amountForward) return speed * -input.amountForward * (input.up ? 2 : 1.5)
+    if (input.screen?.forward) return speed * -input.screen.forward * (input.up ? 2 : 1.5)
 
     if (input.up) return speed * (input.run ? runCoefficient : 1)
     if (input.down) return -speed * (input.run ? runCoefficient * .75 : 1)

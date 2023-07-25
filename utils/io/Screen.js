@@ -42,24 +42,48 @@ export default class Screen {
     this.origin = { left: thumb.offsetLeft, top: thumb.offsetTop }
 
     if ('ontouchstart' in window)
-      this.domElement.addEventListener('touchstart', e => this.tap(e))
+      this.domElement.addEventListener('touchstart', e => this.handleStart(e))
     else
-      this.domElement.addEventListener('mousedown', e => this.tap(e))
+      this.domElement.addEventListener('mousedown', e => this.handleStart(e))
   }
 
-  tap(e) {
+  /* GETTERS */
+
+  get up() {
+    return this.forward < -.1
+  }
+
+  get down() {
+    return this.forward > .1
+  }
+
+  get left() {
+    return this.turn < -.1
+  }
+
+  get right() {
+    return this.turn > .1
+  }
+
+  get run() {
+    return Math.abs(this.forward) > .75
+  }
+
+  /* METHODS */
+
+  handleStart(e) {
     // get the mouse cursor position at startup:
     this.offset = getCursorPosition(e)
     if ('ontouchstart' in window) {
-      document.ontouchmove = e => this.move(e)
-      document.ontouchend = e => this.up(e)
+      document.ontouchmove = e => this.handleMove(e)
+      document.ontouchend = e => this.handleEnd(e)
     } else {
-      document.onmousemove = e => this.move(e)
-      document.onmouseup = e => this.up(e)
+      document.onmousemove = e => this.handleMove(e)
+      document.onmouseup = e => this.handleEnd(e)
     }
   }
 
-  move(e) {
+  handleMove(e) {
     const mouse = getCursorPosition(e)
     // calculate the new cursor position:
     let left = mouse.x - this.offset.x
@@ -85,7 +109,7 @@ export default class Screen {
     if (this.onMove) this.onMove(this.forward, this.turn)
   }
 
-  up() {
+  handleEnd() {
     if ('ontouchstart' in window) {
       document.ontouchmove = null
       document.touchend = null

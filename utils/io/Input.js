@@ -1,6 +1,6 @@
 /*
 * Handle user input (keyboard and mouse)
-* virtual screen can be optionally attached
+* screen controls can be optionally attached
 */
 const preventSome = e => {
   // prevent shake, btn click on enter, etc.
@@ -52,12 +52,8 @@ class Input {
 
   /* GETTERS & SETTERS */
 
-  get amountForward() {
-    return this.screen?.forward
-  }
-
   get up() {
-    return this.pressed.ArrowUp || this.pressed.KeyW || this.amountForward < -.1
+    return this.pressed.ArrowUp || this.pressed.KeyW || this.screen?.up
   }
 
   set up(bool) {
@@ -65,15 +61,15 @@ class Input {
   }
 
   get down() {
-    return this.pressed.ArrowDown || this.pressed.KeyS || this.amountForward > .1
+    return this.pressed.ArrowDown || this.pressed.KeyS || this.screen?.down
   }
 
   get left() {
-    return this.pressed.ArrowLeft || this.pressed.KeyA || this.screen?.turn < -.1
+    return this.pressed.ArrowLeft || this.pressed.KeyA || this.screen?.left
   }
 
   get right() {
-    return this.pressed.ArrowRight || this.pressed.KeyD || this.screen?.turn > .1
+    return this.pressed.ArrowRight || this.pressed.KeyD || this.screen?.right
   }
 
   get sideLeft() {
@@ -85,7 +81,7 @@ class Input {
   }
 
   get run() {
-    return this.capsLock || Math.abs(this.amountForward) > .75
+    return this.capsLock || this.screen?.run
   }
 
   set run(bool) {
