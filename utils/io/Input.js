@@ -1,7 +1,6 @@
 /*
-* Handle user input (including keyboard, touchscreen and mouse)
-* (joystick can be optionally attached)
-* key codes: keycode.info
+* Handle user input (keyboard and mouse)
+* virtual screen can be optionally attached
 */
 const preventSome = e => {
   // prevent shake, btn click on enter, etc.
@@ -12,7 +11,7 @@ class Input {
   constructor(listen = true) {
     this.pressed = {}
     this.capsLock = false
-    this.joystick = null
+    this.screen = null
 
     if (!listen) return
 
@@ -27,11 +26,13 @@ class Input {
       this.capsLock = e.getModifierState('CapsLock')
     })
 
-    document.addEventListener('pointerdown', e => this.handleMouseDown(e))
-    document.addEventListener('pointerup', e => this.handleMouseUp(e))
-
-    document.addEventListener('mousedown', e => this.handleMouseDown(e))
-    document.addEventListener('mouseup', e => this.handleMouseUp(e))
+    if ('onpointerdown' in window) {
+      document.addEventListener('pointerdown', e => this.handleMouseDown(e))
+      document.addEventListener('pointerup', e => this.handleMouseUp(e))
+    } else {
+      document.addEventListener('mousedown', e => this.handleMouseDown(e))
+      document.addEventListener('mouseup', e => this.handleMouseUp(e))
+    }
 
     document.addEventListener('visibilitychange', () => this.reset())
     window.addEventListener('blur', () => this.reset())
@@ -52,7 +53,7 @@ class Input {
   /* GETTERS & SETTERS */
 
   get amountForward() {
-    return this.joystick?.forward
+    return this.screen?.forward
   }
 
   get up() {
@@ -68,11 +69,11 @@ class Input {
   }
 
   get left() {
-    return this.pressed.ArrowLeft || this.pressed.KeyA || this.joystick?.turn < -.1
+    return this.pressed.ArrowLeft || this.pressed.KeyA || this.screen?.turn < -.1
   }
 
   get right() {
-    return this.pressed.ArrowRight || this.pressed.KeyD || this.joystick?.turn > .1
+    return this.pressed.ArrowRight || this.pressed.KeyD || this.screen?.turn > .1
   }
 
   get sideLeft() {

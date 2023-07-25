@@ -37,7 +37,7 @@ scene.add(player.mesh)
 
 const GUI = await import('/utils/io/GUI.js')
 const messageDict = {
-  1: 'You just killed the first Orc.<br>Middle Earth will be free!',
+  1: 'You just killed the first Orc.<br>Middle Earth shall be free!',
   10: 'You killed half the vile creatures',
   19: 'You smell victory in the air...',
 }

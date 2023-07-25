@@ -23,7 +23,7 @@ const thumbCss = `
   width: 40px; 
 `
 
-export default class JoyStick {
+export default class Screen {
   constructor(onMove = () => { }, maxRadius = 40) {
     this.onMove = onMove
     this.forward = 0

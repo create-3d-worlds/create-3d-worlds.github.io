@@ -7,7 +7,7 @@ import GUI from '/utils/io/GUI.js'
 scene.add(createSun())
 scene.add(createGround({ size: 100 }))
 
-const player = new PartisanPlayer({ camera, useJoystick: true })
+const player = new PartisanPlayer({ camera, useScreen: true })
 scene.add(player.mesh)
 
 new GUI({ scoreTitle: '', player })

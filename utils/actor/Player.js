@@ -7,7 +7,7 @@ import ChaseCamera from '/utils/actor/ChaseCamera.js'
 export default class Player extends Actor {
   constructor({
     input = defaultInput,
-    useJoystick = true,
+    useScreen = true,
     attackStyle = attackStyles.LOOP,
     jumpStyle = jumpStyles.ANIM_JUMP,
     getState = name => getPlayerState(name, jumpStyle, attackStyle),
@@ -21,11 +21,11 @@ export default class Player extends Actor {
 
     super({ name: 'player', input, jumpStyle, getState, shouldRaycastGround, attackDistance, ...params })
 
-    if (useJoystick) {
-      const promise = import('/utils/io/JoyStick.js')
+    if (useScreen) {
+      const promise = import('/utils/io/Screen.js')
       promise.then(obj => {
-        const JoyStick = obj.default
-        this.input.joystick = new JoyStick()
+        const Screen = obj.default
+        this.input.screen = new Screen()
       })
     }
 
