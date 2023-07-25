@@ -9,10 +9,10 @@ const preventSome = e => {
 }
 
 class Input {
-
   constructor(listen = true) {
     this.pressed = {}
     this.capsLock = false
+    this.joystick = null
 
     if (!listen) return
 

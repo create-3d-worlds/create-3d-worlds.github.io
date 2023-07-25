@@ -1,25 +1,26 @@
+/* credit to Nicholas Lever */
 import { getCursorPosition } from '/utils/helpers.js'
 
 const circleCss = `
-  position:absolute; 
-  bottom:35px; 
-  width:80px; 
-  height:80px; 
   background:rgba(126, 126, 126, 0.5); 
-  border:#fff solid medium; 
   border-radius:50%; 
+  border:#fff solid medium; 
+  bottom:35px; 
+  height:80px; 
   left:50%; 
+  position:absolute; 
   transform:translateX(-50%);
+  width:80px; 
 `
 
 const thumbCss = `
-  position: absolute; 
+  background: #fff;
+  border-radius: 50%; 
+  height: 40px; 
   left: 20px; 
+  position: absolute; 
   top: 20px; 
   width: 40px; 
-  height: 40px; 
-  border-radius: 50%; 
-  background: #fff;
 `
 
 export default class JoyStick {
