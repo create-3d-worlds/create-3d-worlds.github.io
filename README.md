@@ -13,8 +13,6 @@ npx live-server
 
 ## TODO
 
-- player u city-graffiti?
-
 ### Polishing
 
 - komande za telefone
