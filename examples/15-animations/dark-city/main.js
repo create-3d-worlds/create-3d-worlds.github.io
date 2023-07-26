@@ -59,4 +59,4 @@ void function loop() {
 
 /* EVENTS */
 
-document.addEventListener('click', grow)
+document.addEventListener('pointerdown', grow)

@@ -25,6 +25,6 @@ void function render() {
 
 /* EVENT */
 
-document.addEventListener('click', e => {
+document.addEventListener('pointerdown', e => {
   explosion.reset({ pos: mouseToWorld(e, camera), unitAngle: 0.1 })
 })

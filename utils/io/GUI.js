@@ -133,7 +133,7 @@ export default class GUI {
 
   clearScreen() {
     this.closeGameScreen()
-    this.gameScreen.onclick = undefined
+    this.gameScreen.onpointerdown = undefined
   }
 
   closeGameScreen() {
@@ -148,7 +148,6 @@ export default class GUI {
 
   getStartScreen({ goals = [], title = 'Press to START!', subtitle = '' } = {}) {
     const li = goals.map(goal => `<li>${goal}</li>`).join('')
-
     return `
       <ul>${li}</ul>
       <h2>${title}</h2>
@@ -171,14 +170,12 @@ export default class GUI {
 
     this.openGameScreen(getScreen())
 
-    // HANDLE CLICK
-    this.gameScreen.onclick = e => {
+    this.gameScreen.onpointerdown = e => {
       if (callback) callback(e)
       if (autoClose) this.clearScreen()
       if (usePointerLock) document.body.requestPointerLock() // gameLoop starts
     }
 
-    // HANDLE POINTER LOCK
     if (usePointerLock) document.addEventListener('pointerlockchange', () => {
       if (document.pointerLockElement)
         this.closeGameScreen()
@@ -226,7 +223,7 @@ export default class GUI {
     if (this.controlsOpen) open()
     else close()
 
-    button.addEventListener('mouseup', e => {
+    button.addEventListener('pointerup', e => {
       e.stopPropagation()
       if (content.style.display == 'none') open()
       else close()

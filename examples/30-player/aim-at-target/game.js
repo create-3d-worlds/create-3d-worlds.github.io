@@ -39,7 +39,7 @@ Object.keys(methods).forEach((key, i) => {
   btn.style.top = 60 * i + 'px'
   document.body.appendChild(btn)
 
-  btn.addEventListener('click', methods[key])
+  btn.addEventListener('pointerup', methods[key])
 })
 
 /* FUNCTIONS */

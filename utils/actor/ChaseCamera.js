@@ -82,7 +82,7 @@ export default class ChaseCamera {
     img.src = '/assets/images/change-camera.png'
     img.alt = 'change camera'
 
-    button.addEventListener('click', this.toggleCamera)
+    button.addEventListener('pointerdown', this.toggleCamera)
     button.appendChild(img)
     document.body.appendChild(button)
   }
