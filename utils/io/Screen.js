@@ -15,6 +15,7 @@ export default class Screen {
     this.maxRadiusSquared = this.maxRadius * this.maxRadius
 
     this.addMovement()
+    // TODO: dodavati sve pokrete koje igrač ima
     this.addButton('jump', 'Jmp')
     this.addButton('attack', 'Atk')
 

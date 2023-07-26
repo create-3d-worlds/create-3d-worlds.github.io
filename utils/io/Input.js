@@ -9,9 +9,10 @@ const preventSome = e => {
 * screen controls can be optionally attached
 */
 class Input {
+  #capsLock = false
+
   constructor(listen = true, attackKey = 'Enter') {
     this.pressed = {}
-    this.capsLock = false
     this.screen = null
     this.attackKey = attackKey
 
@@ -25,30 +26,25 @@ class Input {
     })
     document.addEventListener('keyup', e => {
       this.pressed[e.code] = false
-      this.capsLock = e.getModifierState('CapsLock')
+      this.run = e.getModifierState('CapsLock')
     })
 
-    if ('onpointerdown' in window) {
-      document.addEventListener('pointerdown', e => this.handleMouseDown(e))
-      document.addEventListener('pointerup', e => this.handleMouseUp(e))
-    } else {
-      document.addEventListener('mousedown', e => this.handleMouseDown(e))
-      document.addEventListener('mouseup', e => this.handleMouseUp(e))
-    }
+    document.addEventListener('pointerdown', this.handleMouseDown)
+    document.addEventListener('pointerup', this.handleMouseUp)
 
-    document.addEventListener('visibilitychange', () => this.reset())
-    window.addEventListener('blur', () => this.reset())
+    document.addEventListener('visibilitychange', this.reset)
+    window.addEventListener('blur', this.reset)
   }
 
-  handleMouseDown(e) {
+  handleMouseDown = e => {
     if (e.button === 0) this.pressed.mouse = true
   }
 
-  handleMouseUp(e) {
+  handleMouseUp = e => {
     if (e.button === 0) this.pressed.mouse = false
   }
 
-  reset() {
+  reset = () =>{
     for (const key in this.pressed) delete this.pressed[key]
   }
 
@@ -83,11 +79,11 @@ class Input {
   }
 
   get run() {
-    return this.capsLock || this.screen?.run
+    return this.#capsLock || this.screen?.run
   }
 
   set run(bool) {
-    this.capsLock = bool
+    this.#capsLock = bool
   }
 
   get jump() {

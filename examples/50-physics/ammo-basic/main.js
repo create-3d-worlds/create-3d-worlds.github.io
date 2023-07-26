@@ -71,7 +71,7 @@ void function renderFrame() {
 
 /* EVENTS */
 
-window.addEventListener('mousedown', e => {
+window.addEventListener('pointerdown', e => {
   const mouse = normalizeMouse(e)
   raycaster.setFromCamera(mouse, camera)
 
