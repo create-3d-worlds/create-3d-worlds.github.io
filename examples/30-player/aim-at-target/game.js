@@ -19,27 +19,27 @@ scene.add(box)
 
 /* GUI */
 
-const control = {
+const methods = {
   lookAtCube() {
     gun.lookAt(box.position)
   },
-  lookAtSphere() {
-    gun.lookAt(sphere.position)
-  },
   lookAtTetra() {
     gun.lookAt(tetra.position)
+  },
+  lookAtSphere() {
+    gun.lookAt(sphere.position)
   }
 }
 
-;['lookAtCube', 'lookAtTetra', 'lookAtSphere'].forEach((method, i) => {
+Object.keys(methods).forEach((key, i) => {
   const btn = document.createElement('button')
-  btn.innerText = method
+  btn.innerText = key
   btn.classList.add('rpgui-button')
   btn.style.position = 'absolute'
   btn.style.top = 60 * i + 'px'
   document.body.appendChild(btn)
 
-  btn.addEventListener('click', control[method])
+  btn.addEventListener('click', methods[key])
 })
 
 /* FUNCTIONS */
