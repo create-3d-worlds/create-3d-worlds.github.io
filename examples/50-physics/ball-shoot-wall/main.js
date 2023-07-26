@@ -31,7 +31,7 @@ create4Walls().forEach(mesh => world.add(mesh))
 
 void function loop() {
   requestAnimationFrame(loop)
-  if (input.pressed.mouse && impulse.value < maxImpulse)
+  if (input.pressed.pointer && impulse.value < maxImpulse)
     impulse.value = parseFloat(impulse.value) + 1
   const dt = clock.getDelta()
   world.update(dt)

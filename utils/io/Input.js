@@ -5,7 +5,7 @@ const preventSome = e => {
 }
 
 /*
-* Handle user input (keyboard and mouse)
+* Handle user input (keyboard and pointer)
 * screen controls can be optionally attached
 */
 class Input {
@@ -29,22 +29,22 @@ class Input {
       this.run = e.getModifierState('CapsLock')
     })
 
-    document.addEventListener('pointerdown', this.handleMouseDown)
-    document.addEventListener('pointerup', this.handleMouseUp)
+    document.addEventListener('pointerdown', this.handlePointerDown)
+    document.addEventListener('pointerup', this.handlePointerUp)
 
     document.addEventListener('visibilitychange', this.reset)
     window.addEventListener('blur', this.reset)
   }
 
-  handleMouseDown = e => {
-    if (e.button === 0) this.pressed.mouse = true
+  handlePointerDown = e => {
+    if (e.button === 0) this.pressed.pointer = true
   }
 
-  handleMouseUp = e => {
-    if (e.button === 0) this.pressed.mouse = false
+  handlePointerUp = e => {
+    if (e.button === 0) this.pressed.pointer = false
   }
 
-  reset = () =>{
+  reset = () => {
     for (const key in this.pressed) delete this.pressed[key]
   }
 

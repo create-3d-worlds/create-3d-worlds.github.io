@@ -27,7 +27,7 @@ export default class FPSPlayer extends Player {
     this.energy = 100
     this.hurting = false
     this.fpsRenderer = new FPSRenderer()
-    this.input.attackKey = 'mouse'
+    this.input.attackKey = 'pointer'
 
     this.camera = camera
     const cameraX = this.mixer ? -.05 : 0
@@ -36,7 +36,7 @@ export default class FPSPlayer extends Player {
     camera.rotation.set(0, 0, 0)
     this.mesh.add(camera)
 
-    document.addEventListener('mousemove', e => this.moveCursor(e))
+    document.addEventListener('pointermove', e => this.moveCursor(e))
   }
 
   /* GETTERS */

@@ -63,7 +63,7 @@ void function update() {
 
 /* EVENTS */
 
-document.addEventListener('mousemove', e => {
+document.addEventListener('pointermove', e => {
   const cursor = getCursorPosition(e)
   lookAt(cursor, neck, 40)
   lookAt(cursor, spine, 40)

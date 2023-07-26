@@ -14,12 +14,12 @@ npx live-server
 ## TODO
 
 - default attack on click,  not on enter?
-- rpg: staviti spinner nakon press game window
 
 ### Polishing
 
 - komande za telefone
   - refactor Input to Keyboard?
+    - razdvojiti Input od Keyboard, Input da bude interfejs za Keyboard i Screen?
   - dodati dugmiće za skok, attack, attack2, magiju...
   - strelice na avion, cepelin, lander...
 - reload button u end screen (ili kad igrač umre)

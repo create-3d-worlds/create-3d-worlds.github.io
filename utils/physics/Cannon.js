@@ -57,7 +57,7 @@ export default class Cannon extends Vehicle {
 
   update(dt) {
     super.update(dt)
-    if (this.input.pressed.mouse && this.impulse.value < this.maxImpulse)
+    if (this.input.pressed.pointer && this.impulse.value < this.maxImpulse)
       this.impulse.value = parseFloat(this.impulse.value) + .2
   }
 }
