@@ -13,6 +13,7 @@ npx live-server
 
 ## TODO
 
+- zameniti click, mouse i touch sa pointer gde može
 - default attack on click,  not on enter?
 
 ### Polishing

@@ -91,11 +91,11 @@ class Input {
   }
 
   get jump() {
-    return this.pressed.Space
+    return this.pressed.Space || this.screen?.jump
   }
 
   get attack() {
-    return this.pressed[this.attackKey]
+    return this.pressed[this.attackKey] || this.screen?.attack
   }
 
   get attack2() {

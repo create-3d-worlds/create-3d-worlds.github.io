@@ -1,10 +1,13 @@
 import { getCursorPosition } from '/utils/helpers.js'
 
 /**
- * Render virtual joystick and on-screen buttons
+ * Render virtual controls and on-screen buttons
  * credit to Nicholas Lever
  */
 export default class Screen {
+  #jump = false
+  #attack = false
+
   constructor(onMove = () => { }, maxRadius = 40) {
     this.onMove = onMove
     this.forward = this.turn = 0
@@ -15,10 +18,7 @@ export default class Screen {
     this.addJump()
     this.addAttack()
 
-    if ('ontouchstart' in window)
-      this.thumb.addEventListener('touchstart', e => this.handleCursor(e))
-    else
-      this.thumb.addEventListener('mousedown', e => this.handleCursor(e))
+    this.thumb.addEventListener('pointerdown', this.handleCursor)
   }
 
   /* GETTERS */
@@ -43,6 +43,22 @@ export default class Screen {
     return Math.abs(this.forward) > .75
   }
 
+  get attack() {
+    return this.#attack
+  }
+
+  set attack(bool) {
+    this.#attack = bool
+  }
+
+  get jump() {
+    return this.#jump
+  }
+
+  set jump(bool) {
+    this.#jump = bool
+  }
+
   /* BUTTONS */
 
   addMovement() {
@@ -62,6 +78,13 @@ export default class Screen {
     btn.innerText = 'Jmp'
     btn.classList.add('game-btn', 'jump-btn')
     document.body.appendChild(btn)
+
+    btn.addEventListener('pointerdown', () => {
+      this.jump = true
+    })
+    btn.addEventListener('pointerup', () => {
+      this.jump = false
+    })
   }
 
   addAttack() {
@@ -69,24 +92,25 @@ export default class Screen {
     btn.innerText = 'Atk'
     btn.classList.add('game-btn', 'attack-btn')
     document.body.appendChild(btn)
+
+    btn.addEventListener('pointerdown', () => {
+      this.attack = true
+    })
+    btn.addEventListener('pointerup', () => {
+      this.attack = false
+    })
   }
 
   /* HANDLERS */
 
-  handleCursor(e) {
+  handleCursor = e => {
     this.offset = getCursorPosition(e)
-    if ('ontouchstart' in window) {
-      document.ontouchmove = e => this.handleMove(e)
-      document.ontouchend = e => this.handleEnd(e)
-    } else {
-      document.onmousemove = e => this.handleMove(e)
-      document.onmouseup = e => this.handleEnd(e)
-    }
+    document.onpointermove = this.handleMove
+    document.onpointerup = this.handleEnd
   }
 
-  handleMove(e) {
+  handleMove = e => {
     const mouse = getCursorPosition(e)
-    // calculate the new cursor position:
     let left = mouse.x - this.offset.x
     let top = mouse.y - this.offset.y
 
@@ -100,7 +124,6 @@ export default class Screen {
       top *= this.maxRadius
     }
 
-    // set the element's new position:
     this.thumb.style.top = `${top + this.thumb.clientHeight / 2}px`
     this.thumb.style.left = `${left + this.thumb.clientWidth / 2}px`
 
@@ -110,19 +133,13 @@ export default class Screen {
     if (this.onMove) this.onMove(this.forward, this.turn)
   }
 
-  handleEnd() {
-    if ('ontouchstart' in window) {
-      document.ontouchmove = null
-      document.touchend = null
-    } else {
-      document.onmousemove = null
-      document.onmouseup = null
-    }
+  handleEnd = () => {
+    document.onpointermove = document.onpointerup = null
+
     this.thumb.style.top = `${this.origin.top}px`
     this.thumb.style.left = `${this.origin.left}px`
 
-    this.forward = 0
-    this.turn = 0
+    this.forward = this.turn = 0
     this.onMove(this.forward, this.turn)
   }
 }
