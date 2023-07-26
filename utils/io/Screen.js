@@ -15,8 +15,8 @@ export default class Screen {
     this.maxRadiusSquared = this.maxRadius * this.maxRadius
 
     this.addMovement()
-    this.addJump()
-    this.addAttack()
+    this.addButton('jump', 'Jmp')
+    this.addButton('attack', 'Atk')
 
     this.thumb.addEventListener('pointerdown', this.handleCursor)
   }
@@ -73,31 +73,17 @@ export default class Screen {
     this.origin = { left: thumb.offsetLeft, top: thumb.offsetTop }
   }
 
-  addJump() {
+  addButton(name, label = name) {
     const btn = document.createElement('button')
-    btn.innerText = 'Jmp'
-    btn.classList.add('game-btn', 'jump-btn')
+    btn.innerText = label
+    btn.classList.add('game-btn', `${name}-btn`)
     document.body.appendChild(btn)
 
     btn.addEventListener('pointerdown', () => {
-      this.jump = true
+      this[name] = true
     })
     btn.addEventListener('pointerup', () => {
-      this.jump = false
-    })
-  }
-
-  addAttack() {
-    const btn = document.createElement('button')
-    btn.innerText = 'Atk'
-    btn.classList.add('game-btn', 'attack-btn')
-    document.body.appendChild(btn)
-
-    btn.addEventListener('pointerdown', () => {
-      this.attack = true
-    })
-    btn.addEventListener('pointerup', () => {
-      this.attack = false
+      this[name] = false
     })
   }
 
