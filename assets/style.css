@@ -216,13 +216,13 @@ button {
 
 .jump-btn {
   height: 60px;
-  left: 43%;
+  left: calc(50% - 100px);
   width: 60px;
 }
 
 .attack-btn {
   height: 60px;
-  left: 57%;
+  left: calc(50% + 100px);
   width: 60px;
 }
 
