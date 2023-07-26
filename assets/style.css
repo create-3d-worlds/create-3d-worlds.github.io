@@ -17,7 +17,8 @@ body {
 
 /* TYPOGRAPHY */
 
-body * {
+body,
+button {
   color: white;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   font-family: 'Press Start 2P', Courier;
