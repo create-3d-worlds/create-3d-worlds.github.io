@@ -1,4 +1,3 @@
-/* global dat */
 import * as THREE from 'three'
 import { scene, camera, renderer } from '/utils/scene.js'
 import { hemLight } from '/utils/light.js'
@@ -32,10 +31,16 @@ const control = {
   }
 }
 
-const gui = new dat.GUI()
-gui.add(control, 'lookAtSphere')
-gui.add(control, 'lookAtCube')
-gui.add(control, 'lookAtTetra')
+;['lookAtCube', 'lookAtTetra', 'lookAtSphere'].forEach((method, i) => {
+  const btn = document.createElement('button')
+  btn.innerText = method
+  btn.classList.add('rpgui-button')
+  btn.style.position = 'absolute'
+  btn.style.top = 60 * i + 'px'
+  document.body.appendChild(btn)
+
+  btn.addEventListener('click', control[method])
+})
 
 /* FUNCTIONS */
 
