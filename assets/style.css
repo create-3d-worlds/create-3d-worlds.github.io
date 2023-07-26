@@ -164,6 +164,15 @@ button {
   }
 }
 
+/* CAMERA */
+
+.change-camera {
+  bottom: 20px;
+  image-rendering: initial;
+  position: absolute;
+  right: 20px;
+}
+
 /* CONTROLS */
 
 .controls {
@@ -177,13 +186,43 @@ button {
   margin-top: 2px;
 }
 
-/* CAMERA */
+/* SCREEN BUTTONS */
 
-.change-camera {
-  bottom: 20px;
-  image-rendering: initial;
+.game-btn {
+  background: rgba(126, 126, 126, 0.5);
+  border-radius: 50%;
+  border: #fff solid medium;
+  bottom: 30px;
   position: absolute;
-  right: 20px;
+  transform: translateX(-50%);
+}
+
+.joystick {
+  height: 80px;
+  left: 50%;
+  width: 80px;
+}
+
+.joystick div {
+  background: #fff;
+  border-radius: 50%;
+  height: 40px;
+  left: 20px;
+  position: absolute;
+  top: 20px;
+  width: 40px;
+}
+
+.jump-btn {
+  height: 60px;
+  left: 43%;
+  width: 60px;
+}
+
+.attack-btn {
+  height: 60px;
+  left: 57%;
+  width: 60px;
 }
 
 /* GAME SCREEN */

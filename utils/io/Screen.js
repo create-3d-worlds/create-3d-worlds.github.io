@@ -1,50 +1,24 @@
-/* credit to Nicholas Lever */
 import { getCursorPosition } from '/utils/helpers.js'
 
-const circleCss = `
-  background:rgba(126, 126, 126, 0.5); 
-  border-radius:50%; 
-  border:#fff solid medium; 
-  bottom:35px; 
-  height:80px; 
-  left:50%; 
-  position:absolute; 
-  transform:translateX(-50%);
-  width:80px; 
-`
-
-const thumbCss = `
-  background: #fff;
-  border-radius: 50%; 
-  height: 40px; 
-  left: 20px; 
-  position: absolute; 
-  top: 20px; 
-  width: 40px; 
-`
-
+/**
+ * Render virtual joystick and on-screen buttons
+ * credit to Nicholas Lever
+ */
 export default class Screen {
   constructor(onMove = () => { }, maxRadius = 40) {
     this.onMove = onMove
-    this.forward = 0
-    this.turn = 0
+    this.forward = this.turn = 0
     this.maxRadius = maxRadius
     this.maxRadiusSquared = this.maxRadius * this.maxRadius
 
-    const circle = document.createElement('div')
-    circle.style.cssText = circleCss
-    const thumb = document.createElement('div')
-    thumb.style.cssText = thumbCss
-    circle.appendChild(thumb)
-    document.body.appendChild(circle)
-    this.domElement = thumb
-
-    this.origin = { left: thumb.offsetLeft, top: thumb.offsetTop }
+    this.addMovement()
+    this.addJump()
+    this.addAttack()
 
     if ('ontouchstart' in window)
-      this.domElement.addEventListener('touchstart', e => this.handleStart(e))
+      this.thumb.addEventListener('touchstart', e => this.handleCursor(e))
     else
-      this.domElement.addEventListener('mousedown', e => this.handleStart(e))
+      this.thumb.addEventListener('mousedown', e => this.handleCursor(e))
   }
 
   /* GETTERS */
@@ -69,10 +43,37 @@ export default class Screen {
     return Math.abs(this.forward) > .75
   }
 
-  /* METHODS */
+  /* BUTTONS */
 
-  handleStart(e) {
-    // get the mouse cursor position at startup:
+  addMovement() {
+    const wrapper = document.createElement('div')
+    wrapper.classList.add('game-btn', 'joystick')
+    document.body.appendChild(wrapper)
+
+    const thumb = document.createElement('div')
+    wrapper.appendChild(thumb)
+    this.thumb = thumb
+
+    this.origin = { left: thumb.offsetLeft, top: thumb.offsetTop }
+  }
+
+  addJump() {
+    const btn = document.createElement('button')
+    btn.innerText = 'Jmp'
+    btn.classList.add('game-btn', 'jump-btn')
+    document.body.appendChild(btn)
+  }
+
+  addAttack() {
+    const btn = document.createElement('button')
+    btn.innerText = 'Atk'
+    btn.classList.add('game-btn', 'attack-btn')
+    document.body.appendChild(btn)
+  }
+
+  /* HANDLERS */
+
+  handleCursor(e) {
     this.offset = getCursorPosition(e)
     if ('ontouchstart' in window) {
       document.ontouchmove = e => this.handleMove(e)
@@ -100,11 +101,11 @@ export default class Screen {
     }
 
     // set the element's new position:
-    this.domElement.style.top = `${top + this.domElement.clientHeight / 2}px`
-    this.domElement.style.left = `${left + this.domElement.clientWidth / 2}px`
+    this.thumb.style.top = `${top + this.thumb.clientHeight / 2}px`
+    this.thumb.style.left = `${left + this.thumb.clientWidth / 2}px`
 
-    this.forward = (top - this.origin.top + this.domElement.clientHeight / 2) / this.maxRadius
-    this.turn = (left - this.origin.left + this.domElement.clientWidth / 2) / this.maxRadius
+    this.forward = (top - this.origin.top + this.thumb.clientHeight / 2) / this.maxRadius
+    this.turn = (left - this.origin.left + this.thumb.clientWidth / 2) / this.maxRadius
 
     if (this.onMove) this.onMove(this.forward, this.turn)
   }
@@ -117,8 +118,8 @@ export default class Screen {
       document.onmousemove = null
       document.onmouseup = null
     }
-    this.domElement.style.top = `${this.origin.top}px`
-    this.domElement.style.left = `${this.origin.left}px`
+    this.thumb.style.top = `${this.origin.top}px`
+    this.thumb.style.left = `${this.origin.left}px`
 
     this.forward = 0
     this.turn = 0

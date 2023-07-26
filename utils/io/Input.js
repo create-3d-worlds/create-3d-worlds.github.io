@@ -9,10 +9,11 @@ const preventSome = e => {
 * screen controls can be optionally attached
 */
 class Input {
-  constructor(listen = true) {
+  constructor(listen = true, attackKey = 'Enter') {
     this.pressed = {}
     this.capsLock = false
     this.screen = null
+    this.attackKey = attackKey
 
     if (!listen) return
 
@@ -94,11 +95,7 @@ class Input {
   }
 
   get attack() {
-    return this.pressed.Enter
-  }
-
-  set attack(bool) {
-    this.pressed.Enter = bool
+    return this.pressed[this.attackKey]
   }
 
   get attack2() {

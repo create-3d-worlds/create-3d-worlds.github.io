@@ -13,6 +13,8 @@ npx live-server
 
 ## TODO
 
+- default attack on click,  not on enter?
+
 ### Polishing
 
 - komande za telefone

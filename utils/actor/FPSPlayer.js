@@ -27,6 +27,8 @@ export default class FPSPlayer extends Player {
     this.energy = 100
     this.hurting = false
     this.fpsRenderer = new FPSRenderer()
+    this.input.attackKey = 'mouse'
+
     this.camera = camera
     const cameraX = this.mixer ? -.05 : 0
     const cameraZ = this.mixer ? -.25 : this.height / 4
@@ -88,13 +90,10 @@ export default class FPSPlayer extends Player {
   /* UPDATES */
 
   update(delta) {
-    const { input } = this
-    input.attack = input.pressed.mouse // shoot with mouse
-
     super.update(delta)
 
     if (!this.dead) {
-      this.time += (input.run ? delta * this.runCoefficient : delta)
+      this.time += (this.input.run ? delta * this.runCoefficient : delta)
       if (this.mixer)
         this.fpsRenderer.renderTarget(this.time)
       else
