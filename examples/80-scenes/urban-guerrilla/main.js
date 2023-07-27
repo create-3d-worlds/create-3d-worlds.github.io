@@ -1,18 +1,19 @@
-import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
+import { scene, camera, renderer, clock } from '/utils/scene.js'
 import { createGraffitiCity } from '/utils/city.js'
 import { createSun } from '/utils/light.js'
+import { getEmptyCoords } from '/utils/helpers.js'
 
-createOrbitControls()
+let player
 
 const mapSize = 200
-let player
+const coords = getEmptyCoords({ mapSize })
 
 camera.position.set(0, mapSize * .33, mapSize * .9)
 camera.lookAt(scene.position)
 
 scene.add(createSun({ pos: [50, 100, 50] }))
 
-const city = createGraffitiCity({ scene, mapSize })
+const city = createGraffitiCity({ scene, mapSize, coords })
 scene.add(city)
 
 /* LOOP */
@@ -27,5 +28,6 @@ void function loop() {
 /* LAZY LOAD */
 
 const { ResistanceFighterPlayer } = await import('/utils/actor/derived/ww2/ResistanceFighter.js')
-player = new ResistanceFighterPlayer({ camera, solids: city })
+player = new ResistanceFighterPlayer({ camera, solids: city, pos: coords.pop(), showHealthBar: false })
+
 scene.add(player.mesh)
