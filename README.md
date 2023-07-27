@@ -18,7 +18,7 @@ npx live-server
 ### Polishing
 
 - komande za telefone
-  - dinamički renderovati samo dugmiće koje igrač ima
+  - renderovati samo dugmiće koje igrač ima
     - neke ikonice / entitete na dugmiće
   - strelice na avion, cepelin, lander...
 - reload button u end screen (ili kad igrač umre)

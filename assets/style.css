@@ -206,16 +206,6 @@ button {
   width: 80px;
 }
 
-.joystick div {
-  background: #fff;
-  border-radius: 50%;
-  height: 40px;
-  left: 20px;
-  position: absolute;
-  top: 20px;
-  width: 40px;
-}
-
 .jump-btn {
   left: calc(50% - 100px);
 }

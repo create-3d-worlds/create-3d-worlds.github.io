@@ -1,18 +1,7 @@
 import { getCursorPosition } from '/utils/helpers.js'
 
-// do not move to css, required here set origin
-const thumbCss = `
-  position: absolute; 
-  left: 20px; 
-  top: 20px; 
-  width: 40px; 
-  height: 40px; 
-  border-radius: 50%; 
-  background: #fff;
-`
-
 /**
- * Render screen controls
+ * Handle screen controls
  * credit to Nicholas Lever
  */
 export default class Screen {
@@ -99,7 +88,16 @@ export default class Screen {
     document.body.appendChild(circle)
 
     const thumb = document.createElement('div')
-    thumb.style.cssText = thumbCss
+    // style is required here to calc origin
+    thumb.style = `
+      position: absolute; 
+      left: 20px; 
+      top: 20px; 
+      width: 40px; 
+      height: 40px; 
+      border-radius: 50%; 
+      background: #fff;
+    `
     circle.appendChild(thumb)
     this.thumb = thumb
 
