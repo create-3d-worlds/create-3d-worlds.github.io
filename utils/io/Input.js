@@ -2,12 +2,12 @@ import Screen from './Screen.js'
 import Keyboard from './Keyboard.js'
 
 /**
- * Interface class for all kind of user inputs
+ * Interface for all user inputs
  */
 class Input {
-  constructor({ useScreen = true, useKeyboard = true } = {}) {
+  constructor({ useKeyboard = true, useScreen = true, animDict } = {}) {
     if (useKeyboard) this.keyboard = new Keyboard()
-    if (useScreen) this.screen = new Screen()
+    if (useScreen) this.screen = new Screen({ animDict })
   }
 
   /* GETTERS */

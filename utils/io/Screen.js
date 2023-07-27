@@ -10,13 +10,13 @@ export default class Screen {
   #attack2 = false
   #special = false
 
-  constructor(onMove = () => { }, maxRadius = 40) {
-    this.onMove = onMove
+  constructor({ animDict, maxRadius = 40 } = {}) {
     this.forward = this.turn = 0
     this.maxRadius = maxRadius
     this.maxRadiusSquared = this.maxRadius * this.maxRadius
 
     this.addJoystick()
+    console.log(animDict)
 
     this.addButton('jump', 'Jmp')
     this.addButton('attack', 'Atk')
@@ -147,8 +147,6 @@ export default class Screen {
 
     this.forward = (top - this.origin.top + this.thumb.clientHeight / 2) / this.maxRadius
     this.turn = (left - this.origin.left + this.thumb.clientWidth / 2) / this.maxRadius
-
-    if (this.onMove) this.onMove(this.forward, this.turn)
   }
 
   handleEnd = () => {
@@ -158,6 +156,5 @@ export default class Screen {
     this.thumb.style.left = `${this.origin.left}px`
 
     this.forward = this.turn = 0
-    this.onMove(this.forward, this.turn)
   }
 }

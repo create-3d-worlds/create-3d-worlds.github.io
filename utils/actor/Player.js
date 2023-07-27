@@ -6,8 +6,9 @@ import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 export default class Player extends Actor {
   constructor({
+    animDict,
     useScreen = true,
-    input = new Input({ useScreen }),
+    input = new Input({ useScreen, animDict }),
     attackStyle = attackStyles.LOOP,
     jumpStyle = jumpStyles.ANIM_JUMP,
     getState = name => getPlayerState(name, jumpStyle, attackStyle),
@@ -16,10 +17,11 @@ export default class Player extends Actor {
     showHealthBar = true,
     camera,
     cameraClass,
-    ...params
+    ...rest
   } = {}) {
 
-    super({ name: 'player', input, jumpStyle, getState, shouldRaycastGround, attackDistance, ...params })
+    super({ input, animDict, jumpStyle, getState, shouldRaycastGround, attackDistance, ...rest })
+    this.name = 'player'
 
     if (camera) {
       this.shouldAlignCamera = true
