@@ -1,4 +1,4 @@
-import defaultInput from '/utils/io/Input.js'
+import Input from '/utils/io/Input.js'
 import { jumpStyles, attackStyles, reactions } from '/utils/constants.js'
 import { getPlayerState } from './states/index.js'
 import Actor from './Actor.js'
@@ -6,8 +6,8 @@ import ChaseCamera from '/utils/actor/ChaseCamera.js'
 
 export default class Player extends Actor {
   constructor({
-    input = defaultInput,
     useScreen = true,
+    input = new Input({ useScreen }),
     attackStyle = attackStyles.LOOP,
     jumpStyle = jumpStyles.ANIM_JUMP,
     getState = name => getPlayerState(name, jumpStyle, attackStyle),
@@ -20,14 +20,6 @@ export default class Player extends Actor {
   } = {}) {
 
     super({ name: 'player', input, jumpStyle, getState, shouldRaycastGround, attackDistance, ...params })
-
-    if (useScreen) {
-      const promise = import('/utils/io/Screen.js')
-      promise.then(obj => {
-        const Screen = obj.default
-        this.input.screen = new Screen()
-      })
-    }
 
     if (camera) {
       this.shouldAlignCamera = true

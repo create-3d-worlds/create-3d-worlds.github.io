@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import input from '/utils/io/Input.js'
+import input from '/utils/io/Keyboard.js'
 import { similarColor } from '/utils/helpers.js'
 import config from '/config.js'
 

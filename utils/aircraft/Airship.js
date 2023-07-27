@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import input from '/utils/io/Input.js'
+import input from '/utils/io/Keyboard.js'
 import { getMesh, getGroundY } from '/utils/helpers.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 import GameObject from '/utils/objects/GameObject.js'

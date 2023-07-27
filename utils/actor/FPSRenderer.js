@@ -1,4 +1,4 @@
-import input from '/utils/io/Input.js'
+import input from '/utils/io/Keyboard.js'
 
 const targetSrc = '/assets/images/crosshair.png'
 

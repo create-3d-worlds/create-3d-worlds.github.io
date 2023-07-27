@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import config from '/config.js'
-import input from '/utils/io/Input.js'
+import input from '/utils/io/Keyboard.js'
 import { scene as defaultScene } from '/utils/scene.js'
 import { mapRange } from './helpers.js'
 

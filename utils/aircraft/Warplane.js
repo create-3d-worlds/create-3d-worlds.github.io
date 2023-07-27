@@ -1,4 +1,4 @@
-import input from '/utils/io/Input.js'
+import input from '/utils/io/Keyboard.js'
 import GameObject from '/utils/objects/GameObject.js'
 import Missile from './Missile.js'
 import { Explosion } from '/utils/Particles.js'

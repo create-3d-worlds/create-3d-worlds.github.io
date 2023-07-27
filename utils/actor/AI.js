@@ -2,7 +2,7 @@ import { Vector3, MathUtils } from 'three'
 import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
 
 import Actor from './Actor.js'
-import { Input } from '/utils/io/Input.js'
+import { Keyboard } from '/utils/io/Keyboard.js'
 import { getAIState } from './states/ai/index.js'
 import { jumpStyles, attackStyles, baseStates, dir } from '/utils/constants.js'
 import { belongsTo, directionBlocked } from '/utils/helpers.js'
@@ -29,7 +29,7 @@ export default class AI extends Actor {
     super({
       speed,
       attackDistance,
-      input: new Input(false),
+      input: new Keyboard(false),
       getState: name => getAIState(name, jumpStyle, attackStyle),
       shouldRaycastGround: false,
       useRicochet: false,

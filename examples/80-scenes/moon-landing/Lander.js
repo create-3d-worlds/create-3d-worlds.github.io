@@ -1,5 +1,5 @@
 import { Vector2 } from 'three'
-import input from '/utils/io/Input.js'
+import input from '/utils/io/Keyboard.js'
 import { Flame } from '/utils/Particles.js'
 import GameObject from '/utils/objects/GameObject.js'
 import { loadModel } from '/utils/loaders.js'
