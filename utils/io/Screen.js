@@ -1,6 +1,6 @@
 import { getCursorPosition } from '/utils/helpers.js'
 
-// do not move to css, required to set origin
+// do not move to css, required here set origin
 const thumbCss = `
   position: absolute; 
   left: 20px; 
@@ -12,12 +12,14 @@ const thumbCss = `
 `
 
 /**
- * Render virtual controls and on-screen buttons
+ * Render screen controls
  * credit to Nicholas Lever
  */
 export default class Screen {
   #jump = false
   #attack = false
+  #attack2 = false
+  #special = false
 
   constructor(onMove = () => { }, maxRadius = 40) {
     this.onMove = onMove
@@ -26,9 +28,11 @@ export default class Screen {
     this.maxRadiusSquared = this.maxRadius * this.maxRadius
 
     this.addJoystick()
-    // TODO: dodavati sve pokrete koje igrač ima
+
     this.addButton('jump', 'Jmp')
     this.addButton('attack', 'Atk')
+    this.addButton('attack2', 'Atk')
+    this.addButton('special', 'Spl')
 
     this.thumb.addEventListener('pointerdown', this.handleCursor)
   }
@@ -69,6 +73,22 @@ export default class Screen {
 
   set jump(bool) {
     this.#jump = bool
+  }
+
+  get attack2() {
+    return this.#attack2
+  }
+
+  set attack2(bool) {
+    this.#attack2 = bool
+  }
+
+  get special() {
+    return this.#special
+  }
+
+  set special(bool) {
+    this.#special = bool
   }
 
   /* BUTTONS */

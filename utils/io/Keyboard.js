@@ -65,11 +65,11 @@ class Keyboard {
     return this.pressed.ArrowRight || this.pressed.KeyD
   }
 
-  get sideLeft() {
+  get strafeLeft() {
     return this.pressed.PageUp || this.pressed.KeyQ
   }
 
-  get sideRight() {
+  get strafeRight() {
     return this.pressed.PageDown || this.pressed.KeyE
   }
 

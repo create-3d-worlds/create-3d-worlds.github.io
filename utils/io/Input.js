@@ -1,6 +1,9 @@
 import Screen from './Screen.js'
 import Keyboard from './Keyboard.js'
 
+/**
+ * Interface class for all kind of user inputs
+ */
 class Input {
   constructor({ useScreen = true, useKeyboard = true } = {}) {
     if (useKeyboard) this.keyboard = new Keyboard()
@@ -25,12 +28,12 @@ class Input {
     return this.keyboard?.right || this.screen?.right
   }
 
-  get sideLeft() {
-    return this.keyboard?.sideLeft
+  get strafeLeft() {
+    return this.keyboard?.strafeLeft
   }
 
-  get sideRight() {
-    return this.keyboard?.sideRight
+  get strafeRight() {
+    return this.keyboard?.strafeRight
   }
 
   get run() {
@@ -46,14 +49,12 @@ class Input {
   }
 
   get attack2() {
-    return this.keyboard?.attack2
+    return this.keyboard?.attack2 || this.screen?.attack2
   }
 
   get special() {
-    return this.keyboard?.special
+    return this.keyboard?.special || this.screen?.special
   }
-
-  /* UTILS */
 
   get controlsPressed() {
     return this.keyboard?.controlsPressed

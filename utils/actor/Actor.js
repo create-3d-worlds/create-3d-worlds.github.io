@@ -377,10 +377,10 @@ export default class Actor extends GameObject {
   updateStrafe(delta) {
     const acceleration = this.speed * (this.input.run ? this.runCoefficient : 1)
 
-    if (this.input.sideLeft && !this.directionBlocked(dir.left))
+    if (this.input.strafeLeft && !this.directionBlocked(dir.left))
       this.mesh.translateX(-acceleration * delta)
 
-    if (this.input.sideRight && !this.directionBlocked(dir.right))
+    if (this.input.strafeRight && !this.directionBlocked(dir.right))
       this.mesh.translateX(acceleration * delta)
   }
 

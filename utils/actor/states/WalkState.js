@@ -44,7 +44,7 @@ export default class WalkState extends State {
       actor.setState('run')
 
     if (!actor.input.up && !actor.input.down
-      && !actor.input.sideLeft && !actor.input.sideRight)
+      && !actor.input.strafeLeft && !actor.input.strafeRight)
       actor.setState('idle')
   }
 

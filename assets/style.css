@@ -194,8 +194,10 @@ button {
   border-radius: 50%;
   border: #fff solid medium;
   bottom: 30px;
+  height: 60px;
   position: absolute;
   transform: translateX(-50%);
+  width: 60px;
 }
 
 .joystick {
@@ -215,15 +217,19 @@ button {
 }
 
 .jump-btn {
-  height: 60px;
   left: calc(50% - 100px);
-  width: 60px;
+}
+
+.special-btn {
+  left: calc(50% - 190px);
 }
 
 .attack-btn {
-  height: 60px;
   left: calc(50% + 100px);
-  width: 60px;
+}
+
+.attack2-btn {
+  left: calc(50% + 190px);
 }
 
 /* GAME SCREEN */

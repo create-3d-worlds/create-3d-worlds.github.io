@@ -18,7 +18,8 @@ npx live-server
 ### Polishing
 
 - komande za telefone
-  - dodati dugmiće za skok, attack, attack2, magiju...
+  - dinamički renderovati samo dugmiće koje igrač ima
+    - neke ikonice / entitete na dugmiće
   - strelice na avion, cepelin, lander...
 - reload button u end screen (ili kad igrač umre)
 - full screen btn
