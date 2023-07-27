@@ -1,11 +1,13 @@
 import Screen from './Screen.js'
 import Keyboard from './Keyboard.js'
 
+const isTouchScreen = 'ontouchstart' in window
+
 /**
  * Interface for all user inputs
  */
 class Input {
-  constructor({ useKeyboard = true, useScreen = true, animDict, attackKey } = {}) {
+  constructor({ useKeyboard = !isTouchScreen, useScreen = true, animDict, attackKey } = {}) {
     if (useKeyboard) this.keyboard = new Keyboard({ attackKey })
     if (useScreen) this.screen = new Screen({ animDict })
   }

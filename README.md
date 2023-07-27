@@ -18,9 +18,7 @@ npx live-server
 ### Polishing
 
 - komande za telefone
-  - neke ikonice / entitete na dugmiće
-  - razmaci dugmića, ako neki fali da ne ostaje prazno
-  - strelice na avion, cepelin, lander...
+  - strelice na cepelin, lander...
 - reload button u end screen (ili kad igrač umre)
 - full screen btn
 - volume / mute btn

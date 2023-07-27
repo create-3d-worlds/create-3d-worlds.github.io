@@ -106,6 +106,7 @@ export default class Screen {
   addButton(name, label = name) {
     const btn = document.createElement('button')
     btn.innerText = label
+    btn.title = name
     btn.classList.add('game-btn', `${name}-btn`)
     document.body.appendChild(btn)
 

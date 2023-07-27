@@ -18,6 +18,7 @@ export default class FPSPlayer extends Player {
       jumpStyle: jumpStyles.FLY_JUMP,
       useRicochet: true,
       useScreen: false,
+      useKeyboard: true,
       attackDistance,
       attackSound,
       attackKey: 'pointer',

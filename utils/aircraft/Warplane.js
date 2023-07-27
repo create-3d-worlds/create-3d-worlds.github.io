@@ -1,4 +1,4 @@
-import { keyboard } from '/utils/io/Keyboard.js'
+import Input from '/utils/io/Input.js'
 import GameObject from '/utils/objects/GameObject.js'
 import Missile from './Missile.js'
 import { Explosion } from '/utils/Particles.js'
@@ -20,6 +20,7 @@ export default class Warplane extends GameObject {
     this.explosion = new Explosion({ size: 4 })
     this.time = 0
     this.propellers = []
+    this.input = new Input({ animDict: { attack: true } })
 
     if (camera) {
       this.chaseCamera = new ChaseCamera({
@@ -71,30 +72,30 @@ export default class Warplane extends GameObject {
     if (this.landing) return
     const { mesh } = this
 
-    if (keyboard.right) {
+    if (this.input.right) {
       if (mesh.position.x < this.limit) mesh.position.x += this.speed * delta
       if (mesh.rotation.z > -this.maxRoll) mesh.rotation.z -= this.rotationSpeed * delta
     }
 
-    if (keyboard.left) {
+    if (this.input.left) {
       if (mesh.position.x > -this.limit) mesh.position.x -= this.speed * delta
       if (mesh.rotation.z < this.maxRoll) mesh.rotation.z += this.rotationSpeed * delta
     }
 
-    if (keyboard.up)
+    if (this.input.up)
       if (mesh.position.y < this.maxHeight) mesh.position.y += this.speed * 0.5 * delta
 
-    if (keyboard.down)
+    if (this.input.down)
       if (mesh.position.y > this.minHeight) mesh.position.y -= this.speed * 0.5 * delta
 
-    if (keyboard.attack && this.timeToShoot) {
+    if (this.input.attack && this.timeToShoot) {
       this.addMissile()
       this.last = Date.now()
     }
   }
 
   normalizePlane(delta) {
-    if (this.dead || keyboard.controlsPressed) return
+    if (this.dead || this.input.controlsPressed) return
     const { mesh } = this
 
     const roll = Math.abs(mesh.rotation.z)

@@ -48,7 +48,7 @@ export default class GUI {
     scoreClass = 'rpgui-button golden',
     useBlink = false,
 
-    controlsTitle = 'CONTROLS',
+    controlsTitle = 'KEYBOARD',
     player = null,
     controls = {},
     controlsClass = '', // try rpgui-button
@@ -78,7 +78,8 @@ export default class GUI {
     document.body.appendChild(this.gameScreen)
 
     const allControls = { ...baseControls, ...actionControls(player), ...controls }
-    this.addControls(allControls, controlsClass, controlsWindowClass)
+
+    if (!('ontouchstart' in window)) this.addControls(allControls, controlsClass, controlsWindowClass)
 
     if (scoreTitle) {
       this.scoreDiv = document.createElement('div')

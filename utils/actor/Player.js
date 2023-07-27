@@ -8,8 +8,9 @@ export default class Player extends Actor {
   constructor({
     animDict,
     attackKey,
-    useScreen = true,
-    input = new Input({ useScreen, animDict, attackKey }),
+    useScreen,
+    useKeyboard,
+    input = new Input({ useScreen, useKeyboard, animDict, attackKey }),
     attackStyle = attackStyles.LOOP,
     jumpStyle = jumpStyles.ANIM_JUMP,
     getState = name => getPlayerState(name, jumpStyle, attackStyle),
