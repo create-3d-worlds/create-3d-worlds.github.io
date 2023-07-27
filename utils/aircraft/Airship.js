@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import input from '/utils/io/Keyboard.js'
+import { keyboard } from '/utils/io/Keyboard.js'
 import { getMesh, getGroundY } from '/utils/helpers.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 import GameObject from '/utils/objects/GameObject.js'
@@ -140,14 +140,14 @@ export default class Airship extends GameObject {
   /* UPDATES */
 
   handleInput(delta) {
-    if (input.left) this.left(delta)
-    if (input.right) this.right(delta)
+    if (keyboard.left) this.left(delta)
+    if (keyboard.right) this.right(delta)
 
-    if (input.up) this.up(delta)
-    if (input.down) this.down(delta)
+    if (keyboard.up) this.up(delta)
+    if (keyboard.down) this.down(delta)
 
-    if (input.pressed.PageUp || input.pressed.Space) this.accelerate(delta)
-    if (input.pressed.PageDown) this.deaccelerate()
+    if (keyboard.pressed.PageUp) this.accelerate(delta)
+    if (keyboard.pressed.PageDown) this.deaccelerate()
   }
 
   autoHeight(delta) {
@@ -156,7 +156,7 @@ export default class Airship extends GameObject {
   }
 
   stabilize() {
-    if (input.keyPressed) return
+    if (keyboard.keyPressed) return
     const unrollFactor = 0.04
     const rollAngle = Math.abs(this.mesh.rotation.z)
     if (this.mesh.rotation.z > 0) this.roll(-rollAngle * unrollFactor)
@@ -183,7 +183,7 @@ export default class Airship extends GameObject {
       this.updateGround()
     this.normalizeAngles()
     this.handleInput(delta)
-    if (!input.down) this.autoHeight(delta)
+    if (!keyboard.down) this.autoHeight(delta)
     this.moveForward(delta)
     this.stabilize()
 

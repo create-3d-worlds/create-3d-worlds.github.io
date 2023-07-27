@@ -18,8 +18,6 @@ npx live-server
 ### Polishing
 
 - komande za telefone
-  - videti gde se koristi Keyboard, proveriti jel radi, možda zameniti sa Input
-    - osmisliti Keyboard default export
   - dodati dugmiće za skok, attack, attack2, magiju...
   - strelice na avion, cepelin, lander...
 - reload button u end screen (ili kad igrač umre)

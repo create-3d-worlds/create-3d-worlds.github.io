@@ -3,7 +3,7 @@ import { scene, renderer, clock, camera } from '/utils/scene.js'
 import { createGround } from '/utils/ground.js'
 import { hemLight } from '/utils/light.js'
 import { createFirTrees } from '/utils/geometry/trees.js'
-import input from '/utils/io/Keyboard.js'
+import { keyboard } from '/utils/io/Keyboard.js'
 import Avatar from '/utils/actor/Avatar.js'
 import GUI from '/utils/io/GUI.js'
 
@@ -30,8 +30,8 @@ function followPlayer() {
 }
 
 const updateCamera = () => {
-  if (input.pressed.Digit1) currentCamera = camera
-  if (input.pressed.Digit2) currentCamera = fpsCamera
+  if (keyboard.pressed.Digit1) currentCamera = camera
+  if (keyboard.pressed.Digit2) currentCamera = fpsCamera
   if (currentCamera == fpsCamera) followPlayer()
   currentCamera.lookAt(avatar.position)
 }

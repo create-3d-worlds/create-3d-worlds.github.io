@@ -1,5 +1,5 @@
 import { Vector2 } from 'three'
-import input from '/utils/io/Keyboard.js'
+import { keyboard } from '/utils/io/Keyboard.js'
 import { Flame } from '/utils/Particles.js'
 import GameObject from '/utils/objects/GameObject.js'
 import { loadModel } from '/utils/loaders.js'
@@ -18,7 +18,7 @@ export default class Lander extends GameObject {
   constructor({ platform }) {
     super ({ mesh })
     this.name = 'player'
-    this.input = input
+    this.input = keyboard
     this.platform = platform
     this.flame = new Flame()
     this.flame.mesh.rotateX(Math.PI * .5)
@@ -67,6 +67,7 @@ export default class Lander extends GameObject {
 
   handleInput() {
     if (this.onPlatform) return
+    const { input } = this
 
     if (this.fuel >= .5) {
       if (input.left) {
@@ -132,7 +133,7 @@ export default class Lander extends GameObject {
   }
 
   updateFlame(delta) {
-    if (!input.keyPressed || !this.fuel) this.clearThrust()
+    if (!this.input.keyPressed || !this.fuel) this.clearThrust()
     this.flame.update({ delta, max: 3, loop: this.shouldLoop })
   }
 

@@ -3,7 +3,7 @@ import { Ammo, } from '/utils/physics/index.js'
 import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
 import { createSun } from '/utils/light.js'
 import { normalizeMouse } from '/utils/helpers.js'
-import input from '/utils/io/Keyboard.js'
+import { keyboard } from '/utils/io/Keyboard.js'
 import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
 import { createGround } from '/utils/ground.js'
 import { createSphere, create4Walls } from '/utils/geometry/index.js'
@@ -31,7 +31,7 @@ create4Walls().forEach(mesh => world.add(mesh))
 
 void function loop() {
   requestAnimationFrame(loop)
-  if (input.pressed.pointer && impulse.value < maxImpulse)
+  if (keyboard.pressed.pointer && impulse.value < maxImpulse)
     impulse.value = parseFloat(impulse.value) + 1
   const dt = clock.getDelta()
   world.update(dt)

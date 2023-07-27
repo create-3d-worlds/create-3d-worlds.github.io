@@ -1,5 +1,5 @@
 import Screen from './Screen.js'
-import { Keyboard } from './Keyboard.js'
+import Keyboard from './Keyboard.js'
 
 class Input {
   constructor({ useScreen = true, useKeyboard = true } = {}) {

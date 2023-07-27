@@ -1,4 +1,4 @@
-import input from '/utils/io/Keyboard.js'
+import { keyboard } from '/utils/io/Keyboard.js'
 
 const targetSrc = '/assets/images/crosshair.png'
 
@@ -69,7 +69,7 @@ export default class FPSRenderer extends HTMLCanvasElement {
   }
 
   drawShake(img, elapsedTime = 1, xAlign = 0.5, yAlign = 1) {
-    const shaking = input.controlsPressed ? 6 : 1
+    const shaking = keyboard.controlsPressed ? 6 : 1
     const shakeX = Math.cos(elapsedTime * 2) * shaking
     const shakeY = Math.sin(elapsedTime * 4) * shaking
 

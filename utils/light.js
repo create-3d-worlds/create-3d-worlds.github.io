@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import config from '/config.js'
-import input from '/utils/io/Keyboard.js'
 import { scene as defaultScene } from '/utils/scene.js'
 import { mapRange } from './helpers.js'
 
@@ -111,7 +110,7 @@ export function lightningStrike(light, scene = defaultScene) {
 
   setTimeout(() => {
     audio.currentTime = 0
-    if (input.touched) audio.play()
+    audio.play()
   }, distance * 3)
 }
 

@@ -120,8 +120,6 @@ class Keyboard {
   }
 }
 
-export { Keyboard }         // export class
+export default Keyboard
 
-export const keyboard = new Keyboard()
-
-export default new Keyboard // export singleton instance
+export const keyboard = new Keyboard() // export instance

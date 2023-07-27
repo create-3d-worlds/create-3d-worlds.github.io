@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import input from '/utils/io/Keyboard.js'
 import { similarColor } from '/utils/helpers.js'
 import config from '/config.js'
 
@@ -166,7 +165,7 @@ export class Rain extends Particles {
 
   update({ min = 0, max = 50, minVelocity = 30, maxVelocity = 90, ...rest } = {}) {
     super.update({ min, max, axis: 1, minVelocity, maxVelocity, ...rest })
-    if (input.touched && !this.playing) {
+    if (!this.playing) {
       this.audio.play()
       this.playing = true
     }

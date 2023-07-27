@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-import input from '/utils/io/Keyboard.js'
+import { keyboard } from '/utils/io/Keyboard.js'
 import { getSize } from '/utils/helpers.js'
 import { Ammo, createRigidBody, updateMeshTransform } from '/utils/physics/index.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
@@ -45,7 +45,7 @@ export default class Vehicle {
     this.engineForce = 0
     this.breakingForce = 0
     this.maxSpeed = maxSpeed
-    this.input = input
+    this.input = keyboard
     const { x, y, z } = getSize(mesh)
     this.width = x
     this.height = y
@@ -157,6 +157,7 @@ export default class Vehicle {
   }
 
   handleInput() {
+    const { input } = this
     if (input.up) this.forward()
     if (input.down) this.backward()
 
