@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { keyboard } from '/utils/io/Keyboard.js'
+import Input from '/utils/io/Input.js'
 import { getMesh, getGroundY } from '/utils/helpers.js'
 import ChaseCamera from '/utils/actor/ChaseCamera.js'
 import GameObject from '/utils/objects/GameObject.js'
@@ -25,6 +25,7 @@ export default class Airship extends GameObject {
     this.propellers = []
     this.mixer = new THREE.AnimationMixer(getMesh(this.mesh))
     this.mesh.rotation.order = 'YZX' // fix controls (default is 'ZYX')
+    this.input = new Input()
 
     if (animations) {
       const clip = this.animations[0]
@@ -140,14 +141,14 @@ export default class Airship extends GameObject {
   /* UPDATES */
 
   handleInput(delta) {
-    if (keyboard.left) this.left(delta)
-    if (keyboard.right) this.right(delta)
+    if (this.input.left) this.left(delta)
+    if (this.input.right) this.right(delta)
 
-    if (keyboard.up) this.up(delta)
-    if (keyboard.down) this.down(delta)
+    if (this.input.up) this.up(delta)
+    if (this.input.down) this.down(delta)
 
-    if (keyboard.pressed.PageUp) this.accelerate(delta)
-    if (keyboard.pressed.PageDown) this.deaccelerate()
+    if (this.input.pressed.PageUp) this.accelerate(delta)
+    if (this.input.pressed.PageDown) this.deaccelerate()
   }
 
   autoHeight(delta) {
@@ -156,7 +157,7 @@ export default class Airship extends GameObject {
   }
 
   stabilize() {
-    if (keyboard.keyPressed) return
+    if (this.input.keyPressed) return
     const unrollFactor = 0.04
     const rollAngle = Math.abs(this.mesh.rotation.z)
     if (this.mesh.rotation.z > 0) this.roll(-rollAngle * unrollFactor)
@@ -183,7 +184,7 @@ export default class Airship extends GameObject {
       this.updateGround()
     this.normalizeAngles()
     this.handleInput(delta)
-    if (!keyboard.down) this.autoHeight(delta)
+    if (!this.input.down) this.autoHeight(delta)
     this.moveForward(delta)
     this.stabilize()
 

@@ -58,6 +58,10 @@ class Input {
     return this.keyboard?.special || this.screen?.special
   }
 
+  get pressed() {
+    return this.keyboard?.pressed
+  }
+
   get controlsPressed() {
     return this.keyboard?.controlsPressed
   }
