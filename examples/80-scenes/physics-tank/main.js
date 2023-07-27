@@ -65,7 +65,9 @@ void function loop() {
   const newTime = Math.floor(time + dt)
 
   tank.update(dt)
-  leaveTracks({ vehicle: tank, ground, scene })
+  if ((tank.input.left || tank.input.right) && tank.speed >= 30)
+    leaveTracks({ vehicle: tank, ground, scene })
+
   world.update(dt)
 
   if (Math.floor(time) != newTime)
