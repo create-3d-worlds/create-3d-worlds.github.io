@@ -20,6 +20,7 @@ export default class FPSPlayer extends Player {
       useScreen: false,
       attackDistance,
       attackSound,
+      attackKey: 'pointer',
       ...rest,
     })
     this.mouseSensitivity = mouseSensitivity
@@ -27,7 +28,6 @@ export default class FPSPlayer extends Player {
     this.energy = 100
     this.hurting = false
     this.fpsRenderer = new FPSRenderer()
-    this.input.attackKey = 'pointer'
 
     this.camera = camera
     const cameraX = this.mixer ? -.05 : 0

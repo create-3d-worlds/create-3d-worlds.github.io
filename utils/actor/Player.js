@@ -7,8 +7,9 @@ import ChaseCamera from '/utils/actor/ChaseCamera.js'
 export default class Player extends Actor {
   constructor({
     animDict,
+    attackKey,
     useScreen = true,
-    input = new Input({ useScreen, animDict }),
+    input = new Input({ useScreen, animDict, attackKey }),
     attackStyle = attackStyles.LOOP,
     jumpStyle = jumpStyles.ANIM_JUMP,
     getState = name => getPlayerState(name, jumpStyle, attackStyle),

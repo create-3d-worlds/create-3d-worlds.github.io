@@ -7,7 +7,7 @@ const preventSome = e => {
 class Keyboard {
   #capsLock = false
 
-  constructor(listen = true, attackKey = 'Enter') {
+  constructor({ listen = true, attackKey = 'Enter' } = {}) {
     this.pressed = {}
     this.attackKey = attackKey
 

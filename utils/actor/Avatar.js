@@ -89,6 +89,7 @@ export default class Avatar extends Player {
       jumpStyle,
       maxJumpTime,
       showHealthBar,
+      animDict: { jump: 'true' },
       ...params,
     })
     this.skin = skin

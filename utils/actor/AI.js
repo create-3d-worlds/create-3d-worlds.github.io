@@ -29,7 +29,7 @@ export default class AI extends Actor {
     super({
       speed,
       attackDistance,
-      input: new Keyboard(false),
+      input: new Keyboard({ listen: false }),
       getState: name => getAIState(name, jumpStyle, attackStyle),
       shouldRaycastGround: false,
       useRicochet: false,
