@@ -63,6 +63,7 @@ export default class Lander extends GameObject {
     this.mesh.rotation.z = 0
     this.velocity = new Vector2()
     this.failure = false
+    this.resetFlame()
   }
 
   handleInput() {
@@ -96,10 +97,6 @@ export default class Lander extends GameObject {
     this.shouldLoop = true
   }
 
-  clearThrust() {
-    this.shouldLoop = false
-  }
-
   doFailure() {
     this.failure = true
     this.mesh.rotation.z = Math.PI * .5
@@ -112,7 +109,7 @@ export default class Lander extends GameObject {
     if (this.velocity.y < -2.4)
       this.doFailure()
     else
-      this.clearThrust()
+      this.shouldLoop = false
 
     this.velocity.set(0, 0)
   }
@@ -133,7 +130,8 @@ export default class Lander extends GameObject {
   }
 
   updateFlame(delta) {
-    if (!this.input.keyPressed || !this.fuel) this.clearThrust()
+    if (!this.input.keyPressed || !this.fuel) this.shouldLoop = false
+    if (this.failure) this.shouldLoop = true
     this.flame.update({ delta, max: 3, loop: this.shouldLoop })
   }
 
