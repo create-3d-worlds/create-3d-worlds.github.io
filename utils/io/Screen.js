@@ -1,7 +1,7 @@
 import { getCursorPosition } from '/utils/helpers.js'
 
 /**
- * Handle screen controls
+ * Joystick and screen controls
  * credit to Nicholas Lever
  */
 export default class Screen {
@@ -16,12 +16,11 @@ export default class Screen {
     this.maxRadiusSquared = this.maxRadius * this.maxRadius
 
     this.addJoystick()
-    console.log(animDict)
 
-    this.addButton('jump', 'Jmp')
-    this.addButton('attack', 'Atk')
-    this.addButton('attack2', 'Atk')
-    this.addButton('special', 'Spl')
+    if (animDict?.jump) this.addButton('jump', 'Jmp')
+    if (animDict?.attack) this.addButton('attack', 'Atk')
+    if (animDict?.attack2) this.addButton('attack2', 'Atk')
+    if (animDict?.special) this.addButton('special', 'Spl')
 
     this.thumb.addEventListener('pointerdown', this.handleCursor)
   }
