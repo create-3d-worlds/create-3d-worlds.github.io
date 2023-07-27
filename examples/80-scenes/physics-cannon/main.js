@@ -44,8 +44,8 @@ scene.add(cannon.mesh, ...cannon.wheelMeshes)
 
 const GUI = await import('/utils/io/GUI.js')
 const controls = {
-  'Mouse pressed': 'add force',
-  'Mouse released': 'shoot'
+  'Pointer down': 'add force',
+  'Pointer up': 'shoot'
 }
 gui = new GUI.default({ scoreTitle: 'Blocks left', points: countableCrates.length, controls })
 

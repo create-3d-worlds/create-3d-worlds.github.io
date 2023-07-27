@@ -14,11 +14,11 @@ npx live-server
 ## TODO
 
 - default attack on click,  not on enter?
+- kad se slupa lander ostaviti vatru
 
 ### Polishing
 
-- komande za telefone
-  - strelice na lander...
+- strelice na lander?
 - reload button u end screen (ili kad igrač umre)
 - full screen btn
 - volume / mute btn
