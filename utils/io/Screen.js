@@ -1,5 +1,16 @@
 import { getCursorPosition } from '/utils/helpers.js'
 
+// do not move to css, required to set origin
+const thumbCss = `
+  position: absolute; 
+  left: 20px; 
+  top: 20px; 
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  background: #fff;
+`
+
 /**
  * Render virtual controls and on-screen buttons
  * credit to Nicholas Lever
@@ -14,7 +25,7 @@ export default class Screen {
     this.maxRadius = maxRadius
     this.maxRadiusSquared = this.maxRadius * this.maxRadius
 
-    this.addMovement()
+    this.addJoystick()
     // TODO: dodavati sve pokrete koje igrač ima
     this.addButton('jump', 'Jmp')
     this.addButton('attack', 'Atk')
@@ -62,13 +73,14 @@ export default class Screen {
 
   /* BUTTONS */
 
-  addMovement() {
-    const wrapper = document.createElement('div')
-    wrapper.classList.add('game-btn', 'joystick')
-    document.body.appendChild(wrapper)
+  addJoystick() {
+    const circle = document.createElement('div')
+    circle.classList.add('game-btn', 'joystick')
+    document.body.appendChild(circle)
 
     const thumb = document.createElement('div')
-    wrapper.appendChild(thumb)
+    thumb.style.cssText = thumbCss
+    circle.appendChild(thumb)
     this.thumb = thumb
 
     this.origin = { left: thumb.offsetLeft, top: thumb.offsetTop }
@@ -98,6 +110,7 @@ export default class Screen {
 
   handleMove = e => {
     const mouse = getCursorPosition(e)
+
     let left = mouse.x - this.offset.x
     let top = mouse.y - this.offset.y
 

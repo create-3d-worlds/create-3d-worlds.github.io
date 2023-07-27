@@ -121,4 +121,7 @@ class Keyboard {
 }
 
 export { Keyboard }         // export class
+
+export const keyboard = new Keyboard()
+
 export default new Keyboard // export singleton instance
