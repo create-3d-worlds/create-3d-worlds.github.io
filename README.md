@@ -17,20 +17,17 @@ npx live-server
 
 ## TODO
 
-- BUG: avatar ne skače nekad
-  - nekad se trese kao lud
-- ažurirati verziju?
+- ažurirati verziju
 
 ### Publish
 - centralni ekran sa izborom scena 
-  - jedan index.html i dinamički import na klik
-  - ili odvojene html stranice (srediti html naslove)
-- napraviti index.js za export svega postojećeg (vidi three.js)
+  - srediti html naslove
+- napraviti index.js za export svega postojećeg (kao three.js)?
 - srediti root-relativne linkove da rade u podfolderu
 - možda build proces, minify, i sl. (vidi sun position)
-- sve dobro dokumentovati
-- minimalni bekend za statistike i pamćenje poena ili bar brojač poseta
-- testirati sve nakon dizanja na server
+- dokumentovati
+- minimalni bekend za statistike / brojač poseta
+- testirati na raznim uređajima nakon dizanja na server
 
 ## Helpers
 

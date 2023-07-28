@@ -58,7 +58,7 @@ export function createTree({ x = 0, y = 0, z = 0, size = 5, trunkColor, crownCol
 
 /* FIR TREE */
 
-export function createFirTree({ x = 0, y = 0, z = 0, size = 3.5 } = {}) {
+export function createFirTree({ x = 0, y = 0, z = 0, size = 5 } = {}) {
   const trunk = new THREE.Mesh(
     new THREE.CylinderGeometry(1.5, 1.5, 12, 6, 1, true),
     new THREE.MeshLambertMaterial({ color: similarColor(browns[1]) })
@@ -90,7 +90,7 @@ export function createFirTree({ x = 0, y = 0, z = 0, size = 3.5 } = {}) {
 
 /* SIMPLE FIR TREE */
 
-export function createSimpleFir({ size = 12, x = 0, y = 0, z = 0 } = {}) {
+export function createSimpleFir({ size = 15, x = 0, y = 0, z = 0 } = {}) {
   size = size * randFloat(0.6, 1.4) // eslint-disable-line
   const treeData = {
     geom: {
