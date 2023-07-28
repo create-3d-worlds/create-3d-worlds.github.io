@@ -60,17 +60,6 @@ export function createAvatar({ skin = STONE, r = 1.2 } = {}) {
   return group
 }
 
-function updateAvatar(mesh, time, axis = 'z') {
-  const limbs = [
-    mesh.getObjectByName('leftHand'), mesh.getObjectByName('rightHand'),
-    mesh.getObjectByName('leftLeg'), mesh.getObjectByName('rightLeg')
-  ]
-  const elapsed = Math.sin(time) * .666
-  limbs.forEach((limb, i) => {
-    limb.position[axis] = i % 2 ? elapsed : -elapsed
-  })
-}
-
 /** CLASS */
 
 export default class Avatar extends Player {
@@ -116,8 +105,13 @@ export default class Avatar extends Player {
   walkAnim(name) {
     const r = this.height * .5
     const speedFactor = name === 'run' ? 9 : 6
-    const elapsed = Math.sin(clock.getElapsedTime() * speedFactor) * r
-    updateAvatar(this.mesh, elapsed)
+
+    const time = Math.sin(clock.getElapsedTime() * speedFactor) * r
+    const elapsed = Math.sin(time) * .666
+
+    this.limbs.forEach((limb, i) => {
+      limb.position.z = i % 2 ? elapsed : -elapsed
+    })
   }
 
   jumpAnim() {
