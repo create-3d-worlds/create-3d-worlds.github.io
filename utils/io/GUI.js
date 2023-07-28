@@ -170,7 +170,6 @@ export default class GUI {
   }
 
   showGameScreen({ callback, autoClose = false, usePointerLock = false, ...params } = {}) {
-
     if (this.gameScreen.innerHTML === this.getScreen(params)) return
 
     this.openGameScreen(this.getScreen(params))
@@ -183,12 +182,11 @@ export default class GUI {
       if (usePointerLock) document.body.requestPointerLock() // gameLoop starts
     }
 
-    if (usePointerLock) document.addEventListener('pointerlockchange', () => {
-      if (document.pointerLockElement)
-        this.closeGameScreen()
-      else
-        this.openGameScreen(this.getScreen(params))
-    })
+    if (usePointerLock) document.addEventListener('pointerlockchange', () =>
+      document.pointerLockElement
+        ? this.closeGameScreen()
+        : this.openGameScreen(this.getScreen(params))
+    )
   }
 
   showHeighScore() {
