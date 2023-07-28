@@ -25,7 +25,7 @@ export const avatarControls = {
   Space: 'jump',
 }
 
-const actionControls = player => {
+const mapControls = player => {
   if (!player) return {}
   const { actions } = player
   const controls = {}
@@ -77,9 +77,10 @@ export default class GUI {
     this.gameScreen.className = 'central-screen'
     document.body.appendChild(this.gameScreen)
 
-    const allControls = { ...baseControls, ...actionControls(player), ...controls }
-
-    if (!('ontouchstart' in window)) this.addControls(allControls, controlsClass, controlsWindowClass)
+    if (!('ontouchstart' in window)) {
+      const allControls = { ...baseControls, ...mapControls(player), ...controls }
+      this.addControls(allControls, controlsClass, controlsWindowClass)
+    }
 
     if (scoreTitle) {
       this.scoreDiv = document.createElement('div')

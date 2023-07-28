@@ -13,15 +13,10 @@ npx live-server
 
 ## TODO
 
-### Polishing
-
-- volume / mute btn
-
 ### Publish
-- srediti html naslove
 - centralni ekran sa izborom scena 
   - jedan index.html i dinamički import na klik
-  - ili odvojene html stranice
+  - ili odvojene html stranice (srediti html naslove)
 - napraviti index.js za export svega postojećeg (vidi threejs)
 - srediti root-relativne linkove da rade u podfolderu
 - možda build proces, minifikacija, i sl. (vidi sunposition)
