@@ -38,7 +38,7 @@ const loop = new GameLoop.default(delta => {
   if (!document.pointerLockElement) return
 
   const destroyed = aircraft.filter(plane => plane.energy <= 0)
-  gui.renderScore(destroyed.length, aircraft.length - destroyed.length)
+  gui.update({ points: destroyed.length, left: aircraft.length - destroyed.length, dead: player.dead })
 
   if (destroyed.length == aircraft.length)
     gui.renderText('Congratulations!<br>All enemy planes were destroyed.')

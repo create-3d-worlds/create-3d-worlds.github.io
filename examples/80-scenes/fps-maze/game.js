@@ -60,14 +60,14 @@ new GameLoop.default((delta, time) => {
 
   const killed = enemies.filter(enemy => enemy.energy <= 0)
   const left = enemies.length - killed.length
-  const win = player.position.distanceTo(maze.exitPosition) < 5
+  const won = player.position.distanceTo(maze.exitPosition) < 5
 
   player.update(delta)
 
-  if (win)
+  if (won)
     gui.renderText(`Bravo!<br>You found a way out<br> and kill ${killed.length} of ${enemies.length} enemies`)
 
-  const blinkingMessage = win ? '' : 'Find a way out!'
+  const blinkingMessage = won ? '' : 'Find a way out!'
   gui.update({ time, points: killed.length, left, dead: player.dead, blinkingMessage })
 
   enemies.forEach(enemy => enemy.update(delta))

@@ -87,7 +87,7 @@ export default class Screen {
     document.body.appendChild(circle)
 
     const thumb = document.createElement('div')
-    // style is required here to calc origin
+    // style is required here to set origin
     thumb.style = `
       position: absolute; 
       left: 20px; 
