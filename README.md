@@ -15,7 +15,6 @@ npx live-server
 
 ### Polishing
 
-- full screen btn
 - volume / mute btn
 
 ### Publish

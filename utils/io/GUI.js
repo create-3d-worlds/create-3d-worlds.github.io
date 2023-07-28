@@ -164,13 +164,14 @@ export default class GUI {
     `
   }
 
+  getScreen(params) {
+    return this.dead ? this.endScreen : this.getStartScreen(params)
+  }
+
   showGameScreen({ callback, autoClose = false, usePointerLock = false, ...params } = {}) {
+    if (this.gameScreen.innerHTML === this.getScreen(params)) return
 
-    const getScreen = () => this.dead ? this.endScreen : this.getStartScreen(params)
-
-    if (this.gameScreen.innerHTML === getScreen()) return
-
-    this.openGameScreen(getScreen())
+    this.openGameScreen(this.getScreen(params))
 
     this.gameScreen.onpointerdown = e => {
       if (this.dead) location.reload()
@@ -184,7 +185,7 @@ export default class GUI {
       if (document.pointerLockElement)
         this.closeGameScreen()
       else
-        this.openGameScreen(getScreen())
+        this.openGameScreen(this.getScreen(params))
     })
   }
 
