@@ -170,12 +170,13 @@ export default class GUI {
   }
 
   showGameScreen({ callback, autoClose = false, usePointerLock = false, ...params } = {}) {
+
     if (this.gameScreen.innerHTML === this.getScreen(params)) return
 
     this.openGameScreen(this.getScreen(params))
 
     this.gameScreen.onpointerdown = e => {
-      if (this.dead) location.reload()
+      if (this.dead && !callback) location.reload()
 
       if (callback) callback(e)
       if (autoClose) this.clearScreen()
@@ -188,10 +189,6 @@ export default class GUI {
       else
         this.openGameScreen(this.getScreen(params))
     })
-  }
-
-  showEndScreen(params = {}) {
-    this.showGameScreen({ title: 'You are dead.', subtitle: 'Click here to start again', ...params })
   }
 
   showHeighScore() {

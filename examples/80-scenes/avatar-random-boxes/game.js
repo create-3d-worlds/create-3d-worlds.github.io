@@ -100,7 +100,8 @@ new GameLoop((delta, time) => {
   }
 
   if (player.dead) {
-    gui.showEndScreen({ callback: reset })
+    gui.dead = true
+    gui.showGameScreen({ callback: reset })
     player.position.y -= .01
   } else
     player.update(delta)

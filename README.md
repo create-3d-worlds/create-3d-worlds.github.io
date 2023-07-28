@@ -2,6 +2,10 @@
 
 Library of reusable Three.js components.
 
+Za razliku od ostalih kul Three.js primera koje možete samo gledati, ovde možete kombinovati različite elemente i praviti nove scene. Možete uzeti junaka iz jedne scene, zgrade iz druge, prirodu iz treće, itd.
+
+Nadam se da ćete se zabavljati kao ja dok sam ovo pravio.
+
 Developed by [mudroljub](https://twitter.com/mudroljub).
 
 ## Start
@@ -13,15 +17,18 @@ npx live-server
 
 ## TODO
 
+- BUG: avatar ne skače nekad
+  - nekad se trese kao lud
+- ažurirati verziju?
+
 ### Publish
 - centralni ekran sa izborom scena 
   - jedan index.html i dinamički import na klik
   - ili odvojene html stranice (srediti html naslove)
-- napraviti index.js za export svega postojećeg (vidi threejs)
+- napraviti index.js za export svega postojećeg (vidi three.js)
 - srediti root-relativne linkove da rade u podfolderu
-- možda build proces, minifikacija, i sl. (vidi sunposition)
+- možda build proces, minify, i sl. (vidi sun position)
 - sve dobro dokumentovati
-- ažurirati three.js?
 - minimalni bekend za statistike i pamćenje poena ili bar brojač poseta
 - testirati sve nakon dizanja na server
 
@@ -50,36 +57,6 @@ Ako je teren jednobojan, bez svetla, uraditi:
 
 ```js
 geometry.computeVertexNormals()
-```
-
-Stats:
-
-```js
-import Stats from '/node_modules/three/examples/jsm/libs/stats.module.js'
-const stats = new Stats()
-document.body.appendChild(stats.dom)
-```
-
-### Ammo Physics
-
-Some methods:
-
-```js
-body.setFriction(.9)
-body.setRollingFriction(10)
-body.setRestitution(.95)
-body.setAngularVelocity(btVector3)
-body.setLinearVelocity(btVector3)
-
-// apply a force to the x-axis of the rigid body
-const force = new Ammo.btVector3(10, 0, 0);
-body.applyForce(force, new Ammo.btVector3(0, 0, 0));
-
-// apply an impulse (very short duration force, like a punch or a kick) to the x-axis
-body.applyImpulse(new Ammo.btVector3(10, 0, 0))
-
-// jump
-body.applyCentralImpulse(new Ammo.btVector3(0, mass * .5, 0))
 ```
 
 ## Sources
