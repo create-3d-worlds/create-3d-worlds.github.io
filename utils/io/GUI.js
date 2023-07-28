@@ -71,7 +71,7 @@ export default class GUI {
     this.controlsTitle = controlsTitle
 
     this.tempTextRendered = false
-    this.playerDead = false
+    this.dead = false
 
     this.gameScreen = document.createElement('div')
     this.gameScreen.className = 'central-screen'
@@ -128,7 +128,7 @@ export default class GUI {
   }
 
   showBlinkingMessage({ message, time, messageInterval = 20 }) {
-    if (!this.playerDead && Math.ceil(time) % messageInterval == 0)
+    if (!this.dead && Math.ceil(time) % messageInterval == 0)
       this.showMessage(message, true)
   }
 
@@ -159,19 +159,22 @@ export default class GUI {
   get endScreen() {
     return /* html */`
       <h2>You are dead.</h2>
+      <span style="font-size:44px">&#x21bb;</span>
       <p>Press Reload to play again</p>
     `
   }
 
   showGameScreen({ callback, autoClose = false, usePointerLock = false, ...params } = {}) {
 
-    const getScreen = () => this.playerDead ? this.endScreen : this.getStartScreen(params)
+    const getScreen = () => this.dead ? this.endScreen : this.getStartScreen(params)
 
     if (this.gameScreen.innerHTML === getScreen()) return
 
     this.openGameScreen(getScreen())
 
     this.gameScreen.onpointerdown = e => {
+      if (this.dead) location.reload()
+
       if (callback) callback(e)
       if (autoClose) this.clearScreen()
       if (usePointerLock) document.body.requestPointerLock() // gameLoop starts
@@ -271,7 +274,7 @@ export default class GUI {
   /* SCORE */
 
   update({ time, points, left, dead, blinkingMessage, messageInterval } = {}) {
-    this.playerDead = dead
+    this.dead = dead
     this.renderScore(points, left)
     if (blinkingMessage) this.showBlinkingMessage({ time, message: blinkingMessage, messageInterval })
   }

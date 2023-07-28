@@ -15,7 +15,6 @@ npx live-server
 
 ### Polishing
 
-- reload button u end screen (ili kad igrač umre)
 - full screen btn
 - volume / mute btn
 

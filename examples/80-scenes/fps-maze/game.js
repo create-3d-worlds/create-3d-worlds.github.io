@@ -25,6 +25,7 @@ scene.add(walls)
 const player = new FPSPlayer({ camera, solids: walls })
 player.putInMaze(maze)
 scene.add(player.mesh)
+player.energy = 0
 
 renderer.render(scene, camera) // first draw
 
