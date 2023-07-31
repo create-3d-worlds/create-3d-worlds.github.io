@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 
-import { fixColors } from '/utils/scene.js'
 import { getHeight, centerMesh, adjustHeight } from '/utils/helpers.js'
 
 const textureLoader = new THREE.TextureLoader()
@@ -146,15 +145,12 @@ export async function loadFbxAnimations(names, prefix = '') {
 */
 export const loadModel = async param => {
   const params = typeof param === 'object' ? param : { file: param }
-  if (params.fixColors) fixColors()
   const ext = params.file.split('.').pop()
   switch (ext) {
     case 'obj':
-      fixColors()
       return loadObj(params)
     case 'glb':
     case 'gltf':
-      fixColors()
       return loadGlb(params)
     case 'dae':
       return loadDae(params)

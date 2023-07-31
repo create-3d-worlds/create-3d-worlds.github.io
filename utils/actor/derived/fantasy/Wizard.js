@@ -9,7 +9,7 @@ const animDict = {
 
 /* LOADING */
 
-const mesh = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/wizard/', size: 1.8, fixColors: true, texture: 'terrain/snow.jpg' })
+const mesh = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/wizard/', size: 1.8, texture: 'terrain/snow.jpg' })
 
 /* EXTENDED CLASSES */
 

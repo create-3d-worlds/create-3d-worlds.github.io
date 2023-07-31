@@ -11,7 +11,7 @@ const animDict = {
 
 /* LOADING */
 
-const mesh = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/goblin/', fixColors: true, size: 1.5 })
+const mesh = await loadModel({ file: 'model.fbx', angle: Math.PI, animDict, prefix: 'character/goblin/', size: 1.5 })
 
 /* EXTENDED CLASSES */
 

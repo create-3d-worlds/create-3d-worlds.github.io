@@ -48,10 +48,6 @@ export async function createToonRenderer(defaultThickness = 0.0025) {
   return new OutlineEffect(renderer, { defaultThickness })
 }
 
-export const fixColors = () => {
-  // renderer.outputColorSpace = THREE.SRGBColorSpace // THREE.LinearSRGBColorSpace
-}
-
 /* CONTROLS */
 
 export async function createOrbitControls(cam = camera, el = renderer.domElement) {

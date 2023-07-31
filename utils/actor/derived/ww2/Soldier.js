@@ -17,7 +17,7 @@ const animDict = {
 /* LOADING */
 
 const [mesh, twoHandedWeapon] = await Promise.all([
-  await loadModel({ file: 'soldier.fbx', angle: Math.PI, animDict, prefix: 'character/soldier/', fixColors: true }),
+  await loadModel({ file: 'soldier.fbx', angle: Math.PI, animDict, prefix: 'character/soldier/' }),
   await loadModel({ file: 'weapon/rifle.fbx', scale: 1.25, angle: Math.PI }),
 ])
 
