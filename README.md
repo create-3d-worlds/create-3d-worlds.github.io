@@ -17,9 +17,8 @@ npx live-server
 
 ## TODO
 
-- ažurirati verziju na 151
-  - obrisati tween
-  - https://github.com/mrdoob/three.js/wiki/Migration-Guide
+- ažurirati verziju
+  - srediti svetla i ostalo
 
 ### Publish
 - centralni ekran sa izborom scena 

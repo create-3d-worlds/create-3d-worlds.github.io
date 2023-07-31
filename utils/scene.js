@@ -30,6 +30,7 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio)) // save battery by limit pixel ratio to 2
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
+renderer.useLegacyLights = true
 
 const canvas = renderer.domElement
 canvas.addEventListener('contextmenu', e => e.preventDefault())
@@ -48,7 +49,7 @@ export async function createToonRenderer(defaultThickness = 0.0025) {
 }
 
 export const fixColors = () => {
-  renderer.outputEncoding = THREE.sRGBEncoding
+  // renderer.outputColorSpace = THREE.SRGBColorSpace // THREE.LinearSRGBColorSpace
 }
 
 /* CONTROLS */
