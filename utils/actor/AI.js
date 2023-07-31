@@ -1,5 +1,4 @@
 import { Vector3, MathUtils } from 'three'
-import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
 
 import Actor from './Actor.js'
 import Keyboard from '/utils/io/Keyboard.js'
@@ -36,11 +35,13 @@ export default class AI extends Actor {
       leaveDecals: false,
       ...params,
     })
+
     if (target) {
       this.name = 'enemy'
       this.target = target
       this.addSolids(target)
     }
+
     this.baseState = baseState
     this.followDistance = followDistance
     this.sightDistance = sightDistance
@@ -51,6 +52,13 @@ export default class AI extends Actor {
 
     this.setState(baseState)
     this.randomizeAction()
+
+    // turnSmooth variables
+    this.isRotating = false
+    this.targetRotationY = 0
+    this.startRotationY = 0
+    this.rotationStart = 0
+    this.rotationDuration = 0
   }
 
   /* GETTERS */
@@ -105,7 +113,7 @@ export default class AI extends Actor {
     return belongsTo(object, this.target.name)
   }
 
-  /* ANIMS */
+  /* ANIMATIONS */
 
   setupMixer(animations, animDict) {
     const { actions } = this
@@ -133,16 +141,26 @@ export default class AI extends Actor {
   }
 
   turnSmooth(angle = Math.PI, duration = 2500) {
-    new TWEEN.Tween(this.mesh.rotation)
-      .to({ y: this.mesh.rotation.y + angle }, duration)
-      .start()
+    this.startRotationY = this.mesh.rotation.y
+    this.targetRotationY = this.mesh.rotation.y + angle
+    this.rotationStart = performance.now()
+    this.rotationDuration = duration
+    this.isRotating = true
+  }
+
+  checkRotation() {
+    if (!this.isRotating) return
+
+    const elapsed = performance.now() - this.rotationStart
+    const progress = Math.min(1, elapsed / this.rotationDuration)
+    this.mesh.rotation.y = this.startRotationY + (this.targetRotationY - this.startRotationY) * progress
+
+    if (progress >= 1) this.isRotating = false
   }
 
   turnEvery(interval, angle = Math.PI / 2, duration = 1000) {
     if (Date.now() - this.last >= interval) {
-      new TWEEN.Tween(this.mesh.rotation)
-        .to({ y: randFloat(-angle, angle) }, duration)
-        .start()
+      this.turnSmooth(randFloat(-angle, angle), duration)
       this.last = Date.now()
     }
   }
@@ -175,6 +193,6 @@ export default class AI extends Actor {
   update(delta) {
     super.update(delta)
     this.checkTarget()
-    TWEEN.update()
+    this.checkRotation()
   }
 }
