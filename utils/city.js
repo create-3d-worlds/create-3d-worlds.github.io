@@ -237,7 +237,7 @@ export function createBuildingGeometry({
   }
 
   const mergedGeometry = addWindows
-    ? BufferGeometryUtils.mergeBufferGeometries([geometry, ...createWindows(width, height)])
+    ? BufferGeometryUtils.mergeGeometries([geometry, ...createWindows(width, height)])
     : geometry
 
   mergedGeometry.translate(x, y, z) // needed for merge
@@ -337,7 +337,7 @@ export function createCity({
     buildings.push(geometry)
   }
 
-  const merged = BufferGeometryUtils.mergeBufferGeometries(buildings)
+  const merged = BufferGeometryUtils.mergeGeometries(buildings)
   const material = map
     ? new THREE.MeshLambertMaterial({ map, vertexColors: true })
     : basicMaterial

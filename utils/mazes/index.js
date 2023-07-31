@@ -82,7 +82,7 @@ export function meshFromTilemap({ tilemap, cellSize = 1, maxHeight = cellSize, t
     }
   }))
 
-  const geometry = BufferGeometryUtils.mergeBufferGeometries(geometries)
+  const geometry = BufferGeometryUtils.mergeGeometries(geometries)
   centerGeometry(geometry)
 
   const options = {
@@ -167,7 +167,7 @@ export function meshFromMaze({ maze, cellSize = 10, connect = createWall, color 
       }
     }
 
-  const geometry = BufferGeometryUtils.mergeBufferGeometries(geometries)
+  const geometry = BufferGeometryUtils.mergeGeometries(geometries)
   geometry.translate(0, .5, 0)
   centerGeometry(geometry)
   const material = new THREE.MeshLambertMaterial({
@@ -223,7 +223,7 @@ export function meshFromPolarMaze({ maze, cellSize = 10, connect = createPipe, c
       }
     }
 
-  const geometry = BufferGeometryUtils.mergeBufferGeometries(geometries)
+  const geometry = BufferGeometryUtils.mergeGeometries(geometries)
   geometry.translate(0, .5, 0)
   const material = new THREE.MeshLambertMaterial({
     color,

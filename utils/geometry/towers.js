@@ -69,7 +69,7 @@ function buildTower({ x = 0, z = 0, radius = 15, height = 200 } = {}) {
   const coneGeometry = new THREE.CylinderGeometry(0, radius * 1.2, height * .25, 15)
   coneGeometry.translate(x, 170, z)
 
-  const merged = BufferGeometryUtils.mergeBufferGeometries([towerGeometry, coneGeometry])
+  const merged = BufferGeometryUtils.mergeGeometries([towerGeometry, coneGeometry])
   return merged
 }
 
@@ -125,7 +125,7 @@ export function buildCastle({ rows = 10, brickInWall = 30, rowSize = 10, towerRa
     geometries.push(geometry)
   })
 
-  const merged = BufferGeometryUtils.mergeBufferGeometries(geometries)
+  const merged = BufferGeometryUtils.mergeGeometries(geometries)
   merged.rotateY(-Math.PI / 2)
   const castle = new THREE.Mesh(merged, new THREE.MeshNormalMaterial())
   centerMesh(castle)

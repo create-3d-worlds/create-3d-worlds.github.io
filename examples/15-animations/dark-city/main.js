@@ -1,4 +1,4 @@
-import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js'
+import TWEEN from '/node_modules/three/examples/jsm/libs/tween.module.js'
 import { scene, camera, renderer } from '/utils/scene.js'
 import { createFloor } from '/utils/ground.js'
 import { createBuilding, createBuildingTexture } from '/utils/city.js'
