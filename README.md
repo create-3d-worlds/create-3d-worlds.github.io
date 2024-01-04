@@ -17,10 +17,6 @@ npx live-server
 
 ## TODO
 
-- srediti svetla
-  https://github.com/mrdoob/three.js/wiki/Migration-Guide
-  https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733
-
 ### Publish
 - centralni ekran sa izborom scena 
   - srediti html naslove
