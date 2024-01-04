@@ -18,11 +18,13 @@ npx live-server
 ## TODO
 
 ### Publish
+- ukloniti node_modules, te package.json
 - srediti root-relativne linkove da rade u podfolderu
-- možda build proces, minify, i sl. (vidi sun position)
+  - manuelna zamena u relativne linkove (loše)
+  - postaviti na github organizaciju (bolje, ali menja vlasnika i url)
+  - probati build proces (vidi sun position)
 - centralni ekran sa izborom scena 
   - srediti html titlove
-- napraviti index.js za export svega postojećeg (kao three.js)?
 - dokumentovati
 - minimalni bekend za statistike / brojač poseta
 - testirati na raznim uređajima nakon dizanja na server
