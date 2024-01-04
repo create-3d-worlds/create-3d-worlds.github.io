@@ -3,15 +3,13 @@ import { createAvatar } from '/utils/actor/Avatar.js'
 import { hemLight } from '/utils/light.js'
 
 hemLight()
-camera.position.z = 5
-camera.position.y = 2
 
 const avatar = createAvatar()
 scene.add(avatar)
 
 /* LOOP */
 
-void function animiraj() {
-  requestAnimationFrame(animiraj)
+void function loop() {
+  requestAnimationFrame(loop)
   renderer.render(scene, camera)
 }()
