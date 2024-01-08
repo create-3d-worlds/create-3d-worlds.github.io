@@ -13,7 +13,7 @@ export function dirLight({
   scene = defaultScene,
   pos = [20, 50, 20],
   color = 0xffffff,
-  intensity = 1,
+  intensity = Math.PI,
   target,
   mapSize = 512,
   area = 5,
@@ -31,7 +31,7 @@ export function dirLight({
   return light
 }
 
-export function pointLight({ scene = defaultScene, color = 0xffffff, intensity = 1, mapSize = 512, pos = [0, 30, 30] } = {}) {
+export function pointLight({ scene = defaultScene, color = 0xffffff, intensity = Math.PI, mapSize = 512, pos = [0, 30, 30] } = {}) {
   const light = new THREE.PointLight(color, intensity)
   light.position.set(...pos)
   light.castShadow = true
@@ -40,7 +40,7 @@ export function pointLight({ scene = defaultScene, color = 0xffffff, intensity =
   return light
 }
 
-export function spotLight({ scene = defaultScene, color = 0xffffff, intensity = 1, mapSize = 512 } = {}) {
+export function spotLight({ scene = defaultScene, color = 0xffffff, intensity = Math.PI, mapSize = 512 } = {}) {
   const light = new THREE.SpotLight(color, intensity)
   light.castShadow = true
   light.shadow.mapSize.width = light.shadow.mapSize.height = mapSize
@@ -48,13 +48,13 @@ export function spotLight({ scene = defaultScene, color = 0xffffff, intensity = 
   return light
 }
 
-export function hemLight({ scene = defaultScene, skyColor = 0xfffff0, groundColor = 0x101020, intensity = 1 } = {}) {
+export function hemLight({ scene = defaultScene, skyColor = 0xfffff0, groundColor = 0x101020, intensity = Math.PI } = {}) {
   const light = new THREE.HemisphereLight(skyColor, groundColor, intensity)
   if (scene) scene.add(light)
   return light
 }
 
-export function ambLight({ scene = defaultScene, color = 0xffffff, intensity = 1 } = {}) { // 0x343434
+export function ambLight({ scene = defaultScene, color = 0xffffff, intensity = Math.PI } = {}) { // 0x343434
   const light = new THREE.AmbientLight(color, intensity)
   if (scene) scene.add(light)
   return light
@@ -62,7 +62,7 @@ export function ambLight({ scene = defaultScene, color = 0xffffff, intensity = 1
 
 /* SUN */
 
-export function createSun({ color = 0xffffff, intensity = 1, target, pos = [15, 50, 50], mapSize = 1024, r = 1, transparent = false, planetColor = 0xFCE570, addLight = true, file } = {}) {
+export function createSun({ color = 0xffffff, intensity = Math.PI, target, pos = [15, 50, 50], mapSize = 1024, r = 1, transparent = false, planetColor = 0xFCE570, addLight = true, file } = {}) {
   const mesh = new THREE.Mesh(
     new THREE.SphereGeometry(r),
     new THREE.MeshToonMaterial({
@@ -95,6 +95,7 @@ export function lightningStrike(light, scene = defaultScene) {
 
   const distance = randInt(100, 3000)
   audio.volume = mapRange(distance, 3000, 100, config.volume / 4, config.volume)
+  // TODO: fix light
   light.intensity = mapRange(distance, 3000, 100, 1.2, 2)
 
   const newColor = new THREE.Color().lerpColors(

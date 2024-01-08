@@ -19,7 +19,6 @@ npx live-server
 
 - centralni ekran sa izborom scena 
 - srediti html titlove
-- ažurirati verziju
 - dokumentovati
 - minimalni bekend za statistike / brojač poseta
 - testirati na raznim uređajima nakon dizanja na server
