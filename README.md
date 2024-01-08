@@ -17,9 +17,8 @@ npx live-server
 
 ## TODO
 
-### Publish
 - centralni ekran sa izborom scena 
-  - srediti html titlove
+- srediti html titlove
 - ažurirati verziju
 - dokumentovati
 - minimalni bekend za statistike / brojač poseta
