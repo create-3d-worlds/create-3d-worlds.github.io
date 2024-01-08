@@ -18,7 +18,6 @@ npx live-server
 ## TODO
 
 ### Publish
-- ukloniti node_modules, te package.json
 - srediti root-relativne linkove da rade u podfolderu
   - manuelna zamena u relativne linkove (loše)
   - postaviti na github organizaciju (bolje, ali menja vlasnika i url)
