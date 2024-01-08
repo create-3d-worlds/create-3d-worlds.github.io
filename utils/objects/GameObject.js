@@ -1,5 +1,5 @@
 import { getMesh, putOnSolids, getSize } from '/utils/helpers.js'
-import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
+import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js'
 
 const getScene = object => {
   if (!object.parent) return null

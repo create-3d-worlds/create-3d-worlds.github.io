@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { DecalGeometry } from '/node_modules/three/examples/jsm/geometries/DecalGeometry.js'
+import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js'
 
 const { randFloat } = THREE.MathUtils
 const textureLoader = new THREE.TextureLoader()

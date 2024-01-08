@@ -44,14 +44,14 @@ window.addEventListener('resize', () => {
 })
 
 export async function createToonRenderer(defaultThickness = 0.0025) {
-  const { OutlineEffect } = await import('/node_modules/three/examples/jsm/effects/OutlineEffect.js')
+  const { OutlineEffect } = await import('three/examples/jsm/effects/OutlineEffect.js')
   return new OutlineEffect(renderer, { defaultThickness })
 }
 
 /* CONTROLS */
 
 export async function createOrbitControls(cam = camera, el = renderer.domElement) {
-  const { OrbitControls } = await import('/node_modules/three/examples/jsm/controls/OrbitControls.js')
+  const { OrbitControls } = await import('three/examples/jsm/controls/OrbitControls.js')
 
   const controls = new OrbitControls(cam, el)
   controls.maxPolarAngle = Math.PI / 2 - 0.1 // prevent bellow ground, negde ne radi

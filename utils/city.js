@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import * as BufferGeometryUtils from '/node_modules/three/examples/jsm/utils/BufferGeometryUtils.js'
+import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { randomGrayish, getEmptyCoords, sample, mapRange, maxItems } from '/utils/helpers.js'
 import { createTrees } from '/utils/geometry/trees.js'
 import { createFloor } from '/utils/ground.js'

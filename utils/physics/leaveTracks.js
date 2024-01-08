@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { DecalGeometry } from '/node_modules/three/examples/jsm/geometries/DecalGeometry.js'
+import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js'
 
 import { Ammo } from '/utils/physics/index.js'
 import { getMesh } from '/utils/helpers.js'

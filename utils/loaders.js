@@ -51,8 +51,8 @@ const prepareMesh = async({ model, size = 2, texture, angle, axis = [0, 1, 0], a
 
 export const loadObj = async params => {
   const { file, mtl } = params
-  const { OBJLoader } = await import('/node_modules/three/examples/jsm/loaders/OBJLoader.js')
-  const { MTLLoader } = await import('/node_modules/three/examples/jsm/loaders/MTLLoader.js')
+  const { OBJLoader } = await import('three/examples/jsm/loaders/OBJLoader.js')
+  const { MTLLoader } = await import('three/examples/jsm/loaders/MTLLoader.js')
 
   const objLoader = new OBJLoader()
   const mtlLoader = new MTLLoader()
@@ -69,7 +69,7 @@ export const loadObj = async params => {
 /* GLB */
 
 export async function loadGlb(params) {
-  const { GLTFLoader } = await import('/node_modules/three/examples/jsm/loaders/GLTFLoader.js')
+  const { GLTFLoader } = await import('three/examples/jsm/loaders/GLTFLoader.js')
 
   const gtflLoader = new GLTFLoader()
   const { scene, animations } = await gtflLoader.loadAsync(`/assets/models/${params.file}`)
@@ -79,7 +79,7 @@ export async function loadGlb(params) {
 /* DAE */
 
 export async function loadDae(params) {
-  const { ColladaLoader } = await import('/node_modules/three/examples/jsm/loaders/ColladaLoader.js')
+  const { ColladaLoader } = await import('three/examples/jsm/loaders/ColladaLoader.js')
 
   const colladaLoader = new ColladaLoader()
   const { scene } = await colladaLoader.loadAsync(`/assets/models/${params.file}`)
@@ -90,7 +90,7 @@ export async function loadDae(params) {
 
 export async function loadMd2(params) {
   const { file, texture } = params
-  const { MD2Loader } = await import('/node_modules/three/examples/jsm/loaders/MD2Loader.js')
+  const { MD2Loader } = await import('three/examples/jsm/loaders/MD2Loader.js')
 
   const loader = new MD2Loader()
   const map = await textureLoader.loadAsync(`/assets/models/${texture}`)
@@ -104,7 +104,7 @@ export async function loadMd2(params) {
 /* FBX */
 
 export async function loadFbx(params) {
-  const { FBXLoader } = await import('/node_modules/three/examples/jsm/loaders/FBXLoader.js')
+  const { FBXLoader } = await import('three/examples/jsm/loaders/FBXLoader.js')
 
   const loader = new FBXLoader()
   const { file = 'model.fbx', doubleSide } = params

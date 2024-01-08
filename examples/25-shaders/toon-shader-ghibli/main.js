@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { TeapotGeometry } from '/node_modules/three/examples/jsm/geometries/TeapotGeometry.js'
+import { TeapotGeometry } from 'three/examples/jsm/geometries/TeapotGeometry.js'
 import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { material } from '/utils/shaders/ghibli.js'
 import { createSun } from '/utils/light.js'

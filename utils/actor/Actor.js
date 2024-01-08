@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { clone } from '/node_modules/three/examples/jsm/utils/SkeletonUtils.js'
+import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js'
 
 import GameObject from '/utils/objects/GameObject.js'
 import { getGroundY, directionBlocked, getMesh, intersect, belongsTo } from '/utils/helpers.js'

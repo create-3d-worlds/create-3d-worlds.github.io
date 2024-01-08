@@ -80,7 +80,7 @@ async function cratersNoise(geometry) {
 
   const { position } = geometry.attributes
   const vertex = new THREE.Vector3()
-  const { SimplexNoise } = await import('/node_modules/three/examples/jsm/math/SimplexNoise.js')
+  const { SimplexNoise } = await import('three/examples/jsm/math/SimplexNoise.js')
   const simplex = new SimplexNoise()
 
   for (let i = 0, l = position.count; i < l; i++) {
@@ -95,7 +95,7 @@ async function cratersNoise(geometry) {
 async function dunesNoise(geometry) {
   const { position } = geometry.attributes
   const vertex = new THREE.Vector3()
-  const { SimplexNoise } = await import('/node_modules/three/examples/jsm/math/SimplexNoise.js')
+  const { SimplexNoise } = await import('three/examples/jsm/math/SimplexNoise.js')
   const simplex = new SimplexNoise()
 
   for (let i = 0, l = position.count; i < l; i++) {
@@ -108,7 +108,7 @@ async function dunesNoise(geometry) {
 async function hillyNoise(geometry, segments, factorX, factorY, factorZ, aboveSea) {
   const { position } = geometry.attributes
   const vertex = new THREE.Vector3()
-  const { SimplexNoise } = await import('/node_modules/three/examples/jsm/math/SimplexNoise.js')
+  const { SimplexNoise } = await import('three/examples/jsm/math/SimplexNoise.js')
   const simplex = new SimplexNoise()
 
   for (let i = 0, l = position.count; i < l; i++) {

@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import * as BufferGeometryUtils from '/node_modules/three/examples/jsm/utils/BufferGeometryUtils.js'
+import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { createTexture } from '/utils/helpers.js'
 import { createBuildingTexture, createBuildingGeometry } from '/utils/city.js'
 import chroma from '/libs/chroma.js'

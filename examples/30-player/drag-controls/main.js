@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { DragControls } from '/node_modules/three/examples/jsm/controls/DragControls.js'
+import { DragControls } from 'three/examples/jsm/controls/DragControls.js'
 import { camera, scene, renderer } from '/utils/scene.js'
 import { createCrate } from '/utils/geometry/index.js'
 
