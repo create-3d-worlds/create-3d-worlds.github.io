@@ -18,12 +18,10 @@ npx live-server
 ## TODO
 
 ### Publish
-- srediti root-relativne linkove da rade u podfolderu
-  - manuelna zamena u relativne linkove (loše)
-  - postaviti na github organizaciju (bolje, ali menja vlasnika i url)
-  - probati build proces (vidi sun position)
 - centralni ekran sa izborom scena 
   - srediti html titlove
+- ažurirati verziju
+- srediti github pages
 - dokumentovati
 - minimalni bekend za statistike / brojač poseta
 - testirati na raznim uređajima nakon dizanja na server
