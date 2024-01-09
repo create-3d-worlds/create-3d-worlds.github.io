@@ -62,7 +62,7 @@ export function ambLight({ scene = defaultScene, color = 0xffffff, intensity = M
 
 /* SUN */
 
-export function createSun({ color = 0xffffff, intensity = Math.PI, target, pos = [15, 50, 50], mapSize = 1024, r = 1, transparent = false, planetColor = 0xFCE570, addLight = true, file } = {}) {
+export function createSun({ color = 0xffffff, intensity = Math.PI * 2, target, pos = [15, 50, 50], mapSize = 1024, r = 1, transparent = false, planetColor = 0xFCE570, addLight = true, file } = {}) {
   const mesh = new THREE.Mesh(
     new THREE.SphereGeometry(r),
     new THREE.MeshToonMaterial({
@@ -74,7 +74,7 @@ export function createSun({ color = 0xffffff, intensity = Math.PI, target, pos =
   )
   if (addLight) {
     const light = pointLight({ color, intensity, target, mapSize })
-    const ambientLight = new THREE.AmbientLight(0xfffee1, intensity * .5)
+    const ambientLight = new THREE.AmbientLight(0xfffee1, intensity * .75)
     mesh.add(light, ambientLight)
   }
   mesh.position.set(...pos)

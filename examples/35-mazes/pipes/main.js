@@ -6,8 +6,8 @@ import { createGround } from '/utils/ground.js'
 import Avatar from '/utils/actor/Avatar.js'
 import GUI, { avatarControls } from '/utils/io/GUI.js'
 
-hemLight({ intensity: Math.PI * .6 })
-const sun = createSun()
+hemLight()
+const sun = createSun({ intensity: Math.PI * .6 })
 scene.add(sun)
 
 scene.add(createGround())
