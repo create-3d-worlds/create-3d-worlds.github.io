@@ -22,6 +22,7 @@ npx live-server
   - veći snimci ekrana za igre, scene (modele?)
 - ići redom po html fajlovima, srediti titlove i dodati izvor gde treba
 - popraviti lightningStrike
+- svući three.js na lokal?
 - dokumentovati
 - minimalni bekend za statistike / brojač poseta
 - testirati na raznim uređajima nakon dizanja na server
