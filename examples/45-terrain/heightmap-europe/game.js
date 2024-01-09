@@ -4,7 +4,7 @@ import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
 createOrbitControls()
 camera.position.y = 150
 
-const terrain = await terrainFromHeightmap({ file: 'earth.png', heightFactor: 7, snow: false })
+const terrain = await terrainFromHeightmap({ file: 'europe.png', heightFactor: 30, snow: false })
 scene.add(terrain)
 
 /* LOOP */

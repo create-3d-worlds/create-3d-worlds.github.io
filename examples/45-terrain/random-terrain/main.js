@@ -2,7 +2,7 @@ import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
 import { createTerrain } from '/utils/ground.js'
 import { createSun } from '/utils/light.js'
 
-scene.add(createSun())
+scene.add(createSun({ intensity: Math.PI * 2 }))
 
 camera.position.set(0, 10, 20)
 createOrbitControls()
