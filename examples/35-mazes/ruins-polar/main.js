@@ -8,7 +8,7 @@ import GUI from '/utils/io/GUI.js'
 
 const renderer = await createToonRenderer()
 
-const sun = createSun()
+const sun = createSun({ intensity: Math.PI * 2 })
 scene.add(sun)
 
 const ground = await createDunes({ size: 1000 })
