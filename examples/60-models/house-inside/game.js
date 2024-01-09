@@ -21,7 +21,7 @@ scene.add(mesh)
 new GUI({ controls: {
   '1': 'inside',
   '2': 'outside',
-}, controlsTitle: 'CAMERA CONTROLS', scoreTitle: '', controlsOpen: true })
+}, controlsTitle: 'CAMERA CONTROLS', useBaseControls: false, scoreTitle: '', controlsOpen: true })
 
 /* FUNCTIONS */
 

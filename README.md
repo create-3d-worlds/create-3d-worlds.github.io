@@ -2,6 +2,8 @@
 
 Library of reusable Three.js components.
 
+Sakupio sam Three.js primere sa raznih strana i prepravio ih da budu reusable.
+
 Za razliku od ostalih kul Three.js primera koje možete samo gledati, ovde možete kombinovati različite elemente i praviti nove scene. Možete uzeti junaka iz jedne scene, zgrade iz druge, prirodu iz treće, itd.
 
 Nadam se da ćete se zabavljati kao ja dok sam ovo pravio.

@@ -5,9 +5,9 @@ import { loadModel } from '/utils/loaders.js'
 
 let theta = 0
 
-dirLight({ color: 0xefefff, intensity: Math.PI * 1.5 })
+dirLight({ color: 0xefefff, intensity: 1.5 })
 
-const mesh = await loadModel({ file: 'aircraft/airplane/spitfire-animated/model.fbx', size: 2 })
+const mesh = await loadModel({ file: 'animal/horse.glb', size: 2 })
 scene.add(mesh)
 
 const mixer = new THREE.AnimationMixer(mesh)

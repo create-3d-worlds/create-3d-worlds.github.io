@@ -7,11 +7,11 @@ scene.add(createSun())
 const controls = await createOrbitControls()
 camera.position.set(0, 2, 12)
 
-const leftCastle = await loadModel({ file: 'building/castle/fortress.fbx', shouldAdjust: true, size: 10 })
+const leftCastle = await loadModel({ file: 'building/castle/castle-fortress.fbx', texture: 'terrain/concrete.jpg', size: 10 })
 scene.add(leftCastle)
 leftCastle.position.x = -10
 
-const rightCastle = await loadModel({ file: 'building/castle/magic-castle.fbx', size: 10, shouldAdjust: true })
+const rightCastle = await loadModel({ file: 'building/castle/magic-castle.fbx', texture: 'terrain/concrete.jpg', size: 10 })
 scene.add(rightCastle)
 rightCastle.position.x = 10
 
