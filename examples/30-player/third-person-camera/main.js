@@ -1,21 +1,24 @@
-import * as THREE from 'three'
+import { scene, camera, clock, createToonRenderer } from '/utils/scene.js'
+import { createTrees } from '/utils/geometry/trees.js'
 import Avatar from '/utils/actor/Avatar.js'
-import { scene, renderer, camera, clock } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
+
 import { createGround } from '/utils/ground.js'
+import { createSun } from '/utils/light.js'
 
-scene.add(createSun())
+const renderer = await createToonRenderer()
 
-scene.background = new THREE.Color(0x8FBCD4)
-scene.add(createGround({ size: 100 }))
+scene.add(createGround({ file: 'terrain/ground.jpg' }))
+const sun = createSun()
+scene.add(sun)
 
 const player = new Avatar({ camera })
-scene.add(player.mesh)
+
+scene.add(player.mesh, createTrees())
 
 /* LOOP */
 
-void function update() {
-  requestAnimationFrame(update)
+void function loop() {
+  requestAnimationFrame(loop)
   const delta = clock.getDelta()
   player.update(delta)
   renderer.render(scene, camera)
