@@ -29,6 +29,10 @@ npx live-server
 - minimalni bekend za statistike / brojač poseta
 - testirati na raznim uređajima nakon dizanja na server
 
+## BUGS:
+
+- models without color: fortress, iron-giant...
+
 ## Helpers
 
 Raycaster helper:
