@@ -18,10 +18,9 @@ npx live-server
 ## TODO
 
 - centralni ekran sa izborom scena 
-  - bolja opisna imena primera
   - dodati thumbnails za primere
   - veći snimci ekrana za igre, scene (modele?)
-- srediti html titlove
+- ići redom po html fajlovima, srediti titlove i dodati izvor gde treba
 - popraviti lightningStrike
 - dokumentovati
 - minimalni bekend za statistike / brojač poseta

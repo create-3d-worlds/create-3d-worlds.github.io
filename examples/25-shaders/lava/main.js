@@ -1,7 +1,8 @@
 import * as THREE from 'three'
-import { scene, renderer, camera, clock } from '/utils/scene.js'
+import { scene, renderer, camera, clock, setBackground } from '/utils/scene.js'
 import { material, uniforms } from '/utils/shaders/lava.js'
 
+setBackground(0x00000)
 camera.position.set(0, 0, 2)
 
 const geometry = new THREE.SphereGeometry()
@@ -13,8 +14,6 @@ scene.add(mesh)
 
 void function loop() {
   requestAnimationFrame(loop)
-  const time = clock.getElapsedTime()
-
-  uniforms.time.value = time
+  uniforms.time.value = clock.getElapsedTime()
   renderer.render(scene, camera)
 }()
