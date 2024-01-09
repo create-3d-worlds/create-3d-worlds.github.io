@@ -10,7 +10,7 @@ import GUI from '/utils/io/GUI.js'
 const cellSize = 15
 const matrixSize = 15
 
-hemLight({ intensity: 1.25 })
+hemLight({ intensity: Math.PI * 1.25 })
 camera.position.set(0, 7, 10)
 
 const maze = new Maze(matrixSize, matrixSize, truePrims, cellSize)

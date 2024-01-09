@@ -24,7 +24,7 @@ const coords = getEmptyCoords({ mapSize, fieldSize: 1, emptyCenter: 1 })
 
 setBackground(0x202030)
 
-const moon = createMoon({ intensity: .5, pos: [15, 25, -30] })
+const moon = createMoon({ intensity: Math.PI * .5, pos: [15, 25, -30] })
 scene.add(moon)
 scene.add(createGround({ size: mapSize }))
 

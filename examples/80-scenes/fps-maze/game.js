@@ -13,7 +13,7 @@ const enemies = []
 const spinner = new Spinner()
 const renderer = await createToonRenderer()
 
-const light = hemLight({ intensity: .75 })
+const light = hemLight({ intensity: Math.PI * .75 })
 setBackground(0x070b34)
 scene.add(createGround({ file: 'terrain/ground.jpg' }))
 
