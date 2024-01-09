@@ -20,7 +20,6 @@ npx live-server
 - centralni ekran sa izborom scena 
   - dodati thumbnails za primere
   - veći snimci ekrana za igre, scene (modele?)
-  - heightmaps u images
 - ići redom po html fajlovima, srediti titlove i dodati izvor gde treba
 - popraviti lightningStrike
 - svući three.js na lokal?

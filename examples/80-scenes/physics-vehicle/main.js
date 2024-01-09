@@ -14,7 +14,7 @@ const world = new PhysicsWorld()
 
 scene.add(createSun({ planetColor: 0xB0E0E6 }))
 
-const { data, width, depth } = await getHeightData('/assets/heightmaps/wiki.png', 5)
+const { data, width, depth } = await getHeightData('/assets/images/heightmaps/wiki.png', 5)
 const terrain = await createTerrain({ data, width, depth, minHeight: -2, maxHeight: 16 })
 world.add(terrain)
 
