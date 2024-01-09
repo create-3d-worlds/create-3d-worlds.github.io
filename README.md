@@ -32,6 +32,7 @@ npx live-server
 ## BUGS:
 
 - models without color: fortress, iron-giant...
+- proveriti migration guide za boje, sunce lošije sija
 
 ## Helpers
 
