@@ -19,8 +19,6 @@ npx live-server
 
 ## TODO
 
-- centralni ekran sa izborom scena 
-  - bolja imena
 - ići redom po html fajlovima, srediti titlove i dodati izvor gde treba
 - popraviti lightningStrike
 - svući three.js na lokal?
