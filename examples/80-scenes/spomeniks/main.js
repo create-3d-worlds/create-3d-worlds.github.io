@@ -37,8 +37,8 @@ void function loop() {
 
 /* LAZY LOAD */
 
-const { ResistanceFighterPlayer } = await import ('/utils/actor/derived/ww2/ResistanceFighter.js')
-player = new ResistanceFighterPlayer({ camera, solids: terrain, altitude: .7 })
+const { PartisanPlayer } = await import ('/utils/actor/derived/ww2/Partisan.js')
+player = new PartisanPlayer({ camera, solids: terrain, altitude: .7 })
 player.position.z = 2
 
 const GUI = await import('/utils/io/GUI.js')

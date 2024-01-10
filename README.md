@@ -20,7 +20,6 @@ npx live-server
 ## TODO
 
 - centralni ekran sa izborom scena 
-  - promeniti junaka negde da ne bude uvek isti
   - bolja imena
 - ići redom po html fajlovima, srediti titlove i dodati izvor gde treba
 - popraviti lightningStrike
@@ -31,7 +30,8 @@ npx live-server
 
 ## BUGS:
 
-- models without color: fortress, iron-giant...
+- modeli bez teksture nemaju boju: fortress, iron-giant, spomeniks...
+  - srediti bar u igrama i scenama
 - srediti svetla, da defaults budu dobre bar za igrice (proveriti migration guide)
   - nema senke physics-cannon
 
