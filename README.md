@@ -20,8 +20,8 @@ npx live-server
 ## TODO
 
 - centralni ekran sa izborom scena 
-  - dodati thumbnails za primere
-  - veći snimci ekrana za igre, scene (modele?)
+  - promeniti junaka negde da ne bude uvek isti
+  - bolja imena
 - ići redom po html fajlovima, srediti titlove i dodati izvor gde treba
 - popraviti lightningStrike
 - svući three.js na lokal?
@@ -32,7 +32,8 @@ npx live-server
 ## BUGS:
 
 - models without color: fortress, iron-giant...
-- proveriti migration guide za boje, sunce lošije sija
+- srediti svetla, da defaults budu dobre bar za igrice (proveriti migration guide)
+  - nema senke physics-cannon
 
 ## Helpers
 
