@@ -19,15 +19,13 @@ npx live-server
 
 ## TODO
 
-- svući three.js na lokal?
-- minimalni bekend za statistike / brojač poseta
 - testirati na raznim uređajima nakon dizanja na server
-- dodati izvor gde treba
+- add sources for examples
 - write documentation
 
 ## BUGS:
 
-- modeli bez teksture nemaju boju: fortress, iron-giant, spomeniks...
+- modeli bez teksture nemaju boju: fortress, spomeniks...
   - srediti bar u igrama i scenama
 - srediti svetla, da defaults budu dobre bar za igrice (proveriti migration guide)
   - nema senke physics-cannon
