@@ -48,7 +48,7 @@ const [kosmaj, kosovskaMitrovica, podgaric, kadinjaca, ilirskaBistrica] = await 
   await loadModel({ file: 'building/monument/kosmaj.fbx', size: 30, texture: 'terrain/beton.gif' }),
   await loadModel({ file: 'building/monument/kosovska-mitrovica.fbx', size: 19, texture: 'walls/concrete_wall_2b.jpg' }),
   await loadModel({ file: 'building/monument/podgaric.fbx', size: 10, texture: 'terrain/concrete.jpg' }),
-  await loadModel({ file: 'building/monument/kadinjaca.fbx', size: 15 }),
+  await loadModel({ file: 'building/monument/kadinjaca.fbx', size: 15, texture: 'terrain/beton.gif' }),
   await loadModel({ file: 'building/monument/ilirska-bistrica.fbx', size: 8, texture: 'terrain/beton.gif' }),
 ])
 

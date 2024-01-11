@@ -13,49 +13,16 @@ Developed by [mudroljub](https://twitter.com/mudroljub).
 ## Start
 
 ```
-npm i
 npx live-server
 ```
 
 ## TODO
 
-- testirati na raznim uređajima nakon dizanja na server
+- srediti svetla u igre i scene
+- testirati na telefonu nakon dizanja na server
+- fix shadows (broken after update)
 - add sources for examples
 - write documentation
-
-## BUGS:
-
-- modeli bez teksture nemaju boju: fortress, spomeniks...
-  - srediti bar u igrama i scenama
-- srediti svetla, da defaults budu dobre bar za igrice (proveriti migration guide)
-  - nema senke physics-cannon
-
-## Helpers
-
-Raycaster helper:
-
-```js
-scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300))
-```
-
-Box helper:
-
-```js
-const box = new THREE.BoxHelper(mesh, 0xffff00)
-scene.add(box)
-```
-
-Axes helper (X axis is red, Y is green, Z is blue):
-
-```js
-scene.add(new THREE.AxesHelper(50))
-```
-
-Ako je teren jednobojan, bez svetla, uraditi:
-
-```js
-geometry.computeVertexNormals()
-```
 
 ## Sources
 
@@ -82,12 +49,4 @@ and other respected sites.
 
 Game UI: https://ronenness.github.io/RPGUI/
 
-Geodata:
-- visinske mape za ceo svet https://tangrams.github.io/heightmapper/#8.3724/43.3401/19.5293
-- weighted random https://pixelero.wordpress.com/2008/04/24/various-functions-and-various-distributions-with-mathrandom/
-
-Ako sam propustio da navedem neki izvor, molim vas da mi javite. Već 10 godina pratim razne knjige, kurseve, repozitorije i druge materijale vezano za Three.js, više ni sam ne znam gde sam nešto našao.
-
-## Manifest
-
-Pravim 3D scene iz čistog zadovoljstva, ali sve vreme imam na umu reusability - da neko drugi može iskoristiti delove igara i razne funkcije za svoje potrebe.
+If I have missed some source, please let me know. I've been following various books, courses, repositories and other materials related to Three.js for 10 years, I don't even know where I found something anymore.
