@@ -1,12 +1,12 @@
 # Create 3D worlds
 
-Library of reusable Three.js components.
+A library of REUSABLE Three.js components that you can play with.
 
-Sakupio sam Three.js primere sa raznih strana i prepravio ih da budu reusable.
+Over the years, I have gathered Three.js examples from various sources and modified them to be reusable.
 
-Za razliku od ostalih kul Three.js primera koje možete samo gledati, ovde možete kombinovati različite elemente i praviti nove scene. Možete uzeti junaka iz jedne scene, zgrade iz druge, prirodu iz treće, itd.
+Unlike other cool Three.js examples that you can just look at, here you can combine different elements and create new scenes. To begin with, you can replace any model or character in these examples.
 
-Nadam se da ćete se zabavljati kao ja dok sam ovo pravio.
+I hope you will have as much fun as I did making this.
 
 Developed by [mudroljub](https://twitter.com/mudroljub).
 
@@ -19,12 +19,11 @@ npx live-server
 
 ## TODO
 
-- ići redom po html fajlovima, srediti titlove i dodati izvor gde treba
-- popraviti lightningStrike
 - svući three.js na lokal?
-- dokumentovati
 - minimalni bekend za statistike / brojač poseta
 - testirati na raznim uređajima nakon dizanja na server
+- dodati izvor gde treba
+- write documentation
 
 ## BUGS:
 

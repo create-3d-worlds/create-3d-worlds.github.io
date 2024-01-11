@@ -95,7 +95,6 @@ export function lightningStrike(light, scene = defaultScene) {
 
   const distance = randInt(100, 3000)
   audio.volume = mapRange(distance, 3000, 100, config.volume / 4, config.volume)
-  // TODO: fix light
   light.intensity = mapRange(distance, 3000, 100, 1.2, 2)
 
   const newColor = new THREE.Color().lerpColors(
