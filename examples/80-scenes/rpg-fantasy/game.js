@@ -13,7 +13,7 @@ const renderer = await createToonRenderer()
 camera.position.set(0, 50, 150)
 
 const coords = getEmptyCoords({ mapSize: mapSize * .9, fieldSize: 5 })
-scene.add(createSun({ pos: [15, 100, 50] }))
+scene.add(createSun({ pos: [15, 100, 50], intensity: 2 * Math.PI }))
 
 const terrain = await createHillyTerrain({ size: mapSize, factorY: 30 })
 scene.add(terrain)

@@ -15,7 +15,7 @@ const renderer = await createToonRenderer()
 const hill = createHill(mazeSize * 2.05, 164)
 scene.add(hill)
 
-ambLight({ intensity: .6 })
+ambLight({ intensity: Math.PI * .6 })
 const sun = createSun({ pos: [50, 150, 200] })
 scene.add(sun)
 

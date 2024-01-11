@@ -1,6 +1,8 @@
 import * as THREE from 'three'
-import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
+import { camera, scene, renderer, createOrbitControls, setBackground } from '/utils/scene.js'
 import { material } from '/utils/shaders/wood.js'
+
+setBackground(0x00000)
 
 const controls = await createOrbitControls()
 camera.position.set(0, 0, 2)

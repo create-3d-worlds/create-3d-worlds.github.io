@@ -26,7 +26,7 @@ camera.position.set(0, 29, 0)
 scene.fog = new THREE.Fog(0xE5C5AB, mapSize * .25, buildingDistance)
 
 scene.add(new THREE.HemisphereLight(0xD7D2D2, 0x302B2F, .25))
-scene.add(createSun({ pos: [50, 200, 50] }))
+scene.add(createSun({ pos: [50, 200, 50], intensity: Math.PI * 2 }))
 
 const groundParams = { size: mapSize, color: 0x91A566, colorRange: .1, segments: 50, min: 0, max: 15 }
 const ground = createTerrain(groundParams)

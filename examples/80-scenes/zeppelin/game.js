@@ -10,7 +10,7 @@ const renderer = await createToonRenderer(0.0015)
 const updatables = []
 const mapSize = 800
 
-scene.add(createSun({ intensity: 1.5, pos: [75, 140, -75], r: 5 }))
+scene.add(createSun({ intensity: Math.PI * 2, pos: [75, 140, -75], r: 5 }))
 camera.position.set(0, 40, 200)
 
 const terrain = await createHillyTerrain({ size: mapSize, factorY: 30 })

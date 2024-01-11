@@ -1,55 +1,28 @@
 # Create 3D worlds
 
-Library of reusable Three.js components.
+A library of REUSABLE Three.js components that you can play with.
 
-Za razliku od ostalih kul Three.js primera koje možete samo gledati, ovde možete kombinovati različite elemente i praviti nove scene. Možete uzeti junaka iz jedne scene, zgrade iz druge, prirodu iz treće, itd.
+Over the years, I have gathered Three.js examples from various sources and modified them to be reusable.
 
-Nadam se da ćete se zabavljati kao ja dok sam ovo pravio.
+Unlike other cool Three.js examples that you can just look at, here you can combine different elements and create new scenes. To begin with, you can replace any model or character in these examples.
+
+I hope you will have as much fun as I did making this.
 
 Developed by [mudroljub](https://twitter.com/mudroljub).
 
 ## Start
 
 ```
-npm i
 npx live-server
 ```
 
 ## TODO
 
-- centralni ekran sa izborom scena 
-- srediti html titlove
-- ažurirati verziju
-- dokumentovati
-- minimalni bekend za statistike / brojač poseta
-- testirati na raznim uređajima nakon dizanja na server
-
-## Helpers
-
-Raycaster helper:
-
-```js
-scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300))
-```
-
-Box helper:
-
-```js
-const box = new THREE.BoxHelper(mesh, 0xffff00)
-scene.add(box)
-```
-
-Axes helper (X axis is red, Y is green, Z is blue):
-
-```js
-scene.add(new THREE.AxesHelper(50))
-```
-
-Ako je teren jednobojan, bez svetla, uraditi:
-
-```js
-geometry.computeVertexNormals()
-```
+- testirati na telefonu nakon dizanja na server
+- fix lights
+- fix shadows
+- add sources for examples
+- write documentation
 
 ## Sources
 
@@ -76,12 +49,4 @@ and other respected sites.
 
 Game UI: https://ronenness.github.io/RPGUI/
 
-Geodata:
-- visinske mape za ceo svet https://tangrams.github.io/heightmapper/#8.3724/43.3401/19.5293
-- weighted random https://pixelero.wordpress.com/2008/04/24/various-functions-and-various-distributions-with-mathrandom/
-
-Ako sam propustio da navedem neki izvor, molim vas da mi javite. Već 10 godina pratim razne knjige, kurseve, repozitorije i druge materijale vezano za Three.js, više ni sam ne znam gde sam nešto našao.
-
-## Manifest
-
-Pravim 3D scene iz čistog zadovoljstva, ali sve vreme imam na umu reusability - da neko drugi može iskoristiti delove igara i razne funkcije za svoje potrebe.
+If I have missed some source, please let me know. I've been following various books, courses, repositories and other materials related to Three.js for 10 years, I don't even know where I found something anymore.

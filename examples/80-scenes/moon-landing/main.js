@@ -15,8 +15,8 @@ const renderer = await createToonRenderer()
 document.body.style.background = 'linear-gradient(to bottom, #020111 70%, #191621 100%)'
 camera.position.z = 18
 
-ambLight({ intensity: .9 })
-const moonLight = createMoon({ pos: [30, 30, 30], intensity: .1 })
+ambLight()
+const moonLight = createMoon({ pos: [30, 30, 30], intensity: Math.PI * .2 })
 
 const platform = new Platform({ pos: [0, -10, 0], axis: 'x', range: 29, randomDirChange: true })
 const stars = new Stars({ minRadius: 150 })

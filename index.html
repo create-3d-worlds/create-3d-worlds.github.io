@@ -5,44 +5,143 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create 3D worlds</title>
-  <style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/create-3d-worlds/create-3d-worlds.github.io" target="_blank">Fork me on GitHub</a></span>
+  <style>
+    img {
+      max-width: 100%;
+    }
+
+    #forkongithub a {
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-family: arial, sans-serif;
+      text-align: center;
+      font-weight: bold;
+      padding: 5px 40px;
+      font-size: 1rem;
+      line-height: 2rem;
+      position: relative;
+      transition: 0.5s;
+    }
+
+    #forkongithub a:hover {
+      background: #c11;
+      color: #fff;
+    }
+
+    #forkongithub a::before,
+    #forkongithub a::after {
+      content: "";
+      width: 100%;
+      display: block;
+      position: absolute;
+      top: 1px;
+      left: 0;
+      height: 1px;
+      background: #fff;
+    }
+
+    #forkongithub a::after {
+      bottom: 1px;
+      top: auto;
+    }
+
+    @media screen and (min-width:800px) {
+      #forkongithub {
+        position: fixed;
+        display: block;
+        top: 0;
+        right: 0;
+        width: 200px;
+        overflow: hidden;
+        height: 200px;
+        z-index: 9999;
+      }
+
+      #forkongithub a {
+        width: 200px;
+        position: absolute;
+        top: 60px;
+        right: -60px;
+        transform: rotate(45deg);
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
+      }
+    }
+
+    ul {
+      columns: 300px;
+    }
+
+    ul.scenes {
+      columns: 600px;
+    }
+
+    li {
+      break-inside: avoid;
+    }
+  </style>
 </head>
 
 <body>
 
+  <span id="forkongithub">
+    <a href="https://github.com/create-3d-worlds/create-3d-worlds.github.io" target="_blank">Fork me on GitHub</a>
+  </span><br>
+
   <h1>Create 3D worlds</h1>
 
-  <h3>Library of reusable Three.js components</h3>
+  <h3>A library of REUSABLE Three.js components that you can play with.</h3>
+
+  <p>Unlike other cool Three.js examples that you can just look at, here you can combine different elements and create new scenes. To begin with, you can replace any model or character in these examples.</p>
+
+  <p>I hope you will have as much fun as I did making this.</p>
+
+  <p>Hint: <a href="#games">GAMES</a> are at the bottom ;)</p>
 
   <h2>Geometry</h2>
 
   <ul>
     <li>
-      <a href="examples/10-geometry/avatar" title="avatar"><span>avatar</span></a>
+      <a href="examples/10-geometry/avatar" title="avatar">
+        <span>avatar</span><br>
+        <img src="/assets/images/thumbnails/avatar.jpg" alt="avatar">
+      </a>
     </li>
     <li>
-      <a href="examples/10-geometry/boxes-and-barrels" title="boxes-and-barrels"><span>boxes-and-barrels</span></a>
+      <a href="examples/10-geometry/boxes-and-barrels" title="boxes-and-barrels">
+        <span>boxes-and-barrels</span><br>
+        <img src="/assets/images/thumbnails/boxes-and-barrels.jpg" alt="boxes-and-barrels">
+      </a>
     </li>
     <li>
-      <a href="examples/10-geometry/buildings-civil" title="buildings-civil"><span>buildings-civil</span></a>
+      <a href="examples/10-geometry/buildings-civil" title="buildings-civil">
+        <span>buildings-civil</span><br>
+        <img src="/assets/images/thumbnails/buildings-civil.jpg" alt="buildings-civil">
+      </a>
     </li>
     <li>
-      <a href="examples/10-geometry/buildings-urban" title="buildings-urban"><span>buildings-urban</span></a>
+      <a href="examples/10-geometry/buildings-urban" title="buildings-urban">
+        <span>buildings-urban</span><br>
+        <img src="/assets/images/thumbnails/buildings-urban.jpg" alt="buildings-urban">
+      </a>
     </li>
     <li>
-      <a href="examples/10-geometry/buildings-war" title="buildings-war"><span>buildings-war</span></a>
+      <a href="examples/10-geometry/buildings-war" title="buildings-war">
+        <span>buildings-war</span><br>
+        <img src="/assets/images/thumbnails/buildings-war.jpg" alt="buildings-war">
+      </a>
     </li>
     <li>
-      <a href="examples/10-geometry/cartoon-effect" title="cartoon-effect"><span>cartoon-effect</span></a>
+      <a href="examples/10-geometry/locomotive" title="locomotive"><span>locomotive</span><br></a>
+      <img src="/assets/images/thumbnails/locomotive.jpg" alt="locomotive">
     </li>
     <li>
-      <a href="examples/10-geometry/locomotive" title="locomotive"><span>locomotive</span></a>
+      <a href="examples/10-geometry/trees" title="trees"><span>trees</span><br></a>
+      <img src="/assets/images/thumbnails/trees.jpg" alt="trees">
     </li>
     <li>
-      <a href="examples/10-geometry/tilemap" title="tilemap"><span>tilemap</span></a>
-    </li>
-    <li>
-      <a href="examples/10-geometry/trees" title="trees"><span>trees</span></a>
+      <a href="examples/10-geometry/trees-cartoon" title="trees-cartoon"><span>trees-cartoon</span><br></a>
+      <img src="/assets/images/thumbnails/trees-cartoon.jpg" alt="trees-cartoon">
     </li>
   </ul>
 
@@ -50,19 +149,36 @@
 
   <ul>
     <li>
-      <a href="examples/15-animations/dark-city" title="dark-city"><span>dark-city</span></a>
+      <a href="examples/15-animations/dark-city" title="dark-city">
+        <span>dark-city</span><br>
+        <img src="/assets/images/thumbnails/dark-city.jpg" alt="dark-city">
+      </a>
     </li>
     <li>
-      <a href="examples/15-animations/parting-the-sea" title="parting-the-sea"><span>parting-the-sea</span></a>
+      <a href="examples/15-animations/planets" title="planets">
+        <span>planets</span><br>
+        <img src="/assets/images/thumbnails/planets.jpg" alt="planets">
+      </a>
     </li>
     <li>
-      <a href="examples/15-animations/planets" title="planets"><span>planets</span></a>
+      <a href="examples/15-animations/tank" title="tank">
+        <span>tank</span><br>
+        <img src="/assets/images/thumbnails/tank.jpg" alt="tank">
+      </a>
     </li>
     <li>
-      <a href="examples/15-animations/tank" title="tank"><span>tank</span></a>
+      <a href="examples/15-animations/train" title="train">
+        <span>train</span><br>
+        <img src="/assets/images/thumbnails/train.jpg" alt="train">
+      </a>
     </li>
     <li>
-      <a href="examples/15-animations/train" title="train"><span>train</span></a>
+      <a href="examples/15-animations/waves" title="waves"><span>waves</span><br></a>
+      <img src="/assets/images/thumbnails/waves.jpg" alt="waves">
+    </li>
+    <li>
+      <a href="examples/15-animations/parting-the-sea" title="parting-the-sea"><span>parting-the-sea</span><br></a>
+      <img src="/assets/images/thumbnails/parting-the-sea.jpg" alt="parting-the-sea">
     </li>
   </ul>
 
@@ -70,25 +186,46 @@
 
   <ul>
     <li>
-      <a href="examples/20-particles/fire" title="fire"><span>fire</span></a>
+      <a href="examples/20-particles/fire" title="fire">
+        <span>fire</span><br>
+        <img src="/assets/images/thumbnails/fire.jpg" alt="fire">
+      </a>
     </li>
     <li>
-      <a href="examples/20-particles/flame" title="flame"><span>flame</span></a>
+      <a href="examples/20-particles/flame" title="flame">
+        <span>flame</span><br>
+        <img src="/assets/images/thumbnails/flame.jpg" alt="flame">
+      </a>
     </li>
     <li>
-      <a href="examples/20-particles/flying-through-space" title="flying-through-space"><span>flying-through-space</span></a>
+      <a href="examples/20-particles/rain" title="rain">
+        <span>rain</span><br>
+        <img src="/assets/images/thumbnails/rain.jpg" alt="rain">
+      </a>
     </li>
     <li>
-      <a href="examples/20-particles/rain" title="rain"><span>rain</span></a>
+      <a href="examples/20-particles/smoke" title="smoke">
+        <span>smoke</span><br>
+        <img src="/assets/images/thumbnails/smoke.jpg" alt="smoke">
+      </a>
     </li>
     <li>
-      <a href="examples/20-particles/smoke" title="smoke"><span>smoke</span></a>
+      <a href="examples/20-particles/snow" title="snow">
+        <span>snow</span><br>
+        <img src="/assets/images/thumbnails/snow.jpg" alt="snow">
+      </a>
     </li>
     <li>
-      <a href="examples/20-particles/snow" title="snow"><span>snow</span></a>
+      <a href="examples/20-particles/stars" title="stars">
+        <span>stars</span><br>
+        <img src="/assets/images/thumbnails/stars.jpg" alt="stars">
+      </a>
     </li>
     <li>
-      <a href="examples/20-particles/stars" title="stars"><span>stars</span></a>
+      <a href="examples/20-particles/flying-through-space" title="flying-through-space">
+        <span>flying-through-space</span><br>
+        <img src="/assets/images/thumbnails/flying-through-space.jpg" alt="flying-through-space">
+      </a>
     </li>
   </ul>
 
@@ -96,43 +233,80 @@
 
   <ul>
     <li>
-      <a href="examples/25-shaders/fractal-planet" title="fractal-planet"><span>fractal-planet</span></a>
+      <a href="examples/25-shaders/fractal-planet" title="fractal-planet">
+        <span>fractal-planet</span><br>
+        <img src="/assets/images/thumbnails/fractal-planet.jpg" alt="fractal-planet">
+      </a>
     </li>
     <li>
-      <a href="examples/25-shaders/golden-flow" title="golden-flow"><span>golden-flow</span></a>
+      <a href="examples/25-shaders/golden-flow" title="golden-flow">
+        <span>golden-flow</span><br>
+        <img src="/assets/images/thumbnails/golden-flow.jpg" alt="golden-flow">
+      </a>
     </li>
     <li>
-      <a href="examples/25-shaders/gradient" title="gradient"><span>gradient</span></a>
+      <a href="examples/25-shaders/gradient" title="gradient">
+        <span>gradient</span><br>
+        <img src="/assets/images/thumbnails/gradient.jpg" alt="gradient">
+      </a>
     </li>
     <li>
-      <a href="examples/25-shaders/lava" title="lava"><span>lava</span></a>
+      <a href="examples/25-shaders/lava" title="lava"><span>lava</span><br></a>
+      <img src="/assets/images/thumbnails/lava.jpg" alt="lava">
     </li>
     <li>
-      <a href="examples/25-shaders/led" title="led"><span>led</span></a>
+      <a href="examples/25-shaders/led" title="led">
+        <span>led</span><br>
+        <img src="/assets/images/thumbnails/led.jpg" alt="led">
+      </a>
     </li>
     <li>
-      <a href="examples/25-shaders/lightning-led" title="lightning-led"><span>lightning-led</span></a>
+      <a href="examples/25-shaders/lightning-led" title="lightning-led">
+        <span>lightning-led</span><br>
+        <img src="/assets/images/thumbnails/lightning-led.jpg" alt="lightning-led">
+      </a>
     </li>
     <li>
-      <a href="examples/25-shaders/marble" title="marble"><span>marble</span></a>
+      <a href="examples/25-shaders/marble" title="marble">
+        <span>marble</span><br>
+        <img src="/assets/images/thumbnails/marble.jpg" alt="marble">
+      </a>
     </li>
     <li>
-      <a href="examples/25-shaders/raging-sea" title="raging-sea"><span>raging-sea</span></a>
+      <a href="examples/25-shaders/raging-sea" title="raging-sea">
+        <span>raging-sea</span><br>
+        <img src="/assets/images/thumbnails/raging-sea.jpg" alt="raging-sea">
+      </a>
     </li>
     <li>
-      <a href="examples/25-shaders/ripple" title="ripple"><span>ripple</span></a>
+      <a href="examples/25-shaders/ripple" title="ripple">
+        <span>ripple</span><br>
+        <img src="/assets/images/thumbnails/ripple.jpg" alt="ripple">
+      </a>
     </li>
     <li>
-      <a href="examples/25-shaders/toon-shader" title="toon-shader"><span>toon-shader</span></a>
+      <a href="examples/25-shaders/toon-shader" title="toon-shader">
+        <span>toon-shader</span><br>
+        <img src="/assets/images/thumbnails/toon-shader.jpg" alt="toon-shader">
+      </a>
     </li>
     <li>
-      <a href="examples/25-shaders/toon-shader-ghibli" title="toon-shader-ghibli"><span>toon-shader-ghibli</span></a>
+      <a href="examples/25-shaders/toon-shader-ghibli" title="toon-shader-ghibli">
+        <span>toon-shader-ghibli</span><br>
+        <img src="/assets/images/thumbnails/toon-shader-ghibli.jpg" alt="toon-shader-ghibli">
+      </a>
     </li>
     <li>
-      <a href="examples/25-shaders/voronoi" title="voronoi"><span>voronoi</span></a>
+      <a href="examples/25-shaders/voronoi" title="voronoi">
+        <span>voronoi</span><br>
+        <img src="/assets/images/thumbnails/voronoi.jpg" alt="voronoi">
+      </a>
     </li>
     <li>
-      <a href="examples/25-shaders/wood" title="wood"><span>wood</span></a>
+      <a href="examples/25-shaders/wood" title="wood">
+        <span>wood</span><br>
+        <img src="/assets/images/thumbnails/wood.jpg" alt="wood">
+      </a>
     </li>
   </ul>
 
@@ -140,19 +314,34 @@
 
   <ul>
     <li>
-      <a href="examples/30-player/change-camera" title="change-camera"><span>change-camera</span></a>
+      <a href="examples/30-player/third-person-camera-simple" title="third-person-camera-simple">
+        <span>third-person-camera-simple</span><br>
+        <img src="/assets/images/thumbnails/third-person-camera-simple.jpg" alt="third-person-camera-simple">
+      </a>
     </li>
     <li>
-      <a href="examples/30-player/drag-controls" title="drag-controls"><span>drag-controls</span></a>
+      <a href="examples/30-player/third-person-camera" title="third-person-camera">
+        <span>third-person-camera</span><br>
+        <img src="/assets/images/thumbnails/third-person-camera-simple.jpg" alt="third-person-camera">
+      </a>
     </li>
     <li>
-      <a href="examples/30-player/first-person-camera" title="first-person-camera"><span>first-person-camera</span></a>
+      <a href="examples/30-player/change-camera" title="change-camera">
+        <span>change-camera</span><br>
+        <img src="/assets/images/thumbnails/change-camera.jpg" alt="change-camera">
+      </a>
     </li>
     <li>
-      <a href="examples/30-player/player-collision" title="player-collision"><span>player-collision</span></a>
+      <a href="examples/30-player/player-collision" title="player-collision">
+        <span>player-collision</span><br>
+        <img src="/assets/images/thumbnails/player-collision.jpg" alt="player-collision">
+      </a>
     </li>
     <li>
-      <a href="examples/30-player/third-person-camera" title="third-person-camera"><span>third-person-camera</span></a>
+      <a href="examples/30-player/drag-controls" title="drag-controls">
+        <span>drag-controls</span><br>
+        <img src="/assets/images/thumbnails/drag-controls.jpg" alt="drag-controls">
+      </a>
     </li>
   </ul>
 
@@ -160,28 +349,56 @@
 
   <ul>
     <li>
-      <a href="examples/35-mazes/city-led" title="city-led"><span>city-led</span></a>
+      <a href="examples/35-mazes/tilemap" title="tilemap"><span>tilemap</span><br></a>
+      <img src="/assets/images/thumbnails/tilemap.jpg" alt="tilemap">
     </li>
     <li>
-      <a href="examples/35-mazes/minas-tirith" title="minas-tirith"><span>minas-tirith</span></a>
+      <a href="examples/35-mazes/city-led" title="city-led">
+        <span>city-led</span><br>
+        <img src="/assets/images/thumbnails/city-led.jpg" alt="city-led">
+      </a>
     </li>
     <li>
-      <a href="examples/35-mazes/pathfind" title="pathfind"><span>pathfind</span></a>
+      <a href="examples/35-mazes/minas-tirith" title="minas-tirith">
+        <span>minas-tirith</span><br>
+        <img src="/assets/images/thumbnails/minas-tirith.jpg" alt="minas-tirith">
+      </a>
     </li>
     <li>
-      <a href="examples/35-mazes/pipes" title="pipes"><span>pipes</span></a>
+      <a href="examples/35-mazes/pathfind" title="pathfind">
+        <span>pathfind</span><br>
+        <img src="/assets/images/thumbnails/pathfind.jpg" alt="pathfind">
+      </a>
     </li>
     <li>
-      <a href="examples/35-mazes/pyramid" title="pyramid"><span>pyramid</span></a>
+      <a href="examples/35-mazes/pipes" title="pipes">
+        <span>pipes</span><br>
+        <img src="/assets/images/thumbnails/pipes.jpg" alt="pipes">
+      </a>
     </li>
     <li>
-      <a href="examples/35-mazes/ruins" title="ruins"><span>ruins</span></a>
+      <a href="examples/35-mazes/pyramid" title="pyramid">
+        <span>pyramid</span><br>
+        <img src="/assets/images/thumbnails/pyramid.jpg" alt="pyramid">
+      </a>
     </li>
     <li>
-      <a href="examples/35-mazes/ruins-polar" title="ruins-polar"><span>ruins-polar</span></a>
+      <a href="examples/35-mazes/ruins" title="ruins">
+        <span>ruins</span><br>
+        <img src="/assets/images/thumbnails/ruins.jpg" alt="ruins">
+      </a>
     </li>
     <li>
-      <a href="examples/35-mazes/walls" title="walls"><span>walls</span></a>
+      <a href="examples/35-mazes/ruins-polar" title="ruins-polar">
+        <span>ruins-polar</span><br>
+        <img src="/assets/images/thumbnails/ruins-polar.jpg" alt="ruins-polar">
+      </a>
+    </li>
+    <li>
+      <a href="examples/35-mazes/walls" title="walls">
+        <span>walls</span><br>
+        <img src="/assets/images/thumbnails/walls.jpg" alt="walls">
+      </a>
     </li>
   </ul>
 
@@ -189,28 +406,46 @@
 
   <ul>
     <li>
-      <a href="examples/40-procedural/castle" title="castle"><span>castle</span></a>
+      <a href="examples/40-procedural/castle" title="castle">
+        <span>castle</span><br>
+        <img src="/assets/images/thumbnails/castle.jpg" alt="castle">
+      </a>
     </li>
     <li>
-      <a href="examples/40-procedural/city" title="city"><span>city</span></a>
+      <a href="examples/40-procedural/city" title="city">
+        <span>city</span><br>
+        <img src="/assets/images/thumbnails/city.jpg" alt="city">
+      </a>
     </li>
     <li>
-      <a href="examples/40-procedural/city-colorful" title="city-colorful"><span>city-colorful</span></a>
+      <a href="examples/40-procedural/city-graffiti" title="city-graffiti">
+        <span>city-graffiti</span><br>
+        <img src="/assets/images/thumbnails/city-graffiti.jpg" alt="city-graffiti">
+      </a>
     </li>
     <li>
-      <a href="examples/40-procedural/city-empty-center" title="city-empty-center"><span>city-empty-center</span></a>
+      <a href="examples/40-procedural/city-colorful" title="city-colorful">
+        <span>city-colorful</span><br>
+        <img src="/assets/images/thumbnails/city-colorful.jpg" alt="city-colorful">
+      </a>
     </li>
     <li>
-      <a href="examples/40-procedural/city-graffiti" title="city-graffiti"><span>city-graffiti</span></a>
+      <a href="examples/40-procedural/city-night" title="city-night">
+        <span>city-night</span><br>
+        <img src="/assets/images/thumbnails/city-night.jpg" alt="city-night">
+      </a>
     </li>
     <li>
-      <a href="examples/40-procedural/city-night" title="city-night"><span>city-night</span></a>
+      <a href="examples/40-procedural/city-empty-center" title="city-empty-center">
+        <span>city-empty-center</span><br>
+        <img src="/assets/images/thumbnails/city-empty-center.jpg" alt="city-empty-center">
+      </a>
     </li>
     <li>
-      <a href="examples/40-procedural/street-lights" title="street-lights"><span>street-lights</span></a>
-    </li>
-    <li>
-      <a href="examples/40-procedural/towers" title="towers"><span>towers</span></a>
+      <a href="examples/40-procedural/towers" title="towers">
+        <span>towers</span><br>
+        <img src="/assets/images/thumbnails/towers.jpg" alt="towers">
+      </a>
     </li>
   </ul>
 
@@ -218,22 +453,40 @@
 
   <ul>
     <li>
-      <a href="examples/45-terrain/dunes" title="dunes"><span>dunes</span></a>
+      <a href="examples/45-terrain/random-terrain" title="random-terrain">
+        <span>random-terrain</span><br>
+        <img src="/assets/images/thumbnails/random-terrain.jpg" alt="random-terrain">
+      </a>
     </li>
     <li>
-      <a href="examples/45-terrain/heightmap" title="heightmap"><span>heightmap</span></a>
+      <a href="examples/45-terrain/hilly-terrain" title="hilly-terrain">
+        <span>hilly-terrain</span><br>
+        <img src="/assets/images/thumbnails/hilly-terrain.jpg" alt="hilly-terrain">
+      </a>
     </li>
     <li>
-      <a href="examples/45-terrain/heightmap-earth" title="heightmap-earth"><span>heightmap-earth</span></a>
+      <a href="examples/45-terrain/dunes" title="dunes">
+        <span>dunes</span><br>
+        <img src="/assets/images/thumbnails/dunes.jpg" alt="dunes">
+      </a>
     </li>
     <li>
-      <a href="examples/45-terrain/heightmap-yu" title="heightmap-yu"><span>heightmap-yu</span></a>
+      <a href="examples/45-terrain/heightmap" title="heightmap">
+        <span>heightmap</span><br>
+        <img src="/assets/images/thumbnails/heightmap.jpg" alt="heightmap">
+      </a>
     </li>
     <li>
-      <a href="examples/45-terrain/hilly-terrain" title="hilly-terrain"><span>hilly-terrain</span></a>
+      <a href="examples/45-terrain/heightmap-europe" title="heightmap-europe">
+        <span>heightmap-europe</span><br>
+        <img src="/assets/images/thumbnails/heightmap-europe.jpg" alt="heightmap-europe">
+      </a>
     </li>
     <li>
-      <a href="examples/45-terrain/random-terrain" title="random-terrain"><span>random-terrain</span></a>
+      <a href="examples/45-terrain/heightmap-yu" title="heightmap-yu">
+        <span>heightmap-yu</span><br>
+        <img src="/assets/images/thumbnails/heightmap-yu.jpg" alt="heightmap-yu">
+      </a>
     </li>
   </ul>
 
@@ -241,134 +494,242 @@
 
   <ul>
     <li>
-      <a href="examples/50-physics/ammo-basic" title="ammo-basic"><span>ammo-basic</span></a>
+      <a href="examples/50-physics/ammo-basic" title="ammo-basic">
+        <span>ammo-basic</span><br>
+        <img src="/assets/images/thumbnails/ammo-basic.jpg" alt="ammo-basic">
+      </a>
     </li>
     <li>
-      <a href="examples/50-physics/ball-shoot-wall" title="ball-shoot-wall"><span>ball-shoot-wall</span></a>
-    </li>
-  </ul>
-
-  <h2>Models</h2>
-
-  <ul>
-    <li>
-      <a href="examples/60-models/birds" title="birds"><span>birds</span></a>
+      <a href="examples/50-physics/ball-shoot-wall" title="ball-shoot-wall">
+        <span>ball-shoot-wall</span><br>
+        <img src="/assets/images/thumbnails/ball-shoot-wall.jpg" alt="ball-shoot-wall">
+      </a>
     </li>
     <li>
-      <a href="examples/60-models/castle-texture" title="castle-texture"><span>castle-texture</span></a>
-    </li>
-    <li>
-      <a href="examples/60-models/castles" title="castles"><span>castles</span></a>
-    </li>
-    <li>
-      <a href="examples/60-models/horse" title="horse"><span>horse</span></a>
-    </li>
-    <li>
-      <a href="examples/60-models/house-inside" title="house-inside"><span>house-inside</span></a>
-    </li>
-    <li>
-      <a href="examples/60-models/model-lookat-cursor" title="model-lookat-cursor"><span>model-lookat-cursor</span></a>
-    </li>
-    <li>
-      <a href="examples/60-models/weapon" title="weapon"><span>weapon</span></a>
+      <a href="examples/50-physics/physics-vehicle" title="physics-vehicle">
+        <span>physics-vehicle</span><br>
+        <img src="/assets/images/thumbnails/physics-vehicle.jpg" alt="physics-vehicle">
+      </a>
     </li>
   </ul>
 
-  <h2>Models (characters)</h2>
-
-  <h3>Fantasy</h3>
+  <h2>3D Models</h2>
 
   <ul>
     <li>
-      <a href="examples/65-characters/fantasy/bigfoot" title="bigfoot"><span>bigfoot</span></a>
+      <a href="examples/60-models/castles" title="castles">
+        <span>castles</span><br>
+        <img src="/assets/images/thumbnails/castles.jpg" alt="castles">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/fantasy/demon" title="demon"><span>demon</span></a>
+      <a href="examples/60-models/castle-texture" title="castle-texture">
+        <span>castle-texture</span><br>
+        <img src="/assets/images/thumbnails/castle-texture.jpg" alt="castle-texture">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/fantasy/goblin" title="goblin"><span>goblin</span></a>
+      <a href="examples/60-models/house-inside" title="house-inside">
+        <span>house-inside</span><br>
+        <img src="/assets/images/thumbnails/house-inside.jpg" alt="house-inside">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/fantasy/golem" title="golem"><span>golem</span></a>
+      <a href="examples/60-models/birds" title="birds">
+        <span>birds</span><br>
+        <img src="/assets/images/thumbnails/birds.jpg" alt="birds">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/fantasy/iron-giant" title="iron-giant"><span>iron-giant</span></a>
+      <a href="examples/60-models/horse" title="horse">
+        <span>horse</span><br>
+        <img src="/assets/images/thumbnails/horse.jpg" alt="horse">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/fantasy/orc" title="orc"><span>orc</span></a>
+      <a href="examples/60-models/model-lookat-cursor" title="model-lookat-cursor">
+        <span>model-lookat-cursor</span><br>
+        <img src="/assets/images/thumbnails/model-lookat-cursor.jpg" alt="model-lookat-cursor">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/fantasy/orc-ogre" title="orc-ogre"><span>orc-ogre</span></a>
-    </li>
-    <li>
-      <a href="examples/65-characters/fantasy/sorceress" title="sorceress"><span>sorceress</span></a>
-    </li>
-    <li>
-      <a href="examples/65-characters/fantasy/troll" title="troll"><span>troll</span></a>
-    </li>
-    <li>
-      <a href="examples/65-characters/fantasy/witch" title="witch"><span>witch</span></a>
+      <a href="examples/60-models/rifle" title="rifle">
+        <span>rifle</span><br>
+        <img src="/assets/images/thumbnails/rifle.jpg" alt="rifle">
+      </a>
     </li>
   </ul>
 
-  <h3>Horror</h3>
+  <h2>Characters</h2>
+
+  <h3>Fantasy characters</h3>
 
   <ul>
     <li>
-      <a href="examples/65-characters/horror/nude-victim" title="nude-victim"><span>nude-victim</span></a>
+      <a href="examples/65-characters/fantasy/demon" title="demon">
+        <span>demon</span><br>
+        <img src="/assets/images/thumbnails/demon.jpg" alt="demon">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/horror/skeleton" title="skeleton"><span>skeleton</span></a>
+      <a href="examples/65-characters/fantasy/goblin" title="goblin">
+        <span>goblin</span><br>
+        <img src="/assets/images/thumbnails/goblin.jpg" alt="goblin">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/horror/zombie-barefoot" title="zombie-barefoot"><span>zombie-barefoot</span></a>
+      <a href="examples/65-characters/fantasy/golem" title="golem">
+        <span>golem</span><br>
+        <img src="/assets/images/thumbnails/golem.jpg" alt="golem">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/horror/zombie-cop" title="zombie-cop"><span>zombie-cop</span></a>
+      <a href="examples/65-characters/fantasy/orc" title="orc">
+        <span>orc</span><br>
+        <img src="/assets/images/thumbnails/orc.jpg" alt="orc">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/horror/zombie-doctor" title="zombie-doctor"><span>zombie-doctor</span></a>
+      <a href="examples/65-characters/fantasy/orc-ogre" title="orc-ogre">
+        <span>orc-ogre</span><br>
+        <img src="/assets/images/thumbnails/orc-ogre.jpg" alt="orc-ogre">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/horror/zombie-doctor-crawl" title="zombie-doctor-crawl"><span>zombie-doctor-crawl</span></a>
+      <a href="examples/65-characters/fantasy/sorceress" title="sorceress">
+        <span>sorceress</span><br>
+        <img src="/assets/images/thumbnails/sorceress.jpg" alt="sorceress">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/horror/zombie-guard" title="zombie-guard"><span>zombie-guard</span></a>
+      <a href="examples/65-characters/fantasy/troll" title="troll">
+        <span>troll</span><br>
+        <img src="/assets/images/thumbnails/troll.jpg" alt="troll">
+      </a>
+    </li>
+    <li>
+      <a href="examples/65-characters/fantasy/witch" title="witch">
+        <span>witch</span><br>
+        <img src="/assets/images/thumbnails/witch.jpg" alt="witch">
+      </a>
     </li>
   </ul>
 
-  <h3>WW2</h3>
+  <h3>Horror characters</h3>
 
   <ul>
     <li>
-      <a href="examples/65-characters/ww2/german-machine-gunner" title="german-machine-gunner"><span>german-machine-gunner</span></a>
+      <a href="examples/65-characters/horror/zombie-barefoot" title="zombie-barefoot">
+        <span>zombie-barefoot</span><br>
+        <img src="/assets/images/thumbnails/zombie-barefoot.jpg" alt="zombie-barefoot">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/ww2/german-soldier" title="german-soldier"><span>german-soldier</span></a>
+      <a href="examples/65-characters/horror/zombie-cop" title="zombie-cop">
+        <span>zombie-cop</span><br>
+        <img src="/assets/images/thumbnails/zombie-cop.jpg" alt="zombie-cop">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/ww2/nazi" title="nazi"><span>nazi</span></a>
+      <a href="examples/65-characters/horror/zombie-doctor" title="zombie-doctor">
+        <span>zombie-doctor</span><br>
+        <img src="/assets/images/thumbnails/zombie-doctor.jpg" alt="zombie-doctor">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/ww2/nazi-agent" title="nazi-agent"><span>nazi-agent</span></a>
+      <a href="examples/65-characters/horror/zombie-doctor-crawl" title="zombie-doctor-crawl">
+        <span>zombie-doctor-crawl</span><br>
+        <img src="/assets/images/thumbnails/zombie-doctor-crawl.jpg" alt="zombie-doctor-crawl">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/ww2/nazi-officer" title="nazi-officer"><span>nazi-officer</span></a>
+      <a href="examples/65-characters/horror/zombie-guard" title="zombie-guard">
+        <span>zombie-guard</span><br>
+        <img src="/assets/images/thumbnails/zombie-guard.jpg" alt="zombie-guard">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/ww2/partisan" title="partisan"><span>partisan</span></a>
+      <a href="examples/65-characters/horror/skeleton" title="skeleton">
+        <span>skeleton</span><br>
+        <img src="/assets/images/thumbnails/skeleton.jpg" alt="skeleton">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/ww2/partisan-lowpoly" title="partisan-lowpoly"><span>partisan-lowpoly</span></a>
+      <a href="examples/65-characters/horror/goth-girl" title="goth-girl">
+        <span>goth-girl</span><br>
+        <img src="/assets/images/thumbnails/goth-girl.jpg" alt="goth-girl">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/ww2/resistance-fighter" title="resistance-fighter"><span>resistance-fighter</span></a>
+      <a href="examples/65-characters/horror/nude-victim" title="nude-victim">
+        <span>nude-victim</span><br>
+        <img src="/assets/images/thumbnails/nude-victim.jpg" alt="nude-victim">
+      </a>
+    </li>
+  </ul>
+
+  <h3>WW2 characters</h3>
+
+  <ul>
+    <li>
+      <a href="examples/65-characters/ww2/german-machine-gunner" title="german-machine-gunner">
+        <span>german-machine-gunner</span><br>
+        <img src="/assets/images/thumbnails/german-machine-gunner.jpg" alt="german-machine-gunner">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/ww2/soldier" title="soldier"><span>soldier</span></a>
+      <a href="examples/65-characters/ww2/german-soldier" title="german-soldier">
+        <span>german-soldier</span><br>
+        <img src="/assets/images/thumbnails/german-soldier.jpg" alt="german-soldier">
+      </a>
     </li>
     <li>
-      <a href="examples/65-characters/ww2/soviet-partisan" title="soviet-partisan"><span>soviet-partisan</span></a>
+      <a href="examples/65-characters/ww2/nazi" title="nazi">
+        <span>nazi</span><br>
+        <img src="/assets/images/thumbnails/nazi.jpg" alt="nazi">
+      </a>
+    </li>
+    <li>
+      <a href="examples/65-characters/ww2/nazi-agent" title="nazi-agent">
+        <span>nazi-agent</span><br>
+        <img src="/assets/images/thumbnails/nazi-agent.jpg" alt="nazi-agent">
+      </a>
+    </li>
+    <li>
+      <a href="examples/65-characters/ww2/nazi-officer" title="nazi-officer">
+        <span>nazi-officer</span><br>
+        <img src="/assets/images/thumbnails/nazi-officer.jpg" alt="nazi-officer">
+      </a>
+    </li>
+    <li>
+      <a href="examples/65-characters/ww2/partisan" title="partisan">
+        <span>partisan</span><br>
+        <img src="/assets/images/thumbnails/partisan.jpg" alt="partisan">
+      </a>
+    </li>
+    <li>
+      <a href="examples/65-characters/ww2/partisan-lowpoly" title="partisan-lowpoly">
+        <span>partisan-lowpoly</span><br>
+        <img src="/assets/images/thumbnails/partisan-lowpoly.jpg" alt="partisan-lowpoly">
+      </a>
+    </li>
+    <li>
+      <a href="examples/65-characters/ww2/resistance-fighter" title="resistance-fighter">
+        <span>resistance-fighter</span><br>
+        <img src="/assets/images/thumbnails/resistance-fighter.jpg" alt="resistance-fighter">
+      </a>
+    </li>
+    <li>
+      <a href="examples/65-characters/ww2/soldier" title="soldier">
+        <span>soldier</span><br>
+        <img src="/assets/images/thumbnails/soldier.jpg" alt="soldier">
+      </a>
+    </li>
+    <li>
+      <a href="examples/65-characters/ww2/soviet-partisan" title="soviet-partisan">
+        <span>soviet-partisan</span><br>
+        <img src="/assets/images/thumbnails/soviet-partisan.jpg" alt="soviet-partisan">
+      </a>
     </li>
   </ul>
 
@@ -376,63 +737,116 @@
 
   <ul>
     <li>
-      <a href="examples/70-ai/follow" title="follow"><span>follow</span></a>
+      <a href="examples/70-ai/follow" title="follow">
+        <span>follow</span><br>
+        <img src="/assets/images/thumbnails/follow.jpg" alt="follow">
+      </a>
     </li>
     <li>
-      <a href="examples/70-ai/idle" title="idle"><span>idle</span></a>
+      <a href="examples/70-ai/idle" title="idle">
+        <span>idle</span><br>
+        <img src="/assets/images/thumbnails/idle.jpg" alt="idle">
+      </a>
     </li>
     <li>
-      <a href="examples/70-ai/patrol" title="patrol"><span>patrol</span></a>
+      <a href="examples/70-ai/patrol" title="patrol">
+        <span>patrol</span><br>
+        <img src="/assets/images/thumbnails/patrol.jpg" alt="patrol">
+      </a>
     </li>
     <li>
-      <a href="examples/70-ai/pursue" title="pursue"><span>pursue</span></a>
+      <a href="examples/70-ai/pursue" title="pursue">
+        <span>pursue</span><br>
+        <img src="/assets/images/thumbnails/pursue.jpg" alt="pursue">
+      </a>
     </li>
     <li>
-      <a href="examples/70-ai/wander" title="wander"><span>wander</span></a>
+      <a href="examples/70-ai/wander" title="wander">
+        <span>wander</span><br>
+        <img src="/assets/images/thumbnails/wander.jpg" alt="wander">
+      </a>
     </li>
   </ul>
 
-  <h2>Scenes and games</h2>
+  <h2>Scenes</h2>
 
   <ul>
     <li>
-      <a href="examples/80-scenes/avatar-random-boxes" title="avatar-random-boxes"><span>avatar-random-boxes</span></a>
+      <a href="examples/80-scenes/spomeniks" title="spomeniks">
+      <span>spomeniks</span><br>
+      <img src="/assets/images/thumbnails/spomeniks.jpg" alt="spomeniks">
+    </a>
     </li>
     <li>
-      <a href="examples/80-scenes/fps-airport" title="fps-airport"><span>fps-airport</span></a>
+      <a href="examples/80-scenes/urban-guerrilla" title="urban-guerrilla">
+      <span>urban-guerrilla</span><br>
+      <img src="/assets/images/thumbnails/urban-guerrilla.jpg" alt="urban-guerrilla">
+    </a>
     </li>
     <li>
-      <a href="examples/80-scenes/fps-maze" title="fps-maze"><span>fps-maze</span></a>
+      <a href="examples/80-scenes/zeppelin" title="zeppelin">
+        <span>zeppelin</span><br>
+        <img src="/assets/images/thumbnails/zeppelin.jpg" alt="zeppelin">
+      </a>
+    </li>
+  </ul>
+
+  <h2 id="games">Games</h2>
+
+  <ul class="scenes">
+    <li>
+      <a href="examples/80-scenes/random-boxes" title="random-boxes">
+        <span>random-boxes</span><br>
+        <img src="/assets/images/thumbnails/random-boxes.jpg" alt="random-boxes">
+      </a>
     </li>
     <li>
-      <a href="examples/80-scenes/graveyard-survival" title="graveyard-survival"><span>graveyard-survival</span></a>
+      <a href="examples/80-scenes/fps-airport" title="fps-airport">
+        <span>fps-airport</span><br>
+        <img src="/assets/images/thumbnails/fps-airport.jpg" alt="fps-airport">
+      </a>
     </li>
     <li>
-      <a href="examples/80-scenes/moon-landing" title="moon-landing"><span>moon-landing</span></a>
+      <a href="examples/80-scenes/fps-maze" title="fps-maze">
+        <span>fps-maze</span><br>
+        <img src="/assets/images/thumbnails/fps-maze.jpg" alt="fps-maze">
+      </a>
     </li>
     <li>
-      <a href="examples/80-scenes/physics-cannon" title="physics-cannon"><span>physics-cannon</span></a>
+      <a href="examples/80-scenes/graveyard-survival" title="graveyard-survival">
+        <span>graveyard-survival</span><br>
+        <img src="/assets/images/thumbnails/graveyard-survival.jpg" alt="graveyard-survival">
+      </a>
     </li>
     <li>
-      <a href="examples/80-scenes/physics-tank" title="physics-tank"><span>physics-tank</span></a>
+      <a href="examples/80-scenes/moon-landing" title="moon-landing">
+        <span>moon-landing</span><br>
+        <img src="/assets/images/thumbnails/moon-landing.jpg" alt="moon-landing">
+      </a>
     </li>
     <li>
-      <a href="examples/80-scenes/physics-vehicle" title="physics-vehicle"><span>physics-vehicle</span></a>
+      <a href="examples/80-scenes/physics-cannon" title="physics-cannon">
+        <span>physics-cannon</span><br>
+        <img src="/assets/images/thumbnails/physics-cannon.jpg" alt="physics-cannon">
+      </a>
     </li>
     <li>
-      <a href="examples/80-scenes/rpg-fantasy" title="rpg-fantasy"><span>rpg-fantasy</span></a>
+      <a href="examples/80-scenes/physics-tank" title="physics-tank">
+        <span>physics-tank</span><br>
+        <img src="/assets/images/thumbnails/physics-tank.jpg" alt="physics-tank">
+      </a>
     </li>
     <li>
-      <a href="examples/80-scenes/spomeniks" title="spomeniks"><span>spomeniks</span></a>
+      <a href="examples/80-scenes/rpg-fantasy" title="rpg-fantasy">
+        <span>rpg-fantasy</span><br>
+        <img src="/assets/images/thumbnails/rpg-fantasy.jpg" alt="rpg-fantasy">
+      </a>
     </li>
     <li>
-      <a href="examples/80-scenes/urban-guerrilla" title="urban-guerrilla"><span>urban-guerrilla</span></a>
-    </li>
-    <li>
-      <a href="examples/80-scenes/warplane" title="warplane"><span>warplane</span></a>
-    </li>
-    <li>
-      <a href="examples/80-scenes/zeppelin" title="zeppelin"><span>zeppelin</span></a>
+      <a href="examples/80-scenes/warplane" title="warplane">
+        <span>warplane</span><br>
+        <img src="/assets/images/thumbnails/warplane.jpg" alt="warplane">
+      </a>
     </li>
   </ul>
 

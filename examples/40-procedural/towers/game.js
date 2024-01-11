@@ -3,8 +3,8 @@ import { createTerrain } from '/utils/ground.js'
 import { dirLight, hemLight } from '/utils/light.js'
 import { createBabelTower, createDarkTower, createRingTower } from '/utils/geometry/towers.js'
 
-dirLight({ intensity: .2 })
-hemLight({ intensity: .75 })
+dirLight({ intensity: Math.PI * .2 })
+hemLight({ intensity: Math.PI * .75 })
 
 camera.position.set(0, 150, 150)
 createOrbitControls()

@@ -51,9 +51,10 @@ export default class GUI {
     controlsTitle = 'KEYBOARD',
     player = null,
     controls = {},
-    controlsClass = '', // try rpgui-button
+    controlsClass = '', // rpgui-button
     controlsWindowClass = 'rpgui-container framed',
     controlsOpen = false,
+    useBaseControls = true,
 
     messageDict,
     endText = 'Bravo!<br>Nothing left',
@@ -78,7 +79,8 @@ export default class GUI {
     document.body.appendChild(this.gameScreen)
 
     if (!('ontouchstart' in window)) {
-      const allControls = { ...baseControls, ...mapControls(player), ...controls }
+      const base = useBaseControls ? baseControls : {}
+      const allControls = { ...base, ...mapControls(player), ...controls }
       this.addControls(allControls, controlsClass, controlsWindowClass)
     }
 

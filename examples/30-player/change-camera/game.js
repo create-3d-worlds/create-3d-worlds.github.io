@@ -7,7 +7,7 @@ import { keyboard } from '/utils/io/Keyboard.js'
 import Avatar from '/utils/actor/Avatar.js'
 import GUI from '/utils/io/GUI.js'
 
-hemLight({ intensity: 1.25 })
+hemLight({ intensity: Math.PI * 1.25 })
 
 camera.position.z = 30
 camera.position.y = 15

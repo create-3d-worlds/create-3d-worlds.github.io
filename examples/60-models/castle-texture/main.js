@@ -5,7 +5,7 @@ import { createTreesOnTerrain } from '/utils/geometry/trees.js'
 import { loadModel } from '/utils/loaders.js'
 import { hemLight } from '/utils/light.js'
 
-hemLight({ intensity: 1.2 })
+hemLight({ intensity: Math.PI * 1.2 })
 
 const terrain = await createHillyTerrain()
 scene.add(terrain)
