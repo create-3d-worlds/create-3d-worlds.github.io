@@ -19,7 +19,8 @@ npx live-server
 ## TODO
 
 - testirati na telefonu nakon dizanja na server
-- fix shadows (broken after update)
+- fix lights
+- fix shadows
 - add sources for examples
 - write documentation
 
