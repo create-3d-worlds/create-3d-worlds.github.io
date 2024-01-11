@@ -11,7 +11,7 @@ const coords = getEmptyCoords({ mapSize })
 camera.position.set(0, mapSize * .33, mapSize * .9)
 camera.lookAt(scene.position)
 
-scene.add(createSun({ pos: [50, 100, 50] }))
+scene.add(createSun({ pos: [50, 100, 50], intensity: 2 * Math.PI }))
 
 const city = createGraffitiCity({ scene, mapSize, coords })
 scene.add(city)

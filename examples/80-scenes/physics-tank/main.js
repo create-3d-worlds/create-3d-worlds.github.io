@@ -17,7 +17,7 @@ let i = 0
 let time = 0
 let tank, gui
 
-scene.add(createSun())
+scene.add(createSun({ intensity: Math.PI * 2 }))
 
 const world = new PhysicsWorld()
 

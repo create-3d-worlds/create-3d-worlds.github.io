@@ -9,7 +9,7 @@ let player
 let time = 0
 
 camera.position.y = 20
-scene.add(createSun())
+scene.add(createSun({ intensity: 2 * Math.PI }))
 
 const terrain = await terrainFromHeightmap({ file: 'yu-crop.png', heightFactor: 3, snow: false })
 scene.add(terrain)
@@ -37,7 +37,7 @@ void function loop() {
 
 /* LAZY LOAD */
 
-const { PartisanPlayer } = await import ('/utils/actor/derived/ww2/Partisan.js')
+const { PartisanPlayer } = await import('/utils/actor/derived/ww2/Partisan.js')
 player = new PartisanPlayer({ camera, solids: terrain, altitude: .7 })
 player.position.z = 2
 

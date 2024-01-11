@@ -18,7 +18,6 @@ npx live-server
 
 ## TODO
 
-- srediti svetla u igre i scene
 - testirati na telefonu nakon dizanja na server
 - fix shadows (broken after update)
 - add sources for examples
