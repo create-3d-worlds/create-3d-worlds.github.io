@@ -18,10 +18,20 @@ npx live-server
 
 ## TODO
 
-- testirati na telefonu nakon dizanja na server
-- fix lights
-- fix shadows
-- add sources for examples
+- test on mobile
+  - joystick: 
+    - se ne vraća sam kad se pusti
+    - goth-girl: drugo attack dugme van ekrana
+    - nazi-officer: special dugme van ekrana
+    - random-boxes: jump is not working while walking
+  - spomeniks: 
+    - dugmići premali (možda su još negde, naći uzrok)
+    - dodati loader
+  - fps-airport: ne radi press to start
+
+- fix lights (broken after three.js update)
+- fix shadows (broken after three.js update)
+- add sources for some examples
 - write documentation
 
 ## Sources
