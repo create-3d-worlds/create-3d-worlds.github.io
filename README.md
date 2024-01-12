@@ -20,14 +20,14 @@ npx live-server
 
 - test on mobile
   - joystick: 
-    - se ne vraća sam kad se pusti
-    - goth-girl: drugo attack dugme van ekrana
-    - nazi-officer: special dugme van ekrana
+    - doesn't return to its place after release
+    - goth-girl: second attack btn out of screen
+    - nazi-officer: special btn out of screen
     - random-boxes: jump is not working while walking
   - spomeniks: 
-    - dugmići premali (možda su još negde, naći uzrok)
-    - dodati loader
-  - fps-airport: ne radi press to start
+    - buttons too small (maybe elsewhere also, find a cause)
+    - add preloader
+  - fps-airport: press to start not working
 
 - fix lights (broken after three.js update)
 - fix shadows (broken after three.js update)
