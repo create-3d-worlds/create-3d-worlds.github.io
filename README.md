@@ -1,6 +1,6 @@
 # Create 3D worlds
 
-A library of REUSABLE Three.js components that you can play with.
+A library of reusable Three.js components that you can play with.
 
 Over the years, I have gathered Three.js examples from various sources and modified them to be reusable.
 
