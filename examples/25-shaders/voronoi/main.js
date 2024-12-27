@@ -1,7 +1,7 @@
 // https://2pha.com/demos/threejs/shaders/voronoi_with_borders.html
 import * as THREE from 'three'
-import { camera, scene, renderer, createOrbitControls, setBackground } from '/utils/scene.js'
-import { material } from '/utils/shaders/voronoi.js'
+import { camera, scene, renderer, createOrbitControls, setBackground } from '/core/scene.js'
+import { material } from '/core/shaders/voronoi.js'
 
 setBackground(0x00000)
 

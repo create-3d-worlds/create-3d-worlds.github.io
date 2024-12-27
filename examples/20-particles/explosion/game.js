@@ -1,7 +1,7 @@
 import * as THREE from 'three'
-import { scene, camera, renderer } from '/utils/scene.js'
-import { normalizeMouse } from '/utils/helpers.js'
-import { Explosion } from '/utils/Particles.js'
+import { scene, camera, renderer } from '/core/scene.js'
+import { normalizeMouse } from '/core/helpers.js'
+import { Explosion } from '/core/Particles.js'
 
 renderer.setClearColor(0x000000)
 

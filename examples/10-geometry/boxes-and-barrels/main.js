@@ -1,7 +1,7 @@
-import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
-import { createGround } from '/utils/ground.js'
-import { createSphere, createCrate, createRustyBarrel, createWoodBarrel, createBox } from '/utils/geometry/index.js'
-import { createSun } from '/utils/light.js'
+import { camera, scene, renderer, createOrbitControls } from '/core/scene.js'
+import { createGround } from '/core/ground.js'
+import { createSphere, createCrate, createRustyBarrel, createWoodBarrel, createBox } from '/core/geometry/index.js'
+import { createSun } from '/core/light.js'
 
 createOrbitControls()
 scene.add(createSun())

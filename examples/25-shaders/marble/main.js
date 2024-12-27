@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
-import { material } from '/utils/shaders/marble.js'
+import { camera, scene, renderer, createOrbitControls } from '/core/scene.js'
+import { material } from '/core/shaders/marble.js'
 
 createOrbitControls()
 

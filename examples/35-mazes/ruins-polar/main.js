@@ -1,10 +1,10 @@
-import { scene, camera, createToonRenderer, clock } from '/utils/scene.js'
-import PolarMaze from '/utils/mazes/PolarMaze.js'
-import { recursiveBacktracker } from '/utils/mazes/algorithms.js'
-import { createSun } from '/utils/light.js'
-import { createDunes } from '/utils/ground.js'
-import { ResistanceFighterPlayer } from '/utils/actor/derived/ww2/ResistanceFighter.js'
-import GUI from '/utils/io/GUI.js'
+import { scene, camera, createToonRenderer, clock } from '/core/scene.js'
+import PolarMaze from '/core/mazes/PolarMaze.js'
+import { recursiveBacktracker } from '/core/mazes/algorithms.js'
+import { createSun } from '/core/light.js'
+import { createDunes } from '/core/ground.js'
+import { ResistanceFighterPlayer } from '/core/actor/derived/ww2/ResistanceFighter.js'
+import GUI from '/core/io/GUI.js'
 
 const renderer = await createToonRenderer()
 

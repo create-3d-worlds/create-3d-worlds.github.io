@@ -1,10 +1,10 @@
-import Maze from '/utils/mazes/Maze.js'
-import { recursiveBacktracker } from '/utils/mazes/algorithms.js'
-import { scene, createToonRenderer, camera, clock } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { createGround } from '/utils/ground.js'
-import { SorceressPlayer } from '/utils/actor/derived/fantasy/Sorceress.js'
-import GUI from '/utils/io/GUI.js'
+import Maze from '/core/mazes/Maze.js'
+import { recursiveBacktracker } from '/core/mazes/algorithms.js'
+import { scene, createToonRenderer, camera, clock } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { createGround } from '/core/ground.js'
+import { SorceressPlayer } from '/core/actor/derived/fantasy/Sorceress.js'
+import GUI from '/core/io/GUI.js'
 
 const renderer = await createToonRenderer()
 

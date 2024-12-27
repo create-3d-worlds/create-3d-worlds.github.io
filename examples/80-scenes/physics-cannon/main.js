@@ -1,8 +1,8 @@
-import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
-import { createGround } from '/utils/ground.js'
-import { createSideWall } from '/utils/geometry/index.js'
+import { scene, camera, renderer, clock } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import PhysicsWorld from '/core/physics/PhysicsWorld.js'
+import { createGround } from '/core/ground.js'
+import { createSideWall } from '/core/geometry/index.js'
 
 let gui, cannon
 
@@ -38,11 +38,11 @@ void function loop() {
 
 /* LAZY LOAD */
 
-const cannonFile = await import('/utils/physics/Cannon.js')
+const cannonFile = await import('/core/physics/Cannon.js')
 cannon = new cannonFile.default({ world, camera })
 scene.add(cannon.mesh, ...cannon.wheelMeshes)
 
-const GUI = await import('/utils/io/GUI.js')
+const GUI = await import('/core/io/GUI.js')
 const controls = {
   'Pointer down': 'add force',
   'Pointer up': 'shoot'

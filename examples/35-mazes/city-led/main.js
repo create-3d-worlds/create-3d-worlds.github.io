@@ -1,10 +1,10 @@
-import { scene, renderer, camera, setBackground } from '/utils/scene.js'
-import { createFloor } from '/utils/ground.js'
-import Maze from '/utils/mazes/Maze.js'
-import { aldousBroder } from '/utils/mazes/algorithms.js'
-import Avatar from '/utils/actor/Avatar.js'
-import { hemLight } from '/utils/light.js'
-import { material, uniforms } from '/utils/shaders/lightning-led.js'
+import { scene, renderer, camera, setBackground } from '/core/scene.js'
+import { createFloor } from '/core/ground.js'
+import Maze from '/core/mazes/Maze.js'
+import { aldousBroder } from '/core/mazes/algorithms.js'
+import Avatar from '/core/actor/Avatar.js'
+import { hemLight } from '/core/light.js'
+import { material, uniforms } from '/core/shaders/lightning-led.js'
 
 const cellSize = 3
 

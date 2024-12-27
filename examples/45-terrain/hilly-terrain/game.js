@@ -1,7 +1,7 @@
-import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
-import { createWater, createHillyTerrain } from '/utils/ground.js'
-import { createTreesOnTerrain } from '/utils/geometry/trees.js'
-import { hemLight } from '/utils/light.js'
+import { scene, renderer, camera, createOrbitControls } from '/core/scene.js'
+import { createWater, createHillyTerrain } from '/core/ground.js'
+import { createTreesOnTerrain } from '/core/geometry/trees.js'
+import { hemLight } from '/core/light.js'
 
 hemLight()
 renderer.setClearColor(0x7ec0ee)

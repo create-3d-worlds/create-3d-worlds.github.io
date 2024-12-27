@@ -1,8 +1,8 @@
 import { Vector2 } from 'three'
-import { keyboard } from '/utils/io/Keyboard.js'
-import { Flame } from '/utils/Particles.js'
-import GameObject from '/utils/objects/GameObject.js'
-import { loadModel } from '/utils/loaders.js'
+import { keyboard } from '/core/io/Keyboard.js'
+import { Flame } from '/core/Particles.js'
+import GameObject from '/core/objects/GameObject.js'
+import { loadModel } from '/core/loaders.js'
 
 const mesh = await loadModel({ file: 'space/lunar-module/model.fbx', size: 2.5 })
 

@@ -1,8 +1,8 @@
 import TWEEN from 'three/examples/jsm/libs/tween.module.js'
-import { scene, camera, renderer } from '/utils/scene.js'
-import { createFloor } from '/utils/ground.js'
-import { createBuilding, createBuildingTexture } from '/utils/city.js'
-import { createMoon } from '/utils/light.js'
+import { scene, camera, renderer } from '/core/scene.js'
+import { createFloor } from '/core/ground.js'
+import { createBuilding, createBuildingTexture } from '/core/city.js'
+import { createMoon } from '/core/light.js'
 
 renderer.setClearColor(0x070b34)
 

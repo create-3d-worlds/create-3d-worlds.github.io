@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import { camera, scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
-import { material } from '/utils/shaders/led.js'
+import { camera, scene, renderer, clock, createOrbitControls } from '/core/scene.js'
+import { material } from '/core/shaders/led.js'
 
 createOrbitControls()
 scene.background = new THREE.Color(0x000000)

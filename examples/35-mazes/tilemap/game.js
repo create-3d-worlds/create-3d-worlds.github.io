@@ -1,7 +1,7 @@
-import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
-import { meshFromTilemap } from '/utils/mazes/index.js'
-import { createGround } from '/utils/ground.js'
-import { hemLight } from '/utils/light.js'
+import { scene, renderer, camera, createOrbitControls } from '/core/scene.js'
+import { meshFromTilemap } from '/core/mazes/index.js'
+import { createGround } from '/core/ground.js'
+import { hemLight } from '/core/light.js'
 
 export const tilemap = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],

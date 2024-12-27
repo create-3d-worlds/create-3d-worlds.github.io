@@ -1,6 +1,6 @@
-import { scene, renderer, camera, clock } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { createWater, wave } from '/utils/ground.js'
+import { scene, renderer, camera, clock } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { createWater, wave } from '/core/ground.js'
 
 camera.position.y = 7
 

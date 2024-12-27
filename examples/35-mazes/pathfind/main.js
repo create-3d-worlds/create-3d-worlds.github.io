@@ -1,9 +1,9 @@
-import { scene, renderer, camera } from '/utils/scene.js'
-import { hemLight } from '/utils/light.js'
-import Player from '/utils/actor/Player.js'
-import { createGround } from '/utils/ground.js'
-import Maze from '/utils/mazes/Maze.js'
-import { createPlayerBox } from '/utils/geometry/index.js'
+import { scene, renderer, camera } from '/core/scene.js'
+import { hemLight } from '/core/light.js'
+import Player from '/core/actor/Player.js'
+import { createGround } from '/core/ground.js'
+import Maze from '/core/mazes/Maze.js'
+import { createPlayerBox } from '/core/geometry/index.js'
 
 hemLight()
 scene.add(createGround())

@@ -1,9 +1,9 @@
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createGround } from '/utils/ground.js'
-import { keyboard } from '/utils/io/Keyboard.js'
-import { loadModel } from '/utils/loaders.js'
-import { createSun } from '/utils/light.js'
-import GUI from '/utils/io/GUI.js'
+import { scene, camera, renderer, createOrbitControls } from '/core/scene.js'
+import { createGround } from '/core/ground.js'
+import { keyboard } from '/core/io/Keyboard.js'
+import { loadModel } from '/core/loaders.js'
+import { createSun } from '/core/light.js'
+import GUI from '/core/io/GUI.js'
 
 camera.position.set(1.5, 2.5, -6.5)
 const controls = await createOrbitControls()

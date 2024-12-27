@@ -1,7 +1,7 @@
-import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
-import { createSphere } from '/utils/geometry/index.js'
-import { createEarth, createSaturn } from '/utils/geometry/planets.js'
-import { dirLight } from '/utils/light.js'
+import { camera, scene, renderer, createOrbitControls } from '/core/scene.js'
+import { createSphere } from '/core/geometry/index.js'
+import { createEarth, createSaturn } from '/core/geometry/planets.js'
+import { dirLight } from '/core/light.js'
 
 dirLight({ pos: [100, 10, -50] })
 renderer.setClearColor(0x000000)

@@ -1,8 +1,8 @@
 import * as THREE from 'three'
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createFloor } from '/utils/ground.js'
-import { createTexturedCity } from '/utils/city.js'
-import { hemLight } from '/utils/light.js'
+import { scene, camera, renderer, createOrbitControls } from '/core/scene.js'
+import { createFloor } from '/core/ground.js'
+import { createTexturedCity } from '/core/city.js'
+import { hemLight } from '/core/light.js'
 
 const mapSize = 2000
 

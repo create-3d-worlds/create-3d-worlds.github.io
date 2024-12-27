@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import { scene, renderer, camera, clock, setBackground } from '/utils/scene.js'
-import { material, uniforms } from '/utils/shaders/lava.js'
+import { scene, renderer, camera, clock, setBackground } from '/core/scene.js'
+import { material, uniforms } from '/core/shaders/lava.js'
 
 setBackground(0x00000)
 camera.position.set(0, 0, 2)

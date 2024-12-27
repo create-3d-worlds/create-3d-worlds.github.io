@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import { material, uniforms } from '/utils/shaders/fireball.js'
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
+import { material, uniforms } from '/core/shaders/fireball.js'
+import { scene, camera, renderer, createOrbitControls } from '/core/scene.js'
 
 createOrbitControls()
 scene.background = new THREE.Color(0x000000)

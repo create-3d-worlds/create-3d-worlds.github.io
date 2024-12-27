@@ -1,7 +1,7 @@
-import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { createGraffitiCity } from '/utils/city.js'
-import { createSun } from '/utils/light.js'
-import { getEmptyCoords } from '/utils/helpers.js'
+import { scene, camera, renderer, clock } from '/core/scene.js'
+import { createGraffitiCity } from '/core/city.js'
+import { createSun } from '/core/light.js'
+import { getEmptyCoords } from '/core/helpers.js'
 
 let player
 
@@ -27,7 +27,7 @@ void function loop() {
 
 /* LAZY LOAD */
 
-const { ResistanceFighterPlayer } = await import('/utils/actor/derived/ww2/ResistanceFighter.js')
+const { ResistanceFighterPlayer } = await import('/core/actor/derived/ww2/ResistanceFighter.js')
 player = new ResistanceFighterPlayer({ camera, solids: city, pos: coords.pop(), showHealthBar: false })
 
 scene.add(player.mesh)

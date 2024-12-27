@@ -1,12 +1,12 @@
-import { scene, camera, createToonRenderer, clock } from '/utils/scene.js'
-import { ambLight, createMoon, orbitAround } from '/utils/light.js'
-import { Stars } from '/utils/Particles.js'
-import GUI from '/utils/io/GUI.js'
-import Platform from '/utils/objects/Platform.js'
-import { loadModel } from '/utils/loaders.js'
-import { createSphere } from '/utils/geometry/index.js'
-import { createJupiter, createSaturn } from '/utils/geometry/planets.js'
-import GameLoop from '/utils/GameLoop.js'
+import { scene, camera, createToonRenderer, clock } from '/core/scene.js'
+import { ambLight, createMoon, orbitAround } from '/core/light.js'
+import { Stars } from '/core/Particles.js'
+import GUI from '/core/io/GUI.js'
+import Platform from '/core/objects/Platform.js'
+import { loadModel } from '/core/loaders.js'
+import { createSphere } from '/core/geometry/index.js'
+import { createJupiter, createSaturn } from '/core/geometry/planets.js'
+import GameLoop from '/core/GameLoop.js'
 
 let arcology, lander
 

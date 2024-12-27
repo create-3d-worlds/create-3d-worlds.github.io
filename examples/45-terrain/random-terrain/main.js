@@ -1,6 +1,6 @@
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createTerrain } from '/utils/ground.js'
-import { createSun } from '/utils/light.js'
+import { scene, camera, renderer, createOrbitControls } from '/core/scene.js'
+import { createTerrain } from '/core/ground.js'
+import { createSun } from '/core/light.js'
 
 scene.add(createSun({ intensity: Math.PI * 2 }))
 

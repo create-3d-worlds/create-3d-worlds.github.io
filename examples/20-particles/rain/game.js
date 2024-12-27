@@ -1,6 +1,6 @@
-import { scene, camera, renderer } from '/utils/scene.js'
-import { hemLight } from '/utils/light.js'
-import { Rain } from '/utils/Particles.js'
+import { scene, camera, renderer } from '/core/scene.js'
+import { hemLight } from '/core/light.js'
+import { Rain } from '/core/Particles.js'
 
 hemLight()
 renderer.setClearColor(0x000000)

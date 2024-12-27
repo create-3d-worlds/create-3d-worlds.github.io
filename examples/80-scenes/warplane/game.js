@@ -1,11 +1,11 @@
 import * as THREE from 'three'
-import { scene, renderer, clock, camera } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { createTerrain } from '/utils/ground.js'
-import { createFirTree } from '/utils/geometry/trees.js'
-import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
-import { loadModel, Spinner } from '/utils/loaders.js'
-import GUI from '/utils/io/GUI.js'
+import { scene, renderer, clock, camera } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { createTerrain } from '/core/ground.js'
+import { createFirTree } from '/core/geometry/trees.js'
+import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/core/city.js'
+import { loadModel, Spinner } from '/core/loaders.js'
+import GUI from '/core/io/GUI.js'
 
 const { randInt, randFloatSpread } = THREE.MathUtils
 
@@ -52,7 +52,7 @@ const addMesh = (mesh, spread = .33) => {
 }
 
 const createBuilding = async time => {
-  const Building = (await import('/utils/objects/Building.js')).default
+  const Building = (await import('/core/objects/Building.js')).default
   const minutes = Math.floor(time / 60)
   switch (randInt(1, 7 + minutes)) {
     case 1:
@@ -64,7 +64,7 @@ const createBuilding = async time => {
     case 5: return new Building({ mesh: createWarehouse() })
     case 6: return new Building({ mesh: createWarehouse2() })
     default:
-      const obj = await import('/utils/objects/Tower.js')
+      const obj = await import('/core/objects/Tower.js')
       return new obj.default()
   }
 }
@@ -146,7 +146,7 @@ const callback = async e => {
   const spinner = new Spinner()
   gui.clearScreen()
 
-  const obj = await import(`/utils/aircraft/derived/${e.target.id}.js`)
+  const obj = await import(`/core/aircraft/derived/${e.target.id}.js`)
   warplane = new obj.default({ camera, limit: mapSize * .25 })
   scene.add(warplane.mesh)
   entities.push(warplane)

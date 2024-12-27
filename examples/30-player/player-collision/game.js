@@ -1,9 +1,9 @@
-import Avatar from '/utils/actor/Avatar.js'
-import { scene, renderer, camera, clock } from '/utils/scene.js'
-import { createFirTrees } from '/utils/geometry/trees.js'
+import Avatar from '/core/actor/Avatar.js'
+import { scene, renderer, camera, clock } from '/core/scene.js'
+import { createFirTrees } from '/core/geometry/trees.js'
 
-import { createGround } from '/utils/ground.js'
-import { createSun } from '/utils/light.js'
+import { createGround } from '/core/ground.js'
+import { createSun } from '/core/light.js'
 
 scene.add(createGround())
 const sun = createSun()

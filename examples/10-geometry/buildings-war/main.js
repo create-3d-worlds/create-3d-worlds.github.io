@@ -1,7 +1,7 @@
-import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
-import { createGround } from '/utils/ground.js'
-import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
-import { createSun } from '/utils/light.js'
+import { camera, scene, renderer, createOrbitControls } from '/core/scene.js'
+import { createGround } from '/core/ground.js'
+import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/core/city.js'
+import { createSun } from '/core/light.js'
 
 camera.position.set(0, 15, 35)
 createOrbitControls()

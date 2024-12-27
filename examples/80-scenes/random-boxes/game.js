@@ -1,12 +1,12 @@
-import { scene, camera, createToonRenderer } from '/utils/scene.js'
-import { createRandomBoxes } from '/utils/geometry/index.js'
-import { createGround, createLava } from '/utils/ground.js'
-import { hemLight } from '/utils/light.js'
-import Coin from '/utils/objects/Coin.js'
-import GUI, { avatarControls } from '/utils/io/GUI.js'
-import Platform from '/utils/objects/Platform.js'
-import { Spinner } from '/utils/loaders.js'
-import GameLoop from '/utils/GameLoop.js'
+import { scene, camera, createToonRenderer } from '/core/scene.js'
+import { createRandomBoxes } from '/core/geometry/index.js'
+import { createGround, createLava } from '/core/ground.js'
+import { hemLight } from '/core/light.js'
+import Coin from '/core/objects/Coin.js'
+import GUI, { avatarControls } from '/core/io/GUI.js'
+import Platform from '/core/objects/Platform.js'
+import { Spinner } from '/core/loaders.js'
+import GameLoop from '/core/GameLoop.js'
 
 const renderer = await createToonRenderer()
 
@@ -118,7 +118,7 @@ const callback = async e => {
   const spinner = new Spinner()
   gui.clearScreen()
 
-  const Avatar = await import('/utils/actor/Avatar.js')
+  const Avatar = await import('/core/actor/Avatar.js')
   player = new Avatar.default({ camera, solids: [floor, ...boxes], skin: e.target.id, showHealthBar: true, maxJumpTime: .99 })
   player.chaseCamera.distance = 6
   scene.add(player.mesh)

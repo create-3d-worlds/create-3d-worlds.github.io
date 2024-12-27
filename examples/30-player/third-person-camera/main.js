@@ -1,9 +1,9 @@
-import { scene, camera, clock, createToonRenderer } from '/utils/scene.js'
-import { createTrees } from '/utils/geometry/trees.js'
-import Avatar from '/utils/actor/Avatar.js'
+import { scene, camera, clock, createToonRenderer } from '/core/scene.js'
+import { createTrees } from '/core/geometry/trees.js'
+import Avatar from '/core/actor/Avatar.js'
 
-import { createGround } from '/utils/ground.js'
-import { createSun } from '/utils/light.js'
+import { createGround } from '/core/ground.js'
+import { createSun } from '/core/light.js'
 
 const renderer = await createToonRenderer()
 

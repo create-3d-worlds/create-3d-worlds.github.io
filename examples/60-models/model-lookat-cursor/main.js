@@ -1,9 +1,9 @@
 import * as THREE from 'three'
-import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { createGround } from '/utils/ground.js'
-import { loadModel, loadFbxAnimations } from '/utils/loaders.js'
-import { getCursorPosition } from '/utils/helpers.js'
+import { scene, camera, renderer, clock } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { createGround } from '/core/ground.js'
+import { loadModel, loadFbxAnimations } from '/core/loaders.js'
+import { getCursorPosition } from '/core/helpers.js'
 
 let neck, spine
 

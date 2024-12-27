@@ -1,11 +1,11 @@
-import { camera, scene, clock, setBackground, renderer } from '/utils/scene.js'
-import Planet from '/utils/geometry/Planet.js'
-import { createTerrain, shake } from '/utils/ground.js'
-import { Stars } from '/utils/Particles.js'
-import { createMoon } from '/utils/light.js'
-import { getEmptyCoords } from '/utils/helpers.js'
-import Avatar from '/utils/actor/Avatar.js'
-import Platform from '/utils/objects/Platform.js'
+import { camera, scene, clock, setBackground, renderer } from '/core/scene.js'
+import Planet from '/core/geometry/Planet.js'
+import { createTerrain, shake } from '/core/ground.js'
+import { Stars } from '/core/Particles.js'
+import { createMoon } from '/core/light.js'
+import { getEmptyCoords } from '/core/helpers.js'
+import Avatar from '/core/actor/Avatar.js'
+import Platform from '/core/objects/Platform.js'
 
 setBackground(0x000000)
 scene.add(createMoon())

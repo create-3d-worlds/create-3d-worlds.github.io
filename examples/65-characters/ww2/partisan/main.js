@@ -1,8 +1,8 @@
-import { scene, renderer, camera, clock } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { createFloor } from '/utils/ground.js'
-import { PartisanPlayer } from '/utils/actor/derived/ww2/Partisan.js'
-import GUI from '/utils/io/GUI.js'
+import { scene, renderer, camera, clock } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { createFloor } from '/core/ground.js'
+import { PartisanPlayer } from '/core/actor/derived/ww2/Partisan.js'
+import GUI from '/core/io/GUI.js'
 
 scene.add(createSun())
 scene.add(createFloor({ size: 100 }))

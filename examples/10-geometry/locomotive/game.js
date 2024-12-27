@@ -1,8 +1,8 @@
 import * as THREE from 'three'
-import { camera, scene, renderer, createOrbitControls } from '/utils/scene.js'
-import { createLocomotive } from '/utils/geometry/shapes.js'
-import { createGround } from '/utils/ground.js'
-import { hemLight } from '/utils/light.js'
+import { camera, scene, renderer, createOrbitControls } from '/core/scene.js'
+import { createLocomotive } from '/core/geometry/shapes.js'
+import { createGround } from '/core/ground.js'
+import { hemLight } from '/core/light.js'
 
 createOrbitControls()
 camera.position.set(0, 2, 6)

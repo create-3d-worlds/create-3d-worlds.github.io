@@ -1,10 +1,10 @@
-import PolarMaze from '/utils/mazes/PolarMaze.js'
-import { recursiveBacktracker } from '/utils/mazes/algorithms.js'
-import { scene, createToonRenderer, camera } from '/utils/scene.js'
-import { createSun, ambLight } from '/utils/light.js'
-import { createHill } from '/utils/ground.js'
-import Avatar from '/utils/actor/Avatar.js'
-import GUI, { avatarControls } from '/utils/io/GUI.js'
+import PolarMaze from '/core/mazes/PolarMaze.js'
+import { recursiveBacktracker } from '/core/mazes/algorithms.js'
+import { scene, createToonRenderer, camera } from '/core/scene.js'
+import { createSun, ambLight } from '/core/light.js'
+import { createHill } from '/core/ground.js'
+import Avatar from '/core/actor/Avatar.js'
+import GUI, { avatarControls } from '/core/io/GUI.js'
 
 const rows = 20
 const cellSize = 10

@@ -1,11 +1,11 @@
-import { scene, renderer, camera } from '/utils/scene.js'
-import { createCityLights } from '/utils/city.js'
-import { createFloor } from '/utils/ground.js'
-import { hemLight } from '/utils/light.js'
-import { PartisanPlayer } from '/utils/actor/derived/ww2/Partisan.js'
-import Maze from '/utils/mazes/Maze.js'
-import { truePrims } from '/utils/mazes/algorithms.js'
-import GUI from '/utils/io/GUI.js'
+import { scene, renderer, camera } from '/core/scene.js'
+import { createCityLights } from '/core/city.js'
+import { createFloor } from '/core/ground.js'
+import { hemLight } from '/core/light.js'
+import { PartisanPlayer } from '/core/actor/derived/ww2/Partisan.js'
+import Maze from '/core/mazes/Maze.js'
+import { truePrims } from '/core/mazes/algorithms.js'
+import GUI from '/core/io/GUI.js'
 
 const cellSize = 15
 const matrixSize = 15

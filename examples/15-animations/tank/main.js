@@ -1,6 +1,6 @@
-import { scene, camera, clock, createToonRenderer } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { createTank } from '/utils/geometry/shapes.js'
+import { scene, camera, clock, createToonRenderer } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { createTank } from '/core/geometry/shapes.js'
 
 const renderer = await createToonRenderer()
 

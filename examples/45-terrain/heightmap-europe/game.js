@@ -1,5 +1,5 @@
-import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
-import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
+import { scene, renderer, camera, createOrbitControls } from '/core/scene.js'
+import { terrainFromHeightmap } from '/core/terrain/heightmap.js'
 
 createOrbitControls()
 camera.position.y = 150

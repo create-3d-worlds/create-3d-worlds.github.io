@@ -1,7 +1,7 @@
 import * as THREE from 'three'
-import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { dirLight } from '/utils/light.js'
-import { loadModel } from '/utils/loaders.js'
+import { scene, camera, renderer, clock } from '/core/scene.js'
+import { dirLight } from '/core/light.js'
+import { loadModel } from '/core/loaders.js'
 
 let theta = 0
 

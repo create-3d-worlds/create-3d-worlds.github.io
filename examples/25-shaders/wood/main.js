@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import { camera, scene, renderer, createOrbitControls, setBackground } from '/utils/scene.js'
-import { material } from '/utils/shaders/wood.js'
+import { camera, scene, renderer, createOrbitControls, setBackground } from '/core/scene.js'
+import { material } from '/core/shaders/wood.js'
 
 setBackground(0x00000)
 

@@ -1,9 +1,9 @@
-import { scene, renderer, camera, createOrbitControls, setBackground, clock } from '/utils/scene.js'
-import { createMoon } from '/utils/light.js'
-import { createGround } from '/utils/ground.js'
-import { NudeVictimPlayer } from '/utils/actor/derived/horror/NudeVictim.js'
-import { ZombieCopAI } from '/utils/actor/derived/horror/ZombieCop.js'
-import GUI from '/utils/io/GUI.js'
+import { scene, renderer, camera, createOrbitControls, setBackground, clock } from '/core/scene.js'
+import { createMoon } from '/core/light.js'
+import { createGround } from '/core/ground.js'
+import { NudeVictimPlayer } from '/core/actor/derived/horror/NudeVictim.js'
+import { ZombieCopAI } from '/core/actor/derived/horror/ZombieCop.js'
+import GUI from '/core/io/GUI.js'
 
 createOrbitControls()
 setBackground(0)

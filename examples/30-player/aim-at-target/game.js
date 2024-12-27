@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import { scene, camera, renderer } from '/utils/scene.js'
-import { hemLight } from '/utils/light.js'
+import { scene, camera, renderer } from '/core/scene.js'
+import { hemLight } from '/core/light.js'
 
 hemLight()
 camera.position.set(0, 0, 7)

@@ -1,13 +1,13 @@
 import * as THREE from 'three'
-import { scene, camera, createToonRenderer, clock } from '/utils/scene.js'
-import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
-import { createGround } from '/utils/ground.js'
-import { createMoonSphere, createTremplin, createCrates, createCrate, createRustyBarrel, createMetalBarrel } from '/utils/geometry/index.js'
-import { createSun } from '/utils/light.js'
-import { sample } from '/utils/helpers.js'
-import { createFirTree } from '/utils/geometry/trees.js'
-import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/utils/city.js'
-import { leaveTracks } from '/utils/physics/leaveTracks.js'
+import { scene, camera, createToonRenderer, clock } from '/core/scene.js'
+import PhysicsWorld from '/core/physics/PhysicsWorld.js'
+import { createGround } from '/core/ground.js'
+import { createMoonSphere, createTremplin, createCrates, createCrate, createRustyBarrel, createMetalBarrel } from '/core/geometry/index.js'
+import { createSun } from '/core/light.js'
+import { sample } from '/core/helpers.js'
+import { createFirTree } from '/core/geometry/trees.js'
+import { createWarehouse, createWarehouse2, createWarRuin, createRuin, createAirport } from '/core/city.js'
+import { leaveTracks } from '/core/physics/leaveTracks.js'
 
 const { randFloat } = THREE.MathUtils
 
@@ -89,10 +89,10 @@ void function loop() {
 
 /* LAZY LOAD */
 
-const tankFile = await import('/utils/physics/Tank.js')
+const tankFile = await import('/core/physics/Tank.js')
 tank = new tankFile.default({ physicsWorld: world.physicsWorld, camera, pos: { x: 0, y: 0, z: -20 } })
 scene.add(tank.mesh)
 
-const GUI = await import('/utils/io/GUI.js')
+const GUI = await import('/core/io/GUI.js')
 gui = new GUI.default({ scoreTitle: 'Crates left', points: countableCrates.length, subtitle: 'Time', total: 0, useBlink: true, controls: { Space: 'break' } })
 gui.showMessage('Demolish all crates')

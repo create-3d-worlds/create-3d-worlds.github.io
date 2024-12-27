@@ -1,10 +1,10 @@
 import * as THREE from 'three'
-import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { getHeightData } from '/utils/terrain/heightmap.js'
-import { createTerrain } from '/utils/physics/index.js'
-import { createSphere, createTremplin } from '/utils/geometry/index.js'
-import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
+import { scene, camera, renderer, clock } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { getHeightData } from '/core/terrain/heightmap.js'
+import { createTerrain } from '/core/physics/index.js'
+import { createSphere, createTremplin } from '/core/geometry/index.js'
+import PhysicsWorld from '/core/physics/PhysicsWorld.js'
 
 const { randFloatSpread } = THREE.MathUtils
 
@@ -41,6 +41,6 @@ void function loop() {
 
 /* LAZY LOAD */
 
-const vehicleFile = await import('/utils/physics/Humvee.js')
+const vehicleFile = await import('/core/physics/Humvee.js')
 vehicle = new vehicleFile.default({ camera, physicsWorld: world.physicsWorld })
 scene.add(vehicle.mesh, ...vehicle.wheelMeshes)

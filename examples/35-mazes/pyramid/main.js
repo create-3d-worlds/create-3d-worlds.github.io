@@ -1,10 +1,10 @@
-import { scene, renderer, camera, createOrbitControls, clock } from '/utils/scene.js'
-import Maze from '/utils/mazes/Maze.js'
-import { huntAndKill } from '/utils/mazes/algorithms.js'
-import Avatar from '/utils/actor/Avatar.js'
-import { hemLight } from '/utils/light.js'
-import { createMarble } from '/utils/ground.js'
-import GUI, { avatarControls } from '/utils/io/GUI.js'
+import { scene, renderer, camera, createOrbitControls, clock } from '/core/scene.js'
+import Maze from '/core/mazes/Maze.js'
+import { huntAndKill } from '/core/mazes/algorithms.js'
+import Avatar from '/core/actor/Avatar.js'
+import { hemLight } from '/core/light.js'
+import { createMarble } from '/core/ground.js'
+import GUI, { avatarControls } from '/core/io/GUI.js'
 
 const cellSize = 8
 const matrixSize = 12

@@ -1,10 +1,10 @@
 import * as THREE from 'three'
-import { scene, renderer, camera, clock, createOrbitControls } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { createGround } from '/utils/ground.js'
-import { Smoke } from '/utils/Particles.js'
-import { followPath, createEllipse, createRailroadTracks } from '/utils/path.js'
-import { loadModel } from '/utils/loaders.js'
+import { scene, renderer, camera, clock, createOrbitControls } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { createGround } from '/core/ground.js'
+import { Smoke } from '/core/Particles.js'
+import { followPath, createEllipse, createRailroadTracks } from '/core/path.js'
+import { loadModel } from '/core/loaders.js'
 
 const createMixer = (mesh, animations, i = 0) => {
   const mixer = new THREE.AnimationMixer(mesh)

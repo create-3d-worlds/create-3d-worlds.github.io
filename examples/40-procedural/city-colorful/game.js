@@ -1,7 +1,7 @@
-import { scene, camera, renderer, createOrbitControls, setBackground } from '/utils/scene.js'
-import { createFloor } from '/utils/ground.js'
-import { createCity, createCityLights } from '/utils/city.js'
-import { hemLight, createMoon } from '/utils/light.js'
+import { scene, camera, renderer, createOrbitControls, setBackground } from '/core/scene.js'
+import { createFloor } from '/core/ground.js'
+import { createCity, createCityLights } from '/core/city.js'
+import { hemLight, createMoon } from '/core/light.js'
 
 hemLight()
 setBackground(0x000000)

@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import { camera, scene, renderer, setBackground } from '/utils/scene.js'
-import { material } from '/utils/shaders/gradient.js'
+import { camera, scene, renderer, setBackground } from '/core/scene.js'
+import { material } from '/core/shaders/gradient.js'
 
 setBackground(0x00000)
 

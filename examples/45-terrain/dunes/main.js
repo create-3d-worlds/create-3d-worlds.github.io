@@ -1,6 +1,6 @@
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createDunes } from '/utils/ground.js'
-import { createSun } from '/utils/light.js'
+import { scene, camera, renderer, createOrbitControls } from '/core/scene.js'
+import { createDunes } from '/core/ground.js'
+import { createSun } from '/core/light.js'
 
 scene.add(createSun())
 

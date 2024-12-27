@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
+import { scene, camera, renderer, clock, createOrbitControls } from '/core/scene.js'
+import { createSun } from '/core/light.js'
 
 const mixers = []
 

@@ -1,7 +1,7 @@
 import * as THREE from 'three'
-import { scene, camera, createOrbitControls, createToonRenderer } from '/utils/scene.js'
-import { createTrees } from '/utils/geometry/trees.js'
-import { createSun } from '/utils/light.js'
+import { scene, camera, createOrbitControls, createToonRenderer } from '/core/scene.js'
+import { createTrees } from '/core/geometry/trees.js'
+import { createSun } from '/core/light.js'
 
 const mapSize = 200
 

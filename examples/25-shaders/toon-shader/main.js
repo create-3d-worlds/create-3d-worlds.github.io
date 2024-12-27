@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 import { TeapotGeometry } from 'three/examples/jsm/geometries/TeapotGeometry.js'
 
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { material } from '/utils/shaders/cartoon.js'
-import { createSun } from '/utils/light.js'
+import { scene, camera, renderer, createOrbitControls } from '/core/scene.js'
+import { material } from '/core/shaders/cartoon.js'
+import { createSun } from '/core/light.js'
 
 createOrbitControls()
 

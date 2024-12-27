@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js'
-import { camera, scene, renderer } from '/utils/scene.js'
-import { createCrate } from '/utils/geometry/index.js'
+import { camera, scene, renderer } from '/core/scene.js'
+import { createCrate } from '/core/geometry/index.js'
 
 const { randInt } = THREE.MathUtils
 

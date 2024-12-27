@@ -1,8 +1,8 @@
-import { scene, camera, createOrbitControls, clock, createToonRenderer } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { createGround } from '/utils/ground.js'
-import { SkeletonPlayer } from '/utils/actor/derived/fantasy/Skeleton.js'
-import GUI from '/utils/io/GUI.js'
+import { scene, camera, createOrbitControls, clock, createToonRenderer } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { createGround } from '/core/ground.js'
+import { SkeletonPlayer } from '/core/actor/derived/fantasy/Skeleton.js'
+import GUI from '/core/io/GUI.js'
 
 createOrbitControls()
 

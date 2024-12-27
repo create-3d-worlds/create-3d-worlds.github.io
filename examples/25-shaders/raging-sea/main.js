@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import { camera, scene, renderer, clock, createOrbitControls } from '/utils/scene.js'
-import { material } from '/utils/shaders/waves.js'
+import { camera, scene, renderer, clock, createOrbitControls } from '/core/scene.js'
+import { material } from '/core/shaders/waves.js'
 
 createOrbitControls()
 camera.position.set(1, 1, 1)

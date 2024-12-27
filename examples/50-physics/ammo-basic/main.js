@@ -1,13 +1,13 @@
 import * as THREE from 'three'
 
-import { Ammo, createRigidBody } from '/utils/physics/index.js'
-import { scene, camera, renderer, clock } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { keyboard } from '/utils/io/Keyboard.js'
-import PhysicsWorld from '/utils/physics/PhysicsWorld.js'
-import { createGround } from '/utils/ground.js'
-import { createSphere, createBox } from '/utils/geometry/index.js'
-import { normalizeMouse } from '/utils/helpers.js'
+import { Ammo, createRigidBody } from '/core/physics/index.js'
+import { scene, camera, renderer, clock } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { keyboard } from '/core/io/Keyboard.js'
+import PhysicsWorld from '/core/physics/PhysicsWorld.js'
+import { createGround } from '/core/ground.js'
+import { createSphere, createBox } from '/core/geometry/index.js'
+import { normalizeMouse } from '/core/helpers.js'
 
 const { pressed } = keyboard
 

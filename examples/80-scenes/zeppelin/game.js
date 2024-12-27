@@ -1,9 +1,9 @@
-import { camera, scene, createToonRenderer, clock } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { loadModel } from '/utils/loaders.js'
-import { createHillyTerrain, createWater } from '/utils/ground.js'
-import { getEmptyCoords, putOnSolids } from '/utils/helpers.js'
-import GUI from '/utils/io/GUI.js'
+import { camera, scene, createToonRenderer, clock } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { loadModel } from '/core/loaders.js'
+import { createHillyTerrain, createWater } from '/core/ground.js'
+import { getEmptyCoords, putOnSolids } from '/core/helpers.js'
+import GUI from '/core/io/GUI.js'
 
 const renderer = await createToonRenderer(0.0015)
 
@@ -53,30 +53,30 @@ const castle = await loadModel({ file: 'building/castle/magic-castle.fbx', size:
 putOnSolids(castle, terrain)
 scene.add(castle)
 
-const dirigibleFile = await import('/utils/aircraft/derived/Dirigible.js')
+const dirigibleFile = await import('/core/aircraft/derived/Dirigible.js')
 const player = new dirigibleFile.default({ camera, solids: terrain, cameraClass: 'rpgui-button' })
 player.position.z = 200
 player.solids.push(castle)
 addEntity(player)
 
-const { createTreesOnTerrain } = await import('/utils/geometry/trees.js')
+const { createTreesOnTerrain } = await import('/core/geometry/trees.js')
 const treesCoords = getEmptyCoords({ mapSize: mapSize * .5, fieldSize: 4, emptyCenter: 50 })
 const trees = createTreesOnTerrain({ terrain, n: 100, size: 6, coords: treesCoords })
 scene.add(trees)
 
-const cloudFile = await import('/utils/objects/Cloud.js')
+const cloudFile = await import('/core/objects/Cloud.js')
 for (let i = 0; i < 10; i++) {
   const cloud = new cloudFile.default({ mapSize: mapSize * 2, pos: coords.pop() })
   addEntity(cloud)
 }
 
-const aerialFile = await import('/utils/objects/AerialScrew.js')
+const aerialFile = await import('/core/objects/AerialScrew.js')
 for (let i = 0; i < 8; i++) {
   const screw = new aerialFile.default({ pos: coords.pop(), solids: terrain, altitude: 20 + 20 * Math.random() })
   addEntity(screw)
 }
 
-const isleFile = await import('/utils/objects/WizardIsle.js')
+const isleFile = await import('/core/objects/WizardIsle.js')
 const isle = new isleFile.default({ pos: coords.pop(), solids: terrain, altitude: 40 })
 addEntity(isle)
 

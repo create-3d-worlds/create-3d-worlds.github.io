@@ -1,11 +1,11 @@
 import * as THREE from 'three'
-import { scene, renderer, clock, camera } from '/utils/scene.js'
-import { createGround } from '/utils/ground.js'
-import { hemLight } from '/utils/light.js'
-import { createFirTrees } from '/utils/geometry/trees.js'
-import { keyboard } from '/utils/io/Keyboard.js'
-import Avatar from '/utils/actor/Avatar.js'
-import GUI from '/utils/io/GUI.js'
+import { scene, renderer, clock, camera } from '/core/scene.js'
+import { createGround } from '/core/ground.js'
+import { hemLight } from '/core/light.js'
+import { createFirTrees } from '/core/geometry/trees.js'
+import { keyboard } from '/core/io/Keyboard.js'
+import Avatar from '/core/actor/Avatar.js'
+import GUI from '/core/io/GUI.js'
 
 hemLight({ intensity: Math.PI * 1.25 })
 

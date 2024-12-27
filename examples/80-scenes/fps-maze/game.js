@@ -1,12 +1,12 @@
-import { scene, camera, setBackground, createToonRenderer } from '/utils/scene.js'
-import { createGround } from '/utils/ground.js'
-import { sample } from '/utils/helpers.js'
-import { hemLight, lightningStrike } from '/utils/light.js'
-import FPSPlayer from '/utils/actor/FPSPlayer.js'
-import Maze from '/utils/mazes/Maze.js'
-import { truePrims } from '/utils/mazes/algorithms.js'
-import { Spinner } from '/utils/loaders.js'
-import Report from '/utils/io/Report.js'
+import { scene, camera, setBackground, createToonRenderer } from '/core/scene.js'
+import { createGround } from '/core/ground.js'
+import { sample } from '/core/helpers.js'
+import { hemLight, lightningStrike } from '/core/light.js'
+import FPSPlayer from '/core/actor/FPSPlayer.js'
+import Maze from '/core/mazes/Maze.js'
+import { truePrims } from '/core/mazes/algorithms.js'
+import { Spinner } from '/core/loaders.js'
+import Report from '/core/io/Report.js'
 
 const enemies = []
 
@@ -30,27 +30,27 @@ renderer.render(scene, camera) // first draw
 
 /* DYNAMIC IMPORT */
 
-const GUI = await import('/utils/io/GUI.js')
+const GUI = await import('/core/io/GUI.js')
 const { fpsControls } = GUI
 const gui = new GUI.default({ subtitle: 'Enemy left', total: enemies.length, controls: fpsControls, scoreClass: '', controlsWindowClass: 'white-window' })
 
 const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer', 'GermanFlameThrower']
 for (let i = 0; i < 10; i++) {
   const name = sample(soldiers)
-  const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
+  const obj = await import(`/core/actor/derived/ww2/${name}.js`)
   const EnemyClass = obj[name + 'AI']
   const enemy = new EnemyClass({ pos: coords.pop(), target: player.mesh, solids: walls })
   enemies.push(enemy)
   scene.add(enemy.mesh)
 }
 
-const FirstAid = await import('/utils/objects/FirstAid.js')
+const FirstAid = await import('/core/objects/FirstAid.js')
 for (let i = 0; i < 2; i++) {
   const firstAid = new FirstAid.default({ pos: coords.pop() })
   scene.add(firstAid.mesh)
 }
 
-const GameLoop = await import('/utils/GameLoop.js')
+const GameLoop = await import('/core/GameLoop.js')
 spinner.hide()
 
 /* LOOP */

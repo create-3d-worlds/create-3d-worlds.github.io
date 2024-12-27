@@ -1,7 +1,7 @@
-import { scene, renderer, camera, createOrbitControls } from '/utils/scene.js'
-import { createTree, createFirTree, createSimpleFir } from '/utils/geometry/trees.js'
-import { createGround } from '/utils/ground.js'
-import { createSun } from '/utils/light.js'
+import { scene, renderer, camera, createOrbitControls } from '/core/scene.js'
+import { createTree, createFirTree, createSimpleFir } from '/core/geometry/trees.js'
+import { createGround } from '/core/ground.js'
+import { createSun } from '/core/light.js'
 
 scene.add(createGround())
 const sun = createSun()

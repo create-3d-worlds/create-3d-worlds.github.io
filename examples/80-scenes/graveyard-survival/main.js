@@ -1,11 +1,11 @@
 import * as THREE from 'three'
-import { camera, scene, createToonRenderer, setBackground } from '/utils/scene.js'
-import { Spinner } from '/utils/loaders.js'
-import { createGround } from '/utils/ground.js'
-import { createMoon, orbiting } from '/utils/light.js'
-import { getEmptyCoords, sample } from '/utils/helpers.js'
-import { createTombstone } from '/utils/geometry/shapes.js'
-import GameLoop from '/utils/GameLoop.js'
+import { camera, scene, createToonRenderer, setBackground } from '/core/scene.js'
+import { Spinner } from '/core/loaders.js'
+import { createGround } from '/core/ground.js'
+import { createMoon, orbiting } from '/core/light.js'
+import { getEmptyCoords, sample } from '/core/helpers.js'
+import { createTombstone } from '/core/geometry/shapes.js'
+import GameLoop from '/core/GameLoop.js'
 
 const spinner = new Spinner()
 const renderer = await createToonRenderer()
@@ -38,28 +38,28 @@ renderer.render(scene, camera)
 
 /* LAZY LOAD */
 
-const DeadTree = await import('/utils/objects/DeadTree.js')
+const DeadTree = await import('/core/objects/DeadTree.js')
 for (let i = 0; i < 10; i++) {
   const tree = new DeadTree.default({ pos: coords.pop(), scale: Math.random() * 1 + 1, rotateY: Math.random() * Math.PI })
   solids.push(tree.mesh)
   scene.add(tree.mesh)
 }
 
-const { GhostAI } = await import('/utils/actor/derived/horror/Ghost.js')
+const { GhostAI } = await import('/core/actor/derived/horror/Ghost.js')
 for (let i = 0; i < 30; i++) {
   const ghost = new GhostAI({ pos: coords.pop(), mapSize })
   npcs.push(ghost)
   scene.add(ghost.mesh)
 }
 
-const { ResistanceFighterPlayer } = await import('/utils/actor/derived/ww2/ResistanceFighter.js')
+const { ResistanceFighterPlayer } = await import('/core/actor/derived/ww2/ResistanceFighter.js')
 const player = new ResistanceFighterPlayer({ camera, solids })
 scene.add(player.mesh)
 
-const GUI = await import('/utils/io/GUI.js')
+const GUI = await import('/core/io/GUI.js')
 const gui = new GUI.default({ scoreTitle: 'Zombies killed', subtitle: 'Time left', useBlink: true, player, controls: { P: 'pause' } })
 
-const { Smoke } = await import('/utils/Particles.js')
+const { Smoke } = await import('/core/Particles.js')
 const particles = new Smoke({ size: 1, num: 100, minRadius: 0, maxRadius: .5 })
 scene.add(particles.mesh)
 
@@ -74,7 +74,7 @@ async function spawnZombie(interval) {
     last = Date.now()
 
     const name = sample(zombies)
-    const obj = await import(`/utils/actor/derived/horror/${name}.js`)
+    const obj = await import(`/core/actor/derived/horror/${name}.js`)
     const ZombieClass = obj[name + 'AI']
     const pos = sample(coords)
     const zombie = new ZombieClass({ mapSize, target: player.mesh, solids, pos })

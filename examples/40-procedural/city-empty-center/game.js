@@ -1,8 +1,8 @@
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createFloor } from '/utils/ground.js'
-import { createNightCity, createLampposts } from '/utils/city.js'
-import { getEmptyCoords } from '/utils/helpers.js'
-import { createMoon } from '/utils/light.js'
+import { scene, camera, renderer, createOrbitControls } from '/core/scene.js'
+import { createFloor } from '/core/ground.js'
+import { createNightCity, createLampposts } from '/core/city.js'
+import { getEmptyCoords } from '/core/helpers.js'
+import { createMoon } from '/core/light.js'
 
 const mapSize = 400
 const center = 50

@@ -1,12 +1,12 @@
-import { scene, renderer, camera } from '/utils/scene.js'
-import { createGround, createFloor } from '/utils/ground.js'
-import { sample, getEmptyCoords } from '/utils/helpers.js'
-import { createSun } from '/utils/light.js'
-import FPSPlayer from '/utils/actor/FPSPlayer.js'
-import GUI, { fpsControls } from '/utils/io/GUI.js'
-import { createAirport } from '/utils/city.js'
-import { loadModel } from '/utils/loaders.js'
-import Report from '/utils/io/Report.js'
+import { scene, renderer, camera } from '/core/scene.js'
+import { createGround, createFloor } from '/core/ground.js'
+import { sample, getEmptyCoords } from '/core/helpers.js'
+import { createSun } from '/core/light.js'
+import FPSPlayer from '/core/actor/FPSPlayer.js'
+import GUI, { fpsControls } from '/core/io/GUI.js'
+import { createAirport } from '/core/city.js'
+import { loadModel } from '/core/loaders.js'
+import Report from '/core/io/Report.js'
 
 const mapSize = 200
 const aircraft = []
@@ -31,7 +31,7 @@ const gui = new GUI({ subtitle: 'Aircraft left', total: dornierNum + stukaNum + 
 
 /* LOOP */
 
-const GameLoop = await import('/utils/GameLoop.js')
+const GameLoop = await import('/core/GameLoop.js')
 
 const loop = new GameLoop.default(delta => {
   renderer.render(scene, camera)
@@ -60,25 +60,25 @@ const addEnemy = (obj, arr) => {
   scene.add(obj.mesh)
 }
 
-const DornierBomber = await import('/utils/objects/DornierBomber.js')
+const DornierBomber = await import('/core/objects/DornierBomber.js')
 for (let i = 0; i < dornierNum; i++) { // front
   const plane = new DornierBomber.default({ pos: [-50 + i * 15, 0, -75] })
   addEnemy(plane, aircraft)
 }
 
-const JunkersStuka = await import('/utils/objects/JunkersStuka.js')
+const JunkersStuka = await import('/core/objects/JunkersStuka.js')
 for (let i = 0; i < stukaNum; i++) { // left
   const plane = new JunkersStuka.default({ pos: [-55, 0, -55 + i * 12] })
   addEnemy(plane, aircraft)
 }
 
-const HeinkelBomber = await import('/utils/objects/HeinkelBomber.js')
+const HeinkelBomber = await import('/core/objects/HeinkelBomber.js')
 for (let i = 0; i < heinkelNum; i++) { // back
   const plane = new HeinkelBomber.default({ pos: [-50 + i * 18, 0, 50] })
   addEnemy(plane, aircraft)
 }
 
-const Tower = await import('/utils/objects/Tower.js')
+const Tower = await import('/core/objects/Tower.js')
 ;[[-75, -75], [-75, 75], [75, -75], [75, 75]].forEach(async([x, z]) => {
   const tower = new Tower.default({ pos: [x, 0, z], range: 50, interval: 1500, damage: 10, damageDistance: 1 })
   addEnemy(tower, enemies)
@@ -101,14 +101,14 @@ player.addSolids(solids)
 const soldiers = ['GermanMachineGunner', 'SSSoldier', 'NaziOfficer']
 for (let i = 0; i < 10; i++) {
   const name = sample(soldiers)
-  const obj = await import(`/utils/actor/derived/ww2/${name}.js`)
+  const obj = await import(`/core/actor/derived/ww2/${name}.js`)
   const RandomClass = obj[name + 'AI']
   const soldier = new RandomClass({ pos: coords.pop(), target: player.mesh, mapSize })
   addEnemy(soldier, enemies)
   soldier.addSolids(solids)
 }
 
-const { TankAI } = await import('/utils/actor/derived/Tank.js')
+const { TankAI } = await import('/core/actor/derived/Tank.js')
 const tank = new TankAI({ mapSize })
 addEnemy(tank, enemies)
 tank.addSolids(solids)

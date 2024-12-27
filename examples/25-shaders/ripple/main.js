@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import { scene, camera, renderer, clock, createOrbitControls } from '/utils/scene.js'
-import { material, uniforms } from '/utils/shaders/ripple.js'
+import { scene, camera, renderer, clock, createOrbitControls } from '/core/scene.js'
+import { material, uniforms } from '/core/shaders/ripple.js'
 
 createOrbitControls()
 

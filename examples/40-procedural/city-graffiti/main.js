@@ -1,6 +1,6 @@
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createGraffitiCity } from '/utils/city.js'
-import { createSun } from '/utils/light.js'
+import { scene, camera, renderer, createOrbitControls } from '/core/scene.js'
+import { createGraffitiCity } from '/core/city.js'
+import { createSun } from '/core/light.js'
 
 createOrbitControls()
 

@@ -1,10 +1,10 @@
-import { scene, createToonRenderer, camera, clock } from '/utils/scene.js'
-import Maze from '/utils/mazes/Maze.js'
-import { recursiveDivision } from '/utils/mazes/algorithms.js'
-import { hemLight } from '/utils/light.js'
-import { createDunes } from '/utils/ground.js'
-import { WitchPlayer } from '/utils/actor/derived/fantasy/Witch.js'
-import GUI from '/utils/io/GUI.js'
+import { scene, createToonRenderer, camera, clock } from '/core/scene.js'
+import Maze from '/core/mazes/Maze.js'
+import { recursiveDivision } from '/core/mazes/algorithms.js'
+import { hemLight } from '/core/light.js'
+import { createDunes } from '/core/ground.js'
+import { WitchPlayer } from '/core/actor/derived/fantasy/Witch.js'
+import GUI from '/core/io/GUI.js'
 
 hemLight()
 

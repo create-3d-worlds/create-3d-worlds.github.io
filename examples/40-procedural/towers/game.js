@@ -1,7 +1,7 @@
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createTerrain } from '/utils/ground.js'
-import { dirLight, hemLight } from '/utils/light.js'
-import { createBabelTower, createDarkTower, createRingTower } from '/utils/geometry/towers.js'
+import { scene, camera, renderer, createOrbitControls } from '/core/scene.js'
+import { createTerrain } from '/core/ground.js'
+import { dirLight, hemLight } from '/core/light.js'
+import { createBabelTower, createDarkTower, createRingTower } from '/core/geometry/towers.js'
 
 dirLight({ intensity: Math.PI * .2 })
 hemLight({ intensity: Math.PI * .75 })

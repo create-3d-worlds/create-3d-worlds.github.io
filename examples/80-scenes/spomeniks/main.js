@@ -1,9 +1,9 @@
-import { scene, renderer, camera, clock } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { loadModel } from '/utils/loaders.js'
-import { terrainFromHeightmap } from '/utils/terrain/heightmap.js'
-import { createFlag } from '/utils/geometry/index.js'
-import { wave } from '/utils/ground.js'
+import { scene, renderer, camera, clock } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { loadModel } from '/core/loaders.js'
+import { terrainFromHeightmap } from '/core/terrain/heightmap.js'
+import { createFlag } from '/core/geometry/index.js'
+import { wave } from '/core/ground.js'
 
 let player
 let time = 0
@@ -37,11 +37,11 @@ void function loop() {
 
 /* LAZY LOAD */
 
-const { PartisanPlayer } = await import('/utils/actor/derived/ww2/Partisan.js')
+const { PartisanPlayer } = await import('/core/actor/derived/ww2/Partisan.js')
 player = new PartisanPlayer({ camera, solids: terrain, altitude: .7 })
 player.position.z = 2
 
-const GUI = await import('/utils/io/GUI.js')
+const GUI = await import('/core/io/GUI.js')
 new GUI.default({ player, scoreTitle: '' })
 
 const [kosmaj, kosovskaMitrovica, podgaric, kadinjaca, ilirskaBistrica] = await Promise.all([

@@ -1,5 +1,5 @@
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createCraters } from '/utils/ground.js'
+import { scene, camera, renderer, createOrbitControls } from '/core/scene.js'
+import { createCraters } from '/core/ground.js'
 
 camera.position.set(0, 20, 20)
 createOrbitControls()

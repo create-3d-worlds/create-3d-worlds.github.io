@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { Flame } from '/utils/Particles.js'
+import { scene, camera, renderer, createOrbitControls } from '/core/scene.js'
+import { Flame } from '/core/Particles.js'
 
 createOrbitControls()
 scene.background = new THREE.Color(0x000000)

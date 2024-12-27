@@ -1,7 +1,7 @@
-import { scene, camera, renderer, createOrbitControls } from '/utils/scene.js'
-import { createTexturedBuilding, createGraffitiBuilding, createArtBuilding } from '/utils/city.js'
-import { createSun } from '/utils/light.js'
-import { createFloor } from '/utils/ground.js'
+import { scene, camera, renderer, createOrbitControls } from '/core/scene.js'
+import { createTexturedBuilding, createGraffitiBuilding, createArtBuilding } from '/core/city.js'
+import { createSun } from '/core/light.js'
+import { createFloor } from '/core/ground.js'
 
 const controls = await createOrbitControls()
 camera.position.set(0, 25, 50)

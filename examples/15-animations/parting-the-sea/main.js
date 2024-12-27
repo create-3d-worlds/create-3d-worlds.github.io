@@ -1,6 +1,6 @@
-import { scene, renderer, camera, clock } from '/utils/scene.js'
-import { createSun } from '/utils/light.js'
-import { createWater, wave, createGround } from '/utils/ground.js'
+import { scene, renderer, camera, clock } from '/core/scene.js'
+import { createSun } from '/core/light.js'
+import { createWater, wave, createGround } from '/core/ground.js'
 
 scene.add(createSun({ pos: [-5, 30, -60] }))
 const ground = createGround({ file: 'terrain/ground.jpg' })
