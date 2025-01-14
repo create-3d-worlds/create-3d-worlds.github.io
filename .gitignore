@@ -20,12 +20,7 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/*
-!node_modules/three/
-!node_modules/three/build/
-!node_modules/three/examples/
-!node_modules/three/build/**
-!node_modules/three/examples/**
+node_modules/three/src
 
 # Optional npm cache directory
 .npm
