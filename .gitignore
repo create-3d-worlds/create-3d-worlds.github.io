@@ -20,7 +20,12 @@ bower_components
 build/Release
 
 # Dependency directories
-jspm_packages/
+node_modules/*
+!node_modules/three/
+!node_modules/three/build/
+!node_modules/three/examples/
+!node_modules/three/build/**
+!node_modules/three/examples/**
 
 # Optional npm cache directory
 .npm
