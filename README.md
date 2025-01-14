@@ -18,6 +18,8 @@ npx live-server
 
 ## TODO
 
+- optimize build
+
 - test on mobile
   - joystick: 
     - doesn't return to its place after release
