@@ -141,12 +141,12 @@ export default class GUI {
   }
 
   closeGameScreen() {
-    this.gameScreen.classList.remove('rpgui-container', 'framed', 'pointer')
+    this.gameScreen.classList.remove('rpgui-container', 'framed')
     this.gameScreen.innerHTML = ''
   }
 
   openGameScreen(html) {
-    this.gameScreen.classList.add('rpgui-container', 'framed', 'pointer')
+    this.gameScreen.classList.add('rpgui-container', 'framed')
     this.gameScreen.innerHTML = html
   }
 
@@ -154,7 +154,7 @@ export default class GUI {
     const li = goals.map(goal => `<li>${goal}</li>`).join('')
     return `
       <ul>${li}</ul>
-      <h2>${title}</h2>
+      <h2 class="pointer">${title}</h2>
       ${subtitle}
     `
   }

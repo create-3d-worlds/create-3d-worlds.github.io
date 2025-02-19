@@ -65,7 +65,7 @@ export function createAvatar({ skin = STONE, r = 1.2 } = {}) {
 export default class Avatar extends Player {
   constructor({
     skin = STONE,
-    jumpStyle = jumpStyles.FLY_JUMP,
+    jumpStyle = skin == DISCO ? jumpStyles.FLY : jumpStyles.FLY_JUMP,
     maxJumpTime = .66,
     size = 1,
     speed = size * 4,
