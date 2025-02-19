@@ -18,7 +18,8 @@ npx live-server
 
 ## TODO
 
-- optimize build
+- avatar
+  - dodati fly i dodati opis (normal, fly, imune to lava)
 
 - test on mobile
   - joystick: 
