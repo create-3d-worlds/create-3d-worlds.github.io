@@ -18,9 +18,6 @@ npx live-server
 
 ## TODO
 
-- avatar
-  - dodati fly i dodati opis (normal, fly, imune to lava)
-
 - test on mobile
   - joystick: 
     - doesn't return to its place after release

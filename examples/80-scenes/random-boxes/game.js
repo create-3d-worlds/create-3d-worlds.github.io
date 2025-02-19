@@ -129,9 +129,18 @@ const callback = async e => {
 
 const subtitle = /* html */`
   <div class="game-screen-select">
-    <input type="image" id="STONE" src="/assets/images/avatar/STONE.jpg" style="border: 3px solid black" />
-    <input type="image" id="DISCO" src="/assets/images/avatar/DISCO.jpg" style="border: 3px solid black" />
-    <input type="image" id="LAVA" src="/assets/images/avatar/LAVA.jpg" style="border: 3px solid black" />
+    <div>
+      <input type="image" id="STONE" src="/assets/images/avatar/STONE.jpg" style="border: 3px solid black" /><br>
+      Normal
+    </div>
+    <div>
+      <input type="image" id="DISCO" src="/assets/images/avatar/DISCO.jpg" style="border: 3px solid black" /><br>
+      Can fly
+    </div>
+    <div>
+      <input type="image" id="LAVA" src="/assets/images/avatar/LAVA.jpg" style="border: 3px solid black" /><br>
+      Immune to lava
+    </div>
   </div>
 `
 gui.showGameScreen({ title: 'Choose your avatar', subtitle, callback })
