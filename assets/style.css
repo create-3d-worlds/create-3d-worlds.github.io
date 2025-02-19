@@ -73,6 +73,14 @@ progress::-webkit-progress-value {
   border-radius: 7px;
 }
 
+progress::-moz-progress-bar {
+  background-color: crimson;
+  background-image: url("/assets/images/rpgui/progress-red.png");
+  background-repeat: repeat-x;
+  background-size: 36px 100%;
+  border-radius: 7px;
+}
+
 .health-bar {
   position: absolute;
   right: 20px;
