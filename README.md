@@ -18,6 +18,7 @@ npx live-server
 
 ## TODO
 
+- BUG: in rpg screen button not working on mouse click (should hide it or enable it)
 - test on mobile
   - joystick: 
     - doesn't return to its place after release
